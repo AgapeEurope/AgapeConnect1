@@ -162,4 +162,12 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
+<<<<<<< development
 Cache/
+=======
+<<<<<<< HEAD
+Portals/_default/Logs/2012.12.14.log.resources
+=======
+Cache/
+>>>>>>> origin/development
+>>>>>>> local
