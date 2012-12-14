@@ -12,7 +12,7 @@
             if (node.Selected) { cssClasses.Add("selected"); }
             var classString = new HtmlString((cssClasses.Count == 0) ? "" :
                                 (" class=\"" + String.Join(" ", cssClasses.ToArray()) + "\""));
-            <li@classString>
+            <li>
                 @if (node.Enabled)
                 {
                     <a href="@node.Url">@node.Text</a>
