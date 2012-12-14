@@ -1,0 +1,1052 @@
+2012-12-14 17:42:20,231 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-12-14 17:42:21,129 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-12-14 17:42:21,291 [WIN-UN1L241MDMF][Thread:6][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-12-14 17:42:22,414 [WIN-UN1L241MDMF][Thread:6][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-12-14 17:42:38,963 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:42:38,977 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:42:39,066 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:42:39,077 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:05,696 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:05,710 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:05,781 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:05,792 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:13,882 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:13,894 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:13,927 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:13,937 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:18,444 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,448 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,455 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,458 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,462 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,467 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation//Confessiondefoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,471 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,474 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe//Presentation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,479 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,484 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif//Statuts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,488 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notrehistoire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,493 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Nouscontacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,497 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,501 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Partenariats.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,508 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Devenirpermanent.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,513 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireunstage.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,517 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Nousaiderbénévolement.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,524 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,528 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Permanents.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,533 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Ministères.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,539 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Projets.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,542 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Choisirledon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,547 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,553 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,558 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,563 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Léquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,568 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Événements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,575 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//NousContacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,579 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéCampus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,583 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Crescendo.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,588 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéFamille.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,593 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Agapéauféminin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,598 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//FilmJésus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,602 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéInternet.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,609 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Mosaïque.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,613 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Servicesinternes.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,619 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//SportetFoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,625 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,629 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Nouvelles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,632 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Evénements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,637 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,640 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources//Ressourcespourleséglises.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,644 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,648 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monprofil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,654 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Mesdons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,658 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,663 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Traducteur.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,668 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,671 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,677 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,681 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,687 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,692 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,697 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,703 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monespaceéquipier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,707 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewArt.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,710 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewFeature.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,714 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSuperEditor.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,719 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSurvey.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:18,723 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//Annuaire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 17:43:19,129 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:19,142 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:19,342 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:19,353 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:41,482 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,486 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,491 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,496 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,501 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,506 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation//Confessiondefoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,510 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,514 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe//Presentation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,517 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,522 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif//Statuts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,527 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notrehistoire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,530 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Nouscontacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,534 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,540 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Partenariats.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,545 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Devenirpermanent.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,549 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireunstage.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,555 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Nousaiderbénévolement.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,559 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,563 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Permanents.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,567 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Ministères.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,571 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Projets.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,575 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Choisirledon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,579 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,583 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,588 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,591 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Léquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,597 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Événements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,601 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//NousContacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,606 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéCampus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,611 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Crescendo.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,614 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéFamille.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,620 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Agapéauféminin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,625 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//FilmJésus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,632 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéInternet.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,636 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Mosaïque.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,640 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Servicesinternes.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,645 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//SportetFoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,649 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,654 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Nouvelles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,658 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Evénements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,664 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,670 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources//Ressourcespourleséglises.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,674 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,681 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monprofil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,685 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Mesdons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,689 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,693 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Traducteur.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,697 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,700 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,707 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,711 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,716 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,721 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,725 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,730 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monespaceéquipier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,737 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewArt.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,740 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewFeature.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,746 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSuperEditor.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,752 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSurvey.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,755 [WIN-UN1L241MDMF][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//Annuaire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 17:43:41,847 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:41,860 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 17:43:41,897 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 17:43:41,905 [WIN-UN1L241MDMF][Thread:11][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:18,184 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-12-14 18:24:18,518 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-12-14 18:24:18,617 [WIN-UN1L241MDMF][Thread:5][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-12-14 18:24:19,277 [WIN-UN1L241MDMF][Thread:5][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-12-14 18:24:21,397 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:21,411 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:21,488 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:21,496 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:28,279 [WIN-UN1L241MDMF][Thread:7][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:28,291 [WIN-UN1L241MDMF][Thread:7][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:28,351 [WIN-UN1L241MDMF][Thread:7][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:28,362 [WIN-UN1L241MDMF][Thread:7][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:34,900 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,905 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,909 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,914 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,919 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,924 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation//Confessiondefoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,928 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,933 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe//Presentation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,937 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,942 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif//Statuts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,948 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notrehistoire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,953 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Nouscontacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,958 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,963 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Partenariats.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,967 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Devenirpermanent.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,970 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireunstage.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,975 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Nousaiderbénévolement.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,979 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,985 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Permanents.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,991 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Ministères.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:34,996 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Projets.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,000 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Choisirledon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,007 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,011 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,017 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,021 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Léquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,025 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Événements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,032 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//NousContacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,036 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéCampus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,040 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Crescendo.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,044 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéFamille.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,049 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Agapéauféminin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,055 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//FilmJésus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,063 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéInternet.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,068 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Mosaïque.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,074 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Servicesinternes.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,079 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//SportetFoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,085 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,090 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Nouvelles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,094 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Evénements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,098 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,102 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources//Ressourcespourleséglises.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,109 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,115 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monprofil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,120 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Mesdons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,127 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,131 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Traducteur.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,136 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,143 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,148 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,152 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,159 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,163 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,166 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,172 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monespaceéquipier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,177 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewArt.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,184 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewFeature.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,188 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSuperEditor.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,193 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSurvey.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,199 [WIN-UN1L241MDMF][Thread:5][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//Annuaire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:fr-FR userlan:
+2012-12-14 18:24:35,561 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:35,577 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:35,749 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:35,759 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="Une erreur est survenue." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:43,635 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,639 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,646 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,651 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,654 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,660 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation//Confessiondefoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,664 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,668 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe//Presentation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,671 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,677 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif//Statuts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,681 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notrehistoire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,685 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Nouscontacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,690 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,694 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Partenariats.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,698 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Devenirpermanent.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,703 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireunstage.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,706 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Nousaiderbénévolement.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,711 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,717 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Permanents.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,721 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Ministères.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,728 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Projets.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,732 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Choisirledon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,735 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,739 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,745 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,749 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Léquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,754 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Événements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,758 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//NousContacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,764 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéCampus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,767 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Crescendo.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,774 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéFamille.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,780 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Agapéauféminin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,783 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//FilmJésus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,788 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéInternet.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,791 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Mosaïque.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,795 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Servicesinternes.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,800 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//SportetFoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,803 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,808 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Nouvelles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,812 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Evénements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,817 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,822 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources//Ressourcespourleséglises.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,824 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,829 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monprofil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,834 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Mesdons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,838 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,842 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Traducteur.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,846 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,850 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,855 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,860 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,864 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,870 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,874 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,879 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monespaceéquipier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,884 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewArt.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,888 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewFeature.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,893 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSuperEditor.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,896 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSurvey.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,901 [WIN-UN1L241MDMF][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//Annuaire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:24:43,993 [WIN-UN1L241MDMF][Thread:12][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:44,005 [WIN-UN1L241MDMF][Thread:12][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:24:44,043 [WIN-UN1L241MDMF][Thread:12][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:24:44,053 [WIN-UN1L241MDMF][Thread:12][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:34:59,798 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-12-14 18:35:00,354 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-12-14 18:35:00,481 [WIN-UN1L241MDMF][Thread:6][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-12-14 18:35:01,449 [WIN-UN1L241MDMF][Thread:6][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-12-14 18:35:04,597 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,605 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,613 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,624 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,640 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,653 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation//Confessiondefoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,660 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,671 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe//Presentation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,680 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,689 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif//Statuts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,695 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notrehistoire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,705 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Nouscontacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,713 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,721 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Partenariats.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,738 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Devenirpermanent.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,747 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireunstage.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,761 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Nousaiderbénévolement.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,775 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,789 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Permanents.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,806 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Ministères.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,814 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Projets.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,824 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Choisirledon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,835 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,844 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,853 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,862 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Léquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,868 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Événements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,875 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//NousContacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,880 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéCampus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,888 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Crescendo.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,894 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéFamille.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,901 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Agapéauféminin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,906 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//FilmJésus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,913 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéInternet.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,921 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Mosaïque.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,926 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Servicesinternes.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,935 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//SportetFoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,946 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,953 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Nouvelles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,961 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Evénements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,967 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,973 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources//Ressourcespourleséglises.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,980 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,986 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monprofil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,991 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Mesdons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:04,996 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,005 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Traducteur.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,011 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,016 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,022 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,028 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,058 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,101 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,110 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,118 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monespaceéquipier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,125 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewArt.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,132 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewFeature.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,141 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSuperEditor.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,148 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSurvey.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,156 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//Annuaire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:35:05,945 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:35:05,969 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:35:06,896 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:35:06,925 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:38:04,233 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-12-14 18:38:04,573 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-12-14 18:38:04,688 [WIN-UN1L241MDMF][Thread:6][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-12-14 18:38:05,261 [WIN-UN1L241MDMF][Thread:6][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-12-14 18:38:07,405 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,410 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accueil//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,414 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,423 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,429 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,433 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notremotivation//Confessiondefoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,437 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,442 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notreéquipe//Presentation.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,445 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,450 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Projetassociatif//Statuts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,455 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Notrehistoire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,460 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Nousconnaître//Nouscontacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,464 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,469 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Partenariats.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,473 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Devenirpermanent.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,476 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireunstage.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,480 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Nousaiderbénévolement.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,484 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,489 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Permanents.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,493 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Ministères.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,497 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Projets.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,502 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Simpliquer//Faireundon//Choisirledon.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,506 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,511 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,515 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,520 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Léquipe.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,525 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//Événements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,529 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//ActionsVilles//NousContacter.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,532 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéCampus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,538 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Crescendo.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,542 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéFamille.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,546 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Agapéauféminin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,552 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//FilmJésus.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,560 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//AgapéInternet.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,566 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Mosaïque.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,571 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//Servicesinternes.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,575 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Activités//SportetFoi.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,579 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,583 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Nouvelles.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,594 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Actualités//Evénements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,600 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,609 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Ressources//Ressourcespourleséglises.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,614 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,621 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monprofil.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,626 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Mesdons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,631 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Monpanier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,636 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Moncompte//Traducteur.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,641 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,647 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,654 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,660 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,666 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,671 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,678 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,682 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Monespaceéquipier.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,689 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewArt.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,693 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardViewFeature.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,698 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSuperEditor.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,705 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//BillboardSurvey.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:07,712 [WIN-UN1L241MDMF][Thread:6][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Billboard//Annuaire.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-12-14 18:38:08,198 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:38:08,216 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:38:08,542 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:38:08,552 [WIN-UN1L241MDMF][Thread:6][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:38:16,067 [WIN-UN1L241MDMF][Thread:8][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:38:16,085 [WIN-UN1L241MDMF][Thread:8][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:38:16,117 [WIN-UN1L241MDMF][Thread:8][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:38:16,128 [WIN-UN1L241MDMF][Thread:8][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:38:21,821 [WIN-UN1L241MDMF][Thread:10][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:38:21,836 [WIN-UN1L241MDMF][Thread:10][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 18:38:21,849 [WIN-UN1L241MDMF][Thread:10][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:38:21,858 [WIN-UN1L241MDMF][Thread:10][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
