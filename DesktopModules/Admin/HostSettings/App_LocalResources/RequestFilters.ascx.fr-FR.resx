@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdAdd.Text">
+    <value xml:space="preserve">Ajouter une règle</value>
+  </data>
+  <data name="cmdCancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="Delete.Text">
+    <value xml:space="preserve">Effacer</value>
+  </data>
+  <data name="Edit.Text">
+    <value xml:space="preserve">Editer</value>
+  </data>
+  <data name="lblServerVarLink.Text">
+    <value xml:space="preserve">Liste des variables sur &lt;a href="http://msdn2.microsoft.com/en-us/library/ms524602.aspx" class="CommandButton" target="_blank" &gt;MSDN&lt;/a&gt;</value>
+  </data>
+  <data name="lblWarning.Text">
+    <value xml:space="preserve">&lt;p&gt;ATTENTION : une règle incorrecte peut empêcher les utilisateurs d&amp;rsquo;accéder à votre site. Vous serez obligés d&amp;rsquo;éditer le fichier dotnetnuke.config à la main afin de supprimer la règle bloquante !&lt;/p&gt;</value>
+  </data>
+  <data name="plAction.Help">
+    <value xml:space="preserve">Sélectionnez l&amp;rsquo;action à entreprendre si la requête entrante correspond à une des règles.</value>
+  </data>
+  <data name="plAction.Text">
+    <value xml:space="preserve">Action&amp;nbsp;</value>
+  </data>
+  <data name="plLocation.Help">
+    <value xml:space="preserve">Saisissez l'URL à utilisez pour rediriger l'utilisateur si la requête entrante correspond à la règle. Cette valeur n'est utilisée que pour les actions "Redirect" et "PermanentRedirect".</value>
+  </data>
+  <data name="plLocation.Text">
+    <value xml:space="preserve">Redirection&amp;nbsp;</value>
+  </data>
+  <data name="plOperator.Help">
+    <value xml:space="preserve">Sélectionnez l&amp;rsquo;opération à utiliser pour la comparaison de la variable côté serveur et la valeur spécifiée.</value>
+  </data>
+  <data name="plOperator.Text">
+    <value xml:space="preserve">Operation&amp;nbsp;</value>
+  </data>
+  <data name="plServerVar.Help">
+    <value xml:space="preserve">Specifiez la variable serveur à utiliser pour filtrer les requêtes entrante.  Un liste complète des variables est disponible sur le site MSDN. </value>
+  </data>
+  <data name="plServerVar.Text">
+    <value xml:space="preserve">Variable&amp;nbsp;</value>
+  </data>
+  <data name="plValue.Help">
+    <value xml:space="preserve">Définissez la valeur qui déclenche la règle. Pour un RegEx, vous devez spécifier une expression régulière correspondante. Si ce n'est pas une expression régulière, vous devrez utiliser des valeurs délimitées par des virgules.</value>
+  </data>
+  <data name="plValue.Text">
+    <value xml:space="preserve">Correspondance&amp;nbsp;</value>
+  </data>
+  <data name="saveRule.Text">
+    <value xml:space="preserve">Mettre à jour</value>
+  </data>
+  <data name="unauthorized.Text">
+    <value xml:space="preserve">Le compte système utilisé par l&amp;rsquo;application n'a pas l&amp;rsquo;autorisation de modifier le fichier dotnetnuke.config. Cette erreur intervient généralement si le fichier à l&amp;rsquo;attribut "lecture seule" ou si le compte utilisé par l&amp;rsquo;application n&amp;rsquo;a pas l&amp;rsquo;autorisation d&amp;rsquo;éditer le fichier.</value>
+  </data>
+</root>

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdCancel.Text">
+    <value xml:space="preserve">Retour</value>
+  </data>
+  <data name="cmdDelete.Text">
+    <value xml:space="preserve">Supprimer le fichier de ressource</value>
+  </data>
+  <data name="cmdEdit.Text">
+    <value xml:space="preserve">Modifier la langue</value>
+  </data>
+  <data name="cmdParent.Text">
+    <value xml:space="preserve">Aller sur la page principale</value>
+  </data>
+  <data name="cmdUpdate.Text">
+    <value xml:space="preserve">Enregistrer le fichier de ressource</value>
+  </data>
+  <data name="cmdView.Text">
+    <value xml:space="preserve">Afficher la valeur par défaut</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Langue du site personnalisée</value>
+  </data>
+  <data name="ControlTitle_editlanguage.Text">
+    <value xml:space="preserve">Editeur de langue</value>
+  </data>
+  <data name="ControlTitle_editor.Text">
+    <value xml:space="preserve">Editeur de langue</value>
+  </data>
+  <data name="DefaultValue.Text">
+    <value xml:space="preserve">Valeur par défaut</value>
+  </data>
+  <data name="Delete.ErrorMessage">
+    <value xml:space="preserve">La langue système (en-US) ne peut pas être supprimée</value>
+  </data>
+  <data name="Deleted.Text">
+    <value xml:space="preserve">fichier(s) correctement effacé(s) : {0}</value>
+  </data>
+  <data name="DeleteItem.Text">
+    <value xml:space="preserve">Etes vous sûr(e) de vouloir supprimer cette traduction ?</value>
+  </data>
+  <data name="DisplayEnglish.Text">
+    <value xml:space="preserve">Afficher les noms anglais</value>
+  </data>
+  <data name="DisplayNative.Text">
+    <value xml:space="preserve">Afficher les noms natifs</value>
+  </data>
+  <data name="DuplicateEntry.Text">
+    <value xml:space="preserve">Ce fichier contient plus d'une entrée pour : &lt;b&gt;{0}&lt;/b&gt;. Vous devriez l'éditer et supprimer les doublons.</value>
+  </data>
+  <data name="FileSaved.Text">
+    <value xml:space="preserve">Fichier de ressources mis à jour avec succès</value>
+  </data>
+  <data name="highlightLabel.Help">
+    <value xml:space="preserve">Cochez la case pour mettre en evidence les traductions en attente</value>
+  </data>
+  <data name="highlightLabel.Text">
+    <value xml:space="preserve">Mettre en evidence la traduction</value>
+  </data>
+  <data name="ModeHost.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="ModePortal.Text">
+    <value xml:space="preserve">Portail</value>
+  </data>
+  <data name="ModeSystem.Text">
+    <value xml:space="preserve">Système</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos des langues&lt;/h1&gt;&lt;p&gt;Le super-utilisateur peut gérer les langues supportées qui sont installées sur le système.&lt;/p&gt;</value>
+  </data>
+  <data name="NoRecords.Text">
+    <value xml:space="preserve">Il n'y a pas d'enregistrement à afficher</value>
+  </data>
+  <data name="Obsolete.Text">
+    <value xml:space="preserve">Le fichier contient des traductions obsolètes. Cliquez sur Enregistrer pour les supprimer de manière permanente.</value>
+  </data>
+  <data name="plEditingLanguage.Help">
+    <value xml:space="preserve">Il s'agit de la langue sélectionnée pour lequel vous modifiez les ressources linguistiques. Pour sélectionner une autre langue, cliquez sur Annuler au bas de la page.</value>
+  </data>
+  <data name="plEditingLanguage.Text">
+    <value xml:space="preserve">Langue :</value>
+  </data>
+  <data name="plFolder.Help">
+    <value xml:space="preserve">Dossier selectionné</value>
+  </data>
+  <data name="plFolder.Text">
+    <value xml:space="preserve">Dossier selectionné</value>
+  </data>
+  <data name="plLocales.Help">
+    <value xml:space="preserve">Sélectionner la langue</value>
+  </data>
+  <data name="plLocales.Text">
+    <value xml:space="preserve">Langues disponibles :</value>
+  </data>
+  <data name="plMode.Help">
+    <value xml:space="preserve">Sélectionnez le fichier de langue à modifier ; l'hôte créera une version personnalisée du fichier localisé pour cette instance.</value>
+  </data>
+  <data name="plMode.Text">
+    <value xml:space="preserve">Mode :</value>
+  </data>
+  <data name="plResources.Help">
+    <value xml:space="preserve">Sélectionnez le fichier de ressources à modifier</value>
+  </data>
+  <data name="plResources.Text">
+    <value xml:space="preserve">Ressources :</value>
+  </data>
+  <data name="plSelected.Help">
+    <value xml:space="preserve">Afficher le chemin de la ressource actuellement editée</value>
+  </data>
+  <data name="plSelected.Text">
+    <value xml:space="preserve">Fichier de ressource sélectionné :</value>
+  </data>
+  <data name="RequiredField.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Champ requis</value>
+  </data>
+  <data name="ResourceName.Text">
+    <value xml:space="preserve">Nom de la ressource :</value>
+  </data>
+  <data name="Save.ErrorMessage">
+    <value xml:space="preserve">Échec d'une opération sur le fichier. Veuillez vérifier les autorisations d'accès aux fichiers de ressources.</value>
+  </data>
+  <data name="SaveWarning.Text">
+    <value xml:space="preserve">Toutes les modifications non enregistrées seront perdues si vous continuez. Etes-vous certain de que vouloir continuer ?</value>
+  </data>
+  <data name="Value.Text">
+    <value xml:space="preserve">Valeur traduite</value>
+  </data>
+</root>

@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFileExtensionNotAllowed.Text">
+    <value xml:space="preserve">L'extension « {0} » n'est pas autorisée. Le fichier n'a pas été ajouté.</value>
+  </data>
+  <data name="AddFileNoSpaceAvailable.Text">
+    <value xml:space="preserve">Le portail n'a aucun espace disponible pour stocker le fichier spécifié. Le fichier n'a pas été ajouté.</value>
+  </data>
+  <data name="AddFilePermissionsNotMet.Text">
+    <value xml:space="preserve">Les autorisations ne sont pas respectées. Le fichier n'a pas été ajouté.</value>
+  </data>
+  <data name="AddFileUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a signalé une erreur. Le fichier n'a pas été ajouté.</value>
+  </data>
+  <data name="AddFolderAlreadyExists.Text">
+    <value xml:space="preserve">Le chemin du dossier existe déjà. Le dossier n'a pas été ajouté.</value>
+  </data>
+  <data name="AddFolderParentCannotBeFound.Text">
+    <value xml:space="preserve">Impossible de trouver le dossier parent.</value>
+  </data>
+  <data name="AddFolderUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a signalé une erreur. Le dossier n'a pas été ajouté.</value>
+  </data>
+  <data name="ArgumentCannotBeNullOrEmpty.Text">
+    <value xml:space="preserve">L'argument « {0} » ne peut pas être null ou vide.</value>
+  </data>
+  <data name="CopyFileNoSpaceAvailable.Text">
+    <value xml:space="preserve">Le portail n'a pas assez d'espace libre pour stocker le fichier spécifié. Le fichier n'a pas été copié.</value>
+  </data>
+  <data name="CopyFilePermissionsNotMet.Text">
+    <value xml:space="preserve">Les autorisations ne sont pas remplies. Le fichier n'a pas été copié.</value>
+  </data>
+  <data name="CopyFileUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent lève une exception. Le fichier n'a pas été copié.</value>
+  </data>
+  <data name="DeleteFileUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a signalé une erreur. Le fichier n'a pas été supprimé.</value>
+  </data>
+  <data name="DeleteFolderUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a signalé une erreur Le dossier n'a pas été supprimé.</value>
+  </data>
+  <data name="InvalidZipFile.Text">
+    <value xml:space="preserve">Le fichier spécifié n'est pas un fichier compressé zip.</value>
+  </data>
+  <data name="MoveFolderCannotComplete.Text">
+    <value xml:space="preserve">L'opération ne peut pas être terminée.</value>
+  </data>
+  <data name="MoveFolderUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a jeté une exception. L'opération de déplacement ne peut pas être terminée. Une synchronisation manuelle du dossier peut être nécessaire.</value>
+  </data>
+  <data name="MsgAttachmentsNotAllowed.Text">
+    <value xml:space="preserve">Les pièces jointes ne sont pas autorisées.</value>
+  </data>
+  <data name="MsgBodyRequiredError.Text">
+    <value xml:space="preserve">Le corps ne peut pas être nul ou vide.</value>
+  </data>
+  <data name="MsgEmptyToListFoundError.Text">
+    <value xml:space="preserve">Lliste vide trouvée en analysant l'utilisateur et la liste des rôles.</value>
+  </data>
+  <data name="MsgMessageOrRecipientNotFound.Text">
+    <value xml:space="preserve">Le message n'est pas trouvé ou il n'existe pas de destinataire pour celui-ci.</value>
+  </data>
+  <data name="MsgMessageRequiredError.Text">
+    <value xml:space="preserve">L'objet du message ne peut pas être vide.</value>
+  </data>
+  <data name="MsgOnlyHostOrAdminOrGroupOwnerCanSendToRoleError.Text">
+    <value xml:space="preserve">Seuls les super-utilisateurs, administrateurs ou propriétaires de groupe peuvent envoyer un message à un rôle.</value>
+  </data>
+  <data name="MsgRecipientLimitExceeded.Text">
+    <value xml:space="preserve">Limite maximale de destinataires atteinte. Supprimer des destinataires provenant de la liste.</value>
+  </data>
+  <data name="MsgRolesOrUsersRequiredError.Text">
+    <value xml:space="preserve">Les utilisateurs et les rôles ne peuvent pas être nul ou vides.</value>
+  </data>
+  <data name="MsgSenderRequiredError.Text">
+    <value xml:space="preserve">L'expéditeur est nul ou le Sender.UserID est négatif.</value>
+  </data>
+  <data name="MsgSubjectOrBodyRequiredError.Text">
+    <value xml:space="preserve">L'objet et le corps ne peuvent pas être nul ou vide.</value>
+  </data>
+  <data name="MsgSubjectTooBigError.Text">
+    <value xml:space="preserve">Objet trop grand. Maximum {0}, Actuel {1}.</value>
+  </data>
+  <data name="MsgThrottlingIntervalNotMet.Text">
+    <value xml:space="preserve">Le message ne peut pas être envoyé comme intervalle minimum entre deux messages par le même utilisateur.</value>
+  </data>
+  <data name="MsgToListTooBigError.Text">
+    <value xml:space="preserve">Liste de destinataire trop grande. Maximum {0}, Actuel {1}.</value>
+  </data>
+  <data name="NoNetworkAvailableError.Text">
+    <value xml:space="preserve">Pas de connexion au réseau.</value>
+  </data>
+  <data name="PropertyCannotBeNegative.Text">
+    <value xml:space="preserve">La propriété « {1} » dans l'objet « {0} » ne peut pas être négative.</value>
+  </data>
+  <data name="PropertyCannotBeNull.Text">
+    <value xml:space="preserve">La propriété « {1} » dans l'objet « {0} » ne peut pas être nulle.</value>
+  </data>
+  <data name="PropertyCannotBeNullOrEmpty.Text">
+    <value xml:space="preserve">La propriété « {1} » dans l'objet « {0} » ne peut pas être null ou vide.</value>
+  </data>
+  <data name="RenameFileAlreadyExists.Text">
+    <value xml:space="preserve">Ce dossier contient déjà un fichier portant le même nom. Le fichier n'a pas été renommé.</value>
+  </data>
+  <data name="RenameFileUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a signalé une erreur. Le fichier n'a pas été renommé.</value>
+  </data>
+  <data name="RenameFolderAlreadyExists.Text">
+    <value xml:space="preserve">Le dossier de destination existe déjà. Le dossier n'a pas été renommé.</value>
+  </data>
+  <data name="RenameFolderUnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a signalé une erreur. Le dossier n'a pas été renommé.</value>
+  </data>
+  <data name="UnderlyingSystemError.Text">
+    <value xml:space="preserve">Le système sous-jacent a signalé une erreur.</value>
+  </data>
+  <data name="UserRelationshipBlockedError.Text">
+    <value xml:space="preserve">L'utilisateur cible « {0} » a bloqué la relation « {1} » de l'utilisateur « {2} ».</value>
+  </data>
+  <data name="UserRelationshipDoesNotExistError.Text">
+    <value xml:space="preserve">UserRelationshipID « {0} » n'existe pas.</value>
+  </data>
+  <data name="UserRelationshipExistsError.Text">
+    <value xml:space="preserve">La reelation existe déjà pour l'utilisateur « {0} » de l'utilisateur cible « {1} » RelationshipID « {2} ».</value>
+  </data>
+  <data name="UserRelationshipForDifferentPortalError.Text">
+    <value xml:space="preserve">Portal ID « {0} » de l'utilisateur de source est différent du portail ID « {1} » de l'utilisateur cible.</value>
+  </data>
+  <data name="UserRelationshipForSameUsersError.Text">
+    <value xml:space="preserve">Les utilisateurs ne peuvent pas avoir le même ID utilisateur « {0} ».</value>
+  </data>
+  <data name="ValueCannotBeNegative.Text">
+    <value xml:space="preserve">L'argument « {0} » ne peut pas être négatif.</value>
+  </data>
+  <data name="ValueMustBeOfType.Text">
+    <value xml:space="preserve">L'argument « {0} » doit être de type « {1} ».</value>
+  </data>
+  <data name="WriteFileToResponsePermissionsNotMet.Text">
+    <value xml:space="preserve">Les autorisations ne sont pas respectées. Le fichier ne peut pas être téléchargé.</value>
+  </data>
+</root>

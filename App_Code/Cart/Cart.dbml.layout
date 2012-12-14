@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Cart">
+  <DataContextMoniker Name="/CartDataContext" />
+  <nestedChildShapes>
+    <classShape Id="a711a984-f4af-427a-9473-f6c16bee9897" absoluteBounds="0.75, 0.75, 2, 4.6554182942708326">
+      <DataClassMoniker Name="/CartDataContext/FR_Cart" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1bd984ff-c2ac-4c3d-af46-37ad0430ce9c" absoluteBounds="0.765, 1.21, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="da7b796a-600d-4673-a5e3-4be62d499ed2" absoluteBounds="3.75, 0.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/CartDataContext/FR_Donations" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6ec3effe-5983-49d2-8d26-d4c51a449840" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1374497a-89d5-405a-a1f9-415c211ee802" absoluteBounds="3.75, 3.75, 2, 3.1170068359375005">
+      <DataClassMoniker Name="/CartDataContext/FR_Cart_Content" />
+      <nestedChildShapes>
+        <elementListCompartment Id="621791dc-c77e-4978-9757-8adf50076aff" absoluteBounds="3.765, 4.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c506c4b5-163d-4b68-b605-3eabebd898e3" absoluteBounds="6.75, 0.75, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/CartDataContext/FR_Cart_AddressBook" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d2e75d62-bae9-44e0-a201-9ac27932a995" absoluteBounds="6.765, 1.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 4.57770914713542); (3.75 : 4.57770914713542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CartDataContext/FR_Cart/FR_Cart_FR_Cart_Content" />
+      <nodes>
+        <classShapeMoniker Id="a711a984-f4af-427a-9473-f6c16bee9897" />
+        <classShapeMoniker Id="1374497a-89d5-405a-a1f9-415c211ee802" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.75 : 3.75); (4.75 : 2.7131982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CartDataContext/FR_Cart_Content/FR_Cart_Content_FR_Donations" />
+      <nodes>
+        <classShapeMoniker Id="1374497a-89d5-405a-a1f9-415c211ee802" />
+        <classShapeMoniker Id="da7b796a-600d-4673-a5e3-4be62d499ed2" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

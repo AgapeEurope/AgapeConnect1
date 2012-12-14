@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Booklet">
+  <DataContextMoniker Name="/BookletDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4f36c75a-9ad2-4792-9664-ade701470137" absoluteBounds="5, 1.75, 2, 1.5891951497395831">
+      <DataClassMoniker Name="/BookletDataContext/Agape_Main_BookletImage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cf265b94-65ef-4988-876e-be58daa9b5b4" absoluteBounds="5.015, 2.21, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0b6d7c65-8f67-4fc0-ae64-109011434438" absoluteBounds="1.5, 1, 2, 1.5891951497395831">
+      <DataClassMoniker Name="/BookletDataContext/Agape_Main_Booklet" />
+      <nestedChildShapes>
+        <elementListCompartment Id="396d346f-8f6a-470c-bb2a-ff65c4439894" absoluteBounds="1.5149999999999997, 1.46, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.5 : 2.16959757486979); (5 : 2.16959757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BookletDataContext/Agape_Main_Booklet/Agape_Main_Booklet_Agape_Main_BookletImage" />
+      <nodes>
+        <classShapeMoniker Id="0b6d7c65-8f67-4fc0-ae64-109011434438" />
+        <classShapeMoniker Id="4f36c75a-9ad2-4792-9664-ade701470137" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

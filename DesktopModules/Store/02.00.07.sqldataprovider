@@ -1,0 +1,26 @@
+﻿
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Cart_GetCart
+		@CartID nvarchar(50),
+		@PortalID int
+	AS
+
+	SET NOCOUNT ON
+
+	DECLARE @CartPageID int
+	DECLARE @Items int
+	DECLARE @Total money
+
+	SELECT	@CartPageID = ShoppingCartPageID
+	FROM	{databaseOwner}{objectQualifier}Store_Administration
+	WHERE	PortalID = @PortalID
+
+	SELECT	@Items = SUM(Quantity), @Total = SUM(UnitCost * Quantity)
+	FROM 	{databaseOwner}{objectQualifier}Store_CartItems ci,
+		{databaseOwner}{objectQualifier}Store_Products pr
+	WHERE	ci.ProductID = pr.ProductID
+	AND	CartID = @CartID
+	
+	SELECT	CartID, PortalID, UserID, @Items as Items, @Total as Total, @CartPageID as CartPageID
+	FROM 	{databaseOwner}{objectQualifier}Store_Cart
+	WHERE	CartID = @CartID
+GO

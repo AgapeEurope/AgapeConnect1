@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 12.875" name="Billboard">
+  <DataContextMoniker Name="/BillboardDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4a0fe409-1642-4641-b32f-b2b9b4c59680" absoluteBounds="5, 3.375, 2, 1.1939925130208327">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Photo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f8e83afc-802d-4167-8c33-2d0aa82bd110" absoluteBounds="5.0150000000000006, 3.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cd14dfed-a851-42e6-a401-e317aa2d3cfa" absoluteBounds="6.5, 1.125, 2, 1.3862939453125">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_TempPhoto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f8ec0729-7169-4eb1-90dd-c10774904f1e" absoluteBounds="6.515, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ba15ece5-d58e-4cba-ba21-fe49d1d04a68" absoluteBounds="8.75, 7.625, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/BillboardDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="80adf8ca-f237-4ddc-8dab-f2c4af3135b8" absoluteBounds="8.765, 8.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ee085fb8-3bea-4b1c-9b3d-df1158dc3afb" absoluteBounds="9.125, 4.875, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Link" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e7c228c6-691a-4178-bb33-7f728331c938" absoluteBounds="9.14, 5.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dc3f90b2-e314-4786-8f02-8a0ff7f44397" absoluteBounds="8.875, 0.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Comment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2e3c0fad-f999-4829-90dd-c5d9502be285" absoluteBounds="8.89, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e121642e-51b3-4764-a750-65e01c8e11ac" absoluteBounds="4.125, 7.375, 2, 3.6939111328125005">
+      <DataClassMoniker Name="/BillboardDataContext/Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="363071e8-a9f5-49c0-a86d-ffbda8fb52e8" absoluteBounds="4.14, 7.835, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="97081c26-aa60-444a-9f8f-f6ba55a3e90e" absoluteBounds="6.5, 7.5, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/BillboardDataContext/UserRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="28434bb3-dc2e-43d7-a9b2-f0bc8c7c2b7f" absoluteBounds="6.515, 7.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.125 : 8.56655110677083); (6.5 : 8.56655110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BillboardDataContext/Role/Role_UserRole" />
+      <nodes>
+        <classShapeMoniker Id="e121642e-51b3-4764-a750-65e01c8e11ac" />
+        <classShapeMoniker Id="97081c26-aa60-444a-9f8f-f6ba55a3e90e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.75 : 8.43927124023437); (8.5 : 8.43927124023437)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BillboardDataContext/User/User_UserRole" />
+      <nodes>
+        <classShapeMoniker Id="ba15ece5-d58e-4cba-ba21-fe49d1d04a68" />
+        <classShapeMoniker Id="97081c26-aa60-444a-9f8f-f6ba55a3e90e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b52a9b08-dcbf-43a8-89d3-1f43caa32f19" absoluteBounds="1.125, 4.625, 2, 1.9631982421874996">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Community" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e4f2cb8e-f5c8-4bf0-bffe-e1e3e807693a" absoluteBounds="1.1400000000000001, 5.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="566a61a3-ce7d-407e-a232-b3357765fc76" absoluteBounds="7.375, 3, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Feature_Type" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f865a5c0-300b-47e1-b709-6a80c3789d0e" absoluteBounds="7.39, 3.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="041d2d64-9bff-42c8-afda-d14697c97e12" absoluteBounds="9.75, 3.125, 2, 1.1939925130208327">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Test" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f2996f0a-c9ae-414e-9bfc-66f2585763b5" absoluteBounds="9.765, 3.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="284d3138-537e-4aa4-896c-39c49bf07ac9" absoluteBounds="3.875, 4.875, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Feature" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bd8c2243-ad72-4d61-a6b4-202cf8da14b7" absoluteBounds="3.8899999999999997, 5.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.4375 : 4.56899251302083); (5.4375 : 4.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BillboardDataContext/Agape_Billboard_Photo/Agape_Billboard_Photo_Agape_Billboard_Feature" />
+      <nodes>
+        <classShapeMoniker Id="4a0fe409-1642-4641-b32f-b2b9b4c59680" />
+        <classShapeMoniker Id="284d3138-537e-4aa4-896c-39c49bf07ac9" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c43052a6-87fe-4080-ab55-a045ae1ccbe2" absoluteBounds="3, 0.5, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Announcement" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48d9b6ca-accb-44e1-aea5-56d23ed7541e" absoluteBounds="3.015, 0.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cce6ab26-6704-4f25-b238-5eacb6ecf38d" absoluteBounds="6.25, 4.875, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Article" />
+      <nestedChildShapes>
+        <elementListCompartment Id="75203466-c0a0-4a47-8ea3-89dc2d16f985" absoluteBounds="6.265, 5.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.625 : 4.47115315755208); (6.625 : 4.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BillboardDataContext/Agape_Billboard_Photo/Agape_Billboard_Photo_Agape_Billboard_Article" />
+      <nodes>
+        <classShapeMoniker Id="4a0fe409-1642-4641-b32f-b2b9b4c59680" />
+        <classShapeMoniker Id="cce6ab26-6704-4f25-b238-5eacb6ecf38d" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="85931de6-9de9-49c8-b699-cdda82ae87b7" absoluteBounds="0.5, 0.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Send" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8481c64d-e757-4af5-b25b-13860dab618b" absoluteBounds="0.515, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="72c501c9-602d-4fe8-802b-b67a21bab262" absoluteBounds="1, 11.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Global" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b4370725-aecd-49a8-9511-4ca99fe0942f" absoluteBounds="1.0150000000000001, 11.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d0c487f6-1c93-41ac-b9b6-d66e8c540ae5" absoluteBounds="1.125, 7.125, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/BillboardDataContext/Agape_Billboard_Prayer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5d370421-17d7-41dd-a526-1a04dc69980e" absoluteBounds="1.1399999999999997, 7.5850000000000009, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

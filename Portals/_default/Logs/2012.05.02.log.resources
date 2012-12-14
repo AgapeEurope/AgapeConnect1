@@ -1,0 +1,20 @@
+2012-05-02 13:52:21,823 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-02 13:52:21,864 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-02 13:52:21,981 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-02 13:55:11,054 [WIN-IJASUCJVGUJ][Thread:13][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-02 13:55:11,086 [WIN-IJASUCJVGUJ][Thread:13][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-02 13:55:11,101 [WIN-IJASUCJVGUJ][Thread:13][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)

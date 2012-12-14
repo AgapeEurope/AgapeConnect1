@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="agapesandbox" Class="BookletDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLExpress;Initial Catalog=agapesandbox;User ID=weblogin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Agape_Main_BookletImage" Member="Agape_Main_BookletImages">
+    <Type Name="Agape_Main_BookletImage">
+      <Column Name="BookletImage" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ViewOrder" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PageImage" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="BookletId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Agape_Main_Booklet_Agape_Main_BookletImage" Member="Agape_Main_Booklet" ThisKey="BookletId" OtherKey="BookletId" Type="Agape_Main_Booklet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_Booklet" Member="Agape_Main_Booklets">
+    <Type Name="Agape_Main_Booklet">
+      <Column Name="BookletId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Aspect" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PageCount" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="Agape_Main_Booklet_Agape_Main_BookletImage" Member="Agape_Main_BookletImages" ThisKey="BookletId" OtherKey="BookletId" Type="Agape_Main_BookletImage" />
+    </Type>
+  </Table>
+  <Function Name="dbo.Agape_Main_Booklet_ReOrder" Method="Agape_Main_Booklet_ReOrder">
+    <Parameter Name="ModuleId" Parameter="moduleId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Agape_Main_Booklet_Demote" Method="Agape_Main_Booklet_Demote">
+    <Parameter Name="BookletImage" Parameter="bookletImage" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Agape_Main_Booklet_Promote" Method="Agape_Main_Booklet_Promote">
+    <Parameter Name="BookletImage" Parameter="bookletImage" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Agape_Main_Booklet_AddPage" Method="Agape_Main_Booklet_AddPage">
+    <Parameter Name="NewImage" Parameter="newImage" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="ModuleId" Parameter="moduleId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Aspect" Parameter="aspect" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Agape_Main_Booklet_GetAdd" Method="Agape_Main_Booklet_GetAdd">
+    <Parameter Name="ModuleId" Parameter="moduleId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Agape_Main_Booklet_GetAddResult">
+      <Column Name="BookletId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ModuleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Aspect" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PageCount" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="allLocales.Text">
+    <value xml:space="preserve">Voir les pages et modules de toutes les langues</value>
+  </data>
+  <data name="ChildTab.ErrorMessage">
+    <value xml:space="preserve">&lt;b&gt;{0}&lt;/b&gt;Restaurez la page parente avant de restaurer cette page.</value>
+  </data>
+  <data name="cmdDeleteModule.Help">
+    <value xml:space="preserve">Supprimer définitivement le module sélectionné</value>
+  </data>
+  <data name="cmdDeleteModule.Text">
+    <value xml:space="preserve">Détruire les modules sélectionnés</value>
+  </data>
+  <data name="cmdDeleteTab.Help">
+    <value xml:space="preserve">Supprimer la page sélectionnée</value>
+  </data>
+  <data name="cmdDeleteTab.Text">
+    <value xml:space="preserve">Supprimer la page sélectionnée</value>
+  </data>
+  <data name="cmdEmpty.Text">
+    <value xml:space="preserve">Vider définitivement la corbeille</value>
+  </data>
+  <data name="cmdRestoreModule.Help">
+    <value xml:space="preserve">Restaurer le(s) module(s) sélectionné(s) sur la page spécifiée</value>
+  </data>
+  <data name="cmdRestoreModule.Text">
+    <value xml:space="preserve">Rétablir les modules sélectionnés</value>
+  </data>
+  <data name="cmdRestoreTab.Help">
+    <value xml:space="preserve">Restaurer la page sélectionnée</value>
+  </data>
+  <data name="cmdRestoreTab.Text">
+    <value xml:space="preserve">Restaurer la page sélectionnée</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Corbeille</value>
+  </data>
+  <data name="DeleteAll.Text">
+    <value xml:space="preserve">Etes-vous certain de vouloir supprimer définitivement toutes les pages et tous le modules ?</value>
+  </data>
+  <data name="DeleteModule.Text">
+    <value xml:space="preserve">Etes-vous certain de vouloir supprimer définitivement ce module ?</value>
+  </data>
+  <data name="DeleteTab.Text">
+    <value xml:space="preserve">Etes-vous certain de vouloir supprimer définitivement cette page ?</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos de la corbeille&lt;/h1&gt;&lt;p&gt;La corbeille vous fournit une interface permettant de restaurer ou d'effacer définitivement des Pages/Modules.&lt;/p&gt;</value>
+  </data>
+  <data name="Modules.Text">
+    <value xml:space="preserve">Modules.</value>
+  </data>
+  <data name="ParentTab.ErrorMessage">
+    <value xml:space="preserve">&lt;b&gt;{0}&lt;/b&gt; Supprimez les pages enfants avant de supprimer cette page.</value>
+  </data>
+  <data name="singleLocale.Text">
+    <value xml:space="preserve">Voir les pages et modules de la langue courante</value>
+  </data>
+  <data name="TabDeleted.ErrorMessage">
+    <value xml:space="preserve">le module &lt;b&gt;{0}&lt;/b&gt; ne peut pas être restauré sans restaurer au préalable la page qui le contenait.</value>
+  </data>
+  <data name="Tabs.Text">
+    <value xml:space="preserve">Pages</value>
+  </data>
+</root>

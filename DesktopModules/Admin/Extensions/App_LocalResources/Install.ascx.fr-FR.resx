@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptLicense.Help">
+    <value xml:space="preserve">Cochez cette case pour accepter les termes de la licence.</value>
+  </data>
+  <data name="AcceptLicense.Text">
+    <value xml:space="preserve">Accepter la licence ?</value>
+  </data>
+  <data name="AcceptTerms.Text">
+    <value xml:space="preserve">Vous devez accepter les termes de la licence pour pouvoir installer ce paquet.</value>
+  </data>
+  <data name="BrowseFile.Text">
+    <value xml:space="preserve">Rechercher un fichier :</value>
+  </data>
+  <data name="BrowseFileHelp.Text">
+    <value xml:space="preserve">Utiliser le bouton Parcourir afin de sélectionner le paquet sur votre ordinateur puis cliquer sur Suivant pour continuer.</value>
+  </data>
+  <data name="Cancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="Container.Text">
+    <value xml:space="preserve">Container</value>
+  </data>
+  <data name="ControlTitle_install.Text">
+    <value xml:space="preserve">Installer un nouveau Package</value>
+  </data>
+  <data name="CoreLanguageError.Text">
+    <value xml:space="preserve">La langue associée à ce pack de langue n’est pas installée. Installer d’abord le pack de langue (core) avant d’installer des packs de langue d’extensions.</value>
+  </data>
+  <data name="DependencyError.Text">
+    <value xml:space="preserve">Ce pack de langue est conçu pour une extension qui ne semble pas être installée.</value>
+  </data>
+  <data name="FileSizeRestriction.Text">
+    <value xml:space="preserve">Votre site est configuré avec une taille de téléchargement de fichier maximale de {0} Mo.</value>
+  </data>
+  <data name="IgnoreRestrictedFilesWarning.Text">
+    <value xml:space="preserve">Avertissement : Vous avez choisi d'ignorer la vérification des types de fichier restreint.  Cette action représente un potentiel risque de sécurité pour votre site et vous ne devriez installer ce paquet que si vous êtes certain de sa fiabilité.</value>
+  </data>
+  <data name="IgnoreWhiteList.Text">
+    <value xml:space="preserve">Ignorer les restrictions de fichier ?</value>
+  </data>
+  <data name="IgnoreWhiteListHelp.Text">
+    <value xml:space="preserve">L’installeur maintient une liste de fichiers autorisés (liste blanche) qui peuvent être installés sur votre site. Si vous êtes certain de la fiabilité de votre paquet alors vous pouvez ignorer cette liste.</value>
+  </data>
+  <data name="InstallCustomPackage.Text">
+    <value xml:space="preserve">Installe le nouveau package {0}</value>
+  </data>
+  <data name="InstallError.Text">
+    <value xml:space="preserve">Eerreur lors du chargement à partir du dossier temporaire - voir ci-dessous</value>
+  </data>
+  <data name="InstallPackage.Text">
+    <value xml:space="preserve">Installer un nouveau Package</value>
+  </data>
+  <data name="InstallResults.Help">
+    <value xml:space="preserve">Voir ci-dessous pour les résultats de l'installation de package</value>
+  </data>
+  <data name="InstallResults.Title">
+    <value xml:space="preserve">Le package a été installé correctement.</value>
+  </data>
+  <data name="Introduction.Help">
+    <value xml:space="preserve">DotNetNuke peut être amélioré. Cet Assistant vous permet d'envoyer et d'installer des extensions.</value>
+  </data>
+  <data name="Introduction.Title">
+    <value xml:space="preserve">Installer un nouveau Package</value>
+  </data>
+  <data name="InvalidExt.Text">
+    <value xml:space="preserve">Extension de fichier invalide - {0}</value>
+  </data>
+  <data name="InvalidFiles.Text">
+    <value xml:space="preserve">Le paquet contient des fichiers avec des extensions invalides ({0})</value>
+  </data>
+  <data name="LegacySkin.Text">
+    <value xml:space="preserve">Thème/Container hérités :</value>
+  </data>
+  <data name="LegacySkinHelp.Text">
+    <value xml:space="preserve">Les anciens thèmes et conteneurs peuvent être installés via cet installeur mais étant donné qu’ils n’ont pas de manifeste vous devez déclarer ce paquet comme tel (si vous n’êtes pas certain alors cochez quand même l’option appropriée).</value>
+  </data>
+  <data name="License.Help">
+    <value xml:space="preserve">Avant de poursuivre, vous devez accepter les termes de la licence de cette extension.  Veuillez consulter la licence puis cocher la case "Accepter la licence ?"</value>
+  </data>
+  <data name="License.Title">
+    <value xml:space="preserve">Licence</value>
+  </data>
+  <data name="LogTitle.Text">
+    <value xml:space="preserve">Logs d'installation du Package</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos de l'installation de paquet&lt;/h1&gt;&lt;p&gt;Vous permet d'envoyer puis d'installer des paquets dans le site.&lt;/p&gt;</value>
+  </data>
+  <data name="NoFile.Text">
+    <value xml:space="preserve">Vous devez d'abord sélectionner un fichier à envoyer - cliquer sur le bouton Parcourir pour localiser le fichier sur votre PC.</value>
+  </data>
+  <data name="NoManifest.Text">
+    <value xml:space="preserve">manifeste. Les anciens thèmes et de conteneurs n’ont pas de manifeste. Si c’est le cas de ce paquet alors cochez le bouton associé puis cliquez sur Suivant.</value>
+  </data>
+  <data name="None.Text">
+    <value xml:space="preserve">Pas un thème/container</value>
+  </data>
+  <data name="PackageInfo.Help">
+    <value xml:space="preserve">L'information suivante a été trouvée dans le manifeste du paquet.</value>
+  </data>
+  <data name="PackageInfo.Title">
+    <value xml:space="preserve">Informations sur le Package</value>
+  </data>
+  <data name="PackageInstalled.Text">
+    <value xml:space="preserve">Le paquet est déjà installé.</value>
+  </data>
+  <data name="ReleaseNotes.Help">
+    <value xml:space="preserve">Vous pouvez consulter les notes de mise à jour pour ce paquet.</value>
+  </data>
+  <data name="ReleaseNotes.Title">
+    <value xml:space="preserve">Note de mise à jour</value>
+  </data>
+  <data name="RepairInstall.Text">
+    <value xml:space="preserve">Réparer l'installation</value>
+  </data>
+  <data name="RepairInstallHelp.Text">
+    <value xml:space="preserve">Par défaut l’installeur n’écrasera pas un paquet avec le même numéro de version. Si vous souhaitez continuer et réparer l’installation actuelle alors cochez cette case. Sinon vous ne pourrez rien faire de plus avec ce fichier d’installation.</value>
+  </data>
+  <data name="RepairInstallWarning.Text">
+    <value xml:space="preserve">Avertissement : Vous avez décidé de réparer l'installation de ce package.  Cela provoquera l'écrasement de tous les fichiers précédemment installés.</value>
+  </data>
+  <data name="Return.Text">
+    <value xml:space="preserve">Retour</value>
+  </data>
+  <data name="Skin.Text">
+    <value xml:space="preserve">Thème</value>
+  </data>
+  <data name="UploadPackage.Text">
+    <value xml:space="preserve">Charger un package</value>
+  </data>
+  <data name="Warnings.Help">
+    <value xml:space="preserve">Si vous avez atteint cette page c’est parce que l’installeur a besoin d’informations supplémentaires avant de continuer.</value>
+  </data>
+  <data name="Warnings.Title">
+    <value xml:space="preserve">Télécharger les résultats</value>
+  </data>
+  <data name="ZipCriticalError.Text">
+    <value xml:space="preserve">Erreur critique lors de la lecture du fichier zip du paquet</value>
+  </data>
+  <data name="ZipError.Text">
+    <value xml:space="preserve">Erreur lors de la lecture du fichier zip du paquet - voir ci-dessous</value>
+  </data>
+</root>

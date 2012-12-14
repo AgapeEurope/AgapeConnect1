@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">Ajouter une planification</value>
+  </data>
+  <data name="cmdStart.Text">
+    <value xml:space="preserve">Démarrer</value>
+  </data>
+  <data name="cmdStop.Text">
+    <value xml:space="preserve">Arrêter</value>
+  </data>
+  <data name="ControlTitle_status.Text">
+    <value xml:space="preserve">Statut</value>
+  </data>
+  <data name="Disabled.Text">
+    <value xml:space="preserve">Désactivé</value>
+  </data>
+  <data name="DisabledMessage.Text">
+    <value xml:space="preserve">Le planificateur est actuellement désactivé.</value>
+  </data>
+  <data name="Duration.Header">
+    <value xml:space="preserve">Durée&lt;br&gt;(secondes)</value>
+  </data>
+  <data name="lblActiveThreadsLabel.Text">
+    <value xml:space="preserve">Threads actifs :</value>
+  </data>
+  <data name="lblCommand.Text">
+    <value xml:space="preserve">Commande :</value>
+  </data>
+  <data name="lblFreeThreadsLabel.Text">
+    <value xml:space="preserve">Threads libres :</value>
+  </data>
+  <data name="lblMaxThreadsLabel.Text">
+    <value xml:space="preserve">Threads max. :</value>
+  </data>
+  <data name="lblProcessing.Text">
+    <value xml:space="preserve">Objets traités</value>
+  </data>
+  <data name="lblQueue.Text">
+    <value xml:space="preserve">Planifications en file d&amp;#146;attente</value>
+  </data>
+  <data name="lblStatusLabel.Text">
+    <value xml:space="preserve">Statut :</value>
+  </data>
+  <data name="ManuallyStopped.Text">
+    <value xml:space="preserve">Arrêté manuellement à partir du planificateur</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du planificateur de tâches&lt;/h1&gt;&lt;p&gt;Vous permet de spécifier des tâches qui s'exécuteront à intervalle régulier.&lt;/p&gt;</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom de la tâche</value>
+  </data>
+  <data name="NextStart.Header">
+    <value xml:space="preserve">Prochaine&lt;br&gt;exécution</value>
+  </data>
+  <data name="NoTasks.Text">
+    <value xml:space="preserve">Il n&amp;#146;y a pas de tâche en fil d&amp;#146;attente et aucune tâche n&amp;#146;a été effectué.</value>
+  </data>
+  <data name="Notes.Header">
+    <value xml:space="preserve">Notes.</value>
+  </data>
+  <data name="ObjectDependencies.Header">
+    <value xml:space="preserve">Dépendance</value>
+  </data>
+  <data name="Overdue.Header">
+    <value xml:space="preserve">Retard&lt;br&gt;(secondes)</value>
+  </data>
+  <data name="ScheduleHistory.Action">
+    <value xml:space="preserve">Historique des planifications</value>
+  </data>
+  <data name="ScheduleID.Header">
+    <value xml:space="preserve">Id</value>
+  </data>
+  <data name="Servers.Header">
+    <value xml:space="preserve">Serveurs</value>
+  </data>
+  <data name="Started.Header">
+    <value xml:space="preserve">Démarré</value>
+  </data>
+  <data name="Thread.Header">
+    <value xml:space="preserve">Thread.</value>
+  </data>
+  <data name="TimeRemaining.Header">
+    <value xml:space="preserve">&lt;nobr&gt;Temps restant&lt;/nobr&gt;&lt;br&gt;(secondes)</value>
+  </data>
+  <data name="TriggeredBy.Header">
+    <value xml:space="preserve">Déclencheur</value>
+  </data>
+  <data name="Type.Header">
+    <value xml:space="preserve">type</value>
+  </data>
+</root>

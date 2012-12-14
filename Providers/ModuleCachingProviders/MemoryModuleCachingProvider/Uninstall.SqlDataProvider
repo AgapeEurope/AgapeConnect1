@@ -1,0 +1,29 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}	*****/
+/*****                                                  *****/
+/************************************************************/
+
+UPDATE {databaseOwner}{objectQualifier}TabModules
+	SET CacheMethod = NULL
+	WHERE CacheMethod='Memory'
+GO
+
+
+IF NOT EXISTS ( SELECT * FROM {databaseOwner}{objectQualifier}Packages WHERE Name like '%ModuleCaching%' )
+	BEGIN
+		IF EXISTS(SELECT * FROM {databaseOwner}{objectQualifier}Schedule WHERE TypeFullName='DotNetNuke.Services.ModuleCache.PurgeModuleCache, DotNetNuke')
+			BEGIN
+				DELETE FROM {databaseOwner}{objectQualifier}Schedule
+				WHERE TypeFullName = 'DotNetNuke.Services.ModuleCache.PurgeModuleCache, DotNetNuke'
+			END
+	END
+GO
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

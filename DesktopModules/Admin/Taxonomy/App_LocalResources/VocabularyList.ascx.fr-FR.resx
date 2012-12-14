@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Confirm.Text">
+    <value xml:space="preserve">Vous êtes certain de vouloir ajouter du vocabulaire.</value>
+  </data>
+  <data name="Create.Text">
+    <value xml:space="preserve">Créer un nouveau vocabulaire</value>
+  </data>
+  <data name="Create.ToolTip">
+    <value xml:space="preserve">Cliquez sur ce bouton pour créer un nouveau vocabulaire</value>
+  </data>
+  <data name="Description.Header">
+    <value xml:space="preserve">Description</value>
+  </data>
+  <data name="Edit.Text">
+    <value xml:space="preserve">Editer</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="Scope.Header">
+    <value xml:space="preserve">Portée</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Liste des vocabulaires</value>
+  </data>
+  <data name="Type.Header">
+    <value xml:space="preserve">Type</value>
+  </data>
+</root>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">Ajouter un nouveau site</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Gestion des sites</value>
+  </data>
+  <data name="Delete.Text">
+    <value xml:space="preserve">Supprimer le site</value>
+  </data>
+  <data name="DeleteExpired.Action">
+    <value xml:space="preserve">Supprimer les site expirés</value>
+  </data>
+  <data name="DiskSpace.Header">
+    <value xml:space="preserve">Espace disque</value>
+  </data>
+  <data name="Edit.Text">
+    <value xml:space="preserve">Editer ce site</value>
+  </data>
+  <data name="Expired.Text">
+    <value xml:space="preserve">Expirés</value>
+  </data>
+  <data name="Expires.Header">
+    <value xml:space="preserve">Expiration</value>
+  </data>
+  <data name="ExportTemplate.Action">
+    <value xml:space="preserve">Exporter le gabarit de site</value>
+  </data>
+  <data name="Filter.Text">
+    <value xml:space="preserve">A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="HostingFee.Header">
+    <value xml:space="preserve">Mensualités</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos de la gestion des sites&lt;/h1&gt;&lt;p&gt;Le Superutilisateur peut gèrer les parents et les enfants de sites. Ce module permet également d'ajouter, modifier ou supprimer un site&lt;/p&gt;</value>
+  </data>
+  <data name="Pages.Header">
+    <value xml:space="preserve">Pages</value>
+  </data>
+  <data name="Portal Aliases.Header">
+    <value xml:space="preserve">Alias du site</value>
+  </data>
+  <data name="PortalDeleted.Text">
+    <value xml:space="preserve">Site supprimé avec succès</value>
+  </data>
+  <data name="PortalId.Header">
+    <value xml:space="preserve">Id du site</value>
+  </data>
+  <data name="Title.Header">
+    <value xml:space="preserve">Titre</value>
+  </data>
+  <data name="Users.Header">
+    <value xml:space="preserve">Utilisateurs</value>
+  </data>
+</root>

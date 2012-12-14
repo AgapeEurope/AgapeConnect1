@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="CancelEdit.Text">
+    <value>Annuler</value>
+  </data>
+  <data name="ControlTitle_editmessage.Text">
+    <value>Prévisualisation</value>
+  </data>
+  <data name="DeleteMessage.Text">
+    <value>Effacer le message</value>
+  </data>
+  <data name="EmailTo.Required">
+    <value>&lt;br/&gt;L'utilisateur est requis</value>
+  </data>
+  <data name="Subject.Required">
+    <value>&lt;br/&gt;Le sujet est requis</value>
+  </data>
+  <data name="Validation.Error.Message">
+    <value>Le nom d'utilisateur '{0}' n'est pas valide</value>
+  </data>
+  <data name="Validation.Error.MessageHeader">
+    <value>Utilisateur non valide</value>
+  </data>
+  <data name="Validation.Success.Message">
+    <value>Le nom d'utilisateur '{0}' est valide</value>
+  </data>
+</root>

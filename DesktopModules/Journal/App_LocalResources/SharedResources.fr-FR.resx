@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="{resx:and}.Text">
+    <value xml:space="preserve">et</value>
+  </data>
+  <data name="{resx:comment}.Text">
+    <value xml:space="preserve">Commentaire</value>
+  </data>
+  <data name="{resx:leavecomment}.Text">
+    <value xml:space="preserve">Laisser un commentaire...</value>
+  </data>
+  <data name="{resx:like}.Text">
+    <value xml:space="preserve">Aimer</value>
+  </data>
+  <data name="{resx:likesthis}.Text">
+    <value xml:space="preserve">aime ça</value>
+  </data>
+  <data name="{resx:likethis}.Text">
+    <value xml:space="preserve">aime ça</value>
+  </data>
+  <data name="{resx:other}.Text">
+    <value xml:space="preserve">autres</value>
+  </data>
+  <data name="{resx:others}.Text">
+    <value xml:space="preserve">autres</value>
+  </data>
+  <data name="{resx:unlike}.Text">
+    <value xml:space="preserve">Ne plus aimer</value>
+  </data>
+  <data name="{resx:you}.Text">
+    <value xml:space="preserve">Vous</value>
+  </data>
+  <data name="{resx:youlikethis}.Text">
+    <value xml:space="preserve">Vous aimez ça</value>
+  </data>
+  <data name="achievement.Action">
+    <value xml:space="preserve">a obtenu un haut-fait</value>
+  </data>
+  <data name="achievement.Text">
+    <value xml:space="preserve">Haut-fait gagné</value>
+  </data>
+  <data name="answer.Action">
+    <value xml:space="preserve">répondu à la question</value>
+  </data>
+  <data name="answer.Text">
+    <value xml:space="preserve">Réponses</value>
+  </data>
+  <data name="articleadd.Action">
+    <value xml:space="preserve">a ajouté un nouvel article</value>
+  </data>
+  <data name="articleadd.Text">
+    <value xml:space="preserve">Article ajouté</value>
+  </data>
+  <data name="blog.Text">
+    <value xml:space="preserve">Blogs</value>
+  </data>
+  <data name="comment.Action">
+    <value xml:space="preserve">a commenté</value>
+  </data>
+  <data name="comment.Text">
+    <value xml:space="preserve">Commentaire</value>
+  </data>
+  <data name="Comments.Text">
+    <value xml:space="preserve">Commentaires</value>
+  </data>
+  <data name="documentadd.Action">
+    <value xml:space="preserve">a ajouté le document</value>
+  </data>
+  <data name="documentadd.Text">
+    <value xml:space="preserve">Document ajouté</value>
+  </data>
+  <data name="documentupdate.Action">
+    <value xml:space="preserve">a mise à jour le document</value>
+  </data>
+  <data name="documentupdate.Text">
+    <value xml:space="preserve">Document mis à jour</value>
+  </data>
+  <data name="eventattend.Action">
+    <value xml:space="preserve">assiste à l'événement</value>
+  </data>
+  <data name="eventattend.Text">
+    <value xml:space="preserve">Participation à des événements</value>
+  </data>
+  <data name="eventcreate.Action">
+    <value xml:space="preserve">a créé l'événement</value>
+  </data>
+  <data name="eventcreate.Text">
+    <value xml:space="preserve">Événement créé</value>
+  </data>
+  <data name="file.Text">
+    <value xml:space="preserve">Fichiers</value>
+  </data>
+  <data name="forum_reply.Text">
+    <value xml:space="preserve">Réponses Forum</value>
+  </data>
+  <data name="forum_topic.Text">
+    <value xml:space="preserve">Sujets du Forum</value>
+  </data>
+  <data name="friend.Text">
+    <value xml:space="preserve">Amis</value>
+  </data>
+  <data name="groupcreate.Text">
+    <value xml:space="preserve">Groupe créé</value>
+  </data>
+  <data name="groupjoin.Text">
+    <value xml:space="preserve">Groupe rejoint</value>
+  </data>
+  <data name="ideaadd.Action">
+    <value xml:space="preserve">a ajouté l'idée</value>
+  </data>
+  <data name="ideaadd.Text">
+    <value xml:space="preserve">Idée ajoutée</value>
+  </data>
+  <data name="ideaupdate.Action">
+    <value xml:space="preserve">a mise à jour l'idée</value>
+  </data>
+  <data name="ideaupdate.Text">
+    <value xml:space="preserve">Idée mise à jour</value>
+  </data>
+  <data name="journal_blog.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;&lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+		[JOURNALCONTROL:LIKELIST]
+	
+	&lt;/div&gt;</value>
+  </data>
+  <data name="journal_file.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;
+	&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;
+&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;[JournalItem:Summary]
+		&lt;div class="jfile dnnClear"&gt;
+			&lt;img src="[journaldata:ImageUrl]" /&gt;
+			&lt;div&gt;&lt;a href="[journaldata:Url]" target="_blank"&gt;[journaldata:Title]&lt;/a&gt;&lt;br /&gt;[journaldata:Description]&lt;/div&gt;
+			
+		&lt;/div&gt;
+	&lt;/p&gt;
+
+	&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:COMMENTLINK]{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+	[JOURNALCONTROL:COMMENTAREA]
+&lt;/div&gt;</value>
+  </data>
+  <data name="journal_forum_reply.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;replied to: &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+		[JOURNALCONTROL:LIKELIST]
+	
+	&lt;/div&gt;</value>
+  </data>
+  <data name="journal_forum_topic.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;created the topic: &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+		[JOURNALCONTROL:LIKELIST]
+	
+	&lt;/div&gt;</value>
+  </data>
+  <data name="journal_generic.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;&lt;img src="[BaseUrl]/profilepic.ashx?userId=[JournalAuthor:Id]&amp;h=32&amp;w=32" /&gt;&lt;/div&gt;&lt;div class="journalitem"&gt;&lt;p&gt;&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt; [journalitem:action] &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;&lt;/p&gt;&lt;p class="journalfooter"&gt;&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;En savoir plus...&lt;/a&gt;{/CanComment}&lt;/p&gt;[JOURNALCONTROL:LIKELIST]&lt;/div&gt;</value>
+  </data>
+  <data name="journal_groupcreate.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;created the group &lt;a href="[journaldata:Url]"&gt;[JournalItem:Title]&lt;/a&gt;&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:COMMENTLINK]{/CanComment}
+	&lt;/p&gt;
+		[JOURNALCONTROL:LIKELIST]
+		[JOURNALCONTROL:COMMENTAREA]
+	&lt;/div&gt;</value>
+  </data>
+  <data name="journal_groupjoin.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;joined the group &lt;a href="[journaldata:Url]"&gt;[JournalItem:Title]&lt;/a&gt;&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:COMMENTLINK]{/CanComment}
+	&lt;/p&gt;
+		[JOURNALCONTROL:LIKELIST]
+		[JOURNALCONTROL:COMMENTAREA]
+	&lt;/div&gt;</value>
+  </data>
+  <data name="journal_link.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;
+	&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;
+&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;[JournalItem:Summary]
+		&lt;div class="jlink dnnClear"&gt;
+			&lt;img src="[journaldata:ImageUrl]" /&gt;
+			&lt;div&gt;&lt;a href="[journaldata:Url]"&gt;[journaldata:Title]&lt;/a&gt;&lt;br /&gt;[journaldata:Description]&lt;/div&gt;
+			
+		&lt;/div&gt;
+	&lt;/p&gt;
+
+	&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:COMMENTLINK]{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+	[JOURNALCONTROL:COMMENTAREA]
+&lt;/div&gt;</value>
+  </data>
+  <data name="journal_photo.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;
+	&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;
+&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;[JournalItem:Summary]
+		&lt;div class="jphoto dnnClear"&gt;
+			&lt;img src="[journaldata:ImageUrl]" style="width:250px;" /&gt;
+		&lt;/div&gt;
+	&lt;/p&gt;
+
+	&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:COMMENTLINK]{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+	[JOURNALCONTROL:COMMENTAREA]
+&lt;/div&gt;</value>
+  </data>
+  <data name="journal_status.Text">
+    <value xml:space="preserve">&lt;div class="author"&gt;&lt;img src="[BaseUrl]/ProfilePic.ashx?UserId=[JournalAuthor:Id]&amp;w=32&amp;h=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;[JournalItem:Summary]&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:COMMENTLINK]{/CanComment}
+	&lt;/p&gt;
+		[JOURNALCONTROL:LIKELIST]
+		[JOURNALCONTROL:COMMENTAREA]
+	&lt;/div&gt;</value>
+  </data>
+  <data name="link.Text">
+    <value xml:space="preserve">Liens</value>
+  </data>
+  <data name="photo.Text">
+    <value xml:space="preserve">Photos</value>
+  </data>
+  <data name="privilege.Action">
+    <value xml:space="preserve">a obtenu le privilège</value>
+  </data>
+  <data name="privilege.Text">
+    <value xml:space="preserve">Privilège acquis</value>
+  </data>
+  <data name="projectcreated.Action">
+    <value xml:space="preserve">a créé un nouveau projet</value>
+  </data>
+  <data name="projectcreated.Text">
+    <value xml:space="preserve">Projet créé</value>
+  </data>
+  <data name="projectupdate.Action">
+    <value xml:space="preserve">a mis à jour le projet</value>
+  </data>
+  <data name="projectupdated.Text">
+    <value xml:space="preserve">Mise à jour de projet</value>
+  </data>
+  <data name="question.Action">
+    <value xml:space="preserve">a posé la question</value>
+  </data>
+  <data name="question.Text">
+    <value xml:space="preserve">Questions</value>
+  </data>
+  <data name="reviewadd.Action">
+    <value xml:space="preserve">a ajouté un examen pour</value>
+  </data>
+  <data name="reviewadd.Text">
+    <value xml:space="preserve">Examen supplémentaire</value>
+  </data>
+  <data name="reviewupdate.Action">
+    <value xml:space="preserve">a mis à jour un examen</value>
+  </data>
+  <data name="reviewupdate.Text">
+    <value xml:space="preserve">Examen mis à jour</value>
+  </data>
+  <data name="status.Text">
+    <value xml:space="preserve">Posts</value>
+  </data>
+  <data name="survey.Action">
+    <value xml:space="preserve">a complété un sondage</value>
+  </data>
+  <data name="survey.Text">
+    <value xml:space="preserve">Sondage complété</value>
+  </data>
+  <data name="taskadd.Action">
+    <value xml:space="preserve">a créé une nouvelle tâche</value>
+  </data>
+  <data name="taskadd.Text">
+    <value xml:space="preserve">Tâche créée</value>
+  </data>
+  <data name="taskupdate.Action">
+    <value xml:space="preserve">a mis à jour la tâche</value>
+  </data>
+  <data name="taskupdate.Text">
+    <value xml:space="preserve">Tâche mise à jour</value>
+  </data>
+  <data name="UserFolderTitle.Text">
+    <value xml:space="preserve">Mes fichiers</value>
+  </data>
+  <data name="videoadd.Action">
+    <value xml:space="preserve">a ajouté la vidéo</value>
+  </data>
+  <data name="videoadd.Text">
+    <value xml:space="preserve">Vidéo ajoutée</value>
+  </data>
+  <data name="vote.Action">
+    <value xml:space="preserve">a voté pour</value>
+  </data>
+  <data name="vote.Text">
+    <value xml:space="preserve">Votes</value>
+  </data>
+  <data name="wikiadd.Action">
+    <value xml:space="preserve">a ajouté la page wiki</value>
+  </data>
+  <data name="wikiadd.Text">
+    <value xml:space="preserve">Ajouté au Wiki</value>
+  </data>
+  <data name="wikiupdate.Action">
+    <value xml:space="preserve">a mis à jour la page wiki</value>
+  </data>
+  <data name="wikiupdate.Text">
+    <value xml:space="preserve">Wiki mis à jour</value>
+  </data>
+</root>

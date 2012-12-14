@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add.Title">
+    <value xml:space="preserve">Créer un nouveau module</value>
+  </data>
+  <data name="cmdAdd.Text">
+    <value xml:space="preserve">Ajouter un dossier</value>
+  </data>
+  <data name="cmdCancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="cmdCreate.Text">
+    <value xml:space="preserve">Créer le module</value>
+  </data>
+  <data name="cmdSave.Text">
+    <value xml:space="preserve">Créer le dossier</value>
+  </data>
+  <data name="Control.Text">
+    <value xml:space="preserve">Contrôle</value>
+  </data>
+  <data name="CSharp.Text">
+    <value xml:space="preserve">C# (C sharp.)</value>
+  </data>
+  <data name="Edit.Title">
+    <value xml:space="preserve">Modifier le module</value>
+  </data>
+  <data name="FileExists.Text">
+    <value xml:space="preserve">Le nom du fichier que vous avez choisi existe déjà. Veuillez utiliser un nom différent.</value>
+  </data>
+  <data name="ImportControl.ErrorMessage">
+    <value xml:space="preserve">Il y a eu une erreur lors de l’importation du contrôle de module, regardez le gestionnaire d’évènements pour de plus amples informations.</value>
+  </data>
+  <data name="InvalidFilename.Text">
+    <value xml:space="preserve">Les noms de fichiers contiennent des caractères non valides.</value>
+  </data>
+  <data name="LanguageError.Text">
+    <value xml:space="preserve">Vous devez sélectionner une langue pour le contrôle de votre module.</value>
+  </data>
+  <data name="Manifest.Text">
+    <value xml:space="preserve">Manifeste</value>
+  </data>
+  <data name="MissingControl.Text">
+    <value xml:space="preserve">Vous devez fournir un nom de fichier pour le contrôle de module</value>
+  </data>
+  <data name="MissingFriendlyname.Text">
+    <value xml:space="preserve">Vous devez fournir un nom pour le module</value>
+  </data>
+  <data name="MissingManifest.Text">
+    <value xml:space="preserve">Vous devez fournir un fichier mainfeste (fichier .dnn ou .dnn5)</value>
+  </data>
+  <data name="ModuleControlTemplate.Text">
+    <value xml:space="preserve">&lt;%@ Control Language="{0}" ClassName="{1}" Inherits="DotNetNuke.Entities.Modules.PortalModuleBase" %&gt;&lt;h1&gt;Félicitations&lt;/h1&gt;&lt;p&gt;Vous venez de créer votre module. Vous pouvez éditer la source du contrôle de module en sélectionnant “Afficher la source” dans le menu d’actions.&lt;/p&gt;&lt;script runat="server"&gt;&lt;/script&gt;</value>
+  </data>
+  <data name="ModuleFolder.Text">
+    <value xml:space="preserve">Vous devez sélectionner un dossier de module.  Vous pouvez en créer un si nécessaire.</value>
+  </data>
+  <data name="New.Text">
+    <value xml:space="preserve">Nouveau</value>
+  </data>
+  <data name="NoControl.Text">
+    <value xml:space="preserve">Vous devez sélectionner un contrôle dans la liste des « Ressources »</value>
+  </data>
+  <data name="NonuniqueName.Text">
+    <value xml:space="preserve">Un paquet existe déjà avec ce nom - veuillez fournir un autre nom</value>
+  </data>
+  <data name="NonuniqueNameModule.Text">
+    <value xml:space="preserve">Le module de l'endroit choisi existe et est enregistré comme {0}</value>
+  </data>
+  <data name="plAddPage.Help">
+    <value xml:space="preserve">Cocher cette case pour créer une page de test pour votre nouveau module.</value>
+  </data>
+  <data name="plAddPage.Text">
+    <value xml:space="preserve">Ajouter une page de test ?</value>
+  </data>
+  <data name="plCreate.Help">
+    <value xml:space="preserve">Vous pouvez créer un nouveau module de 3 façons différentes. Sélectionner quelle méthode utiliser. Nouveau – créé un nouveau contrôle de module, Contrôle – créé un module à partir d’un contrôle existant, Manifeste – créé un module à partir d’un manifeste existant.</value>
+  </data>
+  <data name="plCreate.Text">
+    <value xml:space="preserve">Créer le module à partir de :</value>
+  </data>
+  <data name="plDescription.Help">
+    <value xml:space="preserve">Vous pouvez fournir une description pour votre module.</value>
+  </data>
+  <data name="plDescription.Text">
+    <value xml:space="preserve">Description :</value>
+  </data>
+  <data name="plFile1.Help">
+    <value xml:space="preserve">Sélectionnez la ressource à utiliser pour créer votre module.</value>
+  </data>
+  <data name="plFile1.Text">
+    <value xml:space="preserve">Ressource :</value>
+  </data>
+  <data name="plFile2.Help">
+    <value xml:space="preserve">Entrez un nom pour le nouveau contrôle de module</value>
+  </data>
+  <data name="plFile2.Text">
+    <value xml:space="preserve">Nom :</value>
+  </data>
+  <data name="plLang.Help">
+    <value xml:space="preserve">Choisissez la langue à utiliser.</value>
+  </data>
+  <data name="plLang.Text">
+    <value xml:space="preserve">Langue :</value>
+  </data>
+  <data name="plModule1.Help">
+    <value xml:space="preserve">C'est le dossier où sont stockés vos dossiers et fichiers de module.</value>
+  </data>
+  <data name="plModule1.Text">
+    <value xml:space="preserve">Dossier du module :</value>
+  </data>
+  <data name="plModule2.Help">
+    <value xml:space="preserve">Entrer un nom pour le dossier du nouveau propriétaire.</value>
+  </data>
+  <data name="plModule2.Text">
+    <value xml:space="preserve">Nom du dossier :</value>
+  </data>
+  <data name="plName.Help">
+    <value xml:space="preserve">Entrer un nom convivial pour votre module.</value>
+  </data>
+  <data name="plName.Text">
+    <value xml:space="preserve">Nom du module :</value>
+  </data>
+  <data name="plOwner1.Help">
+    <value xml:space="preserve">Les développeurs de module sont encouragés à utiliser un dossier « unique » dans DesktopModules pour tous les développements afin d’évider les « crashs » avec d’autres modules. Sélectionner le dossier à utiliser pour le développement de module. Note : Les dossiers avec des contrôles utilisateur (fichiers .ascx) et le dossier d’admin sont exclus de cette liste.</value>
+  </data>
+  <data name="plOwner1.Text">
+    <value xml:space="preserve">Dossier du propriétaire :</value>
+  </data>
+  <data name="plOwner2.Help">
+    <value xml:space="preserve">Entrer un nom pour le dossier du nouveau propriétaire</value>
+  </data>
+  <data name="plOwner2.Text">
+    <value xml:space="preserve">Nom du dossier :</value>
+  </data>
+  <data name="TabExists.Text">
+    <value xml:space="preserve">Le nom de la page existe pour ce nom de module.  Le module a été créé, mais la page de test n'était pas générée.</value>
+  </data>
+  <data name="Template.Text">
+    <value xml:space="preserve">Gabarit</value>
+  </data>
+  <data name="VisualBasic.Text">
+    <value xml:space="preserve">Visual Basic (VB)</value>
+  </data>
+</root>

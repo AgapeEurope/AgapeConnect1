@@ -1,0 +1,17 @@
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Reviews_GetReview]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_GetReview
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_GetReview
+	@PortalID int,
+	@ReviewID int
+	AS
+	SET NOCOUNT ON
+	SELECT r.ReviewID, r.PortalID, r.ProductID, r.UserName, r.Rating, r.Comments, r.Authorized, r.CreatedDate, p.ModelName
+	FROM {databaseOwner}{objectQualifier}Store_Reviews r
+		LEFT JOIN {databaseOwner}{objectQualifier}Store_Products p
+			ON r.ProductID = p.ProductID
+	WHERE r.PortalID=@PortalID AND r.ReviewID=@ReviewID
+GO

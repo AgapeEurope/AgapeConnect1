@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BackupName.Header">
+    <value xml:space="preserve">Nom de la sauvegarde</value>
+  </data>
+  <data name="BackupSize.Header">
+    <value xml:space="preserve">Taille (Kb)</value>
+  </data>
+  <data name="BackupType.Header">
+    <value xml:space="preserve">Type de sauvegarde</value>
+  </data>
+  <data name="DbInfo_ProductEdition.Help">
+    <value xml:space="preserve">La version du serveur SQL installé</value>
+  </data>
+  <data name="DbInfo_ProductEdition.Text">
+    <value xml:space="preserve">Édition du produit :</value>
+  </data>
+  <data name="DbInfo_ProductVersion.Help">
+    <value xml:space="preserve">La version de SQL Server</value>
+  </data>
+  <data name="DbInfo_ProductVersion.Text">
+    <value xml:space="preserve">Version de base de données :</value>
+  </data>
+  <data name="DbInfo_ServicePack.Help">
+    <value xml:space="preserve">Service pack(s) installés</value>
+  </data>
+  <data name="DbInfo_ServicePack.Text">
+    <value xml:space="preserve">Service pack :</value>
+  </data>
+  <data name="DbInfo_SoftwarePlatform.Help">
+    <value xml:space="preserve">La description complète du serveur SQL installé.</value>
+  </data>
+  <data name="DbInfo_SoftwarePlatform.Text">
+    <value xml:space="preserve">Plate-forme logicielle :</value>
+  </data>
+  <data name="FileName.Header">
+    <value xml:space="preserve">Nom de fichier</value>
+  </data>
+  <data name="FileType.Header">
+    <value xml:space="preserve">Type de fichier</value>
+  </data>
+  <data name="Finished.Header">
+    <value xml:space="preserve">Terminé</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="NoBackups.Text">
+    <value xml:space="preserve">Cette base de données n'a pas été sauvegardée.</value>
+  </data>
+  <data name="plBackups.Help">
+    <value xml:space="preserve">Affiche les 20 dernières sauvegardes pour cette installation DotNetNuke. Cette liste peut ne pas être complète si vous nettoyez régulièrement l’historique des sauvegardes.</value>
+  </data>
+  <data name="plBackups.Text">
+    <value xml:space="preserve">Historique des sauvegardes de base de données :</value>
+  </data>
+  <data name="plDbInfo.Help">
+    <value xml:space="preserve">Affiche des informations sur le serveur de base de données.</value>
+  </data>
+  <data name="plDbInfo.Text">
+    <value xml:space="preserve">Informations de serveur de base de données :</value>
+  </data>
+  <data name="plFiles.Help">
+    <value xml:space="preserve">Affiche une liste des fichiers de données et de logs pour cette installation DotNetNuke.</value>
+  </data>
+  <data name="plFiles.Text">
+    <value xml:space="preserve">Fichiers de base de données :</value>
+  </data>
+  <data name="Size.Header">
+    <value xml:space="preserve">Taille</value>
+  </data>
+  <data name="Started.Header">
+    <value xml:space="preserve">Démarré</value>
+  </data>
+</root>

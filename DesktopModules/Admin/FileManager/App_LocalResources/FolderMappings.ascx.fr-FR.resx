@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdCancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="cmdNewMapping.Text">
+    <value xml:space="preserve">Ajouter un type</value>
+  </data>
+  <data name="ControlTitle_foldermappings.Text">
+    <value xml:space="preserve">Types de dossiers</value>
+  </data>
+  <data name="DeleteConfirm.Text">
+    <value xml:space="preserve">Confirmez-vous la suppression de la définition de type de dossier : {0} ?</value>
+  </data>
+  <data name="Description.Text">
+    <value xml:space="preserve">Gérer les types de dossiers disponibles pour ce site. Les types par défaut - Standard, Sécurisé et Database - ne peuvent pas être modifiés ni supprimés. Les autres types peuvent être réorganisés par sélection et déplacement . L'ordre sera pris en considération lors des synchronisations.</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="TableHeader.Text">
+    <value xml:space="preserve">Définitions des types de dossiers</value>
+  </data>
+  <data name="Type.Header">
+    <value xml:space="preserve">Provider de dossiers</value>
+  </data>
+</root>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<provider>
+	<name>Default</name>
+	<description>Default Tax Provider</description>
+	<class>DotNetNuke.Modules.Store.Providers.Tax.DefaultTaxProvider.TaxController</class>
+	<assembly>DotNetNuke.Modules.Store.Providers.Tax.DefaultTaxProvider</assembly>
+	<controls>
+		<control name="Admin" value="DefaultTaxAdmin.ascx" />
+		<control name="Checkout" value="DefaultTaxCheckout.ascx" />
+	</controls>
+</provider>
+

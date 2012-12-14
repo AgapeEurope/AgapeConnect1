@@ -1,0 +1,417 @@
+Version 02.01.51
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- Added a workaround in PayPal and Atos providers because a bug with DNN 5.x. adding the domain name when calling core function NavigateURL() if the FriendlyUrl mode is used (default config in newest DNN versions).
+
+
+Enhancements:
+
+- On user request, the SEO token [PRODUCTDESCRIPTION] has been added to fill the meta description tag with the product description field. Normaly, you should NOT use the product description in this meta tag but the product summary using the SEO token [PRODUCTSUMMARY].
+
+
+Version 02.01.50
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- Date calendars in the product form has been replaced because a bug with DNN 5.x.
+
+- Some small bugs related to the payment status has been corrected in PayPal and Atos providers.
+
+Enhancements:
+
+- A new button 'Pay Now!' is displayed in the customer order when the payment status is 'Awaiting Payment'. This allow to retry the checkout process if the previous payment has been aborted for any reason (communication problem, user cancelation, ...).
+
+
+Version 02.01.49
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- Corrected a bug avoiding to cancel an order by administrators when the setting 'Authorize cancel' was not checked.
+
+Enhancements:
+
+- On user request, the role by product feature now use the quantity ordered to adjust the role expiration.
+
+
+Version 02.01.48
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- Corrected a bug in the Store Admin module avoiding to select other tab (Orders, Categories, Products, Reviews).
+
+New Features:
+
+- Added a new gateway provider for Atos Origin SIPS version 6.0. This gateway is mainly used by the French and European market.
+
+Enhancements:
+
+- Added support of Etag header to the thumbnail generator. This allows the browser to save images locally and to reduce the number of requests to the server.
+
+- Added default sort column and sort direction to the canonical URL to enhance SEO. In addition, the canonical URL is now absolute.
+
+
+Version 02.01.47
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- The transaction was rejected with the Authorize.Net provider when more than one product was in the cart.
+
+
+Version 02.01.46
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- Corrected an error in SqlDataProvider preventing the stored procedure Store_Reviews_GetReview to works.
+
+- A bug introduced with the new setting 'Inventory Management' prevented to display correctly the 'Buy Now!' and 'Add To Cart' buttons in some cases.
+
+- The state name was not saved with US addresses, this is now corrected.
+
+- The billing email address was not transmited to PayPal at checkout, instead the user email account was used. This was a problem when a user account is not required at checkout, now the billing email address is used.
+
+- The phone number was troncated when transmited to PayPal.
+
+
+Enhancements:
+
+- A new optimized and minimized 'Template.css' style sheet has been added, the previous was renamed 'TemplateDesign.css'. This improvement allows to load a single sheet style 17 KB instead of four for a total of 31 KB, to speed up the rendering of the page and to improve the user experience. The old version allows designers to customize more easily the appearance of the catalog. Moreover the Common.css sytle sheet is no longer used.
+
+
+Version 02.01.45
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- A bug introduced in a previous version prevents to compute correctly shipping costs when settings 'Surcharge (Percent)' or ' Surcharge (Fixed)' were defined in the PayPal gateway provider.
+
+- Return URL and Cancel URL was not correctly defined in the PayPal gateway provider.
+
+- Added an extra check in the tax controler to avoid some rare cases where the default tax rate is not recognized as a decimal value.
+
+
+Version 02.01.44
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- Corrected a typo in the SqlDataProvider file avoiding to create the stored procedures Store_Products_GetPopularProducts and Store_Products_GetPortalPopularProducts.
+
+- Another typo corrected in the CarDetail.ascx.resx resource avoiding to valid cart when the available product quantity was lower than 2.
+
+Enhancements:
+
+- Replaced input boxes by labels for totals (shipping, tax and grand total) in the checkout cart. Don't forget to update your style sheet!
+
+- When shipping fees and taxes are zero, the corresponding lines are no longer displayed in the checkout cart.
+
+
+Version 02.01.43
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+New Features:
+
+- Added the capability to sell 'virtual' downloadable products! This feature is available ONLY when the 'Checkout Mode' setting is defined to 'Registration Required' because an account is required to be able to download virtual products. The product form has been modified to allow the store admin to select the file to download, any kind of file can be selected not only zip files! A new 'Downloads' tab has been added to the Store Account module to allow customers to download their products.
+
+Enhancements:
+
+- Now skin objects are installed with the Install package.
+
+
+Version 02.01.42
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+New Features:
+
+- Added a new setting 'Avoid Negative Stock', when checked several availability tests will be done when a product is added to shopping cart.
+
+- Added support of the canonical link standard to avoid duplicate content and a better search engine ranking.
+
+- Added two new tokens [TELLAFRIEND] and [TELLAFRIENDIMG] allowing a visitor to send an email with the product's URL to someone else.
+
+- Added token [CARTWARNING] to display a warning message if the product is already in the shopping cart when viewing a product detail page.
+
+Enhancements:
+
+- A totaly new cart control used in the Store Mini Cart and the Store Account modules!
+
+- Added support of image caching in the Store Mini Cart and the Store Account module.
+
+- Finished providers integration in the Store Admin module to allow a better support of third party providers.
+
+- Finished support of SEO Names in category and product froms, this allow the Store Admin to add SEO name in the URL.
+
+
+Version 02.01.41
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- Corrected a bug avoiding the products to be indexed by DNN in some circonstances.
+
+Enhancements:
+
+- Email templates system has been totaly changed! Now you can use the same token style than in the Text/HTML module to format your emails ([Order:OrderID], [BillingAddress:LastName]...). Only two resource strings are used for each email template, one for the subject and another one for the body. In addition, now the email sent to the store admin can be totaly different than the one sent to the customer. Previously, only the subject was different. And best of all, you can use HTML tags in your templates! I will udpate the templating guide ASAP to reflect this changes.
+
+- Added error log in case of a product image can't be read from disk or accessed from the Internet.
+
+- Added display of a warning message when an external image is selected in the product edit form if the website is not running in Full Trust Mode. Don't be confused it's only a warning, because some hosting providers allows access to external resources in Medium Trust and the Store module can't guess the result!
+
+- Several enhancements have been added to the product edit form like validation rules and hiding of unused fields.
+
+
+Version 02.01.40
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- A bug preventing access to the Store Catalog settings under DNN 5.x has been corrected.
+
+- Another bug in the Store Menu module when the setting 'Display Mode' was defined on Table has been corrected.
+
+
+Version 02.01.39
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- A bug in the SqlDataProvider file has been corrected.
+
+Enhancements:
+
+- When a product with a role is purchased, the customer account is added to the role with the corresponding billing period defined under Admin > Security Roles. This allows the role automatically expires after the defined period.
+
+
+Version 02.01.38
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- A bug preventing to save Store settings and products when the 'Checkout Mode' setting was defined to 'Registration Required' has been corrected.
+
+Enhancements:
+
+- All links in the Store Catalog module are now related to the same module instance. Previously, some links was build using the 'Store page' setting.
+
+- Several changes have been applied in modules settings and edit forms to show or hide certain settings depending the context of use. As a sample, a new setting 'Inventory Management' in the Store settings display or hide all related fields in the product form. These improvements will allow a simplified settings system for simple use case of the module.
+
+New features:
+
+- A new field 'SEO Name' in the category edit form and in the product edit form allow you to define an 'SEO friendly' name for your categories and products. Those fields are availables when the 'SEO Features' setting is checked in the Store Admin module. Only letters, numbers and the signs - and _ can be entered to respect common SEO rules. As a sample, if your catalog contains a category named 'Books about DotNetNuke', you will be able to define an SEO Name: books-about-dotnetnuke. This will produce a new url like this one: http://www.website.tld/Default.aspx?tabid=59&categoryid=80&category=books-about-dotnetnuke.
+
+- Because of the new fields 'SEO Name', a single page can have two different URLs. The problem is that search engines do not like this! In such cases, SEO specialists speak of 'PageRank dilution'. When Google (or any other search engine) finds two pages (url) whose contents are the same, the notation of the page is divided between both pages. This in a common scenario with most CMS like DotNetNuke. This is why the major search engines have defined a new link tag to specify a 'canonical' url. The Store module inject dynamicaly the right url (with id's only) in the page header to specify the canonical url.
+
+
+Version 02.01.37
+
+IMPORTANT: this version requires DotNetNuke 04.06.02 or higher!
+
+Bugs corrected:
+
+- The "Add New Product" link at the bottom of the Store Catalog module has been corrected (Issue 17988).
+- A bug was introduced in the version 02.01.35 when SEO was enhanced with '301 Moved Permanently' (see http://dnnstore.codeplex.com/releases/view/45538 for details). This bug generate ThreadAbortException exception entries in the Site Log. As explained in the MSDN KB article 312629, when using Response.End() method a ThreadAbortException exception occurs. To workaround this problem, HttpContext.Current.ApplicationInstance.CompleteRequest() method is used instead of Response.End(). Sorry for this inconvenience, the syntax Response.End() is perfectly valid but generate an error due to the architecture of ASP.NET.
+- A small bug preventing display of the product image with the file selector when editing a product has been corrected. Some field validators have been added to avoid empty product.
+
+Enhancements:
+
+- Several performance enhancements has been done in the code using generic List<T> instead ArrayList and some new caching strategy. Now the minimum DNN version is 4.6.2 because the module implement the IHydratable interface to increase performances. Most of the time, display times were reduced by half during the first call and even in some cases divided by ten for successive calls!
+- The thumbnail generator page has been converted to an HttpHandler to increase performances.
+- A new setting in the Store Catalog module allow repositioning to the top of the module on page change. This can allow a better customer experience when browsing the catalog.
+- The Store Menu module can be now rendered as ul > li. This will allow you to use some jQuery plugins to add nice effects to the menu.
+- Categories management in the Store Admin module has been enhanced to allow columns sorting and paging. Products management and Reviews management will be changed in a future beta release.
+- Added a new setting 'Style Sheet' in the Store Admin module. This allow the Store admin to switch to different themes design (Spring sales, Christmas, ...) or to switch from conception style sheet to production style sheet (minimized).
+- Added a new setting in the Store Admin module to make inventory management optional.
+- Added a client script to avoid multiple order submission at checkout.
+
+New features:
+
+- Added token [ULISTPRODUCTS] usable with all product sections to render products as ul > li. When applied in a template, the Rows and Columns of the corresponding section are used to compute the number of products to display. This will be especially useful to display featured products, or even popular products using a plugin like AnythingSlider jQuery Plugin as a sample.
+- Added token [ALSOBOUGHT], this token can be used only in the product detail template and list the "Also Bought" products related to the selected product.
+- A totaly new checkout process! It is no longer required to have a user account to order. The Store admin can define: if the registration is required, if the customer can choose to create an account (or not) or if an account is never used. If an account is not required, all orders passed anonymously will be affected to an account defined by the Store Admin.
+
+
+Version 02.01.36
+
+Bugs corrected:
+
+- Access to the connection string was corrected (STO-9141).
+
+- Product edit: An unattended exception was raised when a product does not have a category.
+
+- Shipping Rates: The data type of the description field has been changed to nvarchar to support unicode charset.
+
+- Categories: Inside Categories Admin, the Order header was not displayed correctly based on selected language. The ressource lblOrderHeader was renamed to lblOrderHeader.Text in the file CategoryAdmin.resx.ascx.
+  
+- Inside StoreAddress.ascx, the attribute TestIP="yes" was removed. This prevented the country from being preselected compared to address IP.
+
+- Memory leak in Tax Provider.
+
+- Loose connection and do not display images when the Store module was installed on child portal.
+
+- Format error when Authorize.net provider is used (STO-7804).
+
+- Shipping address added to the transaction with Authorize provider (STO-7888).
+
+- Extension of the verification code to 4 digits in the Authorize.net provider (STO-7887).
+
+- The verification code used by the Authorize.net provider was stored as an integer in the transaction class, thus leading zeros were removed and the transaction failed.
+
+- Message returned by Authorize.net provider when an error occurs.
+
+- Removed two hard coded attributs on product's images (border=1px, border-color: #000).
+
+- Added some missing resources and some other corrected (STO-6794).
+
+- The product title link and product image link are now disabled when the Product Detail setting is not set. In addition, all tokens related to the product detail are no longer displayed (STO-2575).
+
+- In certain circumstances. the catalog was not indexed by the DNN Search Engine and an error was logged.
+
+- Removed the security filter fonctions applyed to some fields when a product was saved. Because the security filter has been changed in the last DNN 4.x versions, this will avoid to include HTML objects elements in the product fields. Moreover, it was not required to use the security filter in this case because only authorized users can create or edit a product.
+
+- Fixed a bug introduced in SqlDataProvider file of the version 02.01.27 concerning DotNetNuke instances using a database owner other than dbo only.
+
+- Ressources Previous.Text (<<) and Next.Text (>>) from the file ProductList.ascx.resx have been replaced by &lt;&lt; and &gt;&gt; to be fully XHTML compliant.
+
+- The PayPal gateway provider has been almost completly rewrited to correct some bugs and enhance security.
+
+- Fixed a bug related to encryption cookie.
+
+- Fixed a resource for the header in the Category list of the Store Admin module.
+
+- Added several tests to allow smooth switching between encrypted/unencrypted cookie values. This will avoid to clear the cookies if the 'Secure Cookie' setting is changed while users are connected to the web site.
+
+- Fixed a rounding problem in the PayPal provider avoiding the order to be validated and moved to the 'Paid' status.
+
+Enhancements:
+
+- Products: During the deletion of a product, if the product is not related to an order it is now really deleted.
+
+- Categories: During the deletion of a category, if it does not contains sub-categories or products it is now really deleted. If the category is linked to sub-categories or products marked "deleted" (IsDeleted=1), then the category is marked "deleted".
+
+- Three new settings were added to the Category Products section of the Store Catalog module. With the settings "Sort By" and "Direction", the section can be sorted now by: Manufacturer, Model Number, Unit Price or Date (ascending or descending for direction). Previously this was hard coded by ModelName ascending. The third setting "Sub-Categories" when unchecked allow to do not include the sub-categories of the selected category in the product's list. By default, this setting is checked for maintain compatibility behavior with previous versions.
+
+- Address provider: Now the user address account is proposed at checkout and the user can select a previously entered address. In addition, users can manage their addresses (add, modify, delete) using the Store Account module and the user's full name field was splited in two fields (First Name and Last Name).
+
+- Many enhancements inside the templating system for XHTML compliancy. All css files has been rewritten and classes renamed. Each token rendered as text is now enclosed by a span with a specific css class. This allow a better control to change the look of the Store.
+
+- Added support of transparent GIF and TIFF format for product image (STO-2437). Enhanced support of GIF images with transparency, because When GDI+ resize a GIF with transparency a black background is added. To workaround this limitation, a new setting has been added to the modules Store Catalog, Store MiniCart and Store Account. The 'GIF Background' setting allow you to define the color to use as background for GIF images with transparency.
+
+- Display Category Description on mouse-over category link (STO-2529).
+
+- Previously, the checkout was a desktop module called as an "Edit" control, in this mode all other modules are hidden and the Admin skin is applied. Now, the checkout process is done inside the Store Account control.
+
+- A lot of work has been done to the gateways providers (Email, PayPal and Authorize) to allow a better workflow at checkout.
+
+- To avoid multiple indexing by the DNN Search Engine when using several Store Catalog modules, a new setting 'Enable Content Indexing' has been added to the Store Catalog settings. If you use several Store Catalog modules inside your portal, please verify than ONLY ONE module have content indexed.
+
+- Added a verification related to the localized graphic buttons. If the current local version is not found, the default en-US is used instead. This mimics the default behavior of DotNetNuke resources and avoids the red cross displayed when the corresponding image file is not found.
+
+- Automatic synchronization of the file system was added when the administrator enables the portal templates.
+
+- At checkout, the link button "Add or Edit Address" has been splited in two link buttons (Add and Modify). When a link is clicked, the user is redirected to the Address form to create/modify address. If the registration address is selected, then user is redirected to the DotNetNuke User Profile. This are just shortcuts but should help for a better navigation. A validation of the selected address (billing and shipping) has been added to avoid empty or incomplete address.
+
+- A message is now displayed when a category do not contains product or when a search do not return product. Previously the catalog was simply hidden, this should provide a better user experience. In addition, other list of products (New, Popular, Featured) are no longer hidden when the visitor navigates between catalog pages.
+
+- The sort column list can be controled in the catalog settings.
+
+- Added detail order to the transaction for the Authorize.Net provider gateway.
+
+- Added several CSS classes to the cart and order history to allow better skinning.
+
+- Added the alert reason in the email sent by the PayPal provider when something is wrong while receiving an IPN.
+
+- Previously, when a default category was selected in the Store Catalog module settings a simple redirect was done in the code to add the CategoryID in the url. This is done because for a better SEO it is important to never have the same content with different url. Search engines like Google could decrease your score when such cases are detected. The problem with the standard redirect is than a '302 Temporarily Redirect' is generated and the search engine is not obliged to update its index. To force the update by the search engine, now a '301 Moved Permanently' is done in the code.
+
+New features:
+
+- Added token [ITEMSCOUNT] usable inside product lists templates. This token displays the label 'n items(s)', where n is the number of products in the list.
+
+- Added token [SELECTEDCATEGORY] usable inside product lists templates. This token displays the label 'Selected Category: xxx', where xxx is the selected category name.
+
+- Added token [CATEGORIESBREADCRUMB] usable inside product lists templates. This token displays the categories path from the root to the selected category.
+
+- Added token [SORTBY] usable inside product lists templates. This token displays the label 'Sort By;' followed by a dropdown list and an image button. Those controls allow the user to select the column to sort on (Manufacturer, Model Number, Unit Price or Date) and to switch the sort order to ascending or descending.
+
+- Added token [CATEGORYNAME] usable inside product's templates.
+
+- Added token [IMAGEURL] usable inside product's templates. This token allow to display the product image without link with a standard img tag (eg: <img src="[IMAGEURL]"></img>).
+
+- Added token [ADDQUANTITY] usable inside product's templates. This token add to the page the string Quantity: and a text box with a default value of 1. Thus, the user can enter directly the quantity to add to the cart.
+
+- Added token [STOCKQUANTITY] usable inside product's templates. This token display the quantity available in stock.
+
+- Two new settings (On Out of Stock and Product's Behavior) inside Store Admin was added. The first is used in conjunction with the token [STOCKQUANTITY]. When a product is out of stock, you can choose to display current quantity (in negative) or one of this two messages: Product Unavailable or Restocking in progress. Remember that every strings can be modified via the standard DNN Language Editor. The second, allow to choose the product's behavior when a product is out of stock. You can decide to: Accept order; Hide quantity, links and buttons (Add To Cart and Buy Now!); Hide the product.
+
+- Added new link button "Delete All" at the bottom of the quantity control column inside the Store Minicart and Store Account modules. This allow to empty the cart. In addition, the client can now enter the quantity to add or remove in the mini cart module and during the checkout.
+
+- A new setting (SEO Feature) inside Store Admin allow Search Engine Optimization (SEO). When this setting is checked, the catalog can control the title, description and keywords of the current page. A new "Keywords" field was added to the category form and to the product form. The title can be personalized with the resource ListSEOTitle.Text inside Catalog.ascx.resx. This resource use three new tokens: [CATEGORYNAME], [PAGETITLE] and [STORETITLE]. Then, if the category name is "Softwares", page title is "Catalog" and store title is "On-line Store", the injected title can be "Softwares Catalog at On-line Store" using the resource value: [CATEGORYNAME] [PAGETITLE] at [STORETITLE]. Similarly, it is possible to control META tags Description and Keywords. You can use the resource ListSEOKeywords.Text with the tokens [CATEGORYKEYWORDS] [STOREKEYWORDS] and [PAGEKEYWORDS] to control the Keywords META tag. The resource ListSEODescription.Text use the tokens [CATEGORYDESCRIPTION] [STOREDESCRIPTION] and [PAGEDESCRIPTION] to control the META tag Description. As for product's list, the product detail page title can be personalized with the resource DetailsSEOTitle.Text inside ProductDetail.ascx.resx. The following tokens can be used to build the page title: [PAGETITLE], [STORETITLE], [MANUFACTURER], [MODELNUMBER], [MODELNAME], [PRODUCTTITLE]. Using the resource value: [MANUFACTURER] - [MODELNAME] ([MODELNUMBER]) at [STORETITLE], the resulting page title will be something like that: "Wrox - Professional DotNetNuke 4 (0-471-78816-3) at On-Line Store".
+
+- A settings section where added inside the Mini Cart module settings. This section contains four new settings: Show Thumbnail, Thumbnail Width, Product Column and Include VAT. Previously, it was not posible to choose witch product column to display (Model Number, Model Name, Product Title) as product name without altering the MiniCart.ascx control. Because it's a real problem for future upgrade, now you are able to define the product column to display in the settings section. Moreover, you can choose to display the product thumbnail and it's width. The last setting (Include VAT) allow to display the product's price with VAT included in the Mini Cart. This setting has been added because the law in some countries require than prices was displayed VAT included. All this settings are available too in a new sub section settings (Main Cart Settings) inside the Account module settings to control how the main cart will be displayed at the checkout.
+
+- A link to return to the Store page has been added to the Store Account module.
+
+- Two new settings and a hard coded rule was added to the Store Admin module. Previously, only members of the Administrators group and host accounts was able to manage the Store settings and status order. Now the Store Info tab (Store settings) will be displayed only to admin and host accounts. The new settings "Manage Orders" and "Manage Catalog" allow to define which user's group can edit status order and/or can manage the catalog (Categories, Products and Reviews).
+
+- When an order is edited by an authorized user, the client's email address is displayed below his billing address. This is another usefull shortcut if you have to contact your client.
+
+- Two new tokens ([SEARCH] and [SEARCHRESULTS]) have been added and may be used in the Catalog.htm template. The [SEARCH] token render several controls (Labels, TextBox, DropDownList and a LinkButton) to allow the visitor to search in the catalog. While the [SEARCHRESULTS] token displays the search results in place of the catalog product list. Three new settings have been added to the Store Catalog settings to define the search column list, the default search column and the template to use to render the results.
+
+- The status order management have been changed, administrators and authorized users can add a comment to the confirmation email sent to the customer and they can disable the email.
+
+- Some caching methods have been added to retrieve settings more quickly and two new settings have been added to the Store Catalog module to enable/disable image caching and to set image cache duration. Given than the catalog is built entirely dynamically, previously, parameters were read several times during the display of each section (Category, New, Featured, ...). Similarly, each product images were resized several times if they appears several times on the page. This should further improve performance.
+
+- A new setting 'Secure Cookie' in the Store Admin module allow to encrypt cookie values. Only the current order number and the cart number are stored in cookie when a custoler checkout his order. Even if it's not so confidential data, you can choose to encrypt them.
+
+- Now a role can be defined for each product. When the oder is payed this role is applyed to the customer account. If the order is canceled the role is removed from the customer account.
+
+- Adden token pair [IFLOGGED] [/IFLOGGED] usable inside each template. This token pair allow to display a part of the template only if the current user is logged.
+
+- Adden token pair [IFNOTLOGGED] [/IFNOTLOGGED] usable inside each template. This token pair allow to display a part of the template only if the current user is not logged.
+
+- Some caching and process methods have been added to the template provider to retrieve and parse templates more quickly.
+
+- A new setting 'Default View' in the Store Account Catalog allow to define the default view (Cart, Addresses, Orders).
+
+- Adden token [PRINTDETAIL] usable in the detail template. This is a workaround because the standard print button do not work with the Store Catalog module.
+
+- Added a new setting "Allow Print" in the Store Catalog module. When checked the default print module setting is disabled. You have to add the StorePrint.Action button to your container skin to be able to use this feature. Please read the Templating Guide for details.
+
+
+Version 02.01.01 (never released as Store, only as WWStore)
+
+Bugs corrected:
+
+- Inside order details, the prices was not displayed on odd lines.
+
+- The order date format was not correctly initialized with the corresponding resource (OrderDateFormat.Text inside CustomerOrders.ascx.resx).
+
+- Reviews: All references to UserId has been removed. Now, when a user not logged entrer a review, the name "Anonymous" is proposed. When a user is logged, his display name is used.  This caused a bug when a user who had entered reviews was removed.
+
+- Email sent: Previously, the module always use port 25 and never use SSL to connect to the server. Now, the module use all Host SMTP settings (server name, port, SSL) and UTF-8 encoding.
+
+- Some bugs about the display of the gateway provider has been corrected (STO-7904).
+
+New features:
+
+- Localized graphics buttons and different graphic formats. Now, you can have one button's set by language and use different file names and format (gif, jpg, png, ...). The current locale is added at the end of file name (addtocart_en-US.gif). The file names and format can be changed inside ProductDetail.ascx.resx with the language editor (AddToCartImg.Text=addtocartimg_{0}.gif, LinkDetailImg.Text=linkdetailimg_{0}.gif, PurchaseImg.Text=purchaseimg_{0}.gif).
+

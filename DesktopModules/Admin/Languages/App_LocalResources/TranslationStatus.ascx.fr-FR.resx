@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="bindModule.Text">
+    <value xml:space="preserve">Lier à la langue par défaut</value>
+  </data>
+  <data name="ControlTitle_translationstatus.Text">
+    <value xml:space="preserve">Statut de la traduction</value>
+  </data>
+  <data name="markModuleTranslated.Text">
+    <value xml:space="preserve">Marquer comme traduit</value>
+  </data>
+  <data name="markModuleUnTranslated.Text">
+    <value xml:space="preserve">Marquer comme non traduit</value>
+  </data>
+  <data name="ModuleTitle.Header">
+    <value xml:space="preserve">Titre du module</value>
+  </data>
+  <data name="PageName.Header">
+    <value xml:space="preserve">Nom de page</value>
+  </data>
+  <data name="Path.Header">
+    <value xml:space="preserve">Chemin</value>
+  </data>
+  <data name="unbindModule.Text">
+    <value xml:space="preserve">Délier de la langue par défaut</value>
+  </data>
+</root>

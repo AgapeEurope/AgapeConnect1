@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="agapeuk" Class="AgapeStaffDataContext" Serialization="Unidirectional" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AC-UK;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Agape_Staff_Budget_Global" Member="Agape_Staff_Budget_Globals">
+    <Type Name="Agape_Staff_Budget_Global">
+      <Column Name="BudgetGlobalID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Basic" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="AgeFactor" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NonCTCFactor" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="CopiesTo" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="ConferenceText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PrefixText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SuffixText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_RepRels" Member="Agape_Staff_RepRels">
+    <Type Name="Agape_Staff_RepRel">
+      <Column Name="RepRelId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LeaderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Agape_Staff_RepRel" Member="User" ThisKey="LeaderId" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsSuperUser" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AffiliateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="DisplayName" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatePassword" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="User_Agape_Staff_RepRel" Member="Agape_Staff_RepRels" ThisKey="UserID" OtherKey="LeaderId" Type="Agape_Staff_RepRel" />
+      <Association Name="User_Agape_Staff_SupSup" Member="Agape_Staff_SupSups" ThisKey="UserID" OtherKey="LeaderId" Type="Agape_Staff_SupSup" />
+      <Association Name="User_Agape_Staff_Prayer" Member="Agape_Staff_Prayers" ThisKey="UserID" OtherKey="SubmittedBy" Type="Agape_Staff_Prayer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_SupSup" Member="Agape_Staff_SupSups">
+    <Type Name="Agape_Staff_SupSup">
+      <Column Name="SupSupId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LeaderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Agape_Staff_SupSup" Member="User" ThisKey="LeaderId" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_Children" Member="Agape_Staff_Childrens">
+    <Type Name="Agape_Staff_Children">
+      <Column Name="ChildId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FamilyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="DOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_JobTitles" Member="Agape_Staff_JobTitles">
+    <Type Name="Agape_Staff_JobTitle">
+      <Column Name="JobTitleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_ProfileImage" Member="Agape_Main_ProfileImages">
+    <Type Name="Agape_Main_ProfileImage">
+      <Column Name="ImageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_Prayers" Member="Agape_Staff_Prayers">
+    <Type Name="Agape_Staff_Prayer">
+      <Column Name="StaffPrayerId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PrayerTitle" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="PrayerText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SubmittedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmittedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Agape_Staff_Prayer" Member="User" ThisKey="SubmittedBy" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_GCX_Proxy" Member="Agape_GCX_Proxies">
+    <Type Name="Agape_GCX_Proxy">
+      <Column Name="GCXId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PGTIOU" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PGTID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_Give_PPlans" Member="Agape_Main_Give_PPlans">
+    <Type Name="Agape_Main_Give_PPlan">
+      <Column Name="PPID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PPKEY" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BANKKEY" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StaffFinanceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Frequency" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="GiftAid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="LastPaymentDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DonorName" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="PVKEY" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_Rmb_Status" Member="Agape_Staff_Rmb_Status">
+    <Type Name="Agape_Staff_Rmb_Status">
+      <Column Name="StatusId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="StatusNo" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Association Name="Agape_Staff_Rmb_Status_Agape_Staff_Rmb" Member="Agape_Staff_Rmbs" ThisKey="StatusId" OtherKey="Status" Type="Agape_Staff_Rmb" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_RmbLineAddStaff" Member="Agape_Staff_RmbLineAddStaffs">
+    <Type Name="Agape_Staff_RmbLineAddStaff">
+      <Column Name="AddStaffId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="RmbLineId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="Agape_Staff_RmbLine_Agape_Staff_RmbLineAddStaff" Member="Agape_Staff_RmbLine" ThisKey="RmbLineId" OtherKey="RmbLineNo" Type="Agape_Staff_RmbLine" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_RmbLineType" Member="Agape_Staff_RmbLineTypes">
+    <Type Name="Agape_Staff_RmbLineType">
+      <Column Name="LineTypeId" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="TypeNo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ControlPath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="PCode" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="DCode" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Association Name="Agape_Staff_RmbLineType_Agape_Staff_RmbLine" Member="Agape_Staff_RmbLines" ThisKey="TypeNo" OtherKey="LineType" Type="Agape_Staff_RmbLine" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_Finance" Member="Agape_Staff_Finances">
+    <Type Name="Agape_Staff_Finance">
+      <Column Name="StaffFinanceId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FamilyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PrimeGetsEmails" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OnlineGiving" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="GivingShortcut" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DoNotContact" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Hours1" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Hours2" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="LondonFactor" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Single" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CostCentre" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="GivingText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PortalId" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="NonCTC" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PrimeUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DisplayName" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="JobTitle1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobTitle2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="USerId2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SpouseName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SpouseDOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MaritalStatus" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="StaffType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="UnNamedStaff" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ExStaff" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PersonalCostCentre" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Leader11Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Leader21Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Delegate11Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Delegate21Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Leader12Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Leader22Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Delegate12Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Delegate22Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_Rmb" Member="Agape_Staff_Rmbs">
+    <Type Name="Agape_Staff_Rmb">
+      <Column Name="RMBNo" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CostCenter" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserRef" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="RmbDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserComment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ApprComment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AcctComment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ApprUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Locked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ProcDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Period" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="SupplierCode" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="EmailSent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Changed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PersonalCC" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="AdvanceRequest" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="Agape_Staff_Rmb_Agape_Staff_RmbLine" Member="Agape_Staff_RmbLines" ThisKey="RMBNo" OtherKey="RmbNo" Type="Agape_Staff_RmbLine" />
+      <Association Name="Agape_Staff_Rmb_Status_Agape_Staff_Rmb" Member="Agape_Staff_Rmb_Status" ThisKey="Status" OtherKey="StatusId" Type="Agape_Staff_Rmb_Status" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_AvailableCostCentre" Member="Agape_Main_AvailableCostCentres">
+    <Type Name="Agape_Main_AvailableCostCentre">
+      <Column Name="AvailableCostCentreId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CostCentreName" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
+      <Column Name="CostCentreCode" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="CostCentreManagerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DonateTo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PayType" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="GivingShortcut" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GivingText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CostCentreManagerLocalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChargeTo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BudgetCurrentYear" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BalanceYTD" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="CanRmb" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DelegateManagerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_Projectee" Member="Agape_Main_Projectees">
+    <Type Name="Agape_Main_Projectee">
+      <Column Name="ProjecteeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DisplayName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Paytype" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Target" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ProjectId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Agape_Main_Projectee_Agape_Main_ProjectDonation" Member="Agape_Main_ProjectDonations" ThisKey="ProjecteeId" OtherKey="ProjecteeId" Type="Agape_Main_ProjectDonation" />
+      <Association Name="Agape_Main_Project_Agape_Main_Projectee" Member="Agape_Main_Project" ThisKey="ProjectId" OtherKey="ProjectID" Type="Agape_Main_Project" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_ProjectDonation" Member="Agape_Main_ProjectDonations">
+    <Type Name="Agape_Main_ProjectDonation">
+      <Column Name="ProjectDonationId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProjecteeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DonorName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="GiftAid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DimensionsKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DonationDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="Agape_Main_Projectee_Agape_Main_ProjectDonation" Member="Agape_Main_Projectee" ThisKey="ProjecteeId" OtherKey="ProjecteeId" Type="Agape_Main_Projectee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_Projects" Member="Agape_Main_Projects">
+    <Type Name="Agape_Main_Project">
+      <Column Name="ProjectID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProjectName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="CostCentre" Type="System.String" DbType="Char(4)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DisplayUntil" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NormalTarget" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ProjectDirector" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProjectAdmin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GivingShortcut" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Agape_Main_Project_Agape_Main_Projectee" Member="Agape_Main_Projectees" ThisKey="ProjectID" OtherKey="ProjectId" Type="Agape_Main_Projectee" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_Give_SO" Member="Agape_Main_Give_SOs">
+    <Type Name="Agape_Main_Give_SO">
+      <Column Name="SOID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RefId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="GiftAid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Frequency" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SortCode" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="AccountNo" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="Reference" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="GivetoType" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PPKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SetupDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="LastPaidDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SoGuid" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
+      <Column Name="Changed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Related" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TabModules" Member="TabModules">
+    <Type Name="TabModule">
+      <Column Name="TabModuleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TabID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ModuleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PaneName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ModuleOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CacheTime" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Alignment" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Border" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="IconFile" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Visibility" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContainerSrc" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="DisplayTitle" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DisplayPrint" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DisplaySyndicate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="TabModule_TabModuleSetting" Member="TabModuleSettings" ThisKey="TabModuleID" OtherKey="TabModuleID" Type="TabModuleSetting" />
+      <Association Name="Module_TabModule" Member="Module" ThisKey="ModuleID" OtherKey="ModuleID" Type="Module" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ModuleControls" Member="ModuleControls">
+    <Type Name="ModuleControl">
+      <Column Name="ModuleControlID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleDefID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ControlKey" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ControlTitle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ControlSrc" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="IconFile" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ControlType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ViewOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HelpUrl" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="SupportsPartialRendering" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Modules" Member="Modules">
+    <Type Name="Module">
+      <Column Name="ModuleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ModuleDefID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ModuleTitle" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="AllTabs" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="InheritViewPermissions" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Header" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Footer" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PortalID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Module_TabModule" Member="TabModules" ThisKey="ModuleID" OtherKey="ModuleID" Type="TabModule" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TabModuleSettings" Member="TabModuleSettings">
+    <Type Name="TabModuleSetting">
+      <Column Name="TabModuleID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SettingName" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SettingValue" Type="System.String" DbType="NVarChar(2000) NOT NULL" CanBeNull="false" />
+      <Association Name="TabModule_TabModuleSetting" Member="TabModule" ThisKey="TabModuleID" OtherKey="TabModuleID" Type="TabModule" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_AdvanceRequest" Member="Agape_Main_AdvanceRequests">
+    <Type Name="Agape_Main_AdvanceRequest">
+      <Column Name="AdvanceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StaffId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RequestStatus" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="RequestAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RequestText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RequestDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ApproverId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ProcessedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Period" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_Budgets_BudgetConference" Member="Agape_Staff_Budgets_BudgetConferences">
+    <Type Name="Agape_Staff_Budgets_BudgetConference">
+      <Column Name="BudgetConferenceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdultPrice" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="ChildPrice" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="ConfName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_Budgets" Member="Agape_Staff_Budgets">
+    <Type Name="Agape_Staff_Budget">
+      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GrossSalary" Type="System.Decimal" DbType="SmallMoney NOT NULL" CanBeNull="false" />
+      <Column Name="Conference1" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference1Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Conference2" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference2Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Conference3" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference3Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Conference4" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference4Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Conference5" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference5Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Conference6" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference6Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Conference7" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference7Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Conference8" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Conference8Cost" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Printing" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Postage" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Literature" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PublicTransport" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CarMileage" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Subsistence" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneCalls" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="MobilePhone" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneRental" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Entertaining" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Other" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Transfers" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentSupport" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Pension" Type="System.Decimal" DbType="SmallMoney NOT NULL" CanBeNull="false" />
+      <Column Name="Cap" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="Min" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PortalID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StaffId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="StartYear" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="UpdatePeriod" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Approver" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Split" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NIPaid" Type="System.Decimal" DbType="SmallMoney" CanBeNull="true" />
+      <Column Name="TBWriteBack" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PensionSplit" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="StaffName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Main_Project_Description" Member="Agape_Main_Project_Descriptions">
+    <Type Name="Agape_Main_Project_Description">
+      <Column Name="ProjectsOn" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ProjectBlurb" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ProjDescId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Staff_RmbLine" Member="Agape_Staff_RmbLines">
+    <Type Name="Agape_Staff_RmbLine">
+      <Column Name="RmbLineNo" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RmbNo" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LineType" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="GrossAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TransDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Taxable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Receipt" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="VATReceipt" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ReceiptNo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Spare1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Spare2" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Spare3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Spare4" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Spare5" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="TB" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="AnalysisCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="VATAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="VATCode" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="VATRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OutOfDate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="LargeTransaction" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Split" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Agape_Staff_RmbLine_Agape_Staff_RmbLineAddStaff" Member="Agape_Staff_RmbLineAddStaffs" ThisKey="RmbLineNo" OtherKey="RmbLineId" Type="Agape_Staff_RmbLineAddStaff" />
+      <Association Name="Agape_Staff_Rmb_Agape_Staff_RmbLine" Member="Agape_Staff_Rmb" ThisKey="RmbNo" OtherKey="RMBNo" Type="Agape_Staff_Rmb" IsForeignKey="true" />
+      <Association Name="Agape_Staff_RmbLineType_Agape_Staff_RmbLine" Member="Agape_Staff_RmbLineType" ThisKey="LineType" OtherKey="TypeNo" Type="Agape_Staff_RmbLineType" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

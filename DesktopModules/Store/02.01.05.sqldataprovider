@@ -1,0 +1,1210 @@
+﻿-- *** Description data type modified to nvarchar for Unicode compatibility ***
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_ShippingRates ALTER COLUMN Description nvarchar(255) not null
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_ShippingRates_AddShippingRate
+	@PortalID int,
+	@Description nvarchar(255),
+	@MinWeight decimal(10,2),
+	@MaxWeight decimal(10,2),
+	@Cost money
+AS
+BEGIN
+	INSERT INTO {databaseOwner}{objectQualifier}Store_ShippingRates(PortalID, Description, MinWeight, MaxWeight, Cost)
+	VALUES(@PortalID, @Description, @MinWeight, @MaxWeight, @Cost)
+
+	RETURN SCOPE_IDENTITY()
+END
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_ShippingRates_UpdateShippingRate
+	@ID int,
+	@Description nvarchar(255),
+	@MinWeight decimal(10,2),
+	@MaxWeight decimal(10,2),
+	@Cost money
+AS
+BEGIN
+	UPDATE {databaseOwner}{objectQualifier}Store_ShippingRates
+	SET
+		Description = @Description,
+		MinWeight = @MinWeight,
+		MaxWeight = @MaxWeight,
+		Cost = @Cost
+	WHERE
+		ID = @ID
+END
+
+GO
+
+-- *** Remove column UserID: no longer used ***
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Reviews DROP COLUMN UserID
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_AddReview
+	@PortalID int,
+	@ProductID int,
+	@UserName nvarchar(50),
+	@Rating int,
+	@Comments nvarchar(1000),
+	@Authorized bit,
+	@CreatedDate datetime
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Reviews
+		(PortalID,ProductID,UserName,Rating,Comments,Authorized,CreatedDate)
+		VALUES
+		(@PortalID,@ProductID,@UserName,@Rating,@Comments,@Authorized,@CreatedDate)
+	SELECT SCOPE_IDENTITY()
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_GetAll
+	@PortalID int
+	AS
+	SET NOCOUNT ON
+	SELECT ReviewID, {databaseOwner}{objectQualifier}Store_Reviews.PortalID, {databaseOwner}{objectQualifier}Store_Reviews.ProductID, Rating, Comments, Authorized, UserName, ModelName
+	FROM {databaseOwner}{objectQualifier}Store_Reviews
+		LEFT JOIN {databaseOwner}{objectQualifier}Store_Products
+			ON {databaseOwner}{objectQualifier}Store_Reviews.ProductID = {databaseOwner}{objectQualifier}Store_Products.ProductID
+	WHERE {databaseOwner}{objectQualifier}Store_Reviews.PortalID = @PortalID
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_GetByProduct
+	@PortalID int,
+	@ProductID int
+	AS
+	SET NOCOUNT ON
+	SELECT ReviewID, {databaseOwner}{objectQualifier}Store_Reviews.PortalID, {databaseOwner}{objectQualifier}Store_Reviews.ProductID, Rating, Comments, Authorized, UserName, ModelName
+	FROM {databaseOwner}{objectQualifier}Store_Reviews
+		LEFT JOIN {databaseOwner}{objectQualifier}Store_Products
+			ON {databaseOwner}{objectQualifier}Store_Reviews.ProductID = {databaseOwner}{objectQualifier}Store_Products.ProductID
+	WHERE {databaseOwner}{objectQualifier}Store_Reviews.PortalID = @PortalID
+	AND {databaseOwner}{objectQualifier}Store_Reviews.ProductID = @ProductID
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_GetReview
+	@ReviewID int
+	AS
+	SET NOCOUNT ON
+	SELECT {databaseOwner}{objectQualifier}Store_Reviews.PortalID, {databaseOwner}{objectQualifier}Store_Reviews.ProductID, Rating, Comments, Authorized, UserName, ModelName
+	FROM {databaseOwner}{objectQualifier}Store_Reviews 
+		LEFT JOIN {databaseOwner}{objectQualifier}Store_Products
+			ON {databaseOwner}{objectQualifier}Store_Reviews.ProductID = {databaseOwner}{objectQualifier}Store_Products.ProductID
+	WHERE ReviewID=@ReviewID
+
+GO
+
+-- *** Modify the procedure to realy delete a product when not used in orders ***
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_DeleteProduct
+		@ProductID int
+	AS
+
+SET NOCOUNT ON
+
+SELECT COUNT(OrderDetailID) FROM {databaseOwner}{objectQualifier}Store_OrderDetails
+	WHERE ProductID=@ProductID
+
+IF (@@ROWCOUNT = 0)
+	DELETE FROM {databaseOwner}{objectQualifier}Store_Products
+	WHERE ProductID=@ProductID
+ELSE
+	UPDATE {databaseOwner}{objectQualifier}Store_Products 
+	SET IsDeleted = 1
+	WHERE ProductID=@ProductID
+GO
+
+-- *** IsDeleted column added to allow logical delete of a category ***
+
+if not exists (select * from dbo.sysobjects where name = 'DF_Store_Categories_IsDeleted')
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_Categories ADD
+		IsDeleted bit NOT NULL CONSTRAINT DF_Store_Categories_IsDeleted DEFAULT 0
+GO
+
+if not exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}Store_Categories_{objectQualifier}Store_Categories') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Categories ADD 
+	CONSTRAINT [FK_{objectQualifier}Store_Categories_{objectQualifier}Store_Categories] FOREIGN KEY 
+	(
+		[ParentCategoryID]
+	) REFERENCES {databaseOwner}{objectQualifier}Store_Categories (
+		[CategoryID]
+	)
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_DeleteCategory
+		@CategoryID int
+	AS
+
+SET NOCOUNT ON
+
+DECLARE @DeletedProducts int
+DECLARE @ActiveProducts int
+DECLARE @DeletedSubCat int
+DECLARE @ActiveSubCat int
+
+SELECT @DeletedProducts=COUNT(ProductID) FROM {databaseOwner}{objectQualifier}Store_Products
+	WHERE CategoryID=@CategoryID
+		AND IsDeleted = 1
+
+SELECT @ActiveProducts=COUNT(ProductID) FROM {databaseOwner}{objectQualifier}Store_Products
+	WHERE CategoryID=@CategoryID
+		AND IsDeleted = 0
+
+SELECT @DeletedSubCat=COUNT(CategoryID) FROM {databaseOwner}{objectQualifier}Store_Categories
+	WHERE ParentCategoryID=@CategoryID
+		AND IsDeleted = 1
+
+SELECT @ActiveSubCat=COUNT(CategoryID) FROM {databaseOwner}{objectQualifier}Store_Categories
+	WHERE ParentCategoryID=@CategoryID
+		AND IsDeleted = 0
+
+IF (((@DeletedProducts > 0) OR (@DeletedSubCat > 0))
+	AND ((@ActiveProducts = 0) AND (@ActiveSubCat = 0)))
+	UPDATE {databaseOwner}{objectQualifier}Store_Categories 
+	SET IsDeleted = 1
+	WHERE CategoryID=@CategoryID
+ELSE
+	DELETE FROM {databaseOwner}{objectQualifier}Store_Categories
+	WHERE CategoryID=@CategoryID
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_GetAll
+		@PortalID int,
+		@ParentCategoryID int = NULL
+	AS
+	SET NOCOUNT ON
+
+IF @ParentCategoryID = -3
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID, {databaseOwner}{objectQualifier}Store_Categories.PortalID, {databaseOwner}{objectQualifier}Store_Categories.CategoryName, {databaseOwner}{objectQualifier}Store_Categories.CategoryDescription, {databaseOwner}{objectQualifier}Store_Categories.Message, {databaseOwner}{objectQualifier}Store_Categories.Archived, {databaseOwner}{objectQualifier}Store_Categories.CreatedByUser, {databaseOwner}{objectQualifier}Store_Categories.CreatedDate, {databaseOwner}{objectQualifier}Store_Categories.OrderID, {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID
+END
+ELSE
+BEGIN
+IF @ParentCategoryID = -2
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID, {databaseOwner}{objectQualifier}Store_Categories.PortalID, {databaseOwner}{objectQualifier}Store_Categories.CategoryName, {databaseOwner}{objectQualifier}Store_Categories.CategoryDescription, {databaseOwner}{objectQualifier}Store_Categories.Message, {databaseOwner}{objectQualifier}Store_Categories.Archived, {databaseOwner}{objectQualifier}Store_Categories.CreatedByUser, {databaseOwner}{objectQualifier}Store_Categories.CreatedDate, {databaseOwner}{objectQualifier}Store_Categories.OrderID, {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+			ON {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = Parent.CategoryID
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+		AND {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID IS NULL
+		AND {databaseOwner}{objectQualifier}Store_Categories.Archived = 0
+		AND {databaseOwner}{objectQualifier}Store_Categories.IsDeleted = 0
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.OrderID
+END
+
+ELSE IF @ParentCategoryID = -1
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID, {databaseOwner}{objectQualifier}Store_Categories.PortalID, {databaseOwner}{objectQualifier}Store_Categories.CategoryName, {databaseOwner}{objectQualifier}Store_Categories.CategoryDescription, {databaseOwner}{objectQualifier}Store_Categories.Message, {databaseOwner}{objectQualifier}Store_Categories.Archived,  {databaseOwner}{objectQualifier}Store_Categories.CreatedByUser, {databaseOwner}{objectQualifier}Store_Categories.CreatedDate, {databaseOwner}{objectQualifier}Store_Categories.OrderID, {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+			ON {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = Parent.CategoryID
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+		AND {databaseOwner}{objectQualifier}Store_Categories.IsDeleted = 0
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.OrderID
+END 
+ELSE
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID, {databaseOwner}{objectQualifier}Store_Categories.PortalID, {databaseOwner}{objectQualifier}Store_Categories.CategoryName, {databaseOwner}{objectQualifier}Store_Categories.CategoryDescription, {databaseOwner}{objectQualifier}Store_Categories.Message, {databaseOwner}{objectQualifier}Store_Categories.Archived, {databaseOwner}{objectQualifier}Store_Categories.CreatedByUser, {databaseOwner}{objectQualifier}Store_Categories.CreatedDate, {databaseOwner}{objectQualifier}Store_Categories.OrderID, {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+			ON {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = Parent.CategoryID
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+		AND {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = @ParentCategoryID
+		AND {databaseOwner}{objectQualifier}Store_Categories.Archived = 0
+		AND {databaseOwner}{objectQualifier}Store_Categories.IsDeleted = 0
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.OrderID
+END
+END
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_GetCategory
+		@CategoryID int
+	AS
+	SET NOCOUNT ON
+	SELECT {databaseOwner}{objectQualifier}Store_Categories.CategoryID, {databaseOwner}{objectQualifier}Store_Categories.PortalID, {databaseOwner}{objectQualifier}Store_Categories.CategoryName, {databaseOwner}{objectQualifier}Store_Categories.CategoryDescription, {databaseOwner}{objectQualifier}Store_Categories.Message, {databaseOwner}{objectQualifier}Store_Categories.Archived, {databaseOwner}{objectQualifier}Store_Categories.CreatedByUser, {databaseOwner}{objectQualifier}Store_Categories.CreatedDate, {databaseOwner}{objectQualifier}Store_Categories.OrderID, {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID, ISNULL(Parent.CategoryName,'-') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories 
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+			ON {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = Parent.CategoryID
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.CategoryID=@CategoryID
+		AND {databaseOwner}{objectQualifier}Store_Categories.IsDeleted = 0
+
+GO
+
+-- *** Add SEOFeature, OutOfStock and ProductsBehavior fields ***
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Administration ADD SEOFeature bit DEFAULT (0) NOT NULL, OutOfStock int DEFAULT(0) NOT NULL, ProductsBehavior int DEFAULT (0) NOT NULL;
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@CreatedByUser nvarchar(100),
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@AuthorizeCancel bit,
+		@OutOfStock int,
+		@ProductsBehavior int
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Administration
+		(PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, AuthorizeCancel, OutOfStock, ProductsBehavior)
+	VALUES
+		(@PortalID, @Name, @Description, @Keywords, @SEOFeature, @GatewayName, @GatewaySettings, @DefaultEmailAddress, @ShoppingCartPageID, @CreatedByUser, getdate(), @StorePageID, @CurrencySymbol, @PortalTemplates, @AuthorizeCancel, @OutOfStock, @ProductsBehavior)
+	
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+		@PortalID int
+	AS
+	SET NOCOUNT ON
+	SELECT PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, AuthorizeCancel, OutOfStock, ProductsBehavior
+	FROM 	{databaseOwner}{objectQualifier}Store_Administration
+	WHERE	PortalID = @PortalID
+GO
+	
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@AuthorizeCancel bit,
+		@OutOfStock int,
+		@ProductsBehavior int
+	AS
+	SET NOCOUNT ON
+	UPDATE 	{databaseOwner}{objectQualifier}Store_Administration 
+	SET	[Name] = @Name,
+		[Description] = @Description,
+		Keywords = @Keywords,
+		SEOFeature = @SEOFeature,
+		GatewayName = @GatewayName,
+		GatewaySettings=@GatewaySettings,
+		DefaultEmailAddress = @DefaultEmailAddress,
+		ShoppingCartPageID = @ShoppingCartPageID,
+		StorePageID = @StorePageID,
+		CurrencySymbol = @CurrencySymbol,
+		PortalTemplates = @PortalTemplates,
+		AuthorizeCancel = @AuthorizeCancel,
+		OutOfStock = @OutOfStock,
+		ProductsBehavior = @ProductsBehavior
+	WHERE	PortalID = @PortalID
+
+GO
+
+-- *** Add Keywords and StockQuantity fields ***
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Products ADD Keywords nvarchar(1000) NULL, StockQuantity int DEFAULT(0) NOT NULL;
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_AddProduct
+		@PortalID int,
+		@CategoryID int,
+		@Manufacturer nvarchar(50),
+		@ModelNumber nvarchar(50),
+		@ModelName nvarchar(50),
+		@ProductImage nvarchar(500),
+		@UnitCost money,
+		@Keywords nvarchar(1000),
+		@Summary nvarchar(1000),
+		@Description ntext,
+		@Featured bit,
+		@Archived bit,
+		@CreatedByUser nvarchar(100),
+		@CreatedDate datetime,
+		@Weight decimal(10,2),
+		@Height decimal(10,2),
+		@Length decimal(10,2),
+		@Width decimal(10,2),
+		@SaleStartDate datetime = null,
+		@SaleEndDate datetime = null,
+		@SalePrice money = null,
+		@StockQuantity int
+	AS
+	SET NOCOUNT ON
+
+	IF @Weight < 0
+		BEGIN
+			SET @Weight = NULL
+		END
+
+	IF @SaleStartDate = '01/01/9999'
+		BEGIN
+			SET @SaleStartDate = NULL
+		END
+
+	IF @SaleEndDate = '01/01/9999'
+		BEGIN
+			SET @SaleEndDate = NULL
+		END
+
+	IF @SalePrice < 0
+		BEGIN
+			SET @SalePrice = NULL
+		END
+
+	INSERT INTO dbo.dnn_Store_Products
+		(PortalID, CategoryID, Manufacturer, ModelNumber, ModelName, ProductImage, UnitCost, Keywords, Summary, [Description],Featured, Archived, CreatedByUser, CreatedDate, ProductWeight, ProductHeight, ProductLength, ProductWidth, SaleStartDate, SaleEndDate, SalePrice, StockQuantity)
+		VALUES
+		(@PortalID, @CategoryID, @Manufacturer, @ModelNumber, @ModelName, @ProductImage, @UnitCost, @Keywords, @Summary, @Description, @Featured, @Archived, @CreatedByUser, @CreatedDate, @Weight, @Height, @Length, @Width, @SaleStartDate, @SaleEndDate, @SalePrice, @StockQuantity)
+	SELECT SCOPE_IDENTITY()
+
+GO
+	
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetFeaturedProducts
+		@CategoryID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND IsDeleted = 0
+			AND	Featured = 1
+			ORDER BY NEWID()
+		END
+	ELSE
+		BEGIN
+			
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND	Featured = 1
+			AND 	Archived = 0
+			AND IsDeleted = 0
+			ORDER BY NEWID()
+		END
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetNewProducts
+		@CategoryID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND IsDeleted = 0
+			ORDER BY CreatedDate DESC
+		END
+	ELSE
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND 	Archived = 0
+			AND IsDeleted = 0
+			ORDER BY CreatedDate DESC
+		END
+
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPopularProducts
+		@PortalID int,
+		@CategoryID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+ 
+	DECLARE @Orders table(OrderID int)
+	DECLARE @Products table(ProductID int, Quantity int)
+
+	INSERT INTO @Orders
+	SELECT OrderID
+	FROM {databaseOwner}{objectQualifier}Store_Orders
+	WHERE PortalID = @PortalID
+ 
+	INSERT INTO @Products
+	SELECT ProductID, SUM(Quantity)
+	FROM {databaseOwner}{objectQualifier}Store_OrderDetails p, @Orders o
+	WHERE p.OrderID = o.OrderID
+	GROUP BY ProductID
+ 
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				p.ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				p.UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				op.Quantity,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+			WHERE p.ProductID = op.ProductID
+				AND p.CategoryID = @CategoryID
+				AND IsDeleted = 0
+			ORDER BY op.Quantity DESC
+		END
+	ELSE
+		BEGIN
+			SELECT
+				p.ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				p.UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				op.Quantity,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+			WHERE p.ProductID = op.ProductID
+			AND p.CategoryID  = @CategoryID
+			AND Archived = 0
+			AND IsDeleted = 0
+			ORDER BY op.Quantity DESC
+		END
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalAllProducts
+		@PortalID int
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND IsDeleted = 0
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalFeaturedProducts
+		@PortalID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND	Featured = 1
+		AND IsDeleted = 0
+		ORDER BY NEWID()
+	ELSE
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND	Featured = 1
+		AND 	Archived = 0
+		AND IsDeleted = 0
+		ORDER BY NEWID()
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalNewProducts
+		@PortalID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND IsDeleted = 0
+		ORDER BY CreatedDate DESC
+	ELSE
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND 	Archived = 0
+		AND IsDeleted = 0
+		ORDER BY CreatedDate DESC
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalPopularProducts
+		@PortalID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+ 
+	DECLARE @Orders table(OrderID int)
+	DECLARE @Products table(ProductID int, Quantity int)
+ 
+	INSERT INTO @Orders
+	SELECT OrderID
+	FROM {databaseOwner}{objectQualifier}Store_Orders
+	WHERE PortalID = @PortalID
+ 
+	INSERT INTO @Products
+	SELECT ProductID, SUM(Quantity)
+	FROM {databaseOwner}{objectQualifier}Store_OrderDetails p, @Orders o
+	WHERE p.OrderID = o.OrderID
+	GROUP BY ProductID
+ 
+	IF @Archived = 1
+		SELECT
+			p.ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			p.UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			op.Quantity,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity
+		FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+		WHERE p.ProductID = op.ProductID
+		AND IsDeleted = 0
+		ORDER BY op.Quantity DESC
+	ELSE
+		SELECT
+			p.ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			p.UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			op.Quantity,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity
+		FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+		WHERE p.ProductID = op.ProductID
+		AND Archived = 0
+		AND IsDeleted = 0
+		ORDER BY op.Quantity DESC
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalProducts
+		@PortalID int,
+		@Featured bit = 0,
+		@Archived bit = 0
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND Featured = @Featured
+	AND Archived = @Archived
+	AND IsDeleted = 0
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetProduct
+		@ProductID int
+	AS
+	SELECT
+		ProductID, PortalID, CategoryID, Manufacturer, ModelNumber, ModelName, ProductImage, UnitCost, Keywords, Summary, [Description], Featured, Archived, CreatedByUser, CreatedDate, ProductWeight, ProductHeight, ProductLength, ProductWidth, SaleStartDate, SaleEndDate, SalePrice, StockQuantity
+
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE ProductID=@ProductID AND IsDeleted = 0
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetProducts
+		@CategoryID int,
+		@Archived bit = 0,
+		@SortOrder int,
+		@SortDir varchar(4)
+	AS
+	
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND IsDeleted = 0
+			Order By
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End DESC		END
+	ELSE
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE {databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND Archived = 0	
+			AND IsDeleted = 0
+			Order By
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End DESC
+		END
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_UpdateProduct
+		@ProductID int,
+		@CategoryID int,
+		@Manufacturer nvarchar(50),
+		@ModelNumber nvarchar(50),
+		@ModelName nvarchar(50),
+		@ProductImage nvarchar(500),
+		@UnitCost money,
+		@Keywords nvarchar(1000),
+		@Summary nvarchar(1000),
+		@Description ntext,
+		@Featured bit,
+		@Archived bit,	
+		@Weight decimal(10,2),
+		@Height decimal(10,2),
+		@Length decimal(10,2),
+		@Width decimal(10,2),
+		@SaleStartDate datetime = null,
+		@SaleEndDate datetime = null,
+		@SalePrice money = null,
+		@StockQuantity int
+
+	AS
+	SET NOCOUNT ON
+
+	IF @Weight < 0
+	BEGIN
+		SET @Weight = NULL
+	END
+
+	IF @Height < 0
+	BEGIN
+		SET @Height = NULL
+	END
+
+	IF @Length < 0
+	BEGIN
+		SET @Length = NULL
+	END
+
+	IF @Width < 0
+	BEGIN
+		SET @Width = NULL
+	END
+
+	IF @SalePrice < 0
+	BEGIN
+		SET @SalePrice = NULL
+	END
+
+	IF @SaleStartDate = '01/01/9999'
+	BEGIN
+		SET @SaleStartDate = NULL
+	END
+
+	IF @SaleEndDate = '01/01/9999'
+	BEGIN
+		SET @SaleEndDate = NULL
+	END
+
+	UPDATE {databaseOwner}{objectQualifier}Store_Products SET 
+		CategoryID=@CategoryID,
+		Manufacturer=@Manufacturer,
+		ModelNumber=@ModelNumber,
+		ModelName=@ModelName,
+		ProductImage=@ProductImage,
+		UnitCost=@UnitCost,
+		Keywords=@Keywords,
+		Summary=@Summary,
+		[Description]=@Description,
+		Featured=@Featured,
+		Archived=@Archived,
+		ProductWeight = @Weight,
+		ProductHeight = @Height,
+		ProductLength = @Length,
+		ProductWidth  = @Width,
+		SaleStartDate = @SaleStartDate,
+		SaleEndDate = @SaleEndDate,
+		SalePrice = @SalePrice,
+		StockQuantity = @StockQuantity
+
+	WHERE
+		ProductID=@ProductID
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalOutOfStockProducts
+		@PortalID int
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND IsDeleted = 0
+	AND StockQuantity < 1
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_UpdateStockQuantity
+		@ProductID int,
+		@StockQuantity int
+
+	AS
+	SET NOCOUNT ON
+
+	UPDATE {databaseOwner}{objectQualifier}Store_Products SET 
+		StockQuantity = StockQuantity + @StockQuantity
+	WHERE
+		ProductID=@ProductID
+GO
+
+-- *** Add Dimensions fields (Height, Length, Width) to Cart Items ***
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_CartItems_GetItem
+		@ItemID int
+	AS
+
+	SET NOCOUNT ON
+
+	SELECT	ItemID, CartID, ci.ProductID, ModelName, ProductImage, CASE WHEN GETDATE() BETWEEN SaleStartDate AND SaleEndDate AND SalePrice IS NOT NULL THEN SalePrice ELSE UnitCost END AS 'UnitCost', Quantity, ci.DateCreated, pr.ProductWeight AS 'ProductWeight', pr.ProductHeight AS 'ProductHeight', pr.ProductLength AS 'ProductLength', pr.ProductWidth AS 'ProductWidth'
+	FROM 	{databaseOwner}{objectQualifier}Store_CartItems ci,
+		{databaseOwner}{objectQualifier}Store_Products pr
+	WHERE	ci.ProductID = pr.ProductID
+	AND	ItemID = @ItemID
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_CartItems_GetItems
+		@CartID nvarchar(50)
+	AS
+
+	SET NOCOUNT ON
+
+	DELETE {databaseOwner}{objectQualifier}Store_CartItems
+	WHERE {databaseOwner}{objectQualifier}Store_CartItems.ProductID IN (SELECT ProductID FROM {databaseOwner}{objectQualifier}Store_Products WHERE Archived = 1)
+		AND CartID = @CartID
+
+	SELECT	ItemID, CartID, ci.ProductID, Manufacturer, ModelNumber, ModelName, ProductImage, CASE WHEN GETDATE() BETWEEN SaleStartDate AND SaleEndDate AND SalePrice IS NOT NULL THEN SalePrice ELSE UnitCost END AS 'UnitCost', Quantity, ci.DateCreated, pr.ProductWeight AS 'ProductWeight', pr.ProductHeight AS 'ProductHeight', pr.ProductLength AS 'ProductLength', pr.ProductWidth AS 'ProductWidth'
+	FROM 	{databaseOwner}{objectQualifier}Store_CartItems ci,
+		{databaseOwner}{objectQualifier}Store_Products pr
+	WHERE	ci.ProductID = pr.ProductID
+	AND	CartID = @CartID
+
+GO
+
+-- *** Update OrderStatusText with corresponding ressource name ***
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus SET OrderStatusText='OrderStatus1.Text' WHERE ListOrder=1
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus SET OrderStatusText='OrderStatus2.Text' WHERE ListOrder=2
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus SET OrderStatusText='OrderStatus3.Text' WHERE ListOrder=3
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus SET OrderStatusText='OrderStatus4.Text' WHERE ListOrder=4
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus SET OrderStatusText='OrderStatus5.Text' WHERE ListOrder=5
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus SET OrderStatusText='OrderStatus6.Text' WHERE ListOrder=6
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus SET OrderStatusText='OrderStatus7.Text' WHERE ListOrder=7
+
+GO

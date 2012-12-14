@@ -1,0 +1,1669 @@
+﻿IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetAlsoBoughtProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetAlsoBoughtProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetAlsoBoughtProducts
+		@PortalID int,
+		@ProductID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+ 
+	DECLARE @ABProducts table(ProductID int, Frequency int)
+
+	INSERT INTO @ABProducts
+	SELECT p.ProductID, COUNT(*) AS Frequency
+	FROM {databaseOwner}{objectQualifier}Store_OrderDetails od
+	INNER JOIN {databaseOwner}{objectQualifier}Store_OrderDetails od2 ON od.OrderID = od2.OrderID AND od.OrderID = od2.OrderID
+	INNER JOIN {databaseOwner}{objectQualifier}Store_Products p ON od2.ProductID = p.ProductID
+	WHERE (od.ProductID = @ProductID) AND (od2.ProductID <> @ProductID) AND (p.PortalID = @PortalID)
+	GROUP BY p.ProductID
+ 
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				p.ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				Keywords,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM {databaseOwner}{objectQualifier}Store_Products p
+			INNER JOIN @ABProducts abp ON p.ProductID = abp.ProductID
+			WHERE p.IsDeleted = 0
+			ORDER BY abp.Frequency DESC
+		END
+	ELSE
+		BEGIN
+			SELECT
+				p.ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				Keywords,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM {databaseOwner}{objectQualifier}Store_Products p
+			INNER JOIN @ABProducts abp ON p.ProductID = abp.ProductID
+			WHERE p.Archived = 0 AND p.IsDeleted = 0
+			ORDER BY abp.Frequency DESC
+		END
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetFeaturedProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetFeaturedProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetFeaturedProducts
+		@CategoryID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	CategoryID  = @CategoryID
+			AND IsDeleted = 0
+			AND	Featured = 1
+			ORDER BY NEWID()
+		END
+	ELSE
+		BEGIN
+			
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	CategoryID  = @CategoryID
+			AND	Featured = 1
+			AND 	Archived = 0
+			AND IsDeleted = 0
+			ORDER BY NEWID()
+		END
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetNewProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetNewProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetNewProducts
+		@CategoryID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	CategoryID  = @CategoryID
+			AND IsDeleted = 0
+			ORDER BY CreatedDate DESC
+		END
+	ELSE
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	CategoryID  = @CategoryID
+			AND 	Archived = 0
+			AND IsDeleted = 0
+			ORDER BY CreatedDate DESC
+		END
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPopularProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPopularProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPopularProducts
+		@PortalID int,
+		@CategoryID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+ 
+	DECLARE @Orders table(OrderID int)
+	DECLARE @Products table(ProductID int, Quantity int)
+
+	INSERT INTO @Orders
+	SELECT OrderID
+	FROM {databaseOwner}{objectQualifier}Store_Orders
+	WHERE PortalID = @PortalID
+ 
+	INSERT INTO @Products
+	SELECT ProductID, SUM(Quantity)
+	FROM {databaseOwner}{objectQualifier}Store_OrderDetails p, @Orders o
+	WHERE p.OrderID = o.OrderID
+	GROUP BY ProductID
+ 
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				p.ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				p.UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				op.Quantity,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+			WHERE p.ProductID = op.ProductID
+				AND p.CategoryID = @CategoryID
+				AND IsDeleted = 0
+			ORDER BY op.Quantity DESC
+		END
+	ELSE
+		BEGIN
+			SELECT
+				p.ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				p.UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				op.Quantity,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+			WHERE p.ProductID = op.ProductID
+			AND p.CategoryID  = @CategoryID
+			AND Archived = 0
+			AND IsDeleted = 0
+			ORDER BY op.Quantity DESC
+		END
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalAllProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalAllProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalAllProducts
+		@PortalID int
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity,
+		LowThreshold,
+		HighThreshold,
+		DeliveryTime,
+		PurchasePrice,
+		RoleID
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND IsDeleted = 0
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalFeaturedProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalFeaturedProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalFeaturedProducts
+		@PortalID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity,
+			LowThreshold,
+			HighThreshold,
+			DeliveryTime,
+			PurchasePrice,
+			RoleID
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND	Featured = 1
+		AND IsDeleted = 0
+		ORDER BY NEWID()
+	ELSE
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity,
+			LowThreshold,
+			HighThreshold,
+			DeliveryTime,
+			PurchasePrice,
+			RoleID
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND	Featured = 1
+		AND 	Archived = 0
+		AND IsDeleted = 0
+		ORDER BY NEWID()
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalLowStockProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalLowStockProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalLowStockProducts
+		@PortalID int
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity,
+		LowThreshold,
+		HighThreshold,
+		DeliveryTime,
+		PurchasePrice,
+		RoleID
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND IsDeleted = 0
+	AND StockQuantity <= LowThreshold
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalNewProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalNewProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalNewProducts
+		@PortalID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity,
+			LowThreshold,
+			HighThreshold,
+			DeliveryTime,
+			PurchasePrice,
+			RoleID
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND IsDeleted = 0
+		ORDER BY CreatedDate DESC
+	ELSE
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity,
+			LowThreshold,
+			HighThreshold,
+			DeliveryTime,
+			PurchasePrice,
+			RoleID
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND 	Archived = 0
+		AND IsDeleted = 0
+		ORDER BY CreatedDate DESC
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalOutOfStockProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalOutOfStockProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalOutOfStockProducts
+		@PortalID int
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity,
+		LowThreshold,
+		HighThreshold,
+		DeliveryTime,
+		PurchasePrice,
+		RoleID
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND IsDeleted = 0
+	AND StockQuantity < 1
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalPopularProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalPopularProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalPopularProducts
+		@PortalID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+ 
+	DECLARE @Orders table(OrderID int)
+	DECLARE @Products table(ProductID int, Quantity int)
+ 
+	INSERT INTO @Orders
+	SELECT OrderID
+	FROM {databaseOwner}{objectQualifier}Store_Orders
+	WHERE PortalID = @PortalID
+ 
+	INSERT INTO @Products
+	SELECT ProductID, SUM(Quantity)
+	FROM {databaseOwner}{objectQualifier}Store_OrderDetails p, @Orders o
+	WHERE p.OrderID = o.OrderID
+	GROUP BY ProductID
+ 
+	IF @Archived = 1
+		SELECT
+			p.ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			p.UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			op.Quantity,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity,
+			LowThreshold,
+			HighThreshold,
+			DeliveryTime,
+			PurchasePrice,
+			RoleID
+		FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+		WHERE p.ProductID = op.ProductID
+		AND IsDeleted = 0
+		ORDER BY op.Quantity DESC
+	ELSE
+		SELECT
+			p.ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			p.UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			op.Quantity,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity,
+			LowThreshold,
+			HighThreshold,
+			DeliveryTime,
+			PurchasePrice,
+			RoleID
+		FROM {databaseOwner}{objectQualifier}Store_Products p, @Products op
+		WHERE p.ProductID = op.ProductID
+		AND Archived = 0
+		AND IsDeleted = 0
+		ORDER BY op.Quantity DESC
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalProducts
+		@PortalID int,
+		@Featured bit = 0,
+		@Archived bit = 0
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity,
+		LowThreshold,
+		HighThreshold,
+		DeliveryTime,
+		PurchasePrice,
+		RoleID
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND Featured = @Featured
+	AND Archived = @Archived
+	AND IsDeleted = 0
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetProducts
+		@CategoryID int,
+		@Archived bit = 0,
+		@SortOrder int,
+		@SortDir varchar(4)
+	AS
+	
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	CategoryID  = @CategoryID
+			AND IsDeleted = 0
+			Order By
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End DESC
+		END
+	ELSE
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity,
+				LowThreshold,
+				HighThreshold,
+				DeliveryTime,
+				PurchasePrice,
+				RoleID
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE CategoryID  = @CategoryID
+			AND Archived = 0	
+			AND IsDeleted = 0
+			Order By
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End DESC
+		END
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetSearchedProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetSearchedProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetSearchedProducts
+		@PortalID int,
+		@SearchColumn int,
+		@SearchValue nvarchar(255),
+		@SortOrder int,
+		@SortDir varchar(4)
+	AS
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity,
+			LowThreshold,
+			HighThreshold,
+			DeliveryTime,
+			PurchasePrice,
+			RoleID
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID  = @PortalID
+		AND Archived = 0	
+		AND IsDeleted = 0
+		AND
+			Case
+				When @SearchColumn = 0 Then Manufacturer
+				When @SearchColumn = 1 Then ModelNumber
+				When @SearchColumn = 2 Then ModelName
+				When @SearchColumn = 3 Then Summary
+				When @SearchColumn = 4 Then [Description]
+			End
+			LIKE @SearchValue
+		ORDER BY
+			Case @SortDir When 'ASC' Then
+				Case 	When @SortOrder = 0 Then  Manufacturer
+					When @SortOrder = 1 Then  ModelNumber
+					When @SortOrder = 2 Then  ModelName
+				End
+			End,
+			Case @SortDir When 'ASC' Then
+				Case 	When @SortOrder = 3 Then UnitCost End
+			End,
+			Case @SortDir When 'ASC' Then
+				Case 	When @SortOrder = 4 Then CreatedDate End
+			End,
+			Case @SortDir When 'DESC' Then
+				Case 	When @SortOrder = 0 Then  Manufacturer
+					When @SortOrder = 1 Then  ModelNumber
+					When @SortOrder = 2 Then  ModelName
+				End
+			End DESC,
+			Case @SortDir When 'DESC' Then
+				Case 	When @SortOrder = 3 Then UnitCost End
+			End DESC,
+			Case @SortDir When 'DESC' Then
+				Case 	When @SortOrder = 4 Then CreatedDate End
+			End DESC
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Orders_GetOrderDetails]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_GetOrderDetails
+
+GO
+
+CREATE Procedure {databaseOwner}{objectQualifier}Store_Orders_GetOrderDetails
+(
+    @OrderID    int
+)
+AS
+
+SELECT
+	od.OrderDetailID,
+	od.OrderID,
+	p.ProductID, 
+	ISNULL(p.ModelNumber, '') AS ModelNumber,
+	ISNULL(p.ModelName, '') AS ModelName,
+	ISNULL(od.Quantity, 0) AS Quantity,
+	ISNULL(od.UnitCost, 0) AS UnitCost,
+	(ISNULL(od.Quantity, 0) * (ISNULL(od.UnitCost, 0))) as ExtendedAmount,
+	od.RoleID
+
+FROM
+	{databaseOwner}{objectQualifier}Store_OrderDetails od
+	INNER JOIN {databaseOwner}{objectQualifier}Store_Products p ON od.ProductID = p.ProductID
+  
+WHERE   
+	od.OrderID = @OrderID
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Orders_CreateOrder]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_CreateOrder
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_CreateOrder
+		@CartID nvarchar(50)
+	AS 
+	SET NOCOUNT ON
+
+	DECLARE @OrderID int
+	DECLARE @OrderDate datetime
+ 
+	SELECT @OrderDate = getDate()
+ 
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Orders
+		(UserID, PortalID, OrderNumber, OrderDate, ShipDate, ShippingAddressID, BillingAddressID)
+	SELECT UserID, PortalID, '', @OrderDate, @OrderDate, -1, -1
+	FROM {databaseOwner}{objectQualifier}Store_Cart
+	WHERE CartID = @CartID
+ 
+	SELECT @OrderID = SCOPE_IDENTITY()
+ 
+	INSERT INTO {databaseOwner}{objectQualifier}Store_OrderDetails
+		(OrderID, ProductID, Quantity, UnitCost, RoleID)
+	SELECT @OrderID, ci.ProductID, ci.Quantity, CASE WHEN GETDATE() BETWEEN pr.SaleStartDate AND pr.SaleEndDate AND pr.SalePrice IS NOT NULL THEN pr.SalePrice ELSE pr.UnitCost END AS 'UnitCost', pr.RoleID
+	FROM {databaseOwner}{objectQualifier}Store_CartItems ci, {databaseOwner}{objectQualifier}Store_Products pr
+	WHERE ci.ProductID = pr.ProductID
+	AND ci.CartID = @CartID
+ 
+	SELECT  
+		o.OrderID,
+		o.UserID as CustomerID,
+		Cast(sum(od.Quantity*od.UnitCost) as money) as OrderTotal,
+		o.OrderNumber,
+		o.OrderDate, 
+		o.ShipDate,
+		o.ShippingAddressID,
+		o.BillingAddressID,
+		o.Tax,
+		o.ShippingCost,
+		o.OrderStatusID
+	FROM {databaseOwner}{objectQualifier}Store_Orders o, {databaseOwner}{objectQualifier}Store_OrderDetails od 
+	WHERE o.OrderID = od.OrderID
+	AND o.OrderID = @OrderID
+	GROUP BY    
+		o.UserID, 
+		o.OrderID,
+		o.OrderNumber, 
+		o.OrderDate, 
+		o.ShipDate,
+		o.ShippingAddressID,
+		o.BillingAddressID,
+		o.Tax,
+		o.ShippingCost,
+		o.OrderStatusID
+	HAVING o.OrderID = @OrderID
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Orders_UpdateOrderDetails]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_UpdateOrderDetails
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_UpdateOrderDetails
+		@OrderID int, 
+		@CartID nvarchar(50)
+	AS
+	SET NOCOUNT ON
+	
+	-- Remove the current order details from the order
+	DELETE FROM {databaseOwner}{objectQualifier}Store_OrderDetails
+	WHERE OrderId = @OrderID
+
+	-- Insert the new order details from the specified cart
+	INSERT INTO {databaseOwner}{objectQualifier}Store_OrderDetails
+		(OrderID, ProductID, Quantity, UnitCost, RoleID)
+	SELECT @OrderID, ci.ProductID, ci.Quantity, CASE WHEN GETDATE() BETWEEN pr.SaleStartDate AND pr.SaleEndDate AND pr.SalePrice IS NOT NULL THEN pr.SalePrice ELSE pr.UnitCost END AS 'UnitCost', pr.RoleID
+	FROM {databaseOwner}{objectQualifier}Store_CartItems ci, {databaseOwner}{objectQualifier}Store_Products pr
+	WHERE ci.ProductID = pr.ProductID
+	AND ci.CartID = @CartID
+
+	-- Return the updated Order
+	SELECT  
+		o.OrderID,
+		o.UserID as CustomerID,
+		Cast(sum(od.Quantity*od.UnitCost) as money) as OrderTotal,
+		o.OrderNumber,
+		o.OrderDate, 
+		o.ShipDate,
+		o.ShippingAddressID,
+		o.BillingAddressID,
+		o.Tax,
+		o.ShippingCost,
+		o.OrderStatusID
+	FROM {databaseOwner}{objectQualifier}Store_Orders o, {databaseOwner}{objectQualifier}Store_OrderDetails od 
+	WHERE o.OrderID = od.OrderID
+	AND o.OrderID = @OrderID
+	GROUP BY    
+		o.UserID, 
+		o.OrderID,
+		o.OrderNumber, 
+		o.OrderDate, 
+		o.ShipDate,
+		o.ShippingAddressID,
+		o.BillingAddressID,
+		o.Tax,
+		o.ShippingCost,
+		o.OrderStatusID
+	HAVING o.OrderID = @OrderID
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Cart_GetCart]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Cart_GetCart
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Cart_GetCart
+		@CartID nvarchar(50),
+		@PortalID int
+	AS
+
+	SET NOCOUNT ON
+
+	DECLARE @Items int
+	DECLARE @Total money
+
+	SELECT	@Items = SUM(ci.Quantity), @Total = SUM(pr.UnitCost * ci.Quantity)
+	FROM 	{databaseOwner}{objectQualifier}Store_CartItems ci,
+		{databaseOwner}{objectQualifier}Store_Products pr
+	WHERE	ci.ProductID = pr.ProductID
+	AND	CartID = @CartID
+	
+	SELECT	CartID, PortalID, UserID, @Items as Items, @Total as Total
+	FROM 	{databaseOwner}{objectQualifier}Store_Cart
+	WHERE	CartID = @CartID
+
+GO
+
+IF NOT EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'Email')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ADD Email nvarchar(255) NULL, UserSaved bit DEFAULT(0) NOT NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'Address1')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN Address1 nvarchar(100) NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'Address2')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN Address2 nvarchar(100) NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'City')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN City nvarchar(100) NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'RegionCode')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN RegionCode nvarchar(100) NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'CountryCode')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN CountryCode nvarchar(100) NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'PostalCode')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN PostalCode nvarchar(10) NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'Phone1')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN Phone1 nvarchar(20) NULL
+
+GO
+
+IF EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'Phone2')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN Phone2 nvarchar(20) NULL
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_AddAddress]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_AddAddress
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_AddAddress
+		@UserID int,
+		@PortalID int,
+		@Description nvarchar(100),
+		@FirstName nvarchar(50),
+		@LastName nvarchar(50),
+		@Address1 nvarchar(100),
+		@Address2 nvarchar(100),
+		@City nvarchar(100),
+		@RegionCode nvarchar(100),
+		@CountryCode nvarchar(100),
+		@PostalCode nvarchar(10),
+		@Email nvarchar(255),
+		@Phone1 nvarchar(20),
+		@Phone2 nvarchar(20),
+		@PrimaryAddress bit,
+		@UserSaved bit,
+		@CreatedByUser nvarchar(100)
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Addresses
+		(UserID,PortalID,[Description],FirstName,LastName,Address1,Address2,City,RegionCode,CountryCode,PostalCode,Email,Phone1,Phone2,PrimaryAddress,UserSaved,CreatedByUser,CreatedDate)
+		VALUES
+		(@UserID,@PortalID,@Description,@FirstName,@LastName,@Address1,@Address2,@City,@RegionCode,@CountryCode,@PostalCode,@Email,@Phone1,@Phone2,@PrimaryAddress,@UserSaved,@CreatedByUser,getdate())
+		
+	IF	@PrimaryAddress = 1
+	BEGIN
+		UPDATE 	{databaseOwner}{objectQualifier}Store_Addresses
+		SET 	PrimaryAddress = 0
+		WHERE 	UserID = @UserID
+		AND	AddressID <> SCOPE_IDENTITY()
+	END
+	
+	SELECT SCOPE_IDENTITY()
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetAddress]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetAddress
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetAddress
+		@AddressID int
+	AS
+	SET NOCOUNT ON
+	SELECT
+		AddressID,UserID,PortalID,[Description],FirstName,LastName,Address1,Address2,City,RegionCode,CountryCode,PostalCode,Email,Phone1,Phone2,PrimaryAddress,UserSaved,CreatedByUser,CreatedDate
+	FROM {databaseOwner}{objectQualifier}Store_Addresses WHERE
+		AddressID=@AddressID
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetUserAddresses]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetUserAddresses
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetUserAddresses
+		@UserID int
+	AS
+	SET NOCOUNT ON
+	SELECT
+		AddressID,UserID,PortalID,[Description],FirstName,LastName,Address1,Address2,City,RegionCode,CountryCode,PostalCode,Email,Phone1,Phone2,PrimaryAddress,UserSaved,CreatedByUser,CreatedDate
+	FROM {databaseOwner}{objectQualifier}Store_Addresses 
+	WHERE	UserID=@UserID
+		AND UserSaved=1
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_PurgeAddresses]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_PurgeAddresses
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_PurgeAddresses
+	AS
+
+	SET NOCOUNT ON
+
+	DECLARE @UsedAddresses table (AddressID int)
+	DECLARE @ErrorCode int
+	SELECT @ErrorCode = 0
+
+	BEGIN TRANSACTION
+
+	INSERT INTO @UsedAddresses
+	SELECT	DISTINCT BillingAddressID
+	FROM 	{databaseOwner}{objectQualifier}Store_Orders
+
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+	
+	IF (@ErrorCode <> 0)
+		GOTO Cleanup
+
+	INSERT INTO @UsedAddresses
+	SELECT	DISTINCT ShippingAddressID
+	FROM 	{databaseOwner}{objectQualifier}Store_Orders
+	WHERE	ShippingAddressID NOT IN (SELECT AddressID FROM @UsedAddresses)
+
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+	
+	IF (@ErrorCode <> 0)
+		GOTO Cleanup
+
+	DELETE FROM {databaseOwner}{objectQualifier}Store_Addresses
+	WHERE	AddressID NOT IN (SELECT AddressID FROM @UsedAddresses) AND UserSaved = 0
+
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+	
+Cleanup:
+	IF (@ErrorCode <> 0)
+		ROLLBACK TRANSACTION
+	ELSE
+		COMMIT TRANSACTION
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_UpdateAddress]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_UpdateAddress
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_UpdateAddress
+		@AddressID int,
+		@UserID int,
+		@Description nvarchar(500),
+		@FirstName nvarchar(50),
+		@LastName nvarchar(50),
+		@Address1 nvarchar(100),
+		@Address2 nvarchar(100),
+		@City nvarchar(100),
+		@RegionCode nvarchar(100),
+		@CountryCode nvarchar(100),
+		@PostalCode nvarchar(10),
+		@Email nvarchar(255),
+		@Phone1 nvarchar(20),
+		@Phone2 nvarchar(20),
+		@PrimaryAddress bit,
+		@UserSaved bit
+	AS
+	SET NOCOUNT ON
+	UPDATE {databaseOwner}{objectQualifier}Store_Addresses SET
+		UserID=@UserID, 
+		[Description]=@Description,
+		FirstName=@FirstName,
+		LastName=@LastName,
+		Address1=@Address1,
+		Address2=@Address2,
+		City=@City,
+		RegionCode=@RegionCode,
+		CountryCode=@CountryCode,
+		PostalCode=@PostalCode,
+		Email=@Email,
+		Phone1=@Phone1,
+		Phone2=@Phone2,
+		PrimaryAddress=@PrimaryAddress,
+		UserSaved=@UserSaved
+	WHERE
+		AddressID=@AddressID
+
+	IF	@PrimaryAddress = 1
+	BEGIN
+		UPDATE 	{databaseOwner}{objectQualifier}Store_Addresses
+		SET 	PrimaryAddress = 0
+		WHERE 	UserID = @UserID
+		AND	AddressID <> @AddressID
+	END
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Cart_PurgeCarts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Cart_PurgeCarts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Cart_PurgeCarts
+		@PurgeDate datetime
+	AS
+
+	SET NOCOUNT ON
+
+	DECLARE @OldCarts table (CartID nvarchar(50))
+	DECLARE @ErrorCode int
+	SELECT @ErrorCode = 0
+
+	BEGIN TRANSACTION
+
+	INSERT INTO @OldCarts
+	SELECT	CartID
+	FROM 	{databaseOwner}{objectQualifier}Store_Cart
+	WHERE	datediff(day, @PurgeDate, DateCreated) <= 0
+
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+	
+	IF (@ErrorCode <> 0)
+		GOTO Cleanup
+
+	DELETE FROM {databaseOwner}{objectQualifier}Store_CartItems
+	WHERE	CartID IN (SELECT CartID FROM @OldCarts)
+
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+	
+	IF (@ErrorCode <> 0)
+		GOTO Cleanup
+
+	DELETE FROM {databaseOwner}{objectQualifier}Store_Cart
+	WHERE	CartID IN (SELECT CartID FROM @OldCarts)
+	
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+
+Cleanup:
+	IF (@ErrorCode <> 0)
+		ROLLBACK TRANSACTION
+	ELSE
+		COMMIT TRANSACTION
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Orders_PurgeOrders]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_PurgeOrders
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_PurgeOrders
+		@PurgeDate datetime
+	AS
+
+	SET NOCOUNT ON
+
+	DECLARE @OldOrders table (OrderID int)
+	DECLARE @ErrorCode int
+	SELECT @ErrorCode = 0
+
+	BEGIN TRANSACTION
+
+	INSERT INTO @OldOrders
+	SELECT	OrderID
+	FROM 	{databaseOwner}{objectQualifier}Store_Orders
+	WHERE	OrderIsPlaced = 0 AND datediff(day, @PurgeDate, OrderDate) <= 0
+
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+	
+	IF (@ErrorCode <> 0)
+		GOTO Cleanup
+
+	DELETE FROM {databaseOwner}{objectQualifier}Store_OrderDetails
+	WHERE	OrderID IN (SELECT OrderID FROM @OldOrders)
+
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+	
+	IF (@ErrorCode <> 0)
+		GOTO Cleanup
+
+	DELETE FROM {databaseOwner}{objectQualifier}Store_Orders
+	WHERE	OrderID IN (SELECT OrderID FROM @OldOrders)
+	
+	-- Check for errors
+	SELECT @ErrorCode = @@error
+
+Cleanup:
+	IF (@ErrorCode <> 0)
+		ROLLBACK TRANSACTION
+	ELSE
+		COMMIT TRANSACTION
+GO
+
+IF NOT EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Administration' AND sc.[name]=N'CheckoutMode')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Administration ADD CheckoutMode int DEFAULT(1) NOT NULL, ImpersonatedUserID int NULL, StyleSheet nvarchar(255) NULL, InventoryManagement bit DEFAULT(1) NOT NULL
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_AddStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@CreatedByUser nvarchar(100),
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@StyleSheet nvarchar(255),
+		@AuthorizeCancel bit,
+		@InventoryManagement bit,
+		@OutOfStock int,
+		@ProductsBehavior int,
+		@OrderRoleID int,
+		@CatalogRoleID int,
+		@SecureCookie bit,
+		@CheckoutMode int,
+		@ImpersonatedUserID int
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Administration
+		(PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, StyleSheet, AuthorizeCancel, InventoryManagement, OutOfStock, ProductsBehavior, OrderRoleID, CatalogRoleID, SecureCookie, CheckoutMode, ImpersonatedUserID)
+	VALUES
+		(@PortalID, @Name, @Description, @Keywords, @SEOFeature, @GatewayName, @GatewaySettings, @DefaultEmailAddress, @ShoppingCartPageID, @CreatedByUser, getdate(), @StorePageID, @CurrencySymbol, @PortalTemplates, @StyleSheet, @AuthorizeCancel, @InventoryManagement, @OutOfStock, @ProductsBehavior, @OrderRoleID, @CatalogRoleID, @SecureCookie, @CheckoutMode, @ImpersonatedUserID)
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_GetStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+		@PortalID int
+	AS
+	SET NOCOUNT ON
+	SELECT PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, StyleSheet, AuthorizeCancel, InventoryManagement, OutOfStock, ProductsBehavior, OrderRoleID, CatalogRoleID, SecureCookie, CheckoutMode, ImpersonatedUserID
+	FROM 	{databaseOwner}{objectQualifier}Store_Administration
+	WHERE	PortalID = @PortalID
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_UpdateStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@StyleSheet nvarchar(255),
+		@AuthorizeCancel bit,
+		@InventoryManagement bit,
+		@OutOfStock int,
+		@ProductsBehavior int,
+		@OrderRoleID int,
+		@CatalogRoleID int,
+		@SecureCookie bit,
+		@CheckoutMode int,
+		@ImpersonatedUserID int
+	AS
+	SET NOCOUNT ON
+	UPDATE 	{databaseOwner}{objectQualifier}Store_Administration 
+	SET	[Name] = @Name,
+		[Description] = @Description,
+		Keywords = @Keywords,
+		SEOFeature = @SEOFeature,
+		GatewayName = @GatewayName,
+		GatewaySettings=@GatewaySettings,
+		DefaultEmailAddress = @DefaultEmailAddress,
+		ShoppingCartPageID = @ShoppingCartPageID,
+		StorePageID = @StorePageID,
+		CurrencySymbol = @CurrencySymbol,
+		PortalTemplates = @PortalTemplates,
+		StyleSheet = @StyleSheet,
+		AuthorizeCancel = @AuthorizeCancel,
+		InventoryManagement = @InventoryManagement,
+		OutOfStock = @OutOfStock,
+		ProductsBehavior = @ProductsBehavior,
+		OrderRoleID = @OrderRoleID,
+		CatalogRoleID = @CatalogRoleID,
+		SecureCookie = @SecureCookie,
+		CheckoutMode = @CheckoutMode,
+		ImpersonatedUserID = @ImpersonatedUserID
+	WHERE	PortalID = @PortalID
+GO

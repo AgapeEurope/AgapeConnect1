@@ -1,0 +1,14 @@
+2012-12-03 15:55:43,834 [WIN-UN1L241MDMF][Thread:3][ERROR] DotNetNuke.Services.Localization.LocalizationProvider - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Common.Globals.get_Status()
+   at DotNetNuke.Services.Localization.LocaleController.GetLocales(Int32 portalID)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(Int32 portalID, String code)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(String code)
+   at DotNetNuke.Services.Localization.LocalizationProvider.TryGetStringInternal(String key, String userLanguage, String resourceFile, PortalSettings portalSettings, String& resourceValue)
+2012-12-03 15:55:44,443 [WIN-UN1L241MDMF][Thread:3][ERROR] DotNetNuke.Services.Localization.LocalizationProvider - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Common.Globals.get_Status()
+   at DotNetNuke.Services.Localization.LocaleController.GetLocales(Int32 portalID)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(Int32 portalID, String code)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(String code)
+   at DotNetNuke.Services.Localization.LocalizationProvider.TryGetStringInternal(String key, String userLanguage, String resourceFile, PortalSettings portalSettings, String& resourceValue)

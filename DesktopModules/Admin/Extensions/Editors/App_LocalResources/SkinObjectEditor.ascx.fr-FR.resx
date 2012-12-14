@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlKey.Help">
+    <value xml:space="preserve">Entrez une clé pour l'objet de la peau.  La clé doit être unique.</value>
+  </data>
+  <data name="ControlKey.Text">
+    <value xml:space="preserve">Clé de contrôle :</value>
+  </data>
+  <data name="ControlSrc.Help">
+    <value xml:space="preserve">Indiquez la Source pour ce contrôle.  Si le contrôle est un contrôle utilisateur, entrez la source par rapport à t</value>
+  </data>
+  <data name="ControlSrc.Text">
+    <value xml:space="preserve">Contrôle Src :</value>
+  </data>
+  <data name="Help.Text">
+    <value xml:space="preserve">Editeur de skin objet</value>
+  </data>
+  <data name="HelpURL.Help">
+    <value xml:space="preserve">Entrez une URL d'aide pour ce contrôle</value>
+  </data>
+  <data name="HelpURL.Text">
+    <value xml:space="preserve">URL d'aide:</value>
+  </data>
+  <data name="IconFile.Help">
+    <value xml:space="preserve">URL d'une'icone pour illustrer ce contrôle</value>
+  </data>
+  <data name="IconFile.Text">
+    <value xml:space="preserve">Fichier d'icône :</value>
+  </data>
+  <data name="SupportsPartialRendering.Help">
+    <value xml:space="preserve">Cochez cette case pour indiquer que ce contrôle prend en charge le rendu partiel AJAX.</value>
+  </data>
+  <data name="SupportsPartialRendering.Text">
+    <value xml:space="preserve">Prend en charge le rendu partiel :</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Paramètres deskin objet</value>
+  </data>
+</root>

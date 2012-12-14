@@ -1,0 +1,152 @@
+﻿<dotnetnuke type="ResourceFile" version="5.0">
+  <files>
+    <file>
+      <path />
+      <name>Aside.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>Aside.jpg</name>
+    </file>
+    <file>
+      <path />
+      <name>Aside_Title.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>Aside_Title.jpg</name>
+    </file>
+    <file>
+      <path />
+      <name>Banner.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>Banner.css</name>
+    </file>
+    <file>
+      <path />
+      <name>Banner.jpg</name>
+    </file>
+    <file>
+      <path />
+      <name>container.css</name>
+    </file>
+    <file>
+      <path />
+      <name>Footer.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>Footer.jpg</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>50black.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>DKLogo.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Grey-Gradient-B.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Grey-Gradient-BL.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Grey-Gradient-BR.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Grey-Gradient-T.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Grey-Gradient-TL.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Grey-Gradient-TR.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Slide-Shadow.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Title-BG-Blue.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Title-BG-Grey1.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Title-BG-Grey2.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Title-BG-Red.png</name>
+    </file>
+    <file>
+      <path>Images/</path>
+      <name>Title-BG.png</name>
+    </file>
+    <file>
+      <path />
+      <name>Invisible.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>Invisible.jpg</name>
+    </file>
+    <file>
+      <path />
+      <name>license.txt</name>
+    </file>
+    <file>
+      <path />
+      <name>NoTitle.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>PageTitle_Blue.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>PageTitle_Blue.jpg</name>
+    </file>
+    <file>
+      <path />
+      <name>PageTitle_Grey.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>PageTitle_Grey.jpg</name>
+    </file>
+    <file>
+      <path />
+      <name>PageTitle_Red.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>PageTitle_Red.jpg</name>
+    </file>
+    <file>
+      <path />
+      <name>releaseNotes.txt</name>
+    </file>
+    <file>
+      <path />
+      <name>SubTitle_Grey.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>SubTitle_Grey.jpg</name>
+    </file>
+  </files>
+</dotnetnuke>

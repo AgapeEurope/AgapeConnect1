@@ -1,0 +1,1 @@
+In version 5.1.0 this provider has been significantly refactored as the base caching privder class has had many of its abstract methods converted to virtual methods which this provider no longer needs to implement.

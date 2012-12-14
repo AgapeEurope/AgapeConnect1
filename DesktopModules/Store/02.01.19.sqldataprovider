@@ -1,0 +1,52 @@
+﻿ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_GetAll
+		@PortalID int,
+		@ParentCategoryID int = NULL
+	AS
+	SET NOCOUNT ON
+
+IF @ParentCategoryID = -3
+	BEGIN
+		SELECT CategoryID, PortalID, CategoryName, CategoryKeywords, CategoryDescription, Message, Archived, CreatedByUser, CreatedDate, OrderID, ParentCategoryID
+		FROM {databaseOwner}{objectQualifier}Store_Categories
+		WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+		ORDER BY {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID
+	END
+ELSE
+	BEGIN
+		IF @ParentCategoryID = -2
+			BEGIN
+				SELECT Categories.CategoryID, Categories.PortalID, Categories.CategoryName, Categories.CategoryKeywords, Categories.CategoryDescription, Categories.Message, Categories.Archived, Categories.CreatedByUser, Categories.CreatedDate, Categories.OrderID, Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+				FROM {databaseOwner}{objectQualifier}Store_Categories AS Categories
+					LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+					ON Categories.ParentCategoryID = Parent.CategoryID
+				WHERE Categories.PortalID = @PortalID
+					AND Categories.ParentCategoryID IS NULL
+					AND Categories.Archived = 0
+					AND Categories.IsDeleted = 0
+				ORDER BY Categories.OrderID, Categories.CategoryName
+			END
+		ELSE IF @ParentCategoryID = -1
+			BEGIN
+				SELECT Categories.CategoryID, Categories.PortalID, Categories.CategoryName, Categories.CategoryKeywords, Categories.CategoryDescription, Categories.Message, Categories.Archived, Categories.CreatedByUser, Categories.CreatedDate, Categories.OrderID, Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+				FROM {databaseOwner}{objectQualifier}Store_Categories AS Categories
+					LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+					ON Categories.ParentCategoryID = Parent.CategoryID
+				WHERE Categories.PortalID = @PortalID
+					AND Categories.IsDeleted = 0
+				ORDER BY Categories.OrderID, Categories.CategoryName
+			END 
+		ELSE
+			BEGIN
+				SELECT Categories.CategoryID, Categories.PortalID, Categories.CategoryName, Categories.CategoryKeywords, Categories.CategoryDescription, Categories.Message, Categories.Archived, Categories.CreatedByUser, Categories.CreatedDate, Categories.OrderID, Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+				FROM {databaseOwner}{objectQualifier}Store_Categories AS Categories
+					LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+					ON Categories.ParentCategoryID = Parent.CategoryID
+				WHERE Categories.PortalID = @PortalID
+					AND Categories.ParentCategoryID = @ParentCategoryID
+					AND Categories.Archived = 0
+					AND Categories.IsDeleted = 0
+				ORDER BY Categories.OrderID, Categories.CategoryName
+			END
+	END
+
+GO

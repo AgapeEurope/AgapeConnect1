@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="addCapability.Text">
+    <value xml:space="preserve">Ajouter capacité</value>
+  </data>
+  <data name="AllMobile.Text">
+    <value xml:space="preserve">Tous les appareils mobiles</value>
+  </data>
+  <data name="chkChildPages.Text">
+    <value xml:space="preserve">Inclure toutes les pages enfant</value>
+  </data>
+  <data name="cmdAdd.Text">
+    <value xml:space="preserve">Créer</value>
+  </data>
+  <data name="cmdSave.Text">
+    <value xml:space="preserve">Enregistrer</value>
+  </data>
+  <data name="DefaultRedirectName.Text">
+    <value xml:space="preserve">Redirection par défaut</value>
+  </data>
+  <data name="Device Type.Header">
+    <value xml:space="preserve">Type d'appareil</value>
+  </data>
+  <data name="DuplicateNameError.Text">
+    <value xml:space="preserve">Une redirection avec ce nom existe déjà, veuillez utiliser un nom différent</value>
+  </data>
+  <data name="Enabled.Header">
+    <value xml:space="preserve">Activée</value>
+  </data>
+  <data name="EnableItem.Text">
+    <value xml:space="preserve">Êtes-vous sûr de vouloir changer les paramètres d'activation de cet élément ?</value>
+  </data>
+  <data name="lblCapability.Text">
+    <value xml:space="preserve">Capacité</value>
+  </data>
+  <data name="lblCapabilityValue.Text">
+    <value xml:space="preserve">Valeur correspondante</value>
+  </data>
+  <data name="lblEnable.Help">
+    <value xml:space="preserve">Activer la règle de redirection</value>
+  </data>
+  <data name="lblEnable.Text">
+    <value xml:space="preserve">Activer</value>
+  </data>
+  <data name="lblEnabled.Text">
+    <value xml:space="preserve">&lt;b&gt;Activé&lt;/b&gt;</value>
+  </data>
+  <data name="lblNoCapabilities.Text">
+    <value xml:space="preserve">Aucune capacité ajoutée</value>
+  </data>
+  <data name="lblRedirect.Help">
+    <value xml:space="preserve">Ceci est votre page d'accueil actuelle qui sera redirigée</value>
+  </data>
+  <data name="lblRedirect.Text">
+    <value xml:space="preserve">Redirection</value>
+  </data>
+  <data name="lblRedirectionRules.Text">
+    <value xml:space="preserve">&lt;b&gt;Règles de redirection&lt;/b&gt;</value>
+  </data>
+  <data name="lblRedirectionType.Text">
+    <value xml:space="preserve">&lt;b&gt;Type de dispositif&lt;/b&gt;</value>
+  </data>
+  <data name="lblRedirectName.Help">
+    <value xml:space="preserve">Le nom de votre redirection</value>
+  </data>
+  <data name="lblRedirectName.Text">
+    <value xml:space="preserve">Nom de redirection du site</value>
+  </data>
+  <data name="lblRedirectSource.Help">
+    <value xml:space="preserve">Détermine si vous redirigez au niveau de portail ou de la page</value>
+  </data>
+  <data name="lblRedirectTarget.Help">
+    <value xml:space="preserve">La destination de la redirection</value>
+  </data>
+  <data name="lblRedirectTarget.Text">
+    <value xml:space="preserve">vers</value>
+  </data>
+  <data name="lblRedirectType.Help">
+    <value xml:space="preserve">Détermine le type de dispositif utilisé par l'utilisateur</value>
+  </data>
+  <data name="lblRedirectType.Text">
+    <value xml:space="preserve">Sélectionnez le dispositif de l'utilisateur</value>
+  </data>
+  <data name="lblTarget.Help">
+    <value xml:space="preserve">La destination de votre redirection</value>
+  </data>
+  <data name="lblTarget.Text">
+    <value xml:space="preserve">vers</value>
+  </data>
+  <data name="lblTargetUrl.Help">
+    <value xml:space="preserve">Url de destination pour la redirection</value>
+  </data>
+  <data name="lblTargetUrl.Text">
+    <value xml:space="preserve">URL</value>
+  </data>
+  <data name="lnkAdd.Text">
+    <value xml:space="preserve">Créer la redirection de site</value>
+  </data>
+  <data name="lnkPortalAlias.Text">
+    <value xml:space="preserve">Entrer le nouvel alias portail</value>
+  </data>
+  <data name="MobilePhone.Text">
+    <value xml:space="preserve">Téléphone mobile</value>
+  </data>
+  <data name="optAdvanced.Text">
+    <value xml:space="preserve">Créer une redirection en utilisant les options avancées</value>
+  </data>
+  <data name="optBoth.Text">
+    <value xml:space="preserve">Les deux</value>
+  </data>
+  <data name="optOther.Text">
+    <value xml:space="preserve">Avancé</value>
+  </data>
+  <data name="optPage.Text">
+    <value xml:space="preserve">Page de ce site</value>
+  </data>
+  <data name="optPhone.Text">
+    <value xml:space="preserve">Téléphone mobile</value>
+  </data>
+  <data name="optPortal.Text">
+    <value xml:space="preserve">Site</value>
+  </data>
+  <data name="optSimple.Text">
+    <value xml:space="preserve">Créer une redirection de site Web mobile</value>
+  </data>
+  <data name="optTablet.Text">
+    <value xml:space="preserve">Tablette</value>
+  </data>
+  <data name="optUrl.Text">
+    <value xml:space="preserve">URL</value>
+  </data>
+  <data name="Other.Text">
+    <value xml:space="preserve">Avancé</value>
+  </data>
+  <data name="OtherType.Text">
+    <value xml:space="preserve">Définir vos règles ci-dessous. Ajouter des règles multiples en cliquant sur le bouton Ajouter.</value>
+  </data>
+  <data name="PageSelect.Text">
+    <value xml:space="preserve">Sélectionner une page</value>
+  </data>
+  <data name="Redirection Rule.Header">
+    <value xml:space="preserve">Règle de redirection</value>
+  </data>
+  <data name="RedirectionSettings.Text">
+    <value xml:space="preserve">Paramètres de redirection</value>
+  </data>
+  <data name="RedirectManagerMessage.Text">
+    <value xml:space="preserve">Voici la liste des redirections du site. Pour en ajouter une nouvelle, cliquez sur &lt;b&gt;« Créer »&lt;/b&gt;.</value>
+  </data>
+  <data name="RedirectTooltipDestination.Text">
+    <value xml:space="preserve">Destination: {0}</value>
+  </data>
+  <data name="RedirectTooltipSource.Text">
+    <value xml:space="preserve">Source: {0}</value>
+  </data>
+  <data name="selectCapabilityName.Text">
+    <value xml:space="preserve">Choisir une capacité...</value>
+  </data>
+  <data name="SimpleSettings.Text">
+    <value xml:space="preserve">Créer une redirection de site pour les téléphones mobiles</value>
+  </data>
+  <data name="Tablet.Text">
+    <value xml:space="preserve">Tablette</value>
+  </data>
+  <data name="TrialFiftyOneProvider.Text">
+    <value xml:space="preserve">Les règles de redirection de dispositif reposent sur les données de dispositifs disponibles dans votre système. Pour passer en mode Premium veuillez aller dans Host &gt; Device Detection Management.</value>
+  </data>
+  <data name="valRedirectName.Text">
+    <value xml:space="preserve">Vous devez entrer un nom pour votre redirection</value>
+  </data>
+</root>

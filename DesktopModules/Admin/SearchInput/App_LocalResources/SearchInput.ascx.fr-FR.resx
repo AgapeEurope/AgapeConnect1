@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdGo.Text">
+    <value xml:space="preserve">Ok</value>
+  </data>
+  <data name="imgGo.ImageUrl">
+    <value xml:space="preserve">~/images/search_go.gif</value>
+  </data>
+  <data name="imgSearch.ImageUrl">
+    <value xml:space="preserve">~/images/search.gif</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du module &amp;quot;Rechercher&amp;quot;&lt;/h1&gt;&lt;p&gt;Le module &amp;quot;Rechercher&amp;quot; est utilisé 
+pour permettre de lancer une recherche sur le site. Le résultat de la recherche 
+est affiché dans le module &amp;quot;Résultat de la recherche&amp;quot; que vous pouvez placer sur 
+une page de votre site.&lt;/p&gt;</value>
+  </data>
+  <data name="NoSearchModule.Text">
+    <value xml:space="preserve">Le module "Search Results (Résultat de la recherche)" est introuvable. Pour afficher les résultats d'une recherche, vous devez mettre ce module sur une page (cachée de préférence car elle ne sera affichée que si une recherche est lancée)</value>
+  </data>
+  <data name="plSearch.Help">
+    <value xml:space="preserve">Entrez les termes recherchés et cliquez sur le bouton OK</value>
+  </data>
+  <data name="plSearch.Text">
+    <value xml:space="preserve">Chercher :</value>
+  </data>
+</root>

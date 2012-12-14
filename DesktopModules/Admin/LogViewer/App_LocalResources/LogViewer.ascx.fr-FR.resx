@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">Edition des paramètres de logs</value>
+  </data>
+  <data name="AdminAlertCode.Text">
+    <value xml:space="preserve">Alerte !</value>
+  </data>
+  <data name="AdminOpCode.Text">
+    <value xml:space="preserve">Operation administrative</value>
+  </data>
+  <data name="btnClear.Text">
+    <value xml:space="preserve">Effacer les logs</value>
+  </data>
+  <data name="btnDelete.Text">
+    <value xml:space="preserve">Effacer l'exception sélectionnée</value>
+  </data>
+  <data name="btnEmail.Text">
+    <value xml:space="preserve">Envoyer l&amp;#146exception sélectionnée</value>
+  </data>
+  <data name="ClearLog.Text">
+    <value xml:space="preserve">Êtes-vous sûr que vous voulez effacer toutes les entrées du journal ?</value>
+  </data>
+  <data name="ClickRow.Text">
+    <value xml:space="preserve">Cliquez sur une ligne pour afficher les détails</value>
+  </data>
+  <data name="ColorCoding.Text">
+    <value xml:space="preserve">Activer le codage des évènements par couleurs</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Journal des logs</value>
+  </data>
+  <data name="Date.Text">
+    <value xml:space="preserve">Date</value>
+  </data>
+  <data name="DeleteSuccess.Text">
+    <value xml:space="preserve">L'exception sélectionnée a été effacée avec succès</value>
+  </data>
+  <data name="EmailFailure.Text">
+    <value xml:space="preserve">Votre message &lt;b&gt;n'a pas&lt;/b&gt; été envoyé.</value>
+  </data>
+  <data name="EmailSuccess.Text">
+    <value xml:space="preserve">Votre message a été envoyé.</value>
+  </data>
+  <data name="ExceptionCode.Text">
+    <value xml:space="preserve">Anomalie</value>
+  </data>
+  <data name="ExceptionsWarning.Text">
+    <value xml:space="preserve">&lt;p align="left"&gt;&lt;b&gt;AVERTISSEMENT &lt;/b&gt;: En utilisant cette fonction, vous vous 
+apprêtez à envoyer des informations sensibles sur internet. Elles circuleront en 
+clair (pas d'encryptage). Avant d&amp;#146;envoyer ces informations, vérifiez qu&amp;#146;elles ne 
+contiennent pas d&amp;#146;informations sensibles pour la sécurité de votre site. Seules 
+les entrées cochées seront envoyées. &lt;/p&gt;</value>
+  </data>
+  <data name="FailureCode.Text">
+    <value xml:space="preserve">Echec de l'opération</value>
+  </data>
+  <data name="HostAlertCode.Text">
+    <value xml:space="preserve">Alerte de l'hôte</value>
+  </data>
+  <data name="InavlidEmailAddress.Text">
+    <value xml:space="preserve">'{0}' n'est pas une adresse valide.</value>
+  </data>
+  <data name="ItemCreatedCode.Text">
+    <value xml:space="preserve">Objet créé</value>
+  </data>
+  <data name="ItemDeletedCode.Text">
+    <value xml:space="preserve">Objet effacé</value>
+  </data>
+  <data name="ItemUpdatedCode.Text">
+    <value xml:space="preserve">Objet mis à jour</value>
+  </data>
+  <data name="Legend.Text">
+    <value xml:space="preserve">Légende des couleurs</value>
+  </data>
+  <data name="LogCleared.Text">
+    <value xml:space="preserve">Les logs ont été effacé.</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du journal des logs &lt;/h1&gt;&lt;p&gt;Cet outil vous permet d'afficher les enregistrements d'évènements du site.&lt;/p&gt;</value>
+  </data>
+  <data name="NoEntries.Text">
+    <value xml:space="preserve">Il n'y a pas de log.</value>
+  </data>
+  <data name="plEmailAddress.Help">
+    <value xml:space="preserve">Saisissez l'adresse de courriel de la personne a qui vous souhaitez envoyer l'enregistrement.</value>
+  </data>
+  <data name="plEmailAddress.Text">
+    <value xml:space="preserve">Adresse e-mail</value>
+  </data>
+  <data name="plLogType.Help">
+    <value xml:space="preserve">Vous pouvez choisir de n'afficher que certains types d'évènements</value>
+  </data>
+  <data name="plLogType.Text">
+    <value xml:space="preserve">Type</value>
+  </data>
+  <data name="plPortalID.Help">
+    <value xml:space="preserve">Sélectionnez le portail dont vous voullez afficher les évènements</value>
+  </data>
+  <data name="plPortalID.Text">
+    <value xml:space="preserve">Portail&amp;nbsp;</value>
+  </data>
+  <data name="plShowRecords.Help">
+    <value xml:space="preserve">Sélectionnez la plage d'enregistremenst à afficher</value>
+  </data>
+  <data name="plShowRecords.Text">
+    <value xml:space="preserve">Entrées</value>
+  </data>
+  <data name="plSubject.Help">
+    <value xml:space="preserve">Saisissez un sujet.</value>
+  </data>
+  <data name="plSubject.Text">
+    <value xml:space="preserve">Sujet</value>
+  </data>
+  <data name="Portal.Text">
+    <value xml:space="preserve">Site</value>
+  </data>
+  <data name="SecurityException.Text">
+    <value xml:space="preserve">Exception de sécurité</value>
+  </data>
+  <data name="SelectException.Text">
+    <value xml:space="preserve">Veuillez sélectionner au moins une entrée du journal.</value>
+  </data>
+  <data name="SendExceptions.Text">
+    <value xml:space="preserve">Envoyer les exceptions</value>
+  </data>
+  <data name="SendExceptionsEmail.Text">
+    <value xml:space="preserve">Envoyer les exceptions par courriel</value>
+  </data>
+  <data name="SendMessage.Help">
+    <value xml:space="preserve">Vous pouvez saisir un message qui permettra au destinataire de vous aider</value>
+  </data>
+  <data name="SendMessage.Text">
+    <value xml:space="preserve">Message (optionnel)&amp;nbsp;</value>
+  </data>
+  <data name="ServerName.Text">
+    <value xml:space="preserve">&lt;b&gt;Nom du serveur&lt;/b&gt;:</value>
+  </data>
+  <data name="ServiceUnavailable.Text">
+    <value xml:space="preserve">Les services web sont indisponibles pour le moment.</value>
+  </data>
+  <data name="Settings.Text">
+    <value xml:space="preserve">Paramètres du journal</value>
+  </data>
+  <data name="Showing.Text">
+    <value xml:space="preserve">Affichage de {0} à {1} sur {2}</value>
+  </data>
+  <data name="SuccessCode.Text">
+    <value xml:space="preserve">Operation réussie</value>
+  </data>
+  <data name="Summary.Text">
+    <value xml:space="preserve">Résumé</value>
+  </data>
+  <data name="ToEmail.Text">
+    <value xml:space="preserve">à l'adresse e-mail spécifiée</value>
+  </data>
+  <data name="Type.Text">
+    <value xml:space="preserve">Type d'évènement</value>
+  </data>
+  <data name="Username.Text">
+    <value xml:space="preserve">Utilisateur</value>
+  </data>
+  <data name="Viewer.Text">
+    <value xml:space="preserve">Visionneuse</value>
+  </data>
+</root>

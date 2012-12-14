@@ -1,0 +1,29 @@
+﻿.dnnFormSectionHead{ position: relative;}
+.dnnFormSectionHead span{ font-size: 12px;font-family: Arial;font-weight: normal;display: inline-block;border-left:3px #F00 solid;padding-left: 5px;position: absolute;right: 0;}
+div.dnnAddProfile{ padding: 0 0 10px 2%;margin-bottom: 10px;border-bottom: 1px solid #e0e0e0;height: 100%;width: 100%;}
+div.dnnAddProfile .dnnFormItem{ float: left;clear: none;vertical-align: baseline;}
+div.dnnAddProfile .dnnFormItem label{ display: block;float: none;text-align: left; word-wrap:normal; white-space: nowrap;}
+div.dnnAddProfile .dnnFormItem input{ float: none;min-width: 0;}
+div.dnnAddProfile .dnnFormItem .dnnPrimaryAction{margin-left: 10px;}
+div.dnnAddProfile .dnnFormItem span.dnnFormMessage.dnnFormError{ left: 0;top: 50px;}
+div.dnnAddProfile .dnnFormCombo{ margin-right: 12px;}
+div.dnnAddProfile div.dnnFormCombo .rcbInputCell, div.dnnAddProfile div.dnnFormCombo .rcbArrowCellRight{ background: none;}
+div.dnnAddProfile div.dnnFormCombo .rcbInputCell input.rcbInput{-moz-border-radius:3px;border-radius:3px;padding:5px;
+		background:#fffff5;-moz-box-shadow:inset 0 0 3px 3px #fffbe1;-webkit-box-shadow:inset 0 0 3px 3px #fffbe1;box-shadow:inset 0 0 3px 3px #fffbe1;
+		border: 1px solid #bcb691;margin:0;width:100%;font-family:Helvetica, Arial, Verdana, sans-serif;border-left:5px #F00 solid;position: relative;}
+div.dnnAddProfile .dnnFormItem .dnnPrimaryAction{ margin-top: 23px;}
+
+table.dnnGrid .dnnFormItem{ text-align: center;}
+table.dnnGrid .dnnFormItem input{ float: none;}
+table.dnnGrid .dnnGridItem{ height: 30px;}
+table.dnnGrid .userAgent{ width: 200px;}
+a.delete{ display: block;background: url(../../../images/delete.gif) no-repeat;width: 16px;height: 16px;margin: 0 auto;}
+
+
+
+
+
+
+
+
+

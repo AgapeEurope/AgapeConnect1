@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton.Text">
+    <value xml:space="preserve">Ajouter la Page</value>
+  </data>
+  <data name="AddExisting.Text">
+    <value xml:space="preserve">Ajouter Module existant</value>
+  </data>
+  <data name="AddModule.Text">
+    <value xml:space="preserve">Ajouter module</value>
+  </data>
+  <data name="AddNew.Text">
+    <value xml:space="preserve">Ajouter nouveau module</value>
+  </data>
+  <data name="AdminConsole.Text">
+    <value xml:space="preserve">Administrateur</value>
+  </data>
+  <data name="AdminConsole.ToolTip">
+    <value xml:space="preserve">Gestion du site</value>
+  </data>
+  <data name="Category.Text">
+    <value xml:space="preserve">Catégorie</value>
+  </data>
+  <data name="CommonTabActions.Text">
+    <value xml:space="preserve">Actions</value>
+  </data>
+  <data name="CommonTabAddPage.Text">
+    <value xml:space="preserve">Insérer une page</value>
+  </data>
+  <data name="CommonTabInsertModule.Text">
+    <value xml:space="preserve">Insérer un module</value>
+  </data>
+  <data name="CurrentTabActions.Text">
+    <value xml:space="preserve">Actions</value>
+  </data>
+  <data name="CurrentTabAddPage.Text">
+    <value xml:space="preserve">Ajoutez une page</value>
+  </data>
+  <data name="CurrentTabCopyToChildren.Text">
+    <value xml:space="preserve">Actions de copier</value>
+  </data>
+  <data name="CurrentTabEditPage.Text">
+    <value xml:space="preserve">Mettre à jour</value>
+  </data>
+  <data name="CurrentTabHelp.Text">
+    <value xml:space="preserve">Aide</value>
+  </data>
+  <data name="CurrentTabSettings.Text">
+    <value xml:space="preserve">Paramètres</value>
+  </data>
+  <data name="Disabled.Text">
+    <value xml:space="preserve">Désactivé</value>
+  </data>
+  <data name="HostConsole.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="HostConsole.ToolTip">
+    <value xml:space="preserve">Gestion de l'hôte</value>
+  </data>
+  <data name="hypMessageUrl.Text">
+    <value xml:space="preserve">http://www.dotnetnuke.com</value>
+  </data>
+  <data name="hypUpgrade.Text">
+    <value xml:space="preserve">Cliquez ici pour obtenir la dernière version</value>
+  </data>
+  <data name="IncludeInMenu.Text">
+    <value xml:space="preserve">Inclure dans le menu</value>
+  </data>
+  <data name="Insert.Text">
+    <value xml:space="preserve">Insérer</value>
+  </data>
+  <data name="lblUILanguage.Text">
+    <value xml:space="preserve">Interface:</value>
+  </data>
+  <data name="LocateModule.Text">
+    <value xml:space="preserve">Emplacement du module</value>
+  </data>
+  <data name="Location.Text">
+    <value xml:space="preserve">Insérer</value>
+  </data>
+  <data name="MenuTitleSuffix.Text">
+    <value xml:space="preserve">Fonctionnalités</value>
+  </data>
+  <data name="Mode.Text">
+    <value xml:space="preserve">Mode:</value>
+  </data>
+  <data name="ModeEdit.Text">
+    <value xml:space="preserve">Editeur</value>
+  </data>
+  <data name="ModeLayout.Text">
+    <value xml:space="preserve">Designer</value>
+  </data>
+  <data name="ModeMobilePreview.Text">
+    <value xml:space="preserve">Prévisualisation</value>
+  </data>
+  <data name="ModeView.Text">
+    <value xml:space="preserve">Aperçu</value>
+  </data>
+  <data name="Module.Text">
+    <value xml:space="preserve">Module:</value>
+  </data>
+  <data name="Name.Text">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="Pane.Text">
+    <value xml:space="preserve">Zone</value>
+  </data>
+  <data name="SelectModule.Text">
+    <value xml:space="preserve">Sélection de module</value>
+  </data>
+  <data name="SiteNewPage.Text">
+    <value xml:space="preserve">Ajouter une nouvelle page</value>
+  </data>
+  <data name="SiteNewPage.ToolTip">
+    <value xml:space="preserve">Créer une nouvelle page</value>
+  </data>
+  <data name="SiteTabAddPage.Text">
+    <value xml:space="preserve">Insérer une page</value>
+  </data>
+  <data name="SiteTabFeatures.Text">
+    <value xml:space="preserve">Fonctionnalités</value>
+  </data>
+  <data name="SiteTabLogging.Text">
+    <value xml:space="preserve">Journal d'évènements</value>
+  </data>
+  <data name="SiteTabManage.Text">
+    <value xml:space="preserve">Gestion</value>
+  </data>
+  <data name="SiteTabRestore.Text">
+    <value xml:space="preserve">Restaurer</value>
+  </data>
+  <data name="SiteTabSettings.Text">
+    <value xml:space="preserve">Paramètres</value>
+  </data>
+  <data name="SiteTabUsers.Text">
+    <value xml:space="preserve">Sécurité des utilisateurs</value>
+  </data>
+  <data name="Skin.Text">
+    <value xml:space="preserve">Thème</value>
+  </data>
+  <data name="SwitchButton.Text">
+    <value xml:space="preserve">Basculer le site</value>
+  </data>
+  <data name="SystemTabInformation.Text">
+    <value xml:space="preserve">Information</value>
+  </data>
+  <data name="SystemTabManage.Text">
+    <value xml:space="preserve">Gestion</value>
+  </data>
+  <data name="SystemTabMarketplace.Text">
+    <value xml:space="preserve">Boutique</value>
+  </data>
+  <data name="SystemTabSettings.Text">
+    <value xml:space="preserve">Paramètres</value>
+  </data>
+  <data name="SystemTabSwitchSite.Text">
+    <value xml:space="preserve">Aperçu du site</value>
+  </data>
+  <data name="SystemTabTools.Text">
+    <value xml:space="preserve">Outils</value>
+  </data>
+  <data name="Tab_CommonTasks.Text">
+    <value xml:space="preserve">Tâches</value>
+  </data>
+  <data name="Tab_CurrentPage.Text">
+    <value xml:space="preserve">Page courante</value>
+  </data>
+  <data name="Tab_Host.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="Tab_Site.Text">
+    <value xml:space="preserve">Autres outils</value>
+  </data>
+  <data name="Template.Text">
+    <value xml:space="preserve">Modèle</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Titre</value>
+  </data>
+  <data name="Tool.ClearCache.Text">
+    <value xml:space="preserve">Vider le Cache</value>
+  </data>
+  <data name="Tool.ClearCache.ToolTip">
+    <value xml:space="preserve">Forcer la purge du cache.</value>
+  </data>
+  <data name="Tool.Console.Text">
+    <value xml:space="preserve">Console</value>
+  </data>
+  <data name="Tool.Console.ToolTip">
+    <value xml:space="preserve">Gestion du site</value>
+  </data>
+  <data name="Tool.CopyDesignToChildren.Confirm">
+    <value xml:space="preserve">Le thème sera remplacé pour tous les enfants de cette page.&lt;br /&gt;&lt;br /&gt;Etes-vous certain de vouloir continuer ?</value>
+  </data>
+  <data name="Tool.CopyDesignToChildren.Text">
+    <value xml:space="preserve">Appliquer le thème aux enfants de cette page</value>
+  </data>
+  <data name="Tool.CopyDesignToChildren.ToolTip">
+    <value xml:space="preserve">Copier les information de thème sur les pages enfants</value>
+  </data>
+  <data name="Tool.CopyDesignToChildrenPageEditor.Confirm">
+    <value xml:space="preserve">Le thème sera remplacé pour tous les enfants de cette page&lt;br /&gt;&lt;br /&gt;Etes-vous certain de vouloir continuer ?</value>
+  </data>
+  <data name="Tool.CopyPage.Text">
+    <value xml:space="preserve">Copier</value>
+  </data>
+  <data name="Tool.CopyPage.ToolTip">
+    <value xml:space="preserve">Copier la page</value>
+  </data>
+  <data name="Tool.CopyPermissionsToChildren.Confirm">
+    <value xml:space="preserve">Les permissions seront remplacées pour tous les enfants de cette page.&lt;br /&gt;&lt;br /&gt;Etes-vous certain de vouloir continuer ?</value>
+  </data>
+  <data name="Tool.CopyPermissionsToChildren.Text">
+    <value xml:space="preserve">Copier les permissions sur les pages enfants</value>
+  </data>
+  <data name="Tool.CopyPermissionsToChildren.ToolTip">
+    <value xml:space="preserve">Etendre les permissions aux enfants de la page</value>
+  </data>
+  <data name="Tool.CopyPermissionsToChildrenPageEditor.Confirm">
+    <value xml:space="preserve">Les permissions seront remplacées sur toutes les pages auxquelles vous avez accès.&lt;br /&gt;&lt;br /&gt;Etes-vous certain de vouloir continuer ?</value>
+  </data>
+  <data name="Tool.DeletePage.Confirm">
+    <value xml:space="preserve">Etes-vous certain de vouloir supprimer cette page ?</value>
+  </data>
+  <data name="Tool.DeletePage.Special.ToolTip">
+    <value xml:space="preserve">Impossible de supprimer cette page car elle est en cours d'utilisation ou c'est une page système. Allez dans "Site"&gt;"Pages" pour obtenir plus d'informations ou contacter l'administrateur du site.</value>
+  </data>
+  <data name="Tool.DeletePage.Text">
+    <value xml:space="preserve">Effacer</value>
+  </data>
+  <data name="Tool.DeletePage.ToolTip">
+    <value xml:space="preserve">Effacer la page</value>
+  </data>
+  <data name="Tool.ExportPage.Text">
+    <value xml:space="preserve">Exporter</value>
+  </data>
+  <data name="Tool.ExportPage.ToolTip">
+    <value xml:space="preserve">Exporter la page</value>
+  </data>
+  <data name="Tool.HealthMonitoring.Text">
+    <value xml:space="preserve">Performances</value>
+  </data>
+  <data name="Tool.HealthMonitoring.ToolTip">
+    <value xml:space="preserve">Moniteur de performances</value>
+  </data>
+  <data name="Tool.Help.Text">
+    <value xml:space="preserve">Aide</value>
+  </data>
+  <data name="Tool.Help.ToolTip">
+    <value xml:space="preserve">Aide en ligne</value>
+  </data>
+  <data name="Tool.HostConsole.Text">
+    <value xml:space="preserve">Console</value>
+  </data>
+  <data name="Tool.ImpersonateUser.Text">
+    <value xml:space="preserve">Prendre l'identité</value>
+  </data>
+  <data name="Tool.ImpersonateUser.ToolTip">
+    <value xml:space="preserve">Prendre l'identité</value>
+  </data>
+  <data name="Tool.ImportPage.Text">
+    <value xml:space="preserve">Importer</value>
+  </data>
+  <data name="Tool.ImportPage.ToolTip">
+    <value xml:space="preserve">Importer la page</value>
+  </data>
+  <data name="Tool.IntegrityChecker.Text">
+    <value xml:space="preserve">Integrité</value>
+  </data>
+  <data name="Tool.IntegrityChecker.ToolTip">
+    <value xml:space="preserve">Intégrité de l'application</value>
+  </data>
+  <data name="Tool.NewPage.Text">
+    <value xml:space="preserve">Ajouter</value>
+  </data>
+  <data name="Tool.NewPage.ToolTip">
+    <value xml:space="preserve">Créer une nouvelle page</value>
+  </data>
+  <data name="Tool.NewRole.Text">
+    <value xml:space="preserve">Ajouter un rôle</value>
+  </data>
+  <data name="Tool.NewRole.ToolTip">
+    <value xml:space="preserve">Ajouter le nouveau rôle</value>
+  </data>
+  <data name="Tool.NewUser.Text">
+    <value xml:space="preserve">Ajouter un utilisateur</value>
+  </data>
+  <data name="Tool.NewUser.ToolTip">
+    <value xml:space="preserve">Ajouter le nouvel utilisateur</value>
+  </data>
+  <data name="Tool.PageSettings.Text">
+    <value xml:space="preserve">Editer</value>
+  </data>
+  <data name="Tool.PageSettings.ToolTip">
+    <value xml:space="preserve">Editer les paramètres de la page</value>
+  </data>
+  <data name="Tool.RecycleApp.Text">
+    <value xml:space="preserve">Recycler le Pool d'applications</value>
+  </data>
+  <data name="Tool.RecycleApp.ToolTip">
+    <value xml:space="preserve">Recycler le pool d'applications. Votre site sera indisponible pendant quelques instants.</value>
+  </data>
+  <data name="Tool.SupportTickets.Text">
+    <value xml:space="preserve">Support</value>
+  </data>
+  <data name="Tool.SupportTickets.ToolTip">
+    <value xml:space="preserve">Tickets de support</value>
+  </data>
+  <data name="Tool.UploadFile.Text">
+    <value xml:space="preserve">Charger un fichier</value>
+  </data>
+  <data name="Tool.UploadFile.ToolTip">
+    <value xml:space="preserve">Charger le fichier vers le serveur</value>
+  </data>
+  <data name="Tool.WebServerManager.Text">
+    <value xml:space="preserve">Serveurs Web</value>
+  </data>
+  <data name="Tool.WebServerManager.ToolTip">
+    <value xml:space="preserve">Gestion des serveurs Web</value>
+  </data>
+  <data name="UpdateButton.Text">
+    <value xml:space="preserve">Mise à jour de la Page</value>
+  </data>
+</root>

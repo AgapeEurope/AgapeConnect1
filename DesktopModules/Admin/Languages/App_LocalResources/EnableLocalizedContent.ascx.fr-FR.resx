@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="changeDefaultLabel.Text">
+    <value xml:space="preserve">Changer la langue par défaut :</value>
+  </data>
+  <data name="defaultCulture.Text">
+    <value xml:space="preserve">Langue par défaut actuelle</value>
+  </data>
+  <data name="enableLocalization.Text">
+    <value xml:space="preserve">La localisation de contenu permet de proposer une traduction pour chaque page d'un site multilingue</value>
+  </data>
+  <data name="header.Text">
+    <value xml:space="preserve">Activer l'option de site multilingue</value>
+  </data>
+  <data name="Processing.Text">
+    <value xml:space="preserve">Traitement :</value>
+  </data>
+  <data name="ProcessingPage.Text">
+    <value xml:space="preserve">{0}:  Page {1} / {2} - {3}</value>
+  </data>
+  <data name="Progress.Text">
+    <value xml:space="preserve">Avancement</value>
+  </data>
+  <data name="siteDefaultDescription.Text">
+    <value xml:space="preserve">Activer l'option multilingue ne peut pas être annulé.</value>
+  </data>
+  <data name="siteDefaultLabel.Text">
+    <value xml:space="preserve">Langue par défaut actuelle :</value>
+  </data>
+  <data name="TotalLanguages.Text">
+    <value xml:space="preserve">Nombre de langues</value>
+  </data>
+  <data name="TotalPages.Text">
+    <value xml:space="preserve">Nombre total de pages</value>
+  </data>
+  <data name="TotalProgress.Text">
+    <value xml:space="preserve">Avancement total</value>
+  </data>
+  <data name="Update.Text">
+    <value xml:space="preserve">Activer l'option de site multilingue</value>
+  </data>
+</root>

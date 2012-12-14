@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="alternateItemTemplateLabel.Help">
+    <value xml:space="preserve">Le modèle d'élément alternatif est utilisé pour afficher les détails pour chaque membre (alternativement). Le modèle d'élément sera utilisé pour tous les membres si ce champ est vide.</value>
+  </data>
+  <data name="alternateItemTemplateLabel.Text">
+    <value xml:space="preserve">Autre modèle d'élément</value>
+  </data>
+  <data name="Ascending.Text">
+    <value xml:space="preserve">Croissant</value>
+  </data>
+  <data name="ControlTitle_settings.Text">
+    <value xml:space="preserve">Paramètres de répertoire des membres</value>
+  </data>
+  <data name="DateCreated.Text">
+    <value xml:space="preserve">Date de création :</value>
+  </data>
+  <data name="Descending.Text">
+    <value xml:space="preserve">Décroissant</value>
+  </data>
+  <data name="disablePagerLabel.Help">
+    <value xml:space="preserve">Cochr ceci pour désactiver le bouton « Charger plus ».  Vous ne pourrez afficher que la première page.</value>
+  </data>
+  <data name="disablePagerLabel.Text">
+    <value xml:space="preserve">Désactiver la pagination :</value>
+  </data>
+  <data name="DisplayName.Text">
+    <value xml:space="preserve">Nom complet</value>
+  </data>
+  <data name="displaySearchLabel.Help">
+    <value xml:space="preserve">Cocher ceci pour afficher les options de recherche.</value>
+  </data>
+  <data name="displaySearchLabel.Text">
+    <value xml:space="preserve">Afficher la recherche :</value>
+  </data>
+  <data name="Email.Text">
+    <value xml:space="preserve">Courriel</value>
+  </data>
+  <data name="enablePopUpLabel.Help">
+    <value xml:space="preserve">Cocher cette case pour activer le modèle menu contextuel (Popup).</value>
+  </data>
+  <data name="enablePopUpLabel.Text">
+    <value xml:space="preserve">Activer le menu contextuel :</value>
+  </data>
+  <data name="filterBySelectorLabel.Help">
+    <value xml:space="preserve">Il est possible d’appliquer un filtre à la liste des membres affichés. Sélectionner le type de filtre à appliquer puis  le rôle, la relation ou un champ du profil depuis la liste déroulante.</value>
+  </data>
+  <data name="filterBySelectorLabel.Text">
+    <value xml:space="preserve">Filtrer par :</value>
+  </data>
+  <data name="Filters.Text">
+    <value xml:space="preserve">Filtres</value>
+  </data>
+  <data name="Group.Text">
+    <value xml:space="preserve">Groupe&amp;nbsp;</value>
+  </data>
+  <data name="itemTemplateLabel.Help">
+    <value xml:space="preserve">Le modèle d'élément est utilisé pour afficher les détails sur le membre.</value>
+  </data>
+  <data name="itemTemplateLabel.Text">
+    <value xml:space="preserve">Modèle d'élément :</value>
+  </data>
+  <data name="LastName.Text">
+    <value xml:space="preserve">Nom :</value>
+  </data>
+  <data name="None.Text">
+    <value xml:space="preserve">Pas de filtre</value>
+  </data>
+  <data name="pageSize.Error">
+    <value xml:space="preserve">La page de taille doit être comprise entre 1 et 100</value>
+  </data>
+  <data name="pageSizeLabel.Help">
+    <value xml:space="preserve">Vous pouvez définir la taille de chaque page en tapant un nombre compris entre 1 et 100.</value>
+  </data>
+  <data name="pageSizeLabel.Text">
+    <value xml:space="preserve">Taille de la page :</value>
+  </data>
+  <data name="Paging.Text">
+    <value xml:space="preserve">Options de pagination</value>
+  </data>
+  <data name="popUpTemplateLabel.Help">
+    <value xml:space="preserve">Le modèle de menu contextuel est utilisé pour afficher les détails de chaque membre à l'intérieur d'une fenêtre pop up.</value>
+  </data>
+  <data name="popUpTemplateLabel.Text">
+    <value xml:space="preserve">Modèle de menu contextuel (pop up) :</value>
+  </data>
+  <data name="ProfileProperty.Text">
+    <value xml:space="preserve">Propriétés de profil</value>
+  </data>
+  <data name="Relationship.Text">
+    <value xml:space="preserve">Relation</value>
+  </data>
+  <data name="Search.Text">
+    <value xml:space="preserve">Paramètres de recherche</value>
+  </data>
+  <data name="searchField1Label.Help">
+    <value xml:space="preserve">Sélectionner le premier champ que vous souhaitez afficher dans la recherche avancée</value>
+  </data>
+  <data name="searchField1Label.Text">
+    <value xml:space="preserve">Champ de recherche 1 :</value>
+  </data>
+  <data name="searchField2Label.Help">
+    <value xml:space="preserve">Sélectionner le deuxième champ que vous souhaitez afficher dans la recherche avancée</value>
+  </data>
+  <data name="searchField2Label.Text">
+    <value xml:space="preserve">Champ de recherche 2 :</value>
+  </data>
+  <data name="searchField3Label.Help">
+    <value xml:space="preserve">Sélectionner le troisième champ que vous souhaitez afficher dans la recherche avancée</value>
+  </data>
+  <data name="searchField3Label.Text">
+    <value xml:space="preserve">Domaine de recherche 3 :</value>
+  </data>
+  <data name="searchField4Label.Help">
+    <value xml:space="preserve">Sélectionner le quatrième champ que vous souhaitez afficher dans la recherche avancée</value>
+  </data>
+  <data name="searchField4Label.Text">
+    <value xml:space="preserve">Champ de recherche 4 :</value>
+  </data>
+  <data name="sortFieldListLabel.Help">
+    <value xml:space="preserve">Sélectionnez le champ à utiliser pour trier les membres.</value>
+  </data>
+  <data name="sortFieldListLabel.Text">
+    <value xml:space="preserve">Champ de tri :</value>
+  </data>
+  <data name="sortOrderListLabel.Help">
+    <value xml:space="preserve">Sélectionnez le sens de tri à utiliser pour trier les membres.</value>
+  </data>
+  <data name="sortOrderListLabel.Text">
+    <value xml:space="preserve">Ordre de tri :</value>
+  </data>
+  <data name="Templates.Text">
+    <value xml:space="preserve">Modèles</value>
+  </data>
+  <data name="User.Text">
+    <value xml:space="preserve">Utilisateur</value>
+  </data>
+  <data name="UserId.Text">
+    <value xml:space="preserve">ID de l'utilisateur :</value>
+  </data>
+  <data name="Username.Text">
+    <value xml:space="preserve">Utilisateur</value>
+  </data>
+</root>

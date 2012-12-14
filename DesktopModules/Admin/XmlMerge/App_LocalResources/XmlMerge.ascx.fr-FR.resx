@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdExecute.Text">
+    <value xml:space="preserve">Executer la fusion</value>
+  </data>
+  <data name="cmdLoad.Text">
+    <value xml:space="preserve">Charger</value>
+  </data>
+  <data name="cmdSave.Text">
+    <value xml:space="preserve">Enregistrer les changements</value>
+  </data>
+  <data name="cmdUpload.Text">
+    <value xml:space="preserve">Charger</value>
+  </data>
+  <data name="Configuration.Text">
+    <value xml:space="preserve">Fichiers de configuration</value>
+  </data>
+  <data name="ERROR_ConfigurationFormat.Text">
+    <value xml:space="preserve">Ce fichier de configuration n'est pas un fichier XML valide. Veuillez corriger le problème de format et réessayer : {0}</value>
+  </data>
+  <data name="ERROR_Merge.Text">
+    <value xml:space="preserve">Le système a rencontré une erreur en cherchant à appliquer les changements de configuration. Veuillez vous reporter au fichier d'évènements pour plus d'information.</value>
+  </data>
+  <data name="fileLabel.Help">
+    <value xml:space="preserve">Vous pouvez modifier le fichier avant d'effectuer les changements</value>
+  </data>
+  <data name="fileLabel.Text">
+    <value xml:space="preserve">Fichier :</value>
+  </data>
+  <data name="LoadConfigWarning.Text">
+    <value xml:space="preserve">Charger un nouveau fichier config effacera les changements en cours !</value>
+  </data>
+  <data name="Merge.Text">
+    <value xml:space="preserve">Scripts de fusion de fichiers de configuration</value>
+  </data>
+  <data name="MergeConfirm.Text">
+    <value xml:space="preserve">Confirrmez-vous la fusion de ces changements avec le fichier config?</value>
+  </data>
+  <data name="plConfig.Help">
+    <value xml:space="preserve">Sélectionner un fichier de configuration à modifier</value>
+  </data>
+  <data name="plConfig.Text">
+    <value xml:space="preserve">Ficher de configuration</value>
+  </data>
+  <data name="plScript.Help">
+    <value xml:space="preserve">Selectionner un script de fusion XML à charger. Une fois chargé, le script peut être modifié, puis exécuté.</value>
+  </data>
+  <data name="plScript.Text">
+    <value xml:space="preserve">Script de fusion</value>
+  </data>
+  <data name="SaveConfirm.Text">
+    <value xml:space="preserve">Confirmez-vous l'enregistrement de ce fichier config ?</value>
+  </data>
+  <data name="SaveWarning.Text">
+    <value xml:space="preserve">Changer le web.config va redémarrer le site, et peut dégrader les performances pendant que l'application est rechargée par le serveur. Voulez-vous continuer ?</value>
+  </data>
+  <data name="scriptLabel.Help">
+    <value xml:space="preserve">Vous pouvez modifier le script de fusion avant de l'exécuter</value>
+  </data>
+  <data name="scriptLabel.Text">
+    <value xml:space="preserve">Script :</value>
+  </data>
+  <data name="SelectConfig.Text">
+    <value xml:space="preserve">Sélection un fichier config...</value>
+  </data>
+  <data name="Success.Text">
+    <value xml:space="preserve">Changements effectués.</value>
+  </data>
+</root>

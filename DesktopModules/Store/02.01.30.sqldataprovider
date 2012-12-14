@@ -1,0 +1,19 @@
+﻿IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE parent_obj=OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Orders]') AND [name]=N'FK_Store_Orders_Store_OrderStatus')
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Orders DROP CONSTRAINT [FK_Store_Orders_Store_OrderStatus]
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE parent_obj=OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_OrderStatus]') AND [name]=N'PK_Store_OrderStatus')
+ALTER TABLE {databaseOwner}{objectQualifier}Store_OrderStatus DROP CONSTRAINT [PK_Store_OrderStatus]
+ALTER TABLE {databaseOwner}{objectQualifier}Store_OrderStatus ADD  CONSTRAINT [PK_{objectQualifier}Store_OrderStatus] PRIMARY KEY CLUSTERED  ([OrderStatusID])
+
+GO
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Orders ADD CONSTRAINT [FK_{objectQualifier}Store_Orders_{objectQualifier}Store_OrderStatus] FOREIGN KEY ([OrderStatusID]) REFERENCES {databaseOwner}{objectQualifier}Store_OrderStatus ([OrderStatusID])
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE parent_obj=OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_ShippingRates]') AND [name]=N'PK_Store_ShippingRates')
+ALTER TABLE {databaseOwner}{objectQualifier}Store_ShippingRates DROP CONSTRAINT [PK_Store_ShippingRates]
+ALTER TABLE {databaseOwner}{objectQualifier}Store_ShippingRates ADD CONSTRAINT [PK_{objectQualifier}Store_ShippingRates] PRIMARY KEY CLUSTERED  ([ID])
+
+GO

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<provider>
+	<name>Default</name>
+	<description>Default Shipping Provider</description>
+	<class>DotNetNuke.Modules.Store.Providers.Shipping.DefaultShippingProvider.ShippingController</class>
+	<assembly>DotNetNuke.Modules.Store.Providers.Shipping.DefaultShippingProvider</assembly>
+	<controls>
+		<control name="Admin" value="DefaultShippingAdmin.ascx" />
+		<control name="Checkout" value="DefaultShippingCheckout.ascx" />
+	</controls>
+</provider>
+

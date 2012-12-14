@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddPortal.Text">
+    <value xml:space="preserve">Ajouter un site</value>
+  </data>
+  <data name="AdminMissing.Text">
+    <value xml:space="preserve">Le fichier admin.template est manquant, il doit être chargé sur le site.&lt;br&gt;</value>
+  </data>
+  <data name="AutoGenerate.Text">
+    <value xml:space="preserve">Génération automatique</value>
+  </data>
+  <data name="Child.Text">
+    <value xml:space="preserve">Enfant</value>
+  </data>
+  <data name="ChildExists.Text">
+    <value xml:space="preserve">Le portail enfant spécifié existe dejà.&lt;br&gt;Choisissez un nom différent svp.</value>
+  </data>
+  <data name="cmdUpdate.Text">
+    <value xml:space="preserve">Appliquer cette configuration</value>
+  </data>
+  <data name="ControlTitle_signup.Text">
+    <value xml:space="preserve">Création de site</value>
+  </data>
+  <data name="CreateError.Text">
+    <value xml:space="preserve">Une erreur est survenue durant la création du site. Vous avez spécifié un mauvais mot de passe pour un des utilisateurs. Vérifiez votre saisie avant de recommencer.</value>
+  </data>
+  <data name="Customize.Text">
+    <value xml:space="preserve">Personnaliser</value>
+  </data>
+  <data name="DemoMessage.Text">
+    <value xml:space="preserve">L'inscription à la Démo vous permet de créer votre propre site Web et d'expérimenter ses fonctionnalités {0}. À tout moment pendant vous pouvez convertir cette Démo en un site durable en vous connectant en tant qu'administrateur et en sélectionnant le renouvellement ou le prolongement de l'abonnement au site sur la page d'administration du site. Les sites enregistrés ont l'avantage d'utiliser leur propre nom de domaine (www.votrenom.fr). &lt;br&gt; &lt;b&gt; * Note: &lt;/ b&gt; Le nom du site doit être un nom simple et ne peut pas contenir des espaces ou des caractères de ponctuation. L'URL de votre portail prendra la forme : &lt;b&gt; {1}/portalname&lt;/b&gt;&lt;br&gt;&lt;br&gt;</value>
+  </data>
+  <data name="DuplicatePortalAlias.Text">
+    <value xml:space="preserve">L'alias spécifié existe déjà. Choisissez un autre nom.</value>
+  </data>
+  <data name="DuplicateWithTab.Text">
+    <value xml:space="preserve">Il y a déjà une page dont le nom est identique à l’alias de votre site, changez cet alias.</value>
+  </data>
+  <data name="InvalidHomeFolder.Text">
+    <value xml:space="preserve">Le dossier racine spécifié n'est pas valide.</value>
+  </data>
+  <data name="InvalidName.Text">
+    <value xml:space="preserve">Le nom du site ne doit pas contenir des espaces ou des ponctuations.</value>
+  </data>
+  <data name="InvalidPassword.Text">
+    <value xml:space="preserve">Les mots de passes saisis ne correspondent pas.</value>
+  </data>
+  <data name="InvalidTemplate.Text">
+    <value xml:space="preserve">{0} n'est pas un fichier de gabarit valide.</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;p align="left"&gt;Deux types de sites peuvent être créés grâce à cette application :&lt;br&gt;
+&lt;/p&gt;
+&lt;li&gt;
+&lt;p align="left"&gt;
+&lt;b&gt;Les Sites Parents&lt;/b&gt; disposent d&amp;#146;une URL unique ( ex. www.dotnetnuke.fr ) 
+qui leur est associée. Vous devez pour cela être titulaire ou acquérir un &amp;quot;nom 
+de domaine&amp;quot; auprès d&amp;#146;un bureau d&amp;#146;enregistrement, configurer correctement les DNS 
+gérant le domaine est faire pointer ce dernier vers l&amp;#146;adresse IP que vous a 
+attribué votre hébergeur (ex. &lt;b&gt;62.160.167.14&lt;/b&gt;). Si vous souhaitez que plusieurs URL 
+pointent vers le même Site Parent, séparez les par des virgules (ex. 
+www.dotnetnuke.fr, www.dotnetnuke3.fr). Ne créez pas de Site Parent tant que 
+vous n&amp;#146;avez pas réalisé les étapes ci avant car sans URL active,&amp;nbsp; vous ne 
+pourriez pas y accéder malgré sa création.&lt;br&gt;&lt;br&gt;&lt;li&gt;
+&lt;p align="left"&gt;&lt;b&gt;Les Sites Enfants&lt;/b&gt; 
+sont des sous sites&amp;nbsp; liés à une URL déjà existante (ex. www.dotnetnuke.fr/monsite) 
+et donc dépendants&amp;nbsp; de cette dernière. Vous pouvez convertir un Site Enfant 
+en Site Parent à tous moments en modifiant son &amp;quot;Alias&amp;quot;.&lt;br&gt;&lt;br&gt;Note : Les sites 
+seront configurés avec les même paramètres que ceux spécifiez par la 
+&amp;quot;configuration de l&amp;#146;hôte&amp;quot; (Mensualités, Espace disque, Durée de la démo) ou dans 
+les mêmes que dans le gabarit sélectionné lors de l&amp;#146;étape de création. Vous 
+pourrez modifier ces paramètres à l&amp;#146;issu de la création du site dans le menu 
+&amp;quot;paramétrage&amp;quot; du site.</value>
+  </data>
+  <data name="Note.Text">
+    <value xml:space="preserve">&lt;b&gt;Note :&lt;/b&gt; Le site une fois créé, l'administrateur devra s'identifier en utilisant les paramètres entrés ci-dessus.</value>
+  </data>
+  <data name="Parent.Text">
+    <value xml:space="preserve">Parente</value>
+  </data>
+  <data name="plAnswer.Help">
+    <value xml:space="preserve">Saisissez la réponse à la question</value>
+  </data>
+  <data name="plAnswer.Text">
+    <value xml:space="preserve">Réponse :</value>
+  </data>
+  <data name="plConfirm.Help">
+    <value xml:space="preserve">Re saisissez votre votre mot de passe pour le confirmer.</value>
+  </data>
+  <data name="plConfirm.Text">
+    <value xml:space="preserve">Confirmer :</value>
+  </data>
+  <data name="plDescription.Help">
+    <value xml:space="preserve">Décrivez votre site en quelques mots.</value>
+  </data>
+  <data name="plDescription.Text">
+    <value xml:space="preserve">Description :</value>
+  </data>
+  <data name="plEmail.Help">
+    <value xml:space="preserve">Spécifiez l'adresse Email de l'administrateur de ce site.</value>
+  </data>
+  <data name="plEmail.Text">
+    <value xml:space="preserve">Email :</value>
+  </data>
+  <data name="plFirstName.Help">
+    <value xml:space="preserve">Saisissez le Nom.</value>
+  </data>
+  <data name="plFirstName.Text">
+    <value xml:space="preserve">Prénom :</value>
+  </data>
+  <data name="plHomeDirectory.Help">
+    <value xml:space="preserve">Spécifiez le répertoire racine de ce portail</value>
+  </data>
+  <data name="plHomeDirectory.Text">
+    <value xml:space="preserve">Racine :</value>
+  </data>
+  <data name="plKeyWords.Help">
+    <value xml:space="preserve">Saisissez une série de mots séparés par des virgules (,) qui permettrons aux moteurs de recherche d'indexer votre site.</value>
+  </data>
+  <data name="plKeyWords.Text">
+    <value xml:space="preserve">Mots clés :</value>
+  </data>
+  <data name="plLastName.Help">
+    <value xml:space="preserve">Saisissez le Prénom.</value>
+  </data>
+  <data name="plLastName.Text">
+    <value xml:space="preserve">Nom :</value>
+  </data>
+  <data name="plPassword.Help">
+    <value xml:space="preserve">Spécifiez le mot de passe de l'administrateur de ce site.</value>
+  </data>
+  <data name="plPassword.Text">
+    <value xml:space="preserve">Mot de passe :</value>
+  </data>
+  <data name="plPortalAlias.Help">
+    <value xml:space="preserve">Spécifiez l'alias de ce site</value>
+  </data>
+  <data name="plPortalAlias.Text">
+    <value xml:space="preserve">Alias :</value>
+  </data>
+  <data name="plPortalName.Help">
+    <value xml:space="preserve">Donnez un nom à ce site</value>
+  </data>
+  <data name="plPortalName.Text">
+    <value xml:space="preserve">Nom du site :</value>
+  </data>
+  <data name="plQuestion.Help">
+    <value xml:space="preserve">Question/réponse à utiliser pour récupérer son mot de passe.</value>
+  </data>
+  <data name="plQuestion.Text">
+    <value xml:space="preserve">Question secrète :</value>
+  </data>
+  <data name="plTemplate.Help">
+    <value xml:space="preserve">Choisissez un gabarit.</value>
+  </data>
+  <data name="plTemplate.Text">
+    <value xml:space="preserve">Gabarit :</value>
+  </data>
+  <data name="plTitle.Help">
+    <value xml:space="preserve">Donnez un titre à votre site.</value>
+  </data>
+  <data name="plTitle.Text">
+    <value xml:space="preserve">Titre :</value>
+  </data>
+  <data name="plType.Help">
+    <value xml:space="preserve">Référez-vous à l'aide que vous trouverez dans le menu de l'application afin de déterminer le type de site que vous souhaitez créer.</value>
+  </data>
+  <data name="plType.Text">
+    <value xml:space="preserve">Type de site :</value>
+  </data>
+  <data name="plUsername.Help">
+    <value xml:space="preserve">Saisissez un nom d'utilisateur pour le compte administrateur de ce site.</value>
+  </data>
+  <data name="plUsername.Text">
+    <value xml:space="preserve">Nom d'utilisateur :</value>
+  </data>
+  <data name="PortalMissing.Text">
+    <value xml:space="preserve">Gabarit de site manquant : vous devez le charger à nouveau.&lt;br&gt;</value>
+  </data>
+  <data name="PortalSetup.Text">
+    <value xml:space="preserve">Configuration</value>
+  </data>
+  <data name="SecuritySettings.Text">
+    <value xml:space="preserve">Compte administrateur</value>
+  </data>
+  <data name="SendMail.Error">
+    <value xml:space="preserve">Une erreur est survenue lors de l'envoi des emails de confirmations - {0}. Cependant, le site web à été crée. &lt;a href='{0}'&gt;Cliquez Ici Pour Accéder au nouveau Site&lt;/a&gt;</value>
+  </data>
+  <data name="UnknownSendMail.Error">
+    <value xml:space="preserve">Une erreur est survenue lors de l'envoi des emails de confirmations. Cependant, le site web à été crée. &lt;a href='{0}'&gt;Cliquez Ici Pour Accéder au nouveau Site&lt;/a&gt;</value>
+  </data>
+  <data name="useCurrentLabel.Help">
+    <value xml:space="preserve">Cochez cette case si vous souhaitez utiliser le super utilisateur (hôte) actuel en tant qu’administrateur du site. Si cette case est décochée alors vous pourrez  entrer les informations d’identification pour l’administrateur.</value>
+  </data>
+  <data name="useCurrentLabel.Text">
+    <value xml:space="preserve">Placer l'utilisateur en cours en tant qu'administrateur :</value>
+  </data>
+  <data name="valConfirm.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Vous devez confirmer votre mot de passe.</value>
+  </data>
+  <data name="valEmail.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;L'Email est obligatoire.</value>
+  </data>
+  <data name="valEmail2.ErrorMessage">
+    <value xml:space="preserve">Adresse e-mail invzlide</value>
+  </data>
+  <data name="valFirstName.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Le Prénom est obligatoire.</value>
+  </data>
+  <data name="ValidationResults.Text">
+    <value xml:space="preserve">Résultat de la validation</value>
+  </data>
+  <data name="valLastName.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Le Nom est obligatoire.</value>
+  </data>
+  <data name="valPassword.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Le mot de passe est obligatoire.</value>
+  </data>
+  <data name="valPortalAlias.ErrorMessage">
+    <value xml:space="preserve">Un alias de site est requis.</value>
+  </data>
+  <data name="valPortalName.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Vous devez donner un nom à votre site</value>
+  </data>
+  <data name="valTemplate.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Vous devez choisir un gabarit</value>
+  </data>
+  <data name="valUsername.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Le nom d'utilisateur est requis.</value>
+  </data>
+</root>

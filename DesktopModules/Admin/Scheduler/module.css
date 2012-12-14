@@ -1,0 +1,5 @@
+﻿.dnnScheduleGrid{}
+	.dnnEditSchedule .dnnFormItem input[type="text"]{width:32%;margin-right:10px;}
+	.dnnEditSchedule .dnnFormItem.timeMeasurement input[type="text"]{width:5%;min-width:5%;}
+	#dnnScheduleStatus .dnnFormItem{padding:0;}
+	#dnnScheduleStatus .dnnFormLabel{margin-top:0;}

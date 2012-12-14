@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CannotDeleteContainer.ErrorMessage">
+    <value xml:space="preserve">Ce set de conteneurs ne peut être supprimé car il est en cours d'utilisation</value>
+  </data>
+  <data name="CannotDeleteProvider.ErrorMessage">
+    <value xml:space="preserve">Ce provider ne peut être supprimé car il est en cours d'utilisation</value>
+  </data>
+  <data name="CannotDeleteSkin.ErrorMessage">
+    <value xml:space="preserve">Ce set de thème ne peut être supprimé car il est en cours d'utilisation</value>
+  </data>
+  <data name="cmdReturn.Text">
+    <value xml:space="preserve">Retour</value>
+  </data>
+  <data name="cmdUninstall.Text">
+    <value xml:space="preserve">Package à désinstaller</value>
+  </data>
+  <data name="ControlTitle_uninstall.Text">
+    <value xml:space="preserve">Package à désinstaller</value>
+  </data>
+  <data name="LogTitle.Text">
+    <value xml:space="preserve">Logs de désinstallation</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos de la désinstallation de paquet&lt;/h1&gt;&lt;p&gt;Vous permet de désinstaller des paquets dans le site.&lt;/p&gt;</value>
+  </data>
+  <data name="plDelete.Help">
+    <value xml:space="preserve">Cocher cette case pour supprimer tous les fichiers liés à cette extension</value>
+  </data>
+  <data name="plDelete.Text">
+    <value xml:space="preserve">Effacer les fichiers ?</value>
+  </data>
+</root>

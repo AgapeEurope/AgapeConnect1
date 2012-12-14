@@ -1,0 +1,344 @@
+﻿IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE parent_obj=OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Orders]') AND [name]=N'FK_Store_Orders_Store_Orders')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Orders DROP CONSTRAINT [FK_Store_Orders_Store_Orders]
+
+GO
+
+IF NOT EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Administration' AND sc.[name]=N'OrderRoleID')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Administration ADD OrderRoleID int DEFAULT(-1) NOT NULL, CatalogRoleID int DEFAULT(-1) NOT NULL
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_AddStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@CreatedByUser nvarchar(100),
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@AuthorizeCancel bit,
+		@OutOfStock int,
+		@ProductsBehavior int,
+		@OrderRoleID int,
+		@CatalogRoleID int
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Administration
+		(PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, AuthorizeCancel, OutOfStock, ProductsBehavior, OrderRoleID, CatalogRoleID)
+	VALUES
+		(@PortalID, @Name, @Description, @Keywords, @SEOFeature, @GatewayName, @GatewaySettings, @DefaultEmailAddress, @ShoppingCartPageID, @CreatedByUser, getdate(), @StorePageID, @CurrencySymbol, @PortalTemplates, @AuthorizeCancel, @OutOfStock, @ProductsBehavior, @OrderRoleID, @CatalogRoleID)
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_GetStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+		@PortalID int
+	AS
+	SET NOCOUNT ON
+	SELECT PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, AuthorizeCancel, OutOfStock, ProductsBehavior, OrderRoleID, CatalogRoleID
+	FROM 	{databaseOwner}{objectQualifier}Store_Administration
+	WHERE	PortalID = @PortalID
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_UpdateStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@AuthorizeCancel bit,
+		@OutOfStock int,
+		@ProductsBehavior int,
+		@OrderRoleID int,
+		@CatalogRoleID int
+	AS
+	SET NOCOUNT ON
+	UPDATE 	{databaseOwner}{objectQualifier}Store_Administration 
+	SET	[Name] = @Name,
+		[Description] = @Description,
+		Keywords = @Keywords,
+		SEOFeature = @SEOFeature,
+		GatewayName = @GatewayName,
+		GatewaySettings=@GatewaySettings,
+		DefaultEmailAddress = @DefaultEmailAddress,
+		ShoppingCartPageID = @ShoppingCartPageID,
+		StorePageID = @StorePageID,
+		CurrencySymbol = @CurrencySymbol,
+		PortalTemplates = @PortalTemplates,
+		AuthorizeCancel = @AuthorizeCancel,
+		OutOfStock = @OutOfStock,
+		ProductsBehavior = @ProductsBehavior,
+		OrderRoleID = @OrderRoleID,
+		CatalogRoleID = @CatalogRoleID
+	WHERE	PortalID = @PortalID
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+
+UPDATE {databaseOwner}{objectQualifier}Store_Addresses SET [Description]=LTRIM(RTRIM(LEFT((Address1 + ' ' + City), 100))) WHERE ([Description] is null) OR ([Description] = '')
+
+GO
+
+IF NOT EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Addresses' AND sc.[name]=N'FirstName')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ADD [FirstName] nvarchar(50) NULL, [LastName] nvarchar(50) NULL
+
+GO
+
+UPDATE {databaseOwner}{objectQualifier}Store_Addresses SET [LastName]=ltrim(rtrim([Name]))
+
+GO
+
+UPDATE {databaseOwner}{objectQualifier}Store_Addresses SET [FirstName]=ltrim(rtrim(left([Name], charindex(',', [Name])-1))), [LastName]=ltrim(rtrim(right([Name], len([Name])-charindex(',', [Name])))) WHERE charindex(',', [Name]) > 0
+
+GO
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses ALTER COLUMN [LastName] nvarchar(50) NOT NULL
+
+GO
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses DROP COLUMN [Name]
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_AddAddress]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_AddAddress
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_AddAddress
+		@UserID int,
+		@PortalID int,
+		@Description nvarchar(100),
+		@FirstName nvarchar(50),
+		@LastName nvarchar(50),
+		@Address1 nvarchar(100),
+		@Address2 nvarchar(100),
+		@City nvarchar(100),
+		@RegionCode nvarchar(100),
+		@CountryCode nvarchar(100),
+		@PostalCode nvarchar(10),
+		@Phone1 nvarchar(20),
+		@Phone2 nvarchar(20),
+		@PrimaryAddress bit,
+		@CreatedByUser nvarchar(100)
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Addresses
+		(UserID,PortalID,[Description],FirstName,LastName,Address1,Address2,City,RegionCode,CountryCode,PostalCode,Phone1,Phone2,PrimaryAddress,CreatedByUser,CreatedDate)
+		VALUES
+		(@UserID,@PortalID,@Description,@FirstName,@LastName,@Address1,@Address2,@City,@RegionCode,@CountryCode,@PostalCode,@Phone1,@Phone2,@PrimaryAddress,@CreatedByUser,getdate())
+		
+	IF	@PrimaryAddress = 1
+	BEGIN
+		UPDATE 	{databaseOwner}{objectQualifier}Store_Addresses
+		SET 	PrimaryAddress = 0
+		WHERE 	UserID = @UserID
+		AND	AddressID <> SCOPE_IDENTITY()
+	END
+	
+	SELECT SCOPE_IDENTITY()
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetAddress]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetAddress
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetAddress
+		@AddressID int
+	AS
+	SET NOCOUNT ON
+	SELECT
+		AddressID,UserID,PortalID,[Description],FirstName,LastName,Address1,Address2,City,RegionCode,CountryCode,PostalCode,Phone1,Phone2,PrimaryAddress,CreatedByUser,CreatedDate
+	FROM {databaseOwner}{objectQualifier}Store_Addresses WHERE
+		AddressID=@AddressID
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetUserAddresses]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetUserAddresses
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_GetUserAddresses
+		@UserID int
+	AS
+	SET NOCOUNT ON
+	SELECT
+		AddressID,UserID,PortalID,[Description],FirstName,LastName,Address1,Address2,City,RegionCode,CountryCode,PostalCode,Phone1,Phone2,PrimaryAddress,CreatedByUser,CreatedDate
+	FROM {databaseOwner}{objectQualifier}Store_Addresses 
+	WHERE	UserID=@UserID
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Addresses_UpdateAddress]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_UpdateAddress
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Addresses_UpdateAddress
+		@AddressID int,
+		@Description nvarchar(500),
+		@FirstName nvarchar(50),
+		@LastName nvarchar(50),
+		@Address1 nvarchar(100),
+		@Address2 nvarchar(100),
+		@City nvarchar(100),
+		@RegionCode nvarchar(100),
+		@CountryCode nvarchar(100),
+		@PostalCode nvarchar(10),
+		@Phone1 nvarchar(20),
+		@Phone2 nvarchar(20),
+		@PrimaryAddress bit
+	AS
+	SET NOCOUNT ON
+	UPDATE {databaseOwner}{objectQualifier}Store_Addresses SET 
+		[Description]=@Description,
+		FirstName=@FirstName,
+		LastName=@LastName,
+		Address1=@Address1,
+		Address2=@Address2,
+		City=@City,
+		RegionCode=@RegionCode,
+		CountryCode=@CountryCode,
+		PostalCode=@PostalCode,
+		Phone1=@Phone1,
+		Phone2=@Phone2,
+		PrimaryAddress=@PrimaryAddress
+	WHERE
+		AddressID=@AddressID
+
+	IF	@PrimaryAddress = 1
+	BEGIN
+		DECLARE @UserID int
+		
+		SELECT	@UserID = UserID
+		FROM	{databaseOwner}{objectQualifier}Store_Addresses
+		WHERE	AddressID = @AddressID
+
+		UPDATE 	{databaseOwner}{objectQualifier}Store_Addresses
+		SET 	PrimaryAddress = 0
+		WHERE 	UserID = @UserID
+		AND	AddressID <> @AddressID
+	END
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Products_GetSearchedProducts]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetSearchedProducts
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetSearchedProducts
+		@PortalID int,
+		@SearchColumn int,
+		@SearchValue nvarchar(255),
+		@SortOrder int,
+		@SortDir varchar(4)
+	AS
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Keywords,
+			Summary,
+			[Description],
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			ProductHeight,
+			ProductLength,
+			ProductWidth,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice,
+			StockQuantity
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID  = @PortalID
+		AND Archived = 0	
+		AND IsDeleted = 0
+		AND
+			Case
+				When @SearchColumn = 0 Then Manufacturer
+				When @SearchColumn = 1 Then ModelNumber
+				When @SearchColumn = 2 Then ModelName
+				When @SearchColumn = 3 Then Summary
+				When @SearchColumn = 4 Then [Description]
+			End
+			LIKE @SearchValue
+		ORDER BY
+			Case @SortDir When 'ASC' Then
+				Case 	When @SortOrder = 0 Then  Manufacturer
+					When @SortOrder = 1 Then  ModelNumber
+					When @SortOrder = 2 Then  ModelName
+				End
+			End,
+			Case @SortDir When 'ASC' Then
+				Case 	When @SortOrder = 3 Then UnitCost End
+			End,
+			Case @SortDir When 'ASC' Then
+				Case 	When @SortOrder = 4 Then CreatedDate End
+			End,
+			Case @SortDir When 'DESC' Then
+				Case 	When @SortOrder = 0 Then  Manufacturer
+					When @SortOrder = 1 Then  ModelNumber
+					When @SortOrder = 2 Then  ModelName
+				End
+			End DESC,
+			Case @SortDir When 'DESC' Then
+				Case 	When @SortOrder = 3 Then UnitCost End
+			End DESC,
+			Case @SortDir When 'DESC' Then
+				Case 	When @SortOrder = 4 Then CreatedDate End
+			End DESC
+GO
+
+

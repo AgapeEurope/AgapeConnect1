@@ -1,0 +1,129 @@
+div.StoreMenuWrapper{font:12px Verdana, Arial, Helvetica, sans-serif;padding:5px 0;}
+ul.StoreMenuCategoryContainer{padding-left:10px;}
+div.StoreCatalogWrapper{font:12px Verdana, Arial, Helvetica, sans-serif;border:solid 1px #4696BE;}
+div.StoreSearch{border-bottom:solid 1px #4696be;text-align:left;margin:0;padding:5px;}
+div.StoreSearch input.StoreSearchHiddenButton{display:none;visibility:hidden;}
+div.StoreMessage{text-align:center;margin:0;padding:5px;}
+div.StoreCategoryMessage{margin:0;}
+div.StoreListContainer-Breadcrumb{background-color:#D2D2D2;text-align:left;margin:0;padding:0;}
+div.StoreListContainer-SortBy{border-bottom:solid 1px #D2D2D2;text-align:left;margin:0;padding:0;}
+div.StoreListContainer-Content{text-align:center;margin:0;padding:5px;}
+div.StoreListContainer-Navigation{border-top:solid 1px #D2D2D2;text-align:center;margin:0;padding:5px 0;}
+div.StoreListContainer-Navigation p{margin:0;padding:3px;}
+span.StoreDetailWarningMessage{display:block;text-align:center;background-color:#F00;color:#FFF;font-weight:bold;margin:0 auto;padding:2px 0;}
+div.StoreDetailContainer-Content{padding:5px;}
+div.StoreDetailContainer-Content p{text-align:left;margin:0;padding:0;}
+img.StoreProductImage{float:left;padding-right:5px;}
+span.StoreProductRegularPrice{text-decoration:line-through;}
+input.StoreQuantityTextBox{width:25px;}
+a.StoreButtonTellAFriend img{border:none 0;}
+input.StoreButtonEdit{float:left;}
+span.StoreDetailError{margin:10px 5px;}
+p.StoreClear{clear:both;}
+div.StoreDetailReturnWrapper{background-color:#D2D2D2;text-align:left;margin:0;padding:5px;}
+p.StoreReviews-Title{width:100%;text-align:right;border-bottom:dotted 1px red;margin:0;padding:3px 0;}
+p.StoreAddReview{width:100%;text-align:right;margin:0;padding:3px 0;}
+table.StoreReview td{padding:0;}
+p.StoreUserReview{float:left;margin:0;padding:3px 0;}
+p.StoreUserReviewComment{clear:both;margin:0;padding:3px 0;}
+div.StoreEditWrapper{width:100%;text-align:center;margin:0;padding:5px 0;}
+table.StoreEditReview{border:none 0;border-spacing:5px;border-collapse:collapse;width:80%;text-align:left;margin:0 10%;padding:0;}
+table.StoreEditReview td{padding:2px 0;}
+table.StoreEditReview td.NormalBold{width:33%;white-space:nowrap;}
+table.StoreEditReview td.Normal{width:67%;}
+div.StoreMiniCartWrapper{font:12px Verdana, Arial, Helvetica, sans-serif;text-align:center;}
+div.StoreAccountWrapper{font:14px Verdana, Arial, Helvetica, sans-serif;text-align:center;}
+div.StoreAccount-Header{background-color:#4696BE;color:#D2D2D2;height:16px;margin:0;padding:3px 10px;}
+div.StoreAccount-Title{float:left;text-align:left;}
+span.StoreAccountParentTitle{color:#D2D2D2;font-weight:bold;font-size:12px;}
+div.StoreAccount-Buttons{font:12px Verdana, Arial, Helvetica, sans-serif;text-align:right;}
+a.StoreAccountButton:link,a.StoreAccountButton:visited{font:12px Verdana, Arial, Helvetica, sans-serif;color:#D2D2D2;}
+div.StoreAccountCheckout{margin:15px 0 0;padding:0;}
+p.StoreAccountCheckoutMessage{text-align:left;padding:0 10%;}
+a.StoreAccountCheckoutButton{display:inline-block;border:0;text-align:center;vertical-align:middle;white-space:nowrap;cursor:pointer;background:none;margin:0;padding:0;}
+a.StoreAccountCheckoutButton span{position:relative;float:left;vertical-align:middle;background:url("images/gel_left.gif") left top no-repeat;padding:0 0 0 8px;}
+a.StoreAccountCheckoutButton span span{background:url("images/gel_right.gif") right top no-repeat;padding:0 8px 0 0;}
+a.StoreAccountCheckoutButton span span span{height:24px;line-height:1.5;background:url("images/gel_background.gif") left top repeat-x;padding:3px 5px 0;}
+table.StoreCartDetail{font-size:12px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:center;border-style:hidden;border-width:0;margin:0 auto;}
+td.StoreCartDetailThumbnail{text-align:center;vertical-align:middle;}
+td.StoreCartDetailQuantityHeader{text-align:right;width:35px;font-weight:bold;}
+td.StoreCartDetailQuantityFooter{text-align:right;font-style:italic;}
+td.StoreCartDetailQuantityFooter span{padding-right:24px;}
+td.StoreCartDetailDelete{width:22px;}
+input.StoreCartDetailQuantityTextBox{font-size:12px;width:25px;}
+div.StoreAccountCheckoutWrapper{width:100%;text-align:left;margin:0;padding:0;}
+div.StoreAccountCheckoutSteps{width:100%;height:19px;text-align:left;margin:0;padding:10px 0;}
+div.StoreAccountCheckoutSteps ul li.StoreCheckoutStep{float:left;border:solid 1px #d2d2d2;margin:0 10px 0 0;padding:0;}
+div.StoreAccountCheckoutSteps ul li span.StoreCheckoutStepNumber{font-size:14px;font-weight:bold;background-color:#d2d2d2;color:#000;margin:0;padding:0 5px;}
+div.StoreAccountCheckoutSteps ul li span.StoreCheckoutStepText{font-size:14px;color:#000;margin:0;padding:0 5px;}
+div.StoreAccountCheckoutSteps ul li.StoreCheckoutActiveStep{float:left;border:solid 1px #4696be;margin:0 10px 0 0;padding:0;}
+div.StoreAccountCheckoutSteps ul li.StoreCheckoutActiveStep span.StoreCheckoutStepNumber{background-color:#4696be;color:#d2d2d2;}
+div.StoreAccountCheckoutAddresses{width:100%;text-align:left;margin:0 auto;}
+div.StoreAccountCheckoutTotal{text-align:right;margin:0 10%;padding:10px 0;}
+div.StoreAccountCheckoutTotal table{width:100%;font-size:12px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:right;border-style:hidden;border-width:0;margin:auto;}
+td.StoreAccountCheckoutCartTotal{width:90px;padding-right:30px;font-weight:bold;}
+div.StoreAccountCheckoutNavigation{height:14px;width:100%;text-align:left;margin:0;padding:10px 0;}
+div.StoreAccountCheckoutNavigation ul.StoreAccountCheckoutNavButtons{float:left;margin:0;padding:0;}
+div.StoreAccountCheckoutNavigation ul.StoreAccountCheckoutNavButtons li{list-style-type:none;float:left;margin:0 0 0 10px;padding:0;}
+table.StoreAccountCheckoutAuthorizeCardInfos tr{vertical-align:baseline;}
+div.StoreAccountAddressesWrapper{width:100%;text-align:left;margin:0 auto;padding:10px 0;}
+span.StoreAccountAddressesLogin{font-size:14px;color:#F00;}
+table.StoreAccountAddresses{font-size:11px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:left;width:100%;border-color:#4696BE;border-style:solid;border-width:1px;margin:0 auto;}
+input.StoreAddressFieldPostalCode{width:80px;}
+table.StoreAccountAddressCmd{font-size:11px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:left;width:auto;border-style:hidden;border-width:0;margin:0 auto;}
+table.StoreAccountAddressCmd td.StoreAddressCommand{text-align:center;white-space:nowrap;width:500px;}
+span.StoreAccountOrderTitle{color:#4696BE;}
+table.StoreAccountOrderHeader{font-size:11px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:left;width:100%;border-style:hidden;border-width:0;margin:0 auto;}
+table.StoreAccountOrderBody{font-size:11px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:center;width:100%;border-color:#4696BE;border-style:solid;border-width:1px;margin:5px auto;}
+td.StoreAccountOrderBodyQtyHeader{text-align:right;width:60px;font-weight:bold;}
+table.StoreAccountOrderFooter{font-size:11px;border-collapse:collapse;empty-cells:hide;table-layout:auto;width:100%;float:right;text-align:right;border-style:hidden;border-width:0;margin:0 auto;}
+fieldset.StoreAccountOrderSatutsManagement table{border-collapse:collapse;border-style:hidden;border-width:0;}
+div.StoreMicroCart{margin:0;padding:10px;}
+p.StoreMicroCartItems{margin:0;padding:0 0 6px;}
+span.StoreLinks{padding:10px;}
+span.StoreLinks img{border:0;}
+a.StoreMenuCategoryItemSelected:link,a.StoreMenuCategoryItemSelected:visited,span.StoreCurrentPageNumber,span.StoreProductSalePrice{color:#F00;}
+a.StoreMenuCategoryItem:link,a.StoreMenuCategoryItem:visited,a.StoreSubCategoryItem:link,a.StoreSubCategoryItem:visited{color:#0D69B2;}
+li.StoreMenuCategoryListItem,li.StoreMenuCategoryListItemSelected,div.StoreAccountCheckoutSteps ul li{list-style-type:none;}
+div.StoreCatalogWrapper a.CommandButton,div.StoreCatalogWrapper .Normal{font-size:12px;}
+div.StoreSearch input.StoreSearchTextBox,div.StoreSearch select.StoreSearchColumns{margin:0 5px;}
+div.StoreCategoryMessage p,p.StoreSubCategories{margin:0;padding:3px 0;}
+div.StoreListContainer-Title,div.StoreDetailContainer-Title{background-color:#4696BE;color:#D2D2D2;font-size:16px;font-weight:bold;margin:0;padding:3px 10px;}
+div.StoreListContainer-Breadcrumb p,div.StoreListContainer-SortBy p,div.StoreDetailReviewsWrapper{margin:0;padding:5px;}
+table.StoreNewProductList,table.StoreFeaturedProductList,table.StorePopularProductList,table.StoreCategoryProductList,table.StoreSearchResultsProductList,table.StoreAlsoBoughtProductList,table.StoreReviews{border:none 0;border-spacing:0;border-collapse:collapse;width:100%;}
+td.StoreNewProductItem,td.StoreFeaturedProductItem,td.StorePopularProductItem,td.StoreCategoryProductItem,td.StoreSearchResultsProductItem,td.StoreAlsoBoughtProductItem,td.StoreNewProductAlternatingItem,td.StoreFeaturedProductAlternatingItem,td.StorePopularProductAlternatingItem,td.StoreCategoryProductAlternatingItem,td.StoreSearchResultsProductAlternatingItem,td.StoreAlsoBoughtProductAlternatingItem{text-align:left;vertical-align:top;padding:5px 0;}
+td.StoreNewProductItem p,td.StoreFeaturedProductItem p,td.StorePopularProductItem p,td.StoreCategoryProductItem p,td.StoreSearchResultsProductItem p,td.StoreAlsoBoughtProductItem p,td.StoreNewProductAlternatingItem p,td.StoreFeaturedProductAlternatingItem p,td.StorePopularProductAlternatingItem p,td.StoreCategoryProductAlternatingItem p,td.StoreSearchResultsProductAlternatingItem p,td.StoreAlsoBoughtProductAlternatingItem p{margin:0;padding:2px 0;}
+td.StoreFeaturedProductItem span.StoreProductPrice,td.StoreFeaturedProductAlternatingItem span.StoreProductPrice,span.StoreProductModelName,span.StoreAccountOrdersError{font-size:14px;}
+a.StoreProductLinkImage:link,a.StoreProductLinkImage:visited,a.StoreProductLinkImage:hover,a.StoreProductLinkImage:active,a.StoreAccountAddressesEditButton:hover,a.StoreAccountAddressesEditButton:active,a.StoreAccountAddressesAddButton:hover,a.StoreAccountAddressesAddButton:active,a.StoreAccountAddressUpdateButton:hover,a.StoreAccountAddressUpdateButton:active,a.StoreAccountAddressCancelButton:hover,a.StoreAccountAddressCancelButton:active,a.StoreAccountAddressDeleteButton:hover,a.StoreAccountAddressDeleteButton:active,a.StoreAccountOrdersEditButton:hover,a.StoreAccountOrdersEditButton:active,a.StoreAccountOrdersCancelButton:hover,a.StoreAccountOrdersCancelButton:active,a.StoreAccountDownloadsDownloadButton:hover,a.StoreAccountDownloadsDownloadButton:active,span.StoreLinks a:hover,span.StoreLinks a:active{text-decoration:none;}
+span.StoreProductModelNumber,span.StoreProductWeight,span.StoreProductHeight,span.StoreProductLength,span.StoreProductWidth,span.StoreProductSurface,span.StoreProductVolume,span.StoreProductDimensions,a.StoreLinkDetail:link,a.StoreLinkDetail:visited,a.StorePrintDetail:link,a.StorePrintDetail:visited{white-space:nowrap;}
+span.StoreProductPrice,span.StoreProductVATPrice{font-size:14px;white-space:nowrap;}
+table.StoreEditReview tr,td.StoreAccountOrderHeaderOrderStatus,td.StoreAccountOrderHeaderOrderStatus select,td.StoreAccountOrderHeaderStatusButtons,td.StoreAccountOrderHeaderBillTo,td.StoreAccountOrderHeaderShipTo{vertical-align:top;}
+td.StoreEditReviewCommands,td.StoreAccountAddressesPrimary,td.StoreAccountAddressesEdit,td.StoreAccountOrdersNumber,td.StoreAccountOrdersDate,td.StoreAccountOrdersStatus,td.StoreAccountOrdersStatusDate,td.StoreAccountOrdersEdit,td.StoreAccountOrdersCancel,td.StoreAccountOrderFooterBack,td.StoreAccountDownloadsOrderNumber,td.StoreAccountDownloadsAllowed,td.StoreAccountDownloadsDownloaded,td.StoreAccountDownloadsDownload{text-align:center;}
+span.StoreAccountSpacer,a.StoreAccountCheckoutButton:link,a.StoreAccountCheckoutButton:visited{color:#D2D2D2;}
+div.StoreAccountCustomerCart,div.StoreAccountOrdersWrapper{text-align:center;padding:10px 0;}
+table.StoreCartDetail tr,table.StoreAccountAddressCmd tr,table.StoreAccountOrderHeader tr,table.StoreAccountOrderFooter tr{border-style:hidden;border-width:0;padding:2px;}
+table.StoreCartDetail td,table.StoreAccountAddress td,table.StoreAccountAddressCmd td,table.StoreAccountOrderHeader td,table.StoreAccountOrderFooter td{border-style:hidden;border-width:0;padding:3px;}
+td.StoreCartDetailProductHeader,td.StoreAccountAddressesDescriptionHeader,td.StoreAccountOrderBodyProductHeader,td.StoreAccountDownloadsProductTitleHeader{text-align:left;font-weight:bold;}
+td.StoreCartDetailProduct,td.StoreAccountAddressesDescription,td.StoreAccountOrderBodyProduct,fieldset.StoreAccountOrderSatutsManagement table tr,td.StoreAccountDownloadsProductTitle{text-align:left;}
+td.StoreCartDetailPriceHeader,td.StoreCartDetailPriceFooter,td.StoreCartDetailSubtotalHeader,td.StoreCartDetailSubtotalFooter,td.StoreAccountOrdersTotalHeader{text-align:right;font-weight:bold;}
+td.StoreCartDetailPrice,td.StoreCartDetailQuantity,td.StoreCartDetailSubtotal,td.StoreAccountOrdersTotal,td.StoreAccountOrderBodyQty,td.StoreAccountOrderBodyPrice,td.StoreAccountOrderBodySubtotal{text-align:right;}
+div.StoreAccountCheckoutSteps ul,p.StoreMicroCartTotal{margin:0;padding:0;}
+fieldset.StoreAccountCheckoutAccountInfos,fieldset.StoreAccountCheckoutBillingAddress,fieldset.StoreAccountCheckoutShippingAddress{width:430px;text-align:left;display:block;margin:0;}
+table.StoreAccountCheckoutSelectBillingAddress,table.StoreAccountCheckoutSelectShippingAddress,table.StoreAccountCheckoutAuthorizeCardInfos{font-size:12px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:left;border-style:hidden;border-width:0;}
+table.StoreAccountCheckoutSelectBillingAddress tr,table.StoreAccountCheckoutSelectShippingAddress tr{text-align:left;vertical-align:baseline;}
+table.StoreAccountCheckoutSelectBillingAddress td,table.StoreAccountCheckoutSelectShippingAddress td{padding:3px;}
+table.StoreAccountCheckoutSelectBillingAddress td.StoreAddressLabel,table.StoreAccountCheckoutSelectShippingAddress td.StoreAddressLabel,table.StoreAccountAddress td.StoreAddressLabel{width:130px;font-weight:bold;white-space:nowrap;}
+table.StoreAccountCheckoutSelectBillingAddress td.StoreAddressField,table.StoreAccountCheckoutSelectShippingAddress td.StoreAddressField,table.StoreAccountAddress td.StoreAddressField{vertical-align:top;white-space:nowrap;}
+div.StoreAccountCheckoutCart,div.StoreAccountCheckoutGateway{text-align:center;margin:0 auto;padding:0;}
+td.StoreAccountCheckoutTaxTotal,td.StoreAccountCheckoutShippingTotal{width:90px;padding-right:30px;}
+td.StoreAccountCheckoutCartFooter span,td.StoreAccountOrderHeaderHeader,td.StoreAccountOrderFooterHeader{font-weight:bold;}
+div.StoreAccountCheckoutEmailProvider,div.StoreAccountCheckoutPayPalProvider,div.StoreAccountCheckoutAuthorizeProvider,div.StoreAccountCheckoutAtosProvider{width:80%;text-align:center;margin:0 10%;padding:0;}
+table.StoreAccountAddresses tr,table.StoreAccountOrders tr,table.StoreAccountOrderBody tr,table.StoreAccountDownloads tr{border-color:#4696BE;border-style:solid;border-width:1px;padding:2px;}
+table.StoreAccountAddresses td,table.StoreAccountOrders td,table.StoreAccountOrderBody td,table.StoreAccountDownloads td{border-color:#4696BE;border-style:solid;border-width:1px;padding:3px;}
+td.StoreAccountAddressesPrimaryHeader,td.StoreAccountAddressesEditHeader,td.StoreAccountOrdersEditHeader{text-align:center;font-weight:bold;width:70px;}
+input.StoreAddressFieldDescription,input.StoreAddressFieldName,input.StoreAddressFieldStreet,input.StoreAddressFieldUnit,input.StoreAddressFieldCity,select.StoreAddressFieldRegion,input.StoreAddressFieldRegion,select.StoreAddressFieldCountry,input.StoreAddressFieldEmail{width:250px;}
+input.StoreAddressFieldTelephone,input.StoreAddressFieldCell{width:150px;}
+table.StoreAccountOrders,table.StoreAccountDownloads{font-size:11px;border-collapse:collapse;empty-cells:hide;table-layout:auto;text-align:center;width:100%;border-color:#4696BE;border-style:solid;border-width:1px;margin:0 auto;}
+td.StoreAccountOrdersNumberHeader,td.StoreAccountOrdersDateHeader,td.StoreAccountOrdersStatusHeader,td.StoreAccountOrdersStatusDateHeader,td.StoreAccountDownloadsOrderNumberHeader,td.StoreAccountDownloadsAllowedHeader,td.StoreAccountDownloadsDownloadedHeader,td.StoreAccountDownloadsDownloadHeader{text-align:center;font-weight:bold;}
+td.StoreAccountOrderHeaderOrderNumber,td.StoreAccountOrderHeaderOrderDate{width:35%;vertical-align:top;}
+td.StoreAccountOrderBodyPriceHeader,td.StoreAccountOrderBodySubtotalHeader{text-align:right;width:90px;font-weight:bold;}

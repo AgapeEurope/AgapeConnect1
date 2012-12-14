@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="APPLICATION_START.Text">
+    <value xml:space="preserve">APPLICATION_START</value>
+  </data>
+  <data name="cmdRun.Text">
+    <value xml:space="preserve">Exécuter maintenant</value>
+  </data>
+  <data name="ContentOptions.Action">
+    <value xml:space="preserve">Statut des planifications</value>
+  </data>
+  <data name="ControlTitle_edit.Text">
+    <value xml:space="preserve">Edition des planifications</value>
+  </data>
+  <data name="Days.Text">
+    <value xml:space="preserve">Jours</value>
+  </data>
+  <data name="DeleteSuccess.Text">
+    <value xml:space="preserve">La planification a été supprimée.</value>
+  </data>
+  <data name="Hours.Text">
+    <value xml:space="preserve">Heures</value>
+  </data>
+  <data name="Minutes.Text">
+    <value xml:space="preserve">Minutes.</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du planificateur de tâches&lt;/h1&gt;&lt;p&gt;Vous permet de spécifier des tâches qui s'exécuteront à intervalle régulier.&lt;/p&gt;</value>
+  </data>
+  <data name="None.Text">
+    <value xml:space="preserve">Aucune</value>
+  </data>
+  <data name="plAttachToEvent.Help">
+    <value xml:space="preserve">Exemple : sélectionnez "APPLICATION_START" pour démarrer cet événement au moment du lancement d'application web. Important, Les événements utilisant "APPLICATION_END" ne fonctionne pas sur certains hôtes.</value>
+  </data>
+  <data name="plAttachToEvent.Text">
+    <value xml:space="preserve">Demarrage sur :</value>
+  </data>
+  <data name="plCatchUpEnabled.Help">
+    <value xml:space="preserve">Si cette option est cochée, en cas d'indisponibilité du serveur, l'évènement sera lancé une seule fois pour toutes les planifications n'ayant pas été lancées durant la période d'indisponibilité.</value>
+  </data>
+  <data name="plCatchUpEnabled.Text">
+    <value xml:space="preserve">Catch Up actif :</value>
+  </data>
+  <data name="plEnabled.Help">
+    <value xml:space="preserve">Cochez pour activer la planification.</value>
+  </data>
+  <data name="plEnabled.Text">
+    <value xml:space="preserve">Planifiée</value>
+  </data>
+  <data name="plFriendlyName.Help">
+    <value xml:space="preserve">Entrez un nom pour la tâche planifiée.</value>
+  </data>
+  <data name="plFriendlyName.Text">
+    <value xml:space="preserve">Nom convivial :</value>
+  </data>
+  <data name="plObjectDependencies.Help">
+    <value xml:space="preserve">Saisissez le nom de la table ou des objets dont cet évènement est dépendant. Example: "SiteLog,Users,UsersOnline"</value>
+  </data>
+  <data name="plObjectDependencies.Text">
+    <value xml:space="preserve">Objet dépendant :</value>
+  </data>
+  <data name="plRetainHistoryNum.Help">
+    <value xml:space="preserve">Example: Sélectionnez "10" pour ne retenir que les lignes les plus récentes.</value>
+  </data>
+  <data name="plRetainHistoryNum.Text">
+    <value xml:space="preserve">Historique :</value>
+  </data>
+  <data name="plRetryTimeLapse.Help">
+    <value xml:space="preserve">Example : "5" et "Minutes" pour tenter de relancer la tâche toutes les 5 minutes. Laisser vide pour désactiver cette option.</value>
+  </data>
+  <data name="plRetryTimeLapse.Text">
+    <value xml:space="preserve">Nouvelle tentative</value>
+  </data>
+  <data name="plServers.Help">
+    <value xml:space="preserve">Saisissez la liste des serveurs (séparés par des points-virgules) sur lesquels la tâche doit être lancée.</value>
+  </data>
+  <data name="plServers.Text">
+    <value xml:space="preserve">Lancer sur les serveurs :</value>
+  </data>
+  <data name="plTimeLapse.Help">
+    <value xml:space="preserve">Exemple: "5" et "Minutes" pour lancer la tâche toutes les 5 minutes. Laissez vide pour désactiver la temporisation.</value>
+  </data>
+  <data name="plTimeLapse.Text">
+    <value xml:space="preserve">Récurrence :</value>
+  </data>
+  <data name="plType.Help">
+    <value xml:space="preserve">Nom complet de la classe suivie par le nom de l'assembly.  Exemple : "DotNetNuke.Entities.Users.PurgeUsersOnline, DOTNETNUKE"</value>
+  </data>
+  <data name="plType.Text">
+    <value xml:space="preserve">Nom complet de la Classe et de l'Assembly</value>
+  </data>
+  <data name="RunNow.Text">
+    <value xml:space="preserve">Elément ajouté au planificateur pour une exécution immédiate</value>
+  </data>
+  <data name="ScheduleHistory.Action">
+    <value xml:space="preserve">Historique des planifications</value>
+  </data>
+  <data name="Seconds.Text">
+    <value xml:space="preserve">Secondes</value>
+  </data>
+  <data name="TypeRequired.Text">
+    <value xml:space="preserve">Le type d'évènement planifié est requis.</value>
+  </data>
+  <data name="UpdateSuccess.Text">
+    <value xml:space="preserve">Vos modifications ont été enregistrées.</value>
+  </data>
+</root>

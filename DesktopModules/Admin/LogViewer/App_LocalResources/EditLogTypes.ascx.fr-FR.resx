@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Active.Header">
+    <value xml:space="preserve">Actif</value>
+  </data>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">Ajouter un enregistrement</value>
+  </data>
+  <data name="ConfigAdded.Text">
+    <value xml:space="preserve">Un enregistrement a été ajouté.</value>
+  </data>
+  <data name="ConfigDeleted.Text">
+    <value xml:space="preserve">L&amp;#146;enregistrement spécifié a été supprimé.</value>
+  </data>
+  <data name="ConfigUpdated.Text">
+    <value xml:space="preserve">La configuration a été mise à jour.</value>
+  </data>
+  <data name="ControlTitle_edit.Text">
+    <value xml:space="preserve">Paramètres d&amp;#146;enregistrement</value>
+  </data>
+  <data name="DeleteError.Text">
+    <value xml:space="preserve">Cette configuration ne peut pas être supprimée. Vous devez supprimer toutes les entrées avant.</value>
+  </data>
+  <data name="Edit.EditText">
+    <value xml:space="preserve">Editer</value>
+  </data>
+  <data name="EmailSettings.Text">
+    <value xml:space="preserve">Paramètres de notification par Email</value>
+  </data>
+  <data name="FileName.Header">
+    <value xml:space="preserve">Nom du fichier</value>
+  </data>
+  <data name="In.Text">
+    <value xml:space="preserve">dans</value>
+  </data>
+  <data name="LogEntries.Text">
+    <value xml:space="preserve">Entrées des logs</value>
+  </data>
+  <data name="LogEntry.Text">
+    <value xml:space="preserve">Entrée des logs</value>
+  </data>
+  <data name="LogType.Header">
+    <value xml:space="preserve">Type de log&amp;nbsp;</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du journal des logs&lt;/h1&gt;&lt;p&gt;Cet outil vous permet de tracer les évènements survenus sur votre système.&lt;/p&gt;</value>
+  </data>
+  <data name="Occurence.Text">
+    <value xml:space="preserve"> Occurrence</value>
+  </data>
+  <data name="Occurences.Text">
+    <value xml:space="preserve"> Occurrences</value>
+  </data>
+  <data name="plEmailNotificationStatus.Help">
+    <value xml:space="preserve">Voulez-vous qu'un message vous soit envoyé si cet évènement intervient ?</value>
+  </data>
+  <data name="plEmailNotificationStatus.Text">
+    <value xml:space="preserve">Notification par Email activée&amp;nbsp;</value>
+  </data>
+  <data name="plFileName.Help">
+    <value xml:space="preserve">Saisissez le nom pour ces enregistrements.</value>
+  </data>
+  <data name="plFileName.Text">
+    <value xml:space="preserve">Nom du fichier&amp;nbsp;</value>
+  </data>
+  <data name="plIsActive.Help">
+    <value xml:space="preserve">Voulez-vous activer les enregistrements</value>
+  </data>
+  <data name="plIsActive.Text">
+    <value xml:space="preserve">Enregistrements activés&amp;nbsp;</value>
+  </data>
+  <data name="plKeepMostRecent.Text">
+    <value xml:space="preserve">Conserver les plus récents</value>
+  </data>
+  <data name="plLogTypeKey.Help">
+    <value xml:space="preserve">Quel est le type d&amp;#146;évènement</value>
+  </data>
+  <data name="plLogTypeKey.Text">
+    <value xml:space="preserve">Type de log&amp;nbsp;</value>
+  </data>
+  <data name="plLogTypePortalID.Help">
+    <value xml:space="preserve">Quel est le site associé à cet évènement</value>
+  </data>
+  <data name="plLogTypePortalID.Text">
+    <value xml:space="preserve">Site&amp;nbsp;</value>
+  </data>
+  <data name="plMailFromAddress.Help">
+    <value xml:space="preserve">Adresse Email utilisée pour envoyer la notification</value>
+  </data>
+  <data name="plMailFromAddress.Text">
+    <value xml:space="preserve">Expéditeur&amp;nbsp;</value>
+  </data>
+  <data name="plMailToAddress.Help">
+    <value xml:space="preserve">Adresse Email du destinataire du message</value>
+  </data>
+  <data name="plMailToAddress.Text">
+    <value xml:space="preserve">Destinataire&amp;nbsp;</value>
+  </data>
+  <data name="plThreshold.Text">
+    <value xml:space="preserve">Nombre d&amp;#146;occurrences&amp;nbsp;</value>
+  </data>
+  <data name="Portal.Header">
+    <value xml:space="preserve">Site&amp;nbsp;</value>
+  </data>
+  <data name="Settings.Text">
+    <value xml:space="preserve">Paramètres d&amp;#146;enregistrement</value>
+  </data>
+</root>

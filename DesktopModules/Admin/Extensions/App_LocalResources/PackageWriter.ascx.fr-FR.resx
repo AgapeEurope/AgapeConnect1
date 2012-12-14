@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel.Text">
+    <value xml:space="preserve">Retour</value>
+  </data>
+  <data name="chkIncludeSource.Text">
+    <value xml:space="preserve">Inclure la source :</value>
+  </data>
+  <data name="ChooseAssemblies.Help">
+    <value xml:space="preserve">A cette étape vous pouvez ajouter les assemblies nécessaires dans votre paquet. S’il y a un fichier de projet dans le dossier du paquet alors l’assistant tentera de déterminer les assemblies à inclure. Vous pouvez ajouter/supprimer les assemblies dans la liste.</value>
+  </data>
+  <data name="ChooseAssemblies.Title">
+    <value xml:space="preserve">Choisir les éléments à inclure</value>
+  </data>
+  <data name="ChooseFiles.Help">
+    <value xml:space="preserve">A cette étape vous pouvez choisir les fichiers à inclure dans le paquet. L’assistant a tenté de déterminer quels sont les fichiers à inclure mais vous pouvez ajouter ou supprimer des fichiers dans la liste Vous pouvez choisir d’intégrer les fichiers source en cliquant sur la case « Inclure la source ».</value>
+  </data>
+  <data name="ChooseFiles.Title">
+    <value xml:space="preserve">Fichiers à inclure</value>
+  </data>
+  <data name="cmdGetAssemblies.Text">
+    <value xml:space="preserve">Rafraichir la liste</value>
+  </data>
+  <data name="cmdGetFiles.Text">
+    <value xml:space="preserve">Rafraichir la liste des fichiers</value>
+  </data>
+  <data name="Complete.Text">
+    <value xml:space="preserve">Package complet (zip):</value>
+  </data>
+  <data name="ControlTitle_packagewriter.Text">
+    <value xml:space="preserve">Créer un package</value>
+  </data>
+  <data name="CreateManifest.Help">
+    <value xml:space="preserve">En fonction de vos choix, l’assistant a créé un manifeste pour ce paquet. Le manifeste est affiché dans le champ de saisie ci-dessous. Vous pouvez éditer le manifeste avant de créer le paquet.</value>
+  </data>
+  <data name="CreateManifest.Title">
+    <value xml:space="preserve">Créer un manifeste</value>
+  </data>
+  <data name="FinalStep.Help">
+    <value xml:space="preserve">L’étape finale est la creation du paquet. Pour créer une copie du fichier manifeste cocher la case « Créer fichier manifeste » - le fichier sera créé dans le dossier du paquet. En fonction des paramètres que vous utilisez ici le manifeste sera sauvegardé dans la base de donnée puis ajouté au paquet.&lt;br /&gt;&lt;br /&gt;Pour créer un paquet cocher la case « Créer un paquet ». Le paquet sera créé dans le dossier Install adéquat (ex : Install/Modules, Install/Skins).</value>
+  </data>
+  <data name="FinalStep.Title">
+    <value xml:space="preserve">Créer un package</value>
+  </data>
+  <data name="Introduction.Help">
+    <value xml:space="preserve">Dans cet assistant vous pourrez paqueter tous les fichiers nécessaires à l’installation de l’extension dans une autre installation DotNetNuke.</value>
+  </data>
+  <data name="Introduction.Title">
+    <value xml:space="preserve">Créer un package</value>
+  </data>
+  <data name="InvalidManifestExtension.Text">
+    <value xml:space="preserve">Extension du fichier manifeste invalide - l'extension de manifeste doit être « .dnn ».</value>
+  </data>
+  <data name="InvalidPackageName.Text">
+    <value xml:space="preserve">Nom du paquet invalide - le paquet doit avoir une extension « .zip ».</value>
+  </data>
+  <data name="LogTitle.Text">
+    <value xml:space="preserve">Logs de la création du package</value>
+  </data>
+  <data name="Manifest.Text">
+    <value xml:space="preserve">Manifeste seul (dnn):</value>
+  </data>
+  <data name="ManifestHelp.Text">
+    <value xml:space="preserve">&lt;p&gt;Cet assistant va créer le manifeste pour votre extension. Vous avez un nombre important d’options à choisir. Si vous avez déjà créé un manifeste (que ce soit par l’assistant ou de façon manuelle) vous pouvez le sélectionner en cochant « Utiliser un manifeste existant » puis en le choisissant dans la liste des manifestes que le système vous proposera pour cette extension.&lt;/p&gt;&lt;p&gt;Vous pouvez choisir de revoir le manifeste lors de la dernière étape de l’assistante – au cas où vous voudriez apporter quelques changements mineurs avant de créer le zip du paquet.&lt;/p&gt;</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos de Package writer&lt;/h1&gt;&lt;p&gt;Vous permet de créer des paquets.&lt;/p&gt;</value>
+  </data>
+  <data name="NoFileName.Text">
+    <value xml:space="preserve">Vous devez fournir un nom de fichier pour le paquet</value>
+  </data>
+  <data name="plArchiveName.Help">
+    <value xml:space="preserve">Entrez le nom du fichier à utiliser pour l'archive (zip).</value>
+  </data>
+  <data name="plArchiveName.Text">
+    <value xml:space="preserve">Nom du fichier :</value>
+  </data>
+  <data name="plBasePath.Help">
+    <value xml:space="preserve">Dossier où se trouvent les fichiers du paquet</value>
+  </data>
+  <data name="plBasePath.Text">
+    <value xml:space="preserve">Dossier</value>
+  </data>
+  <data name="plBinFolder.Help">
+    <value xml:space="preserve">Dossier où se trouvent des assemblies du paquet</value>
+  </data>
+  <data name="plBinFolder.Text">
+    <value xml:space="preserve">Dossier des éléments</value>
+  </data>
+  <data name="plChooseManifest.Help">
+    <value xml:space="preserve">Si vous avez choisi d'utiliser un manifeste créé précédemment, vous pouvez choisir le manifeste à utiliser.</value>
+  </data>
+  <data name="plChooseManifest.Text">
+    <value xml:space="preserve">Manifeste existant :</value>
+  </data>
+  <data name="plManifest.Help">
+    <value xml:space="preserve">Cochez cette case pour créer un fichier manifeste.</value>
+  </data>
+  <data name="plManifest.Text">
+    <value xml:space="preserve">Créer le manifeste :</value>
+  </data>
+  <data name="plManifestName.Help">
+    <value xml:space="preserve">Entrez le nom du fichier à utiliser pour le manifeste.</value>
+  </data>
+  <data name="plManifestName.Text">
+    <value xml:space="preserve">Nom du manifeste :</value>
+  </data>
+  <data name="plPackage.Help">
+    <value xml:space="preserve">Cochez cette case pour créer un fichier de paquet (zip)</value>
+  </data>
+  <data name="plPackage.Text">
+    <value xml:space="preserve">Créer le packqge :</value>
+  </data>
+  <data name="plReviewManifest.Help">
+    <value xml:space="preserve">Cocher cette case pour revoir le manifeste avant de créer le paquet.</value>
+  </data>
+  <data name="plReviewManifest.Text">
+    <value xml:space="preserve">Examiner le manifeste :</value>
+  </data>
+  <data name="plUseManifest.Help">
+    <value xml:space="preserve">Cocher cette case pour utiliser le manifeste existant pour le paquet.</value>
+  </data>
+  <data name="plUseManifest.Text">
+    <value xml:space="preserve">Utiliser le manifeste :</value>
+  </data>
+  <data name="Success.Text">
+    <value xml:space="preserve">Le paquet a été créé et se trouve dans le dossier {0}</value>
+  </data>
+  <data name="WriterResults.Help">
+    <value xml:space="preserve">Les résultats de la création du paquet sont présentés ci-dessous.</value>
+  </data>
+  <data name="WriterResults.Title">
+    <value xml:space="preserve">Résultat de la création du package</value>
+  </data>
+</root>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AC-FR" Class="GiveDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AC-FR;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Agape_Give_DonationType" Member="Agape_Give_DonationTypes">
+    <Type Name="Agape_Give_DonationType">
+      <Column Name="DonationTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DonationTypeName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DonationTypeNumber" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Agape_Give_DonationType_Agape_Give_BankTransfer" Member="Agape_Give_BankTransfers" ThisKey="DonationTypeNumber" OtherKey="DonationType" Type="Agape_Give_BankTransfer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Give_BankTransfer" Member="Agape_Give_BankTransfers">
+    <Type Name="Agape_Give_BankTransfer">
+      <Column Name="VirId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DonorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BankName" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="BankStreet1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="BankStreet2" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="BankPostal" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="acNo" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Frequency" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BankCity" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="GiveMessage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Reference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="DonationType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Agape_Give_DonationType_Agape_Give_BankTransfer" Member="Agape_Give_DonationType" ThisKey="DonationType" OtherKey="DonationTypeNumber" Type="Agape_Give_DonationType" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

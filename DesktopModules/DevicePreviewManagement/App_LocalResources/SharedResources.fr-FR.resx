@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CreateNew.Text">
+    <value xml:space="preserve">Créer une nouvelle prévisualisation de dispositif</value>
+  </data>
+  <data name="Device Name.Header">
+    <value xml:space="preserve">Nom du dispositif</value>
+  </data>
+  <data name="Height.Header">
+    <value xml:space="preserve">Hauteur</value>
+  </data>
+  <data name="lblHeight.Text">
+    <value xml:space="preserve">Hauteur</value>
+  </data>
+  <data name="lblName.Text">
+    <value xml:space="preserve">Nom du dispositif</value>
+  </data>
+  <data name="lblUserAgent.Text">
+    <value xml:space="preserve">Agent utilisateur</value>
+  </data>
+  <data name="lblWidth.Text">
+    <value xml:space="preserve">Largeur</value>
+  </data>
+  <data name="ProfileManagerMessage.Text">
+    <value xml:space="preserve">Gestion de l'aperçu du site sur le dispositif</value>
+  </data>
+  <data name="Save.Text">
+    <value xml:space="preserve">Créer</value>
+  </data>
+  <data name="USER AGENT.Header">
+    <value xml:space="preserve">AGENT UTILISATEUR</value>
+  </data>
+  <data name="valHeight.Text">
+    <value xml:space="preserve">Vous devez entrer un numéro valide pour la hauteur.</value>
+  </data>
+  <data name="valName.Text">
+    <value xml:space="preserve">Vous devez entrer un nom valide, il ne doit pas être vide ou être un doublon de profils de prévisualisation existants.</value>
+  </data>
+  <data name="valUserAgent.Text">
+    <value xml:space="preserve">Vous devez entrer un agent utilisateur correct.</value>
+  </data>
+  <data name="valWidth.Text">
+    <value xml:space="preserve">Vous devez entrer un numéro valide pour la largeur.</value>
+  </data>
+  <data name="Width.Header">
+    <value xml:space="preserve">Largeur</value>
+  </data>
+</root>

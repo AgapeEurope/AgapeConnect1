@@ -1,0 +1,533 @@
+/* ================= */
+/* Module Store Menu */
+/* ================= */
+div.StoreMenuWrapper {
+	font:12px Verdana, Arial, Helvetica, sans-serif;
+	padding:5px 0;
+}
+/* Categories */
+a.StoreMenuCategoryItemSelected:link,
+a.StoreMenuCategoryItemSelected:visited {
+	color:#F00;
+}
+a.StoreMenuCategoryItemSelected:hover,
+a.StoreMenuCategoryItemSelected:active {
+}
+a.StoreMenuCategoryItem:link,
+a.StoreMenuCategoryItem:visited {
+	color:#0D69B2;
+}
+a.StoreMenuCategoryItem:hover,
+a.StoreMenuCategoryItem:active {
+}
+/* each category inherit from "StoreMenuCategoryItemSelected" or
+   "StoreMenuCategoryItem" AND from "StoreMenuCategoryItemLevel_n"
+   where n is the current level in the tree (starting from 0).
+   You have to create the required classes definitions accordingly
+   to the levels used in your store. There is NO level limit!
+
+SAMPLE
+
+a.StoreMenuCategoryItemLevel_0:link,
+a.StoreMenuCategoryItemLevel_0:visited {
+}
+a.StoreMenuCategoryItemLevel_0:hover,
+a.StoreMenuCategoryItemLevel_0:active {
+}
+
+OR
+
+a.StoreMenuCategoryItemLevel_0 {
+}
+a.StoreMenuCategoryItemLevel_1 {
+}
+a.StoreMenuCategoryItemLevel_2 {
+} */
+
+/* Those classes are used when the Store Menu
+   is rendered as ul >li */
+ul.StoreMenuCategoryContainer {
+	padding-left:10px;
+}
+li.StoreMenuCategoryListItem {
+	list-style-type:none;
+}
+li.StoreMenuCategoryListItemSelected {
+	list-style-type:none;
+}
+/*
+ul.StoreMenuCategoryContainerLevel_0 {
+}
+li.StoreMenuCategoryListItemLevel_0 {
+}
+*/
+/* ==================== */
+/* Module Store Catalog */
+/* ==================== */
+div.StoreCatalogWrapper {
+	font:12px Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px #4696BE;
+}
+/* Overrides the standard CommandButton class */
+div.StoreCatalogWrapper a.CommandButton {
+	font-size:12px;
+}
+/* Overrides the standard Normal class */
+div.StoreCatalogWrapper .Normal {
+	font-size:12px;
+}
+/* Search Controls Container */
+div.StoreSearch {
+	margin:0;
+	padding:5px;
+	border-bottom:solid 1px #4696be;
+	text-align:left;
+}
+div.StoreSearch input.StoreSearchTextBox {
+	margin:0 5px;
+}
+div.StoreSearch select.StoreSearchColumns {
+	margin:0 5px;
+}
+div.StoreSearch a.StoreSearchLinkButton {
+}
+div.StoreSearch input.StoreSearchHiddenButton {
+	display:none;
+	visibility:hidden;
+}
+/* Category Message Container */
+div.StoreMessage {
+	text-align:center;
+	margin:0;
+	padding:5px;
+}
+div.StoreCategoryMessage {
+	margin:0;
+}
+div.StoreCategoryMessage p {
+	margin:0;
+	padding:3px 0;
+}
+p.StoreSubCategories {
+	margin:0;
+	padding:3px 0;
+}
+a.StoreSubCategoryItem:link,
+a.StoreSubCategoryItem:visited {
+	color:#0D69B2;
+}
+a.StoreSubCategoryItem:hover,
+a.StoreSubCategoryItem:active {
+}
+/* Products Lists */
+div.StoreListContainer {
+}
+div.StoreListContainer-Title {
+	margin:0;
+	padding:3px 10px;
+	background-color:#4696BE;
+	color:#D2D2D2;
+	font-size:16px;
+	font-weight:bold;
+}
+div.StoreListContainer-Breadcrumb {
+	margin:0;
+	padding:0;
+	background-color:#D2D2D2;
+	text-align:left;
+}
+div.StoreListContainer-Breadcrumb p {
+	margin:0;
+	padding:5px;
+}
+div.StoreListContainer-SortBy {
+	margin:0;
+	padding:0;
+	border-bottom:solid 1px #D2D2D2;
+	text-align:left;
+}
+div.StoreListContainer-SortBy p {
+	margin:0;
+	padding:5px;
+}
+div.StoreListContainer-Content {
+	margin:0;
+	padding:5px;
+	text-align:center;
+}
+div.StoreListContainer-Navigation {
+	margin:0;
+	padding:5px 0;
+	border-top:solid 1px #D2D2D2;
+	text-align:center;
+}
+div.StoreListContainer-Navigation p {
+	margin:0;
+	padding:3px;
+}
+span.StoreListTitle {
+}
+span.StoreSelectedCategory {
+}
+span.StoreItemsCount {
+}
+span.StoreSortBy {
+}
+span.StoreSortBy select.StoreSortByColumns {
+}
+span.StoreSortBy input.StoreSortByLinkButton {
+}
+span.StoreCategoriesBreadcrumb {
+}
+span.StoreBeforeBreadcrumb {
+}
+span.StoreBreadcrumb {
+}
+span.StoreAfterBreadcrumb {
+}
+span.StoreSelectCategory {
+}
+span.StoreEmptyList {
+}
+/* Classes used by the token [PRODUCTS] */
+table.StoreNewProductList,
+table.StoreFeaturedProductList,
+table.StorePopularProductList,
+table.StoreCategoryProductList,
+table.StoreSearchResultsProductList,
+table.StoreAlsoBoughtProductList {
+	border:none 0;
+	border-spacing:0;
+	border-collapse:collapse;
+	width:100%;
+}
+td.StoreNewProductItem,
+td.StoreFeaturedProductItem,
+td.StorePopularProductItem,
+td.StoreCategoryProductItem,
+td.StoreSearchResultsProductItem,
+td.StoreAlsoBoughtProductItem {
+	padding:5px 0;
+	text-align:left;
+	vertical-align:top;
+}
+td.StoreNewProductAlternatingItem,
+td.StoreFeaturedProductAlternatingItem,
+td.StorePopularProductAlternatingItem,
+td.StoreCategoryProductAlternatingItem,
+td.StoreSearchResultsProductAlternatingItem,
+td.StoreAlsoBoughtProductAlternatingItem {
+	padding:5px 0;
+	text-align:left;
+	vertical-align:top;
+}
+td.StoreNewProductItem p,
+td.StoreFeaturedProductItem p,
+td.StorePopularProductItem p,
+td.StoreCategoryProductItem p,
+td.StoreSearchResultsProductItem p,
+td.StoreAlsoBoughtProductItem p {
+	margin:0;
+	padding:2px 0;
+}
+td.StoreNewProductAlternatingItem p,
+td.StoreFeaturedProductAlternatingItem p,
+td.StorePopularProductAlternatingItem p,
+td.StoreCategoryProductAlternatingItem p,
+td.StoreSearchResultsProductAlternatingItem p,
+td.StoreAlsoBoughtProductAlternatingItem p {
+	margin:0;
+	padding:2px 0;
+}
+/* Featured Product Price (BIG Font) */
+td.StoreFeaturedProductItem span.StoreProductPrice,
+td.StoreFeaturedProductAlternatingItem span.StoreProductPrice {
+	font-size:14px;
+}
+/* Classes used but the token [ULISTPRODUCTS] */
+ul.UnorderedProductsList {
+}
+ul.UnorderedProductsList li {
+}
+/* Page Navigation */
+span.StorePageNav {
+}
+a.StorePagePrevious:link,
+a.StorePagePrevious:visited {
+}
+a.StorePagePrevious:hover,
+a.StorePagePrevious:active {
+}
+span.StoreCurrentPageNumber {
+	color:#F00;
+}
+a.StorePageNumber:link,
+a.StorePageNumber:visited {
+}
+a.StorePageNumber:hover,
+a.StorePageNumber:active {
+}
+a.StorePageNext:link,
+a.StorePageNext:visited {
+}
+a.StorePageNext:hover,
+a.StorePageNext:active {
+}
+span.StorePageInfo {
+}
+/* Product Detail */
+div.StoreDetailContainer {
+}
+div.StoreDetailContainer-Title {
+	margin:0;
+	padding:3px 10px;
+	background-color:#4696BE;
+	color:#D2D2D2;
+	font-size:16px;
+	font-weight:bold;
+}
+span.StoreDetailTitle {
+}
+div.StoreDetailContainer-Warning {
+}
+span.StoreDetailWarningMessage {
+	display:block;
+	margin:0 auto;
+	padding:2px 0;
+	text-align:center;
+	background-color:#F00;
+	color:#FFF;
+	font-weight:bold;
+}
+div.StoreDetailContainer-Content {
+	padding:5px;
+}
+div.StoreDetailContainer-Content p {
+	margin:0;
+	padding:0;
+	text-align:left;
+}
+/* Product classes */
+a.StoreProductLinkImage:link,
+a.StoreProductLinkImage:visited {
+	text-decoration:none;
+}
+a.StoreProductLinkImage:hover,
+a.StoreProductLinkImage:active {
+	text-decoration:none;
+}
+img.StoreProductImage {
+	float:left;
+	padding-right:5px;
+}
+span.StoreCategoryName {
+}
+span.StoreProductManufacturer {
+}
+span.StoreProductModelNumber {
+	white-space:nowrap;
+}
+span.StoreProductModelName {
+	font-size:14px;
+}
+a.StoreProductLinkTitle:link,
+a.StoreProductLinkTitle:visited {
+}
+a.StoreProductLinkTitle:hover,
+a.StoreProductLinkTitle:active {
+}
+span.StoreProductTitle {
+}
+span.StoreProductSummary {
+}
+span.StoreProductWeight {
+	white-space:nowrap;
+}
+span.StoreProductHeight {
+	white-space:nowrap;
+}
+span.StoreProductLength {
+	white-space:nowrap;
+}
+span.StoreProductWidth {
+	white-space:nowrap;
+}
+span.StoreProductSurface {
+	white-space:nowrap;
+}
+span.StoreProductVolume {
+	white-space:nowrap;
+}
+span.StoreProductDimensions {
+	white-space:nowrap;
+}
+span.StoreProductPrice {
+	font-size:14px;
+	white-space:nowrap;
+}
+span.StoreProductVATPrice {
+	font-size:14px;
+	white-space:nowrap;
+}
+/* The two classes below are defined in the resource file
+   ProductDetail.ascx.resx - SpecialOffer.Text.
+   They are related to the Special Offer Pricing
+   when a product is featured */
+span.StoreProductSalePrice {
+	color:#F00;
+}
+span.StoreProductRegularPrice {
+	text-decoration:line-through;
+}
+div.StoreProductDescription {
+}
+span.StoreProductStockQuantity {
+}
+a.StoreLinkDetail:link,
+a.StoreLinkDetail:visited {
+	white-space:nowrap;
+}
+a.StoreLinkDetail:hover,
+a.StoreLinkDetail:active {
+}
+a.StorePrintDetail:link,
+a.StorePrintDetail:visited {
+	white-space:nowrap;
+}
+a.StorePrintDetail:hover,
+a.StorePrintDetail:active {
+}
+input.StoreLinkDetailImg {
+}
+a.StoreButtonPurchase {
+}
+a.StoreButtonPurchase:link,
+a.StoreButtonPurchase:visited {
+}
+a.StoreButtonPurchase:hover,
+a.StoreButtonPurchase:active {
+}
+input.StoreButtonPurchaseImg {
+}
+a.StoreButtonAddToCart:link,
+a.StoreButtonAddToCart:visited {
+}
+a.StoreButtonAddToCart:hover,
+a.StoreButtonAddToCart:active {
+}
+input.StoreButtonAddToCartImg {
+}
+span.StoreAddQuantity {
+}
+input.StoreQuantityTextBox {
+	width:25px;
+}
+a.StoreButtonTellAFriend:link,
+a.StoreButtonTellAFriend:visited {
+}
+a.StoreButtonTellAFriend:hover,
+a.StoreButtonTellAFriend:active {
+}
+a.StoreButtonTellAFriend img {
+	border:none 0;
+}
+input.StoreButtonEdit {
+	float:left;
+}
+span.StoreDetailError {
+	margin: 10px 5px;
+}
+p.StoreClear {
+	clear:both;
+}
+/* Return to category */
+div.StoreDetailReturnWrapper {
+	margin:0;
+	padding:5px;
+	background-color:#D2D2D2;
+	text-align:left;
+}
+a.StoreDetailReturnButton:link,
+a.StoreDetailReturnButton:visited {
+}
+a.StoreDetailReturnButton:hover,
+a.StoreDetailReturnButton:active {
+}
+/* Reviews classes */
+div.StoreDetailReviewsWrapper {
+	margin:0;
+	padding:5px;
+}
+p.StoreReviews-Title {
+	width:100%;
+	margin:0;
+	padding:3px 0;
+	text-align:right;
+	border-bottom:dotted 1px red;
+}
+p.StoreAddReview {
+	width:100%;
+	margin:0;
+	padding:3px 0;
+	text-align:right;
+}
+table.StoreReviews {
+	border:none 0;
+	border-spacing:0;
+	border-collapse:collapse;
+	width:100%;
+}
+table.StoreReview td {
+	padding:0;
+}
+p.StoreUserReview {
+	margin:0;
+	padding:3px 0;
+	float:left;
+}
+p.StoreUserReviewComment {
+	margin:0;
+	padding:3px 0;
+	clear:both;
+}
+div.StoreEditWrapper {
+	margin:0;
+	padding:5px 0;
+	width:100%;
+	text-align:center;
+}
+table.StoreEditReview {
+	margin:0 10%;
+	padding:0;
+	border:none 0;
+	border-spacing:5px;
+	border-collapse:collapse;
+	width:80%;
+	text-align:left;
+}
+table.StoreEditReview tr {
+	vertical-align:top;
+}
+table.StoreEditReview td {
+	padding:2px 0;
+}
+table.StoreEditReview td.NormalBold {
+	width:33%;
+	white-space:nowrap;
+}
+table.StoreEditReview td.Normal {
+	width:67%;
+}
+td.StoreEditReviewCommands {
+	text-align:center;
+}
+span.StoreReviewApproval {
+}
+/* ===================== */
+/* Module Store Minicart */
+/* ===================== */
+div.StoreMiniCartWrapper {
+	font:12px Verdana, Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+/* See also the Cart Detail section in the StoreAccount.css file. */

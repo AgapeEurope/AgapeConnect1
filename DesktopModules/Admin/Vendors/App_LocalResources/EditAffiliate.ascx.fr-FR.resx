@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdSend.Text">
+    <value xml:space="preserve">Envoyer une notification</value>
+  </data>
+  <data name="ControlTitle_affiliate.Text">
+    <value xml:space="preserve">Gestion des affiliations</value>
+  </data>
+  <data name="CPA.ErrorMessage">
+    <value xml:space="preserve">Vous devez spécifier un CPA valide</value>
+  </data>
+  <data name="CPC.ErrorMessage">
+    <value xml:space="preserve">Vous devez spécifier un CPC valide</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos des Annonceurs&lt;/h1&gt;&lt;p&gt;Cet outil permet de gérer les annonceurs et 
+les bannières qui leurs sont associés.&lt;/p&gt;</value>
+  </data>
+  <data name="NotificationFailure.Text">
+    <value xml:space="preserve">Notification non envoyée : {0}</value>
+  </data>
+  <data name="NotificationSuccess.Text">
+    <value xml:space="preserve">Notification envoyée</value>
+  </data>
+  <data name="plCPA.Help">
+    <value xml:space="preserve">CPA : le Coût Par Acquisition correspond au montant de la commission payée au fournisseur quand un visiteur devient "Membre" de votre site</value>
+  </data>
+  <data name="plCPA.Text">
+    <value xml:space="preserve">Coût Par Acquisition (CPA)&amp;nbsp;</value>
+  </data>
+  <data name="plCPC.Help">
+    <value xml:space="preserve">CPC : le Coût Par Acquisition correspond au montant de base de la commission payée par le fournisseur quand une visite est générée à partir de votre site vers son site</value>
+  </data>
+  <data name="plCPC.Text">
+    <value xml:space="preserve">Coût Par Clic (CPC)&amp;nbsp;</value>
+  </data>
+  <data name="plEndDate.Text">
+    <value xml:space="preserve">*Date de fin&amp;nbsp;</value>
+  </data>
+  <data name="plStartDate.Help">
+    <value xml:space="preserve">Spécifiez une date de départ et de fin pour contrôler le taux en fonction de la durée du contrat de l'affiliation</value>
+  </data>
+  <data name="plStartDate.Text">
+    <value xml:space="preserve">*Date de début&amp;nbsp;</value>
+  </data>
+</root>

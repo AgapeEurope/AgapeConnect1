@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://agapeconnect.me/DSPortalUsers/DSPortals.asmx?wsdl" docRef="https://agapeconnect.me/DSPortalUsers/DSPortals.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://agapeconnect.me/DSPortalUsers/DSPortals.asmx" xmlns:q1="http://agapeconnect.me/" binding="q1:DSPortalsSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://agapeconnect.me/DSPortalUsers/DSPortals.asmx" xmlns:q2="http://agapeconnect.me/" binding="q2:DSPortalsSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

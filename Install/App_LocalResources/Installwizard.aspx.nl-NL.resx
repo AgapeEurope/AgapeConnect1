@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminUser.Text">
+    <value xml:space="preserve">SuperUser Account</value>
+  </data>
+  <data name="AdminUserDetail.Text">
+    <value xml:space="preserve">Voer de informatie voor de "SuperUser" account. Dit account zal toegang hebben om alle websites binnen deze DotNetNuke installatie te bouwen en beheren. Wij raden u aan een sterk wachtwoord te maken, bijvoorbeeld: minimaal 7 tekens lang en een combinatie van letters, cijfers en symbolen. U kunt dit wachtwoord wijzigen in de toekomst door middel van de SuperUser sectie van uw website.</value>
+  </data>
+  <data name="AdminUserError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij beheerdersaccount Error:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="AdminUserTitle.Text">
+    <value xml:space="preserve">Configureren van uw account en SuperUser Website Informatie</value>
+  </data>
+  <data name="AuthSystems.Text">
+    <value xml:space="preserve">Authenticatie Systemen</value>
+  </data>
+  <data name="AuthSystemsDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;DotNetNuke ondersteunt meerdere Authenticatie Systemen; dat is de wijze waarop een gebruiker zich aanmeldt op de website. DotNetNuke wordt geleverd met een standaard Authenticatie Systeem die apart of in combinatie met andere systemen worden gebruikt. Selecteer de optie die u wilt installeren voor gebruik op uw website. Vergeet niet, u kunt er voor kiezen om een ​​van de hier genoemde Authenticatie systemen in een later stadium, nadat de installatie is voltooid, te installeren.&lt;/p&gt;</value>
+  </data>
+  <data name="AuthSystemsTitle.Text">
+    <value xml:space="preserve">Het installeren van optionele authenticatie systemen</value>
+  </data>
+  <data name="Auto.Text">
+    <value xml:space="preserve">&lt;b&gt;Auto&lt;/b&gt; - de "Auto" installatie methode zal DotNetNuke met behulp van de standaard opties installeren, waaronder de vooraf geconfigureerde SQL Express-database.</value>
+  </data>
+  <data name="ChooseDatabase.Text">
+    <value xml:space="preserve">Selecteer Database:</value>
+  </data>
+  <data name="ChooseDbError.Text">
+    <value xml:space="preserve">U dient een type database te selecteren</value>
+  </data>
+  <data name="ChooseInstall.Text">
+    <value xml:space="preserve">Selecteer uw Installatiemethode:</value>
+  </data>
+  <data name="ChooseLanguage.Text">
+    <value xml:space="preserve">Kies Uw Taal:</value>
+  </data>
+  <data name="Complete.Text">
+    <value xml:space="preserve">Database installatie is nu compleet</value>
+  </data>
+  <data name="CompleteDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Gefeliciteerd, DotNetNuke wordt nu gëinstalleerd now</value>
+  </data>
+  <data name="CompleteTitle.Text">
+    <value xml:space="preserve">Gefeliciteerd</value>
+  </data>
+  <data name="Confirm.Text">
+    <value xml:space="preserve">Bevestig Wachtwoord:</value>
+  </data>
+  <data name="ConfirmPassword.Text">
+    <value xml:space="preserve">De bevestiging van het wachtwoord is niet gelijk aan het opgegeven wachtwoord.</value>
+  </data>
+  <data name="ConnectError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Verbindingsfout(en):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="ConnectSuccess.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='green'&gt;Verbindingssucces&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Containers.Text">
+    <value xml:space="preserve">Containers</value>
+  </data>
+  <data name="Database.Text">
+    <value xml:space="preserve">Database:</value>
+  </data>
+  <data name="DatabaseConfigDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;DotNetNuke is een content management systeem dat informatie over uw website opslaat in een database. Op deze pagina kunt u de database connectie configureren. Als u DotNetNuke gaat installeren in een "Hosting Account" moet u de gegevens invullen welke u van uw hosting provider heeft ontvangen. Indien u DotNetNuke op uw lokale computer gaat installeren, is het aanbevolen om de standaard opties te gebruiken.&lt;/p&gt;</value>
+  </data>
+  <data name="DatabaseConfigTitle.Text">
+    <value xml:space="preserve">Database verbinding instellen</value>
+  </data>
+  <data name="DatabaseFile.Text">
+    <value xml:space="preserve">Bestandsnaam:</value>
+  </data>
+  <data name="DatabaseFileHelp.Text">
+    <value xml:space="preserve">Geef de naam van het database bestand (bevindt zich in de App_Data map)</value>
+  </data>
+  <data name="DatabaseHelp.Text">
+    <value xml:space="preserve">Geef de naam van de database</value>
+  </data>
+  <data name="DatabaseInstallDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Uw database wordt nu opgebouwd. Zodra het proces is voltooid, wordt de "Volgende" knop ingeschakeld.&lt;/p&gt;</value>
+  </data>
+  <data name="DatabaseInstallTitle.Text">
+    <value xml:space="preserve">Uw Database opbouwen</value>
+  </data>
+  <data name="DatabaseWarning.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;De "Auto" instllatie optie is niet te gebruiken omdat er geen verbinding met een database kon worden gekaamt.  Via de andere twee opties kunt u de correcte databas informatie invoeren.&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="DbNameError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;U moet een naam invullen van een database.&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Email.Text">
+    <value xml:space="preserve">E-mail Adres:</value>
+  </data>
+  <data name="EmailErrorMessage.Text">
+    <value xml:space="preserve">Er is een fout opgetreden bij het versturen van tech emails:&lt;br /&gt;{0}</value>
+  </data>
+  <data name="EmailSentMessage.Text">
+    <value xml:space="preserve">E-mail Succesvol Verzonden</value>
+  </data>
+  <data name="EmailTestMessageSubject.Text">
+    <value xml:space="preserve">SMTP Configuratie Test</value>
+  </data>
+  <data name="EnableUpdate.Text">
+    <value xml:space="preserve">Wilt u dat de software een visuele indicator weergeeft om u te waarschuwen indien er updates beschikbaar zijn?</value>
+  </data>
+  <data name="Failure.Text">
+    <value xml:space="preserve">MISLUKT</value>
+  </data>
+  <data name="FileCreate.Text">
+    <value xml:space="preserve">Maak bestand</value>
+  </data>
+  <data name="FileDelete.Text">
+    <value xml:space="preserve">Verwijder bestand</value>
+  </data>
+  <data name="Finished.Text">
+    <value xml:space="preserve">Klaar (Ga naar site)</value>
+  </data>
+  <data name="FirstName.Text">
+    <value xml:space="preserve">Voornaam:</value>
+  </data>
+  <data name="FolderCreate.Text">
+    <value xml:space="preserve">Maak Map</value>
+  </data>
+  <data name="FolderDelete.Text">
+    <value xml:space="preserve">Verwijder Map</value>
+  </data>
+  <data name="Full.Text">
+    <value xml:space="preserve">&lt;b&gt;Custom&lt;/b&gt; - de "Custom" installatie methode geeft gevorderde gebruikers de mogelijkheid om een ​​volledig aangepaste configuratie voor hun DotNetNuke website te maken.</value>
+  </data>
+  <data name="HomePage.Text">
+    <value xml:space="preserve">Beginpagina</value>
+  </data>
+  <data name="HostUserDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Op deze pagina kunt u de gegevens van de SuperUser aanmaken. Deze gebruiker heeft toegang tot alles op de gehele website, zorg er dus voordat de gebruikersaccount/wachtwoord combinatie veilig is&lt;/p&gt;</value>
+  </data>
+  <data name="HostUserError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;SuperUser error.&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="HostUserTitle.Text">
+    <value xml:space="preserve">Gastheeraccount instellen</value>
+  </data>
+  <data name="HostWarning.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;De hostnaam bevat tekens die niet toegestaan zijn (alleen A-Z, 0-9, - en . zijn toegestaan).&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Install.Error">
+    <value xml:space="preserve">Er is een fout opgetreden bij het installeren van de database.</value>
+  </data>
+  <data name="Install.Text">
+    <value xml:space="preserve">Installatie Database Scripts</value>
+  </data>
+  <data name="InstallAuthSystemError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij installatie authenticatie methode(s):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="InstallComplete.Text">
+    <value xml:space="preserve">Installatie Database Scripts Afgerond </value>
+  </data>
+  <data name="InstallContainerError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij installeren container(s):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="InstallDatabase.Text">
+    <value xml:space="preserve">Installatie Database - Versie {0}</value>
+  </data>
+  <data name="Installed.Text">
+    <value xml:space="preserve">&lt;p&gt;DotNetNuke is reeds geïnstalleerd.&lt;/p&gt;</value>
+  </data>
+  <data name="InstallFailed.Text">
+    <value xml:space="preserve">Installatie Database Scripts is mislukt</value>
+  </data>
+  <data name="Installing.Text">
+    <value xml:space="preserve">Bezig Met Installatie Database Scripts ...   </value>
+  </data>
+  <data name="InstallLanguageError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij installeren van één of meerdere talen:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="InstallModuleError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij installeren module(s):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="InstallPortalError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij installeren site:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="InstallProviderError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij installeren provider:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="InstallScript.Text">
+    <value xml:space="preserve">Bijwerken naar versie {0}</value>
+  </data>
+  <data name="InstallSkinError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fout bij installing skin(s):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="Integrated.Text">
+    <value xml:space="preserve">Geïntegreerde Beveiliging:</value>
+  </data>
+  <data name="IntegratedHelp.Text">
+    <value xml:space="preserve">Gebruik deze optie als u gebruik maakt van Windows Authenticatie voor SQL Server. Dat betekent dat uw Windows gebruikersaccount wordt gebruikt om SQL Server te benaderen. Gebruikt u SQL Server Express dan is het waarschijnlijk dat u deze optie dient te gebruiken. Indien u een UserID en wachtwoord heeft gekregen om uw database te benaderen, gebruik deze optie dan niet en geef UserID en wachtwoord op.</value>
+  </data>
+  <data name="IntroDetail.Text">
+    <value xml:space="preserve">&lt;p&gt; Welkom bij de DotNetNuke Installatie Wizard. Deze wizard zal u door de installatie van DotNetNuke heen leiden zodat u een een website kunt maken die geheel volgens uw wensen is opgezet. U kunt navigeren door de Wizard met behulp van de knoppen Volgende en Vorige. &lt;/p&gt;Als dit de eerste keer is dat u DotNetNuke installeert, kunt u de "Installation Guide Video" (helaas alleen Engelstalig) bekijken en de vereiste voorwaarden doornemen voor deze Wizard.&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li style="list-style:none;"&gt;&lt;a class="dnnPrimaryAction" href="http://www.dotnetnuke.com/Resources/Training/Training-Videos/Installation.aspx" target="new"&gt;Bekijk Installatie Video&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; De eerste stap is om de installatiemethode te selecteren en om de taal te kiezen die u voor de installatie wenst te gebruiken. &lt;/p&gt;</value>
+  </data>
+  <data name="IntroTitle.Text">
+    <value xml:space="preserve">DotNetNuke Installatie Assistent - Versie {0}</value>
+  </data>
+  <data name="InValidEmail.Text">
+    <value xml:space="preserve">Het e-mailadres is ongeldig.</value>
+  </data>
+  <data name="InvalidQualifier.Text">
+    <value xml:space="preserve">De objectqualifier moet met een letter beginnen en mag niet langer zijn dan 20 tekens</value>
+  </data>
+  <data name="Languages.Text">
+    <value xml:space="preserve">Talen</value>
+  </data>
+  <data name="LanguagesDetail.Text">
+    <value xml:space="preserve">&lt;p&gt; DotNetNuke kan worden gebruikt in vele talen en wordt geleverd met taalpakketten voor alle grote culturen. Taalpakketten kunnen gebruikers om bepaalde informatie in hun voorkeurstaal. Deze informatie omvat DotNetNuke veldnamen en Help-informatie, berichten zoals welkom e-mails of wachtwoord herinneringen, of gegevens zoals de huidige datum en tijd. Hier ziet u extra taalpakketten die u hebt gemaakt. Selecteer de optionele talen die u wilt installeren voor gebruik in uw website. &lt;/ P&gt;</value>
+  </data>
+  <data name="LanguagesTitle.Text">
+    <value xml:space="preserve">Taalpakket(ten) installeren</value>
+  </data>
+  <data name="LastName.Text">
+    <value xml:space="preserve">Achternaam:</value>
+  </data>
+  <data name="MachineKey.Error">
+    <value xml:space="preserve">Fout bij bijwerken "Machine Key"</value>
+  </data>
+  <data name="MinUserNamelength.Text">
+    <value xml:space="preserve">De gebruikersnaam dient tenminste 4 karakters lang te zijn.</value>
+  </data>
+  <data name="Modules.Text">
+    <value xml:space="preserve">Modules</value>
+  </data>
+  <data name="ModulesDetail.Text">
+    <value xml:space="preserve">&lt;p&gt; DotNetNuke is zeer krachtig en uitbreidbaar, en een manier van de uitbreiding van de functionaliteit is door middel van modules. Er zijn veel verschillende soorten van modules, die elk het beheer van een ander type inhoud van de site of site administratieve taak. Hier ziet u alle modules, die worden standaard geïnstalleerd en selecteert u de optionele modules die u wilt installeren voor gebruik in uw website. Vergeet niet, u kunt er voor kiezen om een ​​van de hier genoemde modules in een later stadium, nadat de installatie is voltooid, te installeren.&lt;/p&gt;</value>
+  </data>
+  <data name="ModulesTitle.Text">
+    <value xml:space="preserve">Optionele modules installeren</value>
+  </data>
+  <data name="MustSelecteATemplate.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;U moet een site sjabloon kiezen.&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Next.Text">
+    <value xml:space="preserve">Volgende</value>
+  </data>
+  <data name="No.Text">
+    <value xml:space="preserve">Nee</value>
+  </data>
+  <data name="NoAuthSystems.Text">
+    <value xml:space="preserve">Er is geen authenticatie systeem om te installeren.</value>
+  </data>
+  <data name="NoContainers.Text">
+    <value xml:space="preserve">Er zijn geen optionele containers te installeren</value>
+  </data>
+  <data name="NoLanguages.Text">
+    <value xml:space="preserve">Er zijn geen taalbestanden te installeren</value>
+  </data>
+  <data name="NoModules.Text">
+    <value xml:space="preserve">Er zijn geen modules te installeren</value>
+  </data>
+  <data name="None_Specified.Text">
+    <value xml:space="preserve">None Specified</value>
+  </data>
+  <data name="NoPackages.Text">
+    <value xml:space="preserve">Er zijn geen authenticatie systemen te installeren</value>
+  </data>
+  <data name="NoPassword.Text">
+    <value xml:space="preserve">Geef een wachtwoord voor de gebruiker</value>
+  </data>
+  <data name="NoSkins.Text">
+    <value xml:space="preserve">Geen optionele Skins te installeren</value>
+  </data>
+  <data name="Oracle.Text">
+    <value xml:space="preserve">Oracle Database</value>
+  </data>
+  <data name="Owner.Text">
+    <value xml:space="preserve">Uitvoeren als "db Owner":</value>
+  </data>
+  <data name="OwnerHelp.Text">
+    <value xml:space="preserve">Gebruik deze optie als u de database gebruikt als "Owner". Indien niet aangevinkt gebruikt u de database met het aangegeven UserID</value>
+  </data>
+  <data name="Page0.Title">
+    <value xml:space="preserve">Welkom</value>
+  </data>
+  <data name="Page1.Title">
+    <value xml:space="preserve">Beveiliging Bestanden</value>
+  </data>
+  <data name="Page10.Title">
+    <value xml:space="preserve">Installeer Website</value>
+  </data>
+  <data name="Page11.Title">
+    <value xml:space="preserve">Installatie voltooid</value>
+  </data>
+  <data name="Page2.Title">
+    <value xml:space="preserve">Database Configuratie</value>
+  </data>
+  <data name="Page3.Title">
+    <value xml:space="preserve">Installatie database</value>
+  </data>
+  <data name="Page4.Title">
+    <value xml:space="preserve">SuperUser Gebruiker</value>
+  </data>
+  <data name="Page5.Title">
+    <value xml:space="preserve">Installeer Modules</value>
+  </data>
+  <data name="Page6.Title">
+    <value xml:space="preserve">Installeer Website</value>
+  </data>
+  <data name="Page7.Title">
+    <value xml:space="preserve">Installeer Skins</value>
+  </data>
+  <data name="Page8.Title">
+    <value xml:space="preserve">Installeer Taalbestanden</value>
+  </data>
+  <data name="Page9.Title">
+    <value xml:space="preserve">Website installeren</value>
+  </data>
+  <data name="Password.Text">
+    <value xml:space="preserve">Wachtwoord:</value>
+  </data>
+  <data name="PasswordHelp.Text">
+    <value xml:space="preserve">Geef het wachtwoord voor de database.</value>
+  </data>
+  <data name="PasswordLength.Text">
+    <value xml:space="preserve">Het wachtwoord dient tenminste {0} karakters lang te zijn.</value>
+  </data>
+  <data name="PasswordUser.Text">
+    <value xml:space="preserve">Het wachtwoord mag niet gelijk zijn aan de gebruikersnaam.</value>
+  </data>
+  <data name="Permissions.Text">
+    <value xml:space="preserve">Overzicht Beveiligingsinstellingen:</value>
+  </data>
+  <data name="PermissionsDetail.Text">
+    <value xml:space="preserve">&lt;p&gt; DotNetNuke heeft uitgebreide bestand upload en documentbeheer mogelijkheden. Deze functies vereisen aangepaste beveiligingsinstellingen waarmee DotNetNuke  mappen kan maken en bestanden kan beheren voor uw website. &lt;/ P&gt; Op deze pagina de huidige bestand permissies controleren op uw computer om ervoor te zorgen dat deze functies goed zal werken. Als uw systeem niet goed is geconfigureerd, zal u worden voorzien van aanwijzingen over hoe het probleem te verhelpen &lt;/ p&gt; &lt;b&gt;. Opmerking: &lt;/ b&gt; De wizard controleert de rechten in de hoofdmap van uw website. In de meeste gevallen is dit voldoende, omdat sub-folders meestal hun bestanden en mappen machtigingen overnemen van de hoofdmap. Als de sub-mappen op uw systeem niet de machtigingen overnemen van de hoofdmap, moet u ze handmatig configureren voordat u verder gaat met de installatie. &lt;/ P&gt;</value>
+  </data>
+  <data name="PermissionsError.Text">
+    <value xml:space="preserve">    &lt;img alt="Afbeelding die toont dat de beveiligingsinstellingen voor de hoofdmap van de website moet worden ingesteld op Lezen, Schrijven en Modify voor de ASPNET of NT AUTHORITY / NETWORK SERVICE accounts."
+        src="images/403-3.gif" align="right" hspace="10" /&gt;
+    &lt;p&gt;
+        &lt;b&gt;&lt;font color='red'&gt;De rechten voor de applicatie hoofdmap zijn niet in orde.&lt;/font&gt;&lt;/b&gt;&lt;br /&gt;
+        &lt;br /&gt;
+        Met behulp van Windows Verkenner, bladert u naar de hoofdmap van de website. Rechtsklik
+        op de map en selecteer Delen en beveiliging uit het menu (let op dat als u gebruik
+        maakt van Windows XP moet u mogelijk &lt;a href="http://support.microsoft.com/kb/307874/nl-nl"&gt;
+            eenvoudig delen van bestanden uitschakelen&lt;/a&gt; voordat deze opties worden weergegeven).
+        Selecteer het tabblad Beveiliging. Voeg de juiste gebruikersaccount en stel de machtigingen
+        in.
+    &lt;/p&gt;
+    &lt;h3&gt;
+        Bij gebruik van Windows 2000 - IIS5&lt;/h3&gt;
+    &lt;p&gt;
+        het account [SERVER]\ASPNET moet Lees, Schrijf en Aanpassen rechten hebben op de
+        gehele applicatie directory.&lt;/p&gt;
+    &lt;h3&gt;
+        Bij gebruik van Windows 2003 - IIS6 or Vista/Windows 2008 - IIS7&lt;/h3&gt;
+    &lt;p&gt;
+        Het account NT AUTHORITY\NETWORK SERVICE&amp;nbsp; moet Lees, Schrijf en Aanpassen rechten
+        hebben op de gehele applicatie directory.&lt;/p&gt;
+    &lt;h3&gt;
+        Bij gebruik van Windows 7 of Windows 2008r2 met IIS7.5&lt;/h3&gt;
+    &lt;p&gt;
+        The IIS AppPool\AppPoolIdentity virtuele user moet Lees, Schrijf en Aanpassen rechten
+        hebben op de gehele applicatie directory.&lt;/p&gt;
+    &lt;br /&gt;
+    &lt;br /&gt;
+    &lt;br /&gt;
+    &lt;br /&gt;</value>
+  </data>
+  <data name="PermissionsOk.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='green'&gt;De schijfrechten voor de applicatie zijn in orde.&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="PermissionsTitle.Text">
+    <value xml:space="preserve">Bestandsbevoegdheden controleren</value>
+  </data>
+  <data name="Portal.Text">
+    <value xml:space="preserve">Website Informatie</value>
+  </data>
+  <data name="PortalDetail.Text">
+    <value xml:space="preserve">&lt;p&gt; Geef de titel van deze website en selecteer vervolgens de sjabloon moet worden gebruikt. Het standaard website sjabloon maakt u een voorbeeld website met nuttige informatie over hoe aan de slag te gaan of selecteer Leeg voor een lege website zonder enige pagina's of content. &lt;/ P&gt;</value>
+  </data>
+  <data name="PortalTemplate.Text">
+    <value xml:space="preserve">Sjabloon:</value>
+  </data>
+  <data name="PortalTitle.Text">
+    <value xml:space="preserve">Website Titel</value>
+  </data>
+  <data name="Previous.Text">
+    <value xml:space="preserve">Vorige</value>
+  </data>
+  <data name="Providers.Text">
+    <value xml:space="preserve">Providers</value>
+  </data>
+  <data name="ProvidersDetail.Text">
+    <value xml:space="preserve">&lt;p&gt; Een andere manier van uitbreiding van de functionaliteit van de DotNetNuke applicatie is door middel van Providers, welke functionaliteit is van een ander product dat is 'verpakt' voor gebruik in DotNetNuke. Selecteer de optionele Providers die u wilt installeren voor gebruik op uw website. Vergeet niet, u kunt er voor kiezen om een ​​van de hier genoemde Providers in een later stadium, nadat de installatie is voltooid, te installeren.&lt;/p&gt;</value>
+  </data>
+  <data name="ProvidersTitle.Text">
+    <value xml:space="preserve">Installeren van optionele Providers</value>
+  </data>
+  <data name="Qualifier.Text">
+    <value xml:space="preserve">Object Qualifier:</value>
+  </data>
+  <data name="QualifierHelp.Text">
+    <value xml:space="preserve">Geef een optionele "prefix" die gebruikt wordt voor alle database objecten - hiermee worden conflicten met objectnamen voorkomen.</value>
+  </data>
+  <data name="ScriptError.Text">
+    <value xml:space="preserve">Zie {0} voor meer informatie</value>
+  </data>
+  <data name="Server.Text">
+    <value xml:space="preserve">Server:</value>
+  </data>
+  <data name="ServerHelp.Text">
+    <value xml:space="preserve">Geef de naam of het IP-Adres van de computer waarop de database zich bevindt.  (gebruikt u Oracle geef dan de Data Source (SID))
+		</value>
+  </data>
+  <data name="Skins.Text">
+    <value xml:space="preserve">Skins</value>
+  </data>
+  <data name="SkinsDetail.Text">
+    <value xml:space="preserve">&lt;p&gt; Het visuele ontwerp van een DotNetNuke website kan worden aangepast met behulp van Skins en Containers. Hier ziet u alle Skins en Containers die standaard zijn geïnstalleerd en selecteert u de optionele Skins en Containers die u wilt installeren. Let op, kunt u ervoor kiezen om een ​​van de hier getoonde Skins of Containers in een later stadium, nadat de installatie is voltooid, te installeren. &lt;/p&gt;</value>
+  </data>
+  <data name="SkinsTitle.Text">
+    <value xml:space="preserve">Optionele Skins en Containers Installeren</value>
+  </data>
+  <data name="SMTPAnonymous.Text">
+    <value xml:space="preserve">Annoniem</value>
+  </data>
+  <data name="SMTPAuthentication.Text">
+    <value xml:space="preserve">Authenticatie:</value>
+  </data>
+  <data name="SMTPBasic.Text">
+    <value xml:space="preserve">Basis</value>
+  </data>
+  <data name="SMTPEnableSSL.Text">
+    <value xml:space="preserve">SSL Inschakelen:</value>
+  </data>
+  <data name="SMTPError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;SMTP  fout(en):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="SMTPNTLM.Text">
+    <value xml:space="preserve">NTLM</value>
+  </data>
+  <data name="SMTPPassword.Text">
+    <value xml:space="preserve">Wachtwoord:</value>
+  </data>
+  <data name="SMTPServer.Text">
+    <value xml:space="preserve">Server:</value>
+  </data>
+  <data name="SMTPSettings.Text">
+    <value xml:space="preserve">SMTP Server Instellingen</value>
+  </data>
+  <data name="SMTPSettingsHelp.Text">
+    <value xml:space="preserve">U kunt de SMTP Server instellingen configureren en testen.</value>
+  </data>
+  <data name="SMTPSuccess.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='green'&gt;SMTP Succes:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="SMTPUsername.Text">
+    <value xml:space="preserve">Naam Gebruiker:</value>
+  </data>
+  <data name="SpecifyHostEmailMessage.Text">
+    <value xml:space="preserve">U dient het SuperUser e-mailadres op te geven</value>
+  </data>
+  <data name="SQLServer.Text">
+    <value xml:space="preserve">SQL Server 2005/2008 Database</value>
+  </data>
+  <data name="SQLServerXPress.Text">
+    <value xml:space="preserve">SQL Server 2005/2008 (Express) Bestand</value>
+  </data>
+  <data name="Success.Text">
+    <value xml:space="preserve">Geslaagd</value>
+  </data>
+  <data name="TestDB.Text">
+    <value xml:space="preserve">Test Database Verbinding</value>
+  </data>
+  <data name="TestPerm.Text">
+    <value xml:space="preserve">Test Beveiligingsinstellingen</value>
+  </data>
+  <data name="TestSMTP.Text">
+    <value xml:space="preserve">Test SMTP Instellingen</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">DotNetNuke Installatiewizard</value>
+  </data>
+  <data name="Typical.Text">
+    <value xml:space="preserve">&lt;b&gt;Typische&lt;/b&gt; - de "Typical" installatie methode creëert de meest voorkomende configuratie voor u om snel te beginnen met het maken van uw website.</value>
+  </data>
+  <data name="UpdateDetail.Text">
+    <value xml:space="preserve">Deze software kan geregeld een controle uitvoeren of er belangrijke updates voor uw website zijn. Deze updates kunnen beveiligins updates, kritieke updates en patches zijn. (Er wordt geen informatie verzameld die kan worden gebruikt om uw identiteit te achterhalen of om contact met u up te nemen zonder uw goedkeuring.)</value>
+  </data>
+  <data name="UpdateEmail.Text">
+    <value xml:space="preserve">Wilt u notificatie e-mail berichten ontvangen betreffende de updates van de software?</value>
+  </data>
+  <data name="UpdateTitle.Text">
+    <value xml:space="preserve">Update Service - Help de integriteit van uw website te beschermen</value>
+  </data>
+  <data name="Upgrade.Text">
+    <value xml:space="preserve">&lt;p&gt;DotNetNuke versie {0} is reeds geïnstalleerd. Klik op de knop "Volgende" om naar een nieuwe versie te uploaden.&lt;/p&gt;</value>
+  </data>
+  <data name="UpgradeTitle.Text">
+    <value xml:space="preserve">DotNetNuke Upgrade Wizard - Versie {0}</value>
+  </data>
+  <data name="UserHelp.Text">
+    <value xml:space="preserve">Geef het UserID voor de Database</value>
+  </data>
+  <data name="UserId.Text">
+    <value xml:space="preserve">Gebruikers ID:</value>
+  </data>
+  <data name="UserName.Text">
+    <value xml:space="preserve">Gebruikersnaam:</value>
+  </data>
+  <data name="WhatsNext.Text">
+    <value xml:space="preserve">Hoe nu verder?</value>
+  </data>
+  <data name="Yes.Text">
+    <value xml:space="preserve">Ja</value>
+  </data>
+</root>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="addMessage.Text">
+    <value>Ecrire un message</value>
+  </data>
+  <data name="Date.Header">
+    <value>Date</value>
+  </data>
+  <data name="From.Header">
+    <value>De</value>
+  </data>
+  <data name="Status.Header">
+    <value>Statut</value>
+  </data>
+  <data name="Subject.Header">
+    <value>Sujet</value>
+  </data>
+  <data name="Title.Text">
+    <value>Mes messages</value>
+  </data>
+  <data name="NoMessages.Text">
+    <value>Pas de nouveaux messages</value>
+  </data>
+  <data name="markAsRead.Text">
+    <value>Marquer comme lu</value>
+  </data>
+  <data name="markAsUnread.Text">
+    <value>Marquer comme non lu</value>
+  </data>
+  <data name="markDeleted.Text">
+    <value>Effacer</value>
+  </data>
+</root>

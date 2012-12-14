@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">Editer le contenu</value>
+  </data>
+  <data name="AddContent.Text">
+    <value xml:space="preserve">Cliquer ici pour éditer le contenu</value>
+  </data>
+  <data name="AddContentFromActionMenu.Text">
+    <value xml:space="preserve">Vous devez être en mode édition pour entrer dans le contenu</value>
+  </data>
+  <data name="AddContentFromToolBar.Text">
+    <value xml:space="preserve">Passez votre souris ici, puis cliquez sur la barre d'outils pour éditer le texte</value>
+  </data>
+  <data name="Bold.ToolTip">
+    <value xml:space="preserve">gras</value>
+  </data>
+  <data name="Cancel.ToolTip">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="CreateLink.ToolTip">
+    <value xml:space="preserve">Créer un lien</value>
+  </data>
+  <data name="Edit.ToolTip">
+    <value xml:space="preserve">Modifier</value>
+  </data>
+  <data name="Indent.ToolTip">
+    <value xml:space="preserve">Indentation</value>
+  </data>
+  <data name="Italic.ToolTip">
+    <value xml:space="preserve">Italique</value>
+  </data>
+  <data name="JustifyCenter.ToolTip">
+    <value xml:space="preserve">Justifier au centre</value>
+  </data>
+  <data name="JustifyLeft.ToolTip">
+    <value xml:space="preserve">Justifier à gauche</value>
+  </data>
+  <data name="JustifyRight.ToolTip">
+    <value xml:space="preserve">Justifier à droite</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;P align=left&gt;Le module Texte/HTML vous permet saisir&amp;nbsp;du texte, du texte enrichi ou du code HTML. Vous disposez de cinq types d’affichage : &lt;/P&gt;
+&lt;OL&gt;
+&lt;LI align="left"&gt;
+&lt;DIV align=left&gt;&lt;STRONG&gt;Basic Text Box / Text &lt;/STRONG&gt;: Rendu de texte simple et affichage des balises HTML. Les sauts de lignes sont pris en compte. Le style de texte est par défaut "normal", rendu tel que spécifié dans votre feuille de style. &lt;/DIV&gt;
+&lt;LI align="left"&gt;
+&lt;DIV align=left&gt;&lt;STRONG&gt;Basic Text Box / HTML &lt;/STRONG&gt;: Affiche du texte simple. Les sauts de lignes ne sont pas automatiquement rendus. &lt;/DIV&gt;
+&lt;LI align="left"&gt;
+&lt;DIV align=left&gt;&lt;STRONG&gt;Basic Text Box / Raw &lt;/STRONG&gt;: Affiche du texte simple au format HTML. Les sauts de ligne ne sont pas automatiquement pris en compte. &lt;/DIV&gt;
+&lt;LI align="left"&gt;
+&lt;DIV align=left&gt;&lt;STRONG&gt;Rich Text Editor / HTML &lt;/STRONG&gt;: Vous pouvez utiliser du code HTML. &lt;/DIV&gt;
+&lt;LI align="left"&gt;
+&lt;DIV align=left&gt;&lt;STRONG&gt;Rich Text Editor / Design &lt;/STRONG&gt;: Un véritable traitement de texte WYSIWYG (What You See is What You Get) qui supporte des fonctionnalités telles que les liens hypertextes, lien vers une adresse Email, accès à la galerie d’images, puces, etc...&lt;/DIV&gt;&lt;/LI&gt;&lt;/OL&gt;</value>
+  </data>
+  <data name="ModuleHelp.Text1">
+    <value xml:space="preserve">&lt;p&gt;Le module Texte/HTML permet d'afficher du texte plein, du texte enrichi ou du HTML. 5 différentes options sont disponibles :&lt;/p&gt;&lt;ol&gt;&lt;li&gt;&lt;strong&gt;Basic Text Box / Text&lt;/strong&gt;: Affiche du texte basique et les balises HTML. Le texte entré sur une nouvelle ligne sera affiché à la ligne. Le style par défaut est &amp;quot;Normal&amp;quot; tel que défini dans votre CSS.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Basic Text Box / HTML&lt;/strong&gt;: Affiche du texte basique dans un format HTML.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Basic Text Box / Raw&lt;/strong&gt;: Affiche du texte basique dans un format HTML. Le texte entré sur une nouvelle ligne ne sera pas affiché à la ligne.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Rich Text Editor / HTML&lt;/strong&gt;: Vous permet de coller du HTML en provenance d'autres sources.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Rich Text Editor / Design&lt;/strong&gt;: Un éditeur WYSIWYG (What You See is What You Get) avec de nombreuses fonctionnalités (type Word).&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;De plus ce module supporte la gestion des versions et du workflow. Dans l'édition Community 2 modes de workflow sont disponibles : Publication directe et Contenu en attente.&lt;/p&gt;</value>
+  </data>
+  <data name="MyWork.Action">
+    <value xml:space="preserve">Mon travail</value>
+  </data>
+  <data name="MyWork.Action1">
+    <value xml:space="preserve">Mon espace de travail</value>
+  </data>
+  <data name="OrderedList.ToolTip">
+    <value xml:space="preserve">Liste ordonnée</value>
+  </data>
+  <data name="Outdent.ToolTip">
+    <value xml:space="preserve">Exdentation</value>
+  </data>
+  <data name="Save.ToolTip">
+    <value xml:space="preserve">Enregistrer</value>
+  </data>
+  <data name="Underline.ToolTip">
+    <value xml:space="preserve">Souligné</value>
+  </data>
+  <data name="UnorderedList.ToolTip">
+    <value xml:space="preserve">Liste non ordonnée</value>
+  </data>
+  <data name="Workflow.Action">
+    <value xml:space="preserve">flux de publication</value>
+  </data>
+</root>

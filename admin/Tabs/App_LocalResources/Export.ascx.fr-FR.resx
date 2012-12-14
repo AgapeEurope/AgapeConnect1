@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdExport.Text">
+    <value xml:space="preserve">Exporter</value>
+  </data>
+  <data name="ControlTitle_exporttab.Text">
+    <value xml:space="preserve">Exportation de la page</value>
+  </data>
+  <data name="Error.Text">
+    <value xml:space="preserve">Une erreur est survenue lors de l'exportation du gabarit</value>
+  </data>
+  <data name="ExportedMessage.Text">
+    <value xml:space="preserve">Le gabarit a été crée dans &lt;b&gt;{0}&lt;/b&gt;</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;Exportation de la page&lt;/h1&gt;&lt;p&gt;Les administrateurs peuvent créer des gabarits à partir des pages du site.&lt;/p&gt;</value>
+  </data>
+  <data name="plContent.Help">
+    <value xml:space="preserve">Cochez cette case pour inclure le contenu du module</value>
+  </data>
+  <data name="plContent.Text">
+    <value xml:space="preserve">Inclure le contenu :</value>
+  </data>
+  <data name="plDescription.Help">
+    <value xml:space="preserve">Entrer une description du gabarit</value>
+  </data>
+  <data name="plDescription.Text">
+    <value xml:space="preserve">Description :</value>
+  </data>
+  <data name="plFile.Help">
+    <value xml:space="preserve">Saisissez le nom à donner au gabarit</value>
+  </data>
+  <data name="plFile.Text">
+    <value xml:space="preserve">Nom du gabarit :</value>
+  </data>
+  <data name="plFolder.Help">
+    <value xml:space="preserve">Choisissez le dossier de destination du gabarit</value>
+  </data>
+  <data name="plFolder.Text">
+    <value xml:space="preserve">Dossier :</value>
+  </data>
+  <data name="Root.Text">
+    <value xml:space="preserve">Racine</value>
+  </data>
+  <data name="valDescription.ErrorMessage">
+    <value xml:space="preserve">Vous devez fournir une description du gabarit.</value>
+  </data>
+  <data name="valFileName.ErrorMessage">
+    <value xml:space="preserve">Vous devez spécifier un nom pour ce gabarit.</value>
+  </data>
+  <data name="Validation.Text">
+    <value xml:space="preserve">Vous devez spécifier le dossier de destinationet le nom du gabarit pour l'exportation.</value>
+  </data>
+</root>

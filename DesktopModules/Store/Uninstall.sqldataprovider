@@ -1,0 +1,426 @@
+-- *** Drop stored procedures used in Store 02.xx ** --
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_AddAddress]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_AddAddress]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_DeleteAddress]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_DeleteAddress]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_DeleteUserAddresses]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_DeleteUserAddresses]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetAddress]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_GetAddress]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetUserAddresses]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_GetUserAddresses]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_PurgeAddresses]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_PurgeAddresses]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_UpdateAddress]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_UpdateAddress]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration_AddStoreInfo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Administration_AddStoreInfo]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration_GetShippingFee]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Administration_GetShippingFee]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration_GetStoreInfo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Administration_GetStoreInfo]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration_GetTaxRates]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Administration_GetTaxRates]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration_UpdateShippingFee]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Administration_UpdateShippingFee]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration_UpdateStoreInfo]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Administration_UpdateStoreInfo]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration_UpdateTaxRates]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Administration_UpdateTaxRates]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Cart_AddCart]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Cart_AddCart]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Cart_DeleteCart]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Cart_DeleteCart]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Cart_GetCart]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Cart_GetCart]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Cart_PurgeCarts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Cart_PurgeCarts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Cart_UpdateCart]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Cart_UpdateCart]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_CartItems_AddItem]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_CartItems_AddItem]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_CartItems_DeleteItem]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_CartItems_DeleteItem]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_CartItems_DeleteItems]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_CartItems_DeleteItems]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_CartItems_GetItem]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_CartItems_GetItem]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_CartItems_GetItems]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_CartItems_GetItems]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_CartItems_UpdateItem]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_CartItems_UpdateItem]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories_AddCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Categories_AddCategory]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories_CountAll]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Categories_CountAll]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories_DeleteAll]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Categories_DeleteAll]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories_DeleteCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Categories_DeleteCategory]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories_GetAll]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Categories_GetAll]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories_GetCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Categories_GetCategory]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories_UpdateCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Categories_UpdateCategory]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_CreateOrder]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_CreateOrder]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_GetCustomerOrders]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_GetCustomerOrders]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_GetCustomers]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_GetCustomers]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_GetOrder]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_GetOrder]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_GetOrderDetails]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_GetOrderDetails]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_GetOrdersByStatusID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_GetOrdersByStatusID]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_GetOrderStatuses]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_GetOrderStatuses]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_PurgeOrders]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_PurgeOrders]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_UpdateOrder]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_UpdateOrder]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_UpdateOrderDetails]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_UpdateOrderDetails]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_UpdateStockQuantity]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Orders_UpdateStockQuantity]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders_GetDownloads]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}{objectQualifier}Store_Orders_GetDownloads
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_AddProduct]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_AddProduct]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_CountCategoryProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_CountCategoryProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_CountPortalProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_CountPortalProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_DeleteCategoryProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_DeleteCategoryProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_DeletePortalProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_DeletePortalProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_DeleteProduct]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_DeleteProduct]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetAlsoBoughtProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetAlsoBoughtProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetFeaturedProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetFeaturedProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetNewProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetNewProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPopularProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPopularProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalAllProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPortalAllProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalFeaturedProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPortalFeaturedProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalLowStockProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPortalLowStockProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalNewProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPortalNewProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalOutOfStockProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPortalOutOfStockProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalPopularProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPortalPopularProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetPortalProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetPortalProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetProduct]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetProduct]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_GetSearchedProducts]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_GetSearchedProducts]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products_UpdateProduct]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Products_UpdateProduct]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Reviews_AddReview]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Reviews_AddReview]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Reviews_DeleteReview]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Reviews_DeleteReview]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Reviews_GetAll]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Reviews_GetAll]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Reviews_GetByProduct]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Reviews_GetByProduct]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Reviews_GetReview]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Reviews_GetReview]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Reviews_UpdateReview]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Reviews_UpdateReview]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_ShippingRates_AddShippingRate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_ShippingRates_AddShippingRate]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_ShippingRates_DeleteShippingRate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_ShippingRates_DeleteShippingRate]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_ShippingRates_GetShippingRate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_ShippingRates_GetShippingRate]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_ShippingRates_GetShippingRates]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_ShippingRates_GetShippingRates]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_ShippingRates_UpdateShippingRate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_ShippingRates_UpdateShippingRate]
+GO
+
+-- *** Drop constraints used in Store 02.xx ** --
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'FK_{objectQualifier}Store_CartItems_{objectQualifier}Store_Cart') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_CartItems DROP CONSTRAINT 
+		FK_{objectQualifier}Store_CartItems_{objectQualifier}Store_Cart
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'FK_{objectQualifier}Store_CartItems_{objectQualifier}Store_Products') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_CartItems DROP CONSTRAINT 
+		FK_{objectQualifier}Store_CartItems_{objectQualifier}Store_Products
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'FK_{objectQualifier}Store_Addresses_{objectQualifier}Store_Customers') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_Addresses DROP CONSTRAINT 
+		FK_{objectQualifier}Store_Addresses_{objectQualifier}Store_Customers
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'FK_{objectQualifier}Store_Categories_{objectQualifier}Store_Categories') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_Categories DROP CONSTRAINT 
+		FK_{objectQualifier}Store_Categories_{objectQualifier}Store_Categories
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'FK_{objectQualifier}Store_Products_{objectQualifier}Store_Categories') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_Products DROP CONSTRAINT 
+		FK_{objectQualifier}Store_Products_{objectQualifier}Store_Categories
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'FK_{objectQualifier}Store_OrderDetails_{objectQualifier}Store_Orders') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_OrderDetails DROP CONSTRAINT 
+		FK_{objectQualifier}Store_OrderDetails_{objectQualifier}Store_Orders
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'FK_{objectQualifier}Store_Reviews_{objectQualifier}Store_Products') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+	ALTER TABLE {databaseOwner}{objectQualifier}Store_Reviews DROP CONSTRAINT 
+		FK_{objectQualifier}Store_Reviews_{objectQualifier}Store_Products
+GO
+
+-- *** Drop constraints used in Store 01.xx ** --
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}FK_Store_Products_Store_Categories]') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}[{objectQualifier}Store_Products] DROP CONSTRAINT FK_Store_Products_Store_Categories
+GO
+
+-- *** Drop stored procedures used in Store 01.xx ** --
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_CountAllAddress]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_CountAllAddress]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_DeleteAllAddresses]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_DeleteAllAddresses]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetAddressByUser]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_GetAddressByUser]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses_GetAllAddresses]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure {databaseOwner}[{objectQualifier}Store_Addresses_GetAllAddresses]
+GO
+
+-- *** Drop tables used in Store 02.xx ** --
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Addresses]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_Addresses]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Administration]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_Administration]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Cart]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_Cart]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_CartItems]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_CartItems]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Categories]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_Categories]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_OrderDetails]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_OrderDetails]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Orders]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_Orders]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_OrderStatus]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_OrderStatus]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Products]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_Products]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_Reviews]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_Reviews]
+GO
+
+if exists (select * from dbo.[sysobjects] where id = object_id(N'{databaseOwner}[{objectQualifier}Store_ShippingRates]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table {databaseOwner}[{objectQualifier}Store_ShippingRates]
+GO
+
+IF EXISTS (SELECT ModuleControlID FROM {databaseOwner}{objectQualifier}ModuleControls WHERE (ControlType = - 2) AND (ControlKey = N'STORELINKS'))
+
+DELETE FROM {databaseOwner}[{objectQualifier}ModuleControls
+WHERE     (ControlKey = N'STORELINKS') AND (ControlType = - 2)
+
+GO
+
+IF EXISTS (SELECT ModuleControlID FROM {databaseOwner}{objectQualifier}ModuleControls WHERE (ControlType = - 2) AND (ControlKey = N'STOREMICROCART'))
+
+DELETE FROM {databaseOwner}[{objectQualifier}ModuleControls
+WHERE     (ControlKey = N'STOREMICROCART') AND (ControlType = - 2)
+
+GO

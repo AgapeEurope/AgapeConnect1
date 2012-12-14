@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="FCX">
+  <DataContextMoniker Name="/FCXDataContext" />
+  <nestedChildShapes>
+    <classShape Id="6d119710-3b36-4b05-a5cf-27f2b50caacd" absoluteBounds="3.25, 0.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/FCXDataContext/FCX_API_FinBat" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ac124687-81c6-4b25-abbb-8c5c36e0f3c4" absoluteBounds="3.2650000000000006, 0.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7e6fffc8-1a7c-439b-9fe6-0d30a8079b77" absoluteBounds="7.125, 0.625, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/FCXDataContext/FCX_API_FinTran" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2967492a-c522-4344-988d-d6c7d3adc035" absoluteBounds="7.14, 1.085, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.25 : 1.92870198567708); (7.125 : 1.92870198567708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/FCXDataContext/FCX_API_FinBat/FCX_API_FinBat_FCX_API_FinTran" />
+      <nodes>
+        <classShapeMoniker Id="6d119710-3b36-4b05-a5cf-27f2b50caacd" />
+        <classShapeMoniker Id="7e6fffc8-1a7c-439b-9fe6-0d30a8079b77" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="e48cd113-ccb9-4e74-a161-c0faca1e0d21" absoluteBounds="0.5, 0.5, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/FCXDataContext/FCX_API_Key" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c984e6ed-a11f-4250-91c7-de77e45e2887" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 1.86620198567708); (3.25 : 1.86620198567708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FCXDataContext/FCX_API_Key/FCX_API_Key_FCX_API_FinBat" />
+      <nodes>
+        <classShapeMoniker Id="e48cd113-ccb9-4e74-a161-c0faca1e0d21" />
+        <classShapeMoniker Id="6d119710-3b36-4b05-a5cf-27f2b50caacd" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblTrackingId.Help">
+    <value xml:space="preserve">Identifiant de suivi du site fourni par Google</value>
+  </data>
+  <data name="lblTrackingId.Text">
+    <value xml:space="preserve">ID de suivi</value>
+  </data>
+  <data name="lblUrlParameter.Help">
+    <value xml:space="preserve">[OPTIONNEL] Code Javascript qui sera passé en tant que paramètre au suivi de page (utilise pour customiser la valeur suivie dans Google Analytics à la place de la valeur par défaut : location.href)</value>
+  </data>
+  <data name="lblUrlParameter.Text">
+    <value xml:space="preserve">Paramètre d'URL :</value>
+  </data>
+  <data name="Updated.Text">
+    <value xml:space="preserve">Configuration Google Analytics mise à jour</value>
+  </data>
+  <data name="valTrackingId.Text">
+    <value xml:space="preserve">Une Tracking ID est requise !</value>
+  </data>
+</root>

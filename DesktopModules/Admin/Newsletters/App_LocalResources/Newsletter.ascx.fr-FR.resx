@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvancedSettings.Text">
+    <value xml:space="preserve">Paramètres avancés</value>
+  </data>
+  <data name="Asynchronous.Text">
+    <value xml:space="preserve">Asynchrone</value>
+  </data>
+  <data name="BasicSettings.Text">
+    <value xml:space="preserve">Paramètres de base</value>
+  </data>
+  <data name="cmdCancelPreview.Text">
+    <value xml:space="preserve">Annuler l'aperçu</value>
+  </data>
+  <data name="cmdPreview.Text">
+    <value xml:space="preserve">Aperçu du message</value>
+  </data>
+  <data name="cmdSend.Text">
+    <value xml:space="preserve">Envoyer le message</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Envoi de messages</value>
+  </data>
+  <data name="Heading.Text">
+    <value xml:space="preserve">Cher(e)</value>
+  </data>
+  <data name="High.Text">
+    <value xml:space="preserve">Haute</value>
+  </data>
+  <data name="Low.Text">
+    <value xml:space="preserve">Basse</value>
+  </data>
+  <data name="Message.Text">
+    <value xml:space="preserve">Message</value>
+  </data>
+  <data name="MessageSent.Text">
+    <value xml:space="preserve">Message envoyé</value>
+  </data>
+  <data name="MessagesSentCount.Text">
+    <value xml:space="preserve">{0} Message envoyé avec succès</value>
+  </data>
+  <data name="MessageValidation.Text">
+    <value xml:space="preserve">Vous devez saisir l'objet du message</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos de la fonction "Messages"&lt;/h1&gt;&lt;p&gt;Cet outil permet aux administrateurs d'envoyer un message aux membres d'un groupe.&lt;/p&gt;</value>
+  </data>
+  <data name="NoMessagesSent.Text">
+    <value xml:space="preserve">Pas de message envoyé, avez-vous choisi un groupe ?</value>
+  </data>
+  <data name="NoMessagesSentPlusError.Text">
+    <value xml:space="preserve">Une erreur s'est produite lors de l'envoi de l'email: {0}</value>
+  </data>
+  <data name="NoRecipients.Text">
+    <value xml:space="preserve">Messages non envoyés car il n'y a aucun destinataire.</value>
+  </data>
+  <data name="Normal.Text">
+    <value xml:space="preserve">Normal</value>
+  </data>
+  <data name="plAddressees.Text">
+    <value xml:space="preserve">Adresses</value>
+  </data>
+  <data name="plAttachment.Help">
+    <value xml:space="preserve">Sélectionnez un document à joindre à votre message.</value>
+  </data>
+  <data name="plAttachment.Text">
+    <value xml:space="preserve">Pièce jointe&amp;nbsp;</value>
+  </data>
+  <data name="plEmail.Help">
+    <value xml:space="preserve">Vous pouvez ajouter des adresses Email en les séparant par un point virgule. Exemple : "Email1;Email2".</value>
+  </data>
+  <data name="plEmail.Text">
+    <value xml:space="preserve">Adresses Email&amp;nbsp;</value>
+  </data>
+  <data name="plFrom.Help">
+    <value xml:space="preserve">Saisissez un nom pour le champ 'De' de votre message.</value>
+  </data>
+  <data name="plFrom.Text">
+    <value xml:space="preserve">De</value>
+  </data>
+  <data name="plLanguages.Help">
+    <value xml:space="preserve">Permet d'envoyer le message en fonction de la langue de l'utilisateur</value>
+  </data>
+  <data name="plLanguages.Text">
+    <value xml:space="preserve">Filtrer la langue&amp;nbsp;</value>
+  </data>
+  <data name="plNoDuplicates.Help">
+    <value xml:space="preserve">Activer cette option pour supprimer les doublons d'adresses.</value>
+  </data>
+  <data name="plNoDuplicates.Text">
+    <value xml:space="preserve">Eviter les doublons&amp;nbsp;</value>
+  </data>
+  <data name="plPriority.Help">
+    <value xml:space="preserve">Spécifiez la priorité de ce message.</value>
+  </data>
+  <data name="plPriority.Text">
+    <value xml:space="preserve">Priorité&amp;nbsp;</value>
+  </data>
+  <data name="plRelayAddress.Text">
+    <value xml:space="preserve">Adresse de relais</value>
+  </data>
+  <data name="plReplaceTokens.Help">
+    <value xml:space="preserve">Le texte contient-il des jetons (tokens) devant être substitués ?
+Note : les jetons ne sont pas substitués qaund le type d'envoi est "CCI" (Paramètres avancés)</value>
+  </data>
+  <data name="plReplaceTokens.Text">
+    <value xml:space="preserve">Substitution&amp;nbsp;</value>
+  </data>
+  <data name="plReplyTo.Help">
+    <value xml:space="preserve">Saisissez l'adresse Email apparaissant pour les réponses.</value>
+  </data>
+  <data name="plReplyTo.Text">
+    <value xml:space="preserve">Adresse de réponse&amp;nbsp;</value>
+  </data>
+  <data name="plRoles.Help">
+    <value xml:space="preserve">Vous pouvez spécifier le ou les groupes d&amp;#146;utilisateurs qui recevront le message.</value>
+  </data>
+  <data name="plRoles.Text">
+    <value xml:space="preserve">Groupes&amp;nbsp;</value>
+  </data>
+  <data name="plSendAction.Help">
+    <value xml:space="preserve">Sélectionnez la méthode d&amp;#146;envoi du message.</value>
+  </data>
+  <data name="plSendAction.Text">
+    <value xml:space="preserve">Méthode&amp;nbsp;</value>
+  </data>
+  <data name="plSendMethod.Help">
+    <value xml:space="preserve">Sélectionnez la manière d&amp;#146;envoyer ce message.</value>
+  </data>
+  <data name="plSendMethod.Text">
+    <value xml:space="preserve">Type d&amp;#146;envoi&amp;nbsp;</value>
+  </data>
+  <data name="plSubject.Help">
+    <value xml:space="preserve">Saisissez un objet pour votre message.</value>
+  </data>
+  <data name="plSubject.Text">
+    <value xml:space="preserve">Objet&amp;nbsp;</value>
+  </data>
+  <data name="revEmailAddress.ErrorMessage">
+    <value xml:space="preserve">Format d'adresse Email incorrect !</value>
+  </data>
+  <data name="SendBCC.Text">
+    <value xml:space="preserve">CCI : Un message utilisant le nom du groupe (non-personnalisé)</value>
+  </data>
+  <data name="SendRelay.Text">
+    <value xml:space="preserve">Relais : un message par adresse</value>
+  </data>
+  <data name="SendTo.Text">
+    <value xml:space="preserve">A : Un message par utilisateur (personnalisé)</value>
+  </data>
+  <data name="Synchronous.Text">
+    <value xml:space="preserve">Synchrone</value>
+  </data>
+</root>

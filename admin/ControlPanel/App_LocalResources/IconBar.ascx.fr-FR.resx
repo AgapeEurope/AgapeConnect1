@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Above.Text">
+    <value xml:space="preserve">Ci-dessus</value>
+  </data>
+  <data name="AddModule.AlternateText">
+    <value xml:space="preserve">Ajouter un nouveau module</value>
+  </data>
+  <data name="AddModule.Text">
+    <value xml:space="preserve">Ajouter un module à la page</value>
+  </data>
+  <data name="AddNewModule.Text">
+    <value xml:space="preserve">Nouveau module</value>
+  </data>
+  <data name="AddTab.AlternateText">
+    <value xml:space="preserve">Ajouter une nouvelle page</value>
+  </data>
+  <data name="AddTab.Text">
+    <value xml:space="preserve">Ajouter</value>
+  </data>
+  <data name="Align.Text">
+    <value xml:space="preserve">Aligner :</value>
+  </data>
+  <data name="Below.Text">
+    <value xml:space="preserve">Ci-dessous</value>
+  </data>
+  <data name="Bottom.Text">
+    <value xml:space="preserve">En bas</value>
+  </data>
+  <data name="cmdAdmin.Text">
+    <value xml:space="preserve">Administrateur</value>
+  </data>
+  <data name="cmdHost.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="CommonTasks.Text">
+    <value xml:space="preserve">Tâches communes</value>
+  </data>
+  <data name="CopyTab.AlternateText">
+    <value xml:space="preserve">Copier la Page courante</value>
+  </data>
+  <data name="CopyTab.Text">
+    <value xml:space="preserve">Copier</value>
+  </data>
+  <data name="DefaultModule.Text">
+    <value xml:space="preserve">DNN_HTML</value>
+  </data>
+  <data name="DeleteTab.AlternateText">
+    <value xml:space="preserve">Supprimer la Page courante</value>
+  </data>
+  <data name="DeleteTab.Text">
+    <value xml:space="preserve">Effacer</value>
+  </data>
+  <data name="DeleteTabConfirm.Text">
+    <value xml:space="preserve">Etes-vous sûr de vouloir supprimer cette Page ?</value>
+  </data>
+  <data name="EditTab.AlternateText">
+    <value xml:space="preserve">Paramètrer la page courante</value>
+  </data>
+  <data name="EditTab.Text">
+    <value xml:space="preserve">Editer</value>
+  </data>
+  <data name="ExportTab.AlternateText">
+    <value xml:space="preserve">Exporter la page et son contenu</value>
+  </data>
+  <data name="ExportTab.Text">
+    <value xml:space="preserve">Exporter</value>
+  </data>
+  <data name="Extensions.AlternateText">
+    <value xml:space="preserve">Voir les extensions</value>
+  </data>
+  <data name="Extensions.Text">
+    <value xml:space="preserve">Extensions</value>
+  </data>
+  <data name="Files.AlternateText">
+    <value xml:space="preserve">Ajouter un fichier</value>
+  </data>
+  <data name="Files.Text">
+    <value xml:space="preserve">Fichiers</value>
+  </data>
+  <data name="Help.AlternateText">
+    <value xml:space="preserve">Aide en ligne</value>
+  </data>
+  <data name="Help.Text">
+    <value xml:space="preserve">Aide</value>
+  </data>
+  <data name="hypMessageUrl.Text">
+    <value xml:space="preserve">http://www.dotnetnuke.com</value>
+  </data>
+  <data name="hypUpgrade.Text">
+    <value xml:space="preserve">Cliquez ici pour obtenir la dernière version</value>
+  </data>
+  <data name="imgAdmin.AlternateText">
+    <value xml:space="preserve">Page Site</value>
+  </data>
+  <data name="imgHost.AlternateText">
+    <value xml:space="preserve">Page Hôte</value>
+  </data>
+  <data name="ImportTab.AlternateText">
+    <value xml:space="preserve">Importer une page et son contenu</value>
+  </data>
+  <data name="ImportTab.Text">
+    <value xml:space="preserve">Importer</value>
+  </data>
+  <data name="Instance.Text">
+    <value xml:space="preserve">Module :</value>
+  </data>
+  <data name="Mode.Text">
+    <value xml:space="preserve">Mode :</value>
+  </data>
+  <data name="ModeEdit.Text">
+    <value xml:space="preserve">Edition</value>
+  </data>
+  <data name="ModeLayout.Text">
+    <value xml:space="preserve">Design</value>
+  </data>
+  <data name="ModeView.Text">
+    <value xml:space="preserve">Aperçu</value>
+  </data>
+  <data name="Module.Text">
+    <value xml:space="preserve">Module :</value>
+  </data>
+  <data name="optModuleTypeExisting.Text">
+    <value xml:space="preserve">Ajouter un module existant</value>
+  </data>
+  <data name="optModuleTypeNew.Text">
+    <value xml:space="preserve">Nouveau module</value>
+  </data>
+  <data name="PageFunctions.Text">
+    <value xml:space="preserve">Editeur de page</value>
+  </data>
+  <data name="Pane.Text">
+    <value xml:space="preserve">Zone :</value>
+  </data>
+  <data name="Permission.Text">
+    <value xml:space="preserve">Visibilité :</value>
+  </data>
+  <data name="PermissionEdit.Text">
+    <value xml:space="preserve">Editeurs seulement</value>
+  </data>
+  <data name="PermissionView.Text">
+    <value xml:space="preserve">Hérité de la page</value>
+  </data>
+  <data name="Position.Text">
+    <value xml:space="preserve">Insérer :</value>
+  </data>
+  <data name="Roles.AlternateText">
+    <value xml:space="preserve">Gestion des rôles</value>
+  </data>
+  <data name="Roles.Text">
+    <value xml:space="preserve">Rôles</value>
+  </data>
+  <data name="SelectModule.Text">
+    <value xml:space="preserve">Choisir un module</value>
+  </data>
+  <data name="SelectPage.Text">
+    <value xml:space="preserve">Choisir la page</value>
+  </data>
+  <data name="Site.AlternateText">
+    <value xml:space="preserve">Editer les paramètres du site</value>
+  </data>
+  <data name="Site.Text">
+    <value xml:space="preserve">Site.</value>
+  </data>
+  <data name="Tab.Text">
+    <value xml:space="preserve">Page :</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Titre :</value>
+  </data>
+  <data name="Top.Text">
+    <value xml:space="preserve">En haut</value>
+  </data>
+  <data name="Users.AlternateText">
+    <value xml:space="preserve">Ajouter un utilisateur</value>
+  </data>
+  <data name="Users.Text">
+    <value xml:space="preserve">Utilisateurs</value>
+  </data>
+</root>

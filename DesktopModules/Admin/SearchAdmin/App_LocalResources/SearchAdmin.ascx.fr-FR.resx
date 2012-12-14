@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdReIndex.Text">
+    <value xml:space="preserve">Ré-indexer le contenu</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Paramètres d'indexation</value>
+  </data>
+  <data name="Indexed.Text">
+    <value xml:space="preserve">Contenu Reindexé.</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A Propos du moteur de recherche&lt;/h1&gt;&lt;p&gt;Ce Module permet aux administrateurs de paramétrer le moteur de recherche&lt;/p&gt;</value>
+  </data>
+  <data name="plIncludeCommon.Help">
+    <value xml:space="preserve">Cocher cette case pour inclure les mots communs dans l'index</value>
+  </data>
+  <data name="plIncludeCommon.Text">
+    <value xml:space="preserve">Inclure tous les mots :</value>
+  </data>
+  <data name="plIncludeNumeric.Help">
+    <value xml:space="preserve">Cocher cette case pour inclure les nombres dans l'index de recherche</value>
+  </data>
+  <data name="plIncludeNumeric.Text">
+    <value xml:space="preserve">Inclure les nombres :</value>
+  </data>
+  <data name="plMaxWordLength.Help">
+    <value xml:space="preserve">Saisissez longueur maximale des mots à inclure dans l'index.</value>
+  </data>
+  <data name="plMaxWordLength.Text">
+    <value xml:space="preserve">Longueur maximale :</value>
+  </data>
+  <data name="plMinWordLength.Help">
+    <value xml:space="preserve">Saisissez la longueur minimale d'un mot à inclure dans l'index.</value>
+  </data>
+  <data name="plMinWordLength.Text">
+    <value xml:space="preserve">Longueur minimale :</value>
+  </data>
+  <data name="SearchSettingsHelp">
+    <value xml:space="preserve">Le Moteur de Recherche vous permet de paramètrer la fonction de recherche du Site.</value>
+  </data>
+  <data name="SearchWordLength.Text">
+    <value xml:space="preserve"> La longueur minimale du mot doit être inférieure ou égale à la longueur maximale du mot</value>
+  </data>
+  <data name="SearchWordMaxMinLength.Text">
+    <value xml:space="preserve">La longueur maximale du mot doit être d'au moins 1.</value>
+  </data>
+  <data name="SearchWordMinLength.Text">
+    <value xml:space="preserve">La longueur minimum du mot doit être d'au moins 1.</value>
+  </data>
+</root>

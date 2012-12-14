@@ -1,0 +1,83 @@
+###############################################################################
+#
+#	Fichier des paramètres du commercant
+#
+#	Remarque :	Ce fichier paramètre est sous la responsabilité du
+#				commercant
+#
+#	Le certificat 011223344551111 est un certificat de test.
+#	Numero de CB qui fonctionne : 4974934125497800
+#	Cryptogramme qui fonctionne : 600
+#
+###############################################################################
+
+
+# URL de retour automatique de la reponse du paiement (l'adresse doit etre accessible depuis le serveur Scellius)
+
+AUTO_RESPONSE_URL!!
+
+# URL de traitement d'un paiement refuse
+
+CANCEL_URL!!
+
+# URL de retour suite a paiement accepte
+
+RETURN_URL!!
+
+# Logo central 
+
+ADVERT!!
+
+# Nom du fichier en fond d'écran des pages de paiement
+
+BACKGROUND!!
+
+# logo d'annulation (affichage d'un bouton si non renseigne)
+
+CANCEL_LOGO!!
+
+# Liste des cartes acceptées par le commercant
+
+CARD_LIST!CB,VISA,MASTERCARD!
+
+# Code devise  ( 978=EURO )
+
+CURRENCY!978!
+
+# Code langage de l'acheteur (fr=francais)
+
+LANGUAGE!fr!
+
+# le logo du commercant (s'affiche en haut à gauche de la page de paiement)
+
+LOGO!!
+
+# le logo du commercant (s'affiche en haut à droite de la page de paiement)
+
+LOGO2!!
+
+# Code pays du commercant
+
+MERCHANT_COUNTRY!fr!
+
+# Code langage du commercant
+
+MERCHANT_LANGUAGE!fr!
+
+# Liste des moyens de paiement acceptés
+
+PAYMENT_MEANS!CB,2,VISA,2,MASTERCARD,2!
+
+# logo de retour a la boutique apres le paiement  (bouton si non renseigne)
+
+RETURN_LOGO!!
+
+# logo de validation du paiement (affichage d'un bouton si non renseigne)
+
+SUBMIT_LOGO!!
+
+# Fichier template
+
+TEMPLATE!!
+
+# END OF FILE

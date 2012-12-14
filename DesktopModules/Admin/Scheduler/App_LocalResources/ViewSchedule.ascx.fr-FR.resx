@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">Ajouter une planification</value>
+  </data>
+  <data name="ContentOptions.Action">
+    <value xml:space="preserve">Afficher le statut des planifications</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Planifications</value>
+  </data>
+  <data name="Day.Text">
+    <value xml:space="preserve">Jour</value>
+  </data>
+  <data name="Enabled.Header">
+    <value xml:space="preserve">Active</value>
+  </data>
+  <data name="Frequency.Header">
+    <value xml:space="preserve">Fréquence</value>
+  </data>
+  <data name="History.Text">
+    <value xml:space="preserve">Voir l'historique</value>
+  </data>
+  <data name="Hour.Text">
+    <value xml:space="preserve">Heure</value>
+  </data>
+  <data name="lnkHistory.Text">
+    <value xml:space="preserve">Historique</value>
+  </data>
+  <data name="Minute.Text">
+    <value xml:space="preserve">Minute.</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du planificateur de tâches&lt;/h1&gt;&lt;p&gt;Vous permet de spécifier des tâches qui s'exécuteront à intervalle régulier.&lt;/p&gt;</value>
+  </data>
+  <data name="n/a.Text">
+    <value xml:space="preserve">non dispo</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="NextStart.Header">
+    <value xml:space="preserve">Prochain demarrage</value>
+  </data>
+  <data name="RetryTimeLapse.Header">
+    <value xml:space="preserve">Temps écoulé</value>
+  </data>
+  <data name="ScheduleHistory.Action">
+    <value xml:space="preserve">Historique</value>
+  </data>
+  <data name="Status.Text">
+    <value xml:space="preserve">Voir statuts</value>
+  </data>
+  <data name="TimeLapsePrefix.Text">
+    <value xml:space="preserve">chaque</value>
+  </data>
+  <data name="Type.Header">
+    <value xml:space="preserve">Type.</value>
+  </data>
+  <data name="ViewLog.Header">
+    <value xml:space="preserve">Log.</value>
+  </data>
+</root>

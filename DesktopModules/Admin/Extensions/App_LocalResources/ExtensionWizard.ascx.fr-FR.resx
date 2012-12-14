@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel.Text">
+    <value xml:space="preserve">Retour</value>
+  </data>
+  <data name="ControlTitle_newextension.Text">
+    <value xml:space="preserve">Nouvel Assistant d'Extension</value>
+  </data>
+  <data name="Core.Text">
+    <value xml:space="preserve">Langue de base</value>
+  </data>
+  <data name="DuplicateName.Text">
+    <value xml:space="preserve">Le nom -{0} - existe déjà.  Veuillez fournir un autre nom et essayez à nouveau.</value>
+  </data>
+  <data name="ExtensionLanguageHelp.Text">
+    <value xml:space="preserve">&lt;b&gt;Note:&lt;/b&gt; Si vous êtes en train de créer une extension de type pack de langue alors le module doit déjà être défini.</value>
+  </data>
+  <data name="Introduction.Help">
+    <value xml:space="preserve">L’assistant de création de nouvelle extension permet de créer de nouvelles extensions. Entrer les informations requises à chaque étape. Sélectionnez le type d’extension à créer.</value>
+  </data>
+  <data name="Introduction.Title">
+    <value xml:space="preserve">Créer une nouvelle extension</value>
+  </data>
+  <data name="IntroductionHelp.Text">
+    <value xml:space="preserve">Dans cette première étape fournissez un nom unique pour cette nouvelle extension, le format recommandé est NomDeVotreEntreprise.Nom afin d’éviter les potentiels doublons si vous distribuez l’extension. De plus vous devez fournir un nom « friendly » pour l’extension, une description ainsi qu’un numéro de version (sinon le numéro de version par défaut sera utilisé).</value>
+  </data>
+  <data name="LanguageHelp.Text">
+    <value xml:space="preserve">&lt;b&gt;Note:&lt;/b&gt; Si vous êtes en train de créer une extension de type pack de langue alors lla langue doit déjà être définie dans Site&gt;Langues.</value>
+  </data>
+  <data name="OwnerInfo.Help">
+    <value xml:space="preserve">Dans cette dernière étape vous pouvez spécifier, si nécessaire, des informations concernant l’auteur de l’extension. Cette information est très utile si vous comptez distribuer l’extension.</value>
+  </data>
+  <data name="OwnerInfo.Title">
+    <value xml:space="preserve">Détails du propriétaire</value>
+  </data>
+  <data name="Package.Text">
+    <value xml:space="preserve">Langage d'extension</value>
+  </data>
+  <data name="PackageType.Error">
+    <value xml:space="preserve">Vous devez sélectionner un type de pack de langue</value>
+  </data>
+  <data name="plExtensionType.Help">
+    <value xml:space="preserve">Sélectionnez le type d'extension à créer</value>
+  </data>
+  <data name="plExtensionType.Text">
+    <value xml:space="preserve">Sélectionnez le Type d'Extension :</value>
+  </data>
+  <data name="plPackageType.Help">
+    <value xml:space="preserve">Indiquer s’il s’agit d’un pack de langue pour un module « core » ou un pack de langue pour une autre extension.</value>
+  </data>
+  <data name="plPackageType.Text">
+    <value xml:space="preserve">Sélectionnez le Type de Pack de langue :</value>
+  </data>
+  <data name="Specific_CoreLanguagePack.Help">
+    <value xml:space="preserve">Dans cette étape, veuillez choisir la langue pour le paquet.</value>
+  </data>
+  <data name="Specific_CoreLanguagePack.Title">
+    <value xml:space="preserve">Détails spécifiques pour ce pack de langue</value>
+  </data>
+  <data name="Specific_ExtensionLanguagePack.Help">
+    <value xml:space="preserve">Dans cette étape sélectionnez la langue et l'extension pour ce paquet.</value>
+  </data>
+  <data name="Specific_ExtensionLanguagePack.Title">
+    <value xml:space="preserve">Détails spécifiques pour ce pack de langue</value>
+  </data>
+  <data name="Specific_Module.Help">
+    <value xml:space="preserve">Dans cette étape fournissez toutes les informations spécifique au module.</value>
+  </data>
+  <data name="Specific_Module.Title">
+    <value xml:space="preserve">Détails de module spécifiques</value>
+  </data>
+</root>

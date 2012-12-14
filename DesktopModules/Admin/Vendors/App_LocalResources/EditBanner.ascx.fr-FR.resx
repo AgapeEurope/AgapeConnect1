@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="and.Text">
+    <value xml:space="preserve">Et</value>
+  </data>
+  <data name="BannerName.ErrorMessage">
+    <value xml:space="preserve">Vous devez spécifier un nom de bannière</value>
+  </data>
+  <data name="cmdCopy.Text">
+    <value xml:space="preserve">Copier</value>
+  </data>
+  <data name="cmdEmail.Text">
+    <value xml:space="preserve">Envoyer un Courriel</value>
+  </data>
+  <data name="ControlTitle_banner.Text">
+    <value xml:space="preserve">Editeur de bannières publicitaires</value>
+  </data>
+  <data name="CPM.ErrorMessage">
+    <value xml:space="preserve">Vous devez saisir une valeur CPM valide ou un Coût</value>
+  </data>
+  <data name="EmailFailure.Text">
+    <value xml:space="preserve">Message non-envoyé : {0}</value>
+  </data>
+  <data name="EmailSuccess.Text">
+    <value xml:space="preserve">Message envoyé</value>
+  </data>
+  <data name="Impressions.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Vous devez saisir un nombre valide d'impressions</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du module &amp;quot;Bannières&amp;quot;&lt;/h1&gt;
+
+&lt;p&gt;Ce module affiche les bannières publicitaires des annonceurs du site ou de 
+l'hôte.&lt;/p&gt;
+
+&lt;h1&gt;Options des bannières&lt;/h1&gt;
+
+&lt;ol&gt;&lt;li&gt;Ajouter une module &lt;b&gt;Bannières&lt;/b&gt;, ou modifiez un module existant.&lt;/li&gt;
+&lt;li&gt;Cliquez sur les &lt;b&gt;Options des bannières&lt;/b&gt;&lt;li&gt;Spécifiez la source : &lt;b&gt;Site&lt;/b&gt; 
+	ou &lt;b&gt;Hôte&lt;/b&gt;. 
+&lt;li&gt;Sélectionnez le type de bannière.
+&lt;li&gt;Ajouter un compteur de bannière. 
+&lt;li&gt;Cliquez sur &lt;b&gt;Mettre à jour &lt;/b&gt;.&lt;/ol&gt;</value>
+  </data>
+  <data name="or.Text">
+    <value xml:space="preserve">Ou</value>
+  </data>
+  <data name="plBannerGroup.Help">
+    <value xml:space="preserve">Saisissez un nom pour le groupe de bannières relatif à un set de bannières</value>
+  </data>
+  <data name="plBannerGroup.Text">
+    <value xml:space="preserve">Groupe&amp;nbsp;</value>
+  </data>
+  <data name="plBannerName.Help">
+    <value xml:space="preserve">Saisissez un nom pour la Bannière. Il sera utilisé pour l'affichage alternatif de l'image</value>
+  </data>
+  <data name="plBannerName.Text">
+    <value xml:space="preserve">Nom&amp;nbsp;</value>
+  </data>
+  <data name="plBannerType.Help">
+    <value xml:space="preserve">Sélectionnez un type de Bannière à afficher</value>
+  </data>
+  <data name="plBannerType.Text">
+    <value xml:space="preserve">Type&amp;nbsp;</value>
+  </data>
+  <data name="plCPM.Help">
+    <value xml:space="preserve">le CPM est le coût pour 1000 Impressions. Le coût peut correspondre à des honoraires.</value>
+  </data>
+  <data name="plCPM.Text">
+    <value xml:space="preserve">CPM/Coût&amp;nbsp;</value>
+  </data>
+  <data name="plCriteria.Help">
+    <value xml:space="preserve">Spécifiez si la campagne doit se terminer le nombre d'impressions atteint ET/OU quand la date limite est atteinte</value>
+  </data>
+  <data name="plCriteria.Text">
+    <value xml:space="preserve">Critère&amp;nbsp;</value>
+  </data>
+  <data name="plDescription.Help">
+    <value xml:space="preserve">Saisissez une description pour la bannière. Il sera utilisé pour l'affichage alternatif de l'image ou comme texte pour les descriptions de bannières</value>
+  </data>
+  <data name="plDescription.Text">
+    <value xml:space="preserve">Texte/Script&amp;nbsp;</value>
+  </data>
+  <data name="plEndDate.Help">
+    <value xml:space="preserve">Utilisez la Date de Fin pour spécifier quand la campagne doit se terminer</value>
+  </data>
+  <data name="plEndDate.Text">
+    <value xml:space="preserve">Date de fin&amp;nbsp;</value>
+  </data>
+  <data name="plHeight.Help">
+    <value xml:space="preserve">Saisissez la hauteur de la bannière. (Optionnel pour les images mais obligatoire pour les animations au format Flash).</value>
+  </data>
+  <data name="plHeight.Text">
+    <value xml:space="preserve">Hauteur</value>
+  </data>
+  <data name="plImage.Help">
+    <value xml:space="preserve">Choisissez l'image pour la bannière. Vous pouvez télécharger une nouvelle Image.</value>
+  </data>
+  <data name="plImage.Text">
+    <value xml:space="preserve">Image&amp;nbsp;</value>
+  </data>
+  <data name="plImpressions.Help">
+    <value xml:space="preserve">Saisissez le nombre d'impressions. Pour un nombre illimité d'impressions, tapez Zéro (0).</value>
+  </data>
+  <data name="plImpressions.Text">
+    <value xml:space="preserve">Impressions&amp;nbsp;</value>
+  </data>
+  <data name="plStartDate.Help">
+    <value xml:space="preserve">Utilisez Date de Départ pour spécifier quand la campagne doit commencer</value>
+  </data>
+  <data name="plStartDate.Text">
+    <value xml:space="preserve">Date de départ&amp;nbsp;</value>
+  </data>
+  <data name="plURL.Help">
+    <value xml:space="preserve">Saisissez l'URL de redirection si la bannière est cliquée. Si vous ne saisissez par d'URL, c'est celle de l'annonceur qui sera utilisée</value>
+  </data>
+  <data name="plURL.Text">
+    <value xml:space="preserve">URL&amp;nbsp;</value>
+  </data>
+  <data name="plWidth.Help">
+    <value xml:space="preserve">Saisissez la largeur de la bannière. (Optionnel pour les images mais obligatoire pour les animations au format Flash).</value>
+  </data>
+  <data name="plWidth.Text">
+    <value xml:space="preserve">Largeur</value>
+  </data>
+</root>

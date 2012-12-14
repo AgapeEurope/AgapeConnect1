@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgapeConnect" Class="FCXDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AgapeConnect;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.FCX_API_FinBat" Member="FCX_API_FinBats">
+    <Type Name="FCX_API_FinBat">
+      <Column Name="FinBatId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeveloperId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Ledger" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="StatusDesc" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Received" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Downloaded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ITN_Sent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueBatchRef" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="FCX_API_FinBat_FCX_API_FinTran" Member="FCX_API_FinTrans" ThisKey="FinBatId" OtherKey="FinBatId" Type="FCX_API_FinTran" />
+      <Association Name="FCX_API_Key_FCX_API_FinBat" Member="FCX_API_Key" ThisKey="DeveloperId" OtherKey="DeveloperId" Type="FCX_API_Key" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCX_API_FinTrans" Member="FCX_API_FinTrans">
+    <Type Name="FCX_API_FinTran">
+      <Column Name="FinTransId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Account" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="[R/C]" Member="R_C" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="TrxDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Month" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="FinBatId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueTrxRef" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="FCX_API_FinBat_FCX_API_FinTran" Member="FCX_API_FinBat" ThisKey="FinBatId" OtherKey="FinBatId" Type="FCX_API_FinBat" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCX_API_Keys" Member="FCX_API_Keys">
+    <Type Name="FCX_API_Key">
+      <Column Name="DeveloperId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[API-KEY]" Member="API_KEY" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ITN" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="WhiteList" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="TrustLevel" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FCX_API_Key_FCX_API_FinBat" Member="FCX_API_FinBats" ThisKey="DeveloperId" OtherKey="DeveloperId" Type="FCX_API_FinBat" />
+    </Type>
+  </Table>
+</Database>

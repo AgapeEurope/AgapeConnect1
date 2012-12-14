@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ProfileProperties_Address.Header">
+    <value xml:space="preserve">Adresse</value>
+  </data>
+  <data name="ProfileProperties_Biography.Help">
+    <value xml:space="preserve">Utiliser l'éditeur</value>
+  </data>
+  <data name="ProfileProperties_Biography.Required">
+    <value xml:space="preserve">Vous devez saisir votre biographie</value>
+  </data>
+  <data name="ProfileProperties_Biography.Text">
+    <value xml:space="preserve">Biographie :</value>
+  </data>
+  <data name="ProfileProperties_Cell.Help">
+    <value xml:space="preserve">Saisissez votre numéro de portable</value>
+  </data>
+  <data name="ProfileProperties_Cell.Required">
+    <value xml:space="preserve">Le numéro de portable est requis</value>
+  </data>
+  <data name="ProfileProperties_Cell.Text">
+    <value xml:space="preserve">Portable :</value>
+  </data>
+  <data name="ProfileProperties_City.Help">
+    <value xml:space="preserve">Saisissez le nom de votre ville</value>
+  </data>
+  <data name="ProfileProperties_City.Required">
+    <value xml:space="preserve">Le champ ville est requis</value>
+  </data>
+  <data name="ProfileProperties_City.Text">
+    <value xml:space="preserve">Ville :</value>
+  </data>
+  <data name="ProfileProperties_Contact Info.Header">
+    <value xml:space="preserve">Information de contact</value>
+  </data>
+  <data name="ProfileProperties_Country.Help">
+    <value xml:space="preserve">Saisissez le nom de votre Pays</value>
+  </data>
+  <data name="ProfileProperties_Country.Not Specified">
+    <value xml:space="preserve">Non spécifié</value>
+  </data>
+  <data name="ProfileProperties_Country.Required">
+    <value xml:space="preserve">Le Pays est requis</value>
+  </data>
+  <data name="ProfileProperties_Country.Text">
+    <value xml:space="preserve">Pays :</value>
+  </data>
+  <data name="ProfileProperties_DisplayName.Text">
+    <value xml:space="preserve">Nom d'affichage :</value>
+  </data>
+  <data name="ProfileProperties_Email.Text">
+    <value xml:space="preserve">Adresse de courriel :</value>
+  </data>
+  <data name="ProfileProperties_Fax.Help">
+    <value xml:space="preserve">Saisissez votre numéro de télécopie</value>
+  </data>
+  <data name="ProfileProperties_Fax.Required">
+    <value xml:space="preserve">Le numéro de télécopie est requis</value>
+  </data>
+  <data name="ProfileProperties_Fax.Text">
+    <value xml:space="preserve">Télécopie :</value>
+  </data>
+  <data name="ProfileProperties_FirstName.Help">
+    <value xml:space="preserve">Saisissez votre Prénom</value>
+  </data>
+  <data name="ProfileProperties_FirstName.Required">
+    <value xml:space="preserve">Le Prénom est requis</value>
+  </data>
+  <data name="ProfileProperties_FirstName.Text">
+    <value xml:space="preserve">Prénom :</value>
+  </data>
+  <data name="ProfileProperties_IM.Help">
+    <value xml:space="preserve">Saisissez votre pseudo "messenger" (AOL, MSN, Yahoo etc...)</value>
+  </data>
+  <data name="ProfileProperties_IM.Required">
+    <value xml:space="preserve">Votre pseudo "messenger" est requis</value>
+  </data>
+  <data name="ProfileProperties_IM.Text">
+    <value xml:space="preserve">IM :</value>
+  </data>
+  <data name="ProfileProperties_LastName.Help">
+    <value xml:space="preserve">Saisissez votre Nom</value>
+  </data>
+  <data name="ProfileProperties_LastName.Required">
+    <value xml:space="preserve">Le Nom est requis</value>
+  </data>
+  <data name="ProfileProperties_LastName.Text">
+    <value xml:space="preserve">Nom :</value>
+  </data>
+  <data name="ProfileProperties_MiddleName.Help">
+    <value xml:space="preserve">Deuxième Prénom :</value>
+  </data>
+  <data name="ProfileProperties_MiddleName.Required">
+    <value xml:space="preserve">Le deuxième Prénom est requis</value>
+  </data>
+  <data name="ProfileProperties_MiddleName.Text">
+    <value xml:space="preserve">Deuxième Prénom :</value>
+  </data>
+  <data name="ProfileProperties_Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="ProfileProperties_Photo.Help">
+    <value xml:space="preserve">Sélectionnez une photo, ou télécharger une image de votre système de fichiers local.</value>
+  </data>
+  <data name="ProfileProperties_Photo.Required">
+    <value xml:space="preserve">Une photo est nécessaire</value>
+  </data>
+  <data name="ProfileProperties_Photo.Text">
+    <value xml:space="preserve">Photo :</value>
+  </data>
+  <data name="ProfileProperties_PostalCode.Help">
+    <value xml:space="preserve">Saisissez votre code postal</value>
+  </data>
+  <data name="ProfileProperties_PostalCode.Required">
+    <value xml:space="preserve">Le code postal est requis</value>
+  </data>
+  <data name="ProfileProperties_PostalCode.Text">
+    <value xml:space="preserve">Code postal :</value>
+  </data>
+  <data name="ProfileProperties_Preferences.Header">
+    <value xml:space="preserve">Préférences</value>
+  </data>
+  <data name="ProfileProperties_PreferredLocale.Help">
+    <value xml:space="preserve">Sélectionnez votre langue préférée.</value>
+  </data>
+  <data name="ProfileProperties_PreferredLocale.Required">
+    <value xml:space="preserve">La langue est requise</value>
+  </data>
+  <data name="ProfileProperties_PreferredLocale.Text">
+    <value xml:space="preserve">Langue favorite :</value>
+  </data>
+  <data name="ProfileProperties_PreferredTimeZone.Help">
+    <value xml:space="preserve">Choisir votre fuseau horaire préféré</value>
+  </data>
+  <data name="ProfileProperties_PreferredTimeZone.Required">
+    <value xml:space="preserve">Fuseau horaire préféré requis</value>
+  </data>
+  <data name="ProfileProperties_PreferredTimeZone.Text">
+    <value xml:space="preserve">Fuseau horaire préféré :</value>
+  </data>
+  <data name="ProfileProperties_Prefix.Help">
+    <value xml:space="preserve">Saisissez votre civilité (ex. Mr. Mme.)</value>
+  </data>
+  <data name="ProfileProperties_Prefix.Required">
+    <value xml:space="preserve">Le champ civilité est requis</value>
+  </data>
+  <data name="ProfileProperties_Prefix.Text">
+    <value xml:space="preserve">Civilité :</value>
+  </data>
+  <data name="ProfileProperties_Region.Help">
+    <value xml:space="preserve">Saisissez le nom de votre département (Etat, province, région ou département)</value>
+  </data>
+  <data name="ProfileProperties_Region.Required">
+    <value xml:space="preserve">Le nom de région est requis</value>
+  </data>
+  <data name="ProfileProperties_Region.Text">
+    <value xml:space="preserve">Département :</value>
+  </data>
+  <data name="ProfileProperties_Street.Help">
+    <value xml:space="preserve">Saisissez le nom de la rue</value>
+  </data>
+  <data name="ProfileProperties_Street.Required">
+    <value xml:space="preserve">Le nom de rue est requis</value>
+  </data>
+  <data name="ProfileProperties_Street.Text">
+    <value xml:space="preserve">Adresse :</value>
+  </data>
+  <data name="ProfileProperties_Suffix.Help">
+    <value xml:space="preserve">Saisissez un suffixe (ex. BSc, PhD)</value>
+  </data>
+  <data name="ProfileProperties_Suffix.Required">
+    <value xml:space="preserve">Le suffixe est requis</value>
+  </data>
+  <data name="ProfileProperties_Suffix.Text">
+    <value xml:space="preserve">Suffixe :</value>
+  </data>
+  <data name="ProfileProperties_Telephone.Help">
+    <value xml:space="preserve">Saisissez votre numéro de téléphone</value>
+  </data>
+  <data name="ProfileProperties_Telephone.Required">
+    <value xml:space="preserve">Le numéro de téléphone est requis</value>
+  </data>
+  <data name="ProfileProperties_Telephone.Text">
+    <value xml:space="preserve">Téléphone :</value>
+  </data>
+  <data name="ProfileProperties_TimeZone.Help">
+    <value xml:space="preserve">Sélectionnez votre fuseau horaire</value>
+  </data>
+  <data name="ProfileProperties_TimeZone.Required">
+    <value xml:space="preserve">Vous devez choisir un fuseau horaire</value>
+  </data>
+  <data name="ProfileProperties_TimeZone.Text">
+    <value xml:space="preserve">Fuseau horaire :</value>
+  </data>
+  <data name="ProfileProperties_Unit.Help">
+    <value xml:space="preserve">Saisissez le numéro de rue correpondant à votre adresse</value>
+  </data>
+  <data name="ProfileProperties_Unit.Required">
+    <value xml:space="preserve">Le numéro est requis</value>
+  </data>
+  <data name="ProfileProperties_Unit.Text">
+    <value xml:space="preserve">Complément :</value>
+  </data>
+  <data name="ProfileProperties_Username.Text">
+    <value xml:space="preserve">Nom d'utilisateur :</value>
+  </data>
+  <data name="ProfileProperties_Website.Help">
+    <value xml:space="preserve">URL de site web.</value>
+  </data>
+  <data name="ProfileProperties_Website.Required">
+    <value xml:space="preserve">Vous devez saisir une URL pour vos paramètres de site web</value>
+  </data>
+  <data name="ProfileProperties_Website.Text">
+    <value xml:space="preserve">Site web :</value>
+  </data>
+  <data name="ProfileTitle.Text">
+    <value xml:space="preserve">Edition du profil - {0} (Id: {1})</value>
+  </data>
+  <data name="RequireProfile.Text">
+    <value xml:space="preserve">Votre profil</value>
+  </data>
+</root>

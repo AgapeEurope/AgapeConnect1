@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BestPractices.Text">
+    <value xml:space="preserve">Vous vous apprêtez  à mettre à jour votre site dans une version plus récente de DotNetNuke. Avant de procéder à la mise à jour automatique vérifiez que :&lt;ul&gt;&lt;li&gt;vous allez effectuer cette mise à jour dans un environnement de test&lt;/li&gt;&lt;li&gt;vous avez documenté toutes les informations spécifiques  à votre installation et vérifié la compatibilité de cette mise à jour avec les modules tiers.&lt;/li&gt;&lt;li&gt;vous avez créé les sauvegardes nécessaires afin de pouvoir procéder à une restauration en cas d’erreur lors du processus de mise à jour&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="ChooseLanguage.Text">
+    <value xml:space="preserve">Langue :</value>
+  </data>
+  <data name="CurrentVersion.Text">
+    <value xml:space="preserve">Verion actuelle - {0}</value>
+  </data>
+  <data name="IntroDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Bienvenue dans l’assistant de mise à jour DotNetNuke&lt;/p&gt;&lt;p&gt;La première chose à faire est de sélectionner la langue à utiliser pour le processus de mise à jour/p&gt;</value>
+  </data>
+  <data name="Next.Text">
+    <value xml:space="preserve">Mettre à jour</value>
+  </data>
+  <data name="Password.Text">
+    <value xml:space="preserve">Mot de passe :</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Mise à jour DotNetNuke</value>
+  </data>
+  <data name="Username.Text">
+    <value xml:space="preserve">Identifiant hôte (SuperUtilisateur) :</value>
+  </data>
+  <data name="Version.Text">
+    <value xml:space="preserve">Versino de la mise à jour - {0}</value>
+  </data>
+</root>

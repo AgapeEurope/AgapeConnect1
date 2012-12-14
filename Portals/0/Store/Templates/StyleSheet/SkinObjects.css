@@ -1,0 +1,32 @@
+/* =============*/
+/* SkinObjects */
+/* ============*/
+
+/* MicroCart SkinObject */
+div.StoreMicroCart {
+	margin: 0;
+	padding: 10px;
+}
+p.StoreMicroCartItems {
+	margin: 0;
+	padding: 0 0 6px 0;
+}
+p.StoreMicroCartTotal {
+	margin: 0;
+	padding: 0;
+}
+
+/* Links SkinObject */
+span.StoreLinks {
+	padding: 10px;
+}
+span.StoreLinks img {
+	border: 0;
+}
+span.StoreLinks a:link,
+span.StoreLinks a:visited {
+}
+span.StoreLinks a:hover,
+span.StoreLinks a:active {
+	text-decoration: none;
+}

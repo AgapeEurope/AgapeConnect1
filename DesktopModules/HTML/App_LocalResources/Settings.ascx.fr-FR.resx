@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="chkReplace.Text">
+    <value xml:space="preserve">Remplacer les paramètres existants ?</value>
+  </data>
+  <data name="cmdWorkflow.Text">
+    <value xml:space="preserve">Gérer les flux de travail</value>
+  </data>
+  <data name="ControlTitle_settings.Text">
+    <value xml:space="preserve">Paramètres du module</value>
+  </data>
+  <data name="Module.Text">
+    <value xml:space="preserve">Module</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">Il n'y a aucune aide disponible pour le moment.</value>
+  </data>
+  <data name="Page.Text">
+    <value xml:space="preserve">Page</value>
+  </data>
+  <data name="plApplyTo.Help">
+    <value xml:space="preserve">Sélectionnez l'objet qui s'applique à ce flux de publication.</value>
+  </data>
+  <data name="plApplyTo.Text">
+    <value xml:space="preserve">Appliquer le flux de publication à :</value>
+  </data>
+  <data name="plMaxVersions.Help">
+    <value xml:space="preserve">Définir le nombre maximum de versions à conserver dans l'historique pour chaque instance du module HTML. Lors de la publication des résultats de nouveaux contenus au-delà de ce nombre, la plus ancienne version sera définitivement supprimée jusqu'à ce que le nombre restant de versions corresponde à ce nombre. Si vous modifiez ce numéro à une valeur inférieure, les versions excédentaires déjà archivées pour une instance du module HTML spécifique ne seront pas supprimées du système jusqu'à ce que le nouveau contenu soit publié pour cette instance du module.</value>
+  </data>
+  <data name="plMaxVersions.Text">
+    <value xml:space="preserve">Historique maxi</value>
+  </data>
+  <data name="plModuleWorkflowOverride.Help">
+    <value xml:space="preserve">Si activé, la configuration  du flux de publication au niveau de la page peut être supplanté au niveau du module. Si  désactivé,  tous les modules HTML prendront  la configuration par défaut de la page.</value>
+  </data>
+  <data name="plModuleWorkflowOverride.Text">
+    <value xml:space="preserve">Supplanter le flux du module</value>
+  </data>
+  <data name="plPageWorkflowOverride.Help">
+    <value xml:space="preserve">Si activé, la configuration du flux de publication au niveau du site peut être surchargée au niveau de la page. Si désactivé, tous les modules HTML de toutes les pages doivent utiliser la configuration du flux défini pour le site.</value>
+  </data>
+  <data name="plPageWorkflowOverride.Text">
+    <value xml:space="preserve">Supplanter le flux de page</value>
+  </data>
+  <data name="plReplaceTokens.Help">
+    <value xml:space="preserve">Cochez &lt;strong&gt;Chaines de remplacement&lt;/strong&gt; pour remplacer les chaines du type "[objet:propriété|format]" par des objets représentant une page, un module, un paramètre du portail ou un utilisateur avec la valeur appropriée.&lt;br /&gt;
+Note : l'édition directe et la mise en cache seront désactivés si l'option est activée.</value>
+  </data>
+  <data name="plReplaceTokens.Text">
+    <value xml:space="preserve">Chaines de remplacement :</value>
+  </data>
+  <data name="plWorkflow.Help">
+    <value xml:space="preserve">Sélectionnez un flux de publication de contenu</value>
+  </data>
+  <data name="plWorkflow.Text">
+    <value xml:space="preserve">Flux de publication</value>
+  </data>
+  <data name="Site.Text">
+    <value xml:space="preserve">Site</value>
+  </data>
+</root>

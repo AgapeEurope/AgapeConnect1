@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="deleteCredentials.Text">
+    <value xml:space="preserve">Changer votre profil dans Store</value>
+  </data>
+  <data name="deploy.Text">
+    <value xml:space="preserve">Déployer</value>
+  </data>
+  <data name="deploySuccess.Text">
+    <value xml:space="preserve">L’extension – {0} – déployée avec succès sur le site. Sélectionner « Installer Extension » pour installer votre nouvelle extension.</value>
+  </data>
+  <data name="Description.Help">
+    <value xml:space="preserve">Description du Pack</value>
+  </data>
+  <data name="Description.Text">
+    <value xml:space="preserve">Description :</value>
+  </data>
+  <data name="download.Text">
+    <value xml:space="preserve">Télécharger</value>
+  </data>
+  <data name="Email.Help">
+    <value xml:space="preserve">Adresse de courriel de l'auteur du paquet</value>
+  </data>
+  <data name="Email.Text">
+    <value xml:space="preserve">Adresse de Courriel :</value>
+  </data>
+  <data name="Email.Validation">
+    <value xml:space="preserve">L'adresse de courriel doit être valide</value>
+  </data>
+  <data name="extensionDescLabel.Help">
+    <value xml:space="preserve">La description de l'extension que vous avez sélectionné pour le déploiement.</value>
+  </data>
+  <data name="extensionDescLabel.Text">
+    <value xml:space="preserve">Description :</value>
+  </data>
+  <data name="extensionNamelabel.Help">
+    <value xml:space="preserve">Le nom de l'extension que vous avez sélectionné pour le déploiement.</value>
+  </data>
+  <data name="extensionNamelabel.Text">
+    <value xml:space="preserve">Nom de l'extension :</value>
+  </data>
+  <data name="extensionTypeLabel.Help">
+    <value xml:space="preserve">Le type d'extension que vous avez sélectionné pour le déploiement.</value>
+  </data>
+  <data name="extensionTypeLabel.Text">
+    <value xml:space="preserve">Type d'extension :</value>
+  </data>
+  <data name="feedEndpoint.Text">
+    <value xml:space="preserve">Catalog.DotNetNuke.com</value>
+  </data>
+  <data name="fetchExtensions.Text">
+    <value xml:space="preserve">Extraire la liste des Extensions</value>
+  </data>
+  <data name="FriendlyName.Help">
+    <value xml:space="preserve">Le nom convivial pour ce paquet</value>
+  </data>
+  <data name="FriendlyName.Required">
+    <value xml:space="preserve">Le nom convivial est nécessaire.</value>
+  </data>
+  <data name="FriendlyName.Text">
+    <value xml:space="preserve">Nom convivial :</value>
+  </data>
+  <data name="Help.Text">
+    <value xml:space="preserve">Une requête est sur le point d’être faite pour un fichier externe, si vous souhaitez annuler celle-ci alors cliquez sur « Annuler » afin de retourner à la page des extensions, sinon sélectionner l’une des options disponibles ci-dessous.</value>
+  </data>
+  <data name="IconFile.Help">
+    <value xml:space="preserve">Le nom du fichier icône pour ce paquet.</value>
+  </data>
+  <data name="IconFile.Text">
+    <value xml:space="preserve">Fichier d'icône :</value>
+  </data>
+  <data name="install.Text">
+    <value xml:space="preserve">Installer un nouveau Package</value>
+  </data>
+  <data name="License.Help">
+    <value xml:space="preserve">Type de licence pour ce pack, indiquant par exemple les conditions de redistribution et de modification</value>
+  </data>
+  <data name="License.Text">
+    <value xml:space="preserve">Licence :</value>
+  </data>
+  <data name="Name.Help">
+    <value xml:space="preserve">Le nom du paquet (ex NomSociété.Nom)</value>
+  </data>
+  <data name="Name.Required">
+    <value xml:space="preserve">Le nom est un champ obligatoire</value>
+  </data>
+  <data name="Name.Text">
+    <value xml:space="preserve">Nom :</value>
+  </data>
+  <data name="NoData.Text">
+    <value xml:space="preserve">Il n'y a pas de données à afficher</value>
+  </data>
+  <data name="Organization.Help">
+    <value xml:space="preserve">La société responsable du paquet</value>
+  </data>
+  <data name="Organization.Text">
+    <value xml:space="preserve">Organisation :</value>
+  </data>
+  <data name="Owner.Help">
+    <value xml:space="preserve">Le propriétaire ou auteur du pack</value>
+  </data>
+  <data name="Owner.Text">
+    <value xml:space="preserve">Propriétaire :</value>
+  </data>
+  <data name="PackageErrors.Text">
+    <value xml:space="preserve">&lt;u&gt;Les paquets suivants sont invalides :&lt;/u&gt;&lt;br/&gt;</value>
+  </data>
+  <data name="PackageType.Help">
+    <value xml:space="preserve">Type de pack</value>
+  </data>
+  <data name="PackageType.Required">
+    <value xml:space="preserve">Le type de paquet est un champ requis</value>
+  </data>
+  <data name="PackageType.Text">
+    <value xml:space="preserve">Type :</value>
+  </data>
+  <data name="PurchasedHelp.Text">
+    <value xml:space="preserve">Vous pouvez voir ici la liste des extensions achetées sur SnowCovered et facultativement les télécharger puis les installer sur votre site. Vous devez fournir les informations de d’identification nécessaires pour SnowCovered afin de voir vos achats.</value>
+  </data>
+  <data name="PurchasedTitle.Text">
+    <value xml:space="preserve">Extensions achetées</value>
+  </data>
+  <data name="ReleaseNotes.Help">
+    <value xml:space="preserve">La note de mise à jour pour cette version</value>
+  </data>
+  <data name="ReleaseNotes.Text">
+    <value xml:space="preserve">Notes de version :</value>
+  </data>
+  <data name="setupCredentials.Text">
+    <value xml:space="preserve">Crédences Store</value>
+  </data>
+  <data name="StoreFile.Text">
+    <value xml:space="preserve">https://www.snowcovered.com/Snowcovered2/AppGalleryHandler.ashx?PortalID=0</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Déployer et installer l'Extension</value>
+  </data>
+  <data name="unexpectedRequest.Text">
+    <value xml:space="preserve">Une tentative a été faite pour accéder à un fichier externe inattendu.</value>
+  </data>
+  <data name="updateCredentials.Text">
+    <value xml:space="preserve">Mise à jour des identifiants Store</value>
+  </data>
+  <data name="Url.Help">
+    <value xml:space="preserve">Url de l'auteur</value>
+  </data>
+  <data name="Url.Text">
+    <value xml:space="preserve">URL :</value>
+  </data>
+  <data name="Version.Help">
+    <value xml:space="preserve">Version du pack. Doit être incrémentée pour permettre les mises à jour.</value>
+  </data>
+  <data name="Version.Required">
+    <value xml:space="preserve">Le numéro de version est un champ requis</value>
+  </data>
+  <data name="Version.Text">
+    <value xml:space="preserve">Version</value>
+  </data>
+  <data name="Version.Validation">
+    <value xml:space="preserve">Le paquet doit avoir un numéro de version du type ##.##.##</value>
+  </data>
+  <data name="WebserviceFailure.Text">
+    <value xml:space="preserve">Nous ne pouvons pas vous connecter au webservice</value>
+  </data>
+  <data name="WebservicePermission.Text">
+    <value xml:space="preserve">Ce site n'autorise pas les connexions à un webservice externe</value>
+  </data>
+</root>

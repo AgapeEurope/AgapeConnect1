@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Active.Header">
+    <value xml:space="preserve">Actif</value>
+  </data>
+  <data name="AddLanguage.Text">
+    <value xml:space="preserve">Ajouter une Langue</value>
+  </data>
+  <data name="allowUserCulture.Help">
+    <value xml:space="preserve">Lorsqu'il est activé cela permettra à l'utilisateur de sélectionner un langage différent pour l'interface que celui utilisé pour le contenu.</value>
+  </data>
+  <data name="allowUserCulture.Text">
+    <value xml:space="preserve">Permettre aux utilisateurs de choisir la langue de l'interface ?</value>
+  </data>
+  <data name="Available.Text">
+    <value xml:space="preserve">Langues disponibles</value>
+  </data>
+  <data name="Content.Header">
+    <value xml:space="preserve">Multilinguisme</value>
+  </data>
+  <data name="CreateLanguage.Text">
+    <value xml:space="preserve">Créer un pack de langue</value>
+  </data>
+  <data name="CreateLocalizedPages.Text">
+    <value xml:space="preserve">Créer les pages dans cette langue</value>
+  </data>
+  <data name="Culture.Header">
+    <value xml:space="preserve">Langue</value>
+  </data>
+  <data name="detectBrowserLable.Help">
+    <value xml:space="preserve">Est-ce que la langue du navigateur de l’internaute doit être utilisée en tant que langue par défaut pour celui-ci ?</value>
+  </data>
+  <data name="detectBrowserLable.Text">
+    <value xml:space="preserve">Activer la detection automatique de langue sur le naviguateur</value>
+  </data>
+  <data name="Edit.Text">
+    <value xml:space="preserve">Configurer cette langue</value>
+  </data>
+  <data name="Enabled.Header">
+    <value xml:space="preserve">Activée</value>
+  </data>
+  <data name="EnabledPublishedMessage.Text">
+    <value xml:space="preserve">&lt;em&gt;Une langue doit être activée avant d’être pouvoir utilisée et doit être désactivée avant d’être pouvoir inutilisée&lt;/em&gt;</value>
+  </data>
+  <data name="EnableLocalization.Text">
+    <value xml:space="preserve">Activer le multilinguisme (duplication des pages à traduire)</value>
+  </data>
+  <data name="Fallback.Text">
+    <value xml:space="preserve">Langue de repli</value>
+  </data>
+  <data name="Host.Help">
+    <value xml:space="preserve">Editer les clés de traduction au niveau de l'instance DNN</value>
+  </data>
+  <data name="Host.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="HostOnly.Text">
+    <value xml:space="preserve">Droits de niveau hôte requis</value>
+  </data>
+  <data name="HostOnlyMessage.Text">
+    <value xml:space="preserve">Seuls les super utilisateurs  (hôte) peuvent ajouter de nouvelles langues. En tant que qu’administrateur vous ne pouvez que gérer celles déjà existantes. Contactez l’hôte si vous souhaitez de nouvelles langues.</value>
+  </data>
+  <data name="InstallLanguage.Text">
+    <value xml:space="preserve">Installer le pack de langue</value>
+  </data>
+  <data name="LanguageSettings.Text">
+    <value xml:space="preserve">Paramètres de langue</value>
+  </data>
+  <data name="LocalizePages.Text">
+    <value xml:space="preserve">Nbre de pages</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">A LanguageEnabler module</value>
+  </data>
+  <data name="plEnabled.Help">
+    <value xml:space="preserve">Ci-dessous, vous pouvez activer ou désactiver les langues pour ce site.</value>
+  </data>
+  <data name="plEnabled.Text">
+    <value xml:space="preserve">Activée</value>
+  </data>
+  <data name="plLanguage.Help">
+    <value xml:space="preserve">Liste de tous les langues disponibles.&lt;br /&gt;</value>
+  </data>
+  <data name="plLanguage.Text">
+    <value xml:space="preserve">Langue</value>
+  </data>
+  <data name="Portal.Help">
+    <value xml:space="preserve">Editer les clés de traduction au niveau du site</value>
+  </data>
+  <data name="Portal.Text">
+    <value xml:space="preserve">Local</value>
+  </data>
+  <data name="PortalDefaultEnabled.Text">
+    <value xml:space="preserve">- &lt;em&gt;On ne peut pas désactiver la langue par défaut&lt;/em&gt;</value>
+  </data>
+  <data name="PortalDefaultPublished.Text">
+    <value xml:space="preserve">- &lt;em&gt;La langue du site par défaut ne peut pas être désactivée ni supprimée&lt;/em&gt;</value>
+  </data>
+  <data name="Publish.Confirm">
+    <value xml:space="preserve">Toutes la pages traduites en langue '{0}' sont publiées.</value>
+  </data>
+  <data name="Publish.Header">
+    <value xml:space="preserve">Publier</value>
+  </data>
+  <data name="PublishTranslatedPages.Text">
+    <value xml:space="preserve">Pages publiées considérées comme traduites</value>
+  </data>
+  <data name="Settings.Text">
+    <value xml:space="preserve">Edition</value>
+  </data>
+  <data name="siteDefaultLabel.Help">
+    <value xml:space="preserve">Ici,vous pouvez selectionner la langue par defaut du site. Si elle n'est pas disponible, elle sera installé automatiquement ulterieurement;</value>
+  </data>
+  <data name="siteDefaultLabel.Text">
+    <value xml:space="preserve">Defaut pour le site :</value>
+  </data>
+  <data name="Static.Header">
+    <value xml:space="preserve">Ressources statique</value>
+  </data>
+  <data name="System.Help">
+    <value xml:space="preserve">Clés de traduction système</value>
+  </data>
+  <data name="System.Text">
+    <value xml:space="preserve">Système</value>
+  </data>
+  <data name="systemDefaultLabel.Help">
+    <value xml:space="preserve">La langue par défaut du système est la langue que l’application utilisera si elle ne trouve aucune autre langue. C’est la langue d’ultime repli.</value>
+  </data>
+  <data name="systemDefaultLabel.Text">
+    <value xml:space="preserve">Défaut du système</value>
+  </data>
+  <data name="TimeZones.Text">
+    <value xml:space="preserve">Editeur de fuseau horaire</value>
+  </data>
+  <data name="TranslatedPages.Text">
+    <value xml:space="preserve">Pages traduites</value>
+  </data>
+  <data name="TranslationStatus.Text">
+    <value xml:space="preserve">Cliquez sur le lien pour accéder à la page contenant le résumé de la traduction pour cette langue</value>
+  </data>
+  <data name="TranslationSummary.Text">
+    <value xml:space="preserve">Statut de la traduction</value>
+  </data>
+  <data name="Update.Text">
+    <value xml:space="preserve">Mettre à jour</value>
+  </data>
+  <data name="Verify.Text">
+    <value xml:space="preserve">Vérifier les fichiers de ressource de traduction</value>
+  </data>
+  <data name="viewTypeLabel.Help">
+    <value xml:space="preserve">Selectionnez la langue d'affichage</value>
+  </data>
+  <data name="viewTypeLabel.Text">
+    <value xml:space="preserve">Type d'affichage</value>
+  </data>
+</root>

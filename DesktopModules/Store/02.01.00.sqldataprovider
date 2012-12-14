@@ -1,0 +1,64 @@
+﻿
+if not exists (select * from dbo.sysobjects where id = object_id(N'FK_{objectQualifier}Store_Categories_{objectQualifier}Store_Categories') and OBJECTPROPERTY(id, N'IsForeignKey') = 1)
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Categories ADD 
+	CONSTRAINT FK_{objectQualifier}Store_Categories_{objectQualifier}Store_Categories FOREIGN KEY 
+	(
+		[ParentCategoryID]
+	) REFERENCES {databaseOwner}{objectQualifier}Store_Categories (
+		[CategoryID]
+	)
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_GetAll
+		@PortalID int,
+		@ParentCategoryID int = NULL
+	AS
+	SET NOCOUNT ON
+
+IF @ParentCategoryID = -3
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID,{databaseOwner}{objectQualifier}Store_Categories.PortalID,{databaseOwner}{objectQualifier}Store_Categories.CategoryName,{databaseOwner}{objectQualifier}Store_Categories.CategoryDescription,{databaseOwner}{objectQualifier}Store_Categories.Message,{databaseOwner}{objectQualifier}Store_Categories.Archived,{databaseOwner}{objectQualifier}Store_Categories.CreatedByUser,{databaseOwner}{objectQualifier}Store_Categories.CreatedDate,{databaseOwner}{objectQualifier}Store_Categories.OrderID,{databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID
+END
+ELSE
+BEGIN
+IF @ParentCategoryID = -2
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID,{databaseOwner}{objectQualifier}Store_Categories.PortalID,{databaseOwner}{objectQualifier}Store_Categories.CategoryName,{databaseOwner}{objectQualifier}Store_Categories.CategoryDescription,{databaseOwner}{objectQualifier}Store_Categories.Message,{databaseOwner}{objectQualifier}Store_Categories.Archived,{databaseOwner}{objectQualifier}Store_Categories.CreatedByUser,{databaseOwner}{objectQualifier}Store_Categories.CreatedDate,{databaseOwner}{objectQualifier}Store_Categories.OrderID,{databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID,ISNULL(Parent.CategoryName, 'None') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+			ON {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = Parent.CategoryID
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+		AND {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID IS NULL
+		AND {databaseOwner}{objectQualifier}Store_Categories.Archived = 0
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.OrderID
+END
+
+ELSE IF @ParentCategoryID = -1
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID,{databaseOwner}{objectQualifier}Store_Categories.PortalID,{databaseOwner}{objectQualifier}Store_Categories.CategoryName,{databaseOwner}{objectQualifier}Store_Categories.CategoryDescription,{databaseOwner}{objectQualifier}Store_Categories.Message,{databaseOwner}{objectQualifier}Store_Categories.Archived,{databaseOwner}{objectQualifier}Store_Categories.CreatedByUser,{databaseOwner}{objectQualifier}Store_Categories.CreatedDate,{databaseOwner}{objectQualifier}Store_Categories.OrderID,{databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID,ISNULL(Parent.CategoryName, 'None') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+			ON {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = Parent.CategoryID
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.OrderID
+END 
+ELSE
+BEGIN
+	SELECT
+		{databaseOwner}{objectQualifier}Store_Categories.CategoryID,{databaseOwner}{objectQualifier}Store_Categories.PortalID,{databaseOwner}{objectQualifier}Store_Categories.CategoryName,{databaseOwner}{objectQualifier}Store_Categories.CategoryDescription,{databaseOwner}{objectQualifier}Store_Categories.Message,{databaseOwner}{objectQualifier}Store_Categories.Archived,{databaseOwner}{objectQualifier}Store_Categories.CreatedByUser,{databaseOwner}{objectQualifier}Store_Categories.CreatedDate,{databaseOwner}{objectQualifier}Store_Categories.OrderID,{databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID,ISNULL(Parent.CategoryName, 'None') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+			ON {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = Parent.CategoryID
+	WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+		AND {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID = @ParentCategoryID
+		AND {databaseOwner}{objectQualifier}Store_Categories.Archived = 0
+	ORDER BY {databaseOwner}{objectQualifier}Store_Categories.OrderID
+END
+END
+GO

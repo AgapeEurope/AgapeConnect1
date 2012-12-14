@@ -1,0 +1,140 @@
+2012-05-24 11:37:26,226 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 11:37:26,326 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 11:37:26,453 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 11:56:35,541 [WIN-IJASUCJVGUJ][Thread:27][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 11:56:35,592 [WIN-IJASUCJVGUJ][Thread:27][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 11:56:35,607 [WIN-IJASUCJVGUJ][Thread:27][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 11:58:39,688 [WIN-IJASUCJVGUJ][Thread:25][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Documents.DocumentsDataContext..ctor() in C:\aLocalSVN\AC-FR\App_Code\Documents\Documents.designer.vb:line 74
+   at DotNetNuke.Modules.AgapeConnect.Documents..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 20
+   at ASP.desktopmodules_agapeconnect_documents_documents_ascx..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 912304
+   at __ASP.FastObjectFactory_app_web_d1kfluan.Create_ASP_desktopmodules_agapeconnect_documents_documents_ascx()
+   at System.Web.Compilation.BuildResultCompiledType.CreateInstance()
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(VirtualPath virtualPath)
+   at DotNetNuke.UI.ControlUtilities.LoadControl[T](TemplateControl containerControl, String ControlSrc)
+   at DotNetNuke.UI.Modules.WebFormsModuleControlFactory.CreateModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-05-24 11:58:39,869 [WIN-IJASUCJVGUJ][Thread:25][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acDocuments is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at Documents.DocumentsDataContext..ctor() in C:\aLocalSVN\AC-FR\App_Code\Documents\Documents.designer.vb:line 74
+   at DotNetNuke.Modules.AgapeConnect.Documents..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 20
+   at ASP.desktopmodules_agapeconnect_documents_documents_ascx..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 912304
+   at __ASP.FastObjectFactory_app_web_d1kfluan.Create_ASP_desktopmodules_agapeconnect_documents_documents_ascx()
+   at System.Web.Compilation.BuildResultCompiledType.CreateInstance()
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(VirtualPath virtualPath)
+   at DotNetNuke.UI.ControlUtilities.LoadControl[T](TemplateControl containerControl, String ControlSrc)
+   at DotNetNuke.UI.Modules.WebFormsModuleControlFactory.CreateModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-05-24 11:58:48,408 [WIN-IJASUCJVGUJ][Thread:24][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Documents.DocumentsDataContext..ctor() in C:\aLocalSVN\AC-FR\App_Code\Documents\Documents.designer.vb:line 74
+   at DotNetNuke.Modules.AgapeConnect.Documents..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 20
+   at ASP.desktopmodules_agapeconnect_documents_documents_ascx..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 912304
+   at __ASP.FastObjectFactory_app_web_d1kfluan.Create_ASP_desktopmodules_agapeconnect_documents_documents_ascx()
+   at System.Web.Compilation.BuildResultCompiledType.CreateInstance()
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(VirtualPath virtualPath)
+   at DotNetNuke.UI.ControlUtilities.LoadControl[T](TemplateControl containerControl, String ControlSrc)
+   at DotNetNuke.UI.Modules.WebFormsModuleControlFactory.CreateModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-05-24 11:58:48,443 [WIN-IJASUCJVGUJ][Thread:24][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acDocuments is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at Documents.DocumentsDataContext..ctor() in C:\aLocalSVN\AC-FR\App_Code\Documents\Documents.designer.vb:line 74
+   at DotNetNuke.Modules.AgapeConnect.Documents..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 20
+   at ASP.desktopmodules_agapeconnect_documents_documents_ascx..ctor() in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Documents\Documents.ascx.vb:line 912304
+   at __ASP.FastObjectFactory_app_web_d1kfluan.Create_ASP_desktopmodules_agapeconnect_documents_documents_ascx()
+   at System.Web.Compilation.BuildResultCompiledType.CreateInstance()
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(VirtualPath virtualPath)
+   at DotNetNuke.UI.ControlUtilities.LoadControl[T](TemplateControl containerControl, String ControlSrc)
+   at DotNetNuke.UI.Modules.WebFormsModuleControlFactory.CreateModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-05-24 12:05:22,190 [WIN-IJASUCJVGUJ][Thread:21][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 12:05:22,226 [WIN-IJASUCJVGUJ][Thread:21][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 12:05:22,241 [WIN-IJASUCJVGUJ][Thread:21][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 12:05:39,582 [WIN-IJASUCJVGUJ][Thread:7][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 12:05:39,617 [WIN-IJASUCJVGUJ][Thread:7][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 12:05:39,632 [WIN-IJASUCJVGUJ][Thread:7][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 12:10:51,976 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 12:10:52,010 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 12:10:52,024 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 12:12:18,359 [WIN-IJASUCJVGUJ][Thread:21][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 12:12:18,396 [WIN-IJASUCJVGUJ][Thread:21][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 12:12:18,411 [WIN-IJASUCJVGUJ][Thread:21][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 12:50:33,812 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 12:50:33,843 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 12:50:33,857 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 12:52:07,348 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 12:52:07,379 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 12:52:07,393 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-05-24 14:19:42,005 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-05-24 14:19:42,039 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-05-24 14:19:42,054 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)

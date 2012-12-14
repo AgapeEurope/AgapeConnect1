@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlTitle.Text">
+    <value xml:space="preserve">{0} Type de dossier</value>
+  </data>
+  <data name="ControlTitle_editfoldermapping.Text">
+    <value xml:space="preserve">Gérer les correspondances de dossiers</value>
+  </data>
+  <data name="Description.Text">
+    <value xml:space="preserve">Utilisez cette boîte de dialogue pour définir un nouveau type de dossier.</value>
+  </data>
+  <data name="DuplicateMappingName.Text">
+    <value xml:space="preserve">Un mappage de même nom existe déjà. Les changements n'ont pas été enregistrées.</value>
+  </data>
+  <data name="FolderProviderSettings.Text">
+    <value xml:space="preserve">Provider de dossiers</value>
+  </data>
+  <data name="GeneralSettings.Text">
+    <value xml:space="preserve">Paramètres généraux</value>
+  </data>
+  <data name="plFolderProvider.Help">
+    <value xml:space="preserve">Sélectionnez le provider de dossier à utiliser.</value>
+  </data>
+  <data name="plFolderProvider.Text">
+    <value xml:space="preserve">Provider de dossier</value>
+  </data>
+  <data name="plName.Help">
+    <value xml:space="preserve">Correspondance (mapping) entre les dossiers de différents fournisseurs.</value>
+  </data>
+  <data name="plName.Text">
+    <value xml:space="preserve">Nom de correspondance</value>
+  </data>
+  <data name="RequiredFields.Text">
+    <value xml:space="preserve">champs requis</value>
+  </data>
+  <data name="SelectFolderProvider.Text">
+    <value xml:space="preserve">-Choisir un fournisseur de dossier-</value>
+  </data>
+  <data name="SyncWarning.Text">
+    <value xml:space="preserve">Après la mise à jour le type de dossier, une synchronisation est effectuée sur les dossiers utilisant ce type. Cela peut prendre un certain temps, fonction du nombre de dossiers répondants à ces critères.</value>
+  </data>
+  <data name="Update.Text">
+    <value xml:space="preserve">Mise à jour</value>
+  </data>
+  <data name="valFolderProvider.ErrorMessage">
+    <value xml:space="preserve">Fournisseur de dossier requis</value>
+  </data>
+  <data name="valName.ErrorMessage">
+    <value xml:space="preserve">Nom requis</value>
+  </data>
+</root>

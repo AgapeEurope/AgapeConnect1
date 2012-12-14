@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">&lt;nobr&gt;Charger des fichiers&lt;/nobr&gt;</value>
+  </data>
+  <data name="AddFolder.Text">
+    <value xml:space="preserve">Ajouter</value>
+  </data>
+  <data name="AddFolderImg.AlternateText">
+    <value xml:space="preserve">Ajouter un dossier</value>
+  </data>
+  <data name="Cancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="CancelCopy.Text">
+    <value xml:space="preserve">Annuler la copie</value>
+  </data>
+  <data name="CancelMove.Text">
+    <value xml:space="preserve">Annuler le déplacement</value>
+  </data>
+  <data name="CancelRenameImg.AlternateText">
+    <value xml:space="preserve">Annuler la modification du nom</value>
+  </data>
+  <data name="Capacity.Text">
+    <value xml:space="preserve">Capacité</value>
+  </data>
+  <data name="ConflictFiles.Text">
+    <value xml:space="preserve">Les fichiers listés ci-dessous existent déjà dans le dossier de destination. Cochez la case devant le nom des fichiers à écraser.</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Gestionnaire de fichiers</value>
+  </data>
+  <data name="CopyCheckedFiles.Text">
+    <value xml:space="preserve">Copier les fichiers sélectionnés ?</value>
+  </data>
+  <data name="CopyFiles.Text">
+    <value xml:space="preserve">Copier</value>
+  </data>
+  <data name="CopyImg.AlternateText">
+    <value xml:space="preserve">Copier</value>
+  </data>
+  <data name="CopyingFiles.Text">
+    <value xml:space="preserve">Copier les fichiers :</value>
+  </data>
+  <data name="CopySelectedFilesTo.Text">
+    <value xml:space="preserve">Copier les fichiers sélectionnés dans :</value>
+  </data>
+  <data name="Date.Header">
+    <value xml:space="preserve">date</value>
+  </data>
+  <data name="DeleteFileImg.AlternateText">
+    <value xml:space="preserve">Supprimer le fichier</value>
+  </data>
+  <data name="DeleteFiles.Text">
+    <value xml:space="preserve">Supprimer</value>
+  </data>
+  <data name="DeleteFolder.Text">
+    <value xml:space="preserve">Supprimer le dossier :</value>
+  </data>
+  <data name="DeleteFolderImg.AlternateText">
+    <value xml:space="preserve">Supprimer le dossier</value>
+  </data>
+  <data name="DeleteFolderLabel.Text">
+    <value xml:space="preserve">Supprimer</value>
+  </data>
+  <data name="DeleteImg.AlternateText">
+    <value xml:space="preserve">Supprimer</value>
+  </data>
+  <data name="DiskSpace.Text">
+    <value xml:space="preserve">Espace disque</value>
+  </data>
+  <data name="EnsureDeleteFile.Text">
+    <value xml:space="preserve">Etes-vous sur de vouloir supprimer le fichier {0} ?</value>
+  </data>
+  <data name="EnsureDeleteFolder.Text">
+    <value xml:space="preserve">Etes-vous sur de vouloir supprimer le dossier {0} ?</value>
+  </data>
+  <data name="ErrorCopyingFile.Text">
+    <value xml:space="preserve">Erreur en copiant le fichier :</value>
+  </data>
+  <data name="ErrorDeletingFile.Text">
+    <value xml:space="preserve">Erreur lors de la suppression du fichier :&amp;nbsp;</value>
+  </data>
+  <data name="ErrorDeletingFolder.Text">
+    <value xml:space="preserve">Erreur en supprimant le dossier :&lt;BR&gt;</value>
+  </data>
+  <data name="ErrorDownloadingFile.Text">
+    <value xml:space="preserve">Erreur lors du téléchargement de :&amp;nbsp;</value>
+  </data>
+  <data name="ErrorMovingFile.Text">
+    <value xml:space="preserve">Erreur en déplaçant le fichier :</value>
+  </data>
+  <data name="ErrorSynchronizingFolder.Text">
+    <value xml:space="preserve">Erreur en cours de synchronisation du dossier :&amp;nbsp;</value>
+  </data>
+  <data name="ErrorSynchronizingFolders.Text">
+    <value xml:space="preserve">Erreur en cours de synchronisation des dossiers :&amp;nbsp;</value>
+  </data>
+  <data name="ErrorUnzippingFile.Text">
+    <value xml:space="preserve">Erreur en décompressant le fichier :</value>
+  </data>
+  <data name="FileBar.Text">
+    <value xml:space="preserve">Fichiers :</value>
+  </data>
+  <data name="FileManager.Text">
+    <value xml:space="preserve">Gestionnaire de fichiers</value>
+  </data>
+  <data name="FileName.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="FilterImg.AlternateText">
+    <value xml:space="preserve">Filtre</value>
+  </data>
+  <data name="FolderAlreadyRemoved.Text">
+    <value xml:space="preserve">Dossier déjà supprimé...</value>
+  </data>
+  <data name="FolderBar.Text">
+    <value xml:space="preserve">Dossiers :</value>
+  </data>
+  <data name="Folders.Text">
+    <value xml:space="preserve">&amp;nbsp;Explorateur de dossiers</value>
+  </data>
+  <data name="Free.Text">
+    <value xml:space="preserve">Libre</value>
+  </data>
+  <data name="FromFolder.Text">
+    <value xml:space="preserve">Du dossier :</value>
+  </data>
+  <data name="GetFolderProperties.AlternateText">
+    <value xml:space="preserve">Voir les propriétés du dossier</value>
+  </data>
+  <data name="HostRoot.Text">
+    <value xml:space="preserve">Racine de l'hôte</value>
+  </data>
+  <data name="InsecureFileSystem.Text">
+    <value xml:space="preserve">Non sécurisé - Fichier système</value>
+  </data>
+  <data name="ItemsPerPage.Text">
+    <value xml:space="preserve">Objets par page :</value>
+  </data>
+  <data name="lnkSyncFolderIMG.AlternateText">
+    <value xml:space="preserve">Synchroniser le système de fichier avec la base de DotNetNuke</value>
+  </data>
+  <data name="ManageFolderTypes.Action">
+    <value xml:space="preserve">Gérer les Types de dossiers</value>
+  </data>
+  <data name="MB.Text">
+    <value xml:space="preserve">&amp;nbsp;Mo</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du gestionnaire de fichiers&lt;/h1&gt;&lt;p&gt;Cet outil permet aux 
+administrateurs de gérer les documents disponibles sur le site en créant des 
+dossiers et en téléchargeant des fichiers afin de les rendre disponibles pour la 
+publication.&lt;/p&gt;</value>
+  </data>
+  <data name="MoveCheckedFiles.Text">
+    <value xml:space="preserve">Déplacer les fichiers cochés ?</value>
+  </data>
+  <data name="MoveFiles.Text">
+    <value xml:space="preserve">Déplacer</value>
+  </data>
+  <data name="MoveImg.AlternateText">
+    <value xml:space="preserve">Déplacer</value>
+  </data>
+  <data name="MoveSelectedFilesTo.Text">
+    <value xml:space="preserve">Déplacer les documents sélectionnés dans :</value>
+  </data>
+  <data name="MovingFiles.Text">
+    <value xml:space="preserve">Déplacer les fichiers :</value>
+  </data>
+  <data name="NoFilesChecked.Text">
+    <value xml:space="preserve">Aucun fichier sélectionné</value>
+  </data>
+  <data name="NotAllowedToDeleteRootFolder.Text">
+    <value xml:space="preserve">Suppression du dossier racine interdite...</value>
+  </data>
+  <data name="NotEnoughSpace.Text">
+    <value xml:space="preserve">Il n'y a plus assez de place sur le site</value>
+  </data>
+  <data name="NoWritePermission.Text">
+    <value xml:space="preserve">Vous n'avez pas les autorisations d'écriture sur le dossier de destination.</value>
+  </data>
+  <data name="Ok.Text">
+    <value xml:space="preserve">ok</value>
+  </data>
+  <data name="PermissionsError.Text">
+    <value xml:space="preserve">Une erreur sur les autorisations de mise à jour est survenue.  Vérifiez le journal des événements pour plus de détails.</value>
+  </data>
+  <data name="PermissionsUpdated.Text">
+    <value xml:space="preserve">Autorisations sur les dossier mises à jour.</value>
+  </data>
+  <data name="PleaseLogin.Text">
+    <value xml:space="preserve">Identifiez-vous avant de copier ou déplacer des fichiers</value>
+  </data>
+  <data name="PleaseRemoveFilesBeforeDeleting.Text">
+    <value xml:space="preserve">Vous devez supprimer les fichiers et les sous-dossiers pour pouvoir supprimer ce dossier</value>
+  </data>
+  <data name="PleaseSpecifyAFolderNameFirst.Text">
+    <value xml:space="preserve">Commencez par la sélection d&amp;#146;un nom de dossier</value>
+  </data>
+  <data name="plPermissions.Help">
+    <value xml:space="preserve">Droits sur le dossier</value>
+  </data>
+  <data name="plPermissions.Text">
+    <value xml:space="preserve">Permissions :</value>
+  </data>
+  <data name="plStorageLocation.Help">
+    <value xml:space="preserve">Méthode utilisée pour le stockage des données.</value>
+  </data>
+  <data name="plStorageLocation.Text">
+    <value xml:space="preserve">Emplacement :</value>
+  </data>
+  <data name="PortalRoot.Text">
+    <value xml:space="preserve">Racine du site</value>
+  </data>
+  <data name="Recursive.Text">
+    <value xml:space="preserve">Récursive</value>
+  </data>
+  <data name="Refresh.Text">
+    <value xml:space="preserve">Actualiser</value>
+  </data>
+  <data name="RefreshImg.AlternateText">
+    <value xml:space="preserve">Actualiser</value>
+  </data>
+  <data name="Rename.Error">
+    <value xml:space="preserve">Erreur en renommant le fichier : &lt;BR&gt;</value>
+  </data>
+  <data name="RenameFileImg.AlternateText">
+    <value xml:space="preserve">Renommer le fichier</value>
+  </data>
+  <data name="SaveChangesImg.AlternateText">
+    <value xml:space="preserve">Enregistrer les modifications</value>
+  </data>
+  <data name="SecureDatabase.Text">
+    <value xml:space="preserve">Sécurisé - Base de données</value>
+  </data>
+  <data name="SecureFileSystem.Text">
+    <value xml:space="preserve">Sécurisé - Fichier système</value>
+  </data>
+  <data name="SecureFolderWarning.Text">
+    <value xml:space="preserve">Ces autorisations s'appliquent à DNN.  Les utilisateurs anonymes pourraient contourner DNN accéder directement au système de fichiers</value>
+  </data>
+  <data name="Security.Text">
+    <value xml:space="preserve">Paramètres de sécurité</value>
+  </data>
+  <data name="SelectAll.Text">
+    <value xml:space="preserve">Tout sélectionner</value>
+  </data>
+  <data name="SetAttrubute.Error">
+    <value xml:space="preserve">Une erreur est survenue lors du changement des attributs du fichier : &lt;BR&gt;</value>
+  </data>
+  <data name="Size.Header">
+    <value xml:space="preserve">Taille (octets)</value>
+  </data>
+  <data name="SpaceUsed.Text">
+    <value xml:space="preserve">{0} utilisés sur {1} alloués</value>
+  </data>
+  <data name="SynchronizeFolder.Text">
+    <value xml:space="preserve">Synchronisation</value>
+  </data>
+  <data name="ToFolder.Text">
+    <value xml:space="preserve">Dans le dossier : sélectionnez le dossier de destination dans l&amp;#146;explorateur de dossier.</value>
+  </data>
+  <data name="UnlimitedSpace.Text">
+    <value xml:space="preserve">[pas de limite]</value>
+  </data>
+  <data name="UnSelectAll.Text">
+    <value xml:space="preserve">Tout désélectionner</value>
+  </data>
+  <data name="UnzipFileImg.AlternateText">
+    <value xml:space="preserve">Décompresser le fichier</value>
+  </data>
+  <data name="UnzippingFile.Text">
+    <value xml:space="preserve">Décompression du fichier :</value>
+  </data>
+  <data name="UnzipSelectedFilesTo.Text">
+    <value xml:space="preserve">Décompresser le fichier dans :</value>
+  </data>
+  <data name="UploadImg.AlternateText">
+    <value xml:space="preserve">Charger</value>
+  </data>
+  <data name="Used.Text">
+    <value xml:space="preserve">Utilisé</value>
+  </data>
+</root>

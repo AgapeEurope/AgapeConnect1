@@ -1,0 +1,356 @@
+@import url("css/menu.css");
+/*@import url("/AgapeBetaPortal/DesktopModules/AgapePortal/AgapePortal.css");
+@import url("/DesktopModules/AgapePortal/AgapePortal.css");*/
+/* SKIN ELEMENTS */
+.outerContainer
+{
+    width: 100%; margin-left: 0px; margin-right: 0px;
+}
+
+.innerContainer
+{
+    width: 840px;
+}
+
+
+#header
+{
+    
+    margin: 0;
+    padding:0;       
+}
+
+
+#SearchIcon
+{
+    background-image: url(images/SearchIcon.gif)  ;
+    width: 31px;
+    height: 31px;
+}
+.dnnSearch
+{
+    height: 32px;
+    font-size: 32px;   
+}
+#SearchIcon
+{
+    visibility: collapse;   
+    width:0 ;
+    
+}
+div.SearchBorder
+{
+    height: 29px; 
+    margin: 0px;
+    width:169px;
+}
+input.searchtextbox
+{
+    height: 29px; 
+    width: 169px;
+
+}
+div.searchcontainer a 
+{
+    padding: 0 0 0 0 ;
+}
+div.searchcontainer
+{
+    margin-top: 10px;   
+}
+#mainContainer
+{
+    margin: 0;
+    padding:0; 
+}
+#mainContentContainer
+{
+      margin: 0;
+    padding:0; 
+}
+.clearFloat
+{
+    clear: both;   
+}
+.user
+{
+    font-size: 9pt;   
+}
+
+
+.TopLeft
+{
+    width: 50%;  
+   
+    max-height:320px;
+    vertical-align: top;
+}
+.contentPane
+{
+    width: 50%;  
+   
+    max-height:320px;  
+    vertical-align: top; 
+}
+.BottomLeft
+{
+    width: 50%;  
+   
+    max-height:320px;
+    vertical-align: top;
+}
+.BottomRight
+{
+    width: 50%;  
+    height: 300px;
+    max-height:300px;
+    vertical-align: top;
+}
+
+#Footer
+{
+    text-align: left;
+    
+}
+.footer
+{
+    font-size: 9pt;
+    color: #CBCBCB;
+}
+.SocialNetworking
+{
+   height: 31px;
+   position:  absolute ;
+   background: transparent url(images/SocialShelf.gif) no-repeat bottom right;
+   margin-top: -31px;
+   
+   Width: 194px;
+   z-index: 1000;
+   
+   
+}
+
+
+
+/*Fonts and Styles*/
+body,th,td,div,p,table,h1,h2,h3,h4,h5,h6.Normal,.NormalDisabled,.Head,.SubHead,.SubSubHead, a:link, a:visited, a:hover, input{color:#2E3D47; font-family:Verdana, Arial, Helvetica, sans-serif;}
+/*body,th,td,div,table,.Normal,.NormalDisabled,.Head,.SubHead,.SubSubHead, a:link, a:visited, a:hover{font-size:11px;}*/
+h1, h2, h3, h4, h5, h6{color:#375162;}
+h1, h3, h5, h1 input{font-weight:bold;}
+h2, h4, h6{font-weight:normal}
+h1, h2, h1 input{font-size:14px;margin:10px 0;}
+h3, h4{font-size:12px;margin:8px 0;}
+h5, h6{font-size:10px;margin:6px 0;}
+
+
+a:link,a:visited,a:active{color:#3E81B5; text-decoration:none; font-weight:normal; }
+a:hover{color:#660000; text-decoration: underline;  }
+.Head, .SubHead, .SubSubHead, .Normal, .NormalDisabled, .NormalDisabled, .NormalBold, .NormalRed, .NormalTextBox
+{font-family:Verdana, Arial, Helvetica, sans-serif;}
+.Head{color:#2E3D47;font-weight:bold;}
+.SubHead {color:#4C6171;}
+.SubSubHead{color:#6E8AA0;}
+.NormalRed {color:#F00;}
+
+
+
+.Agape_Green_H1{color: #466629;font-size:  36pt; font-family:   Verdana, Geneva, sans-serif; font-weight: bold ; border-bottom: solid 2px #466629;}
+.Agape_Green_H2{color: #466629;font-size: 24pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;border-bottom: solid 2px #466629;}
+.Agape_Green_H3{color: #466629;font-size: 18pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Agape_Green_H4{color: #466629;font-size: 12pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Agape_Green_H5{color: #466629;font-size: 10pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+
+.AgapeH1{color: #660000;font-size:  36pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;border-bottom: solid 2px #660000;}
+.AgapeH2{color: #660000;font-size: 24pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;border-bottom: solid 2px #660000;}
+.AgapeH3{color: #660000;font-size: 18pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.AgapeH4{color: #660000;font-size: 12pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.AgapeH5{color: #660000;font-size: 10pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

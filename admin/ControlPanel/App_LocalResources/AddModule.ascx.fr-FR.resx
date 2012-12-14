@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Above.Text">
+    <value xml:space="preserve">Au dessus</value>
+  </data>
+  <data name="AllCategories.Text">
+    <value xml:space="preserve">Toutes les catégories</value>
+  </data>
+  <data name="Below.Text">
+    <value xml:space="preserve">Au-dessous</value>
+  </data>
+  <data name="Bottom.Text">
+    <value xml:space="preserve">En bas</value>
+  </data>
+  <data name="CopyModuleDefault.Text">
+    <value xml:space="preserve">Copier</value>
+  </data>
+  <data name="CopyModuleWcontent.Text">
+    <value xml:space="preserve">Copier (contenu inclus)</value>
+  </data>
+  <data name="CopyModuleWcontent.ToolTip">
+    <value xml:space="preserve">Cela crée une instance indépendante du module qui contient les paramètres et le contenu de l'original.</value>
+  </data>
+  <data name="CopyModuleWOcontent.Text">
+    <value xml:space="preserve">Copier (sans le contenu)</value>
+  </data>
+  <data name="CopyModuleWOcontent.ToolTip">
+    <value xml:space="preserve">Cela crée une instance indépendante du module contenant uniquement les paramètres de l'original. Le contenu ne peut être copié, car le module ne prend pas en charge l'interface IPortable.</value>
+  </data>
+  <data name="DefaultModule.Text">
+    <value xml:space="preserve">DNN_HTML</value>
+  </data>
+  <data name="hlMoreExtensions.Text">
+    <value xml:space="preserve">Plus d'extensions...</value>
+  </data>
+  <data name="Module.Text">
+    <value xml:space="preserve">Module</value>
+  </data>
+  <data name="Page.Text">
+    <value xml:space="preserve">Page</value>
+  </data>
+  <data name="PermissionEdit.Text">
+    <value xml:space="preserve">Editeurs seulement</value>
+  </data>
+  <data name="PermissionView.Text">
+    <value xml:space="preserve">Identique à la page</value>
+  </data>
+  <data name="Top.Text">
+    <value xml:space="preserve">En haut</value>
+  </data>
+  <data name="Visibility.Text">
+    <value xml:space="preserve">Visibilité</value>
+  </data>
+</root>

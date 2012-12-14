@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AvailableAuthSystems.Text">
+    <value xml:space="preserve">Méthodes d'authentification disponibles</value>
+  </data>
+  <data name="AvailableContainers.Text">
+    <value xml:space="preserve">Conteneurs disponibles</value>
+  </data>
+  <data name="AvailableLanguages.Text">
+    <value xml:space="preserve">Langues disponibles</value>
+  </data>
+  <data name="AvailableModules.Text">
+    <value xml:space="preserve">Modules disponibles</value>
+  </data>
+  <data name="AvailableSkins.Text">
+    <value xml:space="preserve">Thèmes disponibles</value>
+  </data>
+  <data name="cmdInstall.Text">
+    <value xml:space="preserve">Installer les extensions sélectionnées</value>
+  </data>
+  <data name="ControlTitle_batchinstall.Text">
+    <value xml:space="preserve">Installer les extensions disponibles</value>
+  </data>
+  <data name="ExtensionInstall.Action">
+    <value xml:space="preserve">Assistant d'installation d'extension</value>
+  </data>
+  <data name="Help.Text">
+    <value xml:space="preserve">Les extensions suivantes sont disponibles pour l’installation. Sélectionnez l’extension(s) que vous souhaitez installer puis cliquez sur le bouton « Installer ».</value>
+  </data>
+  <data name="InstallAuthSystemError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Erreur lors de l'installation de systèmes d'authentification :&lt;/font&gt;&lt;/b&gt;&lt;br&gt;{0}</value>
+  </data>
+  <data name="InstallContainerError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Erreur lors de l'installation de conteneur :&lt;/font&gt;&lt;/b&gt;&lt;br&gt;{0}</value>
+  </data>
+  <data name="InstallLanguageError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Erreur lors de l'installation langue (s) :&lt;/font&gt;&lt;/b&gt;&lt;br&gt;{0}</value>
+  </data>
+  <data name="InstallModuleError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Erreur lors de l'installation de module :&lt;/font&gt;&lt;/b&gt;&lt;br&gt;{0}</value>
+  </data>
+  <data name="InstallSkinError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Erreur lors de l'installation de thème :&lt;/font&gt;&lt;/b&gt;&lt;br&gt;{0}</value>
+  </data>
+  <data name="NoAuthSystems.Text">
+    <value xml:space="preserve">Aucun système d'authentification disponible</value>
+  </data>
+  <data name="NoContainers.Text">
+    <value xml:space="preserve">Pas de conteneur disponible</value>
+  </data>
+  <data name="NoLanguages.Text">
+    <value xml:space="preserve">Pas de pack de langue disponible</value>
+  </data>
+  <data name="NoModules.Text">
+    <value xml:space="preserve">Pas de module disponible</value>
+  </data>
+  <data name="NoneSelected.Text">
+    <value xml:space="preserve">Aucune des Extensions n'ont été sélectionnées pour l'installation.</value>
+  </data>
+  <data name="NoSkins.Text">
+    <value xml:space="preserve">Pas de thème disponible</value>
+  </data>
+</root>

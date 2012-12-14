@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminUser.Text">
+    <value xml:space="preserve">Systemverwalterkonto</value>
+  </data>
+  <data name="AdminUserDetail.Text">
+    <value xml:space="preserve">Bitte geben Sie die Daten für das Systemverwalter-Konto an. Dieses Konto wird die Websites innerhalb der Installation erstellen und verwalten. Wir empfehlen ein sicheres Kennwort mit mindestens 7 Zeichen, bestehend aus Buchstaben, Ziffern und Sonderzeichen. Sie können das Kennwort später jederzeit ändern.</value>
+  </data>
+  <data name="AdminUserError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler (Portaladministrator):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="AdminUserTitle.Text">
+    <value xml:space="preserve">Konfigurieren Sie Ihr Systemverwalter-Konto und die Website-Informationen</value>
+  </data>
+  <data name="AuthSystems.Text">
+    <value xml:space="preserve">Authentisierung-Komponenten</value>
+  </data>
+  <data name="AuthSystemsDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Dieses System unterstützt mehrere Authentisierungssystem, auf dieser Seite können Sie die gewünschten zur Installation auswählen.&lt;/p&gt;
+      &lt;p&gt;Durch die Installation wird das Authentisierungssystem nicht automatisch aktiviert, der Administrator eines Portals muss es unter 'Erweiterungen' aktivieren und konfigurieren.&lt;/p&gt;
+    </value>
+  </data>
+  <data name="AuthSystemsTitle.Text">
+    <value xml:space="preserve">Authentisierungs-Komponenten installieren</value>
+  </data>
+  <data name="Auto.Text">
+    <value xml:space="preserve">&lt;b&gt;manuell&lt;/b&gt; - Das Installationsverfahren "manuell" umgeht den Installationsassistenten und verwendet die Standardwerte einschließlich der SQL-Express-Datenbank.</value>
+  </data>
+  <data name="ChooseDatabase.Text">
+    <value xml:space="preserve">Datenbank wählen:</value>
+  </data>
+  <data name="ChooseDbError.Text">
+    <value xml:space="preserve">Sie müssen einen Datenbanktyp auswählen!</value>
+  </data>
+  <data name="ChooseInstall.Text">
+    <value xml:space="preserve">&lt;h3&gt;Installationsverfahren:&lt;/h3&gt;</value>
+  </data>
+  <data name="ChooseLanguage.Text">
+    <value xml:space="preserve">Sprache des Assistenten:</value>
+  </data>
+  <data name="Complete.Text">
+    <value xml:space="preserve">Die Installation der Datenbank ist abgeschlossen.</value>
+  </data>
+  <data name="CompleteDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Sie haben die Website erfolgreich installiert.&lt;/p&gt;
+&lt;p&gt;Weitere Unterstützung erhalten Sie bei der &lt;a href="http://www.dnn-usergroup.de" target="_blank"&gt;deutschsprachigen DotNetNuke-Usergroup&lt;/a&gt;.&lt;/p&gt;
+    </value>
+  </data>
+  <data name="CompleteTitle.Text">
+    <value xml:space="preserve">Herzlichen Glückwunsch</value>
+  </data>
+  <data name="Confirm.Text">
+    <value xml:space="preserve">Kennwort bestätigen:</value>
+  </data>
+  <data name="ConfirmPassword.Text">
+    <value xml:space="preserve">Das Bestätigungskennwort stimmt mit dem zuvor eingegebenen nicht überein.</value>
+  </data>
+  <data name="ConnectError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Verbindungsfehler:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="ConnectSuccess.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='green'&gt;Verbindung hergestellt&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Containers.Text">
+    <value xml:space="preserve">Modulrahmen</value>
+  </data>
+  <data name="Database.Text">
+    <value xml:space="preserve">Datenbank:</value>
+  </data>
+  <data name="DatabaseConfigDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;DotNetNuke ist ein Inhaltsverwaltungssystem, das die Informationen über Ihre Website in einer Datenbank ablegt. Sie können auf dieser Seite die Verbindung zur Datenbank einstellen. Wenn Sie DotNetNuke bei einem Hosting Provider installieren, hat dieser Ihnen die entsprechenden Zugangsdaten zur Verfügung gestellt. Wenn Sie DotNetNuke lokal installieren, sollten Sie die Standardoption verwenden.&lt;/p&gt;</value>
+  </data>
+  <data name="DatabaseConfigTitle.Text">
+    <value xml:space="preserve">Datenbankverbindung konfigurieren</value>
+  </data>
+  <data name="DatabaseFile.Text">
+    <value xml:space="preserve">Dateiname:</value>
+  </data>
+  <data name="DatabaseFileHelp.Text">
+    <value xml:space="preserve">Geben Sie den Namen der Datenbankdatei ein (die sich im Verzeichnis App_Data befinden muss)</value>
+  </data>
+  <data name="DatabaseHelp.Text">
+    <value xml:space="preserve">Geben Sie den Datenbanknamen ein</value>
+  </data>
+  <data name="DatabaseInstallDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Die Datenbankstruktur wird nun installiert. Die Schaltfläche "weiter" wird aktiviert, wenn der Prozeß abgeschlossen ist.&lt;/p&gt;</value>
+  </data>
+  <data name="DatabaseInstallTitle.Text">
+    <value xml:space="preserve">Datenbank-Installationsskript wird ausgeführt</value>
+  </data>
+  <data name="DatabaseWarning.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Die 'auto'-Option wurde deaktiviert, da eine Verbingung mit den derzeitigen Datenbankangaben nicht möglich ist.  Fahren Sie mit einer der anderen beiden Optionen fort, die Ihnen die Angabe der Datenbankverbindung erlauben.&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="DbNameError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Sie müssen den Namen der Datenbank angeben!&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Email.Text">
+    <value xml:space="preserve">E-Mail-Adresse:</value>
+  </data>
+  <data name="EmailErrorMessage.Text">
+    <value xml:space="preserve">Beim Senden der Testnachricht ist ein Fehler aufgetreten:&lt;br /&gt;{0}</value>
+  </data>
+  <data name="EmailSentMessage.Text">
+    <value xml:space="preserve">Die E-Mail wurde erfolgreich verschickt</value>
+  </data>
+  <data name="EmailTestMessageSubject.Text">
+    <value xml:space="preserve">Test der SMTP-Server Konfiguration</value>
+  </data>
+  <data name="EnableUpdate.Text">
+    <value xml:space="preserve">Soll das System Sie auf den Portalseiten darauf hinweisen, dass eine neue Version vorliegt?</value>
+  </data>
+  <data name="Failure.Text">
+    <value xml:space="preserve">FATALER FEHLER</value>
+  </data>
+  <data name="FileCreate.Text">
+    <value xml:space="preserve">Datei erstellen</value>
+  </data>
+  <data name="FileDelete.Text">
+    <value xml:space="preserve">Datei löschen</value>
+  </data>
+  <data name="Finished.Text">
+    <value xml:space="preserve">Beendet (Web-Site aufrufen)</value>
+  </data>
+  <data name="FirstName.Text">
+    <value xml:space="preserve">Vorname:</value>
+  </data>
+  <data name="FolderCreate.Text">
+    <value xml:space="preserve">Ordner anlegen</value>
+  </data>
+  <data name="FolderDelete.Text">
+    <value xml:space="preserve">Ordner löschen</value>
+  </data>
+  <data name="Full.Text">
+    <value xml:space="preserve">&lt;b&gt;individuell&lt;/b&gt; - Das "individuelle" Installationsverfahren erlaubt es Ihnen, Ihre Installation wunschgemäß anzupasssen.</value>
+  </data>
+  <data name="HomePage.Text">
+    <value xml:space="preserve">Startseite</value>
+  </data>
+  <data name="HostUserDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Auf dieser Seite geben Sie die Anmeldeinformationen für das Konto des Systemverwalters an. Dieser Benutzer hat Zugriff auf zentrale Einstellungen und alle Web-Sites, die in dieser Installation erstellt werden, daher sollten Sie eine sehr sichere Kombination von Benutzername und Kennwort wählen, die schwer zu "knacken" ist.&lt;/p&gt;</value>
+  </data>
+  <data name="HostUserError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler (Systemverwalter):&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="HostUserTitle.Text">
+    <value xml:space="preserve">Systemverwalter einrichten</value>
+  </data>
+  <data name="HostWarning.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Ihr Systemname enthält ungültige Zeichen (nur A-Z, 0-9, - und . sind zulässig). Bitte ändern Sie den Namen entsprechend.&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Install.Error">
+    <value xml:space="preserve">Es gab ein Problem beim Erstellen der Datenbank.</value>
+  </data>
+  <data name="Install.Text">
+    <value xml:space="preserve">Datenbank-Skipte ausführen</value>
+  </data>
+  <data name="InstallAuthSystemError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler beim Installieren des Authentifizierungssystems:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="InstallComplete.Text">
+    <value xml:space="preserve">Die Datenbank-Skripte wurde erfolgreich abgearbeitet.</value>
+  </data>
+  <data name="InstallContainerError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler beim Installieren des Containers:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="InstallDatabase.Text">
+    <value xml:space="preserve">Erstelle Datenbank - Version {0}</value>
+  </data>
+  <data name="Installed.Text">
+    <value xml:space="preserve">&lt;p&gt;Das System ist in diesem Web-Space bereits installiert.&lt;/p&gt;</value>
+  </data>
+  <data name="InstallFailed.Text">
+    <value xml:space="preserve">Fehler beim Ausführen der Datenbank-Skripte</value>
+  </data>
+  <data name="Installing.Text">
+    <value xml:space="preserve">Datenbank-Skripte ausführen ...   </value>
+  </data>
+  <data name="InstallLanguageError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler bei der Sprachpaket-Installation:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="InstallModuleError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler beim Installieren des Modules/der Module:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="InstallPortalError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler beim Installieren der Website:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="InstallProviderError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler bei der Provider-Installation:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="InstallScript.Text">
+    <value xml:space="preserve">Aktualisiere auf Version {0}</value>
+  </data>
+  <data name="InstallSkinError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Fehler bei der Layout-Installation:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt; {0}</value>
+  </data>
+  <data name="Integrated.Text">
+    <value xml:space="preserve">Integrierte Sicherheit:</value>
+  </data>
+  <data name="IntegratedHelp.Text">
+    <value xml:space="preserve">Aktivieren Sie diese Option, wenn Sie sich über "integrierte Sicherheit" am SQL-Server mit dem Windows Benutzerkonto anmelden wollen. Wenn Sie SQL-Server Express verwenden, werden Sie diese Option vermutlich benötigen.  Wenn Sie expliztit einen Benutzernamen mit Kennwort für die Anmeldung am SQL-Server erhalten oder eingerichtet haben, deaktivieren Sie diese Option.&lt;br /&gt;</value>
+  </data>
+  <data name="IntroDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Willkommen zum Installationsassistenten. Dieser wird Sie durch die Installation Ihres Systems begleiten.&lt;/p&gt;
+&lt;p&gt;Innerhalb des Assistenten  können Sie sich mit den Schaltflächen "weiter" und "zurück" zwischen den Seiten bewegen. Einige Seiten verfügen über eine zusätzliche Schaltfläche "Test...", die Ihnen erlaubt, die Einstellungen zu prüfen, bevor Sie fortfahren.&lt;/p&gt;
+&lt;p&gt;Falls Sie DotNetNuke zum ersten Mal installieren, können Sie sich alle Schritte in einem Video ansehen (in englischer Sprache).&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li style="list-style:none;"&gt;&lt;a class="dnnPrimaryAction" href="http://www.dotnetnuke.com/Resources/Training/Training-Videos/Installation.aspx" target="new"&gt;Sehen Sie sich das Installationsvideo an (in englischer Sprache)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Im ersten Schritt wählen Sie die zu verwendende Installationsmethode und die Sprache des Installationsassistenten.&lt;/p&gt;
+    </value>
+  </data>
+  <data name="IntroTitle.Text">
+    <value xml:space="preserve">Installationsassistent - Version {0}</value>
+  </data>
+  <data name="InValidEmail.Text">
+    <value xml:space="preserve">Die angegebene E-Mail-Adresse ist ungültig.</value>
+  </data>
+  <data name="InvalidQualifier.Text">
+    <value xml:space="preserve">Der Objekt-Präfix mus mit einem Buchstaben beginnen und darf nicht mehr als 20 Zeichen haben.</value>
+  </data>
+  <data name="Languages.Text">
+    <value xml:space="preserve">Sprachen</value>
+  </data>
+  <data name="LanguagesDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Die statischen Elemente dieses Systems sind vollständig übersetzbar. Auf dieser Seite können Sie Sprachpakete auswählen, die Sie installieren möchten.&lt;/p&gt;
+&lt;p&gt;Durch Installation eines Sprachpakets steht dieses automatisch allen Benutzern zur Auswahl zur Verfügung.&lt;/p&gt;
+    </value>
+  </data>
+  <data name="LanguagesTitle.Text">
+    <value xml:space="preserve">Sprachpakete installieren</value>
+  </data>
+  <data name="LastName.Text">
+    <value xml:space="preserve">Nachname:</value>
+  </data>
+  <data name="MachineKey.Error">
+    <value xml:space="preserve">Fehler bei Aktualisierung des "Machine Key" </value>
+  </data>
+  <data name="MinUserNamelength.Text">
+    <value xml:space="preserve">Der Benutzername muss mindestens fünf Zeichen lang sein!</value>
+  </data>
+  <data name="Modules.Text">
+    <value xml:space="preserve">Module</value>
+  </data>
+  <data name="ModulesDetail.Text">
+    <value xml:space="preserve"> &lt;p&gt;Das System ist flexibel erweiterbar, Funktionen werden durch installierbare Module hinzugefügt.&lt;/p&gt;
+      &lt;p&gt;Auf dieser Seite sehen Sie die standardmäßig installierten Module und können bei Bedarf weitere im Paket enthaltene Module installieren, die dadurch dem Administrator und den Seiten-Autoren zur Verfügung stehen, um sie auf den Seiten der Website zu platzieren.&lt;/p&gt;
+    </value>
+  </data>
+  <data name="ModulesTitle.Text">
+    <value xml:space="preserve">Optionale Module installieren</value>
+  </data>
+  <data name="MustSelecteATemplate.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;Sie müssen eine Vorlage für die Website auswählen.&lt;/font&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="Next.Text">
+    <value xml:space="preserve">weiter</value>
+  </data>
+  <data name="No.Text">
+    <value xml:space="preserve">nein</value>
+  </data>
+  <data name="NoAuthSystems.Text">
+    <value xml:space="preserve">Es gibt keine zu installierende Authentisierungs-Erweiterung.</value>
+  </data>
+  <data name="NoContainers.Text">
+    <value xml:space="preserve">Es sind keine optional installierbaren Modulrahmen verfügbar. Sie können diese später über den Menübefehl System :: Seitenlayouts installieren.</value>
+  </data>
+  <data name="NoLanguages.Text">
+    <value xml:space="preserve">Es sind keine installierbaren Sprachen verfügbar. Deutsche Übersetzungen finden Sie auf der &lt;a href="http://www.dnn-usergroup.de" target = "blank"&gt;Web-Site der deutschsprachigen User-Group&lt;/a&gt;. Sie können diese später herunterladen und über den Menübefehl Host :: Languages aus der Web-Site heraus installieren.</value>
+  </data>
+  <data name="NoModules.Text">
+    <value xml:space="preserve">Es sind keine installierbaren Module verfügbar.</value>
+  </data>
+  <data name="None_Specified.Text">
+    <value xml:space="preserve">nicht angegeben</value>
+  </data>
+  <data name="NoPackages.Text">
+    <value xml:space="preserve">Es sind keine installierbaren Authentisierungsdienste verfügbar. Sie können weitere später über den Menübefehl System :: Systemeinstellungen installieren.</value>
+  </data>
+  <data name="NoPassword.Text">
+    <value xml:space="preserve">Sie müssen ein Kennwort für den Benutzer eingeben!</value>
+  </data>
+  <data name="NoSkins.Text">
+    <value xml:space="preserve">Es sind keine installierbaren Seitenlayouts verfügbar. Sie können diese später über den Menübefehl System :: Seitenlayouts installieren.</value>
+  </data>
+  <data name="Oracle.Text">
+    <value xml:space="preserve">Oracle-Datenbank</value>
+  </data>
+  <data name="Owner.Text">
+    <value xml:space="preserve">Als DB-Owner ausführen:</value>
+  </data>
+  <data name="OwnerHelp.Text">
+    <value xml:space="preserve">Aktivieren Sie diese Option, wenn Sie auf die Datenbank als Eigentümer (DBOwner) zugreifen. Wenn die Option nicht aktiv ist, führen Sie sie als angegebener Benutzer aus.</value>
+  </data>
+  <data name="Page0.Title">
+    <value xml:space="preserve">Willkommen</value>
+  </data>
+  <data name="Page1.Title">
+    <value xml:space="preserve">Dateiberechtigungen</value>
+  </data>
+  <data name="Page10.Title">
+    <value xml:space="preserve">Portal installieren</value>
+  </data>
+  <data name="Page11.Title">
+    <value xml:space="preserve">Installation abgeschlossen</value>
+  </data>
+  <data name="Page2.Title">
+    <value xml:space="preserve">Datenbankeinstellungen</value>
+  </data>
+  <data name="Page3.Title">
+    <value xml:space="preserve">Datenbankinstallation</value>
+  </data>
+  <data name="Page4.Title">
+    <value xml:space="preserve">Benutzer "Host"</value>
+  </data>
+  <data name="Page5.Title">
+    <value xml:space="preserve">Module installieren</value>
+  </data>
+  <data name="Page6.Title">
+    <value xml:space="preserve">Seitenlayouts installieren</value>
+  </data>
+  <data name="Page7.Title">
+    <value xml:space="preserve">Sprachen installieren</value>
+  </data>
+  <data name="Page8.Title">
+    <value xml:space="preserve">Sprachen installieren</value>
+  </data>
+  <data name="Page9.Title">
+    <value xml:space="preserve">Web-Site installieren</value>
+  </data>
+  <data name="Password.Text">
+    <value xml:space="preserve">Kennwort:</value>
+  </data>
+  <data name="PasswordHelp.Text">
+    <value xml:space="preserve">Geben Sie das Kennwort für den Datenbankbenutzer ein.</value>
+  </data>
+  <data name="PasswordLength.Text">
+    <value xml:space="preserve">Das Kennwort muß mindestens {0} Zeichen lang sein.</value>
+  </data>
+  <data name="PasswordUser.Text">
+    <value xml:space="preserve">Sie können nicht Benutzername und Kennwort identisch festlegen.</value>
+  </data>
+  <data name="Permissions.Text">
+    <value xml:space="preserve">Zusammenfassung der Dateiberechtigungen:</value>
+  </data>
+  <data name="PermissionsDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Das System erlaubt es, Dateien f&amp;uuml;r Inhalte und installierbare Erweiterungen hochzuladen. Diese Funktionen erfordern erweiterte Berechtigungen, so dass die Anwendung in der Lage ist, Ordner und Dateien zu erstellen und zu l&amp;ouml;schen.&lt;/p&gt;
+      &lt;p&gt;Diese Seite pr&amp;uuml;ft die aktuellen Dateizugriffsrechte, um sicherzustellen, dass diese Funktionen problemlos ausgef&amp;uuml;hrt werden k&amp;ouml;nnen.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;Hinweis&lt;/strong&gt;: Der Test pr&amp;uuml;ft die Rechte f&amp;uuml;r das Stammverzeichnis der Anwendung. Dies ist in der Regel ausreichend, da UNterordner die Berechtigung erben, allerdings kann es bei der Installation trotzdem&amp;nbsp; zu Problemen kommen, wenn die Rechte f&amp;uuml;r Unterordner eingeschr&amp;auml;nkt wurden.&lt;/p&gt;
+    </value>
+  </data>
+  <data name="PermissionsError.Text">
+    <value xml:space="preserve">&lt;img src="..\403-3.gif" alt="Dieses Bild zeigt die Berechtigungseinstellungen f&amp;uuml;r den Basisordner der Web-Site. Diese mu&amp;szlig; Lesen, Schreiben, Dateien und Berechtigungen &amp;auml;ndern f&amp;uuml;r das Benutzerkonto ASPNET oder NT AUTHORITY/NETWORK SERVICE umfassen." style="float: right; margin-left: 10px; margin-right: 10px;" /&gt;
+      &lt;p  style="color: #ff0000;"&gt;Ihr Installationsordner hat die Berechtigungspr&amp;uuml;fung &lt;strong&gt;nicht&lt;/strong&gt; bestanden.&lt;/p&gt;
+      &lt;p&gt;Verwenden Sie den Windows Dateimanager, gehen Sie in das Basisverzeichnis Ihrer Installation. Klicken Sie den Ordnernamen mit der rechten Maustaste an und w&amp;auml;hlen Sie die Option Freigabe und Sicherheit aus dem Popup-Men&amp;uuml; ( beachten Sie, dass Sie unter  WindowsXP die Option &lt;a href="http://whoozoo.co.uk/winxpFilePerms.htm" target="_blank"&gt;Einfache Dateifreigabe verwenden&lt;/a&gt; deaktivieren m&amp;uuml;ssen, um diese Option anzuzeigen). Gehen Sie zum Reiter Sicherheit und f&amp;uuml;gen Sie das entsprechende Benutzerkonto hinzu und vergeben Sie die folgenden Berechtigungen.  ( {0} )&lt;/p&gt;
+&lt;h3&gt;Unter Windows 2000 - IIS 5&lt;/h3&gt;
+      &lt;p&gt;Das Benutzerkonto {Server}\ASPNET muss die Rechte Lesen, Schreiben und &amp;Auml;ndern f&amp;uuml;r den Ordner der Web-Site mit der Installation besitzen.&lt;/p&gt;
+      &lt;h3&gt;Unter Windows Vista, Server 2003 und 2008&amp;nbsp; - IIS 6 / IIS 7&lt;/h3&gt;
+      &lt;p&gt;Das Benutzerkonto NT AUTHORITY\NETZWERKDIENST muss die Rechte Lesen, Schreiben und &amp;Auml;ndern f&amp;uuml;r den Ordner besitzen, auf den die Web-Site oder das virtuellen Verzeichniss zeigt.&lt;/p&gt;      &lt;h3&gt;Unter Windows 7, Server 2008 R2&amp;nbsp; - IIS 7.5&lt;/h3&gt;
+      &lt;p&gt;Das Benutzerkonto&amp;nbsp;IIS APP Pool\DefaultAppPool muss die Rechte Lesen, Schreiben und Berechtigungs&amp;auml;nderungen f&amp;uuml;r den Ordner besitzen, auf den die Web-Site oder das virtuellen Verzeichniss zeigt.&lt;/p&gt;</value>
+  </data>
+  <data name="PermissionsOk.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='green'&gt;Ihre Web-Site hat die Berechtigungsprüfung erfolgreich absolviert.&lt;/font?&lt;/b&gt;</value>
+  </data>
+  <data name="PermissionsTitle.Text">
+    <value xml:space="preserve">Dateizugriffsrechte werden geprüft</value>
+  </data>
+  <data name="Portal.Text">
+    <value xml:space="preserve">Website-Eigenschaften</value>
+  </data>
+  <data name="PortalDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Auf dieser Seite konnen Sie die Stamm-Web-Site Ihres Systems konfigurieren.&lt;/p&gt;&lt;p&gt;
+      Sie müssen ein Administratorkonto angeben. Dieser Benutzer hat Zugriff auf alle Fuktionen der Web-Site und wie beim Systemverwalter sollten Sie eine sichere Kombination aus Benutzernamen und Kennwort verwenden, die nicht einfach "geknackt" werden kann.
+    </value>
+  </data>
+  <data name="PortalTemplate.Text">
+    <value xml:space="preserve">Vorlage:</value>
+  </data>
+  <data name="PortalTitle.Text">
+    <value xml:space="preserve">Website-Bezeichnung:</value>
+  </data>
+  <data name="Previous.Text">
+    <value xml:space="preserve">zurück</value>
+  </data>
+  <data name="Providers.Text">
+    <value xml:space="preserve">Provider</value>
+  </data>
+  <data name="ProvidersDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Dieses System verwendet Provider für Systemerweiterungen, d.h. Zusatzkomponenten, die über spezielle SChnittstellen in das System integriert werden. Bitte wählen Sie hier die optionalen Provider, die Sie für Ihre Website verwenden möchten. Sie können die Installation verfügbarer Erweiterungen auch später in System :: Erweiterungen vornehmen.&lt;/p&gt;</value>
+  </data>
+  <data name="ProvidersTitle.Text">
+    <value xml:space="preserve">Provider installieren</value>
+  </data>
+  <data name="Qualifier.Text">
+    <value xml:space="preserve">Objekt-Präfix:</value>
+  </data>
+  <data name="QualifierHelp.Text">
+    <value xml:space="preserve">Sie können bei Bedarf einen "Präfix" angeben, der allen Objektnamen vorangestellt wird - dadurch wird sichergestellt, dass es zu keinen Namenskonflikten kommt, wenn weitere Anwendungen die Datenbank mitverwenden.</value>
+  </data>
+  <data name="ScriptError.Text">
+    <value xml:space="preserve">Weitere Informationen siehe {0}.</value>
+  </data>
+  <data name="Server.Text">
+    <value xml:space="preserve">Server:</value>
+  </data>
+  <data name="ServerHelp.Text">
+    <value xml:space="preserve">Geben Sie den Namen oder die IP-Adresse des Rechners an, auf dem der Datenbank-Server installiert ist. (Bei Verwendung von Oracle geben Sie die Datenquelle (SID) an)</value>
+  </data>
+  <data name="Skins.Text">
+    <value xml:space="preserve">Seitenlayouts</value>
+  </data>
+  <data name="SkinsDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Das System lässt sich flexibel gestalten. Sie können auf dieser Seite optionale Seitenlayouts und Modulrahmen zur Installation auswählen.&lt;/p&gt;
+&lt;p&gt;Durch die Installation eines Seitenlayouts oder Modulrahmens wird dieser nicht automatisch der Website zugewiesen, aber er steht dem Administrator hierfür zur Verfügung.&lt;/p&gt;
+    </value>
+  </data>
+  <data name="SkinsTitle.Text">
+    <value xml:space="preserve">Zusätzliche Seitenlayouts und Modulrahmen installieren</value>
+  </data>
+  <data name="SMTPAnonymous.Text">
+    <value xml:space="preserve">Anonym</value>
+  </data>
+  <data name="SMTPAuthentication.Text">
+    <value xml:space="preserve">Anmeldung:</value>
+  </data>
+  <data name="SMTPBasic.Text">
+    <value xml:space="preserve">unverschlüsselt</value>
+  </data>
+  <data name="SMTPEnableSSL.Text">
+    <value xml:space="preserve">per SSL gesichert:</value>
+  </data>
+  <data name="SMTPError.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='red'&gt;SMTP-Server Fehler:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="SMTPNTLM.Text">
+    <value xml:space="preserve">NTLM</value>
+  </data>
+  <data name="SMTPPassword.Text">
+    <value xml:space="preserve">Kennwort:</value>
+  </data>
+  <data name="SMTPServer.Text">
+    <value xml:space="preserve">Server:</value>
+  </data>
+  <data name="SMTPSettings.Text">
+    <value xml:space="preserve">SMTP-Server-Einstellungen</value>
+  </data>
+  <data name="SMTPSettingsHelp.Text">
+    <value xml:space="preserve">Konfigurieren Sie Ihren SMTP-Server-Zugriff und testen Sie dies.</value>
+  </data>
+  <data name="SMTPSuccess.Text">
+    <value xml:space="preserve">&lt;b&gt;&lt;font color='green'&gt;SMTP-Zugriff erfolgreich:&lt;/font&gt;&lt;/b&gt;&lt;br/&gt;{0}</value>
+  </data>
+  <data name="SMTPUsername.Text">
+    <value xml:space="preserve">Benutzername:</value>
+  </data>
+  <data name="SpecifyHostEmailMessage.Text">
+    <value xml:space="preserve">Sie müssen die E-Mail-Adresse des Systembetreuers angeben</value>
+  </data>
+  <data name="SQLServer.Text">
+    <value xml:space="preserve">SQL-Server 2005/2008/2012 (Express) Datenbank</value>
+  </data>
+  <data name="SQLServerXPress.Text">
+    <value xml:space="preserve">SQL-Server 2005/2008/2012 Express Datei</value>
+  </data>
+  <data name="Success.Text">
+    <value xml:space="preserve">erfolgreich</value>
+  </data>
+  <data name="TestDB.Text">
+    <value xml:space="preserve">Datenbankverbindung testen</value>
+  </data>
+  <data name="TestPerm.Text">
+    <value xml:space="preserve">Berechtigungen testen</value>
+  </data>
+  <data name="TestSMTP.Text">
+    <value xml:space="preserve">SMTP-Server-Zugriff testen</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Installationsassistent</value>
+  </data>
+  <data name="Typical.Text">
+    <value xml:space="preserve">&lt;b&gt;Typisch&lt;/b&gt; - Beim typischen Installationsverfahren werden weitgehend Standardwerte für die Installation Ihrer Website verwendet.</value>
+  </data>
+  <data name="UpdateDetail.Text">
+    <value xml:space="preserve">Diese Software kann regelmäßig auf wichtige Aktualisierungen und Sicherheits-Korrekturen prüfen, dabei werden keine Daten über Ihr System (außer der IP und Version) ohne Ihre Zustimmung übermittelt.</value>
+  </data>
+  <data name="UpdateEmail.Text">
+    <value xml:space="preserve">Wollen Sie per E-Mail über neue Versionen des Systems benachrichtigt werden?</value>
+  </data>
+  <data name="UpdateTitle.Text">
+    <value xml:space="preserve">Aktualisierungsdienst - unterstützt Sie bei der Integrität Ihrer Web-Site</value>
+  </data>
+  <data name="Upgrade.Text">
+    <value xml:space="preserve">&lt;p&gt; Die Systemversion {0} ist bereits installiert. Klicken Sie "nächste" Seite, um auf die neue Version zu aktualisieren.&lt;/p&gt;</value>
+  </data>
+  <data name="UpgradeTitle.Text">
+    <value xml:space="preserve">Aktualisierungsassistent - Version {0}</value>
+  </data>
+  <data name="UserHelp.Text">
+    <value xml:space="preserve">Geben Sie die Benutzer-ID für den Datenbankzugriff an</value>
+  </data>
+  <data name="UserId.Text">
+    <value xml:space="preserve">Benutzer-ID:</value>
+  </data>
+  <data name="UserName.Text">
+    <value xml:space="preserve">Benutzername:</value>
+  </data>
+  <data name="WhatsNext.Text">
+    <value xml:space="preserve">Nächster Schritt</value>
+  </data>
+  <data name="Yes.Text">
+    <value xml:space="preserve">ja</value>
+  </data>
+</root>

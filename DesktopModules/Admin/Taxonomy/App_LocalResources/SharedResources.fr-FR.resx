@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Application.Text">
+    <value xml:space="preserve">Application</value>
+  </data>
+  <data name="Description.Text">
+    <value xml:space="preserve">Description</value>
+  </data>
+  <data name="Description.ToolTip">
+    <value xml:space="preserve">La description du vocabulaire.</value>
+  </data>
+  <data name="Hierarchy.Text">
+    <value xml:space="preserve">Hiérarchie</value>
+  </data>
+  <data name="Name.Required">
+    <value xml:space="preserve">&lt;br/&gt;Un nom est requis pour le vocabulaire.</value>
+  </data>
+  <data name="Name.Text">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="Name.ToolTip">
+    <value xml:space="preserve">Le nom du vocabulaire.</value>
+  </data>
+  <data name="Portal.Text">
+    <value xml:space="preserve">Site</value>
+  </data>
+  <data name="Scope.Text">
+    <value xml:space="preserve">Portée</value>
+  </data>
+  <data name="Scope.ToolTip">
+    <value xml:space="preserve">La portée de ce vocabulaire, à l'échelle de l'application ou spécifique au site.</value>
+  </data>
+  <data name="Simple.Text">
+    <value xml:space="preserve">Simple</value>
+  </data>
+  <data name="Type.Text">
+    <value xml:space="preserve">Type</value>
+  </data>
+  <data name="Type.ToolTip">
+    <value xml:space="preserve">Le type de vocabulaire, hiérarchique ou simple.</value>
+  </data>
+</root>

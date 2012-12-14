@@ -1,0 +1,30 @@
+@import url("variations/stylesheetwidget_ie6.css");
+/*--------- IE overrides with .gif backgrounds style ----------*/
+
+
+.ControlPanel{background:transparent url(../images/ie/cpanel_center.gif) repeat-x bottom left;}
+.cpanel_left {background: url(../images/ie/cpanel_left.gif) no-repeat bottom left;}
+.cpanel_right {background: url(../images/ie/cpanel_right.gif) no-repeat bottom right;}
+
+.logo_top_left{background:url(../images/ie/logo_top_left.gif) no-repeat top left;}
+.logo_top_right{background:url(../images/ie/logo_top_right.gif) no-repeat top right;}
+.logo_left{background:url(../images/ie/logo_left.gif) repeat-y top left;}
+.logo_right{background:url(../images/ie/logo_right.gif) repeat-y top right;}
+
+.menu_left{background:url(../images/ie/menu_left.gif) repeat-y top left;}
+.menu_right{background:url(../images/ie/menu_right.gif) repeat-y top right; }
+
+.bread_left{background:url(../images/ie/bread_left.gif) no-repeat top left;}
+.bread_right{background:url(../images/ie/bread_right.gif) no-repeat top right;}
+
+.left_bg{background:url(../images/ie/left_bg.gif) repeat-y top left;}
+.right_bg{background:url(../images/ie/right_bg.gif) repeat-y top right;}
+.content_pad{background:#FFF url(../images/ie/center_bg.gif) repeat-x bottom left;}
+
+.bot_left{background:url(../images/ie/bot_left.gif) no-repeat top left;}
+.bot_right{background:url(../images/ie/bot_right.gif) no-repeat top right;}
+.bot_bg{background:url(../images/ie/bot_bg.gif) repeat-x top left;}
+
+
+
+

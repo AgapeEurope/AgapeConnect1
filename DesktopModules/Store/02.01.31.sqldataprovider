@@ -1,0 +1,61 @@
+﻿IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Orders_GetOrder]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_GetOrder
+
+GO
+
+CREATE Procedure {databaseOwner}{objectQualifier}Store_Orders_GetOrder
+(
+    @PortalID int,
+    @OrderID int
+)
+As
+
+SELECT  
+    o.OrderID,
+    o.UserID as CustomerID,
+    Cast(sum(od.Quantity*od.UnitCost) as money) as OrderTotal,
+    o.OrderNumber,
+    o.OrderDate, 
+    o.ShipDate,
+    o.ShippingAddressID,
+    o.BillingAddressID,
+    o.Tax,
+    o.ShippingCost,
+    o.OrderStatusID
+FROM {databaseOwner}{objectQualifier}Store_Orders o 
+  INNER JOIN {databaseOwner}{objectQualifier}Store_OrderDetails od 
+    ON o.OrderID = od.OrderID
+GROUP BY    
+    UserID, 
+    o.OrderID, 
+    o.PortalID,
+    o.OrderNumber,
+    o.OrderDate, 
+    o.ShipDate,
+    o.ShippingAddressID,
+    o.BillingAddressID,
+    o.Tax,
+    o.ShippingCost,
+    o.OrderStatusID
+HAVING  
+    o.OrderID = @OrderID AND o.PortalID=@PortalID
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Reviews_GetReview]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_GetReview
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Reviews_GetReview
+	@PortalID int,
+	@ReviewID int
+AS
+	SET NOCOUNT ON
+	SELECT r.PortalID, r.ProductID, r.Rating, r.Comments, r.Authorized, r.UserName, p.ModelName
+	FROM {databaseOwner}{objectQualifier}Store_Reviews r
+		LEFT JOIN {databaseOwner}{objectQualifier}Store_Products p
+			ON r.ProductID = p.ProductID
+	WHERE r.PortalID=@PortalID AND r.ReviewID=@ReviewID
+GO

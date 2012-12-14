@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BestPractices.Text">
+    <value xml:space="preserve">Si sta per aggiornare il tuo sito Web a una versione più recente dell'applicazione DotNetNuke. Applicare gli aggiornamenti su base omogenea è il modo migliore per garantire che si sta proteggendo l'integrità del vostro investimento e la sicurezza degli utenti e risorse. Prima di procedere con il processo di aggiornamento automatizzato assicurarsi di:&lt;ul&gt;
+&lt;li&gt;Aver pianificato un primo test di aggiornamento in un ambiente di TEST.&lt;li&gt;Aver documentato le caratteristiche della tua attuale installazione includendo tutti i moduli di terze parti installati.&lt;li&gt;Aver creato il backup del vostro ambiente necessario per ripristinare il tuo sito Web in caso di un errore imprevisto durante aggiornamento.&lt;/li&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="ChooseLanguage.Text">
+    <value xml:space="preserve">Scegli la lingua:</value>
+  </data>
+  <data name="CurrentVersion.Text">
+    <value xml:space="preserve">Versione corrente - {0}</value>
+  </data>
+  <data name="IntroDetail.Text">
+    <value xml:space="preserve">&lt;p&gt;Benvenuti alla pagina di aggiornamento DotNetNuke.&lt;/p&gt;
+
+&lt;p&gt;Il primo passo è quello di scegliere la lingua che si desidera utilizzare per l'aggiornamento.&lt;/p&gt;
+
+</value>
+  </data>
+  <data name="Next.Text">
+    <value xml:space="preserve">Aggiorna ora</value>
+  </data>
+  <data name="Password.Text">
+    <value xml:space="preserve">Password:</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Aggiornamento DotNetNuke</value>
+  </data>
+  <data name="Username.Text">
+    <value xml:space="preserve">Host (SuperUtente) Username:</value>
+  </data>
+  <data name="Version.Text">
+    <value xml:space="preserve">Aggiornamento DotNetNuke - versione {0}</value>
+  </data>
+</root>

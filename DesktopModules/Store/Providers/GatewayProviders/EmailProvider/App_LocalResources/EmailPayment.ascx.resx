@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnConfirmOrder.Text" xml:space="preserve">
+    <value>Confirm Order</value>
+  </data>
+  <data name="lblConfirmMessage.Text" xml:space="preserve">
+    <value>&lt;p&gt;&lt;b&gt;Click the button below to confirm your order.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Once you have confirmed your order, you will be sent an order confirmation email. We will contact you to arrange payment.&lt;br /&gt;&lt;br /&gt;Note that by clicking the button below, you are agreeing to {0}'s terms of Use.&lt;/p&gt;</value>
+  </data>
+  <data name="OrderDateFormat.Text" xml:space="preserve">
+    <value>MM/dd/yyyy hh:mm</value>
+  </data>
+  <data name="Processing.Text" xml:space="preserve">
+    <value>Processing, please wait!</value>
+  </data>
+  <data name="CustomerOrderEmailBody.Text" xml:space="preserve">
+    <value>Thank you for placing an order with [Store:Name].
+
+Please find below your order number and a summary of your order. If you have created an account, you can check the status of your order at any time by logging into our site and clicking the [Store:ShoppingCartPageName] link. If you have any questions about your order, please feel free to contact us at [Store:Email], or simply reply to this message.
+
+Order Number: [Order:OrderID] - Order Date: [Order:OrderDate]
+
+Order Contents
+
+[DETAILS]
+[OrderDetail:ProductTitle] x [OrderDetail:Quantity] @ [OrderDetail:ExtendedAmount]
+[/DETAILS]
+
+Sub-Total: [Order:OrderTotal]
+Shipping &amp; Handling: [Order:ShippingCost]
+Tax: [Order:TaxTotal]
+Total: [Order:GrandTotal]
+
+Billing Address:
+
+[BillingAddress:FirstName] [BillingAddress:LastName]
+[BillingAddress:Address1]
+[BillingAddress:Address2]
+[BillingAddress:PostalCode] [BillingAddress:City]
+[BillingAddress:Region]
+[BillingAddress:Country]
+
+Shipping To:
+
+[ShippingAddress:FirstName] [ShippingAddress:LastName]
+[ShippingAddress:Address1]
+[ShippingAddress:Address2]
+[ShippingAddress:PostalCode] [ShippingAddress:City]
+[ShippingAddress:Region]
+[ShippingAddress:Country]
+
+This invoice is subject to our terms of use.
+If, for whatever reason, your order cannot be processed, then one of our customer services representatives will contact you shortly.
+
+Once again, thank you for your order.</value>
+  </data>
+  <data name="AdminOrderEmailSubject.Text" xml:space="preserve">
+    <value>New Order#[Order:OrderID] at [Store:Name]</value>
+  </data>
+  <data name="CustomerOrderEmailSubject.Text" xml:space="preserve">
+    <value>[Store:Name] - Confirmation of your Order #[Order:OrderID]</value>
+  </data>
+  <data name="AdminOrderEmailBody.Text" xml:space="preserve">
+    <value>A new order has been confirmed at [Store:Name]
+
+Order Number: [Order:OrderID]
+Order Date: [Order:OrderDate]
+Order Total: [Order:GrandTotal]
+
+Please login to your portal and go to the Store Admin page for details about this order.</value>
+  </data>
+  <data name="AdminStatusChangedEmailBody.Text" xml:space="preserve">
+    <value>The order #[Order:OrderID] has changed status to "[Order:Status]".
+
+Please login to your portal and go to the Store Admin page for details about this order.</value>
+  </data>
+  <data name="AdminStatusChangedEmailSubject.Text" xml:space="preserve">
+    <value>The status of order #[Order:OrderID] has been changed to "[Order:Status]"</value>
+  </data>
+  <data name="CustomerStatusChangedEmailBody.Text" xml:space="preserve">
+    <value>You recently placed an order with [Store:Name].
+
+This order ([Order:OrderID]) has changed status to "[Order:Status]".
+
+If you have any questions about this change, please feel free to contact us at [Store:Email], or simply reply to this message.
+
+If you have created an account, you can check the status of your order at any time by logging in to our site and clicking the [Store:ShoppingCartPageName] link.
+
+Once again, thank you for your order.</value>
+  </data>
+  <data name="CustomerStatusChangedEmailSubject.Text" xml:space="preserve">
+    <value>The status of your order #[Order:OrderID] has been changed to "[Order:Status]"</value>
+  </data>
+  <data name="GatewayNotConfigured.Text" xml:space="preserve">
+    <value>Gateway not yet configured.  You cannot checkout!</value>
+  </data>
+</root>

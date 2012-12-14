@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Database.Title">
+    <value xml:space="preserve">Serveur de base de données</value>
+  </data>
+  <data name="Host.Title">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="Modules.Title">
+    <value xml:space="preserve">Modules</value>
+  </data>
+  <data name="PerfStats.Title">
+    <value xml:space="preserve">Stats de performance</value>
+  </data>
+  <data name="Portals.Title">
+    <value xml:space="preserve">Sites</value>
+  </data>
+  <data name="Server.Title">
+    <value xml:space="preserve">Serveur Web</value>
+  </data>
+  <data name="Skins.Title">
+    <value xml:space="preserve">Thèmes</value>
+  </data>
+  <data name="SupportEmail.Text">
+    <value xml:space="preserve">contact@dotnetnuke.fr</value>
+  </data>
+</root>

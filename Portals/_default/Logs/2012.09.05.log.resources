@@ -1,0 +1,1 @@
+2012-09-05 13:44:49,610 [WIN-IJASUCJVGUJ][Thread:325][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:

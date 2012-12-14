@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlTitle_settings.Text">
+    <value xml:space="preserve">Paramètres de la zone de recherche</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos du module &amp;quot;Search Input&amp;quot; &lt;/h1&gt;&lt;p&gt;Ce module permet d'effectuer une recherche sur le site en tapant un mot dans la zone de saisie.&lt;br&gt;Vous pouvez spécifier deux options permettant de personnaliser l'affichage du module. &lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;div align="left"&gt;&lt;strong&gt;Image &amp;quot;Chercher&amp;quot;* –&lt;/strong&gt; Cochez cette case pour faire apparaître une image devant la zone de saisie du module de recherche.&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;div align="left"&gt;&lt;strong&gt;Bouton &amp;quot;Go&amp;quot;* -&lt;/strong&gt; Cochez cette case pour faire apparaître un bouton &amp;quot;Go&amp;quot; derrière la zone de saisie permettant de lancer la recherche. &lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="NoSearchModule.Text">
+    <value xml:space="preserve">Le module "Search Results (Résultat de la recheche)" introuvable !</value>
+  </data>
+  <data name="plGoCheck.Help">
+    <value xml:space="preserve">Cochez cette case pour faire apparaître un bouton "Go" derrière la zone de saisie permettant de lancer la recherche.</value>
+  </data>
+  <data name="plGoCheck.Text">
+    <value xml:space="preserve">Bouton "Go" :</value>
+  </data>
+  <data name="plModuleCombo.Help">
+    <value xml:space="preserve">Sélectionnez le module de résultat de recherche attaché à cette recherche</value>
+  </data>
+  <data name="plModuleCombo.Text">
+    <value xml:space="preserve">Page de résultat :</value>
+  </data>
+  <data name="plSearchCheck.Help">
+    <value xml:space="preserve">Cochez cette case pour faire apparaître une image devant la zone de saisie du module de recherche.</value>
+  </data>
+  <data name="plSearchCheck.Text">
+    <value xml:space="preserve">Afficher une image :</value>
+  </data>
+</root>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="CancelView.Text">
+    <value>Retour à la boîte de réception</value>
+  </data>
+  <data name="ControlTitle_viewmessage.Text">
+    <value>Afficher le message</value>
+  </data>
+  <data name="DeleteMessage.Text">
+    <value>Effacer</value>
+  </data>
+  <data name="EmailFrom.Text">
+    <value>De</value>
+  </data>
+  <data name="ReplyMessage.Text">
+    <value>Répondre</value>
+  </data>
+</root>

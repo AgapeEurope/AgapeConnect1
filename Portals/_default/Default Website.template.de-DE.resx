@@ -1,0 +1,786 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContentRotator.Community.Text">
+    <value xml:space="preserve">Community_de-DE.png</value>
+  </data>
+  <data name="ContentRotator.DNNWorld.Text">
+    <value xml:space="preserve">DNNWorld_de-DE.png</value>
+  </data>
+  <data name="ContentRotator.Social.Text">
+    <value xml:space="preserve">GetSocial_de-DE.png</value>
+  </data>
+  <data name="ContentRotator.Store.Text">
+    <value xml:space="preserve">DNNStore_de-DE.png</value>
+  </data>
+  <data name="LocalizedTemplateName.Text">
+    <value xml:space="preserve">Standard-Website</value>
+  </data>
+  <data name="PortalDescription.Text">
+    <value xml:space="preserve">Standardvorlage für Websites</value>
+  </data>
+  <data name="RoleGroup.Description.Text">
+    <value xml:space="preserve">A dummy role group that represents the Global roles</value>
+  </data>
+  <data name="Setting.DefaultLanguage.Text">
+    <value xml:space="preserve">de-DE</value>
+  </data>
+  <data name="Setting.FooterText.Text">
+    <value xml:space="preserve">Copyright DotNetNuke Corporation, [year]</value>
+  </data>
+  <data name="Tab.About.ContentPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.About.ContentPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.About.ContentPane.Module.Title.Text">
+    <value xml:space="preserve">Mehr über Awesome Cycles</value>
+  </data>
+  <data name="Tab.About.Description.Text">
+    <value />
+  </data>
+  <data name="Tab.About.FooterLeftPane.Module.Content.0.Text">
+    <value xml:space="preserve">Sit vel phasellus parturient auctor ac, integer mattis hac! Eu ac, in, pellentesque nisi eu, scelerisque porta dolor hac nec, penatibus dignissim ac pulvinar pulvinar magna duis porta et ultricies, in odio elementum etiam cras scelerisque, tincidunt cras dapibus platea ultricies hac, sed a, augue aliquet amet a? Adipiscing arcu elementum scelerisque diam phasellus, placerat. Odio.</value>
+  </data>
+  <data name="Tab.About.FooterLeftPane.Module.Content.1.Text">
+    <value xml:space="preserve">Nec risus vel pulvinar et quis tempor sagittis diam rhoncus scelerisque nisi ultricies sagittis proin pulvinar aliquet tincidunt lectus, nisi ultricies pulvinar placerat integer, lectus turpis habitasse! Auctor. Sed, auctor ut sit massa nisi! Turpis aliquet! Nisi? Sociis ultrices mid. Cum urna enim dictumst amet pid et odio ultricies, parturient augue cursus nisi sed phasellus sociis, in a, quis natoque enim dis. Enim, pulvinar.</value>
+  </data>
+  <data name="Tab.About.FooterLeftPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.About.FooterLeftPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.About.FooterLeftPane.Module.Title.Text">
+    <value xml:space="preserve">Über uns</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Content.0.Text">
+    <value xml:space="preserve">Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim. Duis nisl nisi, mattis vel egestas sed, venenatis sed turpis.</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Content.1.Text">
+    <value xml:space="preserve">Awesome Cycles, Inc.</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Content.2.Text">
+    <value xml:space="preserve">3457 W. Somewhere Street.</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Content.3.Text">
+    <value xml:space="preserve">Irgendeinplatz, CA 12345</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Content.4.Text">
+    <value xml:space="preserve">Fon: (555) 555-4563</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Content.5.Text">
+    <value xml:space="preserve">Fax: (555) 555-4564</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Content.6.Text">
+    <value xml:space="preserve">Weitere Kontaktdaten</value>
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.About.FooterRightPane.Module.Title.Text">
+    <value xml:space="preserve">Kontaktdaten</value>
+  </data>
+  <data name="Tab.About.Keywords.Text">
+    <value />
+  </data>
+  <data name="Tab.About.LeftPane.Module.Content.0.Text">
+    <value xml:space="preserve">James Woolworth – Präsident, Geschäftsführer</value>
+  </data>
+  <data name="Tab.About.LeftPane.Module.Content.1.Text">
+    <value xml:space="preserve">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut a fringilla est. Aliquam eleifend interdum urna eu cursus. Quisque luctus varius risus, eu rhoncus leo egestas nec. Nunc ac diam neque.</value>
+  </data>
+  <data name="Tab.About.LeftPane.Module.Content.2.Text">
+    <value xml:space="preserve">Twitter</value>
+  </data>
+  <data name="Tab.About.LeftPane.Module.Content.3.Text">
+    <value xml:space="preserve">LinkedIn</value>
+  </data>
+  <data name="Tab.About.LeftPane.Module.Content.4.Text">
+    <value xml:space="preserve">Andreas Martin – Chefingenieur</value>
+  </data>
+  <data name="Tab.About.LeftPane.Module.Content.5.Text">
+    <value xml:space="preserve">Elisabeth Dunn – Kundenbetreuung</value>
+  </data>
+  <data name="Tab.About.LeftPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.About.LeftPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.About.LeftPane.Module.Title.Text">
+    <value xml:space="preserve">Unser Personal</value>
+  </data>
+  <data name="Tab.About.Name.Text">
+    <value xml:space="preserve">About Us</value>
+  </data>
+  <data name="Tab.About.PageHeadText.Text">
+    <value />
+  </data>
+  <data name="Tab.About.RightPane.GoalModule.Content.0.Text">
+    <value xml:space="preserve">Wir freuen uns, unsere Kunden mit ihrem Traumfahrrad auszustatten. Unsere Designer sind die besten und die kreativsten in der Branche. Sie entwerfen Ihr Traumrad genau so, wie Sie es sich wünschen.</value>
+  </data>
+  <data name="Tab.About.RightPane.GoalModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.About.RightPane.GoalModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.About.RightPane.GoalModule.Title.Text">
+    <value xml:space="preserve">Unsere Mission</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.0.Text">
+    <value xml:space="preserve">Sitemap</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.1.Text">
+    <value xml:space="preserve">Start</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.2.Text">
+    <value xml:space="preserve">Über uns</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.3.Text">
+    <value xml:space="preserve">Angebot</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.4.Text">
+    <value xml:space="preserve">Klassische Fahrräder</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.5.Text">
+    <value xml:space="preserve">Sporträder</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.6.Text">
+    <value xml:space="preserve">Elektrische Fahrräder</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Content.7.Text">
+    <value xml:space="preserve">News und Presse</value>
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.About.RightPane.OtherModule.Title.Text">
+    <value xml:space="preserve">andere Seiten</value>
+  </data>
+  <data name="Tab.About.SocialMediaPane.Module.Content.0.Text">
+    <value xml:space="preserve">(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=184940001547339";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</value>
+  </data>
+  <data name="Tab.About.SocialMediaPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.About.SocialMediaPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.About.SocialMediaPane.Module.Title.Text">
+    <value xml:space="preserve">Soziale Netzwerke</value>
+  </data>
+  <data name="Tab.About.Title.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.ContentPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.ContentPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.ContentPane.Module.Title.Text">
+    <value xml:space="preserve">DotNetNuke®</value>
+  </data>
+  <data name="Tab.GettingStarted.Description.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.0.Text">
+    <value xml:space="preserve">Die folgenden Links bieten weitere Information über die Verwendung von DotNetNuke und dessen Hintergrund:</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.1.Text">
+    <value xml:space="preserve">Erweiterungen</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.2.Text">
+    <value xml:space="preserve">Anwendergruppen weltweit</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.3.Text">
+    <value xml:space="preserve">Fehler melden</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.4.Text">
+    <value xml:space="preserve">Weblogs</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.5.Text">
+    <value xml:space="preserve">Online-Hilfe</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.6.Text">
+    <value xml:space="preserve">DotNetNuke Corporation</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Content.7.Text">
+    <value xml:space="preserve">Übersetzungen</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.FooterLeftPane.Module.Title.Text">
+    <value xml:space="preserve">Schnelle Links</value>
+  </data>
+  <data name="Tab.GettingStarted.FooterRightPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.FooterRightPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.FooterRightPane.Module.Title.Text">
+    <value xml:space="preserve">Sponsoren</value>
+  </data>
+  <data name="Tab.GettingStarted.Keywords.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.LeftPane.Module.Content.0.Text">
+    <value xml:space="preserve">Das folgende Video (in englischer Sprache) hilft Ihnen, mit dem Aufbau Ihrer neuen DotNetNuke-Website zu beginnen. DotNetNuke ist schnell und einfach zu bedienen, Sie können Ihre neue Website mit Ihren eigenen Inhalten in wenigen Minuten online stellen. Die Links auf der rechten Seite führen zu weiteren Informationen, wie Sie Ihre DotNetNuke-basierte Website optimalen einsetzen.</value>
+  </data>
+  <data name="Tab.GettingStarted.LeftPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.LeftPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.LeftPane.Module.Title.Text">
+    <value xml:space="preserve">Erste Schritte</value>
+  </data>
+  <data name="Tab.GettingStarted.Name.Text">
+    <value xml:space="preserve">Getting Started</value>
+  </data>
+  <data name="Tab.GettingStarted.PageHeadText.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.0.Text">
+    <value xml:space="preserve">Handbücher</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.1.Text">
+    <value xml:space="preserve">Laden Sie die Handbücher für Benutzer und Administratoren herunter.</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.2.Text">
+    <value xml:space="preserve">Online-Training</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.3.Text">
+    <value xml:space="preserve">Sehen Sie sich unsere Training-Videos an oder registrieren Sie sich für zukünftige Termine.</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.4.Text">
+    <value xml:space="preserve">Erweiterungen</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.5.Text">
+    <value xml:space="preserve">Wählen Sie aus über 10.000 kommerziellen und Gratis-Apps.</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.6.Text">
+    <value xml:space="preserve">Community</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.7.Text">
+    <value xml:space="preserve">Engagieren sie sich in der weltweiten DotNetNuke-Gemeinde.</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.8.Text">
+    <value xml:space="preserve">Konferenzen</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Content.9.Text">
+    <value xml:space="preserve">Nehmen Sie an internationalen DotNetNuke-Konferenzen teil.</value>
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.RightPane.Module.Title.Text">
+    <value xml:space="preserve">Sidebar</value>
+  </data>
+  <data name="Tab.GettingStarted.SocialMediaPane.Module.Content.0.Text">
+    <value xml:space="preserve">(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=184940001547339";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</value>
+  </data>
+  <data name="Tab.GettingStarted.SocialMediaPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.SocialMediaPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.GettingStarted.SocialMediaPane.Module.Title.Text">
+    <value xml:space="preserve">Social Links</value>
+  </data>
+  <data name="Tab.GettingStarted.Title.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.ContentPane.Module.Content.0.Text">
+    <value xml:space="preserve">Awesome Cycles</value>
+  </data>
+  <data name="Tab.Home.ContentPane.Module.Content.1.Text">
+    <value xml:space="preserve">Eros non nunc magna placerat duis ac tincidunt purus sed, vel quis ut integer porta a adipiscing magna! Placerat mauris, pid vel vut ultricies, scelerisque tempor! Elementum montes!</value>
+  </data>
+  <data name="Tab.Home.ContentPane.Module.Content.2.Text">
+    <value xml:space="preserve">weiterlesen »</value>
+  </data>
+  <data name="Tab.Home.ContentPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.ContentPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.ContentPane.Module.Title.Text">
+    <value xml:space="preserve">Wechselbanner</value>
+  </data>
+  <data name="Tab.Home.Description.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.FooterLeftPane.Module.Content.0.Text">
+    <value xml:space="preserve">Sit vel phasellus parturient auctor ac, integer mattis hac! Eu ac, in, pellentesque nisi eu, scelerisque porta dolor hac nec, penatibus dignissim ac pulvinar pulvinar magna duis porta et ultricies, in odio elementum etiam cras scelerisque, tincidunt cras dapibus platea ultricies hac, sed a, augue aliquet amet a? Adipiscing arcu elementum scelerisque diam phasellus, placerat. Odio.</value>
+  </data>
+  <data name="Tab.Home.FooterLeftPane.Module.Content.1.Text">
+    <value xml:space="preserve">Nec risus vel pulvinar et quis tempor sagittis diam rhoncus scelerisque nisi ultricies sagittis proin pulvinar aliquet tincidunt lectus, nisi ultricies pulvinar placerat integer, lectus turpis habitasse! Auctor. Sed, auctor ut sit massa nisi! Turpis aliquet! Nisi? Sociis ultrices mid. Cum urna enim dictumst amet pid et odio ultricies, parturient augue cursus nisi sed phasellus sociis, in a, quis natoque enim dis. Enim, pulvinar.</value>
+  </data>
+  <data name="Tab.Home.FooterLeftPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.FooterLeftPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.FooterLeftPane.Module.Title.Text">
+    <value xml:space="preserve">Firmenportrait</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Content.0.Text">
+    <value xml:space="preserve">Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim. Duis nisl nisi, mattis vel egestas sed, venenatis sed turpis.</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Content.1.Text">
+    <value xml:space="preserve">Awesome Cycles, Inc.</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Content.2.Text">
+    <value xml:space="preserve">3457 W. Somewhere Street.</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Content.3.Text">
+    <value xml:space="preserve">Irgendeinplatz, CA 12345</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Content.4.Text">
+    <value xml:space="preserve">Fon: (555) 555-4563</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Content.5.Text">
+    <value xml:space="preserve">Fax: (555) 555-4564</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Content.6.Text">
+    <value xml:space="preserve">Weitere Kontaktdaten</value>
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.FooterRightPane.Module.Title.Text">
+    <value xml:space="preserve">Kontaktdaten</value>
+  </data>
+  <data name="Tab.Home.Keywords.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Content.0.Text">
+    <value xml:space="preserve">Klassische Designs</value>
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Content.1.Text">
+    <value xml:space="preserve">Vermissen Sie die klaren Linien und klassischen Designs der Vergangenheit? Schauen Sie sich unsere individuellen Neu-Schöpfungen an, die auf einigen der beliebtesten Designs aus Ihrer Kindheit basieren. </value>
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Content.2.Text">
+    <value xml:space="preserve">mehr erfahren</value>
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Content.3.Text">
+    <value xml:space="preserve">Sporträder</value>
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Content.4.Text">
+    <value xml:space="preserve">Sind Sie ein Radsportprofi? We entwickeln individuelle Hochleistungsräder; die alle Anforderungen erfüllen.</value>
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Content.5.Text">
+    <value xml:space="preserve">Motorisierte Fahrräder</value>
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Content.6.Text">
+    <value xml:space="preserve">Wenn Sie ein Typ wie ich sind, lieben Sie es, in der Natur zu sein, hassen aber die mit dem Radfahren verbundene Anstrengung. Darum begannen wir, unsere Designs mit Motor auszustatten...</value>
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.LeftPane.ProductModule.Title.Text">
+    <value xml:space="preserve">Unsere Produkte</value>
+  </data>
+  <data name="Tab.Home.LeftPane.WelcomeModule.Content.0.Text">
+    <value xml:space="preserve">Praesent eget metus sit amet ante elementum gravida. Sed congue velit ac erat congue facilisis. Donec feugiat sem sit amet ligula fermentum in gravida lorem venenatis. Praesent augue metus, tristique nec tempus vel, vestibulum pulvinar felis.</value>
+  </data>
+  <data name="Tab.Home.LeftPane.WelcomeModule.Content.1.Text">
+    <value xml:space="preserve">Praesent cursus eleifend purus sed rutrum. Morbi eget urna vitae sapien feugiat rhoncus. Donec vestibulum, mi ac vestibulum vestibulum, mi ante placerat lorem, ac adipiscing justo purus non dolor.</value>
+  </data>
+  <data name="Tab.Home.LeftPane.WelcomeModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.LeftPane.WelcomeModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.LeftPane.WelcomeModule.Title.Text">
+    <value xml:space="preserve">Willkommen bei Awesome Cycles</value>
+  </data>
+  <data name="Tab.Home.Name.Text">
+    <value xml:space="preserve">Home</value>
+  </data>
+  <data name="Tab.Home.PageHeadText.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.RightPane.Module.Content.0.Text">
+    <value xml:space="preserve">Über uns</value>
+  </data>
+  <data name="Tab.Home.RightPane.Module.Content.1.Text">
+    <value xml:space="preserve">Erfahren Sie mehr über die Marke Awesome Cycles</value>
+  </data>
+  <data name="Tab.Home.RightPane.Module.Content.2.Text">
+    <value xml:space="preserve">Angebot</value>
+  </data>
+  <data name="Tab.Home.RightPane.Module.Content.3.Text">
+    <value xml:space="preserve">Wir bieten Ihnen Produkte, ohne die Sie gar nicht leben können.</value>
+  </data>
+  <data name="Tab.Home.RightPane.Module.Content.4.Text">
+    <value xml:space="preserve">Aktuelles</value>
+  </data>
+  <data name="Tab.Home.RightPane.Module.Content.5.Text">
+    <value xml:space="preserve">Lesen Sie die letzten Neuigkeiten über Awesome Cycles.</value>
+  </data>
+  <data name="Tab.Home.RightPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.RightPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.RightPane.Module.Title.Text">
+    <value xml:space="preserve">Sidebar</value>
+  </data>
+  <data name="Tab.Home.SocialMediaPane.Module.Content.0.Text">
+    <value xml:space="preserve">(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=184940001547339";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</value>
+  </data>
+  <data name="Tab.Home.SocialMediaPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.SocialMediaPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Home.SocialMediaPane.Module.Title.Text">
+    <value xml:space="preserve">Soziale Netzwerke</value>
+  </data>
+  <data name="Tab.Home.Title.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.ContentPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.ContentPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.ContentPane.Module.Title.Text">
+    <value xml:space="preserve">Aktuelles</value>
+  </data>
+  <data name="Tab.Promotions.Description.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.FooterLeftPane.Module.Content.0.Text">
+    <value xml:space="preserve">Sit vel phasellus parturient auctor ac, integer mattis hac! Eu ac, in, pellentesque nisi eu, scelerisque porta dolor hac nec, penatibus dignissim ac pulvinar pulvinar magna duis porta et ultricies, in odio elementum etiam cras scelerisque, tincidunt cras dapibus platea ultricies hac, sed a, augue aliquet amet a? Adipiscing arcu elementum scelerisque diam phasellus, placerat. Odio.</value>
+  </data>
+  <data name="Tab.Promotions.FooterLeftPane.Module.Content.1.Text">
+    <value xml:space="preserve">Nec risus vel pulvinar et quis tempor sagittis diam rhoncus scelerisque nisi ultricies sagittis proin pulvinar aliquet tincidunt lectus, nisi ultricies pulvinar placerat integer, lectus turpis habitasse! Auctor. Sed, auctor ut sit massa nisi! Turpis aliquet! Nisi? Sociis ultrices mid. Cum urna enim dictumst amet pid et odio ultricies, parturient augue cursus nisi sed phasellus sociis, in a, quis natoque enim dis. Enim, pulvinar.</value>
+  </data>
+  <data name="Tab.Promotions.FooterLeftPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.FooterLeftPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.FooterLeftPane.Module.Title.Text">
+    <value xml:space="preserve">Über uns</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Content.0.Text">
+    <value xml:space="preserve">Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim. Duis nisl nisi, mattis vel egestas sed, venenatis sed turpis.</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Content.1.Text">
+    <value xml:space="preserve">Awesome Cycles, Inc.</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Content.2.Text">
+    <value xml:space="preserve">3457 W. Somewhere Street.</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Content.3.Text">
+    <value xml:space="preserve">Irgendeinplatz, CA 12345</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Content.4.Text">
+    <value xml:space="preserve">Fon: (555) 555-4563</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Content.5.Text">
+    <value xml:space="preserve">Fax: (555) 555-4564</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Content.6.Text">
+    <value xml:space="preserve">Weitere Kontaktdaten</value>
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.FooterRightPane.Module.Title.Text">
+    <value xml:space="preserve">Kontaktdaten</value>
+  </data>
+  <data name="Tab.Promotions.Keywords.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.LeftPane.LaunchModule.Content.0.Text">
+    <value xml:space="preserve">Wir sind stolz, die Produkteinführung unserer neuen Paradox™-Linie mit Fahrrädern für Zeitreisen zu verkünden. Sie haben richtig gelesen:  Sie können die Geheimnisse der Vergangenheit erkunden oder einen Blick auf die Wunder der Zukunft werfen, indem Sie eines unserer Fahrräder besteigen!</value>
+  </data>
+  <data name="Tab.Promotions.LeftPane.LaunchModule.Content.1.Text">
+    <value xml:space="preserve">Sie wundern sich sicher, wie wir auf die Zeitreisen gekommen sind. Nun, unser Chefingenieur wollte berechnen, wie sich der physische Aufwand beim Fahren unserer elektrischen Fahrräder minimieren lässt, als er durch einen glücklichen Zufall eine Entdeckung machte: Mit wenigen Änderungen können Sie mit unseren E-Bikes über 120 km/h erreichen und die Gesetzte der Physik aushebeln - einfach phantastisch!</value>
+  </data>
+  <data name="Tab.Promotions.LeftPane.LaunchModule.Content.2.Text">
+    <value xml:space="preserve">Aliquam erat volutpat. Nam in enim ut sapien consectetur suscipit at vel nisi. Mauris vehicula elementum quam et faucibus. Cras convallis vestibulum accumsan. Aenean est libero, tincidunt nec rhoncus non, semper ac ipsum. Cras quis arcu ut purus rutrum molestie hendrerit at neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</value>
+  </data>
+  <data name="Tab.Promotions.LeftPane.LaunchModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.LeftPane.LaunchModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.LeftPane.LaunchModule.Title.Text">
+    <value xml:space="preserve">Produktankündigung</value>
+  </data>
+  <data name="Tab.Promotions.LeftPane.RecallModule.Content.0.Text">
+    <value xml:space="preserve">Letzte Woche hatten wir Besuch vom Amt für Zeitstabilität. Wir wurden informiert, dass unsere Fahrräder einige Vorschriften für Zeitmaschinen verletzen. Wir hätten vorab eine Genehmigung beantragen müssen, die wir aber nicht bekommen würden.</value>
+  </data>
+  <data name="Tab.Promotions.LeftPane.RecallModule.Content.1.Text">
+    <value xml:space="preserve">Als Konsequenz müssen wir die Produktion unserer neuen Paradox™-Line einstellen und auch alle bisher verkauften Exemplare zurückrufen. Falls Sie eines der Exemplare gekauft haben, bitten wir Sie, es zurückzugeben und  erhalten den vollen Kaufpreis zurückerstattet. Falls Sie Fragen zur Rückrufaktion haben, rufen Sie uns bitte an.</value>
+  </data>
+  <data name="Tab.Promotions.LeftPane.RecallModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.LeftPane.RecallModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.LeftPane.RecallModule.Title.Text">
+    <value xml:space="preserve">Rückrufaktion</value>
+  </data>
+  <data name="Tab.Promotions.Name.Text">
+    <value xml:space="preserve">News &amp;amp; Promotions</value>
+  </data>
+  <data name="Tab.Promotions.PageHeaderText.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.RightPane.GoalModule.Content.0.Text">
+    <value xml:space="preserve">Wir lieben es, wenn wir unsere Kunden mit ihrem Traum-Fahrrad versorgen können. Wir haben die besten und die kreativsten Mitarbeiter der Branche für das Design und bauen Ihr Traum-Bike genau so, wie Sie es sich wünschen.</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.GoalModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.RightPane.GoalModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.RightPane.GoalModule.Title.Text">
+    <value xml:space="preserve">Unsere Mission</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.0.Text">
+    <value xml:space="preserve">Sitemap</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.1.Text">
+    <value xml:space="preserve">Start</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.2.Text">
+    <value xml:space="preserve">Über uns</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.3.Text">
+    <value xml:space="preserve">Angebot</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.4.Text">
+    <value xml:space="preserve">Klassische Designs</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.5.Text">
+    <value xml:space="preserve">Sporträder</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.6.Text">
+    <value xml:space="preserve">Elektrische Fahrräder</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Content.7.Text">
+    <value xml:space="preserve">Informationen &amp; Presse</value>
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.RightPane.SidebarNavModule.Title.Text">
+    <value xml:space="preserve">Sidebar Nav</value>
+  </data>
+  <data name="Tab.Promotions.SocialMediaPane.Module.Content.0.Text">
+    <value xml:space="preserve">(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=184940001547339";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</value>
+  </data>
+  <data name="Tab.Promotions.SocialMediaPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.SocialMediaPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Promotions.SocialMediaPane.Module.Name.Text">
+    <value xml:space="preserve">Social Links</value>
+  </data>
+  <data name="Tab.Promotions.Title.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.ElectricModule.Content.0.Text">
+    <value xml:space="preserve">Proin condimentum odio ipsum, sit amet consequat lacus. Ut elementum nisl id lectus ullamcorper bibendum. Praesent pellentesque bibendum sodales. Aenean ut convallis velit. In vestibulum aliquam condimentum. Vivamus tincidunt ante id nibh volutpat porta.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.ElectricModule.Content.1.Text">
+    <value xml:space="preserve">Nulla ut dolor massa, eu vestibulum massa. Suspendisse hendrerit mi a mi vehicula tempus vitae nec felis. Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim. Duis nisl nisi, mattis vel egestas sed, venenatis sed turpis.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.ElectricModule.Content.2.Text">
+    <value xml:space="preserve">Praesent pellentesque bibendum sodales. Aenean ut convallis velit. In vestibulum aliquam condimentum. Vivamus tincidunt ante id nibh volutpat porta.Praesent pellentesque bibendum sodales. Aenean ut convallis velit. In vestibulum aliquam condimentum. Vivamus tincidunt ante id nibh volutpat porta.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.ElectricModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.ElectricModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.ElectricModule.Title.Text">
+    <value xml:space="preserve">&amp;lt;a name="electric-bicycles"&amp;gt;&amp;lt;/a&amp;gt;Elektrische Fahrräder</value>
+  </data>
+  <data name="Tab.Services.ContentPane.PerformanceModule.Content.0.Text">
+    <value xml:space="preserve">Proin condimentum odio ipsum, sit amet consequat lacus. Ut elementum nisl id lectus ullamcorper bibendum. Praesent pellentesque bibendum sodales. Aenean ut convallis velit. In vestibulum aliquam condimentum. Vivamus tincidunt ante id nibh volutpat porta.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.PerformanceModule.Content.1.Text">
+    <value xml:space="preserve">Nulla ut dolor massa, eu vestibulum massa. Suspendisse hendrerit mi a mi vehicula tempus vitae nec felis. Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.PerformanceModule.Content.2.Text">
+    <value xml:space="preserve">Duis nisl nisi, mattis vel egestas sed, venenatis sed turpis.[Tab.Services.ContentPane.PerformanceModule.Content.0.Text]Nulla ut dolor massa, eu vestibulum massa.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.PerformanceModule.Content.3.Text">
+    <value xml:space="preserve">Suspendisse hendrerit mi a mi vehicula tempus vitae nec felis. Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim. Duis nisl nisi, mattis vel egestas sed, venenatis sed turpis.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.PerformanceModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.PerformanceModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.PerformanceModule.Title.Text">
+    <value xml:space="preserve">&amp;lt;a name="high-performance"&amp;gt;&amp;lt;/a&amp;gt;Sporträder</value>
+  </data>
+  <data name="Tab.Services.ContentPane.ServicesModule.Content.0.Text">
+    <value xml:space="preserve">Suspendisse hendrerit mi a mi vehicula tempus vitae nec felis. Praesent ac urna at lectus porta porttitor.
+      Cras nulla leo, porta nec laoreet ac, lobortis non enim. Duis nisl nisi, mattis vel egestas sed, venenatis
+      sed turpis. Donec vel metus risus, egestas. Praesent pellentesque bibendum sodales. Aenean ut convallis velit. In vestibulum aliquam condimentum. Vivamus tincidunt ante id nibh volutpat porta. Nulla ut dolor massa, eu vestibulum massa. </value>
+  </data>
+  <data name="Tab.Services.ContentPane.ServicesModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.ServicesModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.ServicesModule.Title.Text">
+    <value xml:space="preserve">Unser Angebot</value>
+  </data>
+  <data name="Tab.Services.ContentPane.VintageModule.Content.0.Text">
+    <value xml:space="preserve">Vermissen Sie die klaren Linien und klassischen Designs der Vergangenheit? Schauen Sie sich unsere individuellen Neu-Schöpfungen an, die auf einigen der beliebtesten Designs aus Ihrer Kindheit basieren.  Proin condimentum odio ipsum, sit amet consequat lacus. Ut elementum nisl id lectus ullamcorper bibendum. Praesent pellentesque bibendum sodales. Aenean ut convallis velit. In vestibulum aliquam condimentum. Vivamus tincidunt ante id nibh volutpat porta.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.VintageModule.Content.1.Text">
+    <value xml:space="preserve">Praesent pellentesque bibendum sodales. Aenean ut convallis velit. In vestibulum aliquam condimentum. Vivamus tincidunt ante id nibh volutpat porta. Nulla ut dolor massa, eu vestibulum massa. Suspendisse hendrerit mi a mi vehicula tempus vitae nec felis. Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim.</value>
+  </data>
+  <data name="Tab.Services.ContentPane.VintageModule.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.VintageModule.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.ContentPane.VintageModule.Title.Text">
+    <value xml:space="preserve">&amp;lt;a name="vintage-designs"&amp;gt;&amp;lt;/a&amp;gt;Klassische Designs</value>
+  </data>
+  <data name="Tab.Services.Description.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.FooterLeftPane.Module.Content.0.Text">
+    <value xml:space="preserve">Sit vel phasellus parturient auctor ac, integer mattis hac! Eu ac, in, pellentesque nisi eu, scelerisque porta dolor hac nec, penatibus dignissim ac pulvinar pulvinar magna duis porta et ultricies, in odio elementum etiam cras scelerisque, tincidunt cras dapibus platea ultricies hac, sed a, augue aliquet amet a? Adipiscing arcu elementum scelerisque diam phasellus, placerat. Odio.</value>
+  </data>
+  <data name="Tab.Services.FooterLeftPane.Module.Content.1.Text">
+    <value xml:space="preserve">Nec risus vel pulvinar et quis tempor sagittis diam rhoncus scelerisque nisi ultricies sagittis proin pulvinar aliquet tincidunt lectus, nisi ultricies pulvinar placerat integer, lectus turpis habitasse! Auctor. Sed, auctor ut sit massa nisi! Turpis aliquet! Nisi? Sociis ultrices mid. Cum urna enim dictumst amet pid et odio ultricies, parturient augue cursus nisi sed phasellus sociis, in a, quis natoque enim dis. Enim, pulvinar.</value>
+  </data>
+  <data name="Tab.Services.FooterLeftPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.FooterLeftPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.FooterLeftPane.Module.Title.Text">
+    <value xml:space="preserve">Über uns</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Content.0.Text">
+    <value xml:space="preserve">Praesent ac urna at lectus porta porttitor. Cras nulla leo, porta nec laoreet ac, lobortis non enim. Duis nisl nisi, mattis vel egestas sed, venenatis sed turpis.</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Content.1.Text">
+    <value xml:space="preserve">Awesome Cycles, Inc.</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Content.2.Text">
+    <value xml:space="preserve">
+      3457 W. Somewhere Street.</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Content.3.Text">
+    <value xml:space="preserve">Irgendeinplatz, CA 12345</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Content.4.Text">
+    <value xml:space="preserve">Fon: (555) 555-4563</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Content.5.Text">
+    <value xml:space="preserve">Fax: (555) 555-4564</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Content.6.Text">
+    <value xml:space="preserve">Weitere Kontaktdaten</value>
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.FooterRightPane.Module.Title.Text">
+    <value xml:space="preserve">Kontaktdaten</value>
+  </data>
+  <data name="Tab.Services.Keywords.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.Name.Text">
+    <value xml:space="preserve">Our Services</value>
+  </data>
+  <data name="Tab.Services.PageHeadText.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.SocialMediaPane.Module.Content.0.Text">
+    <value xml:space="preserve">(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "http://connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=184940001547339";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</value>
+  </data>
+  <data name="Tab.Services.SocialMediaPane.Module.Footer.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.SocialMediaPane.Module.Header.Text">
+    <value />
+  </data>
+  <data name="Tab.Services.SocialMediaPane.Module.Title.Text">
+    <value xml:space="preserve">Social Links</value>
+  </data>
+  <data name="Tab.Services.Title.Text">
+    <value />
+  </data>
+</root>

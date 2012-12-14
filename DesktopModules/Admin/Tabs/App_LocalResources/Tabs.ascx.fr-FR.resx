@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddPage.Text">
+    <value xml:space="preserve">Ajout de pages</value>
+  </data>
+  <data name="Appearance.Tabname">
+    <value xml:space="preserve">Apparence</value>
+  </data>
+  <data name="btnBulkCreate.Text">
+    <value xml:space="preserve">Création de page(s)</value>
+  </data>
+  <data name="BulkCreateIntro.Text">
+    <value xml:space="preserve">Créera une page par ligne sous la page sélectionnée. Pour créer une hiérarchie, préfixez les pages avec le caractère :  "&gt;".</value>
+  </data>
+  <data name="bulkPagesLabel.Text">
+    <value xml:space="preserve">Pages :</value>
+  </data>
+  <data name="CanNotDeleteHomeTab.Text">
+    <value xml:space="preserve">Il ne faut pas supprimer la page d'accueil du site !</value>
+  </data>
+  <data name="CanNotDeleteSpecialTab.Text">
+    <value xml:space="preserve">C'est une page spéciale qui ne peut pas être effacée</value>
+  </data>
+  <data name="cmdCopySkin.Text">
+    <value xml:space="preserve">Appliquer le thème sélectionné aux sous-pages</value>
+  </data>
+  <data name="cmdMore.Text">
+    <value xml:space="preserve">Autres paramètres</value>
+  </data>
+  <data name="cmdUpdate.Text">
+    <value xml:space="preserve">Mise à jour de la page</value>
+  </data>
+  <data name="Collapse.Text">
+    <value xml:space="preserve">Réduire tous les noeuds</value>
+  </data>
+  <data name="Common.Tabname">
+    <value xml:space="preserve">Commune</value>
+  </data>
+  <data name="ConfirmDelete.Text">
+    <value xml:space="preserve">Confirmez-vous la suppression de la page sélectionnée et de toutes ses sous-pages ?</value>
+  </data>
+  <data name="DefaultContainer.Text">
+    <value xml:space="preserve">[Contenerur par défaut]</value>
+  </data>
+  <data name="DefaultSkin.Text">
+    <value xml:space="preserve">[Thème par défaut]</value>
+  </data>
+  <data name="DeletePage.Text">
+    <value xml:space="preserve">Supprimer la page</value>
+  </data>
+  <data name="DesignCopied.Text">
+    <value xml:space="preserve">Thème appliqué aux sous-pages</value>
+  </data>
+  <data name="DesignCopyError.Text">
+    <value xml:space="preserve">Une erreur est survenue en tentant d'appliquer le thème aux sous-pages</value>
+  </data>
+  <data name="DisablePage.Text">
+    <value xml:space="preserve">Désactiver le lien dans l'arborescence</value>
+  </data>
+  <data name="EditPage.Text">
+    <value xml:space="preserve">Paramètres de page</value>
+  </data>
+  <data name="EmptyTabName.Text">
+    <value xml:space="preserve">Nom de page vide</value>
+  </data>
+  <data name="EnablePage.Text">
+    <value xml:space="preserve">Activer le lien dans l'arborescence</value>
+  </data>
+  <data name="ExceededQuota.Text">
+    <value xml:space="preserve">Il n'est pas possible d'ajouter une page à cause du quota de pages pour ce site. Contactez votre hébergeur pour demander une augmentation de ce quota.</value>
+  </data>
+  <data name="Expand.Text">
+    <value xml:space="preserve">Développer tous les noeuds</value>
+  </data>
+  <data name="HidePage.Text">
+    <value xml:space="preserve">Cacher dans la navigation</value>
+  </data>
+  <data name="Host.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="InvalidTabName.Text">
+    <value xml:space="preserve">{0} est un titre de page invalide !</value>
+  </data>
+  <data name="lblAdminOnly.Text">
+    <value xml:space="preserve">Visible des seuls administrateurs</value>
+  </data>
+  <data name="lblContainer.Help">
+    <value xml:space="preserve">Le conteneur sélectionné sera appliqué à tous les modules de cette page.</value>
+  </data>
+  <data name="lblContainer.Text">
+    <value xml:space="preserve">Conteneur par défaut</value>
+  </data>
+  <data name="lblDescription.Help">
+    <value xml:space="preserve">Décrire la page en résumé  pour les moteurs de recherche.</value>
+  </data>
+  <data name="lblDescription.Text">
+    <value xml:space="preserve">Description de page</value>
+  </data>
+  <data name="lblDisabled.Text">
+    <value xml:space="preserve">Page désactivée</value>
+  </data>
+  <data name="lblDisabledPage.Help">
+    <value xml:space="preserve">Si la page est désactivée, elle n'est plus visible dans le site mais peut être modifiée. Cette option peut être utilisée pour préparer un contenu avant de le publier.</value>
+  </data>
+  <data name="lblDisabledPage.Text">
+    <value xml:space="preserve">Désactivée</value>
+  </data>
+  <data name="lblEveryone.Text">
+    <value xml:space="preserve">Page visible pour tout le monde</value>
+  </data>
+  <data name="lblHidden.Text">
+    <value xml:space="preserve">Page invisible dans le menu</value>
+  </data>
+  <data name="lblHome.Text">
+    <value xml:space="preserve">Page d'accueil du site</value>
+  </data>
+  <data name="lblHostOnly.Text">
+    <value xml:space="preserve">Gérer :</value>
+  </data>
+  <data name="lblIconLarge.Help">
+    <value xml:space="preserve">Grande icône pour la console.</value>
+  </data>
+  <data name="lblIconLarge.Text">
+    <value xml:space="preserve">Grande icône</value>
+  </data>
+  <data name="lblIconSmall.Help">
+    <value xml:space="preserve">Icône pour le menu.</value>
+  </data>
+  <data name="lblIconSmall.Text">
+    <value xml:space="preserve">Petite icône</value>
+  </data>
+  <data name="lblKeywords.Help">
+    <value xml:space="preserve">Séparer les mots-clés par des virgules, en plaçant les plus importants en tête.</value>
+  </data>
+  <data name="lblKeywords.Text">
+    <value xml:space="preserve">Mots-clés de page</value>
+  </data>
+  <data name="lblLegend.Text">
+    <value xml:space="preserve">Légende</value>
+  </data>
+  <data name="lblMetaHead.Help">
+    <value xml:space="preserve">Les métadonnées étiquettes, ou META tags sont placées dans les entêtes des pages HTML ("HEAD") pour le référencement.</value>
+  </data>
+  <data name="lblMetaHead.Text">
+    <value xml:space="preserve">Métadonnées d'entête de page</value>
+  </data>
+  <data name="lblMetaRefresh.Help">
+    <value xml:space="preserve">Intervalle entre rafraichissement de la page. (par example:  "60" pour 1 minute). Laisser blanc pour désactiver le cache.</value>
+  </data>
+  <data name="lblMetaRefresh.Text">
+    <value xml:space="preserve">Période de rafraichissement (en secondes)</value>
+  </data>
+  <data name="lblName.Help">
+    <value xml:space="preserve">Nom de la page tel qu'il apparait dans le menu.</value>
+  </data>
+  <data name="lblName.Text">
+    <value xml:space="preserve">Nom de page</value>
+  </data>
+  <data name="lblNoRecords.Text">
+    <value xml:space="preserve">Pas de modules dans la page sélectionnée</value>
+  </data>
+  <data name="lblPageSSL.Help">
+    <value xml:space="preserve">Indiquer si cette page impose une connection sécurisée de type SSL. Pour pouvoir être utilisée, cette option nécessite l'activation de l'option 'SSL' dans les paramètres du site.</value>
+  </data>
+  <data name="lblPageSSL.Text">
+    <value xml:space="preserve">Sécurisation</value>
+  </data>
+  <data name="lblPermanentRedirect.Help">
+    <value xml:space="preserve">Permet d'indiquer aux moteurs de recherche qu'une page est définitivement déplacée. Ignoré si le 'LinkType' est 'None'.</value>
+  </data>
+  <data name="lblPermanentRedirect.Text">
+    <value xml:space="preserve">Redirection permanente</value>
+  </data>
+  <data name="lblRegistered.Text">
+    <value xml:space="preserve">Visible des utilisateurs identifiés</value>
+  </data>
+  <data name="lblSecure.Text">
+    <value xml:space="preserve">Visible que par les rôles autorisés</value>
+  </data>
+  <data name="lblSitemapPriority.Help">
+    <value xml:space="preserve">Priorité sur une échelle de 0.0 à 1.0). Aide Google à attribuer une priorité relative à cette page dans le site. (0.5 est la valeur par défaut).</value>
+  </data>
+  <data name="lblSitemapPriority.Text">
+    <value xml:space="preserve">Priorité dans le sitemap</value>
+  </data>
+  <data name="lblSkin.Help">
+    <value xml:space="preserve">Le thème sélectionné sera appliqué à la page.</value>
+  </data>
+  <data name="lblSkin.Text">
+    <value xml:space="preserve">Thème de page</value>
+  </data>
+  <data name="lblTags.Help">
+    <value xml:space="preserve">Choisir des éléments dans la liste déroulante pour étiquetter cette page.</value>
+  </data>
+  <data name="lblTags.Text">
+    <value xml:space="preserve">Etiquettes de pages</value>
+  </data>
+  <data name="lblTitle.Help">
+    <value xml:space="preserve">Titre qui apparaitra dans le titre de fenêtre du navigateur (peut par exemple être plus explicite que le titre de page qui s'affiche dans le menu).</value>
+  </data>
+  <data name="lblTitle.Text">
+    <value xml:space="preserve">Titre de page</value>
+  </data>
+  <data name="lblUrl.Help">
+    <value xml:space="preserve">Champ optionnel permettant d'utiliser le titre de page dans le menu comme un lien vers une autre destination (page du site ou page internet).</value>
+  </data>
+  <data name="lblUrl.Text">
+    <value xml:space="preserve">Lien</value>
+  </data>
+  <data name="lblVisible.Help">
+    <value xml:space="preserve">Il est possible de ne pas faire apparaitre une page dans le menu, mais d'y accéder par un lien à partir d'une autre page.</value>
+  </data>
+  <data name="lblVisible.Text">
+    <value xml:space="preserve">Inclure dans le menu</value>
+  </data>
+  <data name="Link.Tabname">
+    <value xml:space="preserve">Lien</value>
+  </data>
+  <data name="MakeHome.Text">
+    <value xml:space="preserve">Définir comme page d'accueil</value>
+  </data>
+  <data name="Metatags.Tabname">
+    <value xml:space="preserve">Meta-étiquettes</value>
+  </data>
+  <data name="Module.Header">
+    <value xml:space="preserve">Module</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;Arborescence du site&lt;/h1&gt;&lt;p&gt;Cet outil permet de gérer l’ordre d’affichage des pages mais également d’accéder à leurs paramètres&lt;/p&gt;</value>
+  </data>
+  <data name="Modules.Tabname">
+    <value xml:space="preserve">Modules</value>
+  </data>
+  <data name="ModuleTitle.Header">
+    <value xml:space="preserve">Titre</value>
+  </data>
+  <data name="MovePageDown.Text">
+    <value xml:space="preserve">Descendre</value>
+  </data>
+  <data name="MovePageUp.Text">
+    <value xml:space="preserve">Monter</value>
+  </data>
+  <data name="Options.Header">
+    <value xml:space="preserve">Options</value>
+  </data>
+  <data name="PathDuplicateWithAlias.Text">
+    <value xml:space="preserve">Il y a déjà un autre domaine pour ce chemin de page.</value>
+  </data>
+  <data name="Permissions.Tabname">
+    <value xml:space="preserve">Permissions</value>
+  </data>
+  <data name="root.Text">
+    <value xml:space="preserve">Racine du site</value>
+  </data>
+  <data name="SEO.Tabname">
+    <value xml:space="preserve">Référencement</value>
+  </data>
+  <data name="ShowHostTabs.Text">
+    <value xml:space="preserve">Pages de l'instance hôte</value>
+  </data>
+  <data name="ShowPage.Text">
+    <value xml:space="preserve">Montrer dans l'arborescence</value>
+  </data>
+  <data name="ShowPortalTabs.Text">
+    <value xml:space="preserve">Pages de site</value>
+  </data>
+  <data name="Site.Text">
+    <value xml:space="preserve">Site.</value>
+  </data>
+  <data name="TabCreated.Text">
+    <value xml:space="preserve">Page {0} créée</value>
+  </data>
+  <data name="TabDeleted.Text">
+    <value xml:space="preserve">Page {0} supprimée</value>
+  </data>
+  <data name="TabDisabled.Text">
+    <value xml:space="preserve">Page {0} désactivée</value>
+  </data>
+  <data name="TabEnabled.Text">
+    <value xml:space="preserve">Page {0} active</value>
+  </data>
+  <data name="TabExists.Text">
+    <value xml:space="preserve">Ce nom de page existe déjà pour une page de même niveau dans l'arborescence</value>
+  </data>
+  <data name="TabHidden.Text">
+    <value xml:space="preserve">Page {0} cachée dans le menu</value>
+  </data>
+  <data name="TabMadeHome.Text">
+    <value xml:space="preserve">Page {0} appliquée comme page d'acueil</value>
+  </data>
+  <data name="TabMoved.Text">
+    <value xml:space="preserve">Page {0} déplacée</value>
+  </data>
+  <data name="TabRecycled.Text">
+    <value xml:space="preserve">Il y a une page de même nom dans la corbeille. Vous pouvez aller la rétablir.</value>
+  </data>
+  <data name="TabShown.Text">
+    <value xml:space="preserve">Page {0} visible dans le menu</value>
+  </data>
+  <data name="TabUpdated.Text">
+    <value xml:space="preserve">Page {0} mise à jour</value>
+  </data>
+  <data name="valName.Text">
+    <value xml:space="preserve">Nom de page requis.</value>
+  </data>
+  <data name="ViewPage.Text">
+    <value xml:space="preserve">Voir la page</value>
+  </data>
+</root>

@@ -1,0 +1,11 @@
+﻿.RadEditor ul li, .reDropDownBody ul li
+{list-style: none !important;}
+.RadEditor a, .reDropDownBody a
+{text-decoration: none !important;}
+div.RadWindow table.rwTitlebarControls ul.rwControlButtons li
+{list-style-type: none;}
+.RadEditor .InsertCustomLink, .RadEditor .FormatBlock {width:110px !important;}
+.reTool .InsertOptions
+{
+    background-image: url(../images/attachment.png);
+}

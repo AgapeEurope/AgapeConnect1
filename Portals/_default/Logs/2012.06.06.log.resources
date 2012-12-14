@@ -1,0 +1,62 @@
+2012-06-06 14:33:03,993 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-06-06 14:33:04,127 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-06-06 14:33:04,278 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-06-06 14:33:34,853 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-06-06 14:33:34,892 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-06-06 14:33:34,906 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-06-06 14:36:06,278 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-06-06 14:36:06,313 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-06-06 14:36:06,329 [WIN-IJASUCJVGUJ][Thread:4][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-06-06 14:36:16,416 [WIN-IJASUCJVGUJ][Thread:11][ERROR] DotNetNuke.ComponentModel.ProviderInstaller - Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+System.Configuration.ConfigurationErrorsException: Could not load provider DotNetNuksystem.serviceModele.Services.ClientCapability.WURFLClientCapabilityProvider, DotNetNuke.Provider.WURFLClientCapabilityProvider
+2012-06-06 14:36:16,468 [WIN-IJASUCJVGUJ][Thread:11][ERROR] DotNetNuke.Services.Exceptions.BasePortalException - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Exceptions.BasePortalException.InitializePrivateVariables()
+2012-06-06 14:36:16,483 [WIN-IJASUCJVGUJ][Thread:11][ERROR] DotNetNuke.Services.Log.EventLog.LogController - Request is not available in this context
+System.Web.HttpException (0x80004005): Request is not available in this context
+   at System.Web.HttpContext.get_Request()
+   at DotNetNuke.Services.Log.EventLog.LogController.AddLog(LogInfo logInfo)
+2012-06-06 14:50:42,678 [WIN-IJASUCJVGUJ][Thread:30][ERROR] DotNetNuke.Modules.Admin.ModuleDefinitions.CreateModuleDefinition - Cannot insert duplicate key row in object 'dbo.Packages' with unique index 'IX_Packages'. The duplicate key value is (<NULL>, AgapeFR.Donation, Module, <NULL>).
+The statement has been terminated.
+System.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Packages' with unique index 'IX_Packages'. The duplicate key value is (<NULL>, AgapeFR.Donation, Module, <NULL>).
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at Microsoft.ApplicationBlocks.Data.SqlHelper.ExecuteScalar(SqlConnection connection, CommandType commandType, String commandText, SqlParameter[] commandParameters)
+   at Microsoft.ApplicationBlocks.Data.SqlHelper.ExecuteScalar(String connectionString, CommandType commandType, String commandText, SqlParameter[] commandParameters)
+   at Microsoft.ApplicationBlocks.Data.SqlHelper.ExecuteScalar(String connectionString, String spName, Object[] parameterValues)
+   at DotNetNuke.Data.SqlDataProvider.AddPackage(Int32 portalID, String name, String friendlyName, String description, String type, String version, String license, String manifest, String owner, String organization, String url, String email, String releaseNotes, Boolean isSystemPackage, Int32 createdByUserID, String folderName, String iconFile)
+   at DotNetNuke.Services.Installer.Packages.PackageController.AddPackage(PackageInfo package, Boolean includeDetail)
+   at DotNetNuke.Services.Installer.Packages.PackageController.SavePackage(PackageInfo package)
+   at DotNetNuke.Modules.Admin.ModuleDefinitions.CreateModuleDefinition.ImportControl(String controlSrc) in c:\aLocalSVN\AC-FR\DesktopModules\Admin\Extensions\Editors\EditModuleDefinition.ascx.cs:line 202

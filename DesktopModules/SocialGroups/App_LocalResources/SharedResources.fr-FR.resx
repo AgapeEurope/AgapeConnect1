@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accessibility.Text">
+    <value xml:space="preserve">Accessibilité</value>
+  </data>
+  <data name="AutoConfigure.Text">
+    <value xml:space="preserve">Auto configurer</value>
+  </data>
+  <data name="Cancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="CreateGroup.Text">
+    <value xml:space="preserve">Créer un groupe</value>
+  </data>
+  <data name="CreateGroupButton.Text">
+    <value xml:space="preserve">Créer groupe</value>
+  </data>
+  <data name="CreateNewGroup.Text">
+    <value xml:space="preserve">Créer un nouveau groupe</value>
+  </data>
+  <data name="Description.Text">
+    <value xml:space="preserve">Description</value>
+  </data>
+  <data name="documents.Text">
+    <value xml:space="preserve">documents</value>
+  </data>
+  <data name="EditGroup.Text">
+    <value xml:space="preserve">Modifier ce groupe</value>
+  </data>
+  <data name="GroupApprovedNotification.Body">
+    <value xml:space="preserve">Félicitations ! Votre groupe a été approuvé ! Cliquez sur le lien ci-dessous pour accéder à celui-ci.&lt;br /&gt;&lt;br /&gt;&lt;a href="[groupitem:URL]"&gt;[groupitem:GroupName]&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;</value>
+  </data>
+  <data name="GroupApprovedNotification.Subject">
+    <value xml:space="preserve">Le groupe [groupitem:GroupName] a été approuvé.</value>
+  </data>
+  <data name="GroupCreatedNotification.Body">
+    <value xml:space="preserve">&lt;b&gt;Nom du groupe :&lt;/b&gt; &lt;a href="[groupitem:URL]"&gt;[groupitem:GroupName]&lt;/a&gt;&lt;br /&gt;&lt;b&gt;Description :&lt;/b&gt; [groupitem:Description]&lt;br /&gt;&lt;b&gt;Type de groupe :&lt;/b&gt; [groupitem:GroupType]&lt;br /&gt;&lt;b&gt;Créateur du groupe :&lt;/b&gt; [groupitem:GroupCreatorName]&lt;br /&gt;</value>
+  </data>
+  <data name="GroupCreatedNotification.Subject">
+    <value xml:space="preserve">Le groupe [groupitem:GroupName] a été créé.</value>
+  </data>
+  <data name="GroupEditUrl.Text">
+    <value xml:space="preserve">&lt;a href="{0}"&gt;Modifier ce groupe&lt;/a&gt;</value>
+  </data>
+  <data name="GroupIdNotFound.Text">
+    <value xml:space="preserve">Nous avons été incapable de localiser le groupe que vous avez demandé.</value>
+  </data>
+  <data name="GroupListTemplate.Text">
+    <value xml:space="preserve">&lt;div class="dgdGroupQuickInfoWrap dnnClear"&gt;
+                    &lt;div class="dgdAvatar dnnLeft"&gt;&lt;a href="[groupviewurl]"&gt;&lt;img src="[groupitem:PhotoURL]" alt="[groupitem:GroupName]" /&gt;&lt;/a&gt;&lt;/div&gt;
+                    &lt;div class="dgdGroupQuickInfo dnnRight"&gt;
+                        &lt;h3&gt;&lt;a href="[groupviewurl]" title="[groupitem:GroupName]"&gt;[groupitem:GroupName]&lt;/a&gt;&lt;/h3&gt;
+                        &lt;p&gt;[groupitem:GroupDescription]&lt;/p&gt;
+                        &lt;ul&gt;
+                            &lt;li class="posts-icn"&gt;[groupitem:stat_status] {resx:posts}&lt;/li&gt;
+                            &lt;li class="member-icn"&gt;[groupitem:UserCount] {resx:members}&lt;/li&gt;
+                            &lt;li class="photo-icn"&gt;[groupitem:stat_photo] {resx:photos}&lt;/li&gt;
+                            &lt;li class="docs-icn"&gt;[groupitem:stat_file] {resx:documents}&lt;/li&gt;
+                            [IsNotMember]
+                            &lt;li class="join-group-icn"&gt;&lt;a href="#" title="" onclick="groupJoin([groupitem:RoleId]); return false;" class="dnnTertiaryAction"&gt;{resx:Join}&lt;/a&gt;&lt;/li&gt;[/IsNotMember]
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;</value>
+  </data>
+  <data name="GroupMemberApprovedNotification.Body">
+    <value xml:space="preserve">Votre demande d'adhésion &lt;a href="[groupitem:URL]"&gt;[groupitem:GroupName]&lt;/a&gt; a été approuvée.</value>
+  </data>
+  <data name="GroupMemberApprovedNotification.Subject">
+    <value xml:space="preserve">Bienvenue dans [groupitem:GroupName] !</value>
+  </data>
+  <data name="GroupMemberPendingNotification.Body">
+    <value xml:space="preserve">&lt;a href="[ProfileUrl]" target="_blank"&gt;[DisplayName]&lt;/a&gt; a demandé à rejoindre [groupitem:GroupName]</value>
+  </data>
+  <data name="GroupMemberPendingNotification.Subject">
+    <value xml:space="preserve">[DisplayName] souhaite rejoindre [groupitem:GroupName]</value>
+  </data>
+  <data name="GroupMemberRejectedNotification.Body">
+    <value xml:space="preserve">Nous regrettons de vous informer que votre demande d'adhésion à &lt;a href="[groupitem:URL]"&gt;[groupitem:GroupName]&lt;/a&gt; a été refusée.</value>
+  </data>
+  <data name="GroupMemberRejectedNotification.Subject">
+    <value xml:space="preserve">Réponse à votre demande d'adhésion [groupitem:GroupName]</value>
+  </data>
+  <data name="GroupName.Required">
+    <value xml:space="preserve">Nom du groupe nécessaire.</value>
+  </data>
+  <data name="GroupName.Text">
+    <value xml:space="preserve">Nom du groupe</value>
+  </data>
+  <data name="GroupNameInvalid.Text">
+    <value xml:space="preserve">Le nom que vous avez entré est déjà utilisé.</value>
+  </data>
+  <data name="GroupPendingNotification.Body">
+    <value xml:space="preserve">&lt;b&gt;Nom du groupe :&lt;/b&gt; &lt;a href="[groupitem:URL]" target="_blank"&gt;[groupitem:GroupName]&lt;/a&gt;&lt;br /&gt;&lt;b&gt;Description :&lt;/b&gt; [groupitem:Description]&lt;br /&gt;&lt;b&gt;Type de groupe :&lt;/b&gt; [groupitem:GroupType]&lt;br /&gt;&lt;b&gt;Créateur du groupe :&lt;/b&gt; [groupitem:GroupCreatorName]&lt;br /&gt;</value>
+  </data>
+  <data name="GroupPendingNotification.Subject">
+    <value xml:space="preserve">Le groupe [groupitem:GroupName] est en attente d'approbation.</value>
+  </data>
+  <data name="GroupPicture.Help">
+    <value xml:space="preserve">Sélectionnez une image dans votre ordinateur, la taille de fichier maximale est de 2,5 Mo</value>
+  </data>
+  <data name="GroupPicture.Text">
+    <value xml:space="preserve">Image du groupe</value>
+  </data>
+  <data name="GroupRejectedNotification.Body">
+    <value xml:space="preserve">Nous ne pouvons pas approuver votre demande de rejoindre un groupe pour le moment.</value>
+  </data>
+  <data name="GroupRejectedNotification.Subject">
+    <value xml:space="preserve">Votre demande pour rejoindre un groupe a été rejeté.</value>
+  </data>
+  <data name="GroupViewTemplate.Text">
+    <value xml:space="preserve">&lt;div class="GroupViewTop"&gt;
+    &lt;div class="dgdAvatar dnnLeft"&gt;&lt;img src="[groupitem:PhotoURL]" alt="[groupitem:GroupName]" /&gt;&lt;/div&gt;
+    &lt;div class="GroupViewHeader"&gt;
+        &lt;h1&gt;[groupitem:GroupName]&lt;/h1&gt;
+        &lt;p&gt;[groupitem:GroupDescription]&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="Join.Text">
+    <value xml:space="preserve">Rejoindre</value>
+  </data>
+  <data name="JoinGroup.Text">
+    <value xml:space="preserve">Rejoindre ce groupe</value>
+  </data>
+  <data name="LeaveGroup.Text">
+    <value xml:space="preserve">Quitter ce groupe</value>
+  </data>
+  <data name="members.Text">
+    <value xml:space="preserve">membres</value>
+  </data>
+  <data name="MembersMustBeApproved.Text">
+    <value xml:space="preserve">&lt;b&gt;Examen des nouveaux membres :&lt;/b&gt; Les utilisateurs doivent faire une demande pour rejoindre ce groupe et être approuvés par le chef de groupe.</value>
+  </data>
+  <data name="NoGroupsFound.Text">
+    <value xml:space="preserve">Pas de groupe trouvé.</value>
+  </data>
+  <data name="Pending.Text">
+    <value xml:space="preserve">Membres en attente</value>
+  </data>
+  <data name="photos.Text">
+    <value xml:space="preserve">photos</value>
+  </data>
+  <data name="posts.Text">
+    <value xml:space="preserve">posts</value>
+  </data>
+  <data name="Private.Help">
+    <value xml:space="preserve">(personne ne peut voir sauf les membres)</value>
+  </data>
+  <data name="Private.Text">
+    <value xml:space="preserve">Privé</value>
+  </data>
+  <data name="Public.Help">
+    <value xml:space="preserve">(tout le monde peut voir et rejoindre)</value>
+  </data>
+  <data name="Public.Text">
+    <value xml:space="preserve">Public</value>
+  </data>
+  <data name="RejectGroup.Text">
+    <value xml:space="preserve">Rejeter ce groupe</value>
+  </data>
+  <data name="RejectMember.Text">
+    <value xml:space="preserve">Rejeter</value>
+  </data>
+  <data name="Remove.Text">
+    <value xml:space="preserve">Supprimer</value>
+  </data>
+  <data name="RequiredFields.Text">
+    <value xml:space="preserve">Indiquent les champs requis</value>
+  </data>
+  <data name="Sample_RoleDescription.Text">
+    <value xml:space="preserve">Il s'agit de la description pour le groupe de démo.  Ce groupe n'existe pas vraiment.  Vous le voyez car vous êtes en train de configurer le module pour la première fois et ce avec un compte administrateur.</value>
+  </data>
+  <data name="Sample_RoleName.Text">
+    <value xml:space="preserve">Groupe social de démo</value>
+  </data>
+  <data name="SetupHeader.Text">
+    <value xml:space="preserve">Configurer les groupes sociaux</value>
+  </data>
+  <data name="SetupIntro.Text">
+    <value xml:space="preserve">Le module de groupes sociaux permet aux utilisateurs de parcourir, afficher et créer des groupes. La meilleure façon de configurer ce module est de créer une page pour le listing des groupes et une autre page pour voir le détail des groupes. Vous pouvez accéder aux paramètres du module afin de le configurer à votre convenance ou cliquer sur la configuration auto ci-dessous. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Nous vous recommandons d'utiliser la configuration auto si vous n'êtes pas familier avec ce module.&lt;/b&gt;</value>
+  </data>
+</root>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdRemove.Text">
+    <value xml:space="preserve">Supprimer</value>
+  </data>
+  <data name="cmdReturn.Text">
+    <value xml:space="preserve">Retour au gestionnaire de fichier</value>
+  </data>
+  <data name="cmdUpload.Text">
+    <value xml:space="preserve">Enregistrer</value>
+  </data>
+  <data name="Container.Text">
+    <value xml:space="preserve">Container</value>
+  </data>
+  <data name="ControlTitle_edit.Text">
+    <value xml:space="preserve">Importation Fichier</value>
+  </data>
+  <data name="ControlTitle_file manager.Text">
+    <value xml:space="preserve">Importation Fichier</value>
+  </data>
+  <data name="ControlTitle_install.Text">
+    <value xml:space="preserve">Installer l'extension</value>
+  </data>
+  <data name="Decompress.Help">
+    <value xml:space="preserve">Cocher pour activer l'option de décompression des lots chargés.</value>
+  </data>
+  <data name="Decompress.Text">
+    <value xml:space="preserve">Décompresser les fichiers ZIP</value>
+  </data>
+  <data name="File.Text">
+    <value xml:space="preserve">Contenu</value>
+  </data>
+  <data name="FileSizeRestriction.Text">
+    <value xml:space="preserve">Votre site est configuré pour pouvoir charger des fichier jusqu'à {0} MB.</value>
+  </data>
+  <data name="FileUploadSuccess.Text">
+    <value xml:space="preserve">{0} chargé avec succès</value>
+  </data>
+  <data name="HostRoot.Text">
+    <value xml:space="preserve">Racine de l'hôte</value>
+  </data>
+  <data name="InvalidExt.Text">
+    <value xml:space="preserve">L'extension du fichier est invalide pour</value>
+  </data>
+  <data name="LanguagePack.Text">
+    <value xml:space="preserve">Pack de langue</value>
+  </data>
+  <data name="LogTitle.Text">
+    <value xml:space="preserve">Journal des envois de ressources</value>
+  </data>
+  <data name="Module.Text">
+    <value xml:space="preserve">Module personalisé</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;Importation de fichiers&lt;/h1&gt;&lt;p&gt;Vous pouvez enrichir votre site en téléchargeant des données telles que les images, documents PDF, etc...&lt;/p&gt;</value>
+  </data>
+  <data name="Multiple.Text">
+    <value xml:space="preserve">Chargement de fichiers multiples ?</value>
+  </data>
+  <data name="NoFile.Text">
+    <value xml:space="preserve">Vous devez choisir un document  - Utilisez le bouton "parcourir" pour sélectionner le document sur votre ordinateur</value>
+  </data>
+  <data name="plBrowse.Help">
+    <value xml:space="preserve">Cliquer sur le bouton pour parcourir vos dossiers et sélectionner le fichier à charger.</value>
+  </data>
+  <data name="plBrowse.Text">
+    <value xml:space="preserve">Parcourir les fichiers</value>
+  </data>
+  <data name="plFolder.Help">
+    <value xml:space="preserve">Sélectionnez le dossier de destination</value>
+  </data>
+  <data name="plFolder.Text">
+    <value xml:space="preserve">Dossier</value>
+  </data>
+  <data name="PortalRoot.Text">
+    <value xml:space="preserve">Racine du site</value>
+  </data>
+  <data name="Skin.Text">
+    <value xml:space="preserve">Thème</value>
+  </data>
+  <data name="UploadTypeContainer.Text">
+    <value xml:space="preserve">Charger un container</value>
+  </data>
+  <data name="UploadTypeFile.Text">
+    <value xml:space="preserve">Charger</value>
+  </data>
+  <data name="UploadTypeLanguagePack.Text">
+    <value xml:space="preserve">Charger un pack de langue</value>
+  </data>
+  <data name="UploadTypeModule.Text">
+    <value xml:space="preserve">Charger un module</value>
+  </data>
+  <data name="UploadTypeSkin.Text">
+    <value xml:space="preserve">Charger un thème</value>
+  </data>
+</root>

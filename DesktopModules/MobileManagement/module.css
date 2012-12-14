@@ -1,0 +1,46 @@
+﻿/******** Redirection Manager ********/
+#dnnMobileManagement .dnnRedirectionTypeOpt { margin: 0px 50px 25px 65px; }
+
+#dnnMobileManagement .dnnRedirectionGrid { }
+#dnnMobileManagement .dnnRedirectionGrid hr { height:2px; border:0; background-color:#E0E0E0; }
+
+#dnnMobileManagement .dnnRedirectionRuleHeader { width:300px; text-align: left; padding-left:50px; }
+#dnnMobileManagement .dnnRedirectionActions { width:100px; float:left; margin-left:10px; }
+#dnnMobileManagement .dnnRedirectionActions .action { float:left; margin: 0px 4px 0px 4px; }
+#dnnMobileManagement .dnnRedirectionRule { width:300px; text-align: left; font-size:small; padding-left:50px; }
+#dnnMobileManagement .dnnRedirectionType { width:250px; text-align: center; font-size:small; }
+#dnnMobileManagement .dnnRedirectionIsEnabled { width: 100px; text-align: center; }
+
+#dnnMobileManagement a.delete { display: block;background: url(../../../images/delete.gif) no-repeat;width: 16px;height: 16px;margin: 0 auto; }
+#dnnMobileManagement a.enable { display: block;width: 16px;height: 16px;margin: 0 auto; }
+
+/******** Redirection/Simple Settings ********/
+#dnnMobileManagement .dnnRedirectItemList { width:850px;  margin: 0; }
+#dnnMobileManagement .dnnRedirectItemList .item { float:left; }
+#dnnMobileManagement .dnnRedirectItemList li { list-style:none; margin: 0px 0px 0px 0px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+#dnnMobileManagement .dnnRedirectItemList .alternate{ background-color:#E0E0E0; }
+#dnnMobileManagement .dnnRedirectionEnabled {width:150px; display: inline; float: left; text-align: left; padding-left: 10px; vertical-align: middle;}
+#dnnMobileManagement .dnnChildPages{ width:400px; display: inline; float: left; text-align: left;  vertical-align: middle;}
+#dnnMobileManagement .dnnChildPages label { width: 80%; }
+
+#dnnMobileManagement .dnnEditSection { margin-bottom: 15px; width:750px;}
+#dnnMobileManagement .dnnEditSection .dnnDropDown { width: 250px; float:left; }
+#dnnMobileManagement .dnnEditSection .dnnFormRadioButtons label{ display: inline-block;float: none;}
+#dnnMobileManagement .dnnEditItem{ margin-left: 245px; width:750px;}
+#dnnMobileManagement .dnnEditItem .dnnDropDown { width: 250px; clear:both; float:left; margin-right: 15px;}
+#dnnMobileManagement .dnnEditItem .dnnCheckBox { }
+#dnnMobileManagement .dnnEditSection .dvTargetUrl { clear:both; }
+
+#dnnMobileManagement .dnnCapabilityList { width: 650px; clear: left; padding: 0px; }
+#dnnMobileManagement .dnnCapabilityList .dnnCapabilityName { width: 250px; float:left; font-weight:bold;}
+#dnnMobileManagement .dnnCapabilityList .dnnCapabilityValue { width: 250px; margin-left:10px; float:left; font-weight:bold;}
+#dnnMobileManagement .dnnCapabilityList .dnnAddCapabilityImage { display: inline; margin: 0px 110px 0px 0px; float: right }
+
+#dnnMobileManagement .dnnCapabilityGrid { width: 500px; }
+#dnnMobileManagement .dnnCapabilityGrid .dnnCapabilityDelete { display: block;background: url(../../../images/delete.gif) no-repeat;width: 16px;height: 16px;margin-right:10px; float: left; }
+#dnnMobileManagement .dnnCapabilityGrid .dnnCapabilityName { width:230px;}
+#dnnMobileManagement .dnnCapabilityGrid .dnnCapabilityValue { width:245px;}
+
+#dnnMobileManagement .dnnOtherTypeInfo { width:460px; padding-left:35px;}
+
+#dnnMobileManagement input[type="checkbox"]+label{text-align:left;} /* Fix label alignment for translated labels after checkboxes text */

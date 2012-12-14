@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="After.Text">
+    <value xml:space="preserve">Après</value>
+  </data>
+  <data name="Before.Text">
+    <value xml:space="preserve">Avant</value>
+  </data>
+  <data name="Child.Text">
+    <value xml:space="preserve">Enfant de</value>
+  </data>
+  <data name="DefaultSkin.Text">
+    <value xml:space="preserve">&lt;Thème par défaut&gt;</value>
+  </data>
+  <data name="Err.DeserializePanesFailed">
+    <value xml:space="preserve">Impossible de traiter le gabarit.</value>
+  </data>
+  <data name="Err.Header">
+    <value xml:space="preserve">Une erreur s'est produite lors de la mise à jour de la page :</value>
+  </data>
+  <data name="Err.HostBeforeAfterError">
+    <value xml:space="preserve">Vous ne pouvez ajouter ou déplacer des pages avant ou après la page "hôte".</value>
+  </data>
+  <data name="Err.PageEditorPermissionError">
+    <value xml:space="preserve">Vous ne disposez pas des autorisations pour ajouter ou déplacer des pages à cet emplacement. Vous pouvez uniquement ajouter ou déplacer des pages enfants ou celle que vous pouvez modifier.</value>
+  </data>
+  <data name="Err.PageExists">
+    <value xml:space="preserve">Une page portant le même nom existe déjà. Veuillez choisir un autre nom.</value>
+  </data>
+  <data name="Err.PageNameInvalid">
+    <value xml:space="preserve">Nom de la page n'est pas valide. Veuillez choisir un autre nom.</value>
+  </data>
+  <data name="Err.PageNameRequired">
+    <value xml:space="preserve">Le nom de page est requis.</value>
+  </data>
+  <data name="Err.Title">
+    <value xml:space="preserve">Erreur</value>
+  </data>
+  <data name="HostSkins.Text">
+    <value xml:space="preserve">Thèmes de l'hôte</value>
+  </data>
+  <data name="IncludeInMenu.Text">
+    <value xml:space="preserve">Inclure dans le menu</value>
+  </data>
+  <data name="Location.Text">
+    <value xml:space="preserve">Déplacer</value>
+  </data>
+  <data name="Permissions.Text">
+    <value xml:space="preserve">Permissions.</value>
+  </data>
+  <data name="PortalSkins.Text">
+    <value xml:space="preserve">Thèmes du site</value>
+  </data>
+  <data name="Secured.Text">
+    <value xml:space="preserve">Securisée (https)</value>
+  </data>
+  <data name="Secured.ToolTip">
+    <value xml:space="preserve">La page doit utiliser le protocole SSL. Cette option est activée uniquement lorsque SSL est activé pour le site..</value>
+  </data>
+  <data name="SkinLstSeparator.Text">
+    <value xml:space="preserve">-----------------------------------------</value>
+  </data>
+</root>

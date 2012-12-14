@@ -1,0 +1,59 @@
+﻿ALTER TABLE {databaseOwner}{objectQualifier}Store_Administration ADD CurrencySymbol NVARCHAR(3) null;
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@CreatedByUser nvarchar(100),
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3)
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Administration
+		(PortalID,[Name],[Description],Keywords,GatewayName,GatewaySettings,DefaultEmailAddress,ShoppingCartPageID,CreatedByUser,CreatedDate,StorePageID,CurrencySymbol)
+	VALUES
+		(@PortalID,@Name,@Description,@Keywords,@GatewayName,@GatewaySettings,@DefaultEmailAddress,@ShoppingCartPageID,@CreatedByUser,getdate(),@StorePageID,@CurrencySymbol)
+	
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+		@PortalID int
+	AS
+	SET NOCOUNT ON
+	SELECT PortalID,[Name],[Description],Keywords,GatewayName,GatewaySettings,DefaultEmailAddress,ShoppingCartPageID,CreatedByUser,CreatedDate,StorePageID,CurrencySymbol
+	FROM 	{databaseOwner}{objectQualifier}Store_Administration
+	WHERE	PortalID = @PortalID
+GO
+	
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3)
+	AS
+	SET NOCOUNT ON
+	UPDATE 	{databaseOwner}{objectQualifier}Store_Administration 
+	SET	[Name] = @Name,
+		[Description] = @Description,
+		Keywords = @Keywords,
+		GatewayName = @GatewayName,
+		GatewaySettings=@GatewaySettings,
+		DefaultEmailAddress = @DefaultEmailAddress,
+		ShoppingCartPageID = @ShoppingCartPageID,
+		StorePageID = @StorePageID,
+		CurrencySymbol = @CurrencySymbol
+	WHERE	PortalID = @PortalID
+
+GO

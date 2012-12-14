@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Attributs de thême</value>
+  </data>
+  <data name="plContainer.Help">
+    <value xml:space="preserve">Sélectionnez le container</value>
+  </data>
+  <data name="plContainer.Text">
+    <value xml:space="preserve">Container&amp;nbsp;</value>
+  </data>
+  <data name="plFile.Help">
+    <value xml:space="preserve">Sélectionnez un fichier</value>
+  </data>
+  <data name="plFile.Text">
+    <value xml:space="preserve">Fichier&amp;nbsp;</value>
+  </data>
+  <data name="plSetting.Help">
+    <value xml:space="preserve">Sélectionnez un paramètre</value>
+  </data>
+  <data name="plSetting.Text">
+    <value xml:space="preserve">Paramètre&amp;nbsp;</value>
+  </data>
+  <data name="plSkin.Help">
+    <value xml:space="preserve">Sélectionnez un thême</value>
+  </data>
+  <data name="plSkin.Text">
+    <value xml:space="preserve">Thême&amp;nbsp;</value>
+  </data>
+  <data name="plToken.Help">
+    <value xml:space="preserve">Selctionnez un jeton</value>
+  </data>
+  <data name="plToken.Text">
+    <value xml:space="preserve">Jeton&amp;nbsp;</value>
+  </data>
+  <data name="plValue.Help">
+    <value xml:space="preserve">Saisissez ou taper une valeur</value>
+  </data>
+  <data name="plValue.Text">
+    <value xml:space="preserve">Valeur&amp;nbsp;</value>
+  </data>
+</root>

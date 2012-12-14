@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Admin.Text">
+    <value xml:space="preserve">Admin</value>
+  </data>
+  <data name="AdminHelp.Text">
+    <value xml:space="preserve">Dans cette section, vous pouvez définir des autorisations de déployer pour ce module. Cliquer sur une case à cocher deux fois fera en sorte que les utilisateurs dans ce rôle ne puissent pas mettre ce module sur une page (autorisation Refusée).</value>
+  </data>
+  <data name="Anonymous.Text">
+    <value xml:space="preserve">Anonyme</value>
+  </data>
+  <data name="BusinessControllerClass.Help">
+    <value xml:space="preserve">L'espace de noms qualifié complet de la classe qui implémente les fonctionnalités des Modules (IPortable, ISearcha</value>
+  </data>
+  <data name="BusinessControllerClass.Hint">
+    <value xml:space="preserve">Entrer Business Controller Class</value>
+  </data>
+  <data name="BusinessControllerClass.Text">
+    <value xml:space="preserve">Classe Business Controller :</value>
+  </data>
+  <data name="Category.Help">
+    <value xml:space="preserve">Sélectionnez la catégorie du module pour celui-ci</value>
+  </data>
+  <data name="Category.Text">
+    <value xml:space="preserve">Catégorie du module</value>
+  </data>
+  <data name="cmdAddControl.Text">
+    <value xml:space="preserve">Ajouter un contrôle de module</value>
+  </data>
+  <data name="cmdAddDefinition.Text">
+    <value xml:space="preserve">Ajouter une définition</value>
+  </data>
+  <data name="cmdCreateControl.Text">
+    <value xml:space="preserve">Créer le contrôle de module</value>
+  </data>
+  <data name="cmdCreateDefinition.Text">
+    <value xml:space="preserve">Créer une définition</value>
+  </data>
+  <data name="cmdDeleteControl.Text">
+    <value xml:space="preserve">Supprimer le contrôle de module</value>
+  </data>
+  <data name="cmdDeleteDefinition.Text">
+    <value xml:space="preserve">Supprimer la définition</value>
+  </data>
+  <data name="cmdSaveControl.Text">
+    <value xml:space="preserve">Mise à jour le controle de module</value>
+  </data>
+  <data name="cmdUpdate.Text">
+    <value xml:space="preserve">Mettre à jour le module</value>
+  </data>
+  <data name="cmdUpdateControl.Text">
+    <value xml:space="preserve">Mise à jour le controle de module</value>
+  </data>
+  <data name="cmdUpdateDefinition.Text">
+    <value xml:space="preserve">Mise à jour de la définition</value>
+  </data>
+  <data name="Control.Header">
+    <value xml:space="preserve">Contrôle</value>
+  </data>
+  <data name="ControlPanel.Text">
+    <value xml:space="preserve">Panneau de contrôle</value>
+  </data>
+  <data name="Controls.Text">
+    <value xml:space="preserve">Contrôles du module</value>
+  </data>
+  <data name="ctlPortals_Available.Text">
+    <value xml:space="preserve">Disponible</value>
+  </data>
+  <data name="ctlPortals_Selected.Text">
+    <value xml:space="preserve">Assigné</value>
+  </data>
+  <data name="DefaultCacheTime.Help">
+    <value xml:space="preserve">Temps de cache par défaut à utiliser pour cette définition de module. Un temps de cache par défaut de "-1" indique que le module ne prend pas en charge la mise en cache de sortie.</value>
+  </data>
+  <data name="DefaultCacheTime.Text">
+    <value xml:space="preserve">Durée du cache par défaut :</value>
+  </data>
+  <data name="Definitions.Text">
+    <value xml:space="preserve">Modules</value>
+  </data>
+  <data name="Dependencies.Help">
+    <value xml:space="preserve">Vous pouvez répertorier les dépendances que le module a ici.</value>
+  </data>
+  <data name="Dependencies.Hint">
+    <value xml:space="preserve">Dépendances</value>
+  </data>
+  <data name="Dependencies.Text">
+    <value xml:space="preserve">Dépendances :</value>
+  </data>
+  <data name="DuplicateName.Text">
+    <value xml:space="preserve">Vous avez entré un nom convivial déjà utilisé.  Le nom convivial doit être unique - Veuillez entrer un nouveau nom et essayer à nouveau.</value>
+  </data>
+  <data name="FolderName.Help">
+    <value xml:space="preserve">Spécifiez le nom du dossier pour ce module</value>
+  </data>
+  <data name="FolderName.Text">
+    <value xml:space="preserve">Nom du dossier :</value>
+  </data>
+  <data name="FriendlyName.Help">
+    <value xml:space="preserve">Entrez un nom convivial pour la définition du module.</value>
+  </data>
+  <data name="FriendlyName.Required">
+    <value xml:space="preserve">Le nom convivial est nécessaire.</value>
+  </data>
+  <data name="FriendlyName.Text">
+    <value xml:space="preserve">Nom convivial :</value>
+  </data>
+  <data name="Host.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="HostHelp.Text">
+    <value xml:space="preserve">Cet éditeur vous permet de configurer le module.</value>
+  </data>
+  <data name="IsPortable.Help">
+    <value xml:space="preserve">Identifie si le module prend en charge l'interface IPortable lui permettant d'exporter et importer des contenus.</value>
+  </data>
+  <data name="IsPortable.Text">
+    <value xml:space="preserve">Portable?</value>
+  </data>
+  <data name="IsPremium.Help">
+    <value xml:space="preserve">Tous les Modules peuvent être assignés ou non à partir d'un portail.  Toutefois, sur le portail création Premium Modules un</value>
+  </data>
+  <data name="IsPremium.Text">
+    <value xml:space="preserve">Module Premium ?</value>
+  </data>
+  <data name="IsSearchable.Help">
+    <value xml:space="preserve">Identifie si le module prend en charge l'interface ISearchable lui permettant d'avoir son contenu indexé.</value>
+  </data>
+  <data name="IsSearchable.Text">
+    <value xml:space="preserve">Searchable ?</value>
+  </data>
+  <data name="IsUpgradeable.Help">
+    <value xml:space="preserve">Identifie si le module prend en charge l'interface IUpgradable  lui permettant de lancer un code personnalisé lors de la mise à jour.</value>
+  </data>
+  <data name="IsUpgradeable.Text">
+    <value xml:space="preserve">Upgradable ?</value>
+  </data>
+  <data name="ModuleControlInfo_ControlKey.Help">
+    <value xml:space="preserve">Saisir une clé unique pour ce contrôle</value>
+  </data>
+  <data name="ModuleControlInfo_ControlKey.Text">
+    <value xml:space="preserve">"Control Key" :</value>
+  </data>
+  <data name="ModuleControlInfo_ControlSrc.Help">
+    <value xml:space="preserve">Entrez la source de ce contrôle</value>
+  </data>
+  <data name="ModuleControlInfo_ControlSrc.Text">
+    <value xml:space="preserve">Source du contrôle :</value>
+  </data>
+  <data name="ModuleControlInfo_ControlTitle.Help">
+    <value xml:space="preserve">Entrez le titre de ce contrôle.</value>
+  </data>
+  <data name="ModuleControlInfo_ControlTitle.Text">
+    <value xml:space="preserve">Titre du contrôle</value>
+  </data>
+  <data name="ModuleControlInfo_ControlType.Help">
+    <value xml:space="preserve">Sélectionnez le type d'accès de sécurité pour ce contrôle.</value>
+  </data>
+  <data name="ModuleControlInfo_ControlType.Text">
+    <value xml:space="preserve">Type de contrôle :</value>
+  </data>
+  <data name="ModuleControlInfo_HelpURL.Help">
+    <value xml:space="preserve">Vous pouvez fournir une Url d'aide pour ce contrôle. Cela apparaîtra dans le menu Actions.</value>
+  </data>
+  <data name="ModuleControlInfo_HelpURL.Text">
+    <value xml:space="preserve">Aide :</value>
+  </data>
+  <data name="ModuleControlInfo_IconFile.Help">
+    <value xml:space="preserve">Url de l'icône de ce contrôle</value>
+  </data>
+  <data name="ModuleControlInfo_IconFile.Text">
+    <value xml:space="preserve">Fichier d'icône :</value>
+  </data>
+  <data name="ModuleControlInfo_SupportsPartialRendering.Help">
+    <value xml:space="preserve">Cet indicateur indique si le contrôle de module prend en charge le rendu partiel AJAX.</value>
+  </data>
+  <data name="ModuleControlInfo_SupportsPartialRendering.Text">
+    <value xml:space="preserve">Rendu partiel AJAX :</value>
+  </data>
+  <data name="ModuleControlInfo_ViewOrder.Help">
+    <value xml:space="preserve">Entrer l'ordre d'affichage pour ce module de commande.</value>
+  </data>
+  <data name="ModuleControlInfo_ViewOrder.Text">
+    <value xml:space="preserve">Ordre de vue :</value>
+  </data>
+  <data name="ModuleName.Help">
+    <value xml:space="preserve">Nom du module</value>
+  </data>
+  <data name="ModuleName.Text">
+    <value xml:space="preserve">Nom du module :</value>
+  </data>
+  <data name="ModuleSettings.Text">
+    <value xml:space="preserve">Paramètres de module</value>
+  </data>
+  <data name="None.Text">
+    <value xml:space="preserve">&lt; aucun&gt;</value>
+  </data>
+  <data name="NoPermission.Text">
+    <value xml:space="preserve">Vous n'êtes pas autorisé à mettre ce module sur une page de ce portail. Pour plus d'informations, veuillez contacter votre hébergeur</value>
+  </data>
+  <data name="Permissions.Help">
+    <value xml:space="preserve">Vous pouvez lister toutes les autorisations aux codes sécurité que votre module nécessite ici.</value>
+  </data>
+  <data name="Permissions.Hint">
+    <value xml:space="preserve">Entrez les autorisations d'accès au Code</value>
+  </data>
+  <data name="Permissions.Text">
+    <value xml:space="preserve">Permissions du module :</value>
+  </data>
+  <data name="plPremium.Text">
+    <value xml:space="preserve">Classé comme module Premium</value>
+  </data>
+  <data name="plSelectControl.Help">
+    <value xml:space="preserve">Vous pouvez sélectionner un contrôle de module à modifier dans la liste déroulante.</value>
+  </data>
+  <data name="plSelectControl.Text">
+    <value xml:space="preserve">Contrôle :</value>
+  </data>
+  <data name="plSelectDefinition.Help">
+    <value xml:space="preserve">Vous pouvez sélectionner une définition à modifier dans la liste déroulante.</value>
+  </data>
+  <data name="plSelectDefinition.Text">
+    <value xml:space="preserve">Sélectionnez la définition :</value>
+  </data>
+  <data name="SkinObject.Text">
+    <value xml:space="preserve">Objet thème</value>
+  </data>
+  <data name="Source.Header">
+    <value xml:space="preserve">source</value>
+  </data>
+  <data name="Title.Header">
+    <value xml:space="preserve">Titre</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Paramètres du module</value>
+  </data>
+  <data name="View.Text">
+    <value xml:space="preserve">Voir</value>
+  </data>
+</root>

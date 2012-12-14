@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Text">
+    <value xml:space="preserve">A propos de {0}</value>
+  </data>
+  <data name="Admin.Text">
+    <value xml:space="preserve">Admin</value>
+  </data>
+  <data name="CannotDeleteContainer.ErrorMessage">
+    <value xml:space="preserve">Ce groupe de conteneurs ne peuvent être effacés car ils sont utilisés</value>
+  </data>
+  <data name="CannotDeleteSkin.ErrorMessage">
+    <value xml:space="preserve">Ce groupe de thèmes ne peuvent être effacés car ils sont utilisés</value>
+  </data>
+  <data name="cmdApply.Text">
+    <value xml:space="preserve">Appliquer</value>
+  </data>
+  <data name="cmdDelete.Text">
+    <value xml:space="preserve">Effacer le pack de thème</value>
+  </data>
+  <data name="cmdParse.Text">
+    <value xml:space="preserve">Parcourir le pack de thème</value>
+  </data>
+  <data name="cmdPreview.Text">
+    <value xml:space="preserve">Aperçu</value>
+  </data>
+  <data name="cmdRestore.Text">
+    <value xml:space="preserve">Restaurer le thème par défaut</value>
+  </data>
+  <data name="ContainerUpload.Action">
+    <value xml:space="preserve">Charger le conteneur</value>
+  </data>
+  <data name="ControlTitle_editskins.Text">
+    <value xml:space="preserve">Gérer les thèmes</value>
+  </data>
+  <data name="Host.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="lblApply.Text">
+    <value xml:space="preserve">Appliquer à</value>
+  </data>
+  <data name="lblMessage.Text">
+    <value xml:space="preserve">&lt;b&gt;NOTE :&lt;/b&gt;  Vous devez utiliser le gestionnaire de fichiers pour charger votre thème ou conteneur.</value>
+  </data>
+  <data name="LegacySkin.Text">
+    <value xml:space="preserve">Thème ancien</value>
+  </data>
+  <data name="Localized.Text">
+    <value xml:space="preserve">Localisé</value>
+  </data>
+  <data name="NoContainer.ErrorMessage">
+    <value xml:space="preserve">Pas de fichier de conteneur dans le dossier</value>
+  </data>
+  <data name="NoSkin.ErrorMessage">
+    <value xml:space="preserve">Pas de fichier de thème dans le dossier</value>
+  </data>
+  <data name="ParseOptions.Help">
+    <value xml:space="preserve">'Portable' exige des références graphiques relatives. Cela rend le thème plus portable mais nécessite plus de ressources système.</value>
+  </data>
+  <data name="ParseOptions.Text">
+    <value xml:space="preserve">Options de parsing</value>
+  </data>
+  <data name="plContainers.Help">
+    <value xml:space="preserve">Choisir un conteneur</value>
+  </data>
+  <data name="plContainers.Text">
+    <value xml:space="preserve">Conteneurs</value>
+  </data>
+  <data name="plSkins.Help">
+    <value xml:space="preserve">Choisir un pack de thème</value>
+  </data>
+  <data name="plSkins.Text">
+    <value xml:space="preserve">Thèmes</value>
+  </data>
+  <data name="plType.Help">
+    <value xml:space="preserve">Sélection du type de thème à afficher</value>
+  </data>
+  <data name="plType.Text">
+    <value xml:space="preserve">Type de thème :</value>
+  </data>
+  <data name="Portable.Text">
+    <value xml:space="preserve">Portable</value>
+  </data>
+  <data name="Portal.Text">
+    <value xml:space="preserve">Portail</value>
+  </data>
+  <data name="Site.Text">
+    <value xml:space="preserve">Site</value>
+  </data>
+  <data name="SkinDeleteFailure.Text">
+    <value xml:space="preserve">Seuls les Super utilisateurs peuvent supprimer les thèmes de l'hôte</value>
+  </data>
+  <data name="SkinUpload.Action">
+    <value xml:space="preserve">Charger le thème</value>
+  </data>
+  <data name="UsePackageUnInstall.Text">
+    <value xml:space="preserve">Ce thème fait partie d'un pack de thèmes. Utiliser l'option de désinstallation de packs dans la grille principale</value>
+  </data>
+</root>

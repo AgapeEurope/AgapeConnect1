@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="After.Text">
+    <value xml:space="preserve">Après</value>
+  </data>
+  <data name="Before.Text">
+    <value xml:space="preserve">Avant</value>
+  </data>
+  <data name="Child.Text">
+    <value xml:space="preserve">Enfant de...</value>
+  </data>
+  <data name="Err.DeserializePanesFailed">
+    <value xml:space="preserve">Impossible de traiter le gabarit de page.</value>
+  </data>
+  <data name="Err.DuplicateWithAlias">
+    <value xml:space="preserve">Le domaine de votre site est le même que le chemin de votre page.</value>
+  </data>
+  <data name="Err.Header">
+    <value xml:space="preserve">Une erreur c'est produite lors de l'ajout de page :</value>
+  </data>
+  <data name="Err.HostBeforeAfterError">
+    <value xml:space="preserve">Vous ne pouvez pas ajouter ou déplacer une page avant ou après la page "Hôte".</value>
+  </data>
+  <data name="Err.PageEditorPermissionError">
+    <value xml:space="preserve">Vous n'avez pas la permission de mettre une page à cet endroit. Vous ne pouvez déplacer ou modifier les pages enfants.</value>
+  </data>
+  <data name="Err.PageExists">
+    <value xml:space="preserve">Une page portant le même nom existe déjà : choisissez un nom différent.</value>
+  </data>
+  <data name="Err.PageNameInvalid">
+    <value xml:space="preserve">Le nom de la page est invalide : choisissez un nom différent.</value>
+  </data>
+  <data name="Err.PageNameRequired">
+    <value xml:space="preserve">Vous devez spécifier le nom de la page</value>
+  </data>
+  <data name="Err.Title">
+    <value xml:space="preserve">Erreur</value>
+  </data>
+  <data name="ExceededQuota.Text">
+    <value xml:space="preserve">Vous ne pouvez pas ajouter de page car votre quota est atteint. Contactez l'hébergeur afin d'augmenter le nombre de pages que vous pouvez créer.</value>
+  </data>
+  <data name="IncludeInMenu.Text">
+    <value xml:space="preserve">Inclure dans le menu</value>
+  </data>
+  <data name="Name.Text">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="Name.ToolTip">
+    <value xml:space="preserve">Nom de la page</value>
+  </data>
+</root>

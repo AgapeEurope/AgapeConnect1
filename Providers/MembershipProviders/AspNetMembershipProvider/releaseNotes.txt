@@ -1,0 +1,1 @@
+There are no Release Notes for this version of the ASP.NET Membership provider.

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HostInfo_CachingProvider.Help">
+    <value xml:space="preserve">Le provider de cache par défaut pour ce site.</value>
+  </data>
+  <data name="HostInfo_CachingProvider.Text">
+    <value xml:space="preserve">Fournisseur de mise en cache :</value>
+  </data>
+  <data name="HostInfo_DataProvider.Help">
+    <value xml:space="preserve">Le provideur de données par défaut pour ce site.</value>
+  </data>
+  <data name="HostInfo_DataProvider.Text">
+    <value xml:space="preserve">Fournisseur de données :</value>
+  </data>
+  <data name="HostInfo_FriendlyUrlEnabled.Help">
+    <value xml:space="preserve">Indique si la réécriture d'URL (friendly) est activée pour ce site.</value>
+  </data>
+  <data name="HostInfo_FriendlyUrlEnabled.Text">
+    <value xml:space="preserve">Réécriture d'URLs activées :</value>
+  </data>
+  <data name="HostInfo_FriendlyUrlProvider.Help">
+    <value xml:space="preserve">Le provider de réécriture d'URL (friendly) par défaut pour ce site.</value>
+  </data>
+  <data name="HostInfo_FriendlyUrlProvider.Text">
+    <value xml:space="preserve">Provider d'URL conviviales :</value>
+  </data>
+  <data name="HostInfo_FriendlyUrlType.Help">
+    <value xml:space="preserve">Affiche le type de réécriture d'URL (friendly) utilisée pour ce site.</value>
+  </data>
+  <data name="HostInfo_FriendlyUrlType.Text">
+    <value xml:space="preserve">Forme des réécritures d'URL :</value>
+  </data>
+  <data name="HostInfo_HostGUID.Help">
+    <value xml:space="preserve">Identificateur unique du site.</value>
+  </data>
+  <data name="HostInfo_HostGUID.Text">
+    <value xml:space="preserve">Hôte GUID :</value>
+  </data>
+  <data name="HostInfo_HtmlEditorProvider.Help">
+    <value xml:space="preserve">L'éditeur HTML par défaut pour ce site.</value>
+  </data>
+  <data name="HostInfo_HtmlEditorProvider.Text">
+    <value xml:space="preserve">Provider de l'éditeur HTML :</value>
+  </data>
+  <data name="HostInfo_JQueryUIVersion.Help">
+    <value xml:space="preserve">Ceci est la version de jQuery UI que vous utilisez.</value>
+  </data>
+  <data name="HostInfo_JQueryUIVersion.Text">
+    <value xml:space="preserve">Version de jQuery UI :</value>
+  </data>
+  <data name="HostInfo_JQueryVersion.Help">
+    <value xml:space="preserve">Ceci est la version de jQuery que vous utilisez.</value>
+  </data>
+  <data name="HostInfo_JQueryVersion.Text">
+    <value xml:space="preserve">Version de jQuery :</value>
+  </data>
+  <data name="HostInfo_LoggingProvider.Help">
+    <value xml:space="preserve">Le provider de log par défaut pour ce site.</value>
+  </data>
+  <data name="HostInfo_LoggingProvider.Text">
+    <value xml:space="preserve">Provider de logs</value>
+  </data>
+  <data name="HostInfo_Permissions.Help">
+    <value xml:space="preserve">Le Code Accès Sécuritaire (CAS) disponible pour ce site.</value>
+  </data>
+  <data name="HostInfo_Permissions.Text">
+    <value xml:space="preserve">Autorisations de CAS :</value>
+  </data>
+  <data name="HostInfo_Product.Help">
+    <value xml:space="preserve">L'application DotNetNuke que vous utilisez</value>
+  </data>
+  <data name="HostInfo_Product.Text">
+    <value xml:space="preserve">DotNetNuke produit :</value>
+  </data>
+  <data name="HostInfo_SchedulerMode.Help">
+    <value xml:space="preserve">La méthode Timer maintient un flux séparé pour exécuter les tâches planifiées tant que le processus de travail est en fonction. La méthode Requête  exécute les tâches lorsque des requêtes HTTP sont créées. Vous pouvez aussi désactiver le planificateur en choisissant Désactiver.</value>
+  </data>
+  <data name="HostInfo_SchedulerMode.Text">
+    <value xml:space="preserve">Mode du planificateur :</value>
+  </data>
+  <data name="HostInfo_Version.Help">
+    <value xml:space="preserve">Version de DNN</value>
+  </data>
+  <data name="HostInfo_Version.Text">
+    <value xml:space="preserve">Version de DNN :</value>
+  </data>
+  <data name="HostInfo_WebFarmEnabled.Help">
+    <value xml:space="preserve">Ce paramètre indique si ce site utilise le mode ferme web (Web Farm).</value>
+  </data>
+  <data name="HostInfo_WebFarmEnabled.Text">
+    <value xml:space="preserve">Ferme de serveurs web activée :</value>
+  </data>
+  <data name="plHost.Help">
+    <value xml:space="preserve">Affiche les paramètres sélectionnés qui affectent tous les sites de l'installation.</value>
+  </data>
+  <data name="plHost.Text">
+    <value xml:space="preserve">Paramètres de DotNetNuke hôte :</value>
+  </data>
+</root>

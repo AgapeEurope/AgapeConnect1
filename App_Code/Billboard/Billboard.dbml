@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AC-FR" Class="BillboardDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AC-FR;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Agape_Billboard_Photo" Member="Agape_Billboard_Photos">
+    <Type Name="Agape_Billboard_Photo">
+      <Column Name="BillboardPhotoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PhotoData" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Agape_Billboard_Photo_Agape_Billboard_Feature" Member="Agape_Billboard_Features" ThisKey="BillboardPhotoId" OtherKey="BillboardPhotoId" Type="Agape_Billboard_Feature" />
+      <Association Name="Agape_Billboard_Photo_Agape_Billboard_Article" Member="Agape_Billboard_Articles" ThisKey="BillboardPhotoId" OtherKey="BillboardPhotoId" Type="Agape_Billboard_Article" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_TempPhoto" Member="Agape_Billboard_TempPhotos">
+    <Type Name="Agape_Billboard_TempPhoto">
+      <Column Name="BillboardTempPhotoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TempPhotoData" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsSuperUser" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AffiliateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="DisplayName" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatePassword" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="User_UserRole" Member="UserRoles" ThisKey="UserID" OtherKey="UserID" Type="UserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Link" Member="Agape_Billboard_Links">
+    <Type Name="Agape_Billboard_Link">
+      <Column Name="BillboardLinkId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LinkTitle" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LinkURL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="LinkDesc" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Current]" Member="Current" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Author" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LinkDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ViewOrder" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Comment" Member="Agape_Billboard_Comments">
+    <Type Name="Agape_Billboard_Comment">
+      <Column Name="BillboardCommentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AuthorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CommentText" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="CommentType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Abuse" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CommentDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ArticleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PortalID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ServiceFee" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BillingFrequency" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="TrialPeriod" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrialFrequency" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="BillingPeriod" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrialFee" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="IsPublic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AutoAssignment" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RoleGroupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RSVPCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IconFile" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Role_UserRole" Member="UserRoles" ThisKey="RoleID" OtherKey="RoleID" Type="UserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserRoles" Member="UserRoles">
+    <Type Name="UserRole">
+      <Column Name="UserRoleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpiryDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsTrialUsed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EffectiveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Role_UserRole" Member="Role" ThisKey="RoleID" OtherKey="RoleID" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_UserRole" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Community" Member="Agape_Billboard_Communities">
+    <Type Name="Agape_Billboard_Community">
+      <Column Name="BillboardCommId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AuthorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="DateSub" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ReplyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Feature_Type" Member="Agape_Billboard_Feature_Types">
+    <Type Name="Agape_Billboard_Feature_Type">
+      <Column Name="FeatureTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="TypeNumber" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Test" Member="Agape_Billboard_Tests">
+    <Type Name="Agape_Billboard_Test">
+      <Column Name="BillboardTestId" Type="System.Byte" DbType="TinyInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BillboardTest" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Feature" Member="Agape_Billboard_Features">
+    <Type Name="Agape_Billboard_Feature">
+      <Column Name="BillboardFeatureId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillboardPhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Headline" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="StoryText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StoryDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="[Current]" Member="Current" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FeatType" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Next" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Agape_Billboard_Photo_Agape_Billboard_Feature" Member="Agape_Billboard_Photo" ThisKey="BillboardPhotoId" OtherKey="BillboardPhotoId" Type="Agape_Billboard_Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Announcement" Member="Agape_Billboard_Announcements">
+    <Type Name="Agape_Billboard_Announcement">
+      <Column Name="AnnouncementId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AnnouncementTitle" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="AnnouncementText" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="AnnouncementDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Current]" Member="Current" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ViewOrder" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Uploader" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FileAttach" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="FileSize" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Article" Member="Agape_Billboard_Articles">
+    <Type Name="Agape_Billboard_Article">
+      <Column Name="BillbaordArticleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BillboardPhotoId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Headline" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="StoryText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StoryDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Author" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Current]" Member="Current" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AuthorName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Agape_Billboard_Photo_Agape_Billboard_Article" Member="Agape_Billboard_Photo" ThisKey="BillboardPhotoId" OtherKey="BillboardPhotoId" Type="Agape_Billboard_Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Send" Member="Agape_Billboard_Sends">
+    <Type Name="Agape_Billboard_Send">
+      <Column Name="BillboardSendId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SendDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ErrorSend" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EmailSent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Global" Member="Agape_Billboard_Globals">
+    <Type Name="Agape_Billboard_Global">
+      <Column Name="BillArtTabId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BillFeatTabId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BillMainTabId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Agape_Billboard_Prayer" Member="Agape_Billboard_Prayers">
+    <Type Name="Agape_Billboard_Prayer">
+      <Column Name="BillboardPrayerId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PrayerTitle" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="PrayerText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SubmittedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmittedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Current]" Member="Current" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SubBehalf" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

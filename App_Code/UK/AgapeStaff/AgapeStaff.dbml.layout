@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 29.375, 20.875" name="AgapeStaff">
+  <DataContextMoniker Name="/AgapeStaffDataContext" />
+  <nestedChildShapes>
+    <classShape Id="8e436ef6-3499-4ec8-ba94-0c98c10fc056" absoluteBounds="2.75, 0.5, 2, 2.24658447265625">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Budget_Global" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0d7312c0-e2fe-4a0f-8f87-11db5a5541ab" absoluteBounds="2.7649999999999997, 0.96, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="14030692-7c59-456d-9b9a-289ab7529b66" absoluteBounds="3.625, 5.625, 2, 1.2605004882812496">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_RepRel" />
+      <nestedChildShapes>
+        <elementListCompartment Id="295cdb5a-6db1-4590-9d3c-96ef681ac32c" absoluteBounds="3.6400000000000006, 6.085, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="52bc5255-34c3-4093-b62f-99ae3bc66e2d" absoluteBounds="6.125, 4.875, 2, 2.2465844726562496">
+      <DataClassMoniker Name="/AgapeStaffDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1a839754-db37-441b-9fbd-2481bfd511c1" absoluteBounds="6.1400000000000006, 5.335, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.125 : 6.31814697265625); (5.625 : 6.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/User/User_Agape_Staff_RepRel" />
+      <nodes>
+        <classShapeMoniker Id="52bc5255-34c3-4093-b62f-99ae3bc66e2d" />
+        <classShapeMoniker Id="14030692-7c59-456d-9b9a-289ab7529b66" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="ea338712-4973-45ce-ae23-a08dae58b6b8" absoluteBounds="4.375, 7.5, 2, 1.2605004882812505">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_SupSup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d7eb13d1-3b48-409e-940d-e7801ffdc017" absoluteBounds="4.39, 7.9600000000000009, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.2500005 : 7.4151025390625); (7.2500005 : 8.19314697265625); (6.375 : 8.19314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/User/User_Agape_Staff_SupSup" />
+      <nodes>
+        <classShapeMoniker Id="52bc5255-34c3-4093-b62f-99ae3bc66e2d" />
+        <classShapeMoniker Id="ea338712-4973-45ce-ae23-a08dae58b6b8" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2842a2b0-7cc4-4e56-a7d0-db87a1ece541" absoluteBounds="7.75, 9.5, 2, 1.7535424804687505">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Children" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7530002e-3bd1-4529-9622-23717464c619" absoluteBounds="7.765, 9.96, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="732b162e-45a4-46f0-a81b-9cb86684f2e7" absoluteBounds="6.25, 2.25, 2, 1.26050048828125">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_JobTitle" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2a9fa454-d274-4a7c-9c6e-13fbefe0530a" absoluteBounds="6.265, 2.71, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4f687a82-75c8-48f2-94a9-e9098fc3af89" absoluteBounds="9.375, 0.75, 2, 1.26050048828125">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_ProfileImage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f94f2c08-ed68-4f44-8aba-a205c429f004" absoluteBounds="9.39, 1.21, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="40f0ee60-631b-4036-8e86-11ddd6ef3823" absoluteBounds="10.125, 4.75, 2, 1.7535424804687496">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Prayer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="998dc400-5244-4f5e-87ec-76be7c6ce9d4" absoluteBounds="10.14, 5.21, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.125 : 5.68927124023438); (10.125 : 5.68927124023438)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/User/User_Agape_Staff_Prayer" />
+      <nodes>
+        <classShapeMoniker Id="52bc5255-34c3-4093-b62f-99ae3bc66e2d" />
+        <classShapeMoniker Id="40f0ee60-631b-4036-8e86-11ddd6ef3823" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="25096144-8a44-4455-b55a-004162a9ec3e" absoluteBounds="4, 3.5, 2, 1.2605004882812496">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_GCX_Proxy" />
+      <nestedChildShapes>
+        <elementListCompartment Id="630ddae8-1ba0-4ee6-b9b6-9c35a0fb2e9f" absoluteBounds="4.015, 3.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="12fdd739-0ebc-418f-900b-583478dc5daa" absoluteBounds="8.375, 13.25, 2, 3.0683211263020844">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_Give_PPlan" />
+      <nestedChildShapes>
+        <elementListCompartment Id="10c28a81-1ea4-4993-9814-5fd5eb608e0b" absoluteBounds="8.39, 13.71, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="af8ae7f6-8a3b-4fe1-bef0-95a61093c22e" absoluteBounds="10.875, 14, 2, 1.2605004882812505">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Rmb_Status" />
+      <nestedChildShapes>
+        <elementListCompartment Id="26973c62-86f6-447e-ad27-6f35c2c62779" absoluteBounds="10.89, 14.46, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d0a4c75e-d5c1-4f54-99bd-49a4c83e14f6" absoluteBounds="15.75, 11.25, 2, 1.4248478190104166">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_RmbLineAddStaff" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6ebd869f-ca71-41fc-9318-1a99f5dcbfd2" absoluteBounds="15.765, 11.71, 1.9700000000000002, 0.86484781901041663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="51f4ed12-0538-49f9-b930-842072a6b34d" absoluteBounds="16.375, 9.375, 2, 1.7535424804687505">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_RmbLineType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="52e1ab23-9bff-49ed-af17-249cad134054" absoluteBounds="16.39, 9.835, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0769634d-30d6-410b-a3bc-bf8df1d37605" absoluteBounds="4.625, 14.125, 2, 6.5196150716145844">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Finance" />
+      <nestedChildShapes>
+        <elementListCompartment Id="52448f63-4a77-4e60-a411-95c7d62e725b" absoluteBounds="4.64, 14.585, 1.9700000000000002, 5.959615071614583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="891fefe6-13db-43dd-b459-7b475795cadd" absoluteBounds="10.875, 8.875, 2, 4.2187524414062505">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Rmb" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c8645eef-539e-45c3-ba0a-c6245b99b500" absoluteBounds="10.89, 9.335, 1.9700000000000002, 3.65875244140625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.875 : 14); (11.875 : 13.0937524414062)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/Agape_Staff_Rmb_Status/Agape_Staff_Rmb_Status_Agape_Staff_Rmb" />
+      <nodes>
+        <classShapeMoniker Id="af8ae7f6-8a3b-4fe1-bef0-95a61093c22e" />
+        <classShapeMoniker Id="891fefe6-13db-43dd-b459-7b475795cadd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b07ed1b4-4a72-4302-bcde-cc8fa2db06d8" absoluteBounds="19.5, 9, 2, 3.0683211263020826">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_AvailableCostCentre" />
+      <nestedChildShapes>
+        <elementListCompartment Id="975e61fc-2ded-4d16-81d7-9821a13ca9e6" absoluteBounds="19.515, 9.46, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="85acb7cf-d57d-4338-957d-e0bbbd8d40f9" absoluteBounds="15.25, 3.625, 2, 1.9178898111979166">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_Projectee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="07562d3f-8e8a-4b40-a5f6-bf5449603af9" absoluteBounds="15.265, 4.085, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d4eae48d-be2b-47ef-942d-2663842cabec" absoluteBounds="16.375, 5.75, 2.75, 2.0822371419270826">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_ProjectDonation" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b2c0d618-cf0b-49b4-81c0-1fb3fa3a4cf8" absoluteBounds="16.39, 6.21, 2.7199999999999998, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(16.8125 : 5.54288981119792); (16.8125 : 5.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/Agape_Main_Projectee/Agape_Main_Projectee_Agape_Main_ProjectDonation" />
+      <nodes>
+        <classShapeMoniker Id="85acb7cf-d57d-4338-957d-e0bbbd8d40f9" />
+        <classShapeMoniker Id="d4eae48d-be2b-47ef-942d-2663842cabec" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b369fc5b-438a-4b55-938c-2036ba04da0c" absoluteBounds="14.125, 0.625, 2, 2.73962646484375">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_Project" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6e32031a-7567-4fac-86f1-0e29dd8e0643" absoluteBounds="14.14, 1.085, 1.9700000000000002, 2.17962646484375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(15.6875 : 3.36462646484375); (15.6875 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/Agape_Main_Project/Agape_Main_Project_Agape_Main_Projectee" />
+      <nodes>
+        <classShapeMoniker Id="b369fc5b-438a-4b55-938c-2036ba04da0c" />
+        <classShapeMoniker Id="85acb7cf-d57d-4338-957d-e0bbbd8d40f9" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="93a795cf-1e00-48a4-a22c-293daf285a93" absoluteBounds="1.875, 13.5, 2, 4.0544051106770844">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_Give_SO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a3f86ca6-7b41-44cd-a195-69b6eab2e36e" absoluteBounds="1.8900000000000001, 13.96, 1.9700000000000002, 3.494405110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8471b6b0-27ff-41f3-a6ee-96373cc6951c" absoluteBounds="23.5, 8.75, 2, 3.2326684570312505">
+      <DataClassMoniker Name="/AgapeStaffDataContext/TabModule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d7f1d9c7-7fc0-46bf-a36b-29f046161e1f" absoluteBounds="23.515, 9.21, 1.9700000000000002, 2.67266845703125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6cbe14f3-dce1-46c9-96b5-b9f4f14f9392" absoluteBounds="27.125, 8.25, 2, 2.4109318033854166">
+      <DataClassMoniker Name="/AgapeStaffDataContext/ModuleControl" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3c291642-b716-4803-ae00-3a72ce027d48" absoluteBounds="27.14, 8.71, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="94d77596-be0b-42a6-8d02-aaf7b8b72392" absoluteBounds="26.625, 12.25, 2, 2.5752791341145826">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Module" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8a49d741-7e04-4785-8335-4e4671d98552" absoluteBounds="26.64, 12.71, 1.9700000000000002, 2.015279134114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(26.625 : 13.5376395670573); (24.5 : 13.5376395670573); (24.5 : 11.9826684570313)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/Module/Module_TabModule" />
+      <nodes>
+        <classShapeMoniker Id="94d77596-be0b-42a6-8d02-aaf7b8b72392" />
+        <classShapeMoniker Id="8471b6b0-27ff-41f3-a6ee-96373cc6951c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="24d28589-a735-4c2c-8ba7-ef522f99cd46" absoluteBounds="24.25, 15.5, 2, 1.2605004882812523">
+      <DataClassMoniker Name="/AgapeStaffDataContext/TabModuleSetting" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9fba31fd-b762-4fe9-b1c0-475a27870195" absoluteBounds="24.265, 15.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(25.0625 : 11.9826684570313); (25.0625 : 15.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/TabModule/TabModule_TabModuleSetting" />
+      <nodes>
+        <classShapeMoniker Id="8471b6b0-27ff-41f3-a6ee-96373cc6951c" />
+        <classShapeMoniker Id="24d28589-a735-4c2c-8ba7-ef522f99cd46" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="70621425-d06c-4214-a88d-a7017bc1d3f8" absoluteBounds="13.375, 5.875, 2, 2.5752791341145826">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_AdvanceRequest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7edcef9-760c-44a9-8b57-112e67741e86" absoluteBounds="13.39, 6.335, 1.9700000000000002, 2.015279134114583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7a0f83b2-c94f-41b1-a169-761fe6a9b823" absoluteBounds="5.5, 0.75, 2, 1.5891951497395831">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Budgets_BudgetConference" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ddb801e5-cc1f-48cc-a586-83df51b7a02f" absoluteBounds="5.515, 1.21, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e7c93931-1401-4ff9-9f60-74e9d4ac6ef8" absoluteBounds="0.5, 1, 2, 8.4917830403645826">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_Budget" />
+      <nestedChildShapes>
+        <elementListCompartment Id="761686bc-ff80-4156-b0ab-e77e01645a77" absoluteBounds="0.515, 1.46, 1.9700000000000002, 7.931783040364583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5a75522d-a4e9-4608-81d2-b84bc0b7d6a5" absoluteBounds="17.625, 3.125, 2, 1.26050048828125">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Main_Project_Description" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7b119d17-25f7-48e3-8731-24d3a14189e6" absoluteBounds="17.64, 3.585, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d1b9177c-f647-4691-b107-6b89a9a3aa4f" absoluteBounds="13.5, 9.375, 2, 4.5474471028645826">
+      <DataClassMoniker Name="/AgapeStaffDataContext/Agape_Staff_RmbLine" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1441088a-25b4-44c8-9e4f-a26fa8295a78" absoluteBounds="13.515, 9.835, 1.9700000000000002, 3.987447102864583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(12.875 : 11.2343762207031); (13.5 : 11.2343762207031)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/Agape_Staff_Rmb/Agape_Staff_Rmb_Agape_Staff_RmbLine" />
+      <nodes>
+        <classShapeMoniker Id="891fefe6-13db-43dd-b459-7b475795cadd" />
+        <classShapeMoniker Id="d1b9177c-f647-4691-b107-6b89a9a3aa4f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(15.5 : 11.9624239095052); (15.75 : 11.9624239095052)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/Agape_Staff_RmbLine/Agape_Staff_RmbLine_Agape_Staff_RmbLineAddStaff" />
+      <nodes>
+        <classShapeMoniker Id="d1b9177c-f647-4691-b107-6b89a9a3aa4f" />
+        <classShapeMoniker Id="d0a4c75e-d5c1-4f54-99bd-49a4c83e14f6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(16.375 : 10.2517712402344); (15.5 : 10.2517712402344)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgapeStaffDataContext/Agape_Staff_RmbLineType/Agape_Staff_RmbLineType_Agape_Staff_RmbLine" />
+      <nodes>
+        <classShapeMoniker Id="51f4ed12-0538-49f9-b930-842072a6b34d" />
+        <classShapeMoniker Id="d1b9177c-f647-4691-b107-6b89a9a3aa4f" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

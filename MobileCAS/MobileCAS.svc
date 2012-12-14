@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="VB" Debug="true" Service="MobileCAS" CodeBehind="~/App_Code/MobileCAS/MobileCAS.vb"  %>

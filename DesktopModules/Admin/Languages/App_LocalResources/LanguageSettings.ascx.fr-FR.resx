@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Browser.Help">
+    <value xml:space="preserve">Cochez cette case pour activer la détection de langue du navigateur.</value>
+  </data>
+  <data name="ControlTitle_settings.Text">
+    <value xml:space="preserve">Paramètre de la langue du site</value>
+  </data>
+  <data name="HostSettings.Title">
+    <value xml:space="preserve">Paramètres de langue</value>
+  </data>
+  <data name="PageSize.Error">
+    <value xml:space="preserve">&lt;br&gt;La taille de la page doit être supérieur à 0</value>
+  </data>
+  <data name="plBrowser.Help">
+    <value xml:space="preserve">Cochez cette case pour activer la détection de la langue du navigateur</value>
+  </data>
+  <data name="plPageSize.Help">
+    <value xml:space="preserve">Si vous avez activé la pagination dans l'éditeur, vous pouvez définir la taille de page à utiliser ici (valeur par défaut est de 10)</value>
+  </data>
+  <data name="plPageSize.Text">
+    <value xml:space="preserve">Compteur de page :</value>
+  </data>
+  <data name="plUrl.Help">
+    <value xml:space="preserve">Cochez cette case pour activer les paramètres de langue dans l'URL.</value>
+  </data>
+  <data name="plUrl.Text">
+    <value xml:space="preserve">Activer les paramètres de langue dans les URL ?</value>
+  </data>
+  <data name="plUsePaging.Help">
+    <value xml:space="preserve">Par défaut, l'éditeur n'utilise pas de pagination.  Vous pouvez cependant sélectionner utiliser la pagination dans l'éditeur de langue pour réduire la taille de la page.</value>
+  </data>
+  <data name="plUsePaging.Text">
+    <value xml:space="preserve">Utiliser la pagination dans l'éditeur ?</value>
+  </data>
+</root>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="plServer.Help">
+    <value xml:space="preserve">Affiche des informations sur le serveur web.</value>
+  </data>
+  <data name="plServer.Text">
+    <value xml:space="preserve">Informations de serveur Web :</value>
+  </data>
+  <data name="ServerInfo.Text">
+    <value xml:space="preserve">Serveur Web</value>
+  </data>
+  <data name="ServerInfo_DBVersion.Help">
+    <value xml:space="preserve">La version de SQL Server</value>
+  </data>
+  <data name="ServerInfo_DBVersion.Text">
+    <value xml:space="preserve">Version de base de données :</value>
+  </data>
+  <data name="ServerInfo_Framework.Help">
+    <value xml:space="preserve">La version de.NET</value>
+  </data>
+  <data name="ServerInfo_Framework.Text">
+    <value xml:space="preserve">.NET Framework Version :</value>
+  </data>
+  <data name="ServerInfo_HostName.Help">
+    <value xml:space="preserve">Le nom de l'ordinateur hôte</value>
+  </data>
+  <data name="ServerInfo_HostName.Text">
+    <value xml:space="preserve">Nom d'hôte :</value>
+  </data>
+  <data name="ServerInfo_Identity.Help">
+    <value xml:space="preserve">L’utilisateur Windows utilisé pour faire fonctionner cette application. Cet utilisateur doit avoir les permissions adéquates au niveau du dossier du site.</value>
+  </data>
+  <data name="ServerInfo_Identity.Text">
+    <value xml:space="preserve">ASP.NET identity :</value>
+  </data>
+  <data name="ServerInfo_IISVersion.Help">
+    <value xml:space="preserve">La version de Internet Information Server (IIS)</value>
+  </data>
+  <data name="ServerInfo_IISVersion.Text">
+    <value xml:space="preserve">Web Server Version :</value>
+  </data>
+  <data name="ServerInfo_OSVersion.Help">
+    <value xml:space="preserve">La version de Windows sur le serveur.</value>
+  </data>
+  <data name="ServerInfo_OSVersion.Text">
+    <value xml:space="preserve">OS Version :</value>
+  </data>
+  <data name="ServerInfo_PhysicalPath.Help">
+    <value xml:space="preserve">L'emplacement physique de la racine du site sur le serveur.</value>
+  </data>
+  <data name="ServerInfo_PhysicalPath.Text">
+    <value xml:space="preserve">Chemin d'accès physique :</value>
+  </data>
+  <data name="ServerInfo_RelativePath.Help">
+    <value xml:space="preserve">La position relative de l'application par rapport à la racine du site.</value>
+  </data>
+  <data name="ServerInfo_RelativePath.Text">
+    <value xml:space="preserve">Chemin d'accès relatif :</value>
+  </data>
+  <data name="ServerInfo_ServerTime.Help">
+    <value xml:space="preserve">La date et l'heure actuelles pour ce serveur web.</value>
+  </data>
+  <data name="ServerInfo_ServerTime.Text">
+    <value xml:space="preserve">Heure du serveur :</value>
+  </data>
+  <data name="ServerInfo_Url.Help">
+    <value xml:space="preserve">L'URL principale pour ce site.</value>
+  </data>
+  <data name="ServerInfo_Url.Text">
+    <value xml:space="preserve">Url du site :</value>
+  </data>
+</root>

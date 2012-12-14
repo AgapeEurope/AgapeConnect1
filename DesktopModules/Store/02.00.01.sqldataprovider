@@ -1,0 +1,217 @@
+﻿ALTER Procedure {databaseOwner}{objectQualifier}Store_Orders_GetCustomerOrders
+(
+    @PortalID int = 0,
+    @UserID int
+)
+As
+
+SELECT  
+    o.OrderID,
+	o.UserID As CustomerID,
+    Cast(sum(od.Quantity*od.UnitCost) as money) as OrderTotal,
+    o.OrderNumber,
+    o.OrderDate, 
+    o.ShipDate,
+    o.ShippingAddressID,
+    o.BillingAddressID,
+	o.Tax,
+	o.ShippingCost,
+	o.OrderStatusID
+
+FROM    
+    {databaseOwner}{objectQualifier}Store_Orders o
+  INNER JOIN {databaseOwner}{objectQualifier}Store_OrderDetails od ON o.OrderID = od.OrderID
+
+WHERE 
+	o.OrderIsPlaced = 1
+	AND o.PortalID = @PortalID
+
+GROUP BY    
+    UserID, 
+    o.OrderID, 
+    o.OrderNumber,
+    o.OrderDate, 
+    o.ShipDate,
+    o.ShippingAddressID,
+    o.BillingAddressID,
+	o.Tax,
+	o.ShippingCost,
+	o.OrderStatusID
+HAVING  
+    o.UserID = @UserID
+
+ORDER BY o.OrderDate DESC
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Orders_GetOrdersByStatusID
+	@PortalID int,
+	@OrderStatusID int
+AS
+BEGIN
+	SELECT  
+    o.OrderID,
+	o.UserID As CustomerID,
+    Cast(sum(od.Quantity*od.UnitCost) as money) as OrderTotal,
+    o.OrderNumber,
+    o.OrderDate, 
+    o.ShipDate,
+    o.ShippingAddressID,
+    o.BillingAddressID,
+	o.Tax,
+	o.ShippingCost,
+	o.OrderStatusID
+
+FROM    
+    {databaseOwner}{objectQualifier}Store_Orders o
+  INNER JOIN {databaseOwner}{objectQualifier}Store_OrderDetails od ON o.OrderID = od.OrderID
+
+WHERE 
+	o.OrderIsPlaced = 1
+	AND o.PortalID = @PortalID
+	AND o.OrderStatusID = @OrderStatusID
+
+GROUP BY    
+    UserID, 
+    o.OrderID, 
+    o.OrderNumber,
+    o.OrderDate, 
+    o.ShipDate,
+    o.ShippingAddressID,
+    o.BillingAddressID,
+	o.Tax,
+	o.ShippingCost,
+	o.OrderStatusID
+
+ORDER BY o.OrderDate DESC
+END
+
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetNewProducts
+		@CategoryID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		BEGIN
+			
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Summary,
+				Description,
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			ORDER BY CreatedDate DESC
+		END
+	ELSE
+		BEGIN
+			
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Summary,
+				Description,
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND 	Archived = 0
+			ORDER BY CreatedDate DESC
+		END
+
+GO
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalNewProducts
+		@PortalID int,
+		@Archived bit = 0
+	AS
+	SET NOCOUNT ON
+	
+	IF @Archived = 1
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Summary,
+			Description,
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice
+
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		ORDER BY CreatedDate DESC
+	ELSE
+		SELECT
+			ProductID,
+			PortalID,
+			CategoryID,
+			Manufacturer,
+			ModelNumber,
+			ModelName,
+			ProductImage,
+			UnitCost,
+			Summary,
+			Description,
+			Featured,
+			Archived,
+			CreatedByUser,
+			CreatedDate,
+			ProductWeight,
+			SaleStartDate,
+			SaleEndDate,
+			SalePrice
+
+		FROM 	{databaseOwner}{objectQualifier}Store_Products 
+		WHERE 	PortalID = @PortalID
+		AND 	Archived = 0
+		ORDER BY CreatedDate DESC
+
+GO
+
+

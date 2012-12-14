@@ -1,0 +1,777 @@
+2012-09-03 09:32:03,532 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 09:32:04,328 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 09:33:25,689 [WIN-IJASUCJVGUJ][Thread:6][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-09-03 09:33:25,706 [WIN-IJASUCJVGUJ][Thread:6][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of a change to the application level configuration.
+2012-09-03 09:33:25,810 [WIN-IJASUCJVGUJ][Thread:6][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-09-03 09:33:44,718 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 09:33:45,258 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 09:33:45,423 [WIN-IJASUCJVGUJ][Thread:11][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 09:33:46,518 [WIN-IJASUCJVGUJ][Thread:11][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 09:35:22,767 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 09:35:23,289 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 09:35:23,466 [WIN-IJASUCJVGUJ][Thread:9][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 09:35:24,640 [WIN-IJASUCJVGUJ][Thread:9][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 09:35:54,722 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,728 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,736 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,745 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,751 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,755 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,762 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,767 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,774 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,780 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,786 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,792 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,800 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,807 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:35:54,813 [WIN-IJASUCJVGUJ][Thread:16][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 09:59:16,343 [WIN-IJASUCJVGUJ][Thread:11][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-09-03 09:59:16,358 [WIN-IJASUCJVGUJ][Thread:11][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of a change to the App_Code folder or files contained in it.
+2012-09-03 10:01:17,384 [WIN-IJASUCJVGUJ][Thread:11][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-09-03 10:09:50,431 [WIN-IJASUCJVGUJ][Thread:18][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 10:09:51,181 [WIN-IJASUCJVGUJ][Thread:18][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 10:09:51,332 [WIN-IJASUCJVGUJ][Thread:11][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 10:09:51,971 [WIN-IJASUCJVGUJ][Thread:11][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 10:10:12,717 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:12,725 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:12,733 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:12,736 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:12,748 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:12,781 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:12,790 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:12,799 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:13,916 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:13,925 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:13,933 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:13,941 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:13,949 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:13,950 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:10:13,962 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,500 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,507 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,514 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,522 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,529 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,538 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,547 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,552 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,929 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,937 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,955 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,976 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,984 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:35,992 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:36,000 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:16:57,430 [WIN-IJASUCJVGUJ][Thread:24][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:16:57,480 [WIN-IJASUCJVGUJ][Thread:24][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:16:57,729 [WIN-IJASUCJVGUJ][Thread:24][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:16:57,829 [WIN-IJASUCJVGUJ][Thread:24][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:16:57,842 [WIN-IJASUCJVGUJ][Thread:24][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:16:57,855 [WIN-IJASUCJVGUJ][Thread:24][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:16:57,863 [WIN-IJASUCJVGUJ][Thread:24][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:27,658 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:17:27,665 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:27,691 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:27,697 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:27,704 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:27,712 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:27,951 [WIN-IJASUCJVGUJ][Thread:43][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-09-03 10:17:28,006 [WIN-IJASUCJVGUJ][Thread:43][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of a change to the application level configuration.
+2012-09-03 10:17:32,458 [WIN-IJASUCJVGUJ][Thread:18][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 10:17:33,019 [WIN-IJASUCJVGUJ][Thread:18][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 10:17:33,188 [WIN-IJASUCJVGUJ][Thread:50][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 10:17:34,477 [WIN-IJASUCJVGUJ][Thread:50][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 10:17:36,324 [WIN-IJASUCJVGUJ][Thread:50][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:17:36,450 [WIN-IJASUCJVGUJ][Thread:50][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:17:36,498 [WIN-IJASUCJVGUJ][Thread:50][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:36,692 [WIN-IJASUCJVGUJ][Thread:50][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:36,701 [WIN-IJASUCJVGUJ][Thread:50][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:36,715 [WIN-IJASUCJVGUJ][Thread:50][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:17:36,725 [WIN-IJASUCJVGUJ][Thread:50][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:18:20,779 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:18:20,785 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:18:20,808 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:18:20,817 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:18:20,824 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:18:20,833 [WIN-IJASUCJVGUJ][Thread:38][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:19:27,466 [WIN-IJASUCJVGUJ][Thread:48][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:19:27,502 [WIN-IJASUCJVGUJ][Thread:48][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:19:27,512 [WIN-IJASUCJVGUJ][Thread:48][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:19:27,543 [WIN-IJASUCJVGUJ][Thread:48][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:19:27,551 [WIN-IJASUCJVGUJ][Thread:48][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:19:27,560 [WIN-IJASUCJVGUJ][Thread:48][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:19:27,569 [WIN-IJASUCJVGUJ][Thread:48][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:19:29,173 [WIN-IJASUCJVGUJ][Thread:43][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-09-03 10:20:33,081 [WIN-IJASUCJVGUJ][Thread:43][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:20:33,106 [WIN-IJASUCJVGUJ][Thread:43][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:20:33,116 [WIN-IJASUCJVGUJ][Thread:43][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:20:33,143 [WIN-IJASUCJVGUJ][Thread:43][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:20:33,146 [WIN-IJASUCJVGUJ][Thread:43][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:20:33,161 [WIN-IJASUCJVGUJ][Thread:43][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:20:33,170 [WIN-IJASUCJVGUJ][Thread:43][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:21:33,703 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:21:33,728 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:21:33,738 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:21:33,767 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:21:33,782 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:21:33,797 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:21:33,806 [WIN-IJASUCJVGUJ][Thread:44][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:21:42,735 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:42,742 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:42,751 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:42,761 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:42,769 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:42,779 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:42,788 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:42,795 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:43,573 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:43,583 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:43,592 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:43,601 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:43,608 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:43,614 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:21:43,622 [WIN-IJASUCJVGUJ][Thread:45][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:06,913 [WIN-IJASUCJVGUJ][Thread:46][WARN] DotNetNuke.Entities.Tabs.TabController - Unable to find tabId -1 of portal -1
+2012-09-03 10:23:24,125 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,131 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,139 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,147 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,154 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,161 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,167 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,176 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,187 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,192 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,203 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,213 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,222 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,231 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,238 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:24,245 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:23:57,177 [WIN-IJASUCJVGUJ][Thread:43][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:23:57,207 [WIN-IJASUCJVGUJ][Thread:43][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:23:57,240 [WIN-IJASUCJVGUJ][Thread:43][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:25:07,161 [WIN-IJASUCJVGUJ][Thread:42][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:25:07,179 [WIN-IJASUCJVGUJ][Thread:42][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:25:07,192 [WIN-IJASUCJVGUJ][Thread:42][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:25:12,027 [WIN-IJASUCJVGUJ][Thread:50][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:25:12,036 [WIN-IJASUCJVGUJ][Thread:50][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:25:12,056 [WIN-IJASUCJVGUJ][Thread:50][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:25:18,214 [WIN-IJASUCJVGUJ][Thread:43][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:25:18,222 [WIN-IJASUCJVGUJ][Thread:43][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:25:18,242 [WIN-IJASUCJVGUJ][Thread:43][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:42:53,015 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 10:42:53,685 [WIN-IJASUCJVGUJ][Thread:4][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 10:42:53,894 [WIN-IJASUCJVGUJ][Thread:7][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 10:42:55,456 [WIN-IJASUCJVGUJ][Thread:7][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 10:42:57,816 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,826 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,840 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,850 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,863 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,871 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,882 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,894 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,907 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,930 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,943 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,952 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,964 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,982 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:57,997 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:42:58,014 [WIN-IJASUCJVGUJ][Thread:7][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:43:03,453 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:43:03,516 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:43:03,553 [WIN-IJASUCJVGUJ][Thread:9][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:43:45,114 [WIN-IJASUCJVGUJ][Thread:10][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-09-03 10:43:45,129 [WIN-IJASUCJVGUJ][Thread:10][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of a change to the App_Code folder or files contained in it.
+2012-09-03 10:44:40,523 [WIN-IJASUCJVGUJ][Thread:15][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 10:44:41,083 [WIN-IJASUCJVGUJ][Thread:15][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 10:44:41,221 [WIN-IJASUCJVGUJ][Thread:17][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 10:44:41,625 [WIN-IJASUCJVGUJ][Thread:17][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 10:44:54,861 [WIN-IJASUCJVGUJ][Thread:17][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:44:54,928 [WIN-IJASUCJVGUJ][Thread:17][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:44:54,960 [WIN-IJASUCJVGUJ][Thread:17][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:44:57,674 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,682 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,690 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,699 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,709 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,717 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,726 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,735 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,743 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,752 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,760 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,767 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,776 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,785 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,793 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:44:57,802 [WIN-IJASUCJVGUJ][Thread:17][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:45:46,346 [WIN-IJASUCJVGUJ][Thread:10][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-09-03 10:45:50,362 [WIN-IJASUCJVGUJ][Thread:8][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-09-03 10:45:50,377 [WIN-IJASUCJVGUJ][Thread:8][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of a change to the App_Code folder or files contained in it.
+2012-09-03 10:47:51,571 [WIN-IJASUCJVGUJ][Thread:8][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-09-03 10:52:41,157 [WIN-IJASUCJVGUJ][Thread:15][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 10:52:41,814 [WIN-IJASUCJVGUJ][Thread:15][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 10:52:41,984 [WIN-IJASUCJVGUJ][Thread:22][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 10:52:42,283 [WIN-IJASUCJVGUJ][Thread:22][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 10:52:55,885 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:52:55,969 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:52:56,003 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:52:58,879 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,889 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,907 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,924 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,933 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,945 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,957 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,962 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:58,986 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:59,004 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:59,034 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:59,044 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:59,052 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:59,061 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:59,071 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:52:59,080 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 10:55:13,940 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:55:13,994 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 10:55:14,048 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:55:14,125 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:55:14,135 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:55:14,146 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:55:14,157 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 10:56:31,125 [WIN-IJASUCJVGUJ][Thread:8][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 10:56:31,162 [WIN-IJASUCJVGUJ][Thread:8][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 10:56:31,176 [WIN-IJASUCJVGUJ][Thread:8][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 10:58:41,997 [WIN-IJASUCJVGUJ][Thread:8][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-09-03 10:58:42,007 [WIN-IJASUCJVGUJ][Thread:8][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of a change to the App_Code folder or files contained in it.
+2012-09-03 11:00:29,892 [WIN-IJASUCJVGUJ][Thread:16][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 11:00:30,538 [WIN-IJASUCJVGUJ][Thread:16][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 11:00:30,672 [WIN-IJASUCJVGUJ][Thread:30][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 11:00:30,922 [WIN-IJASUCJVGUJ][Thread:30][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 11:00:43,276 [WIN-IJASUCJVGUJ][Thread:8][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-09-03 11:00:46,790 [WIN-IJASUCJVGUJ][Thread:30][ERROR] DotNetNuke.Framework.Reflection - Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+System.Web.HttpException (0x80004005): Could not load type 'DesktopModules/AgapeConnect/Stories/ContentRotator.ascx.vb'.
+   at System.Web.Compilation.BuildManager.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at DotNetNuke.Framework.Reflection.CreateType(String TypeName, String CacheKey, Boolean UseCache, Boolean IgnoreErrors)
+2012-09-03 11:00:46,862 [WIN-IJASUCJVGUJ][Thread:30][ERROR] DotNetNuke.UI.Modules.ModuleHost - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()
+2012-09-03 11:00:46,904 [WIN-IJASUCJVGUJ][Thread:30][ERROR] DotNetNuke.UI.Modules.ModuleHost - FriendlyMessage="Error: acRotator is currently unavailable." ctrl="DotNetNuke.UI.Modules.ModuleControlBase" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at System.Web.UI.TemplateControl.LoadControl(IWebObjectFactory objectFactory, VirtualPath virtualPath, Type t, Object[] parameters)
+   at System.Web.UI.TemplateControl.LoadControl(Type t, Object[] parameters)
+   at DotNetNuke.UI.Modules.ModuleControlFactory.LoadModuleControl(TemplateControl containerControl, ModuleInfo moduleConfiguration)
+   at DotNetNuke.UI.Modules.ModuleHost.LoadModuleControl()"
+2012-09-03 11:00:49,729 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,739 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,747 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,757 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,767 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,776 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,786 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,794 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,803 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,811 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,822 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,830 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,840 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,848 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,860 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:00:49,865 [WIN-IJASUCJVGUJ][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:28,022 [WIN-IJASUCJVGUJ][Thread:28][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 11:01:28,061 [WIN-IJASUCJVGUJ][Thread:28][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 11:01:28,105 [WIN-IJASUCJVGUJ][Thread:28][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:28,181 [WIN-IJASUCJVGUJ][Thread:28][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:28,194 [WIN-IJASUCJVGUJ][Thread:28][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:28,206 [WIN-IJASUCJVGUJ][Thread:28][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:28,218 [WIN-IJASUCJVGUJ][Thread:28][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:50,634 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 11:01:50,665 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 11:01:50,669 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:50,706 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:50,716 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:50,734 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:50,745 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 11:01:53,764 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,776 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,791 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,800 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,813 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,839 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,854 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,875 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:53,934 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:54,662 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:54,673 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:54,696 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:54,702 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:54,716 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:54,725 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:01:54,732 [WIN-IJASUCJVGUJ][Thread:11][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 11:02:30,484 [WIN-IJASUCJVGUJ][Thread:26][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:02:30,493 [WIN-IJASUCJVGUJ][Thread:26][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:02:46,552 [WIN-IJASUCJVGUJ][Thread:26][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:02:46,563 [WIN-IJASUCJVGUJ][Thread:26][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:02:46,593 [WIN-IJASUCJVGUJ][Thread:26][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:02:46,609 [WIN-IJASUCJVGUJ][Thread:26][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:09:42,183 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:09:42,192 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:09:42,214 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:09:42,223 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:09:55,123 [WIN-IJASUCJVGUJ][Thread:VsCBMThreadPool][ERROR] DotNetNuke.Services.Localization.LocalizationProvider - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Common.Globals.get_Status()
+   at DotNetNuke.Services.Localization.LocaleController.GetLocales(Int32 portalID)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(Int32 portalID, String code)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(String code)
+   at DotNetNuke.Services.Localization.LocalizationProvider.TryGetStringInternal(String key, String userLanguage, String resourceFile, PortalSettings portalSettings, String& resourceValue)
+2012-09-03 11:09:55,170 [WIN-IJASUCJVGUJ][Thread:VsCBMThreadPool][ERROR] DotNetNuke.Services.Localization.LocalizationProvider - Object reference not set to an instance of an object.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Common.Globals.get_Status()
+   at DotNetNuke.Services.Localization.LocaleController.GetLocales(Int32 portalID)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(Int32 portalID, String code)
+   at DotNetNuke.Services.Localization.LocaleController.GetLocale(String code)
+   at DotNetNuke.Services.Localization.LocalizationProvider.TryGetStringInternal(String key, String userLanguage, String resourceFile, PortalSettings portalSettings, String& resourceValue)
+2012-09-03 11:10:16,028 [WIN-IJASUCJVGUJ][Thread:27][FATAL] DotNetNuke.Framework.PageBase - An error has occurred while loading page.
+System.InvalidCastException: Conversion from string "" to type 'Double' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- End of inner exception stack trace ---
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   at lambda_method(Closure , AP_Stories_Module_Channel_Cache )
+   at System.Linq.EnumerableSorter`2.ComputeKeys(TElement[] elements, Int32 count)
+   at System.Linq.EnumerableSorter`1.Sort(TElement[] elements, Int32 count)
+   at System.Linq.OrderedEnumerable`1.<GetEnumerator>d__0.MoveNext()
+   at System.Linq.Enumerable.<TakeIterator>d__3a`1.MoveNext()
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBind()
+   at System.Web.UI.WebControls.DataList.CreateItem(Int32 itemIndex, ListItemType itemType, Boolean dataBind, Object dataItem)
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at DotNetNuke.Modules.Stories.StorySettings.btnCache_Click(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Stories\StorySettings.ascx.vb:line 229
+   at System.Web.UI.WebControls.LinkButton.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.LinkButton.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.LinkButton.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+2012-09-03 11:10:16,049 [WIN-IJASUCJVGUJ][Thread:27][ERROR] DotNetNuke.Framework.PageBase - ~/Default.aspx?tabid=173&error=Conversion+from+string+%22%22+to+type+%27Double%27+is+not+valid.
+System.InvalidCastException: Conversion from string "" to type 'Double' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- End of inner exception stack trace ---
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   at lambda_method(Closure , AP_Stories_Module_Channel_Cache )
+   at System.Linq.EnumerableSorter`2.ComputeKeys(TElement[] elements, Int32 count)
+   at System.Linq.EnumerableSorter`1.Sort(TElement[] elements, Int32 count)
+   at System.Linq.OrderedEnumerable`1.<GetEnumerator>d__0.MoveNext()
+   at System.Linq.Enumerable.<TakeIterator>d__3a`1.MoveNext()
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBind()
+   at System.Web.UI.WebControls.DataList.CreateItem(Int32 itemIndex, ListItemType itemType, Boolean dataBind, Object dataItem)
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at DotNetNuke.Modules.Stories.StorySettings.btnCache_Click(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Stories\StorySettings.ascx.vb:line 229
+   at System.Web.UI.WebControls.LinkButton.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.LinkButton.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.LinkButton.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+2012-09-03 11:10:34,024 [WIN-IJASUCJVGUJ][Thread:19][ERROR] DotNetNuke.Modules.Stories.StorySettings - FriendlyMessage="Error:  is currently unavailable." ctrl="ASP.desktopmodules_agapeconnect_stories_storysettings_ascx" exc="System.InvalidCastException: Conversion from string "" to type 'Double' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- End of inner exception stack trace ---
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   at lambda_method(Closure , AP_Stories_Module_Channel_Cache )
+   at System.Linq.EnumerableSorter`2.ComputeKeys(TElement[] elements, Int32 count)
+   at System.Linq.EnumerableSorter`1.Sort(TElement[] elements, Int32 count)
+   at System.Linq.OrderedEnumerable`1.<GetEnumerator>d__0.MoveNext()
+   at System.Linq.Enumerable.<TakeIterator>d__3a`1.MoveNext()
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBind()
+   at System.Web.UI.WebControls.DataList.CreateItem(Int32 itemIndex, ListItemType itemType, Boolean dataBind, Object dataItem)
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at DotNetNuke.Modules.Stories.StorySettings.Page_Load(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Stories\StorySettings.ascx.vb:line 120"
+2012-09-03 11:13:18,926 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.Modules.Stories.StorySettings - FriendlyMessage="Error:  is currently unavailable." ctrl="ASP.desktopmodules_agapeconnect_stories_storysettings_ascx" exc="System.InvalidCastException: Conversion from string "" to type 'Double' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- End of inner exception stack trace ---
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   at lambda_method(Closure , AP_Stories_Module_Channel_Cache )
+   at System.Linq.EnumerableSorter`2.ComputeKeys(TElement[] elements, Int32 count)
+   at System.Linq.EnumerableSorter`1.Sort(TElement[] elements, Int32 count)
+   at System.Linq.OrderedEnumerable`1.<GetEnumerator>d__0.MoveNext()
+   at System.Linq.Enumerable.<TakeIterator>d__3a`1.MoveNext()
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBind()
+   at System.Web.UI.WebControls.DataList.CreateItem(Int32 itemIndex, ListItemType itemType, Boolean dataBind, Object dataItem)
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at DotNetNuke.Modules.Stories.StorySettings.Page_Load(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Stories\StorySettings.ascx.vb:line 120"
+2012-09-03 11:26:04,848 [WIN-IJASUCJVGUJ][Thread:22][ERROR] DotNetNuke.Modules.Stories.StorySettings - FriendlyMessage="Error:  is currently unavailable." ctrl="ASP.desktopmodules_agapeconnect_stories_storysettings_ascx" exc="System.InvalidCastException: Conversion from string "" to type 'Double' is not valid. ---> System.FormatException: Input string was not in a correct format.
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ParseDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   --- End of inner exception stack trace ---
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value, NumberFormatInfo NumberFormat)
+   at Microsoft.VisualBasic.CompilerServices.Conversions.ToDouble(String Value)
+   at lambda_method(Closure , AP_Stories_Module_Channel_Cache )
+   at System.Linq.EnumerableSorter`2.ComputeKeys(TElement[] elements, Int32 count)
+   at System.Linq.EnumerableSorter`1.Sort(TElement[] elements, Int32 count)
+   at System.Linq.OrderedEnumerable`1.<GetEnumerator>d__0.MoveNext()
+   at System.Linq.Enumerable.<TakeIterator>d__3a`1.MoveNext()
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at System.Web.UI.Control.DataBindChildren()
+   at System.Web.UI.Control.DataBind(Boolean raiseOnDataBinding)
+   at System.Web.UI.Control.DataBind()
+   at System.Web.UI.WebControls.DataList.CreateItem(Int32 itemIndex, ListItemType itemType, Boolean dataBind, Object dataItem)
+   at System.Web.UI.WebControls.DataList.CreateControlHierarchy(Boolean useDataSource)
+   at System.Web.UI.WebControls.BaseDataList.OnDataBinding(EventArgs e)
+   at System.Web.UI.WebControls.BaseDataList.DataBind()
+   at DotNetNuke.Modules.Stories.StorySettings.Page_Load(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\Stories\StorySettings.ascx.vb:line 120"
+2012-09-03 11:35:56,821 [WIN-IJASUCJVGUJ][Thread:62][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:35:56,827 [WIN-IJASUCJVGUJ][Thread:62][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:35:56,853 [WIN-IJASUCJVGUJ][Thread:62][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:35:56,860 [WIN-IJASUCJVGUJ][Thread:62][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:37:44,741 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:37:44,749 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:37:44,767 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:37:44,775 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:01,920 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:01,934 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:01,965 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:01,977 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:10,659 [WIN-IJASUCJVGUJ][Thread:61][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:10,666 [WIN-IJASUCJVGUJ][Thread:61][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:10,685 [WIN-IJASUCJVGUJ][Thread:61][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:10,694 [WIN-IJASUCJVGUJ][Thread:61][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:16,126 [WIN-IJASUCJVGUJ][Thread:58][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:16,135 [WIN-IJASUCJVGUJ][Thread:58][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:16,155 [WIN-IJASUCJVGUJ][Thread:58][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:16,165 [WIN-IJASUCJVGUJ][Thread:58][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:38:33,043 [WIN-IJASUCJVGUJ][Thread:58][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:38:33,048 [WIN-IJASUCJVGUJ][Thread:58][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:38:58,476 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:38:58,486 [WIN-IJASUCJVGUJ][Thread:59][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:39:03,696 [WIN-IJASUCJVGUJ][Thread:10][ERROR] DotNetNuke.Services.FileSystem.FileManager - The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\PuhEtjyKrq.jpg' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\PuhEtjyKrq.jpg' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at DotNetNuke.Services.FileSystem.Internal.FileWrapper.Delete(String path)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.DeleteFile(IFileInfo file)
+   at DotNetNuke.Services.FileSystem.FileManager.DeleteFile(IFileInfo file)
+2012-09-03 11:39:14,998 [WIN-IJASUCJVGUJ][Thread:10][FATAL] DotNetNuke.Framework.PageBase - An error has occurred while loading page.
+DotNetNuke.Services.FileSystem.FolderProviderException: The underlying system threw an exception. The file has not been deleted. ---> System.IO.IOException: The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\PuhEtjyKrq.jpg' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at DotNetNuke.Services.FileSystem.Internal.FileWrapper.Delete(String path)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.DeleteFile(IFileInfo file)
+   at DotNetNuke.Services.FileSystem.FileManager.DeleteFile(IFileInfo file)
+   --- End of inner exception stack trace ---
+   at DotNetNuke.Services.FileSystem.FileManager.DeleteFile(IFileInfo file)
+   at DesktopModules_AgapePortal_StaffBroker_acImage.btnUpdate_Click(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\StaffAdmin\Controls\acImage.ascx.vb:line 295
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+2012-09-03 11:39:15,008 [WIN-IJASUCJVGUJ][Thread:10][ERROR] DotNetNuke.Framework.PageBase - ~/Default.aspx?tabid=173&error=The+underlying+system+threw+an+exception.+The+file+has+not+been+deleted.
+DotNetNuke.Services.FileSystem.FolderProviderException: The underlying system threw an exception. The file has not been deleted. ---> System.IO.IOException: The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\PuhEtjyKrq.jpg' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at DotNetNuke.Services.FileSystem.Internal.FileWrapper.Delete(String path)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.DeleteFile(IFileInfo file)
+   at DotNetNuke.Services.FileSystem.FileManager.DeleteFile(IFileInfo file)
+   --- End of inner exception stack trace ---
+   at DotNetNuke.Services.FileSystem.FileManager.DeleteFile(IFileInfo file)
+   at DesktopModules_AgapePortal_StaffBroker_acImage.btnUpdate_Click(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\StaffAdmin\Controls\acImage.ascx.vb:line 295
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+2012-09-03 11:39:51,582 [WIN-IJASUCJVGUJ][Thread:60][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:39:51,592 [WIN-IJASUCJVGUJ][Thread:60][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:40:30,893 [WIN-IJASUCJVGUJ][Thread:60][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:40:30,901 [WIN-IJASUCJVGUJ][Thread:60][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:40:30,959 [WIN-IJASUCJVGUJ][Thread:60][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:40:30,969 [WIN-IJASUCJVGUJ][Thread:60][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:40:51,375 [WIN-IJASUCJVGUJ][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:40:51,385 [WIN-IJASUCJVGUJ][Thread:12][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:41:06,162 [WIN-IJASUCJVGUJ][Thread:8][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:41:06,179 [WIN-IJASUCJVGUJ][Thread:8][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:41:26,084 [WIN-IJASUCJVGUJ][Thread:24][ERROR] DotNetNuke.Services.FileSystem.FileManager - The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\ytgDsiyJqq.jpg' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\ytgDsiyJqq.jpg' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at DotNetNuke.Services.FileSystem.Internal.FileWrapper.Delete(String path)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.DeleteFile(IFileInfo file)
+   at DotNetNuke.Services.FileSystem.FileManager.DeleteFile(IFileInfo file)
+2012-09-03 11:41:26,180 [WIN-IJASUCJVGUJ][Thread:24][ERROR] DotNetNuke.Services.FileSystem.FileManager - The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\ytgDsiyJqq.jpg' because it is being used by another process.
+System.IO.IOException: The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\ytgDsiyJqq.jpg' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at DotNetNuke.Services.FileSystem.Internal.FileWrapper.Delete(String path)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.UpdateFile(IFolderInfo folder, String fileName, Stream content)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.AddFile(IFolderInfo folder, String fileName, Stream content)
+   at DotNetNuke.Services.FileSystem.FileManager.AddFile(IFolderInfo folder, String fileName, Stream fileContent, Boolean overwrite, Boolean checkPermissions, String contentType)
+2012-09-03 11:41:40,801 [WIN-IJASUCJVGUJ][Thread:24][FATAL] DotNetNuke.Framework.PageBase - An error has occurred while loading page.
+DotNetNuke.Services.FileSystem.FolderProviderException: The underlying system threw an exception. The file has not been added. ---> System.IO.IOException: The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\ytgDsiyJqq.jpg' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at DotNetNuke.Services.FileSystem.Internal.FileWrapper.Delete(String path)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.UpdateFile(IFolderInfo folder, String fileName, Stream content)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.AddFile(IFolderInfo folder, String fileName, Stream content)
+   at DotNetNuke.Services.FileSystem.FileManager.AddFile(IFolderInfo folder, String fileName, Stream fileContent, Boolean overwrite, Boolean checkPermissions, String contentType)
+   --- End of inner exception stack trace ---
+   at DotNetNuke.Services.FileSystem.FileManager.AddFile(IFolderInfo folder, String fileName, Stream fileContent, Boolean overwrite, Boolean checkPermissions, String contentType)
+   at DotNetNuke.Services.FileSystem.FileManager.AddFile(IFolderInfo folder, String fileName, Stream fileContent, Boolean overwrite)
+   at DesktopModules_AgapePortal_StaffBroker_acImage.btnUpdate_Click(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\StaffAdmin\Controls\acImage.ascx.vb:line 301
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+2012-09-03 11:41:40,824 [WIN-IJASUCJVGUJ][Thread:24][ERROR] DotNetNuke.Framework.PageBase - ~/Default.aspx?tabid=173&error=The+underlying+system+threw+an+exception.+The+file+has+not+been+added.
+DotNetNuke.Services.FileSystem.FolderProviderException: The underlying system threw an exception. The file has not been added. ---> System.IO.IOException: The process cannot access the file 'C:\aLocalSVN\AC-FR\Portals\0\_imageCropper\ytgDsiyJqq.jpg' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at DotNetNuke.Services.FileSystem.Internal.FileWrapper.Delete(String path)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.UpdateFile(IFolderInfo folder, String fileName, Stream content)
+   at DotNetNuke.Services.FileSystem.StandardFolderProvider.AddFile(IFolderInfo folder, String fileName, Stream content)
+   at DotNetNuke.Services.FileSystem.FileManager.AddFile(IFolderInfo folder, String fileName, Stream fileContent, Boolean overwrite, Boolean checkPermissions, String contentType)
+   --- End of inner exception stack trace ---
+   at DotNetNuke.Services.FileSystem.FileManager.AddFile(IFolderInfo folder, String fileName, Stream fileContent, Boolean overwrite, Boolean checkPermissions, String contentType)
+   at DotNetNuke.Services.FileSystem.FileManager.AddFile(IFolderInfo folder, String fileName, Stream fileContent, Boolean overwrite)
+   at DesktopModules_AgapePortal_StaffBroker_acImage.btnUpdate_Click(Object sender, EventArgs e) in C:\aLocalSVN\AC-FR\DesktopModules\AgapeConnect\StaffAdmin\Controls\acImage.ascx.vb:line 301
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+2012-09-03 11:42:21,219 [WIN-IJASUCJVGUJ][Thread:51][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:42:21,234 [WIN-IJASUCJVGUJ][Thread:51][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 11:43:00,322 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:43:00,331 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:43:00,364 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:43:00,376 [WIN-IJASUCJVGUJ][Thread:18][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:43:05,892 [WIN-IJASUCJVGUJ][Thread:63][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:43:05,901 [WIN-IJASUCJVGUJ][Thread:63][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:43:05,963 [WIN-IJASUCJVGUJ][Thread:63][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 11:43:05,967 [WIN-IJASUCJVGUJ][Thread:63][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 12:25:23,285 [WIN-IJASUCJVGUJ][Thread:110][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-09-03 12:25:23,291 [WIN-IJASUCJVGUJ][Thread:110][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of the hosting environment.
+2012-09-03 12:27:24,383 [WIN-IJASUCJVGUJ][Thread:110][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-09-03 12:41:27,805 [WIN-IJASUCJVGUJ][Thread:25][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-09-03 12:41:28,478 [WIN-IJASUCJVGUJ][Thread:25][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-09-03 12:41:28,680 [WIN-IJASUCJVGUJ][Thread:98][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-09-03 12:41:29,101 [WIN-IJASUCJVGUJ][Thread:98][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-09-03 12:41:48,786 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,795 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,804 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,815 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,824 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,833 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,842 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,852 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:48,861 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:49,633 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:49,643 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:49,654 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:49,664 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:49,673 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:49,683 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:41:49,689 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 12:42:02,282 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 12:42:02,314 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 12:42:02,376 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:42:02,431 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:42:02,440 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:42:02,450 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:42:02,456 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:50:30,083 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Email.RegExError resFileRoot:/DesktopModules/Admin/Extensions/App_LocalResources/EditExtension.ascx.resx threadCulture:en-US userlan:
+2012-09-03 12:50:30,106 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:plPremium.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor.ascx.resx threadCulture:en-US userlan:
+2012-09-03 12:50:30,116 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Controls.Help resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:50:30,149 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddPortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:50:30,155 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:AddAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:50:30,162 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemovePortal.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:50:30,187 [WIN-IJASUCJVGUJ][Thread:98][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:RemoveAllPortals.Text resFileRoot:/DesktopModules/Admin/Extensions/Editors/App_LocalResources/ModuleEditor threadCulture:en-US userlan:
+2012-09-03 12:51:01,065 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 12:51:01,073 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 12:51:01,097 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 12:51:01,103 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,622 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,632 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,642 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:label6.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,651 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:label6.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,660 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:label7.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,669 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:label7.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,677 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Label8.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,687 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:Label8.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,697 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lbLocation.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,708 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lbLocation.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,770 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:03:05,777 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:07:05,411 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:07:05,419 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:07:05,436 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:07:05,441 [WIN-IJASUCJVGUJ][Thread:19][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:34:32,718 [WIN-IJASUCJVGUJ][Thread:27][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 13:34:32,734 [WIN-IJASUCJVGUJ][Thread:27][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 13:35:17,968 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 13:35:17,979 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 13:35:29,011 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 13:35:29,020 [WIN-IJASUCJVGUJ][Thread:22][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblChannel.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/AddEditStory threadCulture:en-US userlan:
+2012-09-03 13:44:33,407 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:33,414 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:33,431 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:33,440 [WIN-IJASUCJVGUJ][Thread:101][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:45,423 [WIN-IJASUCJVGUJ][Thread:55][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:45,438 [WIN-IJASUCJVGUJ][Thread:55][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:45,478 [WIN-IJASUCJVGUJ][Thread:55][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:45,494 [WIN-IJASUCJVGUJ][Thread:55][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:48,477 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:48,487 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:labelcontrol1.Help resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:48,513 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnSave.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:44:48,523 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:btnCancel.Text resFileRoot:/DesktopModules/AgapeConnect/Stories/App_LocalResources/StorySettings threadCulture:en-US userlan:
+2012-09-03 13:45:50,371 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Home//EditProfile.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,380 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Stories.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,389 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Cart.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,396 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://casLogin.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,411 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Reimbursements.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,421 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Accounts.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,430 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Staff_Directory.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,442 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,453 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Staff.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,460 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Departments.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,481 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Templates.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,496 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Settings.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,515 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Admin//AgapeConnect//Icons.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,562 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,577 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Docs.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:
+2012-09-03 13:45:50,587 [WIN-IJASUCJVGUJ][Thread:94][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key://Test//Translate.String resFileRoot:~/App_GlobalResources/GlobalResources.resx threadCulture:en-US userlan:

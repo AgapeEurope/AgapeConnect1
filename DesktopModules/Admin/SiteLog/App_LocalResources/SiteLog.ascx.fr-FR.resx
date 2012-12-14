@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Statistiques du site</value>
+  </data>
+  <data name="Date.Header">
+    <value xml:space="preserve">C'est une date</value>
+  </data>
+  <data name="FileSystem.Text">
+    <value xml:space="preserve">Cette option est désactivée pour ce site. Toutefois, les logs sont accessibles hors-ligne et se trouvent dans le dossier \Logs de votre site.</value>
+  </data>
+  <data name="LogDisabled.Text">
+    <value xml:space="preserve">Cette fonction n'est pas activée sur ce site.</value>
+  </data>
+  <data name="LogHistory.Text">
+    <value xml:space="preserve">Les enregistrements sont limités à {0} jours.</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos de statistiques&lt;/h1&gt;&lt;p&gt;Les administrateurs peuvent connaitre la fréquentation du site grâce à cet outil.&lt;/p&gt;</value>
+  </data>
+  <data name="NoRecords.Text">
+    <value xml:space="preserve">Pas d'enregistrements trouvés</value>
+  </data>
+  <data name="plEndDate.Help">
+    <value xml:space="preserve">Spécifiez la date de fin pour le rapport</value>
+  </data>
+  <data name="plEndDate.Text">
+    <value xml:space="preserve">Date de fin&amp;nbsp;</value>
+  </data>
+  <data name="plReportType.Help">
+    <value xml:space="preserve">Choisissez le type de rapport que vous souhaitez afficher</value>
+  </data>
+  <data name="plReportType.Text">
+    <value xml:space="preserve">Type de rapport&amp;nbsp;</value>
+  </data>
+  <data name="plStartDate.Help">
+    <value xml:space="preserve">Spécifiez la date de début pour le rapport</value>
+  </data>
+  <data name="plStartDate.Text">
+    <value xml:space="preserve">Date de début&amp;nbsp;</value>
+  </data>
+  <data name="valDates.Text">
+    <value xml:space="preserve">&lt;br/&gt;La date de fin doit être supérieure à la date de début</value>
+  </data>
+  <data name="valEndDate.Text">
+    <value xml:space="preserve">&lt;br/&gt;Date de fin incorrecte</value>
+  </data>
+  <data name="valStartDate.Text">
+    <value xml:space="preserve">&lt;br/&gt;Date de début incorrecte</value>
+  </data>
+</root>

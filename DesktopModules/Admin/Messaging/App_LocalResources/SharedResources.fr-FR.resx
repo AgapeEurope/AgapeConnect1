@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="EmailTo.Text">
+    <value>A</value>
+  </data>
+  <data name="Message.Text">
+    <value>Message</value>
+  </data>
+  <data name="SaveDraft.Text">
+    <value>Enregister le brouillon</value>
+  </data>
+  <data name="SendMessage.Text">
+    <value>Envoyer</value>
+  </data>
+  <data name="Subject.Text">
+    <value>Sujet</value>
+  </data>
+  <data name="Validate.Text">
+    <value>Valider l'utilisateur</value>
+  </data>
+</root>

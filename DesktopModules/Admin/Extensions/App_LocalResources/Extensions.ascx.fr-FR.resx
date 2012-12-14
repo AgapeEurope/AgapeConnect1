@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Auth_System.Type">
+    <value xml:space="preserve">Systèmes d'authentification</value>
+  </data>
+  <data name="AuthSystem.Type">
+    <value xml:space="preserve">Systèmes d'authentification</value>
+  </data>
+  <data name="AvailableExtensions.Text">
+    <value xml:space="preserve">Extensions disponibles</value>
+  </data>
+  <data name="By.Text">
+    <value xml:space="preserve">par</value>
+  </data>
+  <data name="Catalog.Text">
+    <value xml:space="preserve">Flux d'extension</value>
+  </data>
+  <data name="CatalogModule.Text">
+    <value xml:space="preserve">Module</value>
+  </data>
+  <data name="CatalogSearchTitle.Text">
+    <value xml:space="preserve">Options de recherche et de filtre</value>
+  </data>
+  <data name="CatalogSkin.Text">
+    <value xml:space="preserve">Thème</value>
+  </data>
+  <data name="CheckLanguage.Text">
+    <value xml:space="preserve">Utiliser le Service de mise à jour pour vérifier la présence de mise à jour des packs de langue</value>
+  </data>
+  <data name="ClearSearch.Text">
+    <value xml:space="preserve">RAZ recherche</value>
+  </data>
+  <data name="Container.Type">
+    <value xml:space="preserve">Conteneurs</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Extensions</value>
+  </data>
+  <data name="CoreLanguagePack.Type">
+    <value xml:space="preserve">Packs de langue Core</value>
+  </data>
+  <data name="CreateContainer.Action">
+    <value xml:space="preserve">Créer un nouveau conteneur</value>
+  </data>
+  <data name="CreateExtension.Action">
+    <value xml:space="preserve">Créer une nouvelle extension</value>
+  </data>
+  <data name="CreateLanguagePack.Action">
+    <value xml:space="preserve">Créer un nouveau pack de langue</value>
+  </data>
+  <data name="CreateModule.Action">
+    <value xml:space="preserve">Créer un nouveau module</value>
+  </data>
+  <data name="CreateSkin.Action">
+    <value xml:space="preserve">Créer un nouveau thème</value>
+  </data>
+  <data name="DashboardControl.Type">
+    <value xml:space="preserve">Controles de tableau de bord</value>
+  </data>
+  <data name="Delete.Text">
+    <value xml:space="preserve">Désinstaller cette extension</value>
+  </data>
+  <data name="Description.Header">
+    <value xml:space="preserve">Description</value>
+  </data>
+  <data name="DescriptionLabel.Text">
+    <value xml:space="preserve">Description du produit</value>
+  </data>
+  <data name="DetailsLabel.Text">
+    <value xml:space="preserve">Détails</value>
+  </data>
+  <data name="Edit.Text">
+    <value xml:space="preserve">Editer cette extension</value>
+  </data>
+  <data name="EditSkins.Action">
+    <value xml:space="preserve">Gestion des Thèmes</value>
+  </data>
+  <data name="ErrorLabel.Text">
+    <value xml:space="preserve">Erreur...</value>
+  </data>
+  <data name="ExpandAll.Text">
+    <value xml:space="preserve">Tout développer</value>
+  </data>
+  <data name="ExtensionDetail.Text">
+    <value xml:space="preserve">Plus de détails</value>
+  </data>
+  <data name="ExtensionInstall.Action">
+    <value xml:space="preserve">Assistant d'installation d'extension</value>
+  </data>
+  <data name="ExtensionLanguagePack.Type">
+    <value xml:space="preserve">Language Packs d'extension</value>
+  </data>
+  <data name="Extensions.Text">
+    <value xml:space="preserve">Extensions</value>
+  </data>
+  <data name="ExtensionsLabel.Text">
+    <value xml:space="preserve">Extensions</value>
+  </data>
+  <data name="ImportModule.Action">
+    <value xml:space="preserve">Inporter une définition de module</value>
+  </data>
+  <data name="InstalledExtensions.Text">
+    <value xml:space="preserve">Extensions installées</value>
+  </data>
+  <data name="InstalledOnHost.Tooltip">
+    <value xml:space="preserve">Installés sur cet hôte</value>
+  </data>
+  <data name="InstalledOnPortal.Tooltip">
+    <value xml:space="preserve">Installés sur {0}</value>
+  </data>
+  <data name="installExtension.Text">
+    <value xml:space="preserve">Installer</value>
+  </data>
+  <data name="InstallExtensions.Action">
+    <value xml:space="preserve">Installer les extensions disponibles</value>
+  </data>
+  <data name="InUse.Header">
+    <value xml:space="preserve">Actif</value>
+  </data>
+  <data name="Language.Header">
+    <value xml:space="preserve">Langue ?</value>
+  </data>
+  <data name="Language.Text">
+    <value xml:space="preserve">Editer le pack de langue</value>
+  </data>
+  <data name="Language.Type">
+    <value xml:space="preserve">Packs de langue</value>
+  </data>
+  <data name="LanguageMessage.Text">
+    <value xml:space="preserve">Cliquer ici pour obtenir le pack de langue</value>
+  </data>
+  <data name="LanguagePackInstall.Action">
+    <value xml:space="preserve">Installer le pack de langue</value>
+  </data>
+  <data name="lblUpdate.Text">
+    <value xml:space="preserve">Cette application possède un service vous signalant la présence de nouvelle version. L’icône affichée intègre une indication visuelle vous informant d’une potentielle vulnérabilité. Si une vulnérabilité est identifiée alors il est recommandé de procéder à la mise à jour de l’extension. Cliquer sur l’extension vous redirige vers l’endroit adéquate pour procéder à la mise à jour.</value>
+  </data>
+  <data name="Library.Type">
+    <value xml:space="preserve">libraries</value>
+  </data>
+  <data name="License.Text">
+    <value xml:space="preserve">Licence :</value>
+  </data>
+  <data name="LicenseLabel.Text">
+    <value xml:space="preserve">Licence</value>
+  </data>
+  <data name="ListExtensions.Text">
+    <value xml:space="preserve">En savoir plus sur la façon de distribuer vos extensions en cliquant &lt;a href="http://www.dotnetnuke.com/App-Gallery.aspx " target="_blank" class="info"&gt;ici&lt;/a&gt;.</value>
+  </data>
+  <data name="LoadingLabel.Text">
+    <value xml:space="preserve">Chargement en cours...</value>
+  </data>
+  <data name="Module.Type">
+    <value xml:space="preserve">Modules</value>
+  </data>
+  <data name="ModuleInstall.Action">
+    <value xml:space="preserve">Installer le module</value>
+  </data>
+  <data name="MoreExtensions.Text">
+    <value xml:space="preserve">Plus d'extensions...</value>
+  </data>
+  <data name="MoreInformation.Text">
+    <value xml:space="preserve">Plus d'Information</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="NameAZ.Text">
+    <value xml:space="preserve">Nom: A-Z.</value>
+  </data>
+  <data name="NameZA.Text">
+    <value xml:space="preserve">Nom: Z-A</value>
+  </data>
+  <data name="NoneLabel.Text">
+    <value xml:space="preserve">Aucune</value>
+  </data>
+  <data name="NoResults.Text">
+    <value xml:space="preserve">Pas d'extension trouvée</value>
+  </data>
+  <data name="NotSpecified.Text">
+    <value xml:space="preserve">Non spécifié</value>
+  </data>
+  <data name="OrderLabel.Text">
+    <value xml:space="preserve">Commande :</value>
+  </data>
+  <data name="plLocales.Help">
+    <value xml:space="preserve">Sélectionner une langue dans la liste afin d’afficher les extensions qui ont un pack de langue disponible dans cette même langue. Si un pack existe alors suivre le lien afin de télécharger puis installer celui-ci.</value>
+  </data>
+  <data name="plLocales.Text">
+    <value xml:space="preserve">Chercher les packs de langue disponibles :</value>
+  </data>
+  <data name="plPackageTypes.Help">
+    <value xml:space="preserve">Choisir un type depuis cette liste afin d'afficher uniquement les extensions de ce type.</value>
+  </data>
+  <data name="plPackageTypes.Text">
+    <value xml:space="preserve">Filtrer par :</value>
+  </data>
+  <data name="Portal.Header">
+    <value xml:space="preserve">Portail</value>
+  </data>
+  <data name="PriceHighLow.Text">
+    <value xml:space="preserve">Prix : haut - bas</value>
+  </data>
+  <data name="PriceLowHigh.Text">
+    <value xml:space="preserve">Price: bas - haut</value>
+  </data>
+  <data name="Provider.Type">
+    <value xml:space="preserve">providers</value>
+  </data>
+  <data name="PurchasedExtensions.Text">
+    <value xml:space="preserve">Extensions achetées</value>
+  </data>
+  <data name="Search.Text">
+    <value xml:space="preserve">Chercher</value>
+  </data>
+  <data name="SearchLabel.Help">
+    <value xml:space="preserve">Appuyer sur Entrée pour rechercher, Echap pour annuler.</value>
+  </data>
+  <data name="SearchLabel.Text">
+    <value xml:space="preserve">Rercherche:</value>
+  </data>
+  <data name="Skin.Type">
+    <value xml:space="preserve">Thèmes</value>
+  </data>
+  <data name="SkinInstall.Action">
+    <value xml:space="preserve">Installer un Thème</value>
+  </data>
+  <data name="SkinObject.Type">
+    <value xml:space="preserve">Skin Objets</value>
+  </data>
+  <data name="TagCloud.Text">
+    <value xml:space="preserve">Nuage de tags</value>
+  </data>
+  <data name="TagLabel.Text">
+    <value xml:space="preserve">Tag :</value>
+  </data>
+  <data name="Title.Text">
+    <value xml:space="preserve">Liste des {0} extensions installées</value>
+  </data>
+  <data name="TreeHeader.Text">
+    <value xml:space="preserve">Extensions installées</value>
+  </data>
+  <data name="Type.Header">
+    <value xml:space="preserve">Type</value>
+  </data>
+  <data name="TypeLabel.Help">
+    <value xml:space="preserve">Choisir le type d'extension</value>
+  </data>
+  <data name="TypeLabel.Text">
+    <value xml:space="preserve">Type :</value>
+  </data>
+  <data name="Upgrade.Header">
+    <value xml:space="preserve">Mettre à jour ?</value>
+  </data>
+  <data name="UpgradeMessage.Text">
+    <value xml:space="preserve">Cliquez ici pour obtenir un mise à jour</value>
+  </data>
+  <data name="VendorLabel.Text">
+    <value xml:space="preserve">Vendeur:</value>
+  </data>
+  <data name="Version.Header">
+    <value xml:space="preserve">Version</value>
+  </data>
+  <data name="Version.Text">
+    <value xml:space="preserve">Version minimale souhaitée :</value>
+  </data>
+  <data name="Widget.Type">
+    <value xml:space="preserve">Gadgets</value>
+  </data>
+</root>

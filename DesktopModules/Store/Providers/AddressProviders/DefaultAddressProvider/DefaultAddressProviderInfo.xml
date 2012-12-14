@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<provider>
+	<name>Default</name>
+	<description>Default Address Provider</description>
+	<class>DotNetNuke.Modules.Store.Providers.Address.DefaultAddressProvider.AddressController</class>
+	<assembly>DotNetNuke.Modules.Store.Providers.Address.DefaultAddressProvider</assembly>
+	<controls>
+		<control name="Admin" value="DefaultAddressAdmin.ascx" />
+		<control name="Checkout" value="DefaultAddressCheckout.ascx" />
+		<control name="Profile" value="DefaultAddressProfile.ascx" />
+	</controls>
+</provider>
+

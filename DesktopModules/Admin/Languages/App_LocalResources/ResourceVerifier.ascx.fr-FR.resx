@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cmdVerify.Text">
+    <value xml:space="preserve">Vérifier les ressources</value>
+  </data>
+  <data name="ControlTitle_verify.Text">
+    <value xml:space="preserve">Vérificateur de ressource</value>
+  </data>
+  <data name="DuplicateEntries.Text">
+    <value xml:space="preserve">Fichiers contenant des doublons :&amp;nbsp;</value>
+  </data>
+  <data name="ErrorFiles.Text">
+    <value xml:space="preserve">Fichiers de ressource incorrect :&amp;nbsp;</value>
+  </data>
+  <data name="Locale.Text">
+    <value xml:space="preserve">Langue :&amp;nbsp;</value>
+  </data>
+  <data name="MissingEntries.Text">
+    <value xml:space="preserve">Fichiers avec entrées manquantes :&amp;nbsp;</value>
+  </data>
+  <data name="MissingFiles.Text">
+    <value xml:space="preserve">Fichiers de ressources manquants :&amp;nbsp;</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">Avec ce module vous pouvez modifier tous les packs de langue installés sur le site et verifier leur statut</value>
+  </data>
+  <data name="ObsoleteEntries.Text">
+    <value xml:space="preserve">Fichiers avec entrées obsolètes :&amp;nbsp;</value>
+  </data>
+  <data name="OldFiles.Text">
+    <value xml:space="preserve">Fichiers plus anciens que les ressources par défaut :&amp;nbsp;</value>
+  </data>
+</root>

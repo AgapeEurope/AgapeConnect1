@@ -1,0 +1,53 @@
+﻿ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_AddProduct
+		@PortalID int,
+		@CategoryID int,
+		@Manufacturer nvarchar(50),
+		@ModelNumber nvarchar(50),
+		@ModelName nvarchar(50),
+		@ProductImage nvarchar(500),
+		@UnitCost money,
+		@Keywords nvarchar(1000),
+		@Summary nvarchar(1000),
+		@Description ntext,
+		@Featured bit,
+		@Archived bit,
+		@CreatedByUser nvarchar(100),
+		@CreatedDate datetime,
+		@Weight decimal(10,2),
+		@Height decimal(10,2),
+		@Length decimal(10,2),
+		@Width decimal(10,2),
+		@SaleStartDate datetime = null,
+		@SaleEndDate datetime = null,
+		@SalePrice money = null,
+		@StockQuantity int
+	AS
+	SET NOCOUNT ON
+
+	IF @Weight < 0
+		BEGIN
+			SET @Weight = NULL
+		END
+
+	IF @SaleStartDate = '01/01/9999'
+		BEGIN
+			SET @SaleStartDate = NULL
+		END
+
+	IF @SaleEndDate = '01/01/9999'
+		BEGIN
+			SET @SaleEndDate = NULL
+		END
+
+	IF @SalePrice < 0
+		BEGIN
+			SET @SalePrice = NULL
+		END
+
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Products
+		(PortalID, CategoryID, Manufacturer, ModelNumber, ModelName, ProductImage, UnitCost, Keywords, Summary, [Description],Featured, Archived, CreatedByUser, CreatedDate, ProductWeight, ProductHeight, ProductLength, ProductWidth, SaleStartDate, SaleEndDate, SalePrice, StockQuantity)
+		VALUES
+		(@PortalID, @CategoryID, @Manufacturer, @ModelNumber, @ModelName, @ProductImage, @UnitCost, @Keywords, @Summary, @Description, @Featured, @Archived, @CreatedByUser, @CreatedDate, @Weight, @Height, @Length, @Width, @SaleStartDate, @SaleEndDate, @SalePrice, @StockQuantity)
+	SELECT SCOPE_IDENTITY()
+
+GO

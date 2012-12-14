@@ -1,0 +1,123 @@
+﻿/* Billboard */
+body {
+}
+a:hover
+{
+    color:#e1b33d !important;
+    text-decoration:underline !important;
+}
+a:link,a:visited,a:active
+{
+    color:#0670a3;
+    text-decoration:none;
+}
+.footerCentre{ height:32px !important;}
+.Bill_dashed
+{
+    padding-bottom:10px;
+    background-position:center;
+    background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/dashed2.png');
+    background-repeat:repeat-x;
+}
+.Bill_dashed_white
+{
+    padding-bottom:10px;
+    padding-top:10px;
+    background-position:bottom;
+    background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/dashedWhite.png');
+    background-repeat:repeat-x;
+}
+.Bill_Side_Middle
+{
+    padding:0;
+    margin:0;
+    width:200px;
+    background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/SidePanel1px.gif');
+    background-repeat:repeat-y;
+}
+.Bill_Side_Bottom
+{
+ width:200px;
+ height:18px;   
+ background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/SidePanelBtm.gif');
+ background-position:bottom;
+}
+.Bill_Birth_Top
+{
+    width:200px;
+    height:48px;
+    background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/BirthdaysTop.gif');
+    background-position:top;
+}
+.Bill_Links_Top
+{
+    width:200px;
+    height:43px;
+    background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/LinksTop.gif');
+    background-position:top;
+}
+.Bill_Comm_Top
+{
+    width:200px;
+    height:53px;
+    background-repeat:no-repeat;
+    background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/CommunityTop.gif');
+    background-position:top;
+    background-position:left;
+}
+.Bill_Rem_Top
+{
+    width:200px;
+    height:47px;
+    background-image:url('http://france.myagape.co.uk/DesktopModules/Billboard/images/RemindersTop.gif');
+    background-position:top;
+}
+.Bill_Text_Side
+{
+    font-family:Verdana;
+    color:White;
+    text-align:left;
+}
+.Bill_Text_Side a:link{color:White;}
+.Bill_Text_Side a:visited{color:White;}
+.Bill_Text_Side a:hover{color:White;}
+.Bill_Text_Side a:active{color:White;}
+
+.Bill_Text_Main
+{
+    font-family:Verdana;
+    color:#666666;
+    text-align:justify;
+    line-height:1.3em;
+}
+.Bill_SubTitle
+{
+	font-family: verdana;
+	font-size: 7pt;
+	font-weight: lighter;
+	font-style: italic;
+	color:#666666;
+}
+.Bill_Text_Main a:hover{color:#666666; text-decoration:underline;}
+.Bill_H1{color: #666666;font-size:  36pt; font-family: Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_H2{color: #666666;font-size: 24pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_H3{color: #666666;font-size: 18pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_H4{color: #666666;font-size: 12pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_H5{color: #666666;font-size: 10pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+
+.Bill_Side_H1{color: White;font-size:  36pt; font-family: Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_Side_H2{color: White;font-size: 24pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_Side_H3{color: White;font-size: 18pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_Side_H4{color: White;font-size: 12pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+.Bill_Side_H5{color: White;font-size: 10pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+
+.Bill_Photo{border-color:#0670A3; border-width: 1px; border-style:solid; margin-right:15px; text-align:center;}
+
+.Bill_Text_Front
+{
+    font-family:Verdana;
+    color:#666666;
+    line-height:1.5em;
+    text-align:justify;
+}
+.Bill_Text_Front a:hover{color:#666666; text-decoration:none;}

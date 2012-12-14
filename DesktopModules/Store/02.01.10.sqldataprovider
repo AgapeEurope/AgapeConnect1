@@ -1,0 +1,331 @@
+﻿-- *** Add LowThreshold, HighThreshold, DeliveryTime and PurchasePrice fields ***
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Products ADD LowThreshold int DEFAULT(0) NOT NULL, HighThreshold int DEFAULT(0) NOT NULL, DeliveryTime int DEFAULT(0) NOT NULL, PurchasePrice money DEFAULT(0) NOT NULL;
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_AddProduct
+		@PortalID int,
+		@CategoryID int,
+		@Manufacturer nvarchar(50),
+		@ModelNumber nvarchar(50),
+		@ModelName nvarchar(50),
+		@ProductImage nvarchar(500),
+		@UnitCost money,
+		@Keywords nvarchar(1000),
+		@Summary nvarchar(1000),
+		@Description ntext,
+		@Featured bit,
+		@Archived bit,
+		@CreatedByUser nvarchar(100),
+		@CreatedDate datetime,
+		@Weight decimal(10,2),
+		@Height decimal(10,2),
+		@Length decimal(10,2),
+		@Width decimal(10,2),
+		@SaleStartDate datetime = null,
+		@SaleEndDate datetime = null,
+		@SalePrice money = null,
+		@StockQuantity int,
+		@LowThreshold int,
+		@HighThreshold int,
+		@DeliveryTime int,
+		@PurchasePrice money
+	AS
+	SET NOCOUNT ON
+
+	IF @Weight < 0
+		BEGIN
+			SET @Weight = NULL
+		END
+
+	IF @SaleStartDate = '01/01/9999'
+		BEGIN
+			SET @SaleStartDate = NULL
+		END
+
+	IF @SaleEndDate = '01/01/9999'
+		BEGIN
+			SET @SaleEndDate = NULL
+		END
+
+	IF @SalePrice < 0
+		BEGIN
+			SET @SalePrice = NULL
+		END
+
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Products
+		(PortalID, CategoryID, Manufacturer, ModelNumber, ModelName, ProductImage, UnitCost, Keywords, Summary, [Description],Featured, Archived, CreatedByUser, CreatedDate, ProductWeight, ProductHeight, ProductLength, ProductWidth, SaleStartDate, SaleEndDate, SalePrice, StockQuantity, LowThreshold, HighThreshold, DeliveryTime, PurchasePrice)
+		VALUES
+		(@PortalID, @CategoryID, @Manufacturer, @ModelNumber, @ModelName, @ProductImage, @UnitCost, @Keywords, @Summary, @Description, @Featured, @Archived, @CreatedByUser, @CreatedDate, @Weight, @Height, @Length, @Width, @SaleStartDate, @SaleEndDate, @SalePrice, @StockQuantity, @LowThreshold, @HighThreshold, @DeliveryTime, @PurchasePrice)
+	SELECT SCOPE_IDENTITY()
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetProduct
+		@PortalID int,
+		@ProductID int
+	AS
+	SELECT
+		ProductID, PortalID, CategoryID, Manufacturer, ModelNumber, ModelName, ProductImage, UnitCost, Keywords, Summary, [Description], Featured, Archived, CreatedByUser, CreatedDate, ProductWeight, ProductHeight, ProductLength, ProductWidth, SaleStartDate, SaleEndDate, SalePrice, StockQuantity, LowThreshold, HighThreshold, DeliveryTime, PurchasePrice
+
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID AND ProductID = @ProductID AND IsDeleted = 0
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_UpdateProduct
+		@ProductID int,
+		@CategoryID int,
+		@Manufacturer nvarchar(50),
+		@ModelNumber nvarchar(50),
+		@ModelName nvarchar(50),
+		@ProductImage nvarchar(500),
+		@UnitCost money,
+		@Keywords nvarchar(1000),
+		@Summary nvarchar(1000),
+		@Description ntext,
+		@Featured bit,
+		@Archived bit,	
+		@Weight decimal(10,2),
+		@Height decimal(10,2),
+		@Length decimal(10,2),
+		@Width decimal(10,2),
+		@SaleStartDate datetime = null,
+		@SaleEndDate datetime = null,
+		@SalePrice money = null,
+		@StockQuantity int,
+		@LowThreshold int,
+		@HighThreshold int,
+		@DeliveryTime int,
+		@PurchasePrice money
+
+	AS
+	SET NOCOUNT ON
+
+	IF @Weight < 0
+	BEGIN
+		SET @Weight = NULL
+	END
+
+	IF @Height < 0
+	BEGIN
+		SET @Height = NULL
+	END
+
+	IF @Length < 0
+	BEGIN
+		SET @Length = NULL
+	END
+
+	IF @Width < 0
+	BEGIN
+		SET @Width = NULL
+	END
+
+	IF @SalePrice < 0
+	BEGIN
+		SET @SalePrice = NULL
+	END
+
+	IF @SaleStartDate = '01/01/9999'
+	BEGIN
+		SET @SaleStartDate = NULL
+	END
+
+	IF @SaleEndDate = '01/01/9999'
+	BEGIN
+		SET @SaleEndDate = NULL
+	END
+
+	UPDATE {databaseOwner}{objectQualifier}Store_Products SET 
+		CategoryID	= @CategoryID,
+		Manufacturer	= @Manufacturer,
+		ModelNumber	= @ModelNumber,
+		ModelName	= @ModelName,
+		ProductImage	= @ProductImage,
+		UnitCost	= @UnitCost,
+		Keywords	= @Keywords,
+		Summary		= @Summary,
+		[Description]	= @Description,
+		Featured	= @Featured,
+		Archived	= @Archived,
+		ProductWeight	= @Weight,
+		ProductHeight	= @Height,
+		ProductLength	= @Length,
+		ProductWidth	= @Width,
+		SaleStartDate	= @SaleStartDate,
+		SaleEndDate	= @SaleEndDate,
+		SalePrice	= @SalePrice,
+		StockQuantity	= @StockQuantity,
+		LowThreshold	= @LowThreshold,
+		HighThreshold	= @HighThreshold,
+		DeliveryTime	= @DeliveryTime,
+		PurchasePrice	= @PurchasePrice
+
+	WHERE
+		ProductID = @ProductID
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetPortalLowStockProducts
+		@PortalID int
+	AS
+	
+	SELECT
+		ProductID,
+		PortalID,
+		CategoryID,
+		Manufacturer,
+		ModelNumber,
+		ModelName,
+		ProductImage,
+		UnitCost,
+		Keywords,
+		Summary,
+		[Description],
+		Featured,
+		Archived,
+		CreatedByUser,
+		CreatedDate,
+		ProductWeight,
+		ProductHeight,
+		ProductLength,
+		ProductWidth,
+		SaleStartDate,
+		SaleEndDate,
+		SalePrice,
+		StockQuantity
+	FROM {databaseOwner}{objectQualifier}Store_Products 
+	WHERE PortalID = @PortalID
+	AND IsDeleted = 0
+	AND StockQuantity <= LowThreshold
+
+GO
+
+-- *** Add CategoryKeywords field ***
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Categories ADD CategoryKeywords nvarchar(1000) NULL;
+GO
+
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_AddCategory
+		@PortalID int,
+		@CategoryName nvarchar(50),
+		@CategoryKeywords nvarchar(1000),
+		@CategoryDescription nvarchar(500),
+		@Message ntext,
+		@Archived bit,
+		@CreatedByUser nvarchar(100),
+		@CreatedDate datetime,
+		@OrderID int,
+		@ParentCategoryID int
+	AS
+	SET NOCOUNT ON
+
+
+	IF @ParentCategoryID = -1
+	BEGIN
+		SET @ParentCategoryID = NULL
+	END
+
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Categories
+		(PortalID, CategoryName, CategoryKeywords, CategoryDescription, Message, Archived, CreatedByUser, CreatedDate, OrderID, ParentCategoryID)
+		VALUES
+		(@PortalID, @CategoryName, @CategoryKeywords, @CategoryDescription, @Message, @Archived, @CreatedByUser, @CreatedDate, @OrderID, @ParentCategoryID)
+	SELECT SCOPE_IDENTITY()
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_GetAll
+		@PortalID int,
+		@ParentCategoryID int = NULL
+	AS
+	SET NOCOUNT ON
+
+IF @ParentCategoryID = -3
+	BEGIN
+		SELECT CategoryID, PortalID, CategoryName, CategoryKeywords, CategoryDescription, Message, Archived, CreatedByUser, CreatedDate, OrderID, ParentCategoryID
+		FROM {databaseOwner}{objectQualifier}Store_Categories
+		WHERE {databaseOwner}{objectQualifier}Store_Categories.PortalID = @PortalID
+		ORDER BY {databaseOwner}{objectQualifier}Store_Categories.ParentCategoryID
+	END
+ELSE
+	BEGIN
+		IF @ParentCategoryID = -2
+			BEGIN
+				SELECT Categories.CategoryID, Categories.PortalID, Categories.CategoryName, Categories.CategoryKeywords, Categories.CategoryDescription, Categories.Message, Categories.Archived, Categories.CreatedByUser, Categories.CreatedDate, Categories.OrderID, Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+				FROM {databaseOwner}{objectQualifier}Store_Categories AS Categories
+					LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+					ON Categories.ParentCategoryID = Parent.CategoryID
+				WHERE Categories.PortalID = @PortalID
+					AND Categories.ParentCategoryID IS NULL
+					AND Categories.Archived = 0
+					AND Categories.IsDeleted = 0
+				ORDER BY Categories.OrderID
+			END
+		ELSE IF @ParentCategoryID = -1
+			BEGIN
+				SELECT Categories.CategoryID, Categories.PortalID, Categories.CategoryName, Categories.CategoryKeywords, Categories.CategoryDescription, Categories.Message, Categories.Archived, Categories.CreatedByUser, Categories.CreatedDate, Categories.OrderID, Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+				FROM {databaseOwner}{objectQualifier}Store_Categories AS Categories
+					LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+					ON Categories.ParentCategoryID = Parent.CategoryID
+				WHERE Categories.PortalID = @PortalID
+					AND Categories.IsDeleted = 0
+				ORDER BY Categories.OrderID
+			END 
+		ELSE
+			BEGIN
+				SELECT Categories.CategoryID, Categories.PortalID, Categories.CategoryName, Categories.CategoryKeywords, Categories.CategoryDescription, Categories.Message, Categories.Archived, Categories.CreatedByUser, Categories.CreatedDate, Categories.OrderID, Categories.ParentCategoryID, ISNULL(Parent.CategoryName, '-') AS ParentCategoryName
+				FROM {databaseOwner}{objectQualifier}Store_Categories AS Categories
+					LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+					ON Categories.ParentCategoryID = Parent.CategoryID
+				WHERE Categories.PortalID = @PortalID
+					AND Categories.ParentCategoryID = @ParentCategoryID
+					AND Categories.Archived = 0
+					AND Categories.IsDeleted = 0
+				ORDER BY Categories.OrderID
+			END
+	END
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_GetCategory
+		@CategoryID int
+	AS
+	SET NOCOUNT ON
+	SELECT Categories.CategoryID, Categories.PortalID, Categories.CategoryName, Categories.CategoryKeywords, Categories.CategoryDescription, Categories.Message, Categories.Archived, Categories.CreatedByUser, Categories.CreatedDate, Categories.OrderID, Categories.ParentCategoryID, ISNULL(Parent.CategoryName,'-') AS ParentCategoryName
+	FROM {databaseOwner}{objectQualifier}Store_Categories AS Categories
+		LEFT OUTER JOIN {databaseOwner}{objectQualifier}Store_Categories AS Parent
+		ON Categories.ParentCategoryID = Parent.CategoryID
+	WHERE Categories.CategoryID = @CategoryID
+		AND Categories.IsDeleted = 0
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Categories_UpdateCategory
+		@CategoryID int,
+		@CategoryName nvarchar(50),
+		@CategoryKeywords nvarchar(1000),
+		@CategoryDescription nvarchar(500),
+		@Message ntext,
+		@Archived bit,
+		@OrderID int,
+		@ParentCategoryID int
+	AS
+
+	SET NOCOUNT ON
+	IF @ParentCategoryID = -1
+		BEGIN
+			SET @ParentCategoryID = NULL
+		END
+
+	UPDATE {databaseOwner}{objectQualifier}Store_Categories SET 
+		CategoryName = @CategoryName,
+		CategoryKeywords = @CategoryKeywords,
+		CategoryDescription = @CategoryDescription,
+		Message = @Message,
+		Archived = @Archived,
+		OrderID = @OrderID,
+		ParentCategoryID = @ParentCategoryID
+	WHERE
+		CategoryID = @CategoryID
+
+GO

@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Address.Text">
+    <value xml:space="preserve">Coordonnées</value>
+  </data>
+  <data name="AffiliateReferrals.Text">
+    <value xml:space="preserve">Références d'affiliation</value>
+  </data>
+  <data name="BannerAdvertising.Text">
+    <value xml:space="preserve">Bannières publicitaires</value>
+  </data>
+  <data name="Clicks.Text">
+    <value xml:space="preserve">Cliquées</value>
+  </data>
+  <data name="companyRequired.Text">
+    <value xml:space="preserve">Le nom de l'entreprise est nécessaire</value>
+  </data>
+  <data name="ControlTitle_edit.Text">
+    <value xml:space="preserve">Modifier un contact</value>
+  </data>
+  <data name="ControlTitle_view vendor.Text">
+    <value xml:space="preserve">Voir les contacts</value>
+  </data>
+  <data name="EmailErrorAdmin.Text">
+    <value xml:space="preserve">Problème lors de l'envoi du courriel à l'administrateur.</value>
+  </data>
+  <data name="EmailErrorVendor.Text">
+    <value xml:space="preserve">Problème lors de l'envoi du courriel au partenaire.</value>
+  </data>
+  <data name="eMailInvalid.Text">
+    <value xml:space="preserve">Adresse e-mail invalide</value>
+  </data>
+  <data name="eMailRequired.Text">
+    <value xml:space="preserve">Adresse e-mail nécessaire</value>
+  </data>
+  <data name="ErrorAddVendor.Text">
+    <value xml:space="preserve">Erreur en ajoutant le partenaire. Consultez les logs pour plus d'information.</value>
+  </data>
+  <data name="firstNameRequired.Text">
+    <value xml:space="preserve">Le prénom est nécessaire.</value>
+  </data>
+  <data name="lastNameRequired.Text">
+    <value xml:space="preserve">Le nom est nécessaire</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos des Annonceurs&lt;/h1&gt;&lt;p&gt;Cet outil permet de gérer les annonceurs et 
+les bannières qui leurs sont associés.&lt;/p&gt;</value>
+  </data>
+  <data name="Other.Text">
+    <value xml:space="preserve">Autres informations</value>
+  </data>
+  <data name="plAuthorized.Help">
+    <value xml:space="preserve">Le contact est-il autorisé ?</value>
+  </data>
+  <data name="plAuthorized.Text">
+    <value xml:space="preserve">Autorisé</value>
+  </data>
+  <data name="plClassifications.Help">
+    <value xml:space="preserve">Classez votre contact</value>
+  </data>
+  <data name="plClassifications.Text">
+    <value xml:space="preserve">Classification du contact</value>
+  </data>
+  <data name="plEmail.Help">
+    <value xml:space="preserve">Saisissez l'adresse Email du contact.</value>
+  </data>
+  <data name="plEmail.Text">
+    <value xml:space="preserve">Courriel</value>
+  </data>
+  <data name="plFax.Help">
+    <value xml:space="preserve">Saisissez le numéro de télécopie du contact.</value>
+  </data>
+  <data name="plFax.Text">
+    <value xml:space="preserve">Télécopie</value>
+  </data>
+  <data name="plFirstName.Help">
+    <value xml:space="preserve">Saisissez le prénom du contact.</value>
+  </data>
+  <data name="plFirstName.Text">
+    <value xml:space="preserve">Prénom</value>
+  </data>
+  <data name="plKeyWords.Help">
+    <value xml:space="preserve">Saisissez des mots clés liés à ce contact</value>
+  </data>
+  <data name="plKeyWords.Text">
+    <value xml:space="preserve">Mots clés</value>
+  </data>
+  <data name="plLastName.Help">
+    <value xml:space="preserve">Saisissez le nom du contact.</value>
+  </data>
+  <data name="plLastName.Text">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="plLogo.Help">
+    <value xml:space="preserve">Sélectionnez le logo du contact</value>
+  </data>
+  <data name="plLogo.Text">
+    <value xml:space="preserve">Logo</value>
+  </data>
+  <data name="plVendorName.Help">
+    <value xml:space="preserve">Saisissez le nom du contact.</value>
+  </data>
+  <data name="plVendorName.Text">
+    <value xml:space="preserve">Société</value>
+  </data>
+  <data name="plWebsite.Help">
+    <value xml:space="preserve">Saisissez l'URL du site web (ex : www.dotnetnuke.com)</value>
+  </data>
+  <data name="plWebsite.Text">
+    <value xml:space="preserve">Site Web</value>
+  </data>
+  <data name="Settings.Text">
+    <value xml:space="preserve">Détails de l'annonceur</value>
+  </data>
+  <data name="VendorClassification.Text">
+    <value xml:space="preserve">Classification du contact</value>
+  </data>
+  <data name="Views.Text">
+    <value xml:space="preserve">Vues</value>
+  </data>
+</root>

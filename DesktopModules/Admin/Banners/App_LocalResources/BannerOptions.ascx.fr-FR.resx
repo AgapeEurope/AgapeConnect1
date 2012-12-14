@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllTypes.Text">
+    <value xml:space="preserve">&lt;Tout&gt;</value>
+  </data>
+  <data name="cmdCancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="cmdUpdate.Text">
+    <value xml:space="preserve">Mettre à jour</value>
+  </data>
+  <data name="ControlTitle_edit.Text">
+    <value xml:space="preserve">Paramètres du module "bannières"</value>
+  </data>
+  <data name="Horizontal.Text">
+    <value xml:space="preserve">Horizontale</value>
+  </data>
+  <data name="Host.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="plBannerClickThroughURL.Help">
+    <value xml:space="preserve">Rediriger les annonces vers une page intermédiaire.</value>
+  </data>
+  <data name="plBannerClickThroughURL.Text">
+    <value xml:space="preserve">Clic de bannière vers une URL</value>
+  </data>
+  <data name="plBorder.Help">
+    <value xml:space="preserve">Spécifiez la largeur de bordure en pixels</value>
+  </data>
+  <data name="plBorder.Text">
+    <value xml:space="preserve">Bordure</value>
+  </data>
+  <data name="plBorderColor.Help">
+    <value xml:space="preserve">Spécifiez la couleur de la bordure</value>
+  </data>
+  <data name="plBorderColor.Text">
+    <value xml:space="preserve">Couleur</value>
+  </data>
+  <data name="plColWidth.Help">
+    <value xml:space="preserve">Spécifier la largeur de chaque cellule de la bannière</value>
+  </data>
+  <data name="plColWidth.Text">
+    <value xml:space="preserve">Largeur</value>
+  </data>
+  <data name="plCount.Help">
+    <value xml:space="preserve">Spécifier le nombre maximal de bannières à afficher</value>
+  </data>
+  <data name="plCount.Text">
+    <value xml:space="preserve">Nombre</value>
+  </data>
+  <data name="plGroup.Help">
+    <value xml:space="preserve">Spécifiez le groupe de bannière</value>
+  </data>
+  <data name="plGroup.Text">
+    <value xml:space="preserve">Groupe&amp;nbsp;&amp;nbsp;</value>
+  </data>
+  <data name="plOrientation.Help">
+    <value xml:space="preserve">Spécifier si les bannières doivent être affichées verticalement ou horizontalement</value>
+  </data>
+  <data name="plOrientation.Text">
+    <value xml:space="preserve">Orientation.</value>
+  </data>
+  <data name="plPadding.Help">
+    <value xml:space="preserve">Espace entre les bannières et la bordure</value>
+  </data>
+  <data name="plPadding.Text">
+    <value xml:space="preserve">Espace</value>
+  </data>
+  <data name="plRowHeight.Help">
+    <value xml:space="preserve">Spécifier la hauteur de chaque cellule de la bannière</value>
+  </data>
+  <data name="plRowHeight.Text">
+    <value xml:space="preserve">Hauteur</value>
+  </data>
+  <data name="plSource.Help">
+    <value xml:space="preserve">Spécifier s'il faut afficher des bannières définies pour le site ou pour le portail</value>
+  </data>
+  <data name="plSource.Text">
+    <value xml:space="preserve">Source</value>
+  </data>
+  <data name="plType.Help">
+    <value xml:space="preserve">Spécifiez le type de bannière</value>
+  </data>
+  <data name="plType.Text">
+    <value xml:space="preserve">Type</value>
+  </data>
+  <data name="Site.Text">
+    <value xml:space="preserve">Site</value>
+  </data>
+  <data name="valBannerClickThroughURL.ErrorMessage">
+    <value xml:space="preserve">L’URL doit être valide, vérifiez que celle-ci commence bien par « http:// »</value>
+  </data>
+  <data name="valBorder.ErrorMessage">
+    <value xml:space="preserve">La largeur de la bordure doit être un entier valide</value>
+  </data>
+  <data name="valColWidth.ErrorMessage">
+    <value xml:space="preserve">La largeur de colonne doit être un entier valide</value>
+  </data>
+  <data name="valCount.ErrorMessage">
+    <value xml:space="preserve">Ce nobmre doit être un entier valide</value>
+  </data>
+  <data name="valPadding.ErrorMessage">
+    <value xml:space="preserve">L'espacement de la cellule doit être un entier valide</value>
+  </data>
+  <data name="valRowHeight.ErrorMessage">
+    <value xml:space="preserve">La hauteur de ligne doit être un entier valide</value>
+  </data>
+  <data name="Vertical.Text">
+    <value xml:space="preserve">Verticale</value>
+  </data>
+</root>

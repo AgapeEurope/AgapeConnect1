@@ -1,0 +1,119 @@
+﻿ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_Products_GetProducts
+		@CategoryID int,
+		@Archived bit = 0,
+		@SortOrder int,
+		@SortDir varchar(4)
+	AS
+	
+	IF @Archived = 1
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE 	{databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND IsDeleted = 0
+			Order By
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End DESC
+		END
+	ELSE
+		BEGIN
+			SELECT
+				ProductID,
+				PortalID,
+				CategoryID,
+				Manufacturer,
+				ModelNumber,
+				ModelName,
+				ProductImage,
+				UnitCost,
+				Keywords,
+				Summary,
+				[Description],
+				Featured,
+				Archived,
+				CreatedByUser,
+				CreatedDate,
+				ProductWeight,
+				ProductHeight,
+				ProductLength,
+				ProductWidth,
+				SaleStartDate,
+				SaleEndDate,
+				SalePrice,
+				StockQuantity
+			FROM 	{databaseOwner}{objectQualifier}Store_Products 
+			WHERE {databaseOwner}{objectQualifier}Store_Products.CategoryID  = @CategoryID
+			AND Archived = 0	
+			AND IsDeleted = 0
+			Order By
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End,
+				Case @SortDir When 'ASC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 0 Then  Manufacturer
+						When @SortOrder = 1 Then  ModelNumber
+						When @SortOrder = 2 Then  ModelName
+					End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 3 Then UnitCost End
+				End DESC,
+				Case @SortDir When 'DESC' Then
+					Case 	When @SortOrder = 4 Then CreatedDate End
+				End DESC
+		END
+GO

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ControlTitle_usagedetails.Text">
+    <value xml:space="preserve">Info usage du module</value>
+  </data>
+  <data name="FilterOptionHost.Text">
+    <value xml:space="preserve">Hôte</value>
+  </data>
+  <data name="FilterOptionSelect.Text">
+    <value xml:space="preserve">&lt;selection&gt;</value>
+  </data>
+  <data name="grd.PagerSettings.FirstPageText">
+    <value xml:space="preserve">&lt;&lt; Prermière page</value>
+  </data>
+  <data name="grd.PagerSettings.LastPageText">
+    <value xml:space="preserve">Dernière Page &gt;&gt;</value>
+  </data>
+  <data name="grd.PagerSettings.NextPageText">
+    <value xml:space="preserve">Suivante &gt;</value>
+  </data>
+  <data name="grd.PagerSettings.PreviousPageText">
+    <value xml:space="preserve">&lt; Précédente</value>
+  </data>
+  <data name="lblFilterUsageList.Help">
+    <value xml:space="preserve">Sélectionner un site via les filtres afin de voir une liste des pages utilisant ce module.</value>
+  </data>
+  <data name="lblFilterUsageList.Text">
+    <value xml:space="preserve">Afficher les pages contenant</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;p&gt;Voir les informations sur l'utilisation d'un module&lt;/p&gt;</value>
+  </data>
+  <data name="Msg.InUseBy">
+    <value xml:space="preserve">Ce module existe sur les pages {0} {1}.</value>
+  </data>
+  <data name="Msg.NotUsedBy">
+    <value xml:space="preserve">Ce module n'existe sur aucune page {0}.</value>
+  </data>
+  <data name="Usage.Text">
+    <value xml:space="preserve">Informations sur l'usage</value>
+  </data>
+</root>

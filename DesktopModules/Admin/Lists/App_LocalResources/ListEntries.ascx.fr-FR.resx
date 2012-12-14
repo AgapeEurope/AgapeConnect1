@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnDown.AlternateText">
+    <value xml:space="preserve">Déplacer vers le bas</value>
+  </data>
+  <data name="btnEdit.AlternateText">
+    <value xml:space="preserve">Edition de l'entrée</value>
+  </data>
+  <data name="btnUp.AlternateText">
+    <value xml:space="preserve">Déplacer vers le haut</value>
+  </data>
+  <data name="cmdAddEntry.Text">
+    <value xml:space="preserve">Ajouter une entrée</value>
+  </data>
+  <data name="cmdCancel.Text">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="cmdDeleteEntry.Text">
+    <value xml:space="preserve">Effacer l'entrée</value>
+  </data>
+  <data name="cmdDeleteList.Text">
+    <value xml:space="preserve">Effacer cette liste</value>
+  </data>
+  <data name="cmdSave.Text">
+    <value xml:space="preserve">Enregistrer</value>
+  </data>
+  <data name="Entries.Text">
+    <value xml:space="preserve">entrées</value>
+  </data>
+  <data name="ItemAlreadyPresent.Text">
+    <value xml:space="preserve">L'article est déjà présent</value>
+  </data>
+  <data name="plEnableSortOrder.Help">
+    <value xml:space="preserve">Sélectionnez cette option pour activer le tri sur cette liste</value>
+  </data>
+  <data name="plEnableSortOrder.Text">
+    <value xml:space="preserve">Activer le tri :</value>
+  </data>
+  <data name="plEntryCount.Help">
+    <value xml:space="preserve">Nombre d'entrées</value>
+  </data>
+  <data name="plEntryCount.Text">
+    <value xml:space="preserve">Total :</value>
+  </data>
+  <data name="plEntryName.Help">
+    <value xml:space="preserve">Nom de la liste</value>
+  </data>
+  <data name="plEntryName.Text">
+    <value xml:space="preserve">Nom de la liste :</value>
+  </data>
+  <data name="plEntryText.Help">
+    <value xml:space="preserve">Texte à afficher</value>
+  </data>
+  <data name="plEntryText.Text">
+    <value xml:space="preserve">Texte :</value>
+  </data>
+  <data name="plEntryValue.Help">
+    <value xml:space="preserve">Valeur de l'entrée</value>
+  </data>
+  <data name="plEntryValue.Text">
+    <value xml:space="preserve">Valeur :</value>
+  </data>
+  <data name="plListName.Help">
+    <value xml:space="preserve">Nom de la liste</value>
+  </data>
+  <data name="plListName.Text">
+    <value xml:space="preserve">Nom de la liste :</value>
+  </data>
+  <data name="plListParent.Help">
+    <value xml:space="preserve">Parente</value>
+  </data>
+  <data name="plListParent.Text">
+    <value xml:space="preserve">Parente :</value>
+  </data>
+  <data name="plParentKey.Help">
+    <value xml:space="preserve">Parente</value>
+  </data>
+  <data name="plParentKey.Text">
+    <value xml:space="preserve">Parente:</value>
+  </data>
+  <data name="plSelectList.Help">
+    <value xml:space="preserve">Sélectionnez la liste parente de cette liste</value>
+  </data>
+  <data name="plSelectList.Text">
+    <value xml:space="preserve">Liste parente :</value>
+  </data>
+  <data name="plSelectParent.Help">
+    <value xml:space="preserve">Sélectionnez l'entrée parente de cette liste</value>
+  </data>
+  <data name="plSelectParent.Text">
+    <value xml:space="preserve">Entrée parente :</value>
+  </data>
+  <data name="valEntryName.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Le nom est requis</value>
+  </data>
+  <data name="valEntryText.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Un texte est requis</value>
+  </data>
+  <data name="valEntryValue.ErrorMessage">
+    <value xml:space="preserve">&lt;br&gt;Une valeur est requise</value>
+  </data>
+</root>

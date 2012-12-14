@@ -1,0 +1,127 @@
+-- *** Add InventoryManagement field ***
+IF NOT EXISTS (SELECT sc.[id] FROM dbo.[sysobjects] so INNER JOIN dbo.[syscolumns] sc ON so.[id]=sc.[id] WHERE so.[name]=N'{objectQualifier}Store_Administration' AND sc.[name]=N'AvoidNegativeStock')
+
+ALTER TABLE {databaseOwner}{objectQualifier}Store_Administration ADD AvoidNegativeStock bit DEFAULT(0) NOT NULL, TaxName nvarchar(100) DEFAULT(N'Default') NOT NULL, ShippingName nvarchar(100) DEFAULT(N'Default') NOT NULL, AddressName nvarchar(100) DEFAULT(N'Default') NOT NULL;
+
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_AddStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_AddStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@CreatedByUser nvarchar(100),
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@StyleSheet nvarchar(255),
+		@AuthorizeCancel bit,
+		@InventoryManagement bit,
+		@OutOfStock int,
+		@ProductsBehavior int,
+		@AvoidNegativeStock bit,
+		@OrderRoleID int,
+		@CatalogRoleID int,
+		@SecureCookie bit,
+		@CheckoutMode int,
+		@ImpersonatedUserID int,
+		@TaxName nvarchar(100),
+		@ShippingName nvarchar(100),
+		@AddressName nvarchar(100)
+	AS
+	SET NOCOUNT ON
+	INSERT INTO {databaseOwner}{objectQualifier}Store_Administration
+		(PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, StyleSheet, AuthorizeCancel, InventoryManagement, OutOfStock, ProductsBehavior, OrderRoleID, CatalogRoleID, SecureCookie, CheckoutMode, ImpersonatedUserID, AvoidNegativeStock, TaxName, ShippingName, AddressName)
+	VALUES
+		(@PortalID, @Name, @Description, @Keywords, @SEOFeature, @GatewayName, @GatewaySettings, @DefaultEmailAddress, @ShoppingCartPageID, @CreatedByUser, getdate(), @StorePageID, @CurrencySymbol, @PortalTemplates, @StyleSheet, @AuthorizeCancel, @InventoryManagement, @OutOfStock, @ProductsBehavior, @OrderRoleID, @CatalogRoleID, @SecureCookie, @CheckoutMode, @ImpersonatedUserID, @AvoidNegativeStock, @TaxName, @ShippingName, @AddressName)
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_GetStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_GetStoreInfo
+		@PortalID int
+	AS
+	SET NOCOUNT ON
+	SELECT PortalID, [Name], [Description], Keywords, SEOFeature, GatewayName, GatewaySettings, DefaultEmailAddress, ShoppingCartPageID, CreatedByUser, CreatedDate, StorePageID, CurrencySymbol, PortalTemplates, StyleSheet, AuthorizeCancel, InventoryManagement, OutOfStock, ProductsBehavior, AvoidNegativeStock, OrderRoleID, CatalogRoleID, SecureCookie, CheckoutMode, ImpersonatedUserID, TaxName, ShippingName, AddressName
+	FROM 	{databaseOwner}{objectQualifier}Store_Administration
+	WHERE	PortalID = @PortalID
+GO
+
+IF EXISTS (SELECT [id] FROM dbo.[sysobjects] WHERE [id] = OBJECT_ID(N'{databaseOwner}[{objectQualifier}Store_Administration_UpdateStoreInfo]') and OBJECTPROPERTY([id], N'IsProcedure') = 1)
+
+DROP PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}Store_Administration_UpdateStoreInfo
+		@PortalID int,
+		@Name nvarchar(100),
+		@Description nvarchar(1000),
+		@Keywords nvarchar(1000),
+		@SEOFeature bit,
+		@GatewayName nvarchar(1000),
+		@GatewaySettings ntext,
+		@DefaultEmailAddress nvarchar(50),
+		@ShoppingCartPageID int,
+		@StorePageID int,
+		@CurrencySymbol nvarchar(3),
+		@PortalTemplates bit,
+		@StyleSheet nvarchar(255),
+		@AuthorizeCancel bit,
+		@InventoryManagement bit,
+		@OutOfStock int,
+		@ProductsBehavior int,
+		@AvoidNegativeStock bit,
+		@OrderRoleID int,
+		@CatalogRoleID int,
+		@SecureCookie bit,
+		@CheckoutMode int,
+		@ImpersonatedUserID int,
+		@TaxName nvarchar(100),
+		@ShippingName nvarchar(100),
+		@AddressName nvarchar(100)
+	AS
+	SET NOCOUNT ON
+	UPDATE 	{databaseOwner}{objectQualifier}Store_Administration 
+	SET	[Name] = @Name,
+		[Description] = @Description,
+		Keywords = @Keywords,
+		SEOFeature = @SEOFeature,
+		GatewayName = @GatewayName,
+		GatewaySettings=@GatewaySettings,
+		DefaultEmailAddress = @DefaultEmailAddress,
+		ShoppingCartPageID = @ShoppingCartPageID,
+		StorePageID = @StorePageID,
+		CurrencySymbol = @CurrencySymbol,
+		PortalTemplates = @PortalTemplates,
+		StyleSheet = @StyleSheet,
+		AuthorizeCancel = @AuthorizeCancel,
+		InventoryManagement = @InventoryManagement,
+		OutOfStock = @OutOfStock,
+		ProductsBehavior = @ProductsBehavior,
+		OrderRoleID = @OrderRoleID,
+		CatalogRoleID = @CatalogRoleID,
+		SecureCookie = @SecureCookie,
+		CheckoutMode = @CheckoutMode,
+		ImpersonatedUserID = @ImpersonatedUserID,
+		AvoidNegativeStock = @AvoidNegativeStock,
+		TaxName = @TaxName,
+		ShippingName = @ShippingName,
+		AddressName = @AddressName
+	WHERE	PortalID = @PortalID
+GO

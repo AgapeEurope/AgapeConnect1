@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action">
+    <value xml:space="preserve">Ajouter un contact</value>
+  </data>
+  <data name="Address.Header">
+    <value xml:space="preserve">Addresse&amp;nbsp;</value>
+  </data>
+  <data name="Authorized.Header">
+    <value xml:space="preserve">Autorisé&amp;nbsp;</value>
+  </data>
+  <data name="Banners.Header">
+    <value xml:space="preserve">Bannières</value>
+  </data>
+  <data name="cmdDelete.Text">
+    <value xml:space="preserve">Supprimer les annonceurs non-autorisés</value>
+  </data>
+  <data name="ControlTitle_.Text">
+    <value xml:space="preserve">Annuaire des Annonceurs</value>
+  </data>
+  <data name="Email.Header">
+    <value xml:space="preserve">Courriel</value>
+  </data>
+  <data name="Fax.Header">
+    <value xml:space="preserve">Télécopie&amp;nbsp;</value>
+  </data>
+  <data name="ModuleHelp.Text">
+    <value xml:space="preserve">&lt;h1&gt;A propos des Annonceurs&lt;/h1&gt;&lt;p&gt;Cet outil permet de gérer les annonceurs et 
+les bannières qui leurs sont associés.&lt;/p&gt;</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="RecordsPage.Text">
+    <value xml:space="preserve">Enregistrements par page</value>
+  </data>
+  <data name="Search.Text">
+    <value xml:space="preserve">Chercher</value>
+  </data>
+  <data name="Telephone.Header">
+    <value xml:space="preserve">Téléphone&amp;nbsp;</value>
+  </data>
+</root>

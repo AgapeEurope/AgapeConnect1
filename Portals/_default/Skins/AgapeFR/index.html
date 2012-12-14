@@ -1,0 +1,83 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Agapé Home Page v5-b</title>
+    <link rel="stylesheet" type="text/css" href="skin.css" media="all" />
+    <!--[if IE]>
+<style type="text/css" media="all">.borderitem {border-style:solid;}</style>
+<![endif]-->
+    <!--[if IE]>
+<style type="text/css"> 
+#Container { zoom: 1;}
+    .style1
+    {
+        height: 18px;
+        width: 100%;
+    }
+    </style>
+<![endif]-->
+</head>
+<body>
+    <div id="wrap">
+        <!-- The Control Panel -->
+        <div id="controlPanelContainer">
+            <div id="ControlPanel" runat="server" />
+        </div>
+        <div id="firstbar">
+            <div id="header">
+                <div id="logo">
+                    [logo]
+                </div>
+                <div id="minicartContainer">
+                    [MINICART]
+                </div>
+                <div id="langcont" style="float: right;">
+                    [LANGUAGE]
+                </div>
+                <div id="reglogsearch">
+                    [USER]&nbsp;&nbsp;|&nbsp;&nbsp;[LOGIN]&nbsp;&nbsp;|&nbsp;&nbsp;Search:&nbsp;[SEARCH]
+                </div>
+            </div>
+        </div>
+        <div id="secondbar">
+            <div class="topMenu">
+                [NAV]
+            </div>
+        </div>
+        <div id="thirdbar">
+            <div id="botMenu">
+                <ddr:MENU ID="MENU2" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="RootChildren" runat="server" />
+            </div>
+        </div>
+        <div id="fourthbar">
+            <div id="ContentContainer">
+                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="mainContentContainer">
+                    <tr>
+                        <td class="TopPane" colspan="3" id="TopPane" runat="server" valign="top">&nbsp;
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <td class="LeftPane" id="LeftPane" runat="server" valign="top">&nbsp;
+                        </td>
+                        <td class="ContentPane" id="ContentPane" runat="server" valign="top">&nbsp;
+                        </td>
+                        <td class="RightPane" id="RightPane" runat="server" valign="top">&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="BottomPane" colspan="3" id="BottomPane" runat="server" valign="top">&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="fifthbar">
+        <div id="footerCentre">
+            <div style="text-align: Left; color: #FFF; margin-left: 15px;" class="footer">
+                [PRIVACY]&nbsp;&nbsp;|&nbsp;&nbsp;[TERMS]&nbsp;&nbsp;|&nbsp;&nbsp;[COPYRIGHT]
+            </div>
+        </div>
+    </div>
+</body>
+</html>

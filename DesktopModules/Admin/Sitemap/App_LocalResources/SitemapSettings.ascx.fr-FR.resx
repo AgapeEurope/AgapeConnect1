@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="1Day.Text">
+    <value xml:space="preserve">1 Jour</value>
+  </data>
+  <data name="2Days.Text">
+    <value xml:space="preserve">2 Jours</value>
+  </data>
+  <data name="3Days.Text">
+    <value xml:space="preserve">3 Jours</value>
+  </data>
+  <data name="4Days.Text">
+    <value xml:space="preserve">4 Jours</value>
+  </data>
+  <data name="5Days.Text">
+    <value xml:space="preserve">5 Jours</value>
+  </data>
+  <data name="6Days.Text">
+    <value xml:space="preserve">6 Jours</value>
+  </data>
+  <data name="7Days.Text">
+    <value xml:space="preserve">7 Jours</value>
+  </data>
+  <data name="cmdRefresh.Text">
+    <value xml:space="preserve">Actualisez la priorité de page</value>
+  </data>
+  <data name="cmdSaveAll.Text">
+    <value xml:space="preserve">Enregistrer la configuration</value>
+  </data>
+  <data name="cmdSubmitToSearch.Text">
+    <value xml:space="preserve">Envoyer</value>
+  </data>
+  <data name="cmdSubmitToSearch.ToolTip">
+    <value xml:space="preserve">Envoyer</value>
+  </data>
+  <data name="cmdVerification.Text">
+    <value xml:space="preserve">Créer</value>
+  </data>
+  <data name="Description.Header">
+    <value xml:space="preserve">Description</value>
+  </data>
+  <data name="DisableCaching.Text">
+    <value xml:space="preserve">Désactiver la mise en cache</value>
+  </data>
+  <data name="Edit.Cancel">
+    <value xml:space="preserve">Annuler</value>
+  </data>
+  <data name="Edit.Edit">
+    <value xml:space="preserve">Editer</value>
+  </data>
+  <data name="Edit.Update">
+    <value xml:space="preserve">Mettre à jour</value>
+  </data>
+  <data name="Enabled.Header">
+    <value xml:space="preserve">Activé</value>
+  </data>
+  <data name="Keywords.Header">
+    <value xml:space="preserve">Mots clés</value>
+  </data>
+  <data name="lblCache.Help">
+    <value xml:space="preserve">Activez cette option si vous souhaitez mettre en cache le plan du site (SiteMap), il ne sera pas généré chaque fois qu'il sera demandé.  C’est spécialement nécessaire pour les sites ayant de nombreuses pages. Si votre site comporte plus de 50.000 urls le plan du site sera mis en cache avec une valeur par défaut de 1 jour. Mettez cette valeur à 0 pour désactiver la mise en cache.</value>
+  </data>
+  <data name="lblCache.Text">
+    <value xml:space="preserve">Durée en jour de mise en cache</value>
+  </data>
+  <data name="lblExcludePriority.Help">
+    <value xml:space="preserve">Cette option peut être utilisée pour supprimer certaines pages du plan du site (SiteMap). Vous pouvez configurer une priorité à « -1 » pour qu’elle n’apparaisse pas dans la liste.</value>
+  </data>
+  <data name="lblExcludePriority.Text">
+    <value xml:space="preserve">Exclure les urls avec une priorité inférieure à :</value>
+  </data>
+  <data name="lblIncludeHidden.Help">
+    <value xml:space="preserve">Lorsque "pages cachées" est coché (pages non visibles dans le menu) elles seront également incluses dans le plan du site (SitePam). La valeur par défaut est ne pas à inclure des pages cachées.</value>
+  </data>
+  <data name="lblIncludeHidden.Text">
+    <value xml:space="preserve">Inclure les pages cachées ?</value>
+  </data>
+  <data name="lblLevelPriority.Help">
+    <value xml:space="preserve">Lorsque l'option est activée, la priorité de chaque page sera calculée au niveau de la hiérarchie de la page. Les pages de niveau supérieur vont avoir une valeur de 1,  celles de deuxième niveau 0,9, de troisième niveau 0,8, etc... ce paramètre ne modifie pas la valeur stockée dans la page, mais il utilisera la valeur calculée lorsque nécessaire.</value>
+  </data>
+  <data name="lblLevelPriority.Text">
+    <value xml:space="preserve">Utilisez le niveau de la page comme priorité ?</value>
+  </data>
+  <data name="lblMinPagePriority.Help">
+    <value xml:space="preserve">Quand vous utiliser le "niveau de la page comme priorité", la priorité minimum sera utilisée pour les pages les plus basses dans la hiérarchie</value>
+  </data>
+  <data name="lblMinPagePriority.Text">
+    <value xml:space="preserve">Priorité minimum des pages :</value>
+  </data>
+  <data name="lblSearchEngine.Help">
+    <value xml:space="preserve">Soumettre votre site sur le moteur de recherche sélectionnés pour l'indexation.</value>
+  </data>
+  <data name="lblSearchEngine.Text">
+    <value xml:space="preserve">Moteur de recherche :</value>
+  </data>
+  <data name="lblSiteMap.Help">
+    <value xml:space="preserve">Soumettez  votre « SiteMap » pour optimiser la recherche de votre site sur Google. Cliquez sur Soumettre pour obtenir un compte Google (Outils pour les webmestres) et faites vérifier votre site (à l'aide de l'option de vérification ci-dessous). Une fois vérifié, vous pouvez sélectionner l'option Ajouter le « SiteMap » dans les paramètres de votre site.</value>
+  </data>
+  <data name="lblSiteMap.Text">
+    <value xml:space="preserve">URL du "SiteMap" :</value>
+  </data>
+  <data name="lblVerification.Help">
+    <value xml:space="preserve">Lors de l'inscription chez Google et l’utilisation des « outils pour les webmestres », vous devrez confirmer que vous êtes bien le propriétaire de ce site. Choisissez la méthode "Télécharger un fichier HTML" dans l'écran de vérification de Google. Entrez le nom de fichier affiché (ex. google53c0cef435b2b81e.html) dans la zone de vérification et cliquez sur Créer. Retourner sur Google et sélectionnez le bouton vérifier.</value>
+  </data>
+  <data name="lblVerification.Text">
+    <value xml:space="preserve">Vérification :</value>
+  </data>
+  <data name="Level.Header">
+    <value xml:space="preserve">Niveau</value>
+  </data>
+  <data name="lnkResetCache.Text">
+    <value xml:space="preserve">Effacer le cache</value>
+  </data>
+  <data name="lnkTestSitemap.Text">
+    <value xml:space="preserve">Afficher le "SiteMap"</value>
+  </data>
+  <data name="MessageUpdated.Text">
+    <value xml:space="preserve">Configuration enregistrée</value>
+  </data>
+  <data name="Name.Header">
+    <value xml:space="preserve">Nom</value>
+  </data>
+  <data name="NoCacheToReset.Text">
+    <value xml:space="preserve">Aucune donnée de cache disponible pour la réinitialisation</value>
+  </data>
+  <data name="OverridePriority.Header">
+    <value xml:space="preserve">Remplacer la priorité</value>
+  </data>
+  <data name="PageTitle.Header">
+    <value xml:space="preserve">Titre de la page</value>
+  </data>
+  <data name="Priority.Header">
+    <value xml:space="preserve">Priorité</value>
+  </data>
+  <data name="ProviderDescription.Header">
+    <value xml:space="preserve">Description</value>
+  </data>
+  <data name="ProviderEnabled.Header">
+    <value xml:space="preserve">Activé ?</value>
+  </data>
+  <data name="ProviderName.Header">
+    <value xml:space="preserve">Nom du fournisseur</value>
+  </data>
+  <data name="ProviderOverride.Header">
+    <value xml:space="preserve">Remplacer les priorités ?</value>
+  </data>
+  <data name="ResetOK.Text">
+    <value xml:space="preserve">Le cache a été purgé avec succès</value>
+  </data>
+  <data name="SectionCoreSettings.Text">
+    <value xml:space="preserve">Paramètres de base des URLs de page</value>
+  </data>
+  <data name="SectionCoreSettingsLbl.Text">
+    <value xml:space="preserve">Modifier les paramètres de base qui s'appliquent aux pages de DotNetNuke.</value>
+  </data>
+  <data name="SectionGeneralSettings.Text">
+    <value xml:space="preserve">Paramètres généraux de "SiteMap"</value>
+  </data>
+  <data name="SectionGeneralSettingsLbl.Text">
+    <value xml:space="preserve">Configurez les paramètres qui s'appliquent à toutes les URLs incluses dans le plan du site (SiteMap).</value>
+  </data>
+  <data name="SectionProviderSettings.Help">
+    <value xml:space="preserve">Dans cette section, vous pouvez afficher et configurer les fournisseurs « Sitemap » disponibles pour le site actuel. Cochez la case "Activer" si vous souhaitez inclure les URL générées pour ce fournisseur dans le fichier « SiteMap » final. Vous pouvez également remplacer la priorité pour toutes les URL de n'importe quel fournisseur en cochant la case appropriée et en donnant une valeur pour la nouvelle priorité</value>
+  </data>
+  <data name="SectionProviderSettings.Text">
+    <value xml:space="preserve">Fournisseurs installés</value>
+  </data>
+  <data name="SectionSubmissionSettings.Text">
+    <value xml:space="preserve">Présentation du site</value>
+  </data>
+  <data name="SectionSubmissionSettingsLbl.Text">
+    <value xml:space="preserve">Dans cette section, vous pouvez soumettre votre site aux différents moteurs de recherche.</value>
+  </data>
+  <data name="valPriority.Text">
+    <value xml:space="preserve">Vous devez fournir un nombre compris entre 0,0 et 1,0.</value>
+  </data>
+</root>

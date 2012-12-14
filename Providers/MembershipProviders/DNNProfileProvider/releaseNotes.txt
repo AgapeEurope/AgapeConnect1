@@ -1,0 +1,1 @@
+There are no Release Notes for this version of the DNN Profile and Role provider.

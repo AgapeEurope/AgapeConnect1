@@ -1,0 +1,49 @@
+﻿INSERT INTO {databaseOwner}{objectQualifier}Store_OrderStatus(OrderStatusText, ListOrder)
+VALUES('Paid', '2')
+
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus
+SET ListOrder = 3
+WHERE OrderStatusID = 1
+
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus
+SET ListOrder = 1
+WHERE OrderStatusID = 2
+
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus
+SET ListOrder = 4
+WHERE OrderStatusID = 3
+
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus
+SET ListOrder = 5
+WHERE OrderStatusID = 4
+
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus
+SET ListOrder = 6
+WHERE OrderStatusID = 5
+
+UPDATE {databaseOwner}{objectQualifier}Store_OrderStatus
+SET ListOrder = 7
+WHERE OrderStatusID = 6
+
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO
+
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}Store_CartItems_GetItems
+		@CartID nvarchar(50)
+	AS
+
+	SET NOCOUNT ON
+
+	DELETE {databaseOwner}{objectQualifier}Store_CartItems
+	WHERE {databaseOwner}{objectQualifier}Store_CartItems.ProductID IN (SELECT ProductID FROM {databaseOwner}{objectQualifier}Store_Products WHERE Archived = 1)
+		AND CartID = @CartID
+
+	SELECT	ItemID, CartID, ci.ProductID, Manufacturer, ModelNumber, ModelName, ProductImage, CASE WHEN GETDATE() BETWEEN SaleStartDate AND SaleEndDate AND SalePrice IS NOT NULL THEN SalePrice ELSE UnitCost END AS 'UnitCost', Quantity, ci.DateCreated, pr.ProductWeight AS 'ProductWeight'
+	FROM 	{databaseOwner}{objectQualifier}Store_CartItems ci,
+		{databaseOwner}{objectQualifier}Store_Products pr
+	WHERE	ci.ProductID = pr.ProductID
+	AND	CartID = @CartID
+
+GO
