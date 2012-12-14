@@ -1050,3 +1050,70 @@
    at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
 2012-12-14 18:38:21,858 [WIN-UN1L241MDMF][Thread:10][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
    at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 18:58:59,170 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-12-14 18:58:59,661 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-12-14 18:58:59,781 [WIN-UN1L241MDMF][Thread:7][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-12-14 18:59:00,245 [WIN-UN1L241MDMF][Thread:7][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-12-14 18:59:23,836 [WIN-UN1L241MDMF][Thread:7][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-12-14 18:59:24,162 [WIN-UN1L241MDMF][Thread:7][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-12-14 18:59:24,279 [WIN-UN1L241MDMF][Thread:7][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-12-14 18:59:24,623 [WIN-UN1L241MDMF][Thread:7][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-12-14 18:59:25,697 [WIN-UN1L241MDMF][Thread:9][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2012-12-14 18:59:25,703 [WIN-UN1L241MDMF][Thread:9][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: No shutdown reason provided.
+2012-12-14 19:01:27,006 [WIN-UN1L241MDMF][Thread:9][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
+2012-12-14 19:03:11,574 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Starting
+2012-12-14 19:03:11,898 [WIN-UN1L241MDMF][Thread:1][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Started
+2012-12-14 19:03:12,048 [WIN-UN1L241MDMF][Thread:5][INFO] DotNetNuke.Common.Initialize - Application Initializing
+2012-12-14 19:03:12,783 [WIN-UN1L241MDMF][Thread:5][INFO] DotNetNuke.Common.Initialize - Application Initialized
+2012-12-14 19:03:28,411 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 19:03:28,428 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.ApplicationException: Couldn't load menu style '/templates/AgapeFRMenu/': System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Web.HttpParseException: The "li@classString" element was not closed.  All elements must be either self-closing or have a matching end tag.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at DotNetNuke.Web.DDRMenu.Razor.GetWebPage(String virtualPath)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.RazorTemplateProcessor.LoadDefinition(TemplateDefinition baseDefinition)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromManifest(String manifestUrl)
+   at DotNetNuke.Web.DDRMenu.TemplateEngine.TemplateDefinition.FromName(String templateName, String manifestName)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.MenuBase.Instantiate(String menuStyle)
+   at DotNetNuke.Web.DDRMenu.SkinObject.OnPreRender(EventArgs e)"
+2012-12-14 19:03:28,541 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
+2012-12-14 19:03:28,555 [WIN-UN1L241MDMF][Thread:5][ERROR] DotNetNuke.Web.DDRMenu.SkinObject - FriendlyMessage="An error has occurred." ctrl="ASP.desktopmodules_ddrmenu_menu_ascx" exc="System.NullReferenceException: Object reference not set to an instance of an object.
+   at DotNetNuke.Web.DDRMenu.SkinObject.Render(HtmlTextWriter writer)"
