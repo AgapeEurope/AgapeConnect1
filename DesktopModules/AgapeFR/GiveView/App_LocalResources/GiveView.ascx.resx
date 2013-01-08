@@ -120,26 +120,17 @@
   <data name="AddToCart.Text" xml:space="preserve">
     <value>Add to Cart</value>
   </data>
-  <data name="GoButton.Text" xml:space="preserve">
-    <value>Go</value>
-  </data>
-  <data name="ListFreqFive.Text" xml:space="preserve">
+  <data name="ListFreqFour.Text" xml:space="preserve">
     <value>Today</value>
   </data>
-  <data name="ListFreqFour.Text" xml:space="preserve">
-    <value>Yearly</value>
-  </data>
   <data name="ListFreqOne.Text" xml:space="preserve">
-    <value>Monthly</value>
-  </data>
-  <data name="ListFreqThree.Text" xml:space="preserve">
-    <value>Twice yearly</value>
-  </data>
-  <data name="ListFreqTwo.Text" xml:space="preserve">
     <value>Quarterly</value>
   </data>
-  <data name="ListFreqZero.Text" xml:space="preserve">
-    <value>Please select...</value>
+  <data name="ListFreqThree.Text" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="ListFreqTwo.Text" xml:space="preserve">
+    <value>Twice yearly</value>
   </data>
   <data name="NameAnd.Text" xml:space="preserve">
     <value>&amp;</value>
@@ -147,13 +138,13 @@
   <data name="OneOffPre.Text" xml:space="preserve">
     <value>I would like to give by</value>
   </data>
-  <data name="rblOOOne.Text" xml:space="preserve">
+  <data name="rblMethOne.Text" xml:space="preserve">
     <value>bank transfer</value>
   </data>
-  <data name="rblOOTwo.Text" xml:space="preserve">
+  <data name="rblMethTwo.Text" xml:space="preserve">
     <value>cheque</value>
   </data>
-  <data name="rblOOZero.Text" xml:space="preserve">
+  <data name="rblMethZero.Text" xml:space="preserve">
     <value>credit card</value>
   </data>
   <data name="To.Text" xml:space="preserve">
@@ -218,5 +209,32 @@
   </data>
   <data name="GoBank.Text" xml:space="preserve">
     <value>Finish</value>
+  </data>
+  <data name="ListFreqZero.Text" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="City.Text" xml:space="preserve">
+    <value>City:</value>
+  </data>
+  <data name="Mobile.Text" xml:space="preserve">
+    <value>Cell:</value>
+  </data>
+  <data name="PostCode.Text" xml:space="preserve">
+    <value>Postal Code:</value>
+  </data>
+  <data name="Region.Text" xml:space="preserve">
+    <value>Region:</value>
+  </data>
+  <data name="Street1.Text" xml:space="preserve">
+    <value>Street:</value>
+  </data>
+  <data name="Street2.Text" xml:space="preserve">
+    <value>Street 2:</value>
+  </data>
+  <data name="Telephone.Text" xml:space="preserve">
+    <value>Telephone:</value>
+  </data>
+  <data name="Country.Text" xml:space="preserve">
+    <value>Country:</value>
   </data>
 </root>

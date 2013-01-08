@@ -4,7 +4,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
-<script type="text/javascript" language="javascript">
+<%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
+<script type="text/javascript">
 
     function Tab(currentField, nextField) {
         // Determine if the current field's max length has been reached.
@@ -22,12 +23,23 @@
             //$('#imgTip').tooltip();
             $('.aButton').button();
             $('.tbAmt').numeric({ decimal: false });
-            $('.rblOO').click(function () {
+            $('.tbAmt').attr('autocomplete', 'off');
+            $('.tbAmt').keyup(function () {
+                amt_enter();
+            }); $('.tbAmt').change(function () {
+                amt_enter();
+            });
+            $('.rblMeth').click(function () {
                 rbl_click();
             });
-            $('.ddlFreq').change(function () {
-                ddl_change();
+            $('.rbFreq').click(function () {
+                rbFreq_click();
             });
+            if
+                (!$('#login').is(':hidden')){
+                $('#contact').hide();
+            }
+
             $('#addedToCart').dialog({
                 autoOpen: false,
                 height: 80,
@@ -54,51 +66,60 @@
             });
         });
     }(jQuery, window.Sys));
-    function btnAmount_click() {
-        if ($('.tbAmt').val() == '') {
-            alert('Please enter an amount');
-        }
-        else if ($('.ddlFreq').val() == 0) {
-            alert('Please Select Frequency');
-        }
-        else if ($('.ddlFreq').val() == 99) {
-            hidedivs();
-            hideoneoffdivs();
-            $('#oneoff').show();
-        }
-        else if ($('.ddlFreq').val() == 1) {
-            hidedivs();
-            $('#regular').show();
-        }
-    }
     function rbl_click() {
-        if ($('.rblOO input:radio:checked').val() == 1) {
-            hideoneoffdivs();
-            $('#creditcard').show();
+        if ($('.rblMeth input:radio:checked').val() == 'm1') {
+            $('#cheque').slideUp(1000);
+            $('#virement').slideUp(1000);
+            $('#creditcard').slideDown(1000);
         }
-        else if ($('.rblOO input:radio:checked').val() == 2) {
-            hideoneoffdivs();
-            $('#virement').show();
+        else if ($('.rblMeth input:radio:checked').val() == 'm2') {
+            $('#creditcard').slideUp(1000);
+            $('#cheque').slideUp(1000);
+            $('#virement').slideDown(1000);
         }
-        else if ($('.rblOO input:radio:checked').val() == 3) {
-            hideoneoffdivs();
-            $('#cheque').show();
-        }
-    }
-    function ddl_change() {
-        if ($('#regular').is(":visible") || $('#oneoff').is("visible") && $('.ddlFreq').val() != 0) {
-            btnAmount_click();
+        else if ($('.rblMeth input:radio:checked').val() == 'm3') {
+            $('#creditcard').slideUp(1000);
+            $('#virement').slideUp(1000);
+            $('#cheque').slideDown(1000);
         }
     }
+    function rbFreq_click() {
+        if ($('.rbFreq input:radio:checked').val() != 99) {
+            $('[value=m1]').parent().fadeOut(1000);
+            $('[value=m3]').parent().fadeOut(1000);
+            if ($('#creditcard').is(":visible") || $('#cheque').is(":visible")) {
+                jQuery('[value=m2]').attr('checked', 'checked');
+                rbl_click();
+            }
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 99) {
+            $('[value=m1]').parent().fadeIn(1000);
+            $('[value=m3]').parent().fadeIn(1000);
+        }
+        $('#amtchoose').slideDown(1000);
+    }
+    function amt_enter() {
+        var inp = $(".tbAmt");
+        if (inp.val().length > 0) {
+            $('#contact').slideDown(1000);
+            $('#methchoose').slideDown(1000);
+            rbFreq_click();
 
-    function hidedivs() {
-        $('#regular').hide();
-        $('#oneoff').hide();
+        }
+        else {
+            //hidedivs();
+            //$('#amtchoose').show();
+            $('#contact').slideUp(1000);
+            $('#methchoose').slideUp(1000);
+        }
     }
-    function hideoneoffdivs() {
-        $('#virement').hide();
+    function hidedivs() {
+        $('#amtchoose').hide();
+        $('#contact').hide();
+        $('#methchoose').hide();
         $('#creditcard').hide();
         $('#cheque').hide();
+        $('#virement').hide();
     }
     function transClient() {
         $('#btnAmount').val('<%= Translate("GoButton") %>');
@@ -108,6 +129,10 @@
     .dnnForm {
         min-width: 0 !important;
     }
+
+        .dnnForm input.dnnFormRequired {
+            margin-left: -5px;
+        }
 
     .CasAuthModuleDiv {
         clear: both;
@@ -130,7 +155,6 @@
 
     .dnnFormItem {
         width: 300px;
-        background-color: #6495ed;
     }
 
     .virementform {
@@ -140,20 +164,25 @@
     .input {
         width: 250px !important;
     }
-    .oochoose {
+
+    .bubble {
         background-color: #6495ed;
         border-radius: 15px;
         padding: 10px;
     }
+
     .dnnFormItem input[type="text"], .dnnFormItem textarea {
         min-width: 250px;
     }
+
     .dnnFormItem label {
         text-align: left;
     }
+
     .dnnTooltip {
         width: 250px !important;
     }
+
     .dnnFormItem select {
         width: 260px;
     }
@@ -173,150 +202,192 @@
 <asp:HiddenField ID="hfUniqueRef" runat="server" Value="-1" />
 <div align="left" style="font-size: 10pt;">
     <div style="width: 700px; float: left;">
-        <div id="GiveTitle" runat="server" class="AgapeH2" style="margin-bottom: 12px;">
+        <div id="GiveTitle" runat="server" class="H2" style="margin-bottom: 12px;">
             <asp:Label ID="Title" runat="server"></asp:Label>
         </div>
         <asp:Label ID="lblOOError" Visible="False" runat="server"></asp:Label>
-        <div>
-            <asp:DropDownList ID="ddlFrequency" runat="server">
-                <asp:ListItem Value="0"></asp:ListItem>
+        <div id="freqchoose" class="bubble">
+            This is the frequency div.<br />
+            <asp:RadioButtonList ID="rbFrequency" runat="server">
                 <asp:ListItem Value="1"></asp:ListItem>
                 <asp:ListItem Value="3"></asp:ListItem>
                 <asp:ListItem Value="6"></asp:ListItem>
                 <asp:ListItem Value="12"></asp:ListItem>
                 <asp:ListItem Value="99"></asp:ListItem>
-            </asp:DropDownList>
+            </asp:RadioButtonList>
+        </div>
+        <div id="amtchoose" class="bubble">
             <asp:Label ID="lblWantGive" runat="server" Text="Label"></asp:Label>
             <asp:TextBox ID="tbAmount" runat="server"></asp:TextBox>
             <asp:Label ID="lblTo" runat="server" Text="Label"></asp:Label>
-            <input id="btnAmount" type="button" value="button" class="aButton" onclick="btnAmount_click(); return false;" />
         </div>
-        <div id="regular">
-            This is the regular giving div.
-        </div>
-        <div id="oneoff">
-            <div class="oochoose">
-                <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
-                <img id="imgTip" src="/images/about.gif" width="15px" title="Try this" />
-                <asp:RadioButtonList ID="rblOneOffMethod" runat="server">
-                    <asp:ListItem Value="1"></asp:ListItem>
-                    <asp:ListItem Value="2"></asp:ListItem>
-                    <asp:ListItem Value="3"></asp:ListItem>
-                </asp:RadioButtonList>
-            </div>
-
-
-            <div id="virement">
-                This is the virement div.
-                <div id="virementlogin" runat="server" style="overflow: auto">
-                    You are not logged in. You may log in here if you have an account.
-                    <div id="userlogin" style="float: left">
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblUserName" runat="server" ControlName="TxtUserName" />
-                                <asp:TextBox ID="tbUserName" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
-                            </div>
-                        </div>
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblPassword" runat="server" ControlName="TxtPassword" />
-                                <asp:TextBox ID="tbPassword" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stafflogin" style="float: right">
-                        <asp:Button ID="btnTheKey" runat="server" CausesValidation="false" ResourceKey="BtnTheKey" CssClass="aButton" ControlName="TxtTheKey" />
+        <div id="login" runat="server" style="overflow: auto" class="bubble">
+            This is the login div.<br />
+            <div id="userlogin" style="float: left">
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblUserName" runat="server" ControlName="TxtUserName" />
+                        <asp:TextBox ID="tbUserName" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
                     </div>
                 </div>
-                <div>
-                    This is the virement form div.
-                <table>
-                    <tr>
-                        <td style="vertical-align: top;">
-                            <div class="dnnForm dnnAddress dnnClear">
-                                <div class="dnnFormItem">
-                                    <dnn:Label ID="LblFirstName" runat="server" ControlName="TxtFirstName" />
-                                    <br />
-                                    <asp:TextBox ID="TxtFirstName" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
-                                    <asp:RequiredFieldValidator ID="ValFirstName" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="TxtFirstName" Display="Dynamic" />
-                                </div>
-                            </div>
-                            <div class="dnnForm dnnAddress dnnClear">
-                                <div class="dnnFormItem">
-                                    <dnn:Label ID="LblLastName" runat="server" ControlName="TxtLastName" />
-                                    <asp:TextBox ID="TxtLastName" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
-                                    <asp:RequiredFieldValidator ID="ValLastName" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="TxtLastName" Display="Dynamic" />
-                                </div>
-                            </div>
-                            <div class="dnnForm dnnAddress dnnClear">
-                                <div class="dnnFormItem">
-                                    <dnn:Label ID="LblEmail" runat="server" ControlName="TxtEmail" />
-                                    <asp:TextBox ID="TxtEmail" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
-                                    <asp:RequiredFieldValidator ID="ValEmail" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="TxtEmail" Display="Dynamic" />
-                                </div>
-                            </div>
-                        </td>
-                        <td style="vertical-align: top;">
-                            <div id="addressContainer" class="addressContainer">
-                                <dnn1:Address ID="DnnAddress" ValidationGroup="OneOffVirement" runat="server" Country="France" CountryData="Text" ShowFax="False" />
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                    <div class ="bankinfo">
-                        <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblBank" runat="server" ControlName="TxtBank" />
-                                <asp:TextBox ID="tbBank" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
-                            </div>
-                        </div>
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblBankStreet1" runat="server" ControlName="TxtBankStreet1" />
-                                <asp:TextBox ID="tbBankStreet1" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
-                            </div>
-                        </div>
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblBankStreet2" runat="server" ControlName="TxtBankStreet2" />
-                                <asp:TextBox ID="tbBankStreet2" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
-                            </div>
-                        </div>
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblBankPostal" runat="server" ControlName="TxtBankPostal" />
-                                <asp:TextBox ID="tbBankPostal" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
-                            </div>
-                        </div>
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblBankCity" runat="server" ControlName="TxtBankCity" />
-                                <asp:TextBox ID="tbBankCity" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
-                            </div>
-                        </div>
-                        <div class="dnnForm dnnAddress dnnClear">
-                            <div class="dnnFormItem">
-                                <dnn:Label ID="lblBankAcc" runat="server" ControlName="TxtBankAcc" />
-                                <asp:TextBox ID="tbBankAcc" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
-                            </div>
-                        </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblPassword" runat="server" ControlName="TxtPassword" />
+                        <asp:TextBox ID="tbPassword" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
                     </div>
-                    <asp:Button ID="btnGoBank" class="aButton" ValidationGroup="OneOffVirement" runat="server" Text="Button" />
-                    <asp:Button ID="btnGoUserBank" class="aButton" ValidationGroup="OneOffVirement" runat="server" Text="Button" />
                 </div>
             </div>
-            <div id="creditcard">
-                <asp:TextBox ID="theDonationComment" runat="server" Font-Size="12pt" Width="360px"
-                    Height="48px" Rows="10" TextMode="MultiLine"></asp:TextBox><br />
-                <asp:Button ID="btnCarte" ValidationGroup="OneOffCC" runat="server" Text="" CssClass="aButton" />&nbsp;
+            <div class="stafflogin" style="float: right">
+                <asp:Button ID="btnTheKey" runat="server" CausesValidation="false" CssClass="aButton" />
+            </div>
+        </div>
+        <div id="contact" class="bubble">
+            <div style="float: left">
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblFirstName" runat="server" ControlName="TxtFirstName" />
+                        <br />
+                        <asp:TextBox ID="TxtFirstName" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
+                        <asp:RequiredFieldValidator ID="ValFirstName" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="TxtFirstName" Display="Dynamic" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblLastName" runat="server" ControlName="TxtLastName" />
+                        <asp:TextBox ID="TxtLastName" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
+                        <asp:RequiredFieldValidator ID="ValLastName" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="TxtLastName" Display="Dynamic" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblEmail" runat="server" ControlName="TxtEmail" />
+                        <asp:TextBox ID="TxtEmail" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
+                        <asp:RequiredFieldValidator ID="ValEmail" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="TxtEmail" Display="Dynamic" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblMobile" runat="server" ControlName="TxtMobile" />
+                        <asp:TextBox ID="TxtMobile" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblTelephone" runat="server" ControlName="TxtTelephone" />
+                        <asp:TextBox ID="TxtTelephone" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                    </div>
+                </div>
+            </div>
+            <div style="float: right">
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblStreet1" runat="server" ControlName="TxtStreet1" />
+                        <asp:TextBox ID="TxtStreet1" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblStreet2" runat="server" ControlName="TxtStreet2" />
+                        <asp:TextBox ID="TxtStreet2" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblCity" runat="server" ControlName="TxtCity" />
+                        <asp:TextBox ID="TxtCity" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LlbCountry" runat="server" ControlName="TxtCountry" />
+                        <div class="dnnLeft">
+                            <wc:CountryListBox TestIP="" LocalhostCountryCode="France" ID="cboCountry" DataValueField="Value" DataTextField="Text" AutoPostBack="True" runat="server" />
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblRegion" runat="server" ControlName="TxtRegion" />
+                        <asp:TextBox ID="TxtRegion" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="LblPostCode" runat="server" ControlName="TxtPostCode" />
+                        <asp:TextBox ID="TxtPostCode" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both"></div>
+
+        </div>
+        <div id="methchoose" class="bubble">
+            <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
+            <img id="imgTip" src="/images/about.gif" width="15px" title="Try this" />
+            <asp:RadioButtonList ID="rblMethod" runat="server">
+                <asp:ListItem Value="m1"></asp:ListItem>
+                <asp:ListItem Value="m2"></asp:ListItem>
+                <asp:ListItem Value="m3"></asp:ListItem>
+            </asp:RadioButtonList>
+        </div>
+        <div id="virement" class="bubble">
+            This is the virement form div.<br />
+            <div class="bankinfo">
+                <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblBank" runat="server" ControlName="TxtBank" />
+                        <asp:TextBox ID="tbBank" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblBankStreet1" runat="server" ControlName="TxtBankStreet1" />
+                        <asp:TextBox ID="tbBankStreet1" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblBankStreet2" runat="server" ControlName="TxtBankStreet2" />
+                        <asp:TextBox ID="tbBankStreet2" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblBankPostal" runat="server" ControlName="TxtBankPostal" />
+                        <asp:TextBox ID="tbBankPostal" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblBankCity" runat="server" ControlName="TxtBankCity" />
+                        <asp:TextBox ID="tbBankCity" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblBankAcc" runat="server" ControlName="TxtBankAcc" />
+                        <asp:TextBox ID="tbBankAcc" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
+                    </div>
+                </div>
+            </div>
+            <asp:Button ID="btnGoBank" class="aButton" ValidationGroup="OneOffVirement" runat="server" Text="Button" />
+            <asp:Button ID="btnGoUserBank" class="aButton" ValidationGroup="OneOffVirement" runat="server" Text="Button" />
+        </div>
+        <div id="creditcard" class="bubble">
+            This is the Credit Card div.<br />
+            <asp:TextBox ID="theDonationComment" runat="server" Font-Size="12pt" Width="360px"
+                Height="48px" Rows="10" TextMode="MultiLine"></asp:TextBox><br />
+            <asp:Button ID="btnCarte" ValidationGroup="OneOffCC" runat="server" Text="" CssClass="aButton" />&nbsp;
                 <asp:Button ID="btnCheckout" ValidationGroup="OneOffCC" runat="server" Text="" CssClass="aButton" />
-            </div>
-            <div id="cheque">
-                This is the cheque giving div.
-            </div>
         </div>
-
+        <div id="cheque" class="bubble">
+            This is the cheque giving div.<br />
+        </div>
         <div id="addedToCart">
             <asp:Label ID="lblAddedToCart" runat="server" Text="Label"></asp:Label>
         </div>
@@ -328,7 +399,7 @@
         <asp:Button ID="btnBio" runat="server" Text="See Bio" CausesValidation="false" CssClass="aButton" />
         <br />
         <div>
-            <uc1:frGiveInfo ID="profileImage1" runat="server" />
+            <uc1:frGiveInfo ID="frGiveInfo" runat="server" />
         </div>
     </div>
 </div>
