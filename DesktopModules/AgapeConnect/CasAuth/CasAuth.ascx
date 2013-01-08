@@ -8,12 +8,12 @@
         float:right;
     }
 
-    #BtnTheKey {
-        margin-top: 100px;
+    .BtnTheKey {
+        margin-top: 30px;
     }
 </style>
 
 <div class="CasAuthModuleDiv">
     <asp:Label ID="LblTheKey" runat="server" ResourceKey="LblTheKey" CssClass="AgapeH5"></asp:Label><br />
-    <asp:Button ID="BtnTheKey" runat="server" ResourceKey="BtnTheKey" />
+    <asp:Button ID="BtnTheKey" runat="server" ResourceKey="BtnTheKey" CssClass="BtnTheKey" />
 </div>
