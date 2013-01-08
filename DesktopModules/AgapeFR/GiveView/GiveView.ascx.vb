@@ -123,11 +123,14 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             End If
         End Sub
         Private Sub SetTranslate()
-            rbFrequency.Items.Item(0).Text = Translate("ListFreqZero")
-            rbFrequency.Items.Item(1).Text = Translate("ListFreqOne")
-            rbFrequency.Items.Item(2).Text = Translate("ListFreqTwo")
-            rbFrequency.Items.Item(3).Text = Translate("ListFreqThree")
-            rbFrequency.Items.Item(4).Text = Translate("ListFreqFour")
+            rblFrequency.Items.Item(0).Text = Translate("ListFreqZero")
+            rblFrequency.Items.Item(1).Text = Translate("ListFreqOne")
+            rblFrequency.Items.Item(2).Text = Translate("ListFreqTwo")
+            rblFrequency.Items.Item(3).Text = Translate("ListFreqThree")
+            rblFrequency.Items.Item(4).Text = Translate("ListFreqFour")
+            rblLogType.Items.Item(0).Text = Translate("ListLogZero")
+            rblLogType.Items.Item(1).Text = Translate("ListLogOne")
+            rblLogType.Items.Item(2).Text = Translate("ListLogTwo")
             lblWantGive.Text = Translate("WantGive")
             Dim giveName As String = ""
             If Request.QueryString("giveto") <> "" Then
@@ -172,11 +175,13 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblPassword.Text = Translate("Password")
             lblUserName.Text = Translate("UserName")
             btnTheKey.Text = Translate("TheKey")
+            btnUserLogin.Text = Translate("UserLogin")
             btnGoBank.Text = Translate("GoBank")
             btnGoUserBank.Text = Translate("GoBank")
         End Sub
         Private Sub AddCSS()
-            rbFrequency.CssClass = rbFrequency.CssClass & " rbFreq"
+            rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
+            rblLogType.CssClass = rblLogType.CssClass & " rblLog"
             tbAmount.CssClass = tbAmount.CssClass & " tbAmt"
             rblMethod.CssClass = rblMethod.CssClass & " rblMeth"
 
@@ -250,7 +255,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
 #Region "Buttons"
         ' TODO Changer les valeurs DonationType en utilisant les constantes CartFunctions.DonationType
         Protected Sub btnCheckout_Click(sender As Object, e As System.EventArgs) Handles btnCheckout.Click
-            
+
             If tbAmount.Text = "" Then
                 lblOOError.Text = "Please enter an amount into the box."
                 lblOOError.Visible = True
@@ -360,7 +365,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     insert.BankPostal = tbBankPostal.Text
                     insert.BankStreet1 = tbBankStreet1.Text
                     insert.BankStreet2 = tbBankStreet2.Text
-                    insert.Frequency = rbFrequency.SelectedValue
+                    insert.Frequency = rblFrequency.SelectedValue
                     'TODO create give message box for Vierment
                     insert.GiveMessage = ""
                     insert.Status = 0
@@ -398,7 +403,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         '        lblSOError.Visible = False
         '        Session("SortCode") = tbSort1.Text & tbSort2.Text & tbSort3.Text
         '        Session("Amount") = CDbl(tbSOAmount.Text)
-        '        Session("Frequency") = CInt(rbFrequency.SelectedValue)
+        '        Session("Frequency") = CInt(rblFrequency.SelectedValue)
         '        Session("AccountNo") = tbAccNum.Text
         '        Session("GiveToType") = CStr(DonationType.Value)
         '        Session("RefId") = CInt(RowId.Value)

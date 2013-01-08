@@ -35,8 +35,10 @@
             $('.rbFreq').click(function () {
                 rbFreq_click();
             });
-            if
-                (!$('#login').is(':hidden')){
+            $('.rblLog').click(function () {
+                rblLog_click();
+            });
+            if (!$('#login').is(':hidden')) {
                 $('#contact').hide();
             }
 
@@ -85,41 +87,73 @@
     }
     function rbFreq_click() {
         if ($('.rbFreq input:radio:checked').val() != 99) {
-            $('[value=m1]').parent().fadeOut(1000);
-            $('[value=m3]').parent().fadeOut(1000);
+            $('[value=m1]').parent().fadeOut(500);
+            $('[value=m3]').parent().fadeOut(500);
             if ($('#creditcard').is(":visible") || $('#cheque').is(":visible")) {
                 jQuery('[value=m2]').attr('checked', 'checked');
                 rbl_click();
             }
         }
         else if ($('.rbFreq input:radio:checked').val() == 99) {
-            $('[value=m1]').parent().fadeIn(1000);
-            $('[value=m3]').parent().fadeIn(1000);
+            $('[value=m1]').parent().fadeIn(500);
+            $('[value=m3]').parent().fadeIn(500);
         }
-        $('#amtchoose').slideDown(1000);
+        $('#amtchoose').slideDown(500);
+    }
+    function rblLog_click() {
+        if ($('.rblLog input:radio:checked').val() == 1) {
+            $('#userlogin').slideUp(1000);
+            $('#stafflogin').slideUp(1000);
+            $('#contact').slideDown(1000);
+            $('#methchoose').slideDown(1000);
+        }
+        else if ($('.rblLog input:radio:checked').val() == 2) {
+            $('#userlogin').slideDown(1000);
+            $('#stafflogin').slideUp(1000);
+            $('#contact').slideUp(1000);
+            $('#methchoose').slideUp(1000);
+        }
+        else if ($('.rblLog input:radio:checked').val() == 3) {
+            $('#userlogin').slideUp(1000);
+            $('#stafflogin').slideDown(1000);
+            $('#contact').slideUp(1000);
+            $('#methchoose').slideUp(1000);
+        }
     }
     function amt_enter() {
         var inp = $(".tbAmt");
         if (inp.val().length > 0) {
-            $('#contact').slideDown(1000);
-            $('#methchoose').slideDown(1000);
+            $('#login').slideDown(1000);
+            var logged = $('#hfLoggedIn').val();
+            if (logged == "False") {
+                $('.notlogged').slideDown(1000);
+            }
             rbFreq_click();
 
         }
         else {
             //hidedivs();
             //$('#amtchoose').show();
+            $('#login').slideUp(1000);
             $('#contact').slideUp(1000);
             $('#methchoose').slideUp(1000);
+            $('#creditcard').slideUp(1000);
+            $('#cheque').slideUp(1000);
+            $('#virement').slideUp(1000);
         }
     }
     function hidedivs() {
         $('#amtchoose').hide();
+        $('#login').hide();
         $('#contact').hide();
+        $('.notlogged').hide();
+        $('#stafflogin').hide();
+        $('#userlogin').hide();
         $('#methchoose').hide();
         $('#creditcard').hide();
         $('#cheque').hide();
         $('#virement').hide();
+
     }
     function transClient() {
         $('#btnAmount').val('<%= Translate("GoButton") %>');
@@ -145,11 +179,11 @@
         margin-top: 100px;
     }
 
-    .userlogin {
+    #leftlogin {
         float: left;
     }
 
-    .stafflogin {
+    #rightlogin {
         float: right;
     }
 
@@ -194,7 +228,7 @@
 <asp:HiddenField ID="hfUserId1" runat="server" Value="-1" />
 <asp:HiddenField ID="hfGiveToName" runat="server" Value="" />
 <div id="loggedWrap">
-    <asp:HiddenField ID="hfLoggedIn" runat="server" Value="False" />
+    <asp:HiddenField ID="hfLoggedIn" runat="server" Value="False" ClientIDMode="Static" />
 </div>
 <div id="pauseWrap">
     <asp:HiddenField ID="hfDonBasket" runat="server" Value="-1" />
@@ -208,7 +242,7 @@
         <asp:Label ID="lblOOError" Visible="False" runat="server"></asp:Label>
         <div id="freqchoose" class="bubble">
             This is the frequency div.<br />
-            <asp:RadioButtonList ID="rbFrequency" runat="server">
+            <asp:RadioButtonList ID="rblFrequency" runat="server">
                 <asp:ListItem Value="1"></asp:ListItem>
                 <asp:ListItem Value="3"></asp:ListItem>
                 <asp:ListItem Value="6"></asp:ListItem>
@@ -221,24 +255,38 @@
             <asp:TextBox ID="tbAmount" runat="server"></asp:TextBox>
             <asp:Label ID="lblTo" runat="server" Text="Label"></asp:Label>
         </div>
-        <div id="login" runat="server" style="overflow: auto" class="bubble">
+        <div id="login" runat="server" style="overflow: auto" class="bubble notlogged">
             This is the login div.<br />
-            <div id="userlogin" style="float: left">
-                <div class="dnnForm dnnAddress dnnClear">
-                    <div class="dnnFormItem">
-                        <dnn:Label ID="lblUserName" runat="server" ControlName="TxtUserName" />
-                        <asp:TextBox ID="tbUserName" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
-                    </div>
-                </div>
-                <div class="dnnForm dnnAddress dnnClear">
-                    <div class="dnnFormItem">
-                        <dnn:Label ID="lblPassword" runat="server" ControlName="TxtPassword" />
-                        <asp:TextBox ID="tbPassword" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
-                    </div>
-                </div>
+            <div id="leftlogin">
+                <asp:RadioButtonList ID="rblLogType" runat="server">
+                    <asp:ListItem Value="1"></asp:ListItem>
+                    <asp:ListItem Value="2"></asp:ListItem>
+                    <asp:ListItem Value="3"></asp:ListItem>
+                </asp:RadioButtonList>
             </div>
-            <div class="stafflogin" style="float: right">
-                <asp:Button ID="btnTheKey" runat="server" CausesValidation="false" CssClass="aButton" />
+            <div class="rightlogin">
+                <div id="stafflogin">
+                    This is the staff login div. Clicking here should go to The Key and come back here with the previous options stored.<br />
+                    <asp:Button ID="btnTheKey" runat="server" CausesValidation="false" CssClass="aButton" />
+                </div>
+                <div id="userlogin">
+                    This is the user login div. Clicking the button below should log the user in and return to this page with the previous options stored.<br />
+                    <div class="dnnForm dnnAddress dnnClear">
+                        <div class="dnnFormItem">
+                            <dnn:Label ID="lblUserName" runat="server" ControlName="TxtUserName" />
+                            <asp:TextBox ID="tbUserName" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
+                        </div>
+                    </div>
+                    <div class="dnnForm dnnAddress dnnClear">
+                        <div class="dnnFormItem">
+                            <dnn:Label ID="lblPassword" runat="server" ControlName="TxtPassword" />
+                            <asp:TextBox ID="tbPassword" runat="server" TextMode="Password" MaxLength="50" CssClass="dnnFormRequired virementform" />
+                        </div>
+                    </div>
+                    <div>
+                        <asp:Button ID="btnUserLogin" runat="server" CausesValidation="false" CssClass="aButton" />
+                    </div>
+                </div>
             </div>
         </div>
         <div id="contact" class="bubble">
@@ -305,10 +353,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
                 <div class="dnnForm dnnAddress dnnClear">
                     <div class="dnnFormItem">
                         <dnn:Label ID="LblRegion" runat="server" ControlName="TxtRegion" />

@@ -237,4 +237,16 @@
   <data name="Country.Text" xml:space="preserve">
     <value>Country:</value>
   </data>
+  <data name="ListLogOne.Text" xml:space="preserve">
+    <value>I am a returning user.</value>
+  </data>
+  <data name="ListLogTwo.Text" xml:space="preserve">
+    <value>I have a staff account.</value>
+  </data>
+  <data name="ListLogZero.Text" xml:space="preserve">
+    <value>I am a new user.</value>
+  </data>
+  <data name="UserLogin.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
 </root>

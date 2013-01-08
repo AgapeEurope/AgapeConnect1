@@ -237,4 +237,16 @@
   <data name="Country.Text" xml:space="preserve">
     <value>Pays :</value>
   </data>
+  <data name="ListLogOne.Text" xml:space="preserve">
+    <value>Je suis revenu.</value>
+  </data>
+  <data name="ListLogTwo.Text" xml:space="preserve">
+    <value>Je suis équipier.</value>
+  </data>
+  <data name="ListLogZero.Text" xml:space="preserve">
+    <value>Je suis nouveau.</value>
+  </data>
+  <data name="UserLogin.Text" xml:space="preserve">
+    <value>Connexion</value>
+  </data>
 </root>
