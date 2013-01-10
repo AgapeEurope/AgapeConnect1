@@ -17,6 +17,7 @@ Imports StaffBroker
 Imports Cart
 Imports Give
 Imports StaffBrokerFunctions
+Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
 
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
@@ -46,74 +47,73 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
 
         End Sub
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
-
             'Translate the page
             SetTranslate()
-            'add the css to pick up fields from client side
-            AddCSS()
-            'check if the user's logged in
-            If Me.UserId > 0 Then
-                hfLoggedIn.Value = "True"
-                btnGoBank.Visible = True
-                btnGoUserBank.Visible = False
-                'Read in fields if logged in
-                Dim objUser As DotNetNuke.Entities.Users.UserInfo = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, Me.UserId)
-                TxtFirstName.Text = objUser.FirstName
-                TxtLastName.Text = objUser.LastName
-                TxtEmail.Text = objUser.Email
-                TxtTelephone.Text = objUser.Profile.Telephone
-                TxtMobile.Text = objUser.Profile.Cell
-                TxtStreet1.Text = objUser.Profile.Street
-                TxtStreet2.Text = objUser.Profile.Unit
-                TxtCity.Text = objUser.Profile.City
-                TxtRegion.Text = objUser.Profile.Region
-                TxtPostCode.Text = objUser.Profile.PostalCode
-                cboCountry.SelectedValue = objUser.Profile.Country
-                'lblPassword.Visible = False
-                'tbPassword.Visible = False
-                login.Style("Display") = "none"
-            Else
-                hfLoggedIn.Value = "False"
-                btnGoBank.Visible = False
-                btnGoUserBank.Visible = True
-            End If
-
-            'Find the giving type and display the title of the page
-            ShowProject.Value = 0
-            If Request.QueryString("giveto") <> "" Then
-                Dim dBroke As New StaffBrokerDataContext
-                Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
-
-                'first try staff
-                If staff.Count > 0 Then
-                    'Detect if UnNamed - if so use giving shortcut instead
-                    If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
-                        Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
-                    Else
-                        Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
-                        hfUserId1.Value = staff.First.UserId1
-                    End If
-                    theImage1.ImageUrl = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
-                    Dim GiveText = GetStaffProfileProperty(staff.First.StaffId, "GivingText")
-                    RowId.Value = staff.First.StaffId
-                    DonationType.Value = "Staff"
-                    Return
+            Session("returnurl") = Request.RawUrl
+            MsgBox(Session("returnurl"))
+            If Not Me.IsPostBack Then
+                'add the css to pick up fields from client side
+                AddCSS()
+                'check if the user's logged in
+                If Me.UserId > 0 Then
+                    hfLoggedIn.Value = "True"
+                    'Read in fields if logged in
+                    Dim objUser As DotNetNuke.Entities.Users.UserInfo = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, Me.UserId)
+                    TxtFirstName.Text = objUser.FirstName
+                    TxtLastName.Text = objUser.LastName
+                    TxtEmail.Text = objUser.Email
+                    TxtConfEmail.Text = objUser.Email
+                    TxtTelephone.Text = objUser.Profile.Telephone
+                    TxtMobile.Text = objUser.Profile.Cell
+                    TxtStreet1.Text = objUser.Profile.Street
+                    TxtStreet2.Text = objUser.Profile.Unit
+                    TxtCity.Text = objUser.Profile.City
+                    TxtRegion.Text = objUser.Profile.Region
+                    TxtPostCode.Text = objUser.Profile.PostalCode
+                    cboCountry.SelectedValue = objUser.Profile.Country
+                    'lblPassword.Visible = False
+                    'tbPassword.Visible = False
+                    login.Style("Display") = "none"
+                Else
+                    hfLoggedIn.Value = "False"
                 End If
 
-                'Second Try Department/Ministry
-                Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
-                If Dept.Count > 0 Then
-                    Title.Text = Dept.First.Name
-                    DonationType.Value = "Dept"
-                    RowId.Value = Dept.First.CostCenterId
-                    Return
+                'Find the giving type and display the title of the page
+                ShowProject.Value = 0
+                If Request.QueryString("giveto") <> "" Then
+                    Dim dBroke As New StaffBrokerDataContext
+                    Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
+
+                    'first try staff
+                    If staff.Count > 0 Then
+                        'Detect if UnNamed - if so use giving shortcut instead
+                        If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
+                            Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
+                        Else
+                            Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
+                            hfUserId1.Value = staff.First.UserId1
+                        End If
+                        theImage1.ImageUrl = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
+                        Dim GiveText = GetStaffProfileProperty(staff.First.StaffId, "GivingText")
+                        RowId.Value = staff.First.StaffId
+                        DonationType.Value = "Staff"
+                        Return
+                    End If
+
+                    'Second Try Department/Ministry
+                    Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
+                    If Dept.Count > 0 Then
+                        Title.Text = Dept.First.Name
+                        DonationType.Value = "Dept"
+                        RowId.Value = Dept.First.CostCenterId
+                        Return
+                    Else
+                        badquery()
+                    End If
                 Else
                     badquery()
                 End If
-            Else
-                badquery()
             End If
-
         End Sub
         Protected Sub badquery()
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
@@ -155,6 +155,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             btnCheckout.Text = Translate("Checkout")
             lblAddedToCart.Text = Translate("AddedToCart")
             LblEmail.Text = Translate("eMail")
+            LblConfEmail.Text = Translate("ConfeMail")
             LblFirstName.Text = Translate("FirstName")
             LblLastName.Text = Translate("LastName")
             LblMobile.Text = Translate("Mobile")
@@ -174,10 +175,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblBankInfo.Text = Translate("BankInfo")
             lblPassword.Text = Translate("Password")
             lblUserName.Text = Translate("UserName")
-            btnTheKey.Text = Translate("TheKey")
             btnUserLogin.Text = Translate("UserLogin")
             btnGoBank.Text = Translate("GoBank")
-            btnGoUserBank.Text = Translate("GoBank")
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
@@ -208,16 +207,16 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Public Function Translate(ByVal ResourceString As String) As String
             Return DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
         End Function
-        'Private Function CreateUser(ByVal Surname As String, ByVal Forname As String, ByVal Tel As String, ByVal Email As String) As String
-        '    'Dim objUser As New DotNetNuke.Entities.Users.UserInfo
-        '    'objUser.FirstName = "Chris:"
-        '    'objUser.LastName = "Carter"
-        '    'objUser.DisplayName = objUser.FirstName & " " & objUser.LastName
-        '    'objUser.Username = "thesunisoftenout@googlemail.com"
-        '    'objUser.Email = "thesunisoftenout@googlemail.com"
-        '    'DotNetNuke.Entities.Users.UserController.CreateUser(objUser)
-        '    'Return "Fine"
-        'End Function
+        Private Function CreateUser(ByVal Surname As String, ByVal Forname As String, ByVal Tel As String, ByVal Email As String) As String
+            Dim objUser As New DotNetNuke.Entities.Users.UserInfo
+            objUser.FirstName = "Chris:"
+            objUser.LastName = "Carter"
+            objUser.DisplayName = objUser.FirstName & " " & objUser.LastName
+            objUser.Username = "thesunisoftenout@googlemail.com"
+            objUser.Email = "thesunisoftenout@googlemail.com"
+            DotNetNuke.Entities.Users.UserController.CreateUser(objUser)
+            Return "Fine"
+        End Function
         Private Function GetUniqueCode() As String
 
             Dim allChars As String = "ABCDEFGHJKLMNPQRTVWXYZ2346789"
@@ -257,7 +256,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Protected Sub btnCheckout_Click(sender As Object, e As System.EventArgs) Handles btnCheckout.Click
 
             If tbAmount.Text = "" Then
-                lblOOError.Text = "Please enter an amount into the box."
+                lblOOError.Text = Translate("AmtError")
                 lblOOError.Visible = True
                 theHiddenTabIndex.Value = 1
             Else
@@ -268,6 +267,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 ElseIf DonationType.Value = "Project" Then
                     DonateToProject()
                 End If
+                UpdateUser()
                 Dim mc As New DotNetNuke.Entities.Modules.ModuleController
                 Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
                 If Not x Is Nothing Then
@@ -290,6 +290,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 ElseIf DonationType.Value = "Project" Then
                     DonateToProject()
                 End If
+
                 hfDonBasket.Value = 1
             End If
         End Sub
@@ -322,58 +323,59 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), theDonationComment.Text)
 
         End Sub
-        Protected Sub btnGoUserBank_Click(sender As Object, e As EventArgs) Handles btnGoUserBank.Click
-
-            'Dim objUserInfo As New UserInfo()
-            'objUserInfo.FirstName = TxtFirstName.Text
-            'objUserInfo.LastName = TxtLastName.Text
-            'objUserInfo.DisplayName = TxtFirstName.Text & " " & TxtLastName.Text
-            'objUserInfo.Username = TxtEmail.Text
-            'objUserInfo.PortalID = PortalId
-            'objUserInfo.Membership.Password = UserController.GeneratePassword(9)
-            'objUserInfo.Email = TxtEmail.Text
-            'Dim objUserCreateStatus = UserController.CreateUser(objUserInfo)
-            'If objUserCreateStatus = Security.Membership.UserCreateStatus.Success Then
-            'UserController.UserLogin(PortalSettings.PortalId, objUserInfo, PortalSettings.PortalName, DotNetNuke.Services.Authentication.AuthenticationLoginBase.GetIPAddress(), False)
-            'SetProfileProperty("Street", objUserInfo.UserID, tbAddress1.Text)
-            'SetProfileProperty("Unit", objUserInfo.UserID, tbAddress2.Text)
-            'SetProfileProperty("County", objUserInfo.UserID, tbCounty.Text)
-            'SetProfileProperty("City", objUserInfo.UserID, tbCity.Text)
-            'SetProfileProperty("PostalCode", objUserInfo.UserID, tbPostCode.Text)
-            'SetProfileProperty("Title", objUserInfo.UserID, tbTitle.Text)
-            'Else
-            'lblRegisterError.Text = "Unable to create account: " & objUserCreateStatus.ToString
-            'lblRegisterError.Visible = True
-            'End If
-        End Sub
         Protected Sub btnGoBank_Click(sender As Object, e As EventArgs) Handles btnGoBank.Click
             If tbAmount.Text = 0 Or tbAmount.Text = "" Then
                 lblOOError.Text = Translate("AmtError")
                 lblOOError.Visible = True
             Else
-                Dim d As New GiveDataContext
-                Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
-                If q.Count > 0 Then
-                    Dim insert As New Agape_Give_BankTransfer
-                    insert.DonationType = q.First
-                    insert.DonorId = Me.UserId
-                    insert.Reference = GetUniqueCode()
-                    hfUniqueRef.Value = insert.Reference
-                    insert.Amount = tbAmount.Text
-                    insert.BankCity = tbBankCity.Text
-                    insert.BankName = tbBank.Text
-                    insert.BankPostal = tbBankPostal.Text
-                    insert.BankStreet1 = tbBankStreet1.Text
-                    insert.BankStreet2 = tbBankStreet2.Text
-                    insert.Frequency = rblFrequency.SelectedValue
-                    'TODO create give message box for Vierment
-                    insert.GiveMessage = ""
-                    insert.Status = 0
-                    insert.TypeId = RowId.Value
-                    d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
-                    d.SubmitChanges()
+                'Create new user if selected
+                If rblLogType.SelectedValue = "1" Then
+                    'Dim objUserInfo As New UserInfo()
+                    'objUserInfo.FirstName = TxtFirstName.Text
+                    'objUserInfo.LastName = TxtLastName.Text
+                    'objUserInfo.DisplayName = TxtFirstName.Text & " " & TxtLastName.Text
+                    'objUserInfo.Username = TxtEmail.Text
+                    'objUserInfo.PortalID = PortalId
+                    'objUserInfo.Membership.Password = UserController.GeneratePassword(9)
+                    'objUserInfo.Email = TxtEmail.Text
+                    'Dim objUserCreateStatus = UserController.CreateUser(objUserInfo)
+                    'If objUserCreateStatus = Security.Membership.UserCreateStatus.Success Then
+                    '    UserController.UserLogin(PortalSettings.PortalId, objUserInfo, PortalSettings.PortalName, DotNetNuke.Services.Authentication.AuthenticationLoginBase.GetIPAddress(), False)
+                    '    SetProfileProperty("Street", objUserInfo.UserID, tbAddress1.Text)
+                    '    SetProfileProperty("Unit", objUserInfo.UserID, tbAddress2.Text)
+                    '    SetProfileProperty("County", objUserInfo.UserID, tbCounty.Text)
+                    '    SetProfileProperty("City", objUserInfo.UserID, tbCity.Text)
+                    '    SetProfileProperty("PostalCode", objUserInfo.UserID, tbPostCode.Text)
+                    '    SetProfileProperty("Title", objUserInfo.UserID, tbTitle.Text)
+                    'Else
+                    '    lblRegisterError.Text = "Unable to create account: " & objUserCreateStatus.ToString
+                    '    lblRegisterError.Visible = True
+                    'End If
+                Else
+                    Dim d As New GiveDataContext
+                    Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
+                    If q.Count > 0 Then
+                        Dim insert As New Agape_Give_BankTransfer
+                        insert.DonationType = q.First
+                        insert.DonorId = Me.UserId
+                        insert.Reference = GetUniqueCode()
+                        hfUniqueRef.Value = insert.Reference
+                        insert.Amount = tbAmount.Text
+                        insert.BankCity = tbBankCity.Text
+                        insert.BankName = tbBank.Text
+                        insert.BankPostal = tbBankPostal.Text
+                        insert.BankStreet1 = tbBankStreet1.Text
+                        insert.BankStreet2 = tbBankStreet2.Text
+                        insert.Frequency = rblFrequency.SelectedValue
+                        'TODO create give message box for Virement
+                        insert.GiveMessage = ""
+                        insert.Status = 0
+                        insert.TypeId = RowId.Value
+                        d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
+                        d.SubmitChanges()
+                        UpdateUser()
+                    End If
                 End If
-
             End If
 
 
@@ -413,5 +415,21 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         '    End If
         'End Sub
 
+        Protected Sub UpdateUser()
+            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+            Dim theUser = UserController.GetUserById(PS.PortalId, UserId)
+            theUser.FirstName = TxtFirstName.Text
+            theUser.LastName = TxtLastName.Text
+            theUser.Email = TxtEmail.Text
+            theUser.Profile.Cell = TxtMobile.Text
+            theUser.Profile.Telephone = TxtTelephone.Text
+            theUser.Profile.Street = TxtStreet1.Text
+            theUser.Profile.Unit = TxtStreet2.Text
+            theUser.Profile.City = TxtCity.Text
+            'theUser.Profile.Country = cboCountry.SelectedValue
+            theUser.Profile.Region = TxtRegion.Text
+            theUser.Profile.PostalCode = TxtPostCode.Text
+            MembershipProvider.Instance().UpdateUser(theUser)
+        End Sub
     End Class
 End Namespace

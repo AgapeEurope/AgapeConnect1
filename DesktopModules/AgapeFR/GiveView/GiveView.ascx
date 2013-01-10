@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
+<%@ Register Src="~/DesktopModules/AgapeConnect/CasAuth/CasAuth.ascx" TagName="CasAuth" TagPrefix="uc2" %>
 <script type="text/javascript">
 
     function Tab(currentField, nextField) {
@@ -106,6 +107,7 @@
             $('#stafflogin').slideUp(1000);
             $('#contact').slideDown(1000);
             $('#methchoose').slideDown(1000);
+            rbFreq_click();
         }
         else if ($('.rblLog input:radio:checked').val() == 2) {
             $('#userlogin').slideDown(1000);
@@ -127,6 +129,10 @@
             var logged = $('#hfLoggedIn').val();
             if (logged == "False") {
                 $('.notlogged').slideDown(1000);
+            }
+            else {
+                $('#contact').slideDown(1000);
+                $('#methchoose').slideDown(1000);
             }
             rbFreq_click();
 
@@ -263,11 +269,12 @@
                     <asp:ListItem Value="2"></asp:ListItem>
                     <asp:ListItem Value="3"></asp:ListItem>
                 </asp:RadioButtonList>
+                
             </div>
             <div class="rightlogin">
                 <div id="stafflogin">
                     This is the staff login div. Clicking here should go to The Key and come back here with the previous options stored.<br />
-                    <asp:Button ID="btnTheKey" runat="server" CausesValidation="false" CssClass="aButton" />
+                    <uc2:CasAuth ID="StaFFLoginButton" runat="server" />
                 </div>
                 <div id="userlogin">
                     This is the user login div. Clicking the button below should log the user in and return to this page with the previous options stored.<br />
@@ -315,6 +322,13 @@
                 </div>
                 <div class="dnnForm dnnAddress dnnClear">
                     <div class="dnnFormItem">
+                        <dnn:Label ID="LblConfEmail" runat="server" ControlName="TxtConfEmail" />
+                        <asp:TextBox ID="TxtConfEmail" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired virementform" />
+                        <asp:RequiredFieldValidator ID="ValConfEmail" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="TxtConfEmail" Display="Dynamic" />
+                    </div>
+                </div>
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
                         <dnn:Label ID="LblMobile" runat="server" ControlName="TxtMobile" />
                         <asp:TextBox ID="TxtMobile" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
                     </div>
@@ -330,7 +344,7 @@
                 <div class="dnnForm dnnAddress dnnClear">
                     <div class="dnnFormItem">
                         <dnn:Label ID="LblStreet1" runat="server" ControlName="TxtStreet1" />
-                        <asp:TextBox ID="TxtStreet1" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="virementform" />
+                        <asp:TextBox ID="TxtStreet1" runat="server" MaxLength="50" CssClass="virementform" />
                     </div>
                 </div>
                 <div class="dnnForm dnnAddress dnnClear">
@@ -419,8 +433,7 @@
                     </div>
                 </div>
             </div>
-            <asp:Button ID="btnGoBank" class="aButton" ValidationGroup="OneOffVirement" runat="server" Text="Button" />
-            <asp:Button ID="btnGoUserBank" class="aButton" ValidationGroup="OneOffVirement" runat="server" Text="Button" />
+            <asp:Button ID="btnGoBank" CssClass="aButton" ValidationGroup="OneOffVirement" runat="server" Text="GoBank" />
         </div>
         <div id="creditcard" class="bubble">
             This is the Credit Card div.<br />

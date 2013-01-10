@@ -249,4 +249,7 @@
   <data name="UserLogin.Text" xml:space="preserve">
     <value>Connexion</value>
   </data>
+  <data name="ConfeMail.Text" xml:space="preserve">
+    <value>Confirmer Courriel :</value>
+  </data>
 </root>

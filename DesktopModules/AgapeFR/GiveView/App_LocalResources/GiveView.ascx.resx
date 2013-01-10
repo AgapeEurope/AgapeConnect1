@@ -133,7 +133,7 @@
     <value>Twice yearly</value>
   </data>
   <data name="NameAnd.Text" xml:space="preserve">
-    <value>&amp;</value>
+    <value>and</value>
   </data>
   <data name="OneOffPre.Text" xml:space="preserve">
     <value>I would like to give by</value>
@@ -248,5 +248,8 @@
   </data>
   <data name="UserLogin.Text" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="ConfeMail.Text" xml:space="preserve">
+    <value>Confirm Email:</value>
   </data>
 </root>
