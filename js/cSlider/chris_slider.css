@@ -1,0 +1,138 @@
+﻿/*To the Glory of God*/
+/*The basic element*/
+.cSlider_main {
+    position: relative;
+    width: 625px;
+    height: auto;
+    overflow: hidden;
+}
+
+.c_mainImage {
+    display: block !important;
+    position: relative !important;
+    width: 625px !important;
+    cursor: pointer;
+}
+/* If an image is wrapped in a link */
+.cSlider a.c_imageLink {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 6;
+    display: none;
+}
+/* Caption styles */
+.c_caption {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #ED8923;
+    opacity: 0.9;
+    background-image: url(/Portals/_default/Skins/Agape2012/images/arroworange.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #fff !important;
+    width: 100%;
+    height: 50px;
+    z-index: 8;
+    padding: 5px 5px;
+    overflow: hidden;
+    display: none;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+    .c_caption p {
+        padding: 5px;
+        margin: 0;
+    }
+
+    .c_caption a {
+        display: inline !important;
+    }
+
+.c_big {
+    color: #fff;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: left;
+}
+
+.c_small {
+    color: #fff;
+    font-size: 10pt;
+    font-weight: normal;
+    text-align: left;
+}
+/* Direction nav styles (e.g. Next & Prev) */
+.c_directionNav a {
+    position: absolute;
+    top: 45%;
+    z-index: 9;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+
+.c_prevNav {
+    left: 0;
+    background-image: url(/Portals/_default/Skins/Agape2012/images/arroworangeL.png);
+}
+
+.c_nextNav {
+    right: 0;
+    background-image: url(/Portals/_default/Skins/Agape2012/images/arroworange.png);
+}
+
+/* Control nav styles (e.g. 1,2,3...) */
+.c_controlNav {
+    position: absolute;
+    bottom: 55px;
+    text-align: left;
+    vertical-align: bottom;
+    z-index: 9;
+}
+
+    .c_controlNav a {
+        cursor: pointer;
+        margin-right: 5px;
+        font-size: 17px;
+    }
+
+        .c_controlNav a.c_control img {
+            width: 40px;
+            vertical-align: bottom;
+        }
+
+        .c_controlNav a.active {
+            font-weight: bold;
+            border: 1px solid #ED8923;
+        }
+/*The Slices*/
+.c_slice {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    height: 100%;
+    top: 0;
+    cursor: pointer;
+}
+/*The Full Link*/
+.c_Linker {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-decoration: none !important;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 7;
+}

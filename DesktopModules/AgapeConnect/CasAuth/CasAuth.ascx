@@ -2,10 +2,12 @@
 
 <style type="text/css">
     .CasAuthModuleDiv {
-        clear: both;
+        /*clear: both;*/
         height: 100px;
-        width: 50%;
-        float:right;
+        text-align: right;
+        padding-right: 20px;
+        border-top:2px solid #EEE9E9;
+        font-size: 12pt;
     }
 
     #BtnTheKey {
@@ -14,6 +16,6 @@
 </style>
 
 <div class="CasAuthModuleDiv">
-    <asp:Label ID="LblTheKey" runat="server" ResourceKey="LblTheKey" CssClass="AgapeH5"></asp:Label><br />
-    <asp:Button ID="BtnTheKey" runat="server" ResourceKey="BtnTheKey" />
+    <asp:Label ID="LblTheKey" runat="server" ResourceKey="LblTheKey"></asp:Label>&nbsp;
+    <asp:LinkButton ID="BtnTheKey" runat="server" ResourceKey="BtnTheKey" CssClass="Agape_OragneLink" />
 </div>
