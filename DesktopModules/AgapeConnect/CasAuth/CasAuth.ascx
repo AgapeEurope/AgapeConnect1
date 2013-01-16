@@ -1,4 +1,4 @@
-﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="CasAuth.ascx.vb" Inherits="DotNetNuke.Modules.AgapePortal.CasAuth" %>
+<%@ Control Language="VB" AutoEventWireup="false" CodeFile="CasAuth.ascx.vb" Inherits="DotNetNuke.Modules.AgapePortal.CasAuth" %>
 
 <style type="text/css">
     .CasAuthModuleDiv {

@@ -121,6 +121,6 @@
     <value>Please login or register to continue</value>
   </data>
   <data name="LblTitleDefault.Text" xml:space="preserve">
-    <value>Please login or register</value>
+    <value>Account Login</value>
   </data>
 </root>
