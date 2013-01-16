@@ -1,0 +1,2 @@
+2013-01-16 15:00:30,787 [ABDESKTOP35][Thread:33][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ending
+2013-01-16 15:00:30,789 [ABDESKTOP35][Thread:33][INFO] DotNetNuke.Common.Initialize - Application shutting down. Reason: The AppDomain shut down because of a change to the application level configuration.
