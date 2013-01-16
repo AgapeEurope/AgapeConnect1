@@ -228,10 +228,10 @@ Public Class StoryFunctions
                         set_if(existingStory.First.StoryDate, row.PublishDate.DateTime)
                         Try
 
-                       
-                        If row.ElementExtensions.Where(Function(x) x.OuterName = "translationGroup").Count > 0 Then
+
+                            If row.ElementExtensions.Where(Function(x) x.OuterName = "translationGroup").Count > 0 Then
                                 existingStory.First.TranslationGroup = CInt(row.ElementExtensions.Where(Function(x) x.OuterName = "translationGroup").First.GetObject(Of XElement).Value)
-                        End If
+                            End If
 
                         Catch ex As Exception
 

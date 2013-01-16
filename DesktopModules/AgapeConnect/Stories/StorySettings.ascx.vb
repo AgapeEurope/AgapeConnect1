@@ -159,7 +159,7 @@ Namespace DotNetNuke.Modules.Stories
 
         End Sub
 
-       
+
 
 #End Region
 
@@ -188,7 +188,7 @@ Namespace DotNetNuke.Modules.Stories
                 End If
             Next
 
-            
+
             Dim channels = From c In d.AP_Stories_Module_Channels Where c.StoryModuleId = CInt(hfStoryModuleId.Value)
 
             For Each row In channels
@@ -301,7 +301,7 @@ Namespace DotNetNuke.Modules.Stories
                     If simpleURL.IndexOf("/") > 0 Then
                         simpleURL = simpleURL.Substring(0, simpleURL.IndexOf("/"))
                     End If
-                    
+
 
 
                     Dim ls As New LookupService(Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD)
@@ -547,7 +547,7 @@ Namespace DotNetNuke.Modules.Stories
                 End If
 
                 Return "/DesktopModules/AgapeConnect/Stories/images/thumb_up.png"
-                
+
             Else
                 Return "/DesktopModules/AgapeConnect/Stories/images/thumb_up_off.png"
             End If
@@ -563,7 +563,7 @@ Namespace DotNetNuke.Modules.Stories
                     hfBlocks.Value &= CacheId & ";"
                 End If
                 Return "/DesktopModules/AgapeConnect/Stories/images/thumb_down.png"
-                
+
 
             Else
                 Return "/DesktopModules/AgapeConnect/Stories/images/thumb_down_off.png"
@@ -634,7 +634,7 @@ Namespace DotNetNuke.Modules.Stories
 
                 theChannel.First.ImageId = "http://" & PortalSettings.PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(icImage.FileId))
 
-                
+
 
 
                 If lblFeedError.Text <> "" Then
@@ -659,7 +659,7 @@ Namespace DotNetNuke.Modules.Stories
 
 
             End If
-           
+
             tbRssFeed.Text = ""
             tbRssFeed.Enabled = True
             tbLocation.Text = ""
