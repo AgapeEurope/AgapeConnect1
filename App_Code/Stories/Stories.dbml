@@ -74,4 +74,12 @@
       <Association Name="AP_Stories_Module_AP_Stories_Module_Channel" Member="AP_Stories_Module" ThisKey="StoryModuleId" OtherKey="StoryModuleId" Type="AP_Stories_Module" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.AP_Stories_Controls" Member="AP_Stories_Controls">
+    <Type Name="AP_Stories_Control">
+      <Column Name="StoryControlId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

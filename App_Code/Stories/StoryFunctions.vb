@@ -3,6 +3,7 @@ Imports System.ServiceModel.Syndication
 Imports System.Xml
 Imports System.Net
 Imports DotNetNuke
+Imports DotNetNuke.Services.FileSystem
 Namespace Stories
     Class StoryController
         Implements Entities.Modules.ISearchable
@@ -39,7 +40,24 @@ Namespace Stories
 
 End Namespace
 
+Public Class StoryModuleType
+    Public Const Rotator As Integer = 1
+    Public Const List As Integer = 2
+    Public Shared Function Name(ByVal value As Integer) As String
+        Select Case value
+            Case 1 : Return "Rotator"
+            Case 2 : Return "List"
+            Case Else : Return "Unknown"
+
+        End Select
+    End Function
+
+End Class
+
 Public Class StoryFunctions
+
+   
+
     Public Shared Function StripTags(ByVal HTML As String) As String
         ' Removes tags from passed HTML
 
@@ -84,9 +102,34 @@ Public Class StoryFunctions
         Return (From c In d.AP_Stories_Modules Where c.TabModuleId = TabModuleId).First
     End Function
 
+    Public Shared Function AddLocalChannel(ByVal tabModuleId As Integer, ByVal PortalAlias As String, ByVal Name As String, ByVal Longitude As Double, ByVal Latitude As Double, ByVal logo As Integer) As Integer
+        Dim theModule = GetStoryModule(tabModuleId)
+
+        Dim insert As New Stories.AP_Stories_Module_Channel
+        insert.StoryModuleId = theModule.StoryModuleId
+        insert.Weight = 1.0
+        insert.Type = 2
+        insert.URL = "http://" & PortalAlias & "/DesktopModules/AgapeConnect/Stories/Feed.aspx?channel=" & tabModuleId
+
+        Name = Name
+
+        insert.ChannelTitle = Name
+        insert.Language = CultureInfo.CurrentCulture.Name
+        insert.Latitude = Latitude
+        insert.Longitude = Longitude
+
+        insert.ImageId = "http://" & PortalAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logo))
+
+        Dim d2 As New Stories.StoriesDataContext
+        d2.AP_Stories_Module_Channels.InsertOnSubmit(insert)
+        d2.SubmitChanges()
+        RefreshFeed(tabModuleId, insert.ChannelId, False)
+
+        Return insert.ChannelId
+    End Function
 
 
-
+   
     Public Shared Sub RefreshFeed(ByVal tabModuleId As Integer, ByVal ChannelId As Integer, Optional ByVal ClearCache As Boolean = False)
 
 
@@ -299,8 +342,31 @@ Public Class StoryFunctions
 
     End Function
 
+    Public Shared Function SetLogo(ByVal ChannelImage As String, ByVal Portalid As Integer) As Integer
+        Try
 
 
+            Dim req = WebRequest.Create(ChannelImage)
+            Dim response = req.GetResponse
+            Dim imageStream = response.GetResponseStream
+            Dim theFolder As IFolderInfo
+            If FolderManager.Instance.FolderExists(Portalid, "_imageCropper") Then
+                theFolder = FolderManager.Instance.GetFolder(Portalid, "_imageCropper")
+            Else
+                theFolder = FolderManager.Instance.AddFolder(Portalid, "_imageCropper")
+            End If
+            Dim FileName = ChannelImage.Substring(ChannelImage.LastIndexOf("/"))
+
+            Dim theFile = FileManager.Instance.AddFile(theFolder, StaffBrokerFunctions.CreateUniqueFileName(theFolder, ChannelImage.Substring(ChannelImage.LastIndexOf(".") + 1)), imageStream)
+
+            Return theFile.FileId
+
+
+
+        Catch ex As Exception
+            Return -1
+        End Try
+    End Function
 
 
 
