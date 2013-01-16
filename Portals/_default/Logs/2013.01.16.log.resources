@@ -162,3 +162,4 @@
 2013-01-16 14:16:33,254 [ABDESKTOP35][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblBankAcc.Text resFileRoot:/DesktopModules/AgapeFR/GiveView/App_LocalResources/GiveView threadCulture:en-US userlan:
 2013-01-16 14:16:33,255 [ABDESKTOP35][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:lblBankAcc.Help resFileRoot:/DesktopModules/AgapeFR/GiveView/App_LocalResources/GiveView threadCulture:en-US userlan:
 2013-01-16 14:16:33,261 [ABDESKTOP35][Thread:30][WARN] DotNetNuke.Services.Localization.LocalizationProvider - Missing localization key. key:BtnTheKey.Text resFileRoot:/DesktopModules/AgapeFR/GiveView/App_LocalResources/GiveView threadCulture:en-US userlan:
+2013-01-16 15:02:31,847 [ABDESKTOP35][Thread:33][INFO] DotNetNuke.Web.Common.Internal.DotNetNukeHttpApplication - Application Ended
