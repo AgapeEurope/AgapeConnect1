@@ -116,7 +116,7 @@ Namespace DotNetNuke.Modules.FullStory
 
                 PhotoIdHF.Value = r.PhotoId
                 pnlLanguages.Visible = False
-                If Not String.IsNullOrEmpty(r.TranslationGroup) Then
+                If Not r.TranslationGroup Is Nothing Then
 
                     TranslationGroupHF.Value = r.TranslationGroup
 
