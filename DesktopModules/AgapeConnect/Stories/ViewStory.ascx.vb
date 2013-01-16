@@ -116,8 +116,8 @@ Namespace DotNetNuke.Modules.FullStory
 
                 PhotoIdHF.Value = r.PhotoId
                 pnlLanguages.Visible = False
-                If Not String.IsNullOrEmpty(r.TranslationGroup) Then
-                    
+                If Not r.TranslationGroup Is Nothing Then
+
                     TranslationGroupHF.Value = r.TranslationGroup
 
                     Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = r.TranslationGroup And c.PortalID = r.PortalID And c.StoryId <> r.StoryId Select c.Language, c.StoryId
