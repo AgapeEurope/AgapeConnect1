@@ -20,7 +20,8 @@
             running: false,
             paused: false,
             stop: false,
-            controlNavEl: false
+            controlNavEl: false,
+           
         };
 
         // Get this slider
@@ -77,7 +78,7 @@
         var sliderImg = $('<img class="nivo-main-image" src="#" />');
         sliderImg.attr('src', vars.currentImage.attr('src')).show();
         slider.append(sliderImg);
-        //alert(vars.currentImage.css('height'));
+       // alert(vars.currentImage.css('height'));
         
         var offset = ($(kids[vars.currentSlide]).css('height').replace("px", "") - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
       
@@ -158,7 +159,8 @@
 
         // Add Control nav
         if (settings.controlNav) {
-            vars.controlNavEl = $('<div class="nivo-controlNav"></div>');
+           // alert(vars.width);
+            vars.controlNavEl = $('<div class="nivo-controlNav" style="width: ' + settings.width +'px"></div>');
             slider.after(vars.controlNavEl);
             for (var i = 0; i < kids.length; i++) {
                 if (settings.controlNavThumbs) {
@@ -228,12 +230,15 @@
 
         // Add slices for slice animations
         var createSlices = function (slider, settings, vars) {
+
             if ($(vars.currentImage).parent().is('a')) $(vars.currentImage).parent().css('display', 'block');
             $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').width(slider.width()).css('visibility', 'hidden').show();
             var sliceHeight = ($('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').parent().is('a')) ? $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').parent().height() : $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').height();
-            var offset = (sliceHeight - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
+           // alert(offset);
 
-
+           // var offset = (sliceHeight - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
+          
+           
             for (var i = 0; i < settings.slices; i++) {
                 var sliceWidth = Math.round(slider.width() / settings.slices);
 
@@ -679,7 +684,8 @@
         afterChange: function () { },
         slideshowEnd: function () { },
         lastSlide: function () { },
-        afterLoad: function () { }
+        afterLoad: function () { },
+        width: 420
     };
 
     $.fn._reverse = [].reverse;

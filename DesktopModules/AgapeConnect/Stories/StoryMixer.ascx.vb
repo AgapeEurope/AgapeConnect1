@@ -5,7 +5,6 @@ Imports System.ServiceModel.Syndication
 Imports System.Xml
 Imports System.Net
 Imports Stories
-
 Imports DotNetNuke.Services.FileSystem
 
 
@@ -34,47 +33,29 @@ Namespace DotNetNuke.Modules.Stories
                     ddlLanguages.DataTextField = "EnglishName"
                     ddlLanguages.DataBind()
                     Dim theModule = StoryFunctions.GetStoryModule(TabModuleId)
-
+                    Dim objModules As New Entities.Modules.ModuleController
+                    Dim newSettings As Boolean = False
+                   
 
                     If theModule.AP_Stories_Module_Channels.Where(Function(x) x.Type = 2).Count = 0 Then
                         'add a local channel!
-                        Dim insert As New AP_Stories_Module_Channel
-                        insert.StoryModuleId = theModule.StoryModuleId
-                        insert.Weight = 1.0
-                        insert.Type = 2
-                        insert.URL = "http://" & PortalAlias.HTTPAlias & "/DesktopModules/AgapeConnect/Stories/Feed.aspx?channel=" & TabModuleId
-                        Dim name As String = ModuleConfiguration.ModuleControl.ControlTitle
-                        If String.IsNullOrEmpty(name) Then
-                            name = ModuleConfiguration.ParentTab.TabName
+                        Dim RssName As String = ""
+                        If CType(TabModuleSettings("WeightPopular"), String) <> "" Then
+                            RssName = TabModuleSettings("RssName")
+
+                        Else
+                            RssName = ModuleConfiguration.ParentTab.TabName
+                            objModules.UpdateTabModuleSetting(TabModuleId, "RssName", RssName)
+                            newSettings = True
                         End If
-                        insert.ChannelTitle = name
-                        insert.Language = CultureInfo.CurrentCulture.Name
-                        insert.Latitude = 51.507335
-                        insert.Longitude = -0.127683
-
-                        If String.IsNullOrEmpty(Session("Long")) Or String.IsNullOrEmpty(Session("Lat")) Then
-                            Dim ls As New LookupService(Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD)
-                            ' Dim l As Location = ls.getRegion(Request.ServerVariables("remote_addr"))
-
-                            Dim l As Location = ls.getLocation("80.193.180.102")   '(Solihill)
-                            Session("Long") = l.longitude
-                            Session("Lat") = l.latitude
-                        End If
-                        If String.IsNullOrEmpty(Session("Long")) Then
-                            Dim lg As Double = Session("Long")
-                            Dim lt As Double = Session("Lat")
-                        End If
-
-                        ' Dim logo = FileManager.Instance.GetFile(PortalId, PortalSettings.LogoFile)
-                        Dim logoFile = SetImage("http://" & PortalSettings.PortalAlias.HTTPAlias & PortalSettings.HomeDirectory & PortalSettings.LogoFile)
+                        Dim l = Location.GetLocation(Request.ServerVariables("remote_addr"))
+                        Dim logoFile = StoryFunctions.SetLogo("http://" & PortalSettings.PortalAlias.HTTPAlias & PortalSettings.HomeDirectory & PortalSettings.LogoFile, PortalId)
 
 
-                        insert.ImageId = "http://" & PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logoFile))
+                        Dim imageId = "http://" & PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logoFile))
 
-                        Dim d2 As New StoriesDataContext
-                        d2.AP_Stories_Module_Channels.InsertOnSubmit(insert)
-                        d2.SubmitChanges()
-                        StoryFunctions.RefreshFeed(TabModuleId, insert.ChannelId, False)
+
+                        StoryFunctions.AddLocalChannel(TabModuleId, PortalAlias.HTTPAlias, RssName, l.longitude, l.latitude, imageId)
 
                         theModule = StoryFunctions.GetStoryModule(TabModuleId)
 
@@ -87,27 +68,15 @@ Namespace DotNetNuke.Modules.Stories
 
                     '  Dim channels = From c In d.AP_Stories_Module_Channels Where c.AP_Stories_Module.TabModuleId = TabModuleId
 
-                    Dim newSettings As Boolean = False
+
                     Dim volumes = ""
                     For Each row In theModule.AP_Stories_Module_Channels
                         volumes &= row.ChannelId & "=" & (row.Weight * 30) & ";"
                     Next
 
                     hfLoadVolumes.Value = volumes
-                    Dim objModules As New Entities.Modules.ModuleController
-                    If CType(TabModuleSettings("Aspect"), String) <> "" Then
-                        lblAspect.Text = Double.Parse(TabModuleSettings("Aspect"), New CultureInfo("")).ToString(New CultureInfo(""))
-                        resizable.Height = Unit.Pixel(80)
-                        resizable.Width = Unit.Pixel(Double.Parse(TabModuleSettings("Aspect"), New CultureInfo("")) * 80)
-                        hfAspect.Value = lblAspect.Text
-                    Else
-                        hfAspect.Value = 1.3
 
-                        objModules.UpdateTabModuleSetting(TabModuleId, "Aspect", "1.3")
-                        newSettings = True
-
-
-                    End If
+                   
 
                     If CType(TabModuleSettings("NumberOfStories"), String) <> "" Then
                         lblNumberOfStories.Text = CType(TabModuleSettings("NumberOfStories"), Integer)
@@ -167,7 +136,7 @@ Namespace DotNetNuke.Modules.Stories
         Protected Sub SaveBtn_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles SaveBtn.Click
             Dim objModules As New Entities.Modules.ModuleController
 
-            objModules.UpdateTabModuleSetting(TabModuleId, "Aspect", Double.Parse(hfAspect.Value, New CultureInfo("")).ToString(New CultureInfo("")))
+            ' objModules.UpdateTabModuleSetting(TabModuleId, "Aspect", Double.Parse(hfAspect.Value, New CultureInfo("")).ToString(New CultureInfo("")))
 
 
             objModules.UpdateTabModuleSetting(TabModuleId, "NumberOfStories", CInt(hfNumberOfStories.Value))
@@ -311,17 +280,22 @@ Namespace DotNetNuke.Modules.Stories
                 Catch ex As Exception
 
                 End Try
+                If CType(TabModuleSettings("Aspect"), String) <> "" Then
+                    icImage.Aspect = CDbl(TabModuleSettings("Aspect")).ToString(New CultureInfo(""))
 
-                icImage.Aspect = lblAspect.Text
+                Else
+                    icImage.Aspect = "1.0"
+                End If
+                'icImage.Aspect = lblAspect.Text
                 If Not feed.ImageUrl Is Nothing Then
-                    icImage.FileId = SetImage(feed.ImageUrl.AbsoluteUri)
+                    icImage.FileId = StoryFunctions.SetLogo(feed.ImageUrl.AbsoluteUri, PortalId)
 
                 Else
                     Dim logo = FileManager.Instance.GetFile(PortalId, PortalSettings.LogoFile)
-                    icImage.FileId = SetImage("http://" & PortalSettings.DefaultPortalAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logo.FileId)))
+                    icImage.FileId = StoryFunctions.SetLogo("http://" & PortalSettings.DefaultPortalAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logo.FileId)), PortalId)
 
                 End If
-                icImage.Aspect = lblAspect.Text
+                'icImage.Aspect = lblAspect.Text
                 icImage.LazyLoad(True)
                 pnlloaded.Visible = True
                 btnAddChannel.Enabled = True
@@ -335,57 +309,34 @@ Namespace DotNetNuke.Modules.Stories
             End Try
         End Sub
 
-        Private Function CreateUniqueName(ByVal theFolder As IFolderInfo, ByVal ext As String) As String
-            Dim allChars As String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789"
-
-            Dim GotUniqueCode As Boolean = False
-            Dim uniqueCode As String = ""
-
-            Dim str As New System.Text.StringBuilder
-            Dim xx As Integer
-
-            While uniqueCode = "" Or FileManager.Instance.FileExists(theFolder, IIf(uniqueCode = "", "X", uniqueCode))
-                For i As Byte = 1 To 10 'length of req key
-                    Randomize()
-                    xx = Rnd() * (Len(allChars) - 1) 'number of rawchars
-                    str.Append(allChars.Trim.Chars(xx))
-                Next
-                uniqueCode = str.ToString & "." & ext
-            End While
+        
 
 
+        'Private Function SetImage(ByVal ChannelImage As String) As Integer
+        '    Try
 
 
-            Return uniqueCode
+        '        Dim req = WebRequest.Create(ChannelImage)
+        '        Dim response = req.GetResponse
+        '        Dim imageStream = response.GetResponseStream
+        '        Dim theFolder As IFolderInfo
+        '        If FolderManager.Instance.FolderExists(PortalId, "_imageCropper") Then
+        '            theFolder = FolderManager.Instance.GetFolder(PortalId, "_imageCropper")
+        '        Else
+        '            theFolder = FolderManager.Instance.AddFolder(PortalId, "_imageCropper")
+        '        End If
+        '        Dim FileName = ChannelImage.Substring(ChannelImage.LastIndexOf("/"))
 
-        End Function
+        '        Dim theFile = FileManager.Instance.AddFile(theFolder, StaffBrokerFunctions.CreateUniqueFileName(theFolder, ChannelImage.Substring(ChannelImage.LastIndexOf(".") + 1)), imageStream)
 
-
-        Private Function SetImage(ByVal ChannelImage As String) As Integer
-            Try
-
-
-                Dim req = WebRequest.Create(ChannelImage)
-                Dim response = req.GetResponse
-                Dim imageStream = response.GetResponseStream
-                Dim theFolder As IFolderInfo
-                If FolderManager.Instance.FolderExists(PortalId, "_imageCropper") Then
-                    theFolder = FolderManager.Instance.GetFolder(PortalId, "_imageCropper")
-                Else
-                    theFolder = FolderManager.Instance.AddFolder(PortalId, "_imageCropper")
-                End If
-                Dim FileName = ChannelImage.Substring(ChannelImage.LastIndexOf("/"))
-
-                Dim theFile = FileManager.Instance.AddFile(theFolder, CreateUniqueName(theFolder, ChannelImage.Substring(ChannelImage.LastIndexOf(".") + 1)), imageStream)
-
-                Return theFile.FileId
+        '        Return theFile.FileId
 
 
 
-            Catch ex As Exception
-                Return -1
-            End Try
-        End Function
+        '    Catch ex As Exception
+        '        Return -1
+        '    End Try
+        'End Function
 
         Protected Sub btnAddChannel_Click(sender As Object, e As System.EventArgs) Handles btnAddChannel.Click
             'Validations
@@ -506,7 +457,12 @@ Namespace DotNetNuke.Modules.Stories
                     cbAutoDetectLanguage.Checked = q.First.AutoDetectLanguage
                     Try
                         icImage.FileId = FileManager.Instance.GetFile(PortalId, "_imageCropper/" & q.First.ImageId.Substring(q.First.ImageId.LastIndexOf("/") + 1)).FileId
-                        icImage.Aspect = lblAspect.Text
+                        If CType(TabModuleSettings("Aspect"), String) <> "" Then
+                            icImage.Aspect = CDbl(TabModuleSettings("Aspect")).ToString(New CultureInfo(""))
+
+                        Else
+                            icImage.Aspect = "1.0"
+                        End If
                         icImage.LazyLoad(True)
                     Catch ex As Exception
 
@@ -592,7 +548,14 @@ Namespace DotNetNuke.Modules.Stories
 
         Protected Sub icImage_Uploaded() Handles icImage.Uploaded
             'Need to re popup the form.
-            icImage.Aspect = lblAspect.Text
+
+
+            If CType(TabModuleSettings("Aspect"), String) <> "" Then
+                icImage.Aspect = CDbl(TabModuleSettings("Aspect")).ToString(New CultureInfo(""))
+
+            Else
+                icImage.Aspect = "1.0"
+            End If
             icImage.LazyLoad(True)
             Dim t As Type = icImage.GetType()
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()

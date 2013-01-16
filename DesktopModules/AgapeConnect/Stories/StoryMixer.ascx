@@ -81,12 +81,7 @@
         });
         $("#<%= lblNumberOfStories.ClientId %>").html($("#numberOfStories").slider("value"));
       
-        $("#<%= resizable.ClientId %>").resizable({ maxWidth: 220, maxHeight: 100, minWidth: 57, minHeight: 24, resize: function (event, ui) {
-            $("#<%= lblAspect.ClientId %>").html((ui.size.width / ui.size.height).toFixed(2));
-             $("#<%= hfAspect.ClientId %>").val((ui.size.width / ui.size.height).toFixed(2));
-
-        } 
-        });
+       
         
 
          $("#<%= tbLocation.ClientId %>").locationPicker();
@@ -295,7 +290,7 @@
 <asp:HiddenField ID="hfStoryModuleId" runat="server" Value="-1" />
 <asp:HiddenField id='hfVolumes' runat="server"    />
 <asp:HiddenField id='hfLoadVolumes' runat="server"    />
-<asp:HiddenField id='hfAspect' runat="server"    />
+
 <asp:HiddenField id='hfNumberOfStories' runat="server"    />
 <asp:HiddenField id='hfBlocks' runat="server" Value=";" />
 <asp:HiddenField id='hfBoosts' runat="server" Value=";" />
@@ -406,20 +401,7 @@
             <div style="clear: both;"></div>
         </td>
     </tr>
-    <tr valign="middle">
-        <td>
-            <dnn:Label ID="Label1" runat="server" ResourceKey="lblAspect" />
-        </td>
-        <td style="padding: 1em;" >
-            
-            <asp:Panel ID="resizable" class="resizable" runat="server" style="text-align: center; vertical-align: middle; display: table-cell; ">
-           
-           
-              <asp:Label ID="lblAspect" runat="server"    style=" font-weight: bold; font-size: large; text-align: center;  display: inline-block ;"></asp:Label>
-            
-             </asp:Panel>
-        </td>
-    </tr>
+    
 </table>
 
 </div>
