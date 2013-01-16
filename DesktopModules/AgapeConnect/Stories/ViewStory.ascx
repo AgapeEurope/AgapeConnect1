@@ -18,24 +18,24 @@
                     icons: {primary: "ui-icon-check"},
                     text: false});
 
-                    $('.boost').click(function() {
-                       $('.block').prop("checked", false).change();
-                       savePowerStates();
-                    });
+                $('.boost').click(function() {
+                    $('.block').prop("checked", false).change();
+                    savePowerStates();
+                });
                
-               $('.block').click(function() {
-                       $('.boost').prop("checked", false).change();
-                       savePowerStates();
-                    });
+                $('.block').click(function() {
+                    $('.boost').prop("checked", false).change();
+                    savePowerStates();
+                });
 
 
-                     $('.boost').prop("checked", <%= CStr(IsBoosted).ToLower %>).change();
-                        $('.block').prop("checked", <%= CStr(IsBlocked).ToLower %>).change();
+                $('.boost').prop("checked", <%= CStr(IsBoosted).ToLower %>).change();
+               $('.block').prop("checked", <%= CStr(IsBlocked).ToLower %>).change();
                    
                    
 
                 function initialize() {
-                 var myLatlng = new google.maps.LatLng(<%= location %>);
+                    var myLatlng = new google.maps.LatLng(<%= location %>);
                 
                     var mapOptions = {
                         zoom: 5,
@@ -45,10 +45,10 @@
                     var map = new google.maps.Map(document.getElementById('map_canvas'),
             mapOptions);
 
-            var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map
-        });
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map
+                    });
 
                 }
 
@@ -77,8 +77,8 @@
             $('#<%= lblPowerStatus.ClientID %>').html(blocked ? 'This story has been blocked, and won\'t appear in the channel feed.' : (boosted ? 'Boosted until <%= today.AddDays(7).ToString("dd MMM yyy") %> ' : '' ));
 
             $.ajax({ type: 'POST', url: '<%= EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId")  %>',
-                    data: ({ Boosted: boosted, Blocked: blocked })
-                });
+                data: ({ Boosted: boosted, Blocked: blocked })
+            });
 
 
         }
