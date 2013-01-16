@@ -882,31 +882,37 @@ a:link, a:visited {
     background-color: White;
     padding: 7px;
     margin: 0;
+    text-align: left;
 }
 
 .LeftPane {
     background-color: White;
     padding: 7px;
     margin: 0;
+    text-align: left;
 }
 
 .ContentPane {
     background-color: White;
     padding: 7px;
     margin: 0;
+    text-align: left;
 }
 
 .RightPane {
     background-color: White;
     padding: 7px;
     margin: 0;
+    text-align: left;
 }
 
 .BottomPane {
     background-color: White;
     padding: 7px;
     margin: 0;
+    text-align: left;
 }
+
 
 
 
