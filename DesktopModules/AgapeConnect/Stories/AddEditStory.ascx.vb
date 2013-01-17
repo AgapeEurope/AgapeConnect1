@@ -138,9 +138,9 @@ Namespace DotNetNuke.Modules.Stories
                         ddlLanguage.SelectedValue = CultureInfo.CurrentCulture.Name.ToLower
                     End If
                     pnlLanguages.Visible = False
-                    If Not String.IsNullOrEmpty(r.TranslationGroup) Then
+                    If (r.TranslationGroup Is Nothing) Then
 
-                        
+
                         Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = r.TranslationGroup And c.PortalID = r.PortalID And c.StoryId <> r.StoryId Select c.Language, c.StoryId
 
                         If Translist.Count > 1 Then

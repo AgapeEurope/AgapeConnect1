@@ -10,6 +10,7 @@ Imports System.Net.Mail
 Imports System.Collections.Specialized
 Imports System.Linq
 Imports Stories
+Imports StoryControls
 Namespace DotNetNuke.Modules.FullStory
 
 
@@ -57,109 +58,132 @@ Namespace DotNetNuke.Modules.FullStory
                 NotFoundLabel.Visible = True
 
             Else
-                btnEdit.Visible = IsEditable
-                btnNew.Visible = IsEditable
+
+                '!!!!!!!btnEdit.Visible = IsEditable
+                '!!!!!!!btnNew.Visible = IsEditable
 
                 If Me.UserInfo.IsSuperUser And IsEditable() Then
                     'SuperPowers.Visible = True
                 End If
+
+
                 PagePanel.Visible = True
                 NotFoundLabel.Visible = False
                 StoryIdHF.Value = Request.QueryString("StoryId")
 
+                Dim sv As String = StaffBrokerFunctions.GetTemplate("StoryView", PortalId)
 
-
-
-                Headline.Text = r.Headline
-
+                ReplaceField(sv, "[HEADLINE]", r.Headline)
                 location = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
-                ' imgbtnPrint.OnClientClick = "window.open('/DesktopModules/FullStory/PrintStory.aspx?StoryId=" & Request.QueryString("StoryId") & "', '_blank'); "
-                If Me.UserInfo.IsSuperUser Then
-
-                    If Not Page.IsPostBack Then
-
-
-
-                        Dim BoostDate As String
-                        If r.EditorBoost <= Date.Now Then
-                            BoostLabel.Text = "Not currently boosted."
-
-                        Else
-                            BoostDate = r.EditorBoost.Value.ToShortDateString()
-                            BoostLabel.Text = "Boosted until " & BoostDate
-                        End If
-                        Editable.Checked = r.Editable
-
-                    End If
-
-                End If
-
-
-                If CType(Settings("Justify"), String) <> "" And CType(Settings("Block"), String) <> "" Then
-                    If (Settings("Justify") = "Center") Then
-                        StoryText.Controls.Add(New LiteralControl("<Style>.Agape_video" & ModuleId & " {float: none; margin: 10px;text-align: center; }</Style>"))
-                    ElseIf Settings("Block") = "Block" Then
-                        StoryText.Controls.Add(New LiteralControl("<Style>.Agape_video" & ModuleId & " {float: none; margin: 10px;text-align:" & Settings("Justify") & "; }</Style>"))
-                    Else
-                        StoryText.Controls.Add(New LiteralControl("<Style>.Agape_video" & ModuleId & " {float: " & Settings("Justify") & "; margin: 10px; }</Style>"))
-
-                    End If
-                End If
-
-
-
-                StoryText.Text = r.StoryText
-                Author.Text = r.Author
-                StoryDate.Text = r.StoryDate.ToString("d MMM yyyy")
+                ReplaceField(sv, "[MAP]", " <div id=""map_canvas""></div>")
+                
+                ReplaceField(sv, "[STORYTEXT]", r.StoryText)
                 Dim thePhoto = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(r.PhotoId)
-                StoryImage.ImageUrl = DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto)
+
+
+                ReplaceField(sv, "[IMAGEURL]", DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto))
+
+
+                ReplaceField(sv, "[AUTHOR]", r.Author)
+                ReplaceField(sv, "[DATE]", r.StoryDate.ToString("d MMM yyyy"))
+                ReplaceField(sv, "[RSSURL]", "/DesktopModules/AgapeConnect/Stories/Feed.aspx?channel=" & TabModuleId)
+                ReplaceField(sv, "[SAMPLE]", r.TextSample)
+                ReplaceField(sv, "[SUBTITLE]", r.Subtitle)
+                ReplaceField(sv, "[FIELD1]", r.Field1)
+                ReplaceField(sv, "[FIELD2]", r.Field2)
+                ReplaceField(sv, "[FIELD3]", r.Field3)
 
                 PhotoIdHF.Value = r.PhotoId
-                pnlLanguages.Visible = False
+
+
+
                 If Not r.TranslationGroup Is Nothing Then
 
-                    TranslationGroupHF.Value = r.TranslationGroup
+                    'TranslationGroupHF.Value = r.TranslationGroup
+                    SuperPowers.TranslationGroupId = r.TranslationGroup
 
                     Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = r.TranslationGroup And c.PortalID = r.PortalID And c.StoryId <> r.StoryId Select c.Language, c.StoryId
 
-                    If Translist.Count > 1 Then
-                        pnlLanguages.Visible = True
-                        dlLanuages.DataSource = Translist
-                        dlLanuages.DataBind()
+                    If Translist.Count > 0 Then
+                        Dim Flags As String = "<div style=""width: 100%;""><i>This story is also available in:</i> <div style=""margin: 4px 0 12px 0;"">"
 
+
+                        For Each row In Translist
+                            Dim Lang = GetLanguageName(row.Language)
+                            Flags &= "<a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """ target=""_self""><span title=""" & Lang & """><img  src=""" & GetFlag(row.Language) & """ alt=""" & Lang & "  /></span></a>"
+
+                        Next
+
+                        Flags &= "</div></div>"
+
+
+                        ReplaceField(sv, "[LANGUAGES]", Flags)
                     End If
 
 
                 End If
+                ReplaceField(sv, "[LANGUAGES]", "")
+
+                ltStory1.Text = sv.Substring(0, sv.IndexOf("[SUPERPOWERS]"))
+
+                ltStory2.Text = sv.Substring(sv.IndexOf("[SUPERPOWERS]") + 13)
+
+               
+                If IsEditable Then
+                    SuperPowers.Visible = True
+                    If thecache.Count > 0 Then
+
+                        SuperPowers.CacheId = thecache.First.CacheId
+                        SuperPowers.SuperEditor = UserInfo.IsSuperUser
+                        SuperPowers.EditUrl = EditUrl("AddEditStory")
+                        SuperPowers.PortalId = PortalId
+                        SuperPowers.SetControls()
+
+                    End If
+
+                End If
+
+
                 'Get Current Channel 
 
-                If thecache.Count > 0 Then
-                    If thecache.First.Block Then
-                        lblPowerStatus.Text = "This story has been blocked, and won't appear in the channel feed."
-                        IsBlocked = True
-                    ElseIf Not thecache.First.BoostDate Is Nothing Then
-                        If thecache.First.BoostDate >= Today Then
-                            IsBoosted = True
-                            lblPowerStatus.Text = "Boosted until " & thecache.First.BoostDate.Value.ToString("dd MMM yyyy")
 
-                        End If
-                    End If
+
+                'If thecache.Count > 0 Then
+                '    If thecache.First.Block Then
+                '        lblPowerStatus.Text = "This story has been blocked, and won't appear in the channel feed."
+                '        IsBlocked = True
+                '    ElseIf Not thecache.First.BoostDate Is Nothing Then
+                '        If thecache.First.BoostDate >= Today Then
+                '            IsBoosted = True
+                '            lblPowerStatus.Text = "Boosted until " & thecache.First.BoostDate.Value.ToString("dd MMM yyyy")
+
+                '        End If
+                '    End If
+                'End If
+
+
+
                 End If
 
 
 
+
+
+        End Sub
+
+        Private Sub ReplaceField(ByRef sv As String, ByVal fieldName As String, ByVal fieldValue As String)
+            If Not String.IsNullOrEmpty(fieldValue) Then
+                sv = sv.Replace(fieldName, fieldValue)
+            Else
+                sv = sv.Replace(fieldName, "")
             End If
 
-
-
-
-
         End Sub
 
-        Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEdit.Click
-            Response.Redirect(EditUrl("AddEditStory") & "?StoryID=" & Request.QueryString("StoryID"))
+        'Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEdit.Click
+        '    Response.Redirect(EditUrl("AddEditStory") & "?StoryID=" & Request.QueryString("StoryID"))
 
-        End Sub
+        'End Sub
 
 
         Public Function GetLanguageName(ByVal language As String) As String
@@ -208,25 +232,25 @@ Namespace DotNetNuke.Modules.FullStory
 
 
 
-        Protected Sub btnNew_Click(sender As Object, e As System.EventArgs) Handles btnNew.Click
-            Response.Redirect(EditUrl("AddEditStory"))
-        End Sub
+        'Protected Sub btnNew_Click(sender As Object, e As System.EventArgs) Handles btnNew.Click
+        '    Response.Redirect(EditUrl("AddEditStory"))
+        'End Sub
 
-        Protected Sub btnTranslate_Click(sender As Object, e As EventArgs) Handles btnTranslate.Click
-            Dim tg As Integer
-            If String.IsNullOrEmpty(TranslationGroupHF.Value) Then
-                'generate new Translation group
-                Dim d As New StoriesDataContext
-                Dim maxTransGroupId = d.AP_Stories.Where(Function(x) x.PortalID = PortalId And Not String.IsNullOrEmpty(x.TranslationGroup))
-                If maxTransGroupId.Count = 0 Then
-                    tg = 1
-                Else
-                    tg = maxTransGroupId.Max(Function(x) x.TranslationGroup)
-                End If
-            Else
-                tg = CInt(TranslationGroupHF.Value)
-            End If
-            Response.Redirect(EditUrl("AddEditStory") & "?tg=" & tg)
-        End Sub
+        'Protected Sub btnTranslate_Click(sender As Object, e As EventArgs) Handles btnTranslate.Click
+        '    Dim tg As Integer
+        '    If String.IsNullOrEmpty(TranslationGroupHF.Value) Then
+        '        'generate new Translation group
+        '        Dim d As New StoriesDataContext
+        '        Dim maxTransGroupId = d.AP_Stories.Where(Function(x) x.PortalID = PortalId And Not String.IsNullOrEmpty(x.TranslationGroup))
+        '        If maxTransGroupId.Count = 0 Then
+        '            tg = 1
+        '        Else
+        '            tg = maxTransGroupId.Max(Function(x) x.TranslationGroup)
+        '        End If
+        '    Else
+        '        tg = CInt(TranslationGroupHF.Value)
+        '    End If
+        '    Response.Redirect(EditUrl("AddEditStory") & "?tg=" & tg)
+        'End Sub
     End Class
 End Namespace
