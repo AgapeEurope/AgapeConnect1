@@ -26,7 +26,7 @@ Namespace DotNetNuke.Modules.Stories
 
 
             If Not Page.IsPostBack Then
-
+                lblSample.Style.Add("Display", "none")
 
 
                 Dim mc As New DotNetNuke.Entities.Modules.ModuleController
@@ -72,7 +72,7 @@ Namespace DotNetNuke.Modules.Stories
                 NotFoundLabel.Visible = False
                 If Request.QueryString("StoryID") <> "" Then
 
-                    lblSample.Style.Add("Display", "none")
+
 
                     StoryIdHF.Value = Request.QueryString("StoryId")
 
