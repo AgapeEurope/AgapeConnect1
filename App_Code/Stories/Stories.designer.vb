@@ -44,12 +44,6 @@ Namespace Stories
     End Sub
     Partial Private Sub DeleteAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
     End Sub
-    Partial Private Sub InsertAP_Story(instance As AP_Story)
-    End Sub
-    Partial Private Sub UpdateAP_Story(instance As AP_Story)
-    End Sub
-    Partial Private Sub DeleteAP_Story(instance As AP_Story)
-    End Sub
     Partial Private Sub InsertAP_Stories_Module_Channel(instance As AP_Stories_Module_Channel)
     End Sub
     Partial Private Sub UpdateAP_Stories_Module_Channel(instance As AP_Stories_Module_Channel)
@@ -61,6 +55,12 @@ Namespace Stories
     Partial Private Sub UpdateAP_Stories_Control(instance As AP_Stories_Control)
     End Sub
     Partial Private Sub DeleteAP_Stories_Control(instance As AP_Stories_Control)
+    End Sub
+    Partial Private Sub InsertAP_Story(instance As AP_Story)
+    End Sub
+    Partial Private Sub UpdateAP_Story(instance As AP_Story)
+    End Sub
+    Partial Private Sub DeleteAP_Story(instance As AP_Story)
     End Sub
     #End Region
 		
@@ -101,12 +101,6 @@ Namespace Stories
 			End Get
 		End Property
 		
-		Public ReadOnly Property AP_Stories() As System.Data.Linq.Table(Of AP_Story)
-			Get
-				Return Me.GetTable(Of AP_Story)
-			End Get
-		End Property
-		
 		Public ReadOnly Property AP_Stories_Module_Channels() As System.Data.Linq.Table(Of AP_Stories_Module_Channel)
 			Get
 				Return Me.GetTable(Of AP_Stories_Module_Channel)
@@ -116,6 +110,12 @@ Namespace Stories
 		Public ReadOnly Property AP_Stories_Controls() As System.Data.Linq.Table(Of AP_Stories_Control)
 			Get
 				Return Me.GetTable(Of AP_Stories_Control)
+			End Get
+		End Property
+		
+		Public ReadOnly Property AP_Stories() As System.Data.Linq.Table(Of AP_Story)
+			Get
+				Return Me.GetTable(Of AP_Story)
 			End Get
 		End Property
 	End Class
@@ -787,471 +787,6 @@ Namespace Stories
 		End Sub
 	End Class
 	
-	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories")>  _
-	Partial Public Class AP_Story
-		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
-		
-		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
-		
-		Private _StoryId As Integer
-		
-		Private _Headline As String
-		
-		Private _PhotoId As Integer
-		
-		Private _StoryText As String
-		
-		Private _StoryDate As Date
-		
-		Private _Author As String
-		
-		Private _EditorBoost As System.Nullable(Of Date)
-		
-		Private _Editable As Boolean
-		
-		Private _RegionId As System.Nullable(Of Integer)
-		
-		Private _UserId As Integer
-		
-		Private _IsVisible As Boolean
-		
-		Private _Sent As Boolean
-		
-		Private _PortalID As Integer
-		
-		Private _TabId As System.Nullable(Of Integer)
-		
-		Private _TabModuleId As System.Nullable(Of Integer)
-		
-		Private _Longitude As System.Nullable(Of Double)
-		
-		Private _Latitude As System.Nullable(Of Double)
-		
-		Private _TranslationGroup As System.Nullable(Of Integer)
-		
-		Private _Language As String
-		
-    #Region "Extensibility Method Definitions"
-    Partial Private Sub OnLoaded()
-    End Sub
-    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
-    End Sub
-    Partial Private Sub OnCreated()
-    End Sub
-    Partial Private Sub OnStoryIdChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnStoryIdChanged()
-    End Sub
-    Partial Private Sub OnHeadlineChanging(value As String)
-    End Sub
-    Partial Private Sub OnHeadlineChanged()
-    End Sub
-    Partial Private Sub OnPhotoIdChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnPhotoIdChanged()
-    End Sub
-    Partial Private Sub OnStoryTextChanging(value As String)
-    End Sub
-    Partial Private Sub OnStoryTextChanged()
-    End Sub
-    Partial Private Sub OnStoryDateChanging(value As Date)
-    End Sub
-    Partial Private Sub OnStoryDateChanged()
-    End Sub
-    Partial Private Sub OnAuthorChanging(value As String)
-    End Sub
-    Partial Private Sub OnAuthorChanged()
-    End Sub
-    Partial Private Sub OnEditorBoostChanging(value As System.Nullable(Of Date))
-    End Sub
-    Partial Private Sub OnEditorBoostChanged()
-    End Sub
-    Partial Private Sub OnEditableChanging(value As Boolean)
-    End Sub
-    Partial Private Sub OnEditableChanged()
-    End Sub
-    Partial Private Sub OnRegionIdChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnRegionIdChanged()
-    End Sub
-    Partial Private Sub OnUserIdChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnUserIdChanged()
-    End Sub
-    Partial Private Sub OnIsVisibleChanging(value As Boolean)
-    End Sub
-    Partial Private Sub OnIsVisibleChanged()
-    End Sub
-    Partial Private Sub OnSentChanging(value As Boolean)
-    End Sub
-    Partial Private Sub OnSentChanged()
-    End Sub
-    Partial Private Sub OnPortalIDChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnPortalIDChanged()
-    End Sub
-    Partial Private Sub OnTabIdChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnTabIdChanged()
-    End Sub
-    Partial Private Sub OnTabModuleIdChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnTabModuleIdChanged()
-    End Sub
-    Partial Private Sub OnLongitudeChanging(value As System.Nullable(Of Double))
-    End Sub
-    Partial Private Sub OnLongitudeChanged()
-    End Sub
-    Partial Private Sub OnLatitudeChanging(value As System.Nullable(Of Double))
-    End Sub
-    Partial Private Sub OnLatitudeChanged()
-    End Sub
-    Partial Private Sub OnTranslationGroupChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnTranslationGroupChanged()
-    End Sub
-    Partial Private Sub OnLanguageChanging(value As String)
-    End Sub
-    Partial Private Sub OnLanguageChanged()
-    End Sub
-    #End Region
-		
-		Public Sub New()
-			MyBase.New
-			OnCreated
-		End Sub
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
-		Public Property StoryId() As Integer
-			Get
-				Return Me._StoryId
-			End Get
-			Set
-				If ((Me._StoryId = value)  _
-							= false) Then
-					Me.OnStoryIdChanging(value)
-					Me.SendPropertyChanging
-					Me._StoryId = value
-					Me.SendPropertyChanged("StoryId")
-					Me.OnStoryIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Headline", DbType:="NVarChar(154) NOT NULL", CanBeNull:=false)>  _
-		Public Property Headline() As String
-			Get
-				Return Me._Headline
-			End Get
-			Set
-				If (String.Equals(Me._Headline, value) = false) Then
-					Me.OnHeadlineChanging(value)
-					Me.SendPropertyChanging
-					Me._Headline = value
-					Me.SendPropertyChanged("Headline")
-					Me.OnHeadlineChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_PhotoId", DbType:="Int NOT NULL")>  _
-		Public Property PhotoId() As Integer
-			Get
-				Return Me._PhotoId
-			End Get
-			Set
-				If ((Me._PhotoId = value)  _
-							= false) Then
-					Me.OnPhotoIdChanging(value)
-					Me.SendPropertyChanging
-					Me._PhotoId = value
-					Me.SendPropertyChanged("PhotoId")
-					Me.OnPhotoIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryText", DbType:="NVarChar(MAX) NOT NULL", CanBeNull:=false)>  _
-		Public Property StoryText() As String
-			Get
-				Return Me._StoryText
-			End Get
-			Set
-				If (String.Equals(Me._StoryText, value) = false) Then
-					Me.OnStoryTextChanging(value)
-					Me.SendPropertyChanging
-					Me._StoryText = value
-					Me.SendPropertyChanged("StoryText")
-					Me.OnStoryTextChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryDate", DbType:="SmallDateTime NOT NULL")>  _
-		Public Property StoryDate() As Date
-			Get
-				Return Me._StoryDate
-			End Get
-			Set
-				If ((Me._StoryDate = value)  _
-							= false) Then
-					Me.OnStoryDateChanging(value)
-					Me.SendPropertyChanging
-					Me._StoryDate = value
-					Me.SendPropertyChanged("StoryDate")
-					Me.OnStoryDateChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Author", DbType:="NVarChar(50) NOT NULL", CanBeNull:=false)>  _
-		Public Property Author() As String
-			Get
-				Return Me._Author
-			End Get
-			Set
-				If (String.Equals(Me._Author, value) = false) Then
-					Me.OnAuthorChanging(value)
-					Me.SendPropertyChanging
-					Me._Author = value
-					Me.SendPropertyChanged("Author")
-					Me.OnAuthorChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_EditorBoost", DbType:="SmallDateTime")>  _
-		Public Property EditorBoost() As System.Nullable(Of Date)
-			Get
-				Return Me._EditorBoost
-			End Get
-			Set
-				If (Me._EditorBoost.Equals(value) = false) Then
-					Me.OnEditorBoostChanging(value)
-					Me.SendPropertyChanging
-					Me._EditorBoost = value
-					Me.SendPropertyChanged("EditorBoost")
-					Me.OnEditorBoostChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Editable", DbType:="Bit NOT NULL")>  _
-		Public Property Editable() As Boolean
-			Get
-				Return Me._Editable
-			End Get
-			Set
-				If ((Me._Editable = value)  _
-							= false) Then
-					Me.OnEditableChanging(value)
-					Me.SendPropertyChanging
-					Me._Editable = value
-					Me.SendPropertyChanged("Editable")
-					Me.OnEditableChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_RegionId", DbType:="Int")>  _
-		Public Property RegionId() As System.Nullable(Of Integer)
-			Get
-				Return Me._RegionId
-			End Get
-			Set
-				If (Me._RegionId.Equals(value) = false) Then
-					Me.OnRegionIdChanging(value)
-					Me.SendPropertyChanging
-					Me._RegionId = value
-					Me.SendPropertyChanged("RegionId")
-					Me.OnRegionIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_UserId", DbType:="Int NOT NULL")>  _
-		Public Property UserId() As Integer
-			Get
-				Return Me._UserId
-			End Get
-			Set
-				If ((Me._UserId = value)  _
-							= false) Then
-					Me.OnUserIdChanging(value)
-					Me.SendPropertyChanging
-					Me._UserId = value
-					Me.SendPropertyChanged("UserId")
-					Me.OnUserIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_IsVisible", DbType:="Bit NOT NULL")>  _
-		Public Property IsVisible() As Boolean
-			Get
-				Return Me._IsVisible
-			End Get
-			Set
-				If ((Me._IsVisible = value)  _
-							= false) Then
-					Me.OnIsVisibleChanging(value)
-					Me.SendPropertyChanging
-					Me._IsVisible = value
-					Me.SendPropertyChanged("IsVisible")
-					Me.OnIsVisibleChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Sent", DbType:="Bit NOT NULL")>  _
-		Public Property Sent() As Boolean
-			Get
-				Return Me._Sent
-			End Get
-			Set
-				If ((Me._Sent = value)  _
-							= false) Then
-					Me.OnSentChanging(value)
-					Me.SendPropertyChanging
-					Me._Sent = value
-					Me.SendPropertyChanged("Sent")
-					Me.OnSentChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_PortalID", DbType:="Int NOT NULL")>  _
-		Public Property PortalID() As Integer
-			Get
-				Return Me._PortalID
-			End Get
-			Set
-				If ((Me._PortalID = value)  _
-							= false) Then
-					Me.OnPortalIDChanging(value)
-					Me.SendPropertyChanging
-					Me._PortalID = value
-					Me.SendPropertyChanged("PortalID")
-					Me.OnPortalIDChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TabId", DbType:="Int")>  _
-		Public Property TabId() As System.Nullable(Of Integer)
-			Get
-				Return Me._TabId
-			End Get
-			Set
-				If (Me._TabId.Equals(value) = false) Then
-					Me.OnTabIdChanging(value)
-					Me.SendPropertyChanging
-					Me._TabId = value
-					Me.SendPropertyChanged("TabId")
-					Me.OnTabIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TabModuleId", DbType:="Int")>  _
-		Public Property TabModuleId() As System.Nullable(Of Integer)
-			Get
-				Return Me._TabModuleId
-			End Get
-			Set
-				If (Me._TabModuleId.Equals(value) = false) Then
-					Me.OnTabModuleIdChanging(value)
-					Me.SendPropertyChanging
-					Me._TabModuleId = value
-					Me.SendPropertyChanged("TabModuleId")
-					Me.OnTabModuleIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Longitude", DbType:="Float")>  _
-		Public Property Longitude() As System.Nullable(Of Double)
-			Get
-				Return Me._Longitude
-			End Get
-			Set
-				If (Me._Longitude.Equals(value) = false) Then
-					Me.OnLongitudeChanging(value)
-					Me.SendPropertyChanging
-					Me._Longitude = value
-					Me.SendPropertyChanged("Longitude")
-					Me.OnLongitudeChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Latitude", DbType:="Float")>  _
-		Public Property Latitude() As System.Nullable(Of Double)
-			Get
-				Return Me._Latitude
-			End Get
-			Set
-				If (Me._Latitude.Equals(value) = false) Then
-					Me.OnLatitudeChanging(value)
-					Me.SendPropertyChanging
-					Me._Latitude = value
-					Me.SendPropertyChanged("Latitude")
-					Me.OnLatitudeChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TranslationGroup", DbType:="Int")>  _
-		Public Property TranslationGroup() As System.Nullable(Of Integer)
-			Get
-				Return Me._TranslationGroup
-			End Get
-			Set
-				If (Me._TranslationGroup.Equals(value) = false) Then
-					Me.OnTranslationGroupChanging(value)
-					Me.SendPropertyChanging
-					Me._TranslationGroup = value
-					Me.SendPropertyChanged("TranslationGroup")
-					Me.OnTranslationGroupChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Language", DbType:="NVarChar(8)")>  _
-		Public Property Language() As String
-			Get
-				Return Me._Language
-			End Get
-			Set
-				If (String.Equals(Me._Language, value) = false) Then
-					Me.OnLanguageChanging(value)
-					Me.SendPropertyChanging
-					Me._Language = value
-					Me.SendPropertyChanged("Language")
-					Me.OnLanguageChanged
-				End If
-			End Set
-		End Property
-		
-		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
-		
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
-		
-		Protected Overridable Sub SendPropertyChanging()
-			If ((Me.PropertyChangingEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
-			End If
-		End Sub
-		
-		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
-			If ((Me.PropertyChangedEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-			End If
-		End Sub
-	End Class
-	
 	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories_Module_Channel")>  _
 	Partial Public Class AP_Stories_Module_Channel
 		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
@@ -1698,6 +1233,581 @@ Namespace Stories
 					Me._Type = value
 					Me.SendPropertyChanged("Type")
 					Me.OnTypeChanged
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories")>  _
+	Partial Public Class AP_Story
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _StoryId As Integer
+		
+		Private _Headline As String
+		
+		Private _PhotoId As Integer
+		
+		Private _StoryText As String
+		
+		Private _StoryDate As Date
+		
+		Private _Author As String
+		
+		Private _EditorBoost As System.Nullable(Of Date)
+		
+		Private _Editable As Boolean
+		
+		Private _RegionId As System.Nullable(Of Integer)
+		
+		Private _UserId As Integer
+		
+		Private _IsVisible As Boolean
+		
+		Private _Sent As Boolean
+		
+		Private _PortalID As Integer
+		
+		Private _TabId As System.Nullable(Of Integer)
+		
+		Private _TabModuleId As System.Nullable(Of Integer)
+		
+		Private _Longitude As System.Nullable(Of Double)
+		
+		Private _Latitude As System.Nullable(Of Double)
+		
+		Private _TranslationGroup As System.Nullable(Of Integer)
+		
+		Private _Language As String
+		
+		Private _Subtitle As String
+		
+		Private _TextSample As String
+		
+		Private _Field1 As String
+		
+		Private _Field2 As String
+		
+		Private _Field3 As String
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnStoryIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnStoryIdChanged()
+    End Sub
+    Partial Private Sub OnHeadlineChanging(value As String)
+    End Sub
+    Partial Private Sub OnHeadlineChanged()
+    End Sub
+    Partial Private Sub OnPhotoIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnPhotoIdChanged()
+    End Sub
+    Partial Private Sub OnStoryTextChanging(value As String)
+    End Sub
+    Partial Private Sub OnStoryTextChanged()
+    End Sub
+    Partial Private Sub OnStoryDateChanging(value As Date)
+    End Sub
+    Partial Private Sub OnStoryDateChanged()
+    End Sub
+    Partial Private Sub OnAuthorChanging(value As String)
+    End Sub
+    Partial Private Sub OnAuthorChanged()
+    End Sub
+    Partial Private Sub OnEditorBoostChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnEditorBoostChanged()
+    End Sub
+    Partial Private Sub OnEditableChanging(value As Boolean)
+    End Sub
+    Partial Private Sub OnEditableChanged()
+    End Sub
+    Partial Private Sub OnRegionIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnRegionIdChanged()
+    End Sub
+    Partial Private Sub OnUserIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnUserIdChanged()
+    End Sub
+    Partial Private Sub OnIsVisibleChanging(value As Boolean)
+    End Sub
+    Partial Private Sub OnIsVisibleChanged()
+    End Sub
+    Partial Private Sub OnSentChanging(value As Boolean)
+    End Sub
+    Partial Private Sub OnSentChanged()
+    End Sub
+    Partial Private Sub OnPortalIDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnPortalIDChanged()
+    End Sub
+    Partial Private Sub OnTabIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnTabIdChanged()
+    End Sub
+    Partial Private Sub OnTabModuleIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnTabModuleIdChanged()
+    End Sub
+    Partial Private Sub OnLongitudeChanging(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnLongitudeChanged()
+    End Sub
+    Partial Private Sub OnLatitudeChanging(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnLatitudeChanged()
+    End Sub
+    Partial Private Sub OnTranslationGroupChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnTranslationGroupChanged()
+    End Sub
+    Partial Private Sub OnLanguageChanging(value As String)
+    End Sub
+    Partial Private Sub OnLanguageChanged()
+    End Sub
+    Partial Private Sub OnSubtitleChanging(value As String)
+    End Sub
+    Partial Private Sub OnSubtitleChanged()
+    End Sub
+    Partial Private Sub OnTextSampleChanging(value As String)
+    End Sub
+    Partial Private Sub OnTextSampleChanged()
+    End Sub
+    Partial Private Sub OnField1Changing(value As String)
+    End Sub
+    Partial Private Sub OnField1Changed()
+    End Sub
+    Partial Private Sub OnField2Changing(value As String)
+    End Sub
+    Partial Private Sub OnField2Changed()
+    End Sub
+    Partial Private Sub OnField3Changing(value As String)
+    End Sub
+    Partial Private Sub OnField3Changed()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property StoryId() As Integer
+			Get
+				Return Me._StoryId
+			End Get
+			Set
+				If ((Me._StoryId = value)  _
+							= false) Then
+					Me.OnStoryIdChanging(value)
+					Me.SendPropertyChanging
+					Me._StoryId = value
+					Me.SendPropertyChanged("StoryId")
+					Me.OnStoryIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Headline", DbType:="NVarChar(154) NOT NULL", CanBeNull:=false)>  _
+		Public Property Headline() As String
+			Get
+				Return Me._Headline
+			End Get
+			Set
+				If (String.Equals(Me._Headline, value) = false) Then
+					Me.OnHeadlineChanging(value)
+					Me.SendPropertyChanging
+					Me._Headline = value
+					Me.SendPropertyChanged("Headline")
+					Me.OnHeadlineChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_PhotoId", DbType:="Int NOT NULL")>  _
+		Public Property PhotoId() As Integer
+			Get
+				Return Me._PhotoId
+			End Get
+			Set
+				If ((Me._PhotoId = value)  _
+							= false) Then
+					Me.OnPhotoIdChanging(value)
+					Me.SendPropertyChanging
+					Me._PhotoId = value
+					Me.SendPropertyChanged("PhotoId")
+					Me.OnPhotoIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryText", DbType:="NVarChar(MAX) NOT NULL", CanBeNull:=false)>  _
+		Public Property StoryText() As String
+			Get
+				Return Me._StoryText
+			End Get
+			Set
+				If (String.Equals(Me._StoryText, value) = false) Then
+					Me.OnStoryTextChanging(value)
+					Me.SendPropertyChanging
+					Me._StoryText = value
+					Me.SendPropertyChanged("StoryText")
+					Me.OnStoryTextChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryDate", DbType:="SmallDateTime NOT NULL")>  _
+		Public Property StoryDate() As Date
+			Get
+				Return Me._StoryDate
+			End Get
+			Set
+				If ((Me._StoryDate = value)  _
+							= false) Then
+					Me.OnStoryDateChanging(value)
+					Me.SendPropertyChanging
+					Me._StoryDate = value
+					Me.SendPropertyChanged("StoryDate")
+					Me.OnStoryDateChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Author", DbType:="NVarChar(50) NOT NULL", CanBeNull:=false)>  _
+		Public Property Author() As String
+			Get
+				Return Me._Author
+			End Get
+			Set
+				If (String.Equals(Me._Author, value) = false) Then
+					Me.OnAuthorChanging(value)
+					Me.SendPropertyChanging
+					Me._Author = value
+					Me.SendPropertyChanged("Author")
+					Me.OnAuthorChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_EditorBoost", DbType:="SmallDateTime")>  _
+		Public Property EditorBoost() As System.Nullable(Of Date)
+			Get
+				Return Me._EditorBoost
+			End Get
+			Set
+				If (Me._EditorBoost.Equals(value) = false) Then
+					Me.OnEditorBoostChanging(value)
+					Me.SendPropertyChanging
+					Me._EditorBoost = value
+					Me.SendPropertyChanged("EditorBoost")
+					Me.OnEditorBoostChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Editable", DbType:="Bit NOT NULL")>  _
+		Public Property Editable() As Boolean
+			Get
+				Return Me._Editable
+			End Get
+			Set
+				If ((Me._Editable = value)  _
+							= false) Then
+					Me.OnEditableChanging(value)
+					Me.SendPropertyChanging
+					Me._Editable = value
+					Me.SendPropertyChanged("Editable")
+					Me.OnEditableChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_RegionId", DbType:="Int")>  _
+		Public Property RegionId() As System.Nullable(Of Integer)
+			Get
+				Return Me._RegionId
+			End Get
+			Set
+				If (Me._RegionId.Equals(value) = false) Then
+					Me.OnRegionIdChanging(value)
+					Me.SendPropertyChanging
+					Me._RegionId = value
+					Me.SendPropertyChanged("RegionId")
+					Me.OnRegionIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_UserId", DbType:="Int NOT NULL")>  _
+		Public Property UserId() As Integer
+			Get
+				Return Me._UserId
+			End Get
+			Set
+				If ((Me._UserId = value)  _
+							= false) Then
+					Me.OnUserIdChanging(value)
+					Me.SendPropertyChanging
+					Me._UserId = value
+					Me.SendPropertyChanged("UserId")
+					Me.OnUserIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_IsVisible", DbType:="Bit NOT NULL")>  _
+		Public Property IsVisible() As Boolean
+			Get
+				Return Me._IsVisible
+			End Get
+			Set
+				If ((Me._IsVisible = value)  _
+							= false) Then
+					Me.OnIsVisibleChanging(value)
+					Me.SendPropertyChanging
+					Me._IsVisible = value
+					Me.SendPropertyChanged("IsVisible")
+					Me.OnIsVisibleChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Sent", DbType:="Bit NOT NULL")>  _
+		Public Property Sent() As Boolean
+			Get
+				Return Me._Sent
+			End Get
+			Set
+				If ((Me._Sent = value)  _
+							= false) Then
+					Me.OnSentChanging(value)
+					Me.SendPropertyChanging
+					Me._Sent = value
+					Me.SendPropertyChanged("Sent")
+					Me.OnSentChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_PortalID", DbType:="Int NOT NULL")>  _
+		Public Property PortalID() As Integer
+			Get
+				Return Me._PortalID
+			End Get
+			Set
+				If ((Me._PortalID = value)  _
+							= false) Then
+					Me.OnPortalIDChanging(value)
+					Me.SendPropertyChanging
+					Me._PortalID = value
+					Me.SendPropertyChanged("PortalID")
+					Me.OnPortalIDChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TabId", DbType:="Int")>  _
+		Public Property TabId() As System.Nullable(Of Integer)
+			Get
+				Return Me._TabId
+			End Get
+			Set
+				If (Me._TabId.Equals(value) = false) Then
+					Me.OnTabIdChanging(value)
+					Me.SendPropertyChanging
+					Me._TabId = value
+					Me.SendPropertyChanged("TabId")
+					Me.OnTabIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TabModuleId", DbType:="Int")>  _
+		Public Property TabModuleId() As System.Nullable(Of Integer)
+			Get
+				Return Me._TabModuleId
+			End Get
+			Set
+				If (Me._TabModuleId.Equals(value) = false) Then
+					Me.OnTabModuleIdChanging(value)
+					Me.SendPropertyChanging
+					Me._TabModuleId = value
+					Me.SendPropertyChanged("TabModuleId")
+					Me.OnTabModuleIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Longitude", DbType:="Float")>  _
+		Public Property Longitude() As System.Nullable(Of Double)
+			Get
+				Return Me._Longitude
+			End Get
+			Set
+				If (Me._Longitude.Equals(value) = false) Then
+					Me.OnLongitudeChanging(value)
+					Me.SendPropertyChanging
+					Me._Longitude = value
+					Me.SendPropertyChanged("Longitude")
+					Me.OnLongitudeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Latitude", DbType:="Float")>  _
+		Public Property Latitude() As System.Nullable(Of Double)
+			Get
+				Return Me._Latitude
+			End Get
+			Set
+				If (Me._Latitude.Equals(value) = false) Then
+					Me.OnLatitudeChanging(value)
+					Me.SendPropertyChanging
+					Me._Latitude = value
+					Me.SendPropertyChanged("Latitude")
+					Me.OnLatitudeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TranslationGroup", DbType:="Int")>  _
+		Public Property TranslationGroup() As System.Nullable(Of Integer)
+			Get
+				Return Me._TranslationGroup
+			End Get
+			Set
+				If (Me._TranslationGroup.Equals(value) = false) Then
+					Me.OnTranslationGroupChanging(value)
+					Me.SendPropertyChanging
+					Me._TranslationGroup = value
+					Me.SendPropertyChanged("TranslationGroup")
+					Me.OnTranslationGroupChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Language", DbType:="NVarChar(8)")>  _
+		Public Property Language() As String
+			Get
+				Return Me._Language
+			End Get
+			Set
+				If (String.Equals(Me._Language, value) = false) Then
+					Me.OnLanguageChanging(value)
+					Me.SendPropertyChanging
+					Me._Language = value
+					Me.SendPropertyChanged("Language")
+					Me.OnLanguageChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Subtitle", DbType:="NVarChar(80)")>  _
+		Public Property Subtitle() As String
+			Get
+				Return Me._Subtitle
+			End Get
+			Set
+				If (String.Equals(Me._Subtitle, value) = false) Then
+					Me.OnSubtitleChanging(value)
+					Me.SendPropertyChanging
+					Me._Subtitle = value
+					Me.SendPropertyChanged("Subtitle")
+					Me.OnSubtitleChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TextSample", DbType:="NVarChar(MAX)")>  _
+		Public Property TextSample() As String
+			Get
+				Return Me._TextSample
+			End Get
+			Set
+				If (String.Equals(Me._TextSample, value) = false) Then
+					Me.OnTextSampleChanging(value)
+					Me.SendPropertyChanging
+					Me._TextSample = value
+					Me.SendPropertyChanged("TextSample")
+					Me.OnTextSampleChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Field1", DbType:="NVarChar(MAX)")>  _
+		Public Property Field1() As String
+			Get
+				Return Me._Field1
+			End Get
+			Set
+				If (String.Equals(Me._Field1, value) = false) Then
+					Me.OnField1Changing(value)
+					Me.SendPropertyChanging
+					Me._Field1 = value
+					Me.SendPropertyChanged("Field1")
+					Me.OnField1Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Field2", DbType:="NVarChar(50)")>  _
+		Public Property Field2() As String
+			Get
+				Return Me._Field2
+			End Get
+			Set
+				If (String.Equals(Me._Field2, value) = false) Then
+					Me.OnField2Changing(value)
+					Me.SendPropertyChanging
+					Me._Field2 = value
+					Me.SendPropertyChanged("Field2")
+					Me.OnField2Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Field3", DbType:="NVarChar(50)")>  _
+		Public Property Field3() As String
+			Get
+				Return Me._Field3
+			End Get
+			Set
+				If (String.Equals(Me._Field3, value) = false) Then
+					Me.OnField3Changing(value)
+					Me.SendPropertyChanging
+					Me._Field3 = value
+					Me.SendPropertyChanged("Field3")
+					Me.OnField3Changed
 				End If
 			End Set
 		End Property

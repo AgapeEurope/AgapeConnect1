@@ -34,29 +34,6 @@
       <Association Name="AP_Stories_Module_Channel_AP_Stories_Module_Channel_Cache" Member="AP_Stories_Module_Channel" ThisKey="ChannelId" OtherKey="ChannelId" Type="AP_Stories_Module_Channel" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.AP_Stories" Member="AP_Stories">
-    <Type Name="AP_Story">
-      <Column Name="StoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Headline" Type="System.String" DbType="NVarChar(154) NOT NULL" CanBeNull="false" />
-      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="StoryText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="StoryDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Author" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="EditorBoost" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="Editable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="RegionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IsVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Sent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="PortalID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TabId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TabModuleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TranslationGroup" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Language" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.AP_Stories_Module_Channel" Member="AP_Stories_Module_Channels">
     <Type Name="AP_Stories_Module_Channel">
       <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -80,6 +57,34 @@
       <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Location" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
       <Column Name="Type" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_Stories" Member="AP_Stories">
+    <Type Name="AP_Story">
+      <Column Name="StoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Headline" Type="System.String" DbType="NVarChar(154) NOT NULL" CanBeNull="false" />
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StoryText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="StoryDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Author" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EditorBoost" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Editable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RegionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Sent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PortalID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TabId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TabModuleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TranslationGroup" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Language" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="Subtitle" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="TextSample" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Field1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Field2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Field3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

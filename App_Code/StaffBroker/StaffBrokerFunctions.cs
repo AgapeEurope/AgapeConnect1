@@ -624,6 +624,8 @@ public class StaffBrokerFunctions
 
     }
 
+
+
     static public void SetSetting(string SettingName, string value, int portalId)
     {
         StaffBrokerDataContext d = new StaffBrokerDataContext();

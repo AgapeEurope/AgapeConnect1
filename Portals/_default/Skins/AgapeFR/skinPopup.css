@@ -24,11 +24,11 @@ div {
 }
 
 
-h1{color: #5eb6e4;font-size:  36pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;border-bottom: solid 2px #5eb6e4;}
-h2{color: #5eb6e4;font-size: 24pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;border-bottom: solid 2px #5eb6e4;}
-h3{color: #5eb6e4;font-size: 18pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
-h4{color: #5eb6e4;font-size: 12pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
-h5{color: #5eb6e4;font-size: 10pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+h1,.AgapeH1{color: #5eb6e4;font-size:  36pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;border-bottom: solid 2px #5eb6e4;}
+h2,.AgapeH2{color: #5eb6e4;font-size: 24pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;border-bottom: solid 2px #5eb6e4;}
+h3,.AgapeH3{color: #5eb6e4;font-size: 18pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+h4,.AgapeH4{color: #5eb6e4;font-size: 12pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
+h5,.AgapeH5{color: #5eb6e4;font-size: 10pt; font-family:  Verdana, Geneva, sans-serif; font-weight: bold ;}
 
 .AgapeError
 {
