@@ -72,7 +72,7 @@ Namespace DotNetNuke.Modules.Stories
                 NotFoundLabel.Visible = False
                 If Request.QueryString("StoryID") <> "" Then
 
-
+                    lblSample.Style.Add("Display", "none")
 
                     StoryIdHF.Value = Request.QueryString("StoryId")
 
@@ -102,30 +102,47 @@ Namespace DotNetNuke.Modules.Stories
 
                     Headline.Text = r.Headline
                     ' imgbtnPrint.OnClientClick = "window.open('/DesktopModules/FullStory/PrintStory.aspx?StoryId=" & Request.QueryString("StoryId") & "', '_blank'); "
-                    If Me.UserInfo.IsSuperUser Then
+                    'If Me.UserInfo.IsSuperUser Then
 
-                        If Not Page.IsPostBack Then
+                    '    If Not Page.IsPostBack Then
 
 
 
-                            Dim BoostDate As String
-                            If r.EditorBoost <= Date.Now Then
-                                BoostLabel.Text = "Not currently boosted."
-                            Else
-                                BoostDate = r.EditorBoost.Value.ToShortDateString()
-                                BoostLabel.Text = "Boosted until " & BoostDate
-                            End If
-                            Editable.Checked = r.Editable
+                    '        Dim BoostDate As String
+                    '        If r.EditorBoost <= Date.Now Then
+                    '            BoostLabel.Text = "Not currently boosted."
+                    '        Else
+                    '            BoostDate = r.EditorBoost.Value.ToShortDateString()
+                    '            BoostLabel.Text = "Boosted until " & BoostDate
+                    '        End If
+                    '        Editable.Checked = r.Editable
 
-                        End If
+                    '    End If
 
-                    End If
+                    'End If
 
                     StoryText.Text = r.StoryText
                     Author.Text = r.Author
                     tbLocation.Text = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
 
                     StoryDate.Text = r.StoryDate.ToString("dd MMM yyyy")
+
+
+                    If (Not String.IsNullOrEmpty(r.Field1)) Then
+                        tbField1.Text = r.Field1
+                    End If
+                    If (Not String.IsNullOrEmpty(r.Field1)) Then
+                        tbField2.Text = r.Field2
+                    End If
+                    If (Not String.IsNullOrEmpty(r.Field1)) Then
+                        tbField3.Text = r.Field3
+                    End If
+                    If (Not String.IsNullOrEmpty(r.TextSample)) Then
+                        tbSample.Text = r.TextSample
+                    End If
+                    If (Not String.IsNullOrEmpty(r.Subtitle)) Then
+                        Subtitle.Text = r.Subtitle
+                    End If
 
 
                     ' Dim thePhoto = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(r.PhotoId)
@@ -138,12 +155,12 @@ Namespace DotNetNuke.Modules.Stories
                         ddlLanguage.SelectedValue = CultureInfo.CurrentCulture.Name.ToLower
                     End If
                     pnlLanguages.Visible = False
-                    If (r.TranslationGroup Is Nothing) Then
+                    If Not (r.TranslationGroup Is Nothing) Then
 
 
                         Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = r.TranslationGroup And c.PortalID = r.PortalID And c.StoryId <> r.StoryId Select c.Language, c.StoryId
 
-                        If Translist.Count > 1 Then
+                        If Translist.Count > 0 Then
                             pnlLanguages.Visible = True
                             dlLanuages.DataSource = Translist
                             dlLanuages.DataBind()
@@ -163,7 +180,20 @@ Namespace DotNetNuke.Modules.Stories
                         Session("Long") = l.longitude
                         Session("Lat") = l.latitude
                     End If
+                    If Request.QueryString("tg") <> "" Then
+                        pnlLanguages.Visible = False
 
+                        Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = CInt(Request.QueryString("tg")) And c.PortalID = PortalId Select c.Language, c.StoryId
+
+                        If Translist.Count > 0 Then
+                            pnlLanguages.Visible = True
+                            dlLanuages.DataSource = Translist
+                            dlLanuages.DataBind()
+
+                        End If
+
+
+                    End If
 
 
                     Dim lg As Double = Session("Long")
@@ -177,7 +207,12 @@ Namespace DotNetNuke.Modules.Stories
                     ddlChannels.SelectedValue = TabModuleId
                     'Headline.Text = CultureInfo.CurrentCulture.TwoLetterISOLanguageName
                     ddlLanguage.SelectedValue = CultureInfo.CurrentCulture.Name.ToLower
+
+
+
                 End If
+
+
 
             End If
 
@@ -192,7 +227,7 @@ Namespace DotNetNuke.Modules.Stories
 
         Public Function GetLanguageName(ByVal language As String) As String
 
-            Dim thename = CultureInfo.GetCultures(CultureTypes.AllCultures).Where(Function(x) x.Name.ToLower = language.ToLower).Select(Function(x) x.EnglishName & " / " & x.NativeName)
+            Dim thename = CultureInfo.GetCultures(CultureTypes.AllCultures).Where(Function(x) x.Name.ToLower = language.ToLower).Select(Function(x) x.DisplayName)
             If thename.Count > 0 Then
                 Return thename.First()
             Else
@@ -243,6 +278,20 @@ Namespace DotNetNuke.Modules.Stories
                 q.First.StoryText = StoryText.Text
                 q.First.Headline = Headline.Text
                 q.First.Author = Author.Text
+
+                q.First.Subtitle = Subtitle.Text
+                q.First.Field1 = tbField1.Text
+                q.First.Field2 = tbField2.Text
+                q.First.Field3 = tbField3.Text
+
+                If cbAutoGenerate.Checked Then
+
+                    q.First.TextSample = Left(StoryFunctions.StripTags(StoryText.Text), 200)
+
+                Else
+                    q.First.TextSample = tbSample.Text
+                End If
+
                 Try
                     Dim geoLoc = tbLocation.Text.Split(",")
                     If geoLoc.Count = 2 Then
@@ -268,11 +317,29 @@ Namespace DotNetNuke.Modules.Stories
                 Dim insert As New AP_Story
                 insert.Headline = Headline.Text
                 insert.Author = Author.Text
+
+                insert.Subtitle = Subtitle.Text
+                insert.Field1 = tbField1.Text
+                insert.Field2 = tbField2.Text
+                insert.Field3 = tbField3.Text
+
+                If cbAutoGenerate.Checked Then
+
+                    insert.TextSample = Left(StoryFunctions.StripTags(StoryText.Text), 200)
+
+                Else
+                    insert.TextSample = tbSample.Text
+                End If
+
+
                 If acImage1.CheckAspect() Then
                     insert.PhotoId = acImage1.FileId
                 Else
                     Return
                 End If
+
+
+
                 insert.StoryDate = Today
                 insert.StoryText = StoryText.Text
                 insert.PortalID = PortalId
@@ -345,6 +412,53 @@ Namespace DotNetNuke.Modules.Stories
 
             End If
 
+        End Sub
+
+        Protected Function Translate(ByVal input As String, inputLanguage As String) As String
+            Dim HTML As String
+
+            Dim lTo = Left(ddlLanguage.SelectedValue, 2)
+            Dim URL As String = "https://www.googleapis.com/language/translate/v2?key=AIzaSyBCSoev7-yyoFLIBOcsnbJqcNifaLwOnPc&source=" & inputLanguage & "&target=" & lTo & "&q=" & Server.UrlEncode(Server.HtmlEncode(input))
+            Dim Request As HttpWebRequest
+            Dim Response As HttpWebResponse
+            Dim Reader As StreamReader
+            Try
+                Request = HttpWebRequest.Create(URL)
+                Response = Request.GetResponse
+
+
+                Reader = New StreamReader(Response.GetResponseStream())
+
+                HTML = Reader.ReadToEnd
+                'StoryText.Text = HTML
+                Dim translatedText = HTML.Substring(HTML.IndexOf("translatedText") + 18)
+
+                translatedText = translatedText.Substring(0, translatedText.IndexOf(""""))
+
+                Return Server.HtmlDecode(Server.UrlDecode(translatedText))
+            Catch ex As Exception
+
+            End Try
+
+        End Function
+
+        Protected Sub dlLanuages_ItemCommand(source As Object, e As DataListCommandEventArgs) Handles dlLanuages.ItemCommand
+            If e.CommandName = "Translate" Then
+                Dim d As New StoriesDataContext
+                Dim fromStory = From c In d.AP_Stories Where c.StoryId = CInt(e.CommandArgument)
+
+                If fromStory.Count > 0 Then
+                    StoryText.Text = Translate(fromStory.First.StoryText, Left(fromStory.First.Language, 2))
+
+                    Headline.Text = Translate(fromStory.First.Headline, Left(fromStory.First.Language, 2))
+
+                    Subtitle.Text = Translate(fromStory.First.Subtitle, Left(fromStory.First.Language, 2))
+
+                    tbSample.Text = Translate(fromStory.First.TextSample, Left(fromStory.First.Language, 2))
+
+
+                End If
+            End If
         End Sub
     End Class
 End Namespace

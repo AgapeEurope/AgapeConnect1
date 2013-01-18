@@ -47,6 +47,8 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
             If Not Page.IsPostBack Then
 
+
+
                 If String.IsNullOrEmpty(Settings("StoryControlId")) Then
                     If d.AP_Stories_Controls.Count > 0 Then
                         LoadStoryControl(d.AP_Stories_Controls.First.Location)

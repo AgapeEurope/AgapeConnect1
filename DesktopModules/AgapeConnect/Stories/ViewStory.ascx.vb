@@ -10,7 +10,7 @@ Imports System.Net.Mail
 Imports System.Collections.Specialized
 Imports System.Linq
 Imports Stories
-Imports StoryControls
+
 Namespace DotNetNuke.Modules.FullStory
 
 
@@ -72,11 +72,14 @@ Namespace DotNetNuke.Modules.FullStory
                 StoryIdHF.Value = Request.QueryString("StoryId")
 
                 Dim sv As String = StaffBrokerFunctions.GetTemplate("StoryView", PortalId)
+               
+
+
 
                 ReplaceField(sv, "[HEADLINE]", r.Headline)
                 location = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
                 ReplaceField(sv, "[MAP]", " <div id=""map_canvas""></div>")
-                
+
                 ReplaceField(sv, "[STORYTEXT]", r.StoryText)
                 Dim thePhoto = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(r.PhotoId)
 
@@ -110,11 +113,11 @@ Namespace DotNetNuke.Modules.FullStory
 
                         For Each row In Translist
                             Dim Lang = GetLanguageName(row.Language)
-                            Flags &= "<a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """ target=""_self""><span title=""" & Lang & """><img  src=""" & GetFlag(row.Language) & """ alt=""" & Lang & "  /></span></a>"
+                            Flags &= "<a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """ target=""_self""><span title=""" & Lang & """><img  src=""" & GetFlag(row.Language) & """ alt=""" & Lang & """  /></span></a>"
 
                         Next
 
-                        Flags &= "</div></div>"
+                        Flags &= "</div> </div>"
 
 
                         ReplaceField(sv, "[LANGUAGES]", Flags)
@@ -128,7 +131,7 @@ Namespace DotNetNuke.Modules.FullStory
 
                 ltStory2.Text = sv.Substring(sv.IndexOf("[SUPERPOWERS]") + 13)
 
-               
+
                 If IsEditable Then
                     SuperPowers.Visible = True
                     If thecache.Count > 0 Then
@@ -163,7 +166,7 @@ Namespace DotNetNuke.Modules.FullStory
 
 
 
-                End If
+            End If
 
 
 
