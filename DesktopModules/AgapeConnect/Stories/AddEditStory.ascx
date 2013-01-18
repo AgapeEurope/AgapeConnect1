@@ -24,7 +24,6 @@
             $('.picker-search-button').css('font-size', 'x-small');
           
           
-         //  $('#<%= cbAutoGenerate.ClientId %>').attr('checked', 'checked');
          
 
             $('#<%= cbAutoGenerate.ClientId %>').click(function () {
