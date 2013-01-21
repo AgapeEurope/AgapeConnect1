@@ -50,7 +50,6 @@ Namespace DotNetNuke.Modules.Stories
 
                     Dim imageId = "http://" & PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logoFile))
 
-
                     StoryFunctions.AddLocalChannel(TabModuleId, PortalAlias.HTTPAlias, RssName, l.longitude, l.latitude, imageId)
 
                     theModule = StoryFunctions.GetStoryModule(TabModuleId)

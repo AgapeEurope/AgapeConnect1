@@ -148,7 +148,7 @@
 <div style="width:100%; text-align: center;">
 <asp:HiddenField id='hfAspect' runat="server"    />
 <asp:HiddenField id='hfSpeed' runat="server"  Value="3"  />
-   
+
 <table cellpadding="4px" border="1" class="SettingsTable" style="margin: 0 auto;">
     <tr>
         <td>
