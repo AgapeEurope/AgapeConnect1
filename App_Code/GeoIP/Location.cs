@@ -67,18 +67,40 @@ public class Location {
     static public Location GetLocation(string ipAddress)
     {
 
+
         if (System.Web.HttpContext.Current.Session["Long"] == null   )
         {
-            if (ipAddress.ToLower().Contains("localhost"))
-                ipAddress = "80.193.180.102";
-
-            LookupService ls = new LookupService(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD);
-
-
-            Location l = ls.getLocation(ipAddress);
             
-            System.Web.HttpContext.Current.Session["Location"] = l;
-            return l;
+
+            try
+            {
+                LookupService ls = new LookupService(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD);
+                Location l = ls.getLocation(ipAddress);
+
+                if (l.latitude == null)
+                    throw new Exception("No Location");
+
+
+
+                System.Web.HttpContext.Current.Session["Location"] = l;
+
+
+
+                return l;
+            }
+            catch (Exception)
+            {
+                ipAddress = "80.193.180.102";
+                LookupService ls = new LookupService(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD);
+                Location l = ls.getLocation(ipAddress);
+
+                System.Web.HttpContext.Current.Session["Location"] = l;
+
+                return l;
+            }
+          
+
+         
         }
         else
         {
