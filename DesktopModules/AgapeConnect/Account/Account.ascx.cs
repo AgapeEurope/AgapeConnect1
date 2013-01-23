@@ -184,8 +184,9 @@ namespace DotNetNuke.Modules.Account
                 if (index == 0) BalanceTable.Rows[0][col.ColumnName] = Translate("lblBalance");
                 else
                 {
-
-                    balCounter += DecodeNumberString((string)IncomeTable.Rows[0][index]) - DecodeNumberString((string)ExpensesTable.Rows[0][index]);
+                    double NetGain = (double) tntTransactions.Where(x => col.ColumnName == x.TransactionDate.Year + " - " + x.TransactionDate.Month).Select(x => x.Amount).Sum();
+                    //balCounter += DecodeNumberString((string)IncomeTable.Rows[0][index]) - DecodeNumberString((string)ExpensesTable.Rows[0][index]);
+                    balCounter += NetGain; // DecodeNumberString((string)IncomeTable.Rows[0][index]) - DecodeNumberString((string)ExpensesTable.Rows[0][index]);
                     if (index > 6 && index <13 )
                     {
                         avgBalance += balCounter/6.0;
@@ -433,8 +434,7 @@ namespace DotNetNuke.Modules.Account
 
         private string FormatNumber(double inputNumber)
         {
-            
-            double num =Math.Abs(inputNumber);
+            double num = inputNumber;//Math.Abs(inputNumber);
             
             if (num >= 1000000)
                 return (num / 1000000).ToString("0.#") + "M";
