@@ -164,4 +164,4 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-*.attrib.resources
+Portals/0/Cache/Pages/*.attrib.resources
