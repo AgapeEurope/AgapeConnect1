@@ -102,7 +102,7 @@ Public Class StoryFunctions
         Return (From c In d.AP_Stories_Modules Where c.TabModuleId = TabModuleId).First
     End Function
 
-    Public Shared Function AddLocalChannel(ByVal tabModuleId As Integer, ByVal PortalAlias As String, ByVal Name As String, ByVal Longitude As Double, ByVal Latitude As Double, ByVal logo As Integer) As Integer
+    Public Shared Function AddLocalChannel(ByVal tabModuleId As Integer, ByVal PortalAlias As String, ByVal Name As String, ByVal Longitude As Double, ByVal Latitude As Double, ByVal logo As String) As Integer
         Dim theModule = GetStoryModule(tabModuleId)
 
         Dim insert As New Stories.AP_Stories_Module_Channel
@@ -118,7 +118,7 @@ Public Class StoryFunctions
         insert.Latitude = Latitude
         insert.Longitude = Longitude
 
-        insert.ImageId = "http://" & PortalAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logo))
+        insert.ImageId = logo
 
         Dim d2 As New Stories.StoriesDataContext
         d2.AP_Stories_Module_Channels.InsertOnSubmit(insert)

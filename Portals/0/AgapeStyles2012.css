@@ -259,50 +259,6 @@ a:hover {
     font-weight: 700;
     text-decoration: none !important;
 }
-
-.Agape_StoryPic_SubBox {
-    background-color: #ED8923;
-    color: #FFF !important;
-    font-weight: bold;
-    font-size: 18pt;
-    height: 50px;
-}
-
-.Agape_StoryDate_Box {
-    background-color: #0180AB;
-    height: 80px !important;
-    width: 80px !important;
-    text-align: center;
-    color: #fff;
-    display: table;
-    padding: 5px;
-    margin-right: 15px;
-}
-
-.Agape_StoryDate_Top {
-    font-size: 30pt;
-    display: table-row;
-}
-
-.Agape_StoryDate_Bottom {
-    font-size: 12pt;
-    display: table-row;
-}
-
-.Agape_Story_subtitle {
-    font-style: italic;
-    font-weight: bold;
-    text-align: justify;
-    line-height: 1.5em;
-    font-size: 12pt;
-}
-
-.agapeAuthorBox {
-    background-color: #0180AB;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 101px !important;
-}
 /* Billboard */
 
 .Bill_dashed {
@@ -566,12 +522,77 @@ a:hover {
 .loginImg {
     display: table-cell;
 }
+
 .hyperOverride {
     text-decoration: none !important;
 }
+
 .loginBox {
     display: table-cell;
     color: #FFFFFF;
     background-color: #0180AB;
     padding: 10px;
+}
+/*StoryThemes*/
+.Agape_StoryPic_SubBox {
+    background-color: #ED8923;
+    color: #FFF !important;
+    font-weight: bold;
+    font-size: 18pt;
+    height: 50px;
+}
+
+.Agape_StoryDate_Box {
+    background-color: #0180AB;
+    height: 80px !important;
+    width: 80px !important;
+    text-align: center;
+    color: #fff;
+    display: table;
+    padding: 5px;
+    margin-right: 15px;
+}
+
+.Agape_StoryDate_Top {
+    font-size: 30pt;
+    display: table-row;
+}
+
+.Agape_StoryDate_Bottom {
+    font-size: 12pt;
+    display: table-row;
+}
+
+.Agape_Story_subtitle {
+    font-style: italic;
+    font-weight: bold;
+    text-align: justify;
+    line-height: 1.5em;
+    font-size: 12pt;
+}
+
+.Agape_Bio_Box {
+    background-color: #0180AB;
+    vertical-align: top;
+    height: 150px !important;
+}
+
+.Agape_Bio_Title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16pt;
+    text-align: left;
+    padding: 10px;
+}
+
+.Agape_Bio_Text {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 11pt;
+    text-align: justify;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    font-style: italic;
+    line-height:1.5em;
 }

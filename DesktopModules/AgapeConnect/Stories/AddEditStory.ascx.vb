@@ -70,6 +70,26 @@ Namespace DotNetNuke.Modules.Stories
                 End If
                 PagePanel.Visible = True
                 NotFoundLabel.Visible = False
+
+                Dim authorTitle = StaffBrokerFunctions.GetSetting("Authors", Me.PortalId)
+                If authorTitle <> "" Then
+                    Dim rc As New DotNetNuke.Security.Roles.RoleController()
+                    Dim theseAuthors = rc.GetUsersByRoleName(Me.PortalId, authorTitle)
+                    ddlAuthor.DataTextField = "DisplayName"
+                    ddlAuthor.DataValueField = "UserID"
+                    ddlAuthor.DataSource = theseAuthors
+                    ddlAuthor.DataBind()
+                    ddlAuthor.Visible = True
+                    Author.Visible = False
+                    tbField3.Visible = False
+                    lblField3.Visible = False
+                Else
+                    ddlAuthor.Visible = False
+                    Author.Visible = True
+                    tbField3.Visible = True
+                    lblField3.Visible = True
+                End If
+
                 If Request.QueryString("StoryID") <> "" Then
 
 
@@ -122,7 +142,7 @@ Namespace DotNetNuke.Modules.Stories
                     'End If
 
                     StoryText.Text = r.StoryText
-                    Author.Text = r.Author
+
                     tbLocation.Text = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
 
                     StoryDate.Text = r.StoryDate.ToString("dd MMM yyyy")
@@ -131,11 +151,14 @@ Namespace DotNetNuke.Modules.Stories
                     If (Not String.IsNullOrEmpty(r.Field1)) Then
                         tbField1.Text = r.Field1
                     End If
-                    If (Not String.IsNullOrEmpty(r.Field1)) Then
+                    If (Not String.IsNullOrEmpty(r.Field2)) Then
                         tbField2.Text = r.Field2
                     End If
-                    If (Not String.IsNullOrEmpty(r.Field1)) Then
-                        tbField3.Text = r.Field3
+                    If Not (authorTitle <> "") Then
+                        Author.Text = r.Author
+                        If (Not String.IsNullOrEmpty(r.Field3)) Then
+                            tbField3.Text = r.Field3
+                        End If
                     End If
                     If (Not String.IsNullOrEmpty(r.TextSample)) Then
                         tbSample.Text = r.TextSample
@@ -272,17 +295,26 @@ Namespace DotNetNuke.Modules.Stories
             Dim d As New StoriesDataContext
 
 
+            Dim authorTitle = StaffBrokerFunctions.GetSetting("Authors", Me.PortalId)
+
             Dim q = From c In d.AP_Stories Where c.StoryId = Request.QueryString("StoryId")
 
             If q.Count > 0 Then
                 q.First.StoryText = StoryText.Text
                 q.First.Headline = Headline.Text
-                q.First.Author = Author.Text
+                If authorTitle <> "" Then
+                    q.First.Author = ddlAuthor.SelectedItem.Text
+                    q.First.Field3 = "#selAuth#" & ddlAuthor.SelectedItem.Value
+                Else
+                    q.First.Author = Author.Text
+                    q.First.Field3 = tbField3.Text
+                End If
+
 
                 q.First.Subtitle = Subtitle.Text
                 q.First.Field1 = tbField1.Text
                 q.First.Field2 = tbField2.Text
-                q.First.Field3 = tbField3.Text
+
 
                 If cbAutoGenerate.Checked Then
 
@@ -316,12 +348,19 @@ Namespace DotNetNuke.Modules.Stories
             Else
                 Dim insert As New AP_Story
                 insert.Headline = Headline.Text
-                insert.Author = Author.Text
+                If authorTitle <> "" Then
+                    insert.Author = ddlAuthor.SelectedItem.Text
+                    insert.Field3 = "#selAuth#" & ddlAuthor.SelectedItem.Value
+                Else
+                    insert.Author = Author.Text
+                    insert.Field3 = tbField3.Text
+                End If
+
 
                 insert.Subtitle = Subtitle.Text
                 insert.Field1 = tbField1.Text
                 insert.Field2 = tbField2.Text
-                insert.Field3 = tbField3.Text
+
 
                 If cbAutoGenerate.Checked Then
 

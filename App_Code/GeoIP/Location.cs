@@ -61,16 +61,14 @@ public class Location {
         temp = Math.Pow(Math.Sin(delta_lat/2),2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Pow(Math.Sin(delta_lon/2),2);
         return EARTH_DIAMETER * Math.Atan2(Math.Sqrt(temp),Math.Sqrt(1-temp));
     }
-   
-
 
     static public Location GetLocation(string ipAddress)
     {
 
 
-        if (System.Web.HttpContext.Current.Session["Long"] == null   )
+        if (System.Web.HttpContext.Current.Session["Long"] == null)
         {
-            
+
 
             try
             {
@@ -98,16 +96,39 @@ public class Location {
 
                 return l;
             }
-          
 
-         
+
+
         }
         else
         {
-            return (Location) System.Web.HttpContext.Current.Session["Location"];
+            return (Location)System.Web.HttpContext.Current.Session["Location"];
 
         }
     }
+
+    //static public Location GetLocation(string ipAddress)
+    //{
+
+    //    if (System.Web.HttpContext.Current.Session["Long"] == null   )
+    //    {
+    //        if (ipAddress.ToLower().Contains("localhost"))
+    //            ipAddress = "80.193.180.102";
+
+    //        LookupService ls = new LookupService(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD);
+
+
+    //        Location l = ls.getLocation(ipAddress);
+            
+    //        System.Web.HttpContext.Current.Session["Location"] = l;
+    //        return l;
+    //    }
+    //    else
+    //    {
+    //        return (Location) System.Web.HttpContext.Current.Session["Location"];
+
+    //    }
+    //}
 
 }
 
