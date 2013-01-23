@@ -81,6 +81,7 @@
                     <td class="Agape_Story_subtitle" align="left" style="width: 25%; white-space:nowrap ">
                         By
                         <asp:TextBox ID="Author" runat="server"  class="Agape_Story_subtitle" style="width: 90%; display: inline;" ></asp:TextBox>
+                        <asp:DropDownList ID="ddlAuthor" runat="server" style="width: 90%; display: inline;" Visible="false"></asp:DropDownList>
                     </td>
                     <td style="width: 65%;">
                         <asp:TextBox ID="Subtitle" runat="server"  class="Agape_Story_subtitle" style="width: 90%; display: inline;" ></asp:TextBox>
@@ -177,7 +178,8 @@
                         </tr>
                          <tr>
                             <td>
-                              <b>Field3:</b>
+                              <b>
+                                  <asp:Label ID="lblField3" runat="server" Text="Field3:"></asp:Label></b>
                             </td>
                             <td>
                                 <asp:TextBox ID="tbField3" runat="server" TextMode="MultiLine" Width="100%"  MaxLength="50"></asp:TextBox>
