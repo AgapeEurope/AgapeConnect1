@@ -165,3 +165,4 @@ pip-log.txt
 .DS_Store
 
 Portals/0/Cache/Pages/*.attrib.resources
+Portals/0/Cache/Pages
