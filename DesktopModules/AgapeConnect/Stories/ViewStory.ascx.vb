@@ -117,21 +117,6 @@ Namespace DotNetNuke.Modules.FullStory
                 End If
 
 
-                Dim fbHref = sv.Substring((sv.IndexOf("[FBHREF]") + 8), (sv.IndexOf("[/FBHREF]") - sv.IndexOf("[FBHREF]") - 8))
-                ReplaceField(sv, "[FBHREF]" & fbHref & "[/FBHREF]", "")
-                Dim fbCode As String = ""
-                fbCode &= "<div style=""text-align:left;""><!-- AddThis Button BEGIN --><div class=""addthis_toolbox addthis_default_style "">"
-                fbCode &= "<a class=""addthis_button_facebook_like""></a><a class=""addthis_button_tweet""></a><a class=""addthis_button_google_plusone""></a>"
-                fbCode &= "<a class=""addthis_counter addthis_pill_style""></a></div><script type=""text/javascript"" src=""http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4e807e587d913b18""></script>"
-                fbCode &= "<!-- AddThis Button END --></div><br />"
-                fbCode &= "<div id=""fb-root"" style=""text-align:left;""></div><script type=""text/javascript"">(function (d, s, id) {"
-                fbCode &= "var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) { return; } var js, fjs = d.getElementsByTagName(s)[0]; "
-                fbCode &= "js = d.createElement(s); js.id = id; js.src = ""//connect.facebook.net/en_US/all.js#xfbml=1""; fjs.parentNode.insertBefore(js, fjs); "
-                fbCode &= "} (document, 'script', 'facebook-jssdk'));</script><br /><br />"
-                fbCode &= "<div ID=""fbComments"" runat=""server""  class=""fb-comments"" data-href=" & fbHref & " data-num-posts=""3"" data-width=""500"" style=""text-align:left; width:100%;""></div></div>"
-                ReplaceField(sv, "[FBCOMMENT]", fbCode)
-
-
 
                 PhotoIdHF.Value = r.PhotoId
 
