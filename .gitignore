@@ -42,6 +42,8 @@ local.properties
 *.sln.docstates
 [Cc]ache/
 [Ll]ogs/
+_imageCropper/
+_acDocuments/
 
 # Build results
 [Dd]ebug/

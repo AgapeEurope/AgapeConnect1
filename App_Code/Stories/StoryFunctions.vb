@@ -247,7 +247,9 @@ Public Class StoryFunctions
 
 
 
-
+                        If Not row.Id Is Nothing Then
+                            insert.GUID = row.Id
+                        End If
 
 
                         If row.PublishDate = Nothing Then
@@ -284,6 +286,7 @@ Public Class StoryFunctions
                     End If
                 Catch ex As Exception
                     'If a story wont load, just skip to the nect one..
+                    Dim s = ex.Message
                 End Try
             Next
 
@@ -305,7 +308,7 @@ Public Class StoryFunctions
         Dim recentWeight As Double = 0
 
         If (tm.TabModuleSettings("WeightRecent") <> "") Then
-            recentWeight = CDbl(tm.TabModuleSettings("WeightRecent"))
+            recentWeight = Double.Parse(tm.TabModuleSettings("WeightRecent"), New CultureInfo(""))
         End If
         Dim d As New Stories.StoriesDataContext
         Dim allStories = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId

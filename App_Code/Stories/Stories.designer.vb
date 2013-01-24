@@ -38,12 +38,6 @@ Namespace Stories
     End Sub
     Partial Private Sub DeleteAP_Stories_Module(instance As AP_Stories_Module)
     End Sub
-    Partial Private Sub InsertAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
-    End Sub
-    Partial Private Sub UpdateAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
-    End Sub
-    Partial Private Sub DeleteAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
-    End Sub
     Partial Private Sub InsertAP_Stories_Module_Channel(instance As AP_Stories_Module_Channel)
     End Sub
     Partial Private Sub UpdateAP_Stories_Module_Channel(instance As AP_Stories_Module_Channel)
@@ -61,6 +55,12 @@ Namespace Stories
     Partial Private Sub UpdateAP_Story(instance As AP_Story)
     End Sub
     Partial Private Sub DeleteAP_Story(instance As AP_Story)
+    End Sub
+    Partial Private Sub InsertAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
+    End Sub
+    Partial Private Sub UpdateAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
+    End Sub
+    Partial Private Sub DeleteAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
     End Sub
     #End Region
 		
@@ -95,12 +95,6 @@ Namespace Stories
 			End Get
 		End Property
 		
-		Public ReadOnly Property AP_Stories_Module_Channel_Caches() As System.Data.Linq.Table(Of AP_Stories_Module_Channel_Cache)
-			Get
-				Return Me.GetTable(Of AP_Stories_Module_Channel_Cache)
-			End Get
-		End Property
-		
 		Public ReadOnly Property AP_Stories_Module_Channels() As System.Data.Linq.Table(Of AP_Stories_Module_Channel)
 			Get
 				Return Me.GetTable(Of AP_Stories_Module_Channel)
@@ -116,6 +110,12 @@ Namespace Stories
 		Public ReadOnly Property AP_Stories() As System.Data.Linq.Table(Of AP_Story)
 			Get
 				Return Me.GetTable(Of AP_Story)
+			End Get
+		End Property
+		
+		Public ReadOnly Property AP_Stories_Module_Channel_Caches() As System.Data.Linq.Table(Of AP_Stories_Module_Channel_Cache)
+			Get
+				Return Me.GetTable(Of AP_Stories_Module_Channel_Cache)
 			End Get
 		End Property
 	End Class
@@ -336,454 +336,6 @@ Namespace Stories
 		Private Sub detach_AP_Stories_Module_Channels(ByVal entity As AP_Stories_Module_Channel)
 			Me.SendPropertyChanging
 			entity.AP_Stories_Module = Nothing
-		End Sub
-	End Class
-	
-	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories_Module_Channel_Cache")>  _
-	Partial Public Class AP_Stories_Module_Channel_Cache
-		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
-		
-		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
-		
-		Private _CacheId As Long
-		
-		Private _Headline As String
-		
-		Private _Description As String
-		
-		Private _Link As String
-		
-		Private _ImageId As String
-		
-		Private _ChannelId As System.Nullable(Of Integer)
-		
-		Private _ImageWidth As System.Nullable(Of Short)
-		
-		Private _ImageHeight As System.Nullable(Of Short)
-		
-		Private _BoostDate As System.Nullable(Of Date)
-		
-		Private _Block As System.Nullable(Of Boolean)
-		
-		Private _Precal As System.Nullable(Of Double)
-		
-		Private _Clicks As System.Nullable(Of Integer)
-		
-		Private _StoryDate As System.Nullable(Of Date)
-		
-		Private _Longitude As System.Nullable(Of Double)
-		
-		Private _Latitude As System.Nullable(Of Double)
-		
-		Private _Langauge As String
-		
-		Private _TranslationGroup As System.Nullable(Of Integer)
-		
-		Private _AP_Stories_Module_Channel As EntityRef(Of AP_Stories_Module_Channel)
-		
-    #Region "Extensibility Method Definitions"
-    Partial Private Sub OnLoaded()
-    End Sub
-    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
-    End Sub
-    Partial Private Sub OnCreated()
-    End Sub
-    Partial Private Sub OnCacheIdChanging(value As Long)
-    End Sub
-    Partial Private Sub OnCacheIdChanged()
-    End Sub
-    Partial Private Sub OnHeadlineChanging(value As String)
-    End Sub
-    Partial Private Sub OnHeadlineChanged()
-    End Sub
-    Partial Private Sub OnDescriptionChanging(value As String)
-    End Sub
-    Partial Private Sub OnDescriptionChanged()
-    End Sub
-    Partial Private Sub OnLinkChanging(value As String)
-    End Sub
-    Partial Private Sub OnLinkChanged()
-    End Sub
-    Partial Private Sub OnImageIdChanging(value As String)
-    End Sub
-    Partial Private Sub OnImageIdChanged()
-    End Sub
-    Partial Private Sub OnChannelIdChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnChannelIdChanged()
-    End Sub
-    Partial Private Sub OnImageWidthChanging(value As System.Nullable(Of Short))
-    End Sub
-    Partial Private Sub OnImageWidthChanged()
-    End Sub
-    Partial Private Sub OnImageHeightChanging(value As System.Nullable(Of Short))
-    End Sub
-    Partial Private Sub OnImageHeightChanged()
-    End Sub
-    Partial Private Sub OnBoostDateChanging(value As System.Nullable(Of Date))
-    End Sub
-    Partial Private Sub OnBoostDateChanged()
-    End Sub
-    Partial Private Sub OnBlockChanging(value As System.Nullable(Of Boolean))
-    End Sub
-    Partial Private Sub OnBlockChanged()
-    End Sub
-    Partial Private Sub OnPrecalChanging(value As System.Nullable(Of Double))
-    End Sub
-    Partial Private Sub OnPrecalChanged()
-    End Sub
-    Partial Private Sub OnClicksChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnClicksChanged()
-    End Sub
-    Partial Private Sub OnStoryDateChanging(value As System.Nullable(Of Date))
-    End Sub
-    Partial Private Sub OnStoryDateChanged()
-    End Sub
-    Partial Private Sub OnLongitudeChanging(value As System.Nullable(Of Double))
-    End Sub
-    Partial Private Sub OnLongitudeChanged()
-    End Sub
-    Partial Private Sub OnLatitudeChanging(value As System.Nullable(Of Double))
-    End Sub
-    Partial Private Sub OnLatitudeChanged()
-    End Sub
-    Partial Private Sub OnLangaugeChanging(value As String)
-    End Sub
-    Partial Private Sub OnLangaugeChanged()
-    End Sub
-    Partial Private Sub OnTranslationGroupChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnTranslationGroupChanged()
-    End Sub
-    #End Region
-		
-		Public Sub New()
-			MyBase.New
-			Me._AP_Stories_Module_Channel = CType(Nothing, EntityRef(Of AP_Stories_Module_Channel))
-			OnCreated
-		End Sub
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_CacheId", AutoSync:=AutoSync.OnInsert, DbType:="BigInt NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
-		Public Property CacheId() As Long
-			Get
-				Return Me._CacheId
-			End Get
-			Set
-				If ((Me._CacheId = value)  _
-							= false) Then
-					Me.OnCacheIdChanging(value)
-					Me.SendPropertyChanging
-					Me._CacheId = value
-					Me.SendPropertyChanged("CacheId")
-					Me.OnCacheIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Headline", DbType:="NVarChar(154) NOT NULL", CanBeNull:=false)>  _
-		Public Property Headline() As String
-			Get
-				Return Me._Headline
-			End Get
-			Set
-				If (String.Equals(Me._Headline, value) = false) Then
-					Me.OnHeadlineChanging(value)
-					Me.SendPropertyChanging
-					Me._Headline = value
-					Me.SendPropertyChanged("Headline")
-					Me.OnHeadlineChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Description", DbType:="NVarChar(500)")>  _
-		Public Property Description() As String
-			Get
-				Return Me._Description
-			End Get
-			Set
-				If (String.Equals(Me._Description, value) = false) Then
-					Me.OnDescriptionChanging(value)
-					Me.SendPropertyChanging
-					Me._Description = value
-					Me.SendPropertyChanged("Description")
-					Me.OnDescriptionChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Link", DbType:="NVarChar(154) NOT NULL", CanBeNull:=false)>  _
-		Public Property Link() As String
-			Get
-				Return Me._Link
-			End Get
-			Set
-				If (String.Equals(Me._Link, value) = false) Then
-					Me.OnLinkChanging(value)
-					Me.SendPropertyChanging
-					Me._Link = value
-					Me.SendPropertyChanged("Link")
-					Me.OnLinkChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ImageId", DbType:="NVarChar(250) NOT NULL", CanBeNull:=false)>  _
-		Public Property ImageId() As String
-			Get
-				Return Me._ImageId
-			End Get
-			Set
-				If (String.Equals(Me._ImageId, value) = false) Then
-					Me.OnImageIdChanging(value)
-					Me.SendPropertyChanging
-					Me._ImageId = value
-					Me.SendPropertyChanged("ImageId")
-					Me.OnImageIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ChannelId", DbType:="Int")>  _
-		Public Property ChannelId() As System.Nullable(Of Integer)
-			Get
-				Return Me._ChannelId
-			End Get
-			Set
-				If (Me._ChannelId.Equals(value) = false) Then
-					If Me._AP_Stories_Module_Channel.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
-					Me.OnChannelIdChanging(value)
-					Me.SendPropertyChanging
-					Me._ChannelId = value
-					Me.SendPropertyChanged("ChannelId")
-					Me.OnChannelIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ImageWidth", DbType:="SmallInt")>  _
-		Public Property ImageWidth() As System.Nullable(Of Short)
-			Get
-				Return Me._ImageWidth
-			End Get
-			Set
-				If (Me._ImageWidth.Equals(value) = false) Then
-					Me.OnImageWidthChanging(value)
-					Me.SendPropertyChanging
-					Me._ImageWidth = value
-					Me.SendPropertyChanged("ImageWidth")
-					Me.OnImageWidthChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ImageHeight", DbType:="SmallInt")>  _
-		Public Property ImageHeight() As System.Nullable(Of Short)
-			Get
-				Return Me._ImageHeight
-			End Get
-			Set
-				If (Me._ImageHeight.Equals(value) = false) Then
-					Me.OnImageHeightChanging(value)
-					Me.SendPropertyChanging
-					Me._ImageHeight = value
-					Me.SendPropertyChanged("ImageHeight")
-					Me.OnImageHeightChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BoostDate", DbType:="DateTime")>  _
-		Public Property BoostDate() As System.Nullable(Of Date)
-			Get
-				Return Me._BoostDate
-			End Get
-			Set
-				If (Me._BoostDate.Equals(value) = false) Then
-					Me.OnBoostDateChanging(value)
-					Me.SendPropertyChanging
-					Me._BoostDate = value
-					Me.SendPropertyChanged("BoostDate")
-					Me.OnBoostDateChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Block", DbType:="Bit")>  _
-		Public Property Block() As System.Nullable(Of Boolean)
-			Get
-				Return Me._Block
-			End Get
-			Set
-				If (Me._Block.Equals(value) = false) Then
-					Me.OnBlockChanging(value)
-					Me.SendPropertyChanging
-					Me._Block = value
-					Me.SendPropertyChanged("Block")
-					Me.OnBlockChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Precal", DbType:="Float")>  _
-		Public Property Precal() As System.Nullable(Of Double)
-			Get
-				Return Me._Precal
-			End Get
-			Set
-				If (Me._Precal.Equals(value) = false) Then
-					Me.OnPrecalChanging(value)
-					Me.SendPropertyChanging
-					Me._Precal = value
-					Me.SendPropertyChanged("Precal")
-					Me.OnPrecalChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Clicks", DbType:="Int")>  _
-		Public Property Clicks() As System.Nullable(Of Integer)
-			Get
-				Return Me._Clicks
-			End Get
-			Set
-				If (Me._Clicks.Equals(value) = false) Then
-					Me.OnClicksChanging(value)
-					Me.SendPropertyChanging
-					Me._Clicks = value
-					Me.SendPropertyChanged("Clicks")
-					Me.OnClicksChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryDate", DbType:="Date")>  _
-		Public Property StoryDate() As System.Nullable(Of Date)
-			Get
-				Return Me._StoryDate
-			End Get
-			Set
-				If (Me._StoryDate.Equals(value) = false) Then
-					Me.OnStoryDateChanging(value)
-					Me.SendPropertyChanging
-					Me._StoryDate = value
-					Me.SendPropertyChanged("StoryDate")
-					Me.OnStoryDateChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Longitude", DbType:="Float")>  _
-		Public Property Longitude() As System.Nullable(Of Double)
-			Get
-				Return Me._Longitude
-			End Get
-			Set
-				If (Me._Longitude.Equals(value) = false) Then
-					Me.OnLongitudeChanging(value)
-					Me.SendPropertyChanging
-					Me._Longitude = value
-					Me.SendPropertyChanged("Longitude")
-					Me.OnLongitudeChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Latitude", DbType:="Float")>  _
-		Public Property Latitude() As System.Nullable(Of Double)
-			Get
-				Return Me._Latitude
-			End Get
-			Set
-				If (Me._Latitude.Equals(value) = false) Then
-					Me.OnLatitudeChanging(value)
-					Me.SendPropertyChanging
-					Me._Latitude = value
-					Me.SendPropertyChanged("Latitude")
-					Me.OnLatitudeChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Langauge", DbType:="NVarChar(8)")>  _
-		Public Property Langauge() As String
-			Get
-				Return Me._Langauge
-			End Get
-			Set
-				If (String.Equals(Me._Langauge, value) = false) Then
-					Me.OnLangaugeChanging(value)
-					Me.SendPropertyChanging
-					Me._Langauge = value
-					Me.SendPropertyChanged("Langauge")
-					Me.OnLangaugeChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TranslationGroup", DbType:="Int")>  _
-		Public Property TranslationGroup() As System.Nullable(Of Integer)
-			Get
-				Return Me._TranslationGroup
-			End Get
-			Set
-				If (Me._TranslationGroup.Equals(value) = false) Then
-					Me.OnTranslationGroupChanging(value)
-					Me.SendPropertyChanging
-					Me._TranslationGroup = value
-					Me.SendPropertyChanged("TranslationGroup")
-					Me.OnTranslationGroupChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_Stories_Module_Channel_AP_Stories_Module_Channel_Cache", Storage:="_AP_Stories_Module_Channel", ThisKey:="ChannelId", OtherKey:="ChannelId", IsForeignKey:=true)>  _
-		Public Property AP_Stories_Module_Channel() As AP_Stories_Module_Channel
-			Get
-				Return Me._AP_Stories_Module_Channel.Entity
-			End Get
-			Set
-				Dim previousValue As AP_Stories_Module_Channel = Me._AP_Stories_Module_Channel.Entity
-				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._AP_Stories_Module_Channel.HasLoadedOrAssignedValue = false)) Then
-					Me.SendPropertyChanging
-					If ((previousValue Is Nothing)  _
-								= false) Then
-						Me._AP_Stories_Module_Channel.Entity = Nothing
-						previousValue.AP_Stories_Module_Channel_Caches.Remove(Me)
-					End If
-					Me._AP_Stories_Module_Channel.Entity = value
-					If ((value Is Nothing)  _
-								= false) Then
-						value.AP_Stories_Module_Channel_Caches.Add(Me)
-						Me._ChannelId = value.ChannelId
-					Else
-						Me._ChannelId = CType(Nothing, Nullable(Of Integer))
-					End If
-					Me.SendPropertyChanged("AP_Stories_Module_Channel")
-				End If
-			End Set
-		End Property
-		
-		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
-		
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
-		
-		Protected Overridable Sub SendPropertyChanging()
-			If ((Me.PropertyChangingEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
-			End If
-		End Sub
-		
-		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
-			If ((Me.PropertyChangedEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-			End If
 		End Sub
 	End Class
 	
@@ -1808,6 +1360,542 @@ Namespace Stories
 					Me._Field3 = value
 					Me.SendPropertyChanged("Field3")
 					Me.OnField3Changed
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories_Module_Channel_Cache")>  _
+	Partial Public Class AP_Stories_Module_Channel_Cache
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _CacheId As Long
+		
+		Private _Headline As String
+		
+		Private _Description As String
+		
+		Private _Link As String
+		
+		Private _ImageId As String
+		
+		Private _ChannelId As System.Nullable(Of Integer)
+		
+		Private _ImageWidth As System.Nullable(Of Short)
+		
+		Private _ImageHeight As System.Nullable(Of Short)
+		
+		Private _BoostDate As System.Nullable(Of Date)
+		
+		Private _Block As System.Nullable(Of Boolean)
+		
+		Private _Precal As System.Nullable(Of Double)
+		
+		Private _Clicks As System.Nullable(Of Integer)
+		
+		Private _StoryDate As System.Nullable(Of Date)
+		
+		Private _Longitude As System.Nullable(Of Double)
+		
+		Private _Latitude As System.Nullable(Of Double)
+		
+		Private _Langauge As String
+		
+		Private _TranslationGroup As System.Nullable(Of Integer)
+		
+		Private _GUID As String
+		
+		Private _Spare1 As String
+		
+		Private _Spare2 As String
+		
+		Private _Spare3 As String
+		
+		Private _AP_Stories_Module_Channel As EntityRef(Of AP_Stories_Module_Channel)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnCacheIdChanging(value As Long)
+    End Sub
+    Partial Private Sub OnCacheIdChanged()
+    End Sub
+    Partial Private Sub OnHeadlineChanging(value As String)
+    End Sub
+    Partial Private Sub OnHeadlineChanged()
+    End Sub
+    Partial Private Sub OnDescriptionChanging(value As String)
+    End Sub
+    Partial Private Sub OnDescriptionChanged()
+    End Sub
+    Partial Private Sub OnLinkChanging(value As String)
+    End Sub
+    Partial Private Sub OnLinkChanged()
+    End Sub
+    Partial Private Sub OnImageIdChanging(value As String)
+    End Sub
+    Partial Private Sub OnImageIdChanged()
+    End Sub
+    Partial Private Sub OnChannelIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnChannelIdChanged()
+    End Sub
+    Partial Private Sub OnImageWidthChanging(value As System.Nullable(Of Short))
+    End Sub
+    Partial Private Sub OnImageWidthChanged()
+    End Sub
+    Partial Private Sub OnImageHeightChanging(value As System.Nullable(Of Short))
+    End Sub
+    Partial Private Sub OnImageHeightChanged()
+    End Sub
+    Partial Private Sub OnBoostDateChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnBoostDateChanged()
+    End Sub
+    Partial Private Sub OnBlockChanging(value As System.Nullable(Of Boolean))
+    End Sub
+    Partial Private Sub OnBlockChanged()
+    End Sub
+    Partial Private Sub OnPrecalChanging(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnPrecalChanged()
+    End Sub
+    Partial Private Sub OnClicksChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnClicksChanged()
+    End Sub
+    Partial Private Sub OnStoryDateChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnStoryDateChanged()
+    End Sub
+    Partial Private Sub OnLongitudeChanging(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnLongitudeChanged()
+    End Sub
+    Partial Private Sub OnLatitudeChanging(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnLatitudeChanged()
+    End Sub
+    Partial Private Sub OnLangaugeChanging(value As String)
+    End Sub
+    Partial Private Sub OnLangaugeChanged()
+    End Sub
+    Partial Private Sub OnTranslationGroupChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnTranslationGroupChanged()
+    End Sub
+    Partial Private Sub OnGUIDChanging(value As String)
+    End Sub
+    Partial Private Sub OnGUIDChanged()
+    End Sub
+    Partial Private Sub OnSpare1Changing(value As String)
+    End Sub
+    Partial Private Sub OnSpare1Changed()
+    End Sub
+    Partial Private Sub OnSpare2Changing(value As String)
+    End Sub
+    Partial Private Sub OnSpare2Changed()
+    End Sub
+    Partial Private Sub OnSpare3Changing(value As String)
+    End Sub
+    Partial Private Sub OnSpare3Changed()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._AP_Stories_Module_Channel = CType(Nothing, EntityRef(Of AP_Stories_Module_Channel))
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_CacheId", AutoSync:=AutoSync.OnInsert, DbType:="BigInt NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property CacheId() As Long
+			Get
+				Return Me._CacheId
+			End Get
+			Set
+				If ((Me._CacheId = value)  _
+							= false) Then
+					Me.OnCacheIdChanging(value)
+					Me.SendPropertyChanging
+					Me._CacheId = value
+					Me.SendPropertyChanged("CacheId")
+					Me.OnCacheIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Headline", DbType:="NVarChar(154) NOT NULL", CanBeNull:=false)>  _
+		Public Property Headline() As String
+			Get
+				Return Me._Headline
+			End Get
+			Set
+				If (String.Equals(Me._Headline, value) = false) Then
+					Me.OnHeadlineChanging(value)
+					Me.SendPropertyChanging
+					Me._Headline = value
+					Me.SendPropertyChanged("Headline")
+					Me.OnHeadlineChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Description", DbType:="NVarChar(500)")>  _
+		Public Property Description() As String
+			Get
+				Return Me._Description
+			End Get
+			Set
+				If (String.Equals(Me._Description, value) = false) Then
+					Me.OnDescriptionChanging(value)
+					Me.SendPropertyChanging
+					Me._Description = value
+					Me.SendPropertyChanged("Description")
+					Me.OnDescriptionChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Link", DbType:="NVarChar(154) NOT NULL", CanBeNull:=false)>  _
+		Public Property Link() As String
+			Get
+				Return Me._Link
+			End Get
+			Set
+				If (String.Equals(Me._Link, value) = false) Then
+					Me.OnLinkChanging(value)
+					Me.SendPropertyChanging
+					Me._Link = value
+					Me.SendPropertyChanged("Link")
+					Me.OnLinkChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ImageId", DbType:="NVarChar(250) NOT NULL", CanBeNull:=false)>  _
+		Public Property ImageId() As String
+			Get
+				Return Me._ImageId
+			End Get
+			Set
+				If (String.Equals(Me._ImageId, value) = false) Then
+					Me.OnImageIdChanging(value)
+					Me.SendPropertyChanging
+					Me._ImageId = value
+					Me.SendPropertyChanged("ImageId")
+					Me.OnImageIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ChannelId", DbType:="Int")>  _
+		Public Property ChannelId() As System.Nullable(Of Integer)
+			Get
+				Return Me._ChannelId
+			End Get
+			Set
+				If (Me._ChannelId.Equals(value) = false) Then
+					If Me._AP_Stories_Module_Channel.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnChannelIdChanging(value)
+					Me.SendPropertyChanging
+					Me._ChannelId = value
+					Me.SendPropertyChanged("ChannelId")
+					Me.OnChannelIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ImageWidth", DbType:="SmallInt")>  _
+		Public Property ImageWidth() As System.Nullable(Of Short)
+			Get
+				Return Me._ImageWidth
+			End Get
+			Set
+				If (Me._ImageWidth.Equals(value) = false) Then
+					Me.OnImageWidthChanging(value)
+					Me.SendPropertyChanging
+					Me._ImageWidth = value
+					Me.SendPropertyChanged("ImageWidth")
+					Me.OnImageWidthChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ImageHeight", DbType:="SmallInt")>  _
+		Public Property ImageHeight() As System.Nullable(Of Short)
+			Get
+				Return Me._ImageHeight
+			End Get
+			Set
+				If (Me._ImageHeight.Equals(value) = false) Then
+					Me.OnImageHeightChanging(value)
+					Me.SendPropertyChanging
+					Me._ImageHeight = value
+					Me.SendPropertyChanged("ImageHeight")
+					Me.OnImageHeightChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BoostDate", DbType:="DateTime")>  _
+		Public Property BoostDate() As System.Nullable(Of Date)
+			Get
+				Return Me._BoostDate
+			End Get
+			Set
+				If (Me._BoostDate.Equals(value) = false) Then
+					Me.OnBoostDateChanging(value)
+					Me.SendPropertyChanging
+					Me._BoostDate = value
+					Me.SendPropertyChanged("BoostDate")
+					Me.OnBoostDateChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Block", DbType:="Bit")>  _
+		Public Property Block() As System.Nullable(Of Boolean)
+			Get
+				Return Me._Block
+			End Get
+			Set
+				If (Me._Block.Equals(value) = false) Then
+					Me.OnBlockChanging(value)
+					Me.SendPropertyChanging
+					Me._Block = value
+					Me.SendPropertyChanged("Block")
+					Me.OnBlockChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Precal", DbType:="Float")>  _
+		Public Property Precal() As System.Nullable(Of Double)
+			Get
+				Return Me._Precal
+			End Get
+			Set
+				If (Me._Precal.Equals(value) = false) Then
+					Me.OnPrecalChanging(value)
+					Me.SendPropertyChanging
+					Me._Precal = value
+					Me.SendPropertyChanged("Precal")
+					Me.OnPrecalChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Clicks", DbType:="Int")>  _
+		Public Property Clicks() As System.Nullable(Of Integer)
+			Get
+				Return Me._Clicks
+			End Get
+			Set
+				If (Me._Clicks.Equals(value) = false) Then
+					Me.OnClicksChanging(value)
+					Me.SendPropertyChanging
+					Me._Clicks = value
+					Me.SendPropertyChanged("Clicks")
+					Me.OnClicksChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryDate", DbType:="Date")>  _
+		Public Property StoryDate() As System.Nullable(Of Date)
+			Get
+				Return Me._StoryDate
+			End Get
+			Set
+				If (Me._StoryDate.Equals(value) = false) Then
+					Me.OnStoryDateChanging(value)
+					Me.SendPropertyChanging
+					Me._StoryDate = value
+					Me.SendPropertyChanged("StoryDate")
+					Me.OnStoryDateChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Longitude", DbType:="Float")>  _
+		Public Property Longitude() As System.Nullable(Of Double)
+			Get
+				Return Me._Longitude
+			End Get
+			Set
+				If (Me._Longitude.Equals(value) = false) Then
+					Me.OnLongitudeChanging(value)
+					Me.SendPropertyChanging
+					Me._Longitude = value
+					Me.SendPropertyChanged("Longitude")
+					Me.OnLongitudeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Latitude", DbType:="Float")>  _
+		Public Property Latitude() As System.Nullable(Of Double)
+			Get
+				Return Me._Latitude
+			End Get
+			Set
+				If (Me._Latitude.Equals(value) = false) Then
+					Me.OnLatitudeChanging(value)
+					Me.SendPropertyChanging
+					Me._Latitude = value
+					Me.SendPropertyChanged("Latitude")
+					Me.OnLatitudeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Langauge", DbType:="NVarChar(8)")>  _
+		Public Property Langauge() As String
+			Get
+				Return Me._Langauge
+			End Get
+			Set
+				If (String.Equals(Me._Langauge, value) = false) Then
+					Me.OnLangaugeChanging(value)
+					Me.SendPropertyChanging
+					Me._Langauge = value
+					Me.SendPropertyChanged("Langauge")
+					Me.OnLangaugeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TranslationGroup", DbType:="Int")>  _
+		Public Property TranslationGroup() As System.Nullable(Of Integer)
+			Get
+				Return Me._TranslationGroup
+			End Get
+			Set
+				If (Me._TranslationGroup.Equals(value) = false) Then
+					Me.OnTranslationGroupChanging(value)
+					Me.SendPropertyChanging
+					Me._TranslationGroup = value
+					Me.SendPropertyChanged("TranslationGroup")
+					Me.OnTranslationGroupChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_GUID", DbType:="NVarChar(50)")>  _
+		Public Property GUID() As String
+			Get
+				Return Me._GUID
+			End Get
+			Set
+				If (String.Equals(Me._GUID, value) = false) Then
+					Me.OnGUIDChanging(value)
+					Me.SendPropertyChanging
+					Me._GUID = value
+					Me.SendPropertyChanged("GUID")
+					Me.OnGUIDChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Spare1", DbType:="NVarChar(154)")>  _
+		Public Property Spare1() As String
+			Get
+				Return Me._Spare1
+			End Get
+			Set
+				If (String.Equals(Me._Spare1, value) = false) Then
+					Me.OnSpare1Changing(value)
+					Me.SendPropertyChanging
+					Me._Spare1 = value
+					Me.SendPropertyChanged("Spare1")
+					Me.OnSpare1Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Spare2", DbType:="NVarChar(154)")>  _
+		Public Property Spare2() As String
+			Get
+				Return Me._Spare2
+			End Get
+			Set
+				If (String.Equals(Me._Spare2, value) = false) Then
+					Me.OnSpare2Changing(value)
+					Me.SendPropertyChanging
+					Me._Spare2 = value
+					Me.SendPropertyChanged("Spare2")
+					Me.OnSpare2Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Spare3", DbType:="NVarChar(154)")>  _
+		Public Property Spare3() As String
+			Get
+				Return Me._Spare3
+			End Get
+			Set
+				If (String.Equals(Me._Spare3, value) = false) Then
+					Me.OnSpare3Changing(value)
+					Me.SendPropertyChanging
+					Me._Spare3 = value
+					Me.SendPropertyChanged("Spare3")
+					Me.OnSpare3Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_Stories_Module_Channel_AP_Stories_Module_Channel_Cache", Storage:="_AP_Stories_Module_Channel", ThisKey:="ChannelId", OtherKey:="ChannelId", IsForeignKey:=true)>  _
+		Public Property AP_Stories_Module_Channel() As AP_Stories_Module_Channel
+			Get
+				Return Me._AP_Stories_Module_Channel.Entity
+			End Get
+			Set
+				Dim previousValue As AP_Stories_Module_Channel = Me._AP_Stories_Module_Channel.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AP_Stories_Module_Channel.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AP_Stories_Module_Channel.Entity = Nothing
+						previousValue.AP_Stories_Module_Channel_Caches.Remove(Me)
+					End If
+					Me._AP_Stories_Module_Channel.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.AP_Stories_Module_Channel_Caches.Add(Me)
+						Me._ChannelId = value.ChannelId
+					Else
+						Me._ChannelId = CType(Nothing, Nullable(Of Integer))
+					End If
+					Me.SendPropertyChanged("AP_Stories_Module_Channel")
 				End If
 			End Set
 		End Property

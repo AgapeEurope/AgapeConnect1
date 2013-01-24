@@ -272,7 +272,7 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
 
 
             Dim filename As String = _theFile.FileName
-
+            Dim ext As String = filename.Substring(filename.LastIndexOf(".") + 1)
             Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
             Dim theFolder = FolderManager.Instance.GetFolder(PS.PortalId, "_imageCropper")
             Dim FileContent = FileManager.Instance.GetFileContent(_theFile)
@@ -308,10 +308,15 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
             FileContent.Dispose()
             ' result.Save("C:\aLocalSVN\AgapeConnect12\Portals\0\_imageCropper\MHuSGwLYED.jpg")
             If Not _theFile Is Nothing Then
-                FileManager.Instance.DeleteFile(_theFile)
+                Try
+                    FileManager.Instance.DeleteFile(_theFile)
+                Catch ex As Exception
+
+                End Try
+
             End If
 
-
+            filename = CreateUniqueName(theFolder, ext)
 
             _theFile = FileManager.Instance.AddFile(theFolder, filename, myMemoryStream, True)
             _theFile = FileManager.Instance.UpdateFile(_theFile)

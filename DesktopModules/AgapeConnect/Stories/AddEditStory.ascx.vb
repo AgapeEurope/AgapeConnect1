@@ -18,14 +18,15 @@ Namespace DotNetNuke.Modules.Stories
 
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-            If Settings("Aspect") <> "" Then
-                acImage1.Aspect = Double.Parse(Settings("Aspect"), New CultureInfo(""))
-            End If
+           
 
 
 
 
             If Not Page.IsPostBack Then
+                If Settings("Aspect") <> "" Then
+                    acImage1.Aspect = Double.Parse(Settings("Aspect"), New CultureInfo(""))
+                End If
                 lblSample.Style.Add("Display", "none")
 
 

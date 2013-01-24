@@ -174,9 +174,11 @@
             <div style="clear: both;"></div>
        
         </td>
+
+
     </tr>
 
-    <tr valign="middle" class="Type2">
+    <tr valign="middle" style="display:none;">
         <td>
             <dnn:Label ID="Label3" runat="server" ResourceKey="lblShow" />
         </td>
@@ -185,7 +187,6 @@
             <asp:CheckBoxList ID="cblShow" runat="server" RepeatColumns="2" >
                 <asp:ListItem Text="Image" />
                 <asp:ListItem Text="Title" />
-                <asp:ListItem Text="Subtitle" />
                 <asp:ListItem Text="Sample" />
                 <asp:ListItem Text="Date" />
                 <asp:ListItem Text="Field1" />
@@ -197,7 +198,14 @@
         </td>
     </tr>
 
-    
+    <tr valign="middle" class="Type1" >
+        <td>
+            <dnn:Label ID="Label8" runat="server" ResourceKey="lblPhotoSize" />
+        </td>
+        <td align="center">
+          <asp:TextBox ID="tbPhotoSize" runat="server" CssClass="numeric"></asp:TextBox> Pixels
+        </td>
+    </tr>
     <tr valign="middle" >
         <td>
             <dnn:Label ID="Label6" runat="server" ResourceKey="lblLocation" />
@@ -219,15 +227,8 @@
         <asp:TextBox ID="tbRssName" runat="server" CssClass="RssName"></asp:TextBox>
         </td>
     </tr>
-    <tr valign="middle" >
-        <td>
-            <dnn:Label ID="Label8" runat="server" ResourceKey="lblPhotoSize" />
-        </td>
-        <td align="center">
-          <asp:TextBox ID="tbPhotoSize" runat="server" CssClass="numeric"></asp:TextBox> Pixels
-        </td>
-    </tr>
-    <tr valign="middle" >
+    
+    <tr valign="middle"  style="display: none;" >
         <td>
             <dnn:Label ID="Label9" runat="server" ResourceKey="lblAspectMode" />
         </td>
@@ -263,6 +264,18 @@
              <i>(drag the bottom-right corner to change)</i>
         </td>
     </tr>
+     <tr valign="middle" >
+        <td>
+            <dnn:Label ID="Label4" runat="server" ResourceKey="lblAdvancedSettings" />
+        </td>
+        
+        <td align="center" style=" white-space: nowrap;">
+         
+        <asp:TextBox ID="tbAdvanceSettings" runat="server" TextMode="MultiLine" Rows="5" Width="80%" Font-Names="Courier"></asp:TextBox>
+        </td>
+    </tr>
+    
+
 </table>
 
  <br /><br />
