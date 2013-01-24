@@ -89,7 +89,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             For Each row In Stories
 
                 Try
-                    If (CultureInfo.CurrentCulture.Name.ToLower.Contains(row.Langauge.ToLower) Or row.Langauge.ToLower.Contains(CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower)) Then
+                    If True Then '(CultureInfo.CurrentCulture.Name.ToLower.Contains(row.Langauge.ToLower) Or row.Langauge.ToLower.Contains(CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower)) Then
 
                         Dim target = "_blank"
                         If row.Link.Contains(PortalSettings.DefaultPortalAlias) Then
@@ -112,7 +112,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
                                 End If
                             Case 1
-                                
+
                                 If photoAspect < (CDbl(row.ImageWidth) / CDbl(row.ImageHeight)) Then
                                     out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & row.Headline & """  title=""" & row.Headline & """ />"
                                     'out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
@@ -134,7 +134,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                         End Select
                         '        out &= "<img src=""" & row.ImageId & """ style=""width: " & photoWidth & "px; height: " & CInt((photoWidth * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & row.Headline & """  title=""" & row.Headline & """ />"
 
-                            
+
 
 
 

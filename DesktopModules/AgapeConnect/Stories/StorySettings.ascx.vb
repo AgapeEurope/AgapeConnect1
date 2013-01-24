@@ -131,6 +131,12 @@ Namespace DotNetNuke.Modules.Stories
 
 
 
+                If CType(TabModuleSettings("AdvancedSettings"), String) <> "" Then
+                    tbAdvanceSettings.Text = TabModuleSettings("AdvancedSettings")
+
+                End If
+
+
                 If CType(TabModuleSettings("ShowFields"), String) <> "" Then
                     Dim s = CStr(TabModuleSettings("ShowFields")).Split(",")
                     For Each row As ListItem In cblShow.Items
@@ -198,6 +204,10 @@ Namespace DotNetNuke.Modules.Stories
 
             'Aspect
             objModules.UpdateTabModuleSetting(TabModuleId, "Aspect", Double.Parse(hfAspect.Value, New CultureInfo("")).ToString(New CultureInfo("")))
+
+            '
+            objModules.UpdateTabModuleSetting(TabModuleId, "AdvancedSettings", tbAdvanceSettings.Text)
+
 
             'ShowFields
             Dim Fields As String = ""

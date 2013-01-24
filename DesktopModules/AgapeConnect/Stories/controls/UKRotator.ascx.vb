@@ -90,7 +90,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories.controls
             For Each row In Stories
 
                 Try
-                    If (CultureInfo.CurrentCulture.Name.ToLower.Contains(row.Langauge.ToLower) Or row.Langauge.ToLower.Contains(CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower)) Then
+                    If True Then '(CultureInfo.CurrentCulture.Name.ToLower.Contains(row.Langauge.ToLower) Or row.Langauge.ToLower.Contains(CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower)) Then
 
                         Dim target = "_blank"
                         If row.Link.Contains(PortalSettings.DefaultPortalAlias) Then
