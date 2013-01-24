@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.SearchResults.UKSearchResults" CodeFile="UKSearchResults.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.SearchResults.UKSearchResults" CodeFile="SearchResults.ascx.cs" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.UI.WebControls" Assembly="DotNetNuke" %>
 
 <style type="text/css">
@@ -11,9 +11,9 @@
     }
 
 </style>
-
+<div class="Agape_Orange_H3"><asp:Label ID="lblTitle" runat="server"></asp:Label></div><br /><br />
 <div class="dnnForm dnnSearchResults dnnClear">
-    <asp:Label ID="lblMessage" runat="server" />
+    <asp:Label CssClass="Agape_Search_Subtitle" ID="lblMessage" runat="server" /><br /><br />
     <asp:DataGrid ID="dgResults" runat="server" AutoGenerateColumns="False" AllowPaging="true" BorderStyle="None" ShowHeader="False" GridLines="None" PagerStyle-Visible="false">
         <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" VerticalAlign="Top" />
         <AlternatingItemStyle CssClass="dnnGridAltItem" />
@@ -29,7 +29,7 @@
                         <tr valign="top">
                             <td>
                                 <asp:Image ID="imgImage" runat="server" ImageUrl='<%# (string)DataBinder.Eval(Container.DataItem, "Image")  %>' CssClass="seachImage"  />
-
+                                <asp:Label ID="lblTest" runat="server" Text='<%# testImageString((string)DataBinder.Eval(Container.DataItem, "Image")) %>'></asp:Label>
 
                             </td>
 

@@ -596,3 +596,7 @@ a:hover {
     font-style: italic;
     line-height:1.5em;
 }
+/*Search Results*/
+.Agape_Search_Subtitle {
+    font-size:11pt;
+}

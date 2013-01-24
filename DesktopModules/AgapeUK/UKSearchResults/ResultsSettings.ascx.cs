@@ -45,7 +45,7 @@ namespace DotNetNuke.Modules.SearchResults
     ///		[cnurse]	11/11/2004	created
     /// </history>
     /// -----------------------------------------------------------------------------
-    public partial class UKResultsSettings : ModuleSettingsBase
+    public partial class ResultsSettings : ModuleSettingsBase
     {
 		#region "Base Method Implementations"
 
