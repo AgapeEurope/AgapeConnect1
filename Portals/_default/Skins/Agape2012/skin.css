@@ -436,7 +436,7 @@ input.SearchTextBox {
             text-transform: none;
             border-top: 1px solid #CCC;
             padding-top: 2px;
-            color:#ED8923;
+            color: #ED8923;
         }
     /* SUB Menu hover & selected */
     .mainMenu tr.hov {
@@ -458,8 +458,8 @@ input.SearchTextBox {
 
         .mainMenu tr.sel td, .mainMenu tr.bc td {
             color: #ED8923;
-            border-top:3px solid #ED8923;
-            padding-top:0px;
+            border-top: 3px solid #ED8923;
+            padding-top: 0px;
         }
 
 .main_dnnmenu_break {
@@ -859,7 +859,10 @@ a:link, a:visited {
         border: 1px solid #999;
         width: 150px;
         height: 20px;
-        padding: 0px;
+        padding-left: 3px;
+        padding-bottom: 0;
+        padding-top: 0;
+        padding-right: 3px;
         margin: 3px;
     }
 
@@ -912,17 +915,3 @@ a:link, a:visited {
     margin: 0;
     text-align: left;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
