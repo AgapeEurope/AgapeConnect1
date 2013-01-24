@@ -12,28 +12,6 @@
       <Association Name="AP_Stories_Module_AP_Stories_Module_Channel" Member="AP_Stories_Module_Channels" ThisKey="StoryModuleId" OtherKey="StoryModuleId" Type="AP_Stories_Module_Channel" />
     </Type>
   </Table>
-  <Table Name="dbo.AP_Stories_Module_Channel_Cache" Member="AP_Stories_Module_Channel_Caches">
-    <Type Name="AP_Stories_Module_Channel_Cache">
-      <Column Name="CacheId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Headline" Type="System.String" DbType="NVarChar(154) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="Link" Type="System.String" DbType="NVarChar(154) NOT NULL" CanBeNull="false" />
-      <Column Name="ImageId" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="ChannelId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ImageWidth" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="ImageHeight" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="BoostDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Block" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Precal" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Clicks" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoryDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Langauge" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
-      <Column Name="TranslationGroup" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="AP_Stories_Module_Channel_AP_Stories_Module_Channel_Cache" Member="AP_Stories_Module_Channel" ThisKey="ChannelId" OtherKey="ChannelId" Type="AP_Stories_Module_Channel" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.AP_Stories_Module_Channel" Member="AP_Stories_Module_Channels">
     <Type Name="AP_Stories_Module_Channel">
       <Column Name="ChannelId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -85,6 +63,32 @@
       <Column Name="Field1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Field2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Field3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_Stories_Module_Channel_Cache" Member="AP_Stories_Module_Channel_Caches">
+    <Type Name="AP_Stories_Module_Channel_Cache">
+      <Column Name="CacheId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Headline" Type="System.String" DbType="NVarChar(154) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(154) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageId" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="ChannelId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ImageWidth" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ImageHeight" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="BoostDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Block" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Precal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Clicks" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoryDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Langauge" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="TranslationGroup" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GUID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spare1" Type="System.String" DbType="NVarChar(154)" CanBeNull="true" />
+      <Column Name="Spare2" Type="System.String" DbType="NVarChar(154)" CanBeNull="true" />
+      <Column Name="Spare3" Type="System.String" DbType="NVarChar(154)" CanBeNull="true" />
+      <Association Name="AP_Stories_Module_Channel_AP_Stories_Module_Channel_Cache" Member="AP_Stories_Module_Channel" ThisKey="ChannelId" OtherKey="ChannelId" Type="AP_Stories_Module_Channel" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

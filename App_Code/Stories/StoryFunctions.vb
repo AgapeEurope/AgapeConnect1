@@ -247,7 +247,9 @@ Public Class StoryFunctions
 
 
 
-
+                        If Not row.Id Is Nothing Then
+                            insert.GUID = row.Id
+                        End If
 
 
                         If row.PublishDate = Nothing Then
