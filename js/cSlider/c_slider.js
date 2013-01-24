@@ -64,7 +64,8 @@
         slider.append(sliderImg);
 
         var offset = ($(kids[vars.currentSlide]).css('height').replace("px", "") - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
-        $('.c_mainImage').css('top', offset + 'px');
+        //Line removed as it was causing the image to offset by half
+        //$('.c_mainImage').css('top', offset + 'px');
 
         //Create caption
         slider.append($('<a class="c_caption"></a>'));
