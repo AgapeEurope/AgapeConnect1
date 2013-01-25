@@ -372,7 +372,7 @@ namespace DotNetNuke.Modules.SearchResults
             string output;
             if (inputURL == "")
             {
-                output = "Test";
+                output = "/images/UKNoImg.jpg";
             }
             else
             {

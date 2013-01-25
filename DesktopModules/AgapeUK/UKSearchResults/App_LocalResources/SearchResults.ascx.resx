@@ -138,4 +138,13 @@
   <data name="ModuleTitle.Text" xml:space="preserve">
     <value>Search Results</value>
   </data>
+  <data name="PagerNext.Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="PagerPrev.Text" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="PagerSpacer.Text" xml:space="preserve">
+    <value>&amp;nbsp;|&amp;nbsp;</value>
+  </data>
 </root>

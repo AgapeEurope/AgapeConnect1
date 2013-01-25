@@ -594,12 +594,59 @@ a:hover {
     padding-right: 10px;
     padding-bottom: 10px;
     font-style: italic;
-    line-height:1.5em;
+    line-height: 1.5em;
 }
 /*Search Results*/
 .Agape_Search_Subtitle {
-    font-size:11pt;
+    font-size: 11pt;
 }
-.Agape_Search_Pager {
 
+.outerSearchPager {
+    width: 100%;
+    text-align: center;
+    height: 80px !important;
+}
+
+.innerSearchPager {
+    width: 50%;
+    text-align: center;
+    height: 80px !important;
+}
+
+.pagerButtonBlue {
+    padding: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 100px !important;
+    display: inline-block;
+    font-size: 14pt;
+    background-color: #0180AB;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}
+
+.pagerButtonGrey {
+    padding: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 100px !important;
+    display: inline-block;
+    font-size: 14pt;
+    color: #666666 !important;
+    background-color: #EEE9E9;
+    font-weight: 700 !important;
+}
+
+.pagerCurrentPage {
+    font-size: 12pt;
+    color: #0180AB !important;
+}
+
+.pagerSelPage {
+    font-size: 12pt;
+}
+
+.searchImage {
+    width: 200px;
 }

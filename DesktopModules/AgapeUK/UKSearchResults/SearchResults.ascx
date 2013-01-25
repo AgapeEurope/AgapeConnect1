@@ -4,9 +4,51 @@
     (function ($, Sys) {
         function setUpMyPager() {
             if ($('.PagingTable')[0]) {
-                $('.dnnSearchResults').append('<br/><br/><div>Hello World</div>');
+                var jCode = $('.PagingTable a').attr('href');
+                if (jCode != '') {
+                    var newJCode = jCode.substr(0, jCode.indexOf('Page_') + 5);
+                    var newJCodeEnd = jCode.substr(jCode.indexOf('Page_') + 6);
+                    $('#jScriptStartCode').val(newJCode);
+                    $('#jScriptEndCode').val(newJCodeEnd);
+                }
+                var codeStart = $('#jScriptStartCode').val();
+                var codeEnd = $('#jScriptEndCode').val();
+                var numPages = $('#numPages input[type=hidden]').val();
+                var currentPage = $('#currentPage input[type=hidden]').val();
+                var spacer = '<%= Localization.GetString("PagerSpacer", LocalResourceFile) %>';
+                var previous = '<%= Localization.GetString("PagerPrev", LocalResourceFile) %>';
+                var next = '<%= Localization.GetString("PagerNext", LocalResourceFile) %>';
+                if (numPages != '') {
+                    var outputString = '';
+                    if (currentPage == 1) {
+                        outputString = '<span class="pagerButtonGrey">' + previous + '</span>';
+                    }
+                    else {
+                        outputString = '<a class="pagerButtonBlue" href="' + codeStart + '' + (parseInt(currentPage) - 1) + '' + codeEnd + '">' + previous + '</a>';
+                    }
+                    var counter = 1;
+                    while (counter <= numPages) {
+                        if (counter == currentPage) {
+                            outputString += '<span class="pagerCurrentPage">' + counter + '</span>';
+                        }
+                        else {
+                            outputString += '<a class="pagerSelPage" href="' + codeStart + '' + counter + '' + codeEnd + '">' + counter + '</a>';
+                        }
+                        if (counter != numPages) {
+                            outputString += '<span class="pagerCurrentPage">' + spacer + '</span>';
+                        }
+                        counter++;
+                    }
+                    if (currentPage == numPages) {
+                        outputString += '<span class="pagerButtonGrey">' + next + '</span>';
+                    }
+                    else {
+                        outputString += '<a class="pagerButtonBlue" href="' + codeStart + '' + (parseInt(currentPage) + 1) + '' + codeEnd + '">' + next + '</a>';
+                    }
+                    $('.dnnSearchResults').append('<br/><br/><div class="outerSearchPager"><span class="innerSearchPager">' + outputString + '</span></div>');
+                }
             }
-            //$('.PagingTable').hide();
+            $('.PagingTable').hide();
         }
         $(document).ready(function () {
             setUpMyPager();
@@ -17,14 +59,9 @@
     }(jQuery, window.Sys));
 </script>
 <style type="text/css">
-    .seachImage {
-        width: 80px;
-        border: 1pt solid black;
-    }
-
-    .dnnGridItem:hover, .dnnGridAltItem:hover {
+    /*.dnnGridItem:hover, .dnnGridAltItem:hover {
         border: 2px solid Blue;
-    }
+    }*/
 </style>
 <div id="numPages">
     <asp:HiddenField ID="hfNumPages" runat="server" />
@@ -32,6 +69,8 @@
 <div id="currentPage">
     <asp:HiddenField ID="hfCurrentPage" runat="server" />
 </div>
+<input type="hidden" id="jScriptStartCode" />
+<input type="hidden" id="jScriptEndCode" />
 <div class="Agape_Orange_H3">
     <asp:Label ID="lblTitle" runat="server"></asp:Label>
 </div>
@@ -42,7 +81,7 @@
     <br />
     <asp:DataGrid ID="dgResults" runat="server" AutoGenerateColumns="False" AllowPaging="true" BorderStyle="None" ShowHeader="False" GridLines="None" PagerStyle-Visible="false">
         <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" VerticalAlign="Top" />
-        <AlternatingItemStyle CssClass="dnnGridAltItem" />
+        <%--<AlternatingItemStyle CssClass="dnnGridAltItem" />--%>
         <FooterStyle CssClass="dnnGridFooter" />
         <Columns>
 
@@ -54,9 +93,7 @@
                         <table>
                             <tr valign="top">
                                 <td>
-                                    <asp:Image ID="imgImage" runat="server" ImageUrl='<%# (string)DataBinder.Eval(Container.DataItem, "Image")  %>' CssClass="seachImage" />
-                                    <asp:Label ID="lblTest" runat="server" Text='<%# testImageString((string)DataBinder.Eval(Container.DataItem, "Image")) %>'></asp:Label>
-
+                                    <asp:Image ID="imgImage" runat="server" ImageUrl='<%# testImageString((string)DataBinder.Eval(Container.DataItem, "Image"))  %>' CssClass="searchImage" />
                                 </td>
 
                                 <td width="100%">
