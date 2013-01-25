@@ -274,12 +274,7 @@ namespace DotNetNuke.Modules.SearchResults
                 }
                 else
                 {
-                    if (dgResults.PageCount > 1)
-                    {
-                        changeResultSummary(1,PageSize,count,_SearchQuery);
-                    }
-
-
+                    changeResultSummary(1, PageSize, count, _SearchQuery);
                 }
                 if (count <= dgResults.PageSize)
                 {
@@ -288,6 +283,9 @@ namespace DotNetNuke.Modules.SearchResults
                 else
                 {
                     ctlPagingControl.Visible = true;
+                    hfCurrentPage.Value = "1";
+                    int numPages = (Convert.ToInt16(TotalRecords / PageSize)) + 1;
+                    hfNumPages.Value = (string)numPages.ToString();
                 }
                 ctlPagingControl.TotalRecords = count;
             }
@@ -372,7 +370,14 @@ namespace DotNetNuke.Modules.SearchResults
         public string testImageString(string inputURL)
         {
             string output;
-            output = inputURL;
+            if (inputURL == "")
+            {
+                output = "Test";
+            }
+            else
+            {
+                output = inputURL;
+            }
             return output;
         }
 
@@ -472,7 +477,7 @@ namespace DotNetNuke.Modules.SearchResults
 
             dgResults.CurrentPageIndex = CurrentPage - 1;
             BindData();
-
+            hfCurrentPage.Value = (string)CurrentPage.ToString();
             changeResultSummary(CurrentPage, PageSize, TotalRecords, _SearchQuery);
         }
 
