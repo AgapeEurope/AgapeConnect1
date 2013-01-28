@@ -58,11 +58,6 @@
         });
     }(jQuery, window.Sys));
 </script>
-<style type="text/css">
-    /*.dnnGridItem:hover, .dnnGridAltItem:hover {
-        border: 2px solid Blue;
-    }*/
-</style>
 <div id="numPages">
     <asp:HiddenField ID="hfNumPages" runat="server" />
 </div>
@@ -87,29 +82,29 @@
 
             <asp:TemplateColumn>
                 <ItemTemplate>
-
+                    <br />
                     <asp:HyperLink ID="lnkLink" runat="server" CssClass="CommandButton" NavigateUrl='<%# FormatURL((int)DataBinder.Eval(Container.DataItem,"TabId"),(string)DataBinder.Eval(Container.DataItem,"Guid")) %>'>
 
                         <table>
                             <tr valign="top">
-                                <td>
+                                <td style="margin-right: 20px;">
                                     <asp:Image ID="imgImage" runat="server" ImageUrl='<%# testImageString((string)DataBinder.Eval(Container.DataItem, "Image"))  %>' CssClass="searchImage" />
                                 </td>
 
                                 <td width="100%">
-                                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="SubHead AgapeH4" NavigateUrl='<%# FormatURL((int)DataBinder.Eval(Container.DataItem,"TabId"),(string)DataBinder.Eval(Container.DataItem,"Guid")) %>' Text='<%# DataBinder.Eval(Container.DataItem, "Title") %>' />
+                                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="Agape_Blue_H4" NavigateUrl='<%# FormatURL((int)DataBinder.Eval(Container.DataItem,"TabId"),(string)DataBinder.Eval(Container.DataItem,"Guid")) %>' Text='<%# DataBinder.Eval(Container.DataItem, "Title") %>' />
                                     <br />
 
-                                    <asp:Panel ID="Panel1" runat="server" CssClass="Agape_Story_subtitle">
-                                        <asp:Label ID="Label1" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem, "AuthorName")  %>' Visible='<%#  ((string)DataBinder.Eval(Container.DataItem, "SearchKey")).StartsWith("S")  %>' />
-
+                                    <asp:Panel ID="Panel1" runat="server" CssClass="Agape_Blue_H5_Thin">
+                                        <%-- <asp:Label ID="Label1" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem, "AuthorName")  %>' Visible='<%#  ((string)DataBinder.Eval(Container.DataItem, "SearchKey")).StartsWith("S")  %>' />--%>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Localization.GetString("PreDate", LocalResourceFile) %>'></asp:Label>
                                         <asp:Label ID="Label2" runat="server" CssClass="Normal" Text='<%# FormatDate((DateTime)DataBinder.Eval(Container.DataItem, "PubDate")) %>' />
-
+                                        <br />
 
                                         <br />
                                     </asp:Panel>
 
-                                    <asp:Label ID="Label3" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem, "Description") + "<br>" %>' Visible="<%# !String.IsNullOrEmpty(ShowDescription()) %>" />
+                                    <asp:Label ID="Label3" runat="server" CssClass="Normal" Text='<%# shortenDescription((string)DataBinder.Eval(Container.DataItem, "Description")) + "<br>" %>' Visible="<%# !String.IsNullOrEmpty(ShowDescription()) %>" />
 
                                 </td>
                             </tr>
@@ -118,6 +113,7 @@
 
 
                     </asp:HyperLink>
+                    <br />
                 </ItemTemplate>
             </asp:TemplateColumn>
         </Columns>

@@ -147,4 +147,7 @@
   <data name="PagerSpacer.Text" xml:space="preserve">
     <value>&amp;nbsp;|&amp;nbsp;</value>
   </data>
+  <data name="PreDate.Text" xml:space="preserve">
+    <value>Last updated on&amp;nbsp;</value>
+  </data>
 </root>

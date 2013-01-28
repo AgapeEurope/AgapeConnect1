@@ -170,17 +170,17 @@ a:hover {
 }
 
 .Agape_Blue_H3 {
-    color: #0180AB;
+    color: #0180AB !important;
     font-size: 18pt;
     font-family: 'Source Sans Pro', Arial, sans-serif;
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
 .Agape_Blue_H4 {
-    color: #0180AB;
+    color: #0180AB !important;
     font-size: 12pt;
     font-family: 'Source Sans Pro', Arial, sans-serif;
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
     .Agape_Blue_H4 a {
@@ -197,6 +197,12 @@ a:hover {
     font-size: 10pt;
     font-family: 'Source Sans Pro', Arial, sans-serif;
     font-weight: 700;
+}
+.Agape_Blue_H5_Thin {
+    color: #0180AB !important;
+    font-size: 10pt;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-weight: 400 !important;
 }
 
 .Agape_lBlue_H1 {
@@ -649,4 +655,5 @@ a:hover {
 
 .searchImage {
     width: 200px;
+    margin-right: 20px !important;
 }

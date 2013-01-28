@@ -310,7 +310,7 @@ namespace DotNetNuke.Modules.SearchResults
         /// -----------------------------------------------------------------------------
         protected string FormatDate(DateTime pubDate)
         {
-            return pubDate.ToString();
+            return pubDate.ToString("dd/MMM/yyyy");
         }
 
         /// -----------------------------------------------------------------------------
@@ -377,6 +377,22 @@ namespace DotNetNuke.Modules.SearchResults
             else
             {
                 output = inputURL;
+            }
+            return output;
+        }
+        public string shortenDescription(string inDesc)
+        {
+            string output;
+            if (inDesc.Length > 200){
+                output = inDesc.Substring(0, 200) + "...";
+            }
+            else{
+                if (inDesc.EndsWith("...")){
+                    output = inDesc;
+                }
+                else{
+                output = inDesc + "...";
+                }
             }
             return output;
         }
