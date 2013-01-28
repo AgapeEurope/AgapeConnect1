@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="false" Explicit="true" Inherits="DotNetNuke.Modules.SearchResults.UKResultsSettings" CodeFile="UKResultsSettings.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="false" Explicit="true" Inherits="DotNetNuke.Modules.SearchResults.ResultsSettings" CodeFile="ResultsSettings.ascx.cs" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <div class="dnnForm dnnResultsSettings dnnClear">
     <div class="dnnFormItem">

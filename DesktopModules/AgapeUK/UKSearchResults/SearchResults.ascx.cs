@@ -57,16 +57,16 @@ namespace DotNetNuke.Modules.SearchResults
     /// -----------------------------------------------------------------------------
     public partial class UKSearchResults : PortalModuleBase
     {
-		#region "Private Members"
-		
+        #region "Private Members"
+
         protected int TotalPages = -1;
         protected int TotalRecords;
         private int _CurrentPage = 1;
         private string _SearchQuery;
 
-		#endregion
+        #endregion
 
-		#region "Protected Members"
+        #region "Protected Members"
 
         protected int CurrentPage
         {
@@ -100,15 +100,15 @@ namespace DotNetNuke.Modules.SearchResults
                 return itemsPage;
             }
         }
-		
-		#endregion
-		
-		#region "Private Methods"
 
-       // public static SearchResultsInfoCollection2 GetSearchResults(int PortalID, string Word)
+        #endregion
+
+        #region "Private Methods"
+
+        // public static SearchResultsInfoCollection2 GetSearchResults(int PortalID, string Word)
         //{
         //    return new DotNetNuke.Services.Search.SearchResultsInfoCollection2(CBO.FillCollection(DataProvider.Instance().GetSearchResults(PortalID, Word), typeof(SearchResultsInfo2)));
-       // }
+        // }
 
 
 
@@ -116,7 +116,7 @@ namespace DotNetNuke.Modules.SearchResults
         {
             //StaffBroker.StaffBrokerDataContext d = new StaffBroker.StaffBrokerDataContext();
 
-           //SearchResultsInfoCollection2 Results = SearchDataStore2.Instance().GetSearchResults(PortalId, _SearchQuery);
+            //SearchResultsInfoCollection2 Results = SearchDataStore2.Instance().GetSearchResults(PortalId, _SearchQuery);
 
 
 
@@ -136,7 +136,7 @@ namespace DotNetNuke.Modules.SearchResults
             {
                 maxItems = Results.Count;
             }
-			
+
             //Get the titlelength/descriptionlength
             int titleLength = 0;
             if (!String.IsNullOrEmpty(Convert.ToString(Settings["titlelength"])))
@@ -149,14 +149,14 @@ namespace DotNetNuke.Modules.SearchResults
                 descLength = int.Parse(Convert.ToString(Settings["descriptionlength"]));
             }
             int i = 0;
-           
+
 
 
             SearchResultsInfo ResultItem;
 
-            
-           // for (i = 0; i <= maxItems - 1; i++)
-            while(dt.Rows.Count< maxItems && i<Results.Count )
+
+            // for (i = 0; i <= maxItems - 1; i++)
+            while (dt.Rows.Count < maxItems && i < Results.Count)
             {
                 ResultItem = Results[i];
                 string filter = "";
@@ -168,62 +168,62 @@ namespace DotNetNuke.Modules.SearchResults
                 if (filter == "" || (filter.ToLower() == "stories" && ResultItem.SearchKey.StartsWith("S")) || (filter.ToLower() == "docs" && ResultItem.SearchKey.StartsWith("D")))
                 {
 
-                
 
 
-                DataRow dr = dt.NewRow();
-                dr["TabId"] = ResultItem.TabId;
-                dr["Guid"] = ResultItem.Guid;
-                if (titleLength > 0 && titleLength < ResultItem.Title.Length)
-                {
-                    dr["Title"] = ResultItem.Title.Substring(0, titleLength) ;
-                }
-                else
-                {
-                    dr["Title"] = ResultItem.Title ;
-                }
-                dr["Relevance"] = ResultItem.Relevance;
-                if (descLength > 0 && descLength < ResultItem.Description.Length)
-                {
-                    dr["Description"] = ResultItem.Description.Substring(0, descLength);
-                }
-                else
-                {
-                    dr["Description"] = ResultItem.Description;
-                }
-                dr["PubDate"] = ResultItem.PubDate;
-                dr["Image"] = "";
-                try
-                {
 
-               
-
-                if (ResultItem.Image > 0)
-                {
-
-                    var img = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(ResultItem.Image);
-                    if (!(img == null))
+                    DataRow dr = dt.NewRow();
+                    dr["TabId"] = ResultItem.TabId;
+                    dr["Guid"] = ResultItem.Guid;
+                    if (titleLength > 0 && titleLength < ResultItem.Title.Length)
                     {
-                        var imgURL = DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(img);
-                         dr["Image"] = imgURL;
+                        dr["Title"] = ResultItem.Title.Substring(0, titleLength);
+                    }
+                    else
+                    {
+                        dr["Title"] = ResultItem.Title;
+                    }
+                    dr["Relevance"] = ResultItem.Relevance;
+                    if (descLength > 0 && descLength < ResultItem.Description.Length)
+                    {
+                        dr["Description"] = ResultItem.Description.Substring(0, descLength);
+                    }
+                    else
+                    {
+                        dr["Description"] = ResultItem.Description;
+                    }
+                    dr["PubDate"] = ResultItem.PubDate;
+                    dr["Image"] = "";
+                    try
+                    {
+
+
+
+                        if (ResultItem.Image > 0)
+                        {
+
+                            var img = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(ResultItem.Image);
+                            if (!(img == null))
+                            {
+                                var imgURL = DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(img);
+                                dr["Image"] = imgURL;
+                            }
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+
                     }
 
-                }
-                }
-                catch (Exception)
-                {
 
-                    
-                }
+                    dr["SearchKey"] = ResultItem.SearchKey;
+
+                    dr["AuthorName"] = ResultItem.AuthorName;
 
 
-              dr["SearchKey"] = ResultItem.SearchKey;
-             
-              dr["AuthorName"] = ResultItem.AuthorName;
+                    dt.Rows.Add(dr);
 
-
-                dt.Rows.Add(dr);
-                   
                 }
                 i++;
             }
@@ -243,12 +243,12 @@ namespace DotNetNuke.Modules.SearchResults
             using (var dt = new DataTable())
             {
                 var dc = new DataColumn("TabId");
-                dt.Columns.Add(new DataColumn("TabId", typeof (Int32)));
-                dt.Columns.Add(new DataColumn("Guid", typeof (String)));
-                dt.Columns.Add(new DataColumn("Title", typeof (String)));
-                dt.Columns.Add(new DataColumn("Relevance", typeof (Int32)));
-                dt.Columns.Add(new DataColumn("Description", typeof (String)));
-                dt.Columns.Add(new DataColumn("PubDate", typeof (DateTime)));
+                dt.Columns.Add(new DataColumn("TabId", typeof(Int32)));
+                dt.Columns.Add(new DataColumn("Guid", typeof(String)));
+                dt.Columns.Add(new DataColumn("Title", typeof(String)));
+                dt.Columns.Add(new DataColumn("Relevance", typeof(Int32)));
+                dt.Columns.Add(new DataColumn("Description", typeof(String)));
+                dt.Columns.Add(new DataColumn("PubDate", typeof(DateTime)));
                 dt.Columns.Add(new DataColumn("Image", typeof(String)));
                 dt.Columns.Add(new DataColumn("SearchKey", typeof(String)));
                 dt.Columns.Add(new DataColumn("AuthorName", typeof(String)));
@@ -259,13 +259,14 @@ namespace DotNetNuke.Modules.SearchResults
                 {
                     count = BindSearchResults(dt);
                 }
-				
+
                 //Bind Search Results Grid
                 var dv = new DataView(dt);
                 dv.Sort = "Relevance DESC";
                 dgResults.PageSize = PageSize;
                 dgResults.DataSource = dv;
                 dgResults.DataBind();
+                TotalRecords = count;
                 if (count == 0)
                 {
                     dgResults.Visible = false;
@@ -273,7 +274,7 @@ namespace DotNetNuke.Modules.SearchResults
                 }
                 else
                 {
-                    lblMessage.Text = string.Format(Localization.GetString("Results", LocalResourceFile), _SearchQuery);
+                    changeResultSummary(1, PageSize, count, _SearchQuery);
                 }
                 if (count <= dgResults.PageSize)
                 {
@@ -282,6 +283,9 @@ namespace DotNetNuke.Modules.SearchResults
                 else
                 {
                     ctlPagingControl.Visible = true;
+                    hfCurrentPage.Value = "1";
+                    int numPages = (Convert.ToInt16(TotalRecords / PageSize)) + 1;
+                    hfNumPages.Value = (string)numPages.ToString();
                 }
                 ctlPagingControl.TotalRecords = count;
             }
@@ -290,9 +294,9 @@ namespace DotNetNuke.Modules.SearchResults
             ctlPagingControl.CurrentPage = CurrentPage;
         }
 
-		#endregion
+        #endregion
 
-		#region "Protected Methods"
+        #region "Protected Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -306,7 +310,7 @@ namespace DotNetNuke.Modules.SearchResults
         /// -----------------------------------------------------------------------------
         protected string FormatDate(DateTime pubDate)
         {
-            return pubDate.ToString();
+            return pubDate.ToString("dd/MMM/yyyy");
         }
 
         /// -----------------------------------------------------------------------------
@@ -353,6 +357,45 @@ namespace DotNetNuke.Modules.SearchResults
             }
             return strURL;
         }
+        protected void changeResultSummary(int pageNum, int pageSize, int count, string searchTerm)
+        {
+            int startNum = ((pageNum - 1) * pageSize) + 1;
+            int toNum = (startNum - 1) + pageSize;
+            if (toNum > count)
+            {
+                toNum = count;
+            }
+            lblMessage.Text = string.Format(Localization.GetString("Results", LocalResourceFile), startNum, toNum, count, searchTerm);
+        }
+        public string testImageString(string inputURL)
+        {
+            string output;
+            if (inputURL == "")
+            {
+                output = "/images/UKNoImg.jpg";
+            }
+            else
+            {
+                output = inputURL;
+            }
+            return output;
+        }
+        public string shortenDescription(string inDesc)
+        {
+            string output;
+            if (inDesc.Length > 200){
+                output = inDesc.Substring(0, 200) + "...";
+            }
+            else{
+                if (inDesc.EndsWith("...")){
+                    output = inDesc;
+                }
+                else{
+                output = inDesc + "...";
+                }
+            }
+            return output;
+        }
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -385,9 +428,9 @@ namespace DotNetNuke.Modules.SearchResults
             return strShow;
         }
 
-		#endregion
+        #endregion
 
-		#region "Event Handlers"
+        #region "Event Handlers"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -401,7 +444,7 @@ namespace DotNetNuke.Modules.SearchResults
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
+            lblTitle.Text = Localization.GetString("ModuleTitle", LocalResourceFile);
             dgResults.PageIndexChanged += dgResults_PageIndexChanged;
             ctlPagingControl.PageChanged += ctlPagingControl_PageChanged;
 
@@ -450,8 +493,10 @@ namespace DotNetNuke.Modules.SearchResults
 
             dgResults.CurrentPageIndex = CurrentPage - 1;
             BindData();
+            hfCurrentPage.Value = (string)CurrentPage.ToString();
+            changeResultSummary(CurrentPage, PageSize, TotalRecords, _SearchQuery);
         }
-		
-		#endregion
+
+        #endregion
     }
 }
