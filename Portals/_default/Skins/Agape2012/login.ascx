@@ -128,7 +128,7 @@
                             Agap&eacute; is a registered charity in England & Wales (no. 258421) and Scotland
                             (no. SC042332).
                         </td>
-                        <td valign="bottom" class="Agape_White_Bold" align="right" style="font-size: 7pt;"><dnn:PRIVACY runat="server" id="dnnPRIVACY" />&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:TERMS runat="server" id="dnnTERMS" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/Default.aspx?tabID=580"
+                        <td valign="bottom" class="Agape_White_Bold" align="right" style="font-size: 7pt !important;"><dnn:PRIVACY runat="server" id="dnnPRIVACY" />&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:TERMS runat="server" id="dnnTERMS" />&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/Default.aspx?tabID=580"
                             target="_self" class="footer">Panel of Reference</a>
                         </td>
                     </tr>

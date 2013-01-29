@@ -262,7 +262,14 @@ a:hover {
     font-family: 'Source Sans Pro', Arial, sans-serif;
     font-size: 10pt;
     color: #FFF !important;
-    font-weight: 700;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+}
+.Agape_White_Bold a:hover,.Agape_White_Bold a:link,.Agape_White_Bold a.active,.Agape_White_Bold a.visited {
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    /*font-size: 10pt;*/
+    color: #FFF !important;
+    font-weight: 700 !important;
     text-decoration: none !important;
 }
 /* Billboard */
