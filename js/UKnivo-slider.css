@@ -1,0 +1,180 @@
+/*
+ * jQuery Nivo Slider v3.0.1
+ * http://nivo.dev7studios.com
+ *
+ * Copyright 2012, Dev7studios
+ * Free to use and abuse under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+/* The Nivo Slider styles */
+.nivoSlider {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    background: url(/DesktopModules/AgapeConnect/Stories/themes/default/loading.gif) no-repeat 50% 50%;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+    .nivoSlider img {
+        /*position:absolute;
+	top:0px;
+	left:0px;*/
+    }
+
+.nivo-main-image {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+}
+
+/* If an image is wrapped in a link */
+.nivoSlider a.nivo-imageLink {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 6;
+    display: none;
+}
+/* The slices and boxes in the Slider */
+.nivo-slice {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    height: 100%;
+    top: 0;
+}
+
+.nivo-box {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    overflow: hidden;
+}
+
+    .nivo-box img {
+        display: block;
+    }
+
+/* Caption styles */
+.nivo-caption {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    background-color: #ED8923;
+    opacity: 0.9;
+    background-image: url(/Portals/_default/Skins/Agape2012/images/arroworange.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    color: #fff;
+    width: 100%;
+    z-index: 8;
+    padding: 5px 10px;
+    overflow: hidden;
+    display: none;
+    -moz-opacity: 0.9;
+    filter: alpha(opacity=9);
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+}
+    /*.nivo-caption {
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	background:#000;
+	color:#fff;
+	width:100%;
+	z-index:8;
+	padding: 5px 10px;
+	opacity: 0.8;
+	overflow: hidden;
+	display: none;
+	-moz-opacity: 0.8;
+	filter:alpha(opacity=8);
+	-webkit-box-sizing: border-box; 
+	/*-moz-box-sizing: border-box;    
+	/*box-sizing: border-box;*        
+}*/
+    .nivo-caption p {
+        padding: 5px;
+        margin: 0;
+    }
+
+    .nivo-caption a {
+        display: inline !important;
+    }
+
+.nivo-html-caption {
+    display: none;
+}
+/* Direction nav styles (e.g. Next & Prev) */
+
+.nivo-directionNav a {
+    position: absolute;
+    top: 45%;
+    z-index: 9;
+    cursor: pointer;
+    background: none;
+}
+
+.nivo-prevNav {
+    left: 5px !important;
+    background: url(/Portals/_default/Skins/Agape2012/images/arroworangeL.png) no-repeat !important;
+}
+
+.nivo-nextNav {
+    right: -5px !important;
+    background: url(/Portals/_default/Skins/Agape2012/images/arroworange.png) no-repeat !important;
+}
+/* Control nav styles (e.g. 1,2,3...) */
+.nivo-controlNav {
+    text-align: left !important;
+    padding: 15px 0;
+    position: absolute;
+    left: 0;
+    bottom: 85px;
+}
+
+    .nivo-controlNav a {
+        cursor: pointer;
+        margin-right: 5px !important;
+        margin-bottom: 2px !important;
+        margin-top: 2px !important;
+        margin-left: 2px !important;
+    }
+
+        .nivo-controlNav a.active {
+            /*font-weight: bold;*/
+            border: 1px solid #ED8923 !important;
+            margin-bottom: 1px !important;
+            margin-right: 4px !important;
+            margin-left: 1px !important;
+        }
+
+.nivo-thumbs-enabled img {
+    display: block;
+    width: 60px !important;
+}
+
+.c_big {
+    color: #fff !important;
+    font-size: 12pt !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+}
+
+.c_small {
+    color: #fff !important;
+    font-size: 10pt !important;
+    font-weight: 400 !important;
+    text-align: left !important;
+}
