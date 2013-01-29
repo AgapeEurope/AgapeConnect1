@@ -129,8 +129,8 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
                     }
                     if (String.IsNullOrEmpty(_RedirectURL))
                     {
-                        //redirect to current page 
-                        _RedirectURL = Globals.NavigateURL();
+                        // Current URL per default (RawUrl to keep request params)
+                        _RedirectURL = Request.RawUrl;
                     }
                 }
                 else //redirect to after registration page
@@ -525,6 +525,10 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
         {
             base.OnInit(e);
 
+            // Init translation resource file
+            AgapeTranslation.InitLocalResourceFile(this);
+
+
             if (RegistrationFormType == 0)
             {
                 //UserName
@@ -672,7 +676,8 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
                 {
                     if (!TabPermissionController.CanAdminPage())
                     {
-                        ContainerControl.Visible = false;
+                        //DAVID: Commented out to avoid null pointer error when user already logged in and no ContainerControl (control within another module)
+                        //ContainerControl.Visible = false;
                     }
                 }
             }

@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BtnTheKey.Text" xml:space="preserve">
-    <value>Staff Login</value>
-  </data>
-  <data name="LblTheKey.Text" xml:space="preserve">
-    <value>If you are on staff with Agapé France, please login via TheKey here:</value>
+    <value>Login via TheKey</value>
   </data>
 </root>

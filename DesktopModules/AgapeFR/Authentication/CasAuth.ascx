@@ -9,11 +9,11 @@
     }
 
     .BtnTheKey {
-        margin-top: 30px;
+        margin-left: 30px;
+        margin-bottom: 1em;
     }
 </style>
 
 <div class="CasAuthModuleDiv">
-    <asp:Label ID="LblTheKey" runat="server" ResourceKey="LblTheKey" CssClass="AgapeH5"></asp:Label><br />
-    <p><asp:LinkButton id="BtnTheKey" resourcekey="BtnTheKey" cssclass="dnnPrimaryAction BtnTheKey" runat="server" CausesValidation="false" Text="Staff Login (A traduire)" /></p>
+    <p><asp:LinkButton id="BtnTheKey" resourcekey="BtnTheKey" cssclass="dnnPrimaryAction BtnTheKey" runat="server" CausesValidation="false" /></p>
 </div>

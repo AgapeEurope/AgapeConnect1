@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BtnTheKey.Text" xml:space="preserve">
-    <value>Connexion Equipier</value>
-  </data>
-  <data name="LblTheKey.Text" xml:space="preserve">
-    <value>Si vous êtes équipier avec Agapé France, merci de vous identifier via TheKey ici :</value>
+    <value>Connexion via TheKey</value>
   </data>
 </root>

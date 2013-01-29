@@ -12,6 +12,9 @@
             $('.rbLoginMode').click(function () {
                 loginModeChanged();
             });
+
+            // Show the right panel when loading the page
+            loginModeChanged();
         }
 
         function loginModeChanged() {
@@ -50,20 +53,20 @@
 
 </script>
 <style type="text/css">
-    .bubble {
-         background-color: #6495ed;
-         border-radius: 15px;
-         padding: 10px;
-     }
-    #login {
+    .loginContainer {
+        background-color: #F5F5F5;
+        border: 1px solid #CACFD5;
+        border-radius: 10px;
+        padding: 10px;
         width: 500px;
         overflow: auto;
     }
     #loginMode {
         /*float: left;*/
-        padding-bottom: 30px;
+        padding-bottom: 25px;
     }
     #dnnLogin {
+        display: none;
     }
     #dnnRegister {
         display: none;
@@ -71,13 +74,23 @@
     #staffLogin {
         display: none;
     }
+    #dnnLogin .dnnForm {
+        min-width: 450px;
+    }
+    #dnnLogin .dnnLoginService {
+        padding-top: 0px;
+    }
+    #dnnLogin .dnnPrimaryAction {
+        margin-left: 225px;
+        margin-bottom: 5px;
+    }
 </style>
-<div id="login" class="bubble">
+<div id="loginContainer" class="loginContainer">
     <div id="loginMode">
-        <asp:RadioButtonList ID="rbLoginMode" runat="server" CssClass="rbLoginMode">
-            <asp:ListItem Value="1" Selected="True">J'ai un compte sur ce site.</asp:ListItem>
-            <asp:ListItem Value="2">Je n'ai pas de compte, je souhaite en créer un.</asp:ListItem>
-            <asp:ListItem Value="3">J'ai un compte équipier avec Agapé France.</asp:ListItem>
+        <asp:RadioButtonList ID="rbLoginMode" GroupName="rbLoginMode" runat="server" CssClass="rbLoginMode">
+            <asp:ListItem Value="1" resourcekey="DNNLogin" Selected="True"></asp:ListItem>
+            <asp:ListItem Value="2" resourcekey="DNNRegister"></asp:ListItem>
+            <asp:ListItem Value="3" resourcekey="TheKeyLogin"></asp:ListItem>
         </asp:RadioButtonList>
     </div>
     <div id="dnnLogin">

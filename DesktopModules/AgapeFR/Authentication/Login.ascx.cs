@@ -51,6 +51,14 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
 
         #region Event Handlers
 
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            // Init translation resource file
+            AgapeTranslation.InitLocalResourceFile(this);
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -61,7 +69,7 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
 
             lblLogin.Text = Localization.GetSystemMessage(PortalSettings, "MESSAGE_LOGIN_INSTRUCTIONS");
 
-            var returnUrl = Globals.NavigateURL();
+            var returnUrl = Request.RawUrl; // Globals.NavigateURL();
             string url;
 
             if (!string.IsNullOrEmpty(Request.QueryString["returnurl"]))
@@ -69,8 +77,6 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
                 returnUrl = Request.QueryString["returnurl"];
             }
             returnUrl = HttpUtility.UrlEncode(returnUrl);
-
-            //DAVID: Mettre retuen URL en session pour la récupérer dans register ?
 
             //see if the portal supports persistant cookies
             chkCookie.Visible = Host.RememberCheckbox;

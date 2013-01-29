@@ -25,26 +25,34 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
         Inherits Entities.Modules.PortalModuleBase
         Dim SearchText As String
 
+#Region "Properties"
 
+        Public ReadOnly Property ListType As String
+            Get
+                Dim value As String = Request.QueryString.Get("givetype")
+                If String.IsNullOrEmpty(value) Then
+
+                    Select Case TabController.CurrentPage.TabName
+                        Case "Permanents"
+                            value = "Staff"
+
+                        Case "Ministères"
+                            value = "Dept"
+
+                        Case "Projets"
+                            value = "Project"
+
+                    End Select
+
+                End If
+                Return value
+            End Get
+        End Property
+#End Region
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             Dim d As New StaffBrokerDataContext
-            Dim ListType As String = Request.QueryString.Get("givetype")
-            If ListType = "" Then
-
-                Select Case TabController.CurrentPage.TabName
-                    Case "Permanents"
-                        ListType = "Staff"
-
-                    Case "Ministères"
-                        ListType = "Dept"
-
-                    Case "Projets"
-                        ListType = "Project"
-
-                End Select
-
-            End If
+            
             Select Case ListType
                 Case "Staff"
                     Dim IncList() As String = {"National Staff", "National Staff, Overseas"}
@@ -104,10 +112,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
 
         Public Function GiveToURL(ByVal DataId As Integer) As String
 
-            Dim ListType As String = Request.QueryString.Get("givetype")
-
-
-
             Dim shortcut As String = ""
 
             If ListType = "Staff" Then
@@ -125,7 +129,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
             Dim x = mc.GetModuleByDefinition(PortalId, "frGiveView")
             If Not x Is Nothing Then
                 If Not x.TabID = Nothing Then
-                    Return (NavigateURL(x.TabID) & "?giveto=" & shortcut)
+                    Return (NavigateURL(x.TabID, "", "giveto=" + shortcut))
                 End If
             End If
             'MAY : change this url

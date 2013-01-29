@@ -9,41 +9,38 @@ Imports DotNetNuke.Security.Membership
 Imports DotNetNuke.Services.Authentication
 Imports System.Linq
 
-'Imports Resources
-
 
 Namespace DotNetNuke.Modules.AgapeFR.Authentication
     Partial Class CasAuth
         Inherits Entities.Modules.PortalModuleBase
         Dim CASHOST As String = "https://thekey.me/cas/"
-        Dim Service As String = ""
 
+#Region "Properties"
+
+        Public ReadOnly Property Service As String
+            Get
+                Return Request.UrlReferrer.ToString 'TabController.CurrentPage.FullUrl
+            End Get
+        End Property
+
+#End Region
+
+        Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
+            ' Init translation resource file
+            AgapeTranslation.InitLocalResourceFile(Me)
+        End Sub
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
             If Request.QueryString("mode") = "host" Then
-                ' Service = TabController.CurrentPage.FullUrl
+
                 ' Response.Write(Service)
 
             End If
 
             'Look for the "ticket=" after the "?" in the URL
             Dim tkt As String = Request.QueryString("ticket")
-
-            Service = TabController.CurrentPage.FullUrl
-
-            ' First time through there is no ticket=, so redirect to CAS login
-            If (tkt Is Nothing) Then
-                Dim returnUrl As String = Request.QueryString("returnurl")
-                If returnUrl Is Nothing Or returnUrl = "" Then
-                    Session("returnurl") = Nothing
-                ElseIf Request.RawUrl.Contains(Server.HtmlDecode(returnUrl)) Then
-                    Session("returnurl") = Nothing
-                Else
-                    Session("returnurl") = returnUrl
-                End If
-
-            Else
+            If Not (tkt Is Nothing) Then
                 StaffLogin()
             End If
 
@@ -198,7 +195,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
             Else
                 UserController.UserLogin(PortalSettings.PortalId, objUserInfo, PortalSettings.PortalName, AuthenticationLoginBase.GetIPAddress(), False)
 
-                Response.Redirect(Server.HtmlDecode(returnURL))
+                Response.Redirect(HttpUtility.UrlDecode(returnURL))
 
             End If
 
@@ -282,18 +279,14 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
         End Sub
 
         Protected Sub BtnTheKey_Click(sender As Object, e As EventArgs) Handles BtnTheKey.Click
-            Service = TabController.CurrentPage.FullUrl
 
             Dim template = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev2.css"
 
-            ' First time through there is no ticket=, so redirect to CAS login
-
+            ' First time through there is no ticket=, so get returnurl in request and redirect to CAS login
             Dim returnUrl As String = Request.QueryString("returnurl")
             If returnUrl Is Nothing Or returnUrl = "" Then
-
-                Session("returnurl") = Nothing
-            ElseIf Request.RawUrl.Contains(Server.HtmlDecode(returnUrl)) Then
-
+                Session("returnurl") = HttpUtility.UrlEncode(Request.UrlReferrer.ToString) 'Nothing
+            ElseIf Request.RawUrl.Contains(HttpUtility.UrlDecode(returnUrl)) Then
                 Session("returnurl") = Nothing
             Else
                 Session("returnurl") = returnUrl
