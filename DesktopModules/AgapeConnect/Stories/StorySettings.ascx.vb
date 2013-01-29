@@ -33,6 +33,7 @@ Namespace DotNetNuke.Modules.Stories
                 Dim objModules As New Entities.Modules.ModuleController
                 Dim theModule = StoryFunctions.GetStoryModule(TabModuleId)
                 Dim l = Location.GetLocation(Request.ServerVariables("remote_addr"))
+
                 If theModule.AP_Stories_Module_Channels.Where(Function(x) x.Type = 2).Count = 0 Then
                     'add a local channel!
                     Dim RssName As String = ""
@@ -47,7 +48,7 @@ Namespace DotNetNuke.Modules.Stories
 
                     Dim logoFile = StoryFunctions.SetLogo("http://" & PortalSettings.PortalAlias.HTTPAlias & PortalSettings.HomeDirectory & PortalSettings.LogoFile, PortalId)
 
-
+                    
                     Dim imageId = "http://" & PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logoFile))
 
                     StoryFunctions.AddLocalChannel(TabModuleId, PortalAlias.HTTPAlias, RssName, l.longitude, l.latitude, imageId)
