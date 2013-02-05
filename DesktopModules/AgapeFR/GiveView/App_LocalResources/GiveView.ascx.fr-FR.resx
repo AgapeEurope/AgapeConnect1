@@ -120,26 +120,17 @@
   <data name="AddToCart.Text" xml:space="preserve">
     <value>Ajouter au Panier</value>
   </data>
-  <data name="GoButton.Text" xml:space="preserve">
-    <value>Suivant</value>
-  </data>
   <data name="ListFreqFive.Text" xml:space="preserve">
     <value>Aujourd'hui</value>
   </data>
-  <data name="ListFreqFour.Text" xml:space="preserve">
-    <value>Annuellement</value>
-  </data>
   <data name="ListFreqOne.Text" xml:space="preserve">
-    <value>Mensuellement</value>
-  </data>
-  <data name="ListFreqThree.Text" xml:space="preserve">
-    <value>Semestriellement</value>
-  </data>
-  <data name="ListFreqTwo.Text" xml:space="preserve">
     <value>Trimestriellement</value>
   </data>
-  <data name="ListFreqZero.Text" xml:space="preserve">
-    <value>Selectionner...</value>
+  <data name="ListFreqThree.Text" xml:space="preserve">
+    <value>Annuellement</value>
+  </data>
+  <data name="ListFreqTwo.Text" xml:space="preserve">
+    <value>Semestriellement</value>
   </data>
   <data name="NameAnd.Text" xml:space="preserve">
     <value>et</value>
@@ -147,13 +138,13 @@
   <data name="OneOffPre.Text" xml:space="preserve">
     <value>Je tiens à donner par</value>
   </data>
-  <data name="rblOOOne.Text" xml:space="preserve">
-    <value>vierment</value>
+  <data name="rblMethOne.Text" xml:space="preserve">
+    <value>virement</value>
   </data>
-  <data name="rblOOTwo.Text" xml:space="preserve">
+  <data name="rblMethTwo.Text" xml:space="preserve">
     <value>cheque</value>
   </data>
-  <data name="rblOOZero.Text" xml:space="preserve">
+  <data name="rblMethZero.Text" xml:space="preserve">
     <value>carte de credit</value>
   </data>
   <data name="To.Text" xml:space="preserve">
@@ -169,37 +160,37 @@
     <value>Caisse</value>
   </data>
   <data name="ThankYou.Text" xml:space="preserve">
-    <value>Merci!</value>
+    <value>Merci !</value>
   </data>
   <data name="eMail.Text" xml:space="preserve">
-    <value>Courriel:</value>
+    <value>Courriel :</value>
   </data>
   <data name="Bank.Text" xml:space="preserve">
-    <value>Banque nom:</value>
+    <value>Banque nom :</value>
   </data>
   <data name="BankAcc.Text" xml:space="preserve">
-    <value>Numéro de compte:</value>
+    <value>Numéro de compte :</value>
   </data>
   <data name="BankInfo.Text" xml:space="preserve">
-    <value>Info de la banque:</value>
+    <value>Info de la banque :</value>
   </data>
   <data name="BankCity.Text" xml:space="preserve">
-    <value>Ville:</value>
+    <value>Ville :</value>
   </data>
   <data name="BankPostal.Text" xml:space="preserve">
-    <value>Code Postal:</value>
+    <value>Code Postal :</value>
   </data>
   <data name="BankSt1.Text" xml:space="preserve">
-    <value>Adresse ligne 1:</value>
+    <value>Adresse ligne 1 :</value>
   </data>
   <data name="BankSt2.Text" xml:space="preserve">
-    <value>Adresse ligne 2:</value>
+    <value>Adresse ligne 2 :</value>
   </data>
   <data name="FirstName.Text" xml:space="preserve">
-    <value>Prénom:</value>
+    <value>Prénom :</value>
   </data>
   <data name="LastName.Text" xml:space="preserve">
-    <value>Nom:</value>
+    <value>Nom :</value>
   </data>
   <data name="AmtError.Text" xml:space="preserve">
     <value>Vous devez entrer un montant non nul.</value>
@@ -208,15 +199,60 @@
     <value>Vous devez sélectionner une fréquence pour votre don.</value>
   </data>
   <data name="Password.Text" xml:space="preserve">
-    <value>Mot de passe:</value>
+    <value>Mot de passe :</value>
   </data>
   <data name="TheKey.Text" xml:space="preserve">
     <value>Equipiers</value>
   </data>
   <data name="UserName.Text" xml:space="preserve">
-    <value>Nom d'utilisateur:</value>
+    <value>Nom d'utilisateur :</value>
   </data>
   <data name="GoBank.Text" xml:space="preserve">
     <value>Finir</value>
+  </data>
+  <data name="ListFreqZero.Text" xml:space="preserve">
+    <value>Mensuellement</value>
+  </data>
+  <data name="City.Text" xml:space="preserve">
+    <value>Ville :</value>
+  </data>
+  <data name="Mobile.Text" xml:space="preserve">
+    <value>Mobile :</value>
+  </data>
+  <data name="Region.Text" xml:space="preserve">
+    <value>Région (si approprié) :</value>
+  </data>
+  <data name="Street1.Text" xml:space="preserve">
+    <value>Adresse ligne 1 :</value>
+  </data>
+  <data name="Street2.Text" xml:space="preserve">
+    <value>Adresse ligne 2 :</value>
+  </data>
+  <data name="Telephone.Text" xml:space="preserve">
+    <value>Téléphone:</value>
+  </data>
+  <data name="PostCode.Text" xml:space="preserve">
+    <value>Code postal :</value>
+  </data>
+  <data name="Country.Text" xml:space="preserve">
+    <value>Pays :</value>
+  </data>
+  <data name="ListLogOne.Text" xml:space="preserve">
+    <value>Je suis revenu.</value>
+  </data>
+  <data name="ListLogTwo.Text" xml:space="preserve">
+    <value>Je suis équipier.</value>
+  </data>
+  <data name="ListLogZero.Text" xml:space="preserve">
+    <value>Je suis nouveau.</value>
+  </data>
+  <data name="UserLogin.Text" xml:space="preserve">
+    <value>Connexion</value>
+  </data>
+  <data name="ConfeMail.Text" xml:space="preserve">
+    <value>Confirmer Courriel :</value>
+  </data>
+  <data name="BankAccName.Text" xml:space="preserve">
+    <value>Nom sur le compte :</value>
   </data>
 </root>
