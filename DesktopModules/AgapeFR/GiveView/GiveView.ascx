@@ -5,7 +5,6 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
-<%@ Register Src="~/DesktopModules/AgapeConnect/CasAuth/CasAuth.ascx" TagName="CasAuth" TagPrefix="uc2" %>
 <script type="text/javascript">
 
     function Tab(currentField, nextField) {
@@ -28,10 +27,11 @@
             $('.tbAmt').keyup(function () {
                 amt_enter();
             }); $('.tbAmt').change(function () {
+                amt_trim();
                 amt_enter();
             });
             $('.rblMeth').click(function () {
-                rbl_click();
+                rblMeth_click();
             });
             $('.rbFreq').click(function () {
                 rbFreq_click();
@@ -69,21 +69,30 @@
             });
         });
     }(jQuery, window.Sys));
-    function rbl_click() {
+    function rblMeth_click() {
         if ($('.rblMeth input:radio:checked').val() == 'm1') {
             $('#cheque').slideUp(1000);
             $('#virement').slideUp(1000);
             $('#creditcard').slideDown(1000);
+            $('html, body').animate({
+                scrollTop: $("#creditcard").offset().top
+            }, 1000);
         }
         else if ($('.rblMeth input:radio:checked').val() == 'm2') {
             $('#creditcard').slideUp(1000);
             $('#cheque').slideUp(1000);
             $('#virement').slideDown(1000);
+            $('html, body').animate({
+                scrollTop: $("#virement").offset().top
+            }, 1000);
         }
         else if ($('.rblMeth input:radio:checked').val() == 'm3') {
             $('#creditcard').slideUp(1000);
             $('#virement').slideUp(1000);
             $('#cheque').slideDown(1000);
+            $('html, body').animate({
+                scrollTop: $("#cheque").offset().top
+            }, 1000);
         }
     }
     function rbFreq_click() {
@@ -92,7 +101,7 @@
             $('[value=m3]').parent().fadeOut(500);
             if ($('#creditcard').is(":visible") || $('#cheque').is(":visible")) {
                 jQuery('[value=m2]').attr('checked', 'checked');
-                rbl_click();
+                rblMeth_click();
             }
         }
         else if ($('.rbFreq input:radio:checked').val() == 99) {
@@ -122,9 +131,14 @@
             $('#methchoose').slideUp(1000);
         }
     }
+    function amt_trim() {
+        var inp = $(".tbAmt").val();
+        while (inp.substr(0, 1) == '0') inp = inp.substr(1);
+        $(".tbAmt").val(inp);
+    }
     function amt_enter() {
-        var inp = $(".tbAmt");
-        if (inp.val().length > 0) {
+        var inp = $(".tbAmt").val();
+        if (inp.length > 0 && inp > 0) {
             $('#login').slideDown(1000);
             var logged = $('#hfLoggedIn').val();
             if (logged == "False") {
@@ -166,6 +180,14 @@
     }
 </script>
 <style type="text/css">
+    .tbAmt {
+        width: 60px;
+        border-radius: 3px;
+        background: #FFFFF5;
+        border-color:#BCB691;
+        border-width:1px;
+        padding:5px;
+    }
     .dnnForm {
         min-width: 0 !important;
     }
@@ -173,13 +195,6 @@
         .dnnForm input.dnnFormRequired {
             margin-left: -5px;
         }
-
-    .CasAuthModuleDiv {
-        clear: both;
-        height: 100px;
-        width: 50%;
-        float: right;
-    }
 
     #btnTheKey {
         margin-top: 100px;
@@ -191,6 +206,14 @@
 
     #rightlogin {
         float: right;
+    }
+
+    .bankinforight {
+        float: right;
+    }
+
+    .bankinfoleft {
+        float: left;
     }
 
     .dnnFormItem {
@@ -206,7 +229,7 @@
     }
 
     .bubble {
-        background-color: #6495ed;
+        border:1px solid #6495ed;
         border-radius: 15px;
         padding: 10px;
     }
@@ -269,12 +292,11 @@
                     <asp:ListItem Value="2"></asp:ListItem>
                     <asp:ListItem Value="3"></asp:ListItem>
                 </asp:RadioButtonList>
-                
+
             </div>
             <div class="rightlogin">
                 <div id="stafflogin">
                     This is the staff login div. Clicking here should go to The Key and come back here with the previous options stored.<br />
-                    <uc2:CasAuth ID="StaFFLoginButton" runat="server" />
                 </div>
                 <div id="userlogin">
                     This is the user login div. Clicking the button below should log the user in and return to this page with the previous options stored.<br />
@@ -394,8 +416,15 @@
         </div>
         <div id="virement" class="bubble">
             This is the virement form div.<br />
-            <div class="bankinfo">
-                <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
+            <div style="clear: both"></div>
+            <div class="bankinfoleft">
+                <div class="dnnForm dnnAddress dnnClear">
+                    <div class="dnnFormItem">
+                        <dnn:Label ID="lblAccName" runat="server" ControlName="TxtAccName" />
+                        <asp:TextBox ID="tbAccName" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
+                    </div>
+                </div>
                 <div class="dnnForm dnnAddress dnnClear">
                     <div class="dnnFormItem">
                         <dnn:Label ID="lblBank" runat="server" ControlName="TxtBank" />
@@ -414,6 +443,8 @@
                         <asp:TextBox ID="tbBankStreet2" ValidationGroup="OneOffVirement" runat="server" MaxLength="50" CssClass="dnnFormRequired" />
                     </div>
                 </div>
+            </div>
+            <div class="bankinforight">
                 <div class="dnnForm dnnAddress dnnClear">
                     <div class="dnnFormItem">
                         <dnn:Label ID="lblBankPostal" runat="server" ControlName="TxtBankPostal" />
@@ -433,6 +464,7 @@
                     </div>
                 </div>
             </div>
+            <div style="clear: both"></div>
             <asp:Button ID="btnGoBank" CssClass="aButton" ValidationGroup="OneOffVirement" runat="server" Text="GoBank" />
         </div>
         <div id="creditcard" class="bubble">

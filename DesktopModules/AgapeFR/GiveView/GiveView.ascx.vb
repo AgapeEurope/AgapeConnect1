@@ -11,6 +11,10 @@ Imports System.Web.UI.WebControls
 Imports System.Web.UI.WebControls.WebParts
 Imports System.Net
 Imports System.IO
+Imports System.ComponentModel
+Imports System.Drawing
+Imports System.Text
+Imports System.Windows.Forms
 Imports DotNetNuke
 Imports DotNetNuke.Security
 Imports StaffBroker
@@ -18,6 +22,11 @@ Imports Cart
 Imports Give
 Imports StaffBrokerFunctions
 Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
+Imports iTextSharp
+Imports iTextSharp.text
+Imports iTextSharp.text.pdf
+Imports iTextSharp.text.xml
+
 
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
@@ -49,8 +58,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             'Translate the page
             SetTranslate()
-            Session("returnurl") = Request.RawUrl
-            MsgBox(Session("returnurl"))
             If Not Me.IsPostBack Then
                 'add the css to pick up fields from client side
                 AddCSS()
@@ -166,6 +173,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             LlbCountry.Text = Translate("Country")
             LblRegion.Text = Translate("Region")
             LblPostCode.Text = Translate("PostCode")
+            lblAccName.Text = Translate("BankAccName")
             lblBank.Text = Translate("Bank")
             lblBankStreet1.Text = Translate("BankSt1")
             lblBankStreet2.Text = Translate("BankSt2")
@@ -328,57 +336,30 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 lblOOError.Text = Translate("AmtError")
                 lblOOError.Visible = True
             Else
-                'Create new user if selected
-                If rblLogType.SelectedValue = "1" Then
-                    'Dim objUserInfo As New UserInfo()
-                    'objUserInfo.FirstName = TxtFirstName.Text
-                    'objUserInfo.LastName = TxtLastName.Text
-                    'objUserInfo.DisplayName = TxtFirstName.Text & " " & TxtLastName.Text
-                    'objUserInfo.Username = TxtEmail.Text
-                    'objUserInfo.PortalID = PortalId
-                    'objUserInfo.Membership.Password = UserController.GeneratePassword(9)
-                    'objUserInfo.Email = TxtEmail.Text
-                    'Dim objUserCreateStatus = UserController.CreateUser(objUserInfo)
-                    'If objUserCreateStatus = Security.Membership.UserCreateStatus.Success Then
-                    '    UserController.UserLogin(PortalSettings.PortalId, objUserInfo, PortalSettings.PortalName, DotNetNuke.Services.Authentication.AuthenticationLoginBase.GetIPAddress(), False)
-                    '    SetProfileProperty("Street", objUserInfo.UserID, tbAddress1.Text)
-                    '    SetProfileProperty("Unit", objUserInfo.UserID, tbAddress2.Text)
-                    '    SetProfileProperty("County", objUserInfo.UserID, tbCounty.Text)
-                    '    SetProfileProperty("City", objUserInfo.UserID, tbCity.Text)
-                    '    SetProfileProperty("PostalCode", objUserInfo.UserID, tbPostCode.Text)
-                    '    SetProfileProperty("Title", objUserInfo.UserID, tbTitle.Text)
-                    'Else
-                    '    lblRegisterError.Text = "Unable to create account: " & objUserCreateStatus.ToString
-                    '    lblRegisterError.Visible = True
-                    'End If
-                Else
-                    Dim d As New GiveDataContext
-                    Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
-                    If q.Count > 0 Then
-                        Dim insert As New Agape_Give_BankTransfer
-                        insert.DonationType = q.First
-                        insert.DonorId = Me.UserId
-                        insert.Reference = GetUniqueCode()
-                        hfUniqueRef.Value = insert.Reference
-                        insert.Amount = tbAmount.Text
-                        insert.BankCity = tbBankCity.Text
-                        insert.BankName = tbBank.Text
-                        insert.BankPostal = tbBankPostal.Text
-                        insert.BankStreet1 = tbBankStreet1.Text
-                        insert.BankStreet2 = tbBankStreet2.Text
-                        insert.Frequency = rblFrequency.SelectedValue
-                        'TODO create give message box for Virement
-                        insert.GiveMessage = ""
-                        insert.Status = 0
-                        insert.TypeId = RowId.Value
-                        d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
-                        d.SubmitChanges()
-                        UpdateUser()
-                    End If
+                Dim d As New GiveDataContext
+                Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
+                If q.Count > 0 Then
+                    Dim insert As New Agape_Give_BankTransfer
+                    insert.DonationType = q.First
+                    insert.DonorId = Me.UserId
+                    insert.Reference = GetUniqueCode()
+                    hfUniqueRef.Value = insert.Reference
+                    insert.Amount = tbAmount.Text
+                    insert.BankCity = tbBankCity.Text
+                    insert.BankName = tbBank.Text
+                    insert.BankPostal = tbBankPostal.Text
+                    insert.BankStreet1 = tbBankStreet1.Text
+                    insert.BankStreet2 = tbBankStreet2.Text
+                    insert.Frequency = rblFrequency.SelectedValue
+                    'TODO create give message box for Virement
+                    insert.GiveMessage = ""
+                    insert.Status = 0
+                    insert.TypeId = RowId.Value
+                    d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
+                    d.SubmitChanges()
+                    UpdateUser()
                 End If
             End If
-
-
         End Sub
 #End Region
 

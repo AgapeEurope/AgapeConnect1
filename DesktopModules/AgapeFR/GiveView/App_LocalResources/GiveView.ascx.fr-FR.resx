@@ -252,4 +252,7 @@
   <data name="ConfeMail.Text" xml:space="preserve">
     <value>Confirmer Courriel :</value>
   </data>
+  <data name="BankAccName.Text" xml:space="preserve">
+    <value>Nom sur le compte :</value>
+  </data>
 </root>
