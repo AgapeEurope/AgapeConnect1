@@ -40,7 +40,10 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
-
+[Cc]ache/
+[Ll]ogs/
+_imageCropper/
+_acDocuments/
 # Build results
 [Dd]ebug/
 [Rr]elease/
