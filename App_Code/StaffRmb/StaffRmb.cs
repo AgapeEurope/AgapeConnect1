@@ -110,7 +110,7 @@ namespace StaffRmb
             rtn.UserIds = new List<DotNetNuke.Entities.Users.UserInfo>();
             if (rtn.isDept)
             {
-                var cc = from c in dStaff.AP_StaffBroker_Departments where (c.CostCentre == rmb.CostCenter) select c;
+                var cc = from c in dStaff.AP_StaffBroker_Departments where (c.CostCentre == rmb.CostCenter) && c.PortalId == rmb.PortalId select c;
                 rtn.CCMSpecial = (from c in cc
                                   where ((c.CostCentreManager == null && c.CostCentreDelegate == null) == false) &&
                                       (
@@ -167,6 +167,8 @@ namespace StaffRmb
 
             }
 
+            if(rtn.UserIds.Count()==0)
+                rtn.UserIds.Add(authUser.UserID == rmb.UserId ? authAuthUser : authUser);
 
 
 

@@ -239,9 +239,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Dim ResxFiles = From c In theModule.GetFiles("*.ascx.resx", SearchOption.AllDirectories)
 
                 If lbModules.SelectedValue = "StaffRmb (Expense Types)" Then
-                    ResxFiles = ResxFiles.Where(Function(x) x.Name.StartsWith("Rmb"))
+                    ResxFiles = ResxFiles.Where(Function(x) x.Name.StartsWith("Rmb") And Not (x.Name.StartsWith("RmbSettings") Or x.Name.StartsWith("RmbPrintout")))
                 ElseIf lbModules.SelectedValue = "StaffRmb" Then
-                    ResxFiles = ResxFiles.Where(Function(x) (Not x.Name.StartsWith("Rmb")) Or x.Name.StartsWith("RmbSettings")).OrderByDescending(Function(x) x.Name.StartsWith(lbModules.SelectedValue & ".")).ThenBy(Function(x) x.Name)
+                    ResxFiles = ResxFiles.Where(Function(x) (Not x.Name.StartsWith("Rmb")) Or x.Name.StartsWith("RmbSettings") Or x.Name.StartsWith("RmbPrintout")).OrderByDescending(Function(x) x.Name.StartsWith(lbModules.SelectedValue & ".")).ThenBy(Function(x) x.Name)
                 Else
                     ResxFiles = ResxFiles.OrderByDescending(Function(x) x.Name.StartsWith(lbModules.SelectedValue & ".")).ThenBy(Function(x) x.Name)
 

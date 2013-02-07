@@ -98,9 +98,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     LoadDefaultSettings()
                 End If
                 Try
+                    If Not ddlBankAccount.Items.FindByValue(Settings("BankAccount")) Is Nothing Then
 
-                    ddlBankAccount.SelectedValue = CStr(Settings("BankAccount"))
 
+                        ddlBankAccount.SelectedValue = CStr(Settings("BankAccount"))
+                    End If
                 Catch ex As Exception
 
                 End Try
@@ -1000,7 +1002,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     Dim RmbRel As Integer = StaffRmbFunctions.Authenticate(UserId, RmbNo, PortalId)
 
-                    If RmbRel = RmbAccess.Denied And Not IsAccounts() Then
+                    If RmbRel = RmbAccess.Denied And Not IsAccounts() And Not (UserId = Settings("AuthUser") Or UserId = Settings("AuthAuthUser")) Then
                         pnlMain.Visible = False
                         'Need an access denied warning
                         pnlSplash.Visible = True
@@ -1041,7 +1043,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             End If
 
                         Next
-                        lblApprovedBy.Text = Left(appList, appList.Length - 2)
+                        If (appList.Length > 2) Then
+                            lblApprovedBy.Text = Left(appList, appList.Length - 2)
+                        Else
+                            lblApprovedBy.Text = ""
+                        End If
+
+
                         ttlWaitingApp.Visible = True
                         ttlApprovedBy.Visible = False
                         lblApprovedDate.Text = ""
@@ -1132,7 +1140,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     'Else
 
                     'End If
-                   
+
 
 
                     Dim PACMode = (String.IsNullOrEmpty(theStaff.CostCenter) And StaffBrokerFunctions.GetStaffProfileProperty(theStaff.StaffId, "PersonalAccountCode") <> "")
