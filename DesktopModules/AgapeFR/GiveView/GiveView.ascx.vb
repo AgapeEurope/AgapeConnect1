@@ -22,11 +22,7 @@ Imports Cart
 Imports Give
 Imports StaffBrokerFunctions
 Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
-Imports iTextSharp
-Imports iTextSharp.text
 Imports iTextSharp.text.pdf
-Imports iTextSharp.text.xml
-
 
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
@@ -258,6 +254,50 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim count = (From c In d.Agape_Give_BankTransfers Where c.Reference = code).Count
             Return IIf(count = 0, True, False)
         End Function
+        Private Sub CreatePdf()
+            'Dim d As New AgapeStaff.AgapeStaffDataContext
+            'Dim q = From c In d.Agape_Main_Give_SOs Where c.SOID = hfSOID.Value
+            'If q.Count > 0 Then
+
+            'Dim objUser = UserController.GetUserById(0, q.First.UserId)
+
+            Dim pdfTemplate As String = Server.MapPath("/Portals/0/holes.pdf")
+
+            'Dim newFile As String = Server.MapPath("/Portals/0/Standing Order Form" & UserId & ".pdf")
+            Dim newFile As String = Server.MapPath("/Portals/0/Filled.pdf")
+
+            Dim pdfReader As New PdfReader(pdfTemplate)
+
+            Dim pdfStamper As New PdfStamper(pdfReader, New FileStream(newFile, FileMode.Create))
+
+            Dim pdfFormFields As AcroFields = pdfStamper.AcroFields
+            pdfFormFields.SetField("field1_T8PxX2O7qf2zeh*nT1sBYw", tbAmount.Text)
+            'pdfFormFields.SetField("Firstname", objUser.FirstName)
+            'pdfFormFields.SetField("Lastname", objUser.LastName)
+            'pdfFormFields.SetField("Reference", q.First.Reference)
+            'pdfFormFields.SetField("Accountno", q.First.AccountNo)
+            'pdfFormFields.SetField("SortCode", q.First.SortCode)
+            'pdfFormFields.SetField("Amount", q.First.Amount.Value.ToString("0.00"))
+            'pdfFormFields.SetField("Address1", objUser.Profile.GetPropertyValue("Street"))
+            'pdfFormFields.SetField("Address2", objUser.Profile.GetPropertyValue("Unit"))
+            'pdfFormFields.SetField("City", objUser.Profile.GetPropertyValue("City"))
+            'pdfFormFields.SetField("County", objUser.Profile.GetPropertyValue("County"))
+            'pdfFormFields.SetField("Postcode", objUser.Profile.GetPropertyValue("PostalCode"))
+            'pdfFormFields.SetField("Phone", objUser.Profile.GetPropertyValue("Telephone"))
+            'pdfFormFields.SetField("Monthly", IIf(q.First.Frequency = 1, "Yes", "0"))
+            'pdfFormFields.SetField("Quaterly", IIf(q.First.Frequency = 3, "Yes", "0"))
+            'pdfFormFields.SetField("Yearly", IIf(q.First.Frequency = 12, "Yes", "0"))
+            'pdfFormFields.SetField("StartDay", Day(q.First.StartDate))
+            'pdfFormFields.SetField("StartMonth", Month(q.First.StartDate))
+            'pdfFormFields.SetField("StartYear", Year(q.First.StartDate) - 2000)
+
+            pdfStamper.FormFlattening = False
+
+            ' close the pdf
+            pdfStamper.Close()
+
+            'End If
+        End Sub
 #End Region
 #Region "Buttons"
         ' TODO Changer les valeurs DonationType en utilisant les constantes CartFunctions.DonationType
@@ -358,6 +398,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
                     d.SubmitChanges()
                     UpdateUser()
+
                 End If
             End If
         End Sub
@@ -411,6 +452,10 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theUser.Profile.Region = TxtRegion.Text
             theUser.Profile.PostalCode = TxtPostCode.Text
             MembershipProvider.Instance().UpdateUser(theUser)
+        End Sub
+
+        Protected Sub btnPDFTime_Click(sender As Object, e As EventArgs) Handles btnPDFTime.Click
+            CreatePdf()
         End Sub
     End Class
 End Namespace

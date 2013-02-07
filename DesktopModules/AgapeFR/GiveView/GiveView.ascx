@@ -467,6 +467,7 @@
             <div style="clear: both"></div>
             <asp:Button ID="btnGoBank" CssClass="aButton" ValidationGroup="OneOffVirement" runat="server" Text="GoBank" />
         </div>
+        <asp:Button ID="btnPDFTime" CssClass="aButton" ValidationGroup="OneOffVirement" runat="server" Text="PDF Time" />
         <div id="creditcard" class="bubble">
             This is the Credit Card div.<br />
             <asp:TextBox ID="theDonationComment" runat="server" Font-Size="12pt" Width="360px"
