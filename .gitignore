@@ -44,6 +44,7 @@ local.properties
 [Ll]ogs/
 _imageCropper/
 _acDocuments/
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
@@ -165,12 +166,5 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-<<<<<<< development
-Cache/
-=======
-<<<<<<< HEAD
-Portals/_default/Logs/2012.12.14.log.resources
-=======
-Cache/
->>>>>>> origin/development
->>>>>>> local
+Portals/0/Cache/Pages/*.attrib.resources
+Portals/0/Cache/Pages

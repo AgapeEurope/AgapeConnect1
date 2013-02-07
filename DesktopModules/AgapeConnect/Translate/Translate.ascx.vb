@@ -119,7 +119,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Dim tDoc As New XmlDocument()
             Dim tDataNodes As XmlNodeList
 
+
+
             If Not File.Exists(FileName) Then
+                If String.IsNullOrEmpty(Value) Then
+                    Return
+                End If
                 'create a new Resx
                 System.IO.File.Copy(Server.MapPath("/DesktopModules/AgapeConnect/Translate/Template.resx"), FileName)
 
@@ -151,16 +156,29 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             End If
             If foreignNode.First.ChildNodes.Count > 0 Then
+                '  If String.IsNullOrEmpty(Value) Then
+                '  foreignNode.First.RemoveAll()
 
+                ' Else
                 For Each child As XmlNode In foreignNode.First.ChildNodes
                     If child.Name = "value" Then
+
                         child.InnerText = Value
+
+
+
                     End If
                 Next
+                ' End If
+
             Else
-                Dim newNode As XmlElement = tDoc.CreateElement("value")
-                newNode.InnerText = Value
-                foreignNode.First.AppendChild(newNode)
+                If Not String.IsNullOrEmpty(Value) Then
+                    Dim newNode As XmlElement = tDoc.CreateElement("value")
+                    newNode.InnerText = Value
+                    foreignNode.First.AppendChild(newNode)
+                End If
+
+
             End If
 
 
@@ -221,9 +239,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Dim ResxFiles = From c In theModule.GetFiles("*.ascx.resx", SearchOption.AllDirectories)
 
                 If lbModules.SelectedValue = "StaffRmb (Expense Types)" Then
-                    ResxFiles = ResxFiles.Where(Function(x) x.Name.StartsWith("Rmb"))
+                    ResxFiles = ResxFiles.Where(Function(x) x.Name.StartsWith("Rmb") And Not (x.Name.StartsWith("RmbSettings") Or x.Name.StartsWith("RmbPrintout")))
                 ElseIf lbModules.SelectedValue = "StaffRmb" Then
-                    ResxFiles = ResxFiles.Where(Function(x) (Not x.Name.StartsWith("Rmb")) Or x.Name.StartsWith("RmbSettings")).OrderByDescending(Function(x) x.Name.StartsWith(lbModules.SelectedValue & ".")).ThenBy(Function(x) x.Name)
+                    ResxFiles = ResxFiles.Where(Function(x) (Not x.Name.StartsWith("Rmb")) Or x.Name.StartsWith("RmbSettings") Or x.Name.StartsWith("RmbPrintout")).OrderByDescending(Function(x) x.Name.StartsWith(lbModules.SelectedValue & ".")).ThenBy(Function(x) x.Name)
                 Else
                     ResxFiles = ResxFiles.OrderByDescending(Function(x) x.Name.StartsWith(lbModules.SelectedValue & ".")).ThenBy(Function(x) x.Name)
 

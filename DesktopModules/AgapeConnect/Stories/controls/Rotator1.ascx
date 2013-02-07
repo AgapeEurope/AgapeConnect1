@@ -1,4 +1,4 @@
-﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="ContentRotator.ascx.vb" Inherits="DotNetNuke.Modules.AgapeConnect.Stories.ContentRotator" %>
+﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="Rotator1.ascx.vb" Inherits="DotNetNuke.Modules.AgapeConnect.Stories.Rotator1" %>
 <script src="/js/jquery.nivo.slider.js" type="text/javascript"></script>
 <link href="/DesktopModules/AgapeConnect/Stories/themes/default/default.css" rel="stylesheet" type="text/css" media="screen"  />
 <link href="/js/nivo-slider.css" rel="stylesheet" type="text/css" media="screen"  />
@@ -8,7 +8,8 @@
          function setUpMyTabs() {
              $('#slider').nivoSlider({
                  effect: 'fade',
-                 pauseTime: 3500
+                 pauseTime: <%= PauseTime %>,
+                 width: <%= divWidth %>
              });
 
 
@@ -41,10 +42,10 @@
 
 </style>
 
-<div style="width: 420px; height: 420px; ">
+<div style="width: <%= divWidth %>px; height: <%= divHeight%>px; ">
     <div class="slider-wrapper theme-default">
         
-        <div id="slider" class="nivoSlider" style="height: 420px; max-height: 420px;  background-color: Black; overflow: hidden;">
+        <div id="slider" class="nivoSlider" style="height: <%= divHeight%>px; max-height: <%= divHeight%>px;  background-color: Black; overflow: hidden;">
           <%--  <div style="height: 420px; width: 420px; #position: absolute; #top: 50%;display: table-cell; vertical-align: middle;">
               <div class="greenBorder" style="#position: relative; #top: -50%">--%>
             <asp:Literal ID="ltStories" runat="server"></asp:Literal>

@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
+  <property name="DMXIntegration">False</property>
+  <property name="DMXPath">
+  </property>
   <property name="Skin">Default</property>
   <property name="AutoResizeHeight">False</property>
   <property name="BorderWidth">0</property>
@@ -9,7 +12,7 @@
   <property name="EnableResize">True</property>
   <property name="Language">
   </property>
-  <property name="ContentFilters">DefaultFilters</property>
+  <property name="ContentFilters">MakeUrlsAbsolute,FixUlBoldItalic,FixEnclosingP,IECleanAnchors,MozEmStrong,ConvertFontToSpan,ConvertToXhtml,IndentHTMLContent,EncodeScripts,OptimizeSpans,ConvertCharactersToEntities,PdfExportFilter,ConvertInlineStylesToAttributes</property>
   <property name="CssFile">editor.css</property>
   <property name="NewLineBr">False</property>
   <property name="StripFormattingOptions">MSWordRemoveAll</property>
@@ -19,9 +22,6 @@
   <property name="ContentAreaMode">Iframe</property>
   <property name="ToolbarMode">Default</property>
   <property name="ToolsWidth">
-  </property>
-  <property name="DMXIntegration">False</property>
-  <property name="DMXPath">
   </property>
   <property name="DocumentsFilters">*.*</property>
   <property name="DocumentsPath">/</property>

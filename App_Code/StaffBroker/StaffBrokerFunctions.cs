@@ -5,6 +5,7 @@ using  StaffBroker;
 using DotNetNuke;
 using System.Net;
 using System.Text.RegularExpressions ;
+using DotNetNuke.Services.FileSystem;
 
 public static class MenuLinkType
 {
@@ -623,6 +624,8 @@ public class StaffBrokerFunctions
 
     }
 
+
+
     static public void SetSetting(string SettingName, string value, int portalId)
     {
         StaffBrokerDataContext d = new StaffBrokerDataContext();
@@ -695,7 +698,28 @@ public class StaffBrokerFunctions
         DotNetNuke.Entities.Users.UserController.UpdateUser(PortalId, theUser);
      }
            
+    static public string CreateUniqueFileName(IFolderInfo theFolder, string ext)
+    {
+        string allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+      
+        string uniqueCode = "";
+       System.Text.StringBuilder str = new System.Text.StringBuilder();
+        int xx;
+           Random r = new Random();
+        while(uniqueCode=="" || FileManager.Instance.FileExists(theFolder, uniqueCode =="" ? "X": uniqueCode))
+        {
+            for(Byte i = 1 ; i<=10; i++)
+            {
+              xx=  r.Next(0, allChars.Length);
+                str.Append(allChars.Trim()[xx]);
 
+            }
+            uniqueCode = str.ToString() + "." + ext;
+
+        }
+        return uniqueCode;
+
+    }
 
     
 }
