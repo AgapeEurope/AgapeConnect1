@@ -211,16 +211,16 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Public Function Translate(ByVal ResourceString As String) As String
             Return DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
         End Function
-        Private Function CreateUser(ByVal Surname As String, ByVal Forname As String, ByVal Tel As String, ByVal Email As String) As String
-            Dim objUser As New DotNetNuke.Entities.Users.UserInfo
-            objUser.FirstName = "Chris:"
-            objUser.LastName = "Carter"
-            objUser.DisplayName = objUser.FirstName & " " & objUser.LastName
-            objUser.Username = "thesunisoftenout@googlemail.com"
-            objUser.Email = "thesunisoftenout@googlemail.com"
-            DotNetNuke.Entities.Users.UserController.CreateUser(objUser)
-            Return "Fine"
-        End Function
+        'Private Function CreateUser(ByVal Surname As String, ByVal Forname As String, ByVal Tel As String, ByVal Email As String) As String
+        '    Dim objUser As New DotNetNuke.Entities.Users.UserInfo
+        '    objUser.FirstName = "Chris:"
+        '    objUser.LastName = "Carter"
+        '    objUser.DisplayName = objUser.FirstName & " " & objUser.LastName
+        '    objUser.Username = "thesunisoftenout@googlemail.com"
+        '    objUser.Email = "thesunisoftenout@googlemail.com"
+        '    DotNetNuke.Entities.Users.UserController.CreateUser(objUser)
+        '    Return "Fine"
+        'End Function
         Private Function GetUniqueCode() As String
 
             Dim allChars As String = "ABCDEFGHJKLMNPQRTVWXYZ2346789"
@@ -258,10 +258,38 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             'Dim d As New AgapeStaff.AgapeStaffDataContext
             'Dim q = From c In d.Agape_Main_Give_SOs Where c.SOID = hfSOID.Value
             'If q.Count > 0 Then
+            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+            Dim objUser = UserController.GetUserById(PS.PortalId, UserId)
+            Dim userAddress = objUser.Profile.GetPropertyValue("Street")
+            If Not objUser.Profile.GetPropertyValue("Unit") = "" Then
+                userAddress += vbCrLf & objUser.Profile.GetPropertyValue("Unit")
+            End If
+            userAddress += vbCrLf & objUser.Profile.GetPropertyValue("PostalCode") & " " & objUser.Profile.GetPropertyValue("City")
+            Dim theFreq = "Error"
+            If rblFrequency.SelectedIndex = 0 Then
+                theFreq = Translate("FreqParaZero")
+            ElseIf rblFrequency.SelectedIndex = 1 Then
+                theFreq = Translate("FreqParaOne")
+            ElseIf rblFrequency.SelectedIndex = 2 Then
+                theFreq = Translate("FreqParaTwo")
+            ElseIf rblFrequency.SelectedIndex = 3 Then
+                theFreq = Translate("FreqParaThree")
+            ElseIf rblFrequency.SelectedIndex = 4 Then
+                theFreq = ""
+            End If
 
-            'Dim objUser = UserController.GetUserById(0, q.First.UserId)
-
-            Dim pdfTemplate As String = Server.MapPath("/Portals/0/holes.pdf")
+            Dim theParagraph = "Je, soussigné(e), prie l’établissement tenant mon compte d’effectuer au profit du titulaire du compte d’Agapé France, désigné ci-dessus, un virement " & theFreq & " de " & tbAmount.Text & "€"
+            If rblFrequency.SelectedIndex = 4 Then
+                theParagraph += "."
+            Else
+                theParagraph += ", à partir du " & Today() & " et jusqu'à résiliation de ma part."
+            End If
+            Dim bankAddress = tbBankStreet1.Text
+            If Not tbBankStreet2.Text = "" Then
+                bankAddress += vbCrLf & tbBankStreet2.Text
+            End If
+            bankAddress += vbCrLf & tbBankPostal.Text & " " & tbBankCity.Text
+            Dim pdfTemplate As String = Server.MapPath("/Portals/0/virement.pdf")
 
             'Dim newFile As String = Server.MapPath("/Portals/0/Standing Order Form" & UserId & ".pdf")
             Dim newFile As String = Server.MapPath("/Portals/0/Filled.pdf")
@@ -271,27 +299,15 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim pdfStamper As New PdfStamper(pdfReader, New FileStream(newFile, FileMode.Create))
 
             Dim pdfFormFields As AcroFields = pdfStamper.AcroFields
-            pdfFormFields.SetField("field1_T8PxX2O7qf2zeh*nT1sBYw", tbAmount.Text)
-            'pdfFormFields.SetField("Firstname", objUser.FirstName)
-            'pdfFormFields.SetField("Lastname", objUser.LastName)
-            'pdfFormFields.SetField("Reference", q.First.Reference)
-            'pdfFormFields.SetField("Accountno", q.First.AccountNo)
-            'pdfFormFields.SetField("SortCode", q.First.SortCode)
-            'pdfFormFields.SetField("Amount", q.First.Amount.Value.ToString("0.00"))
-            'pdfFormFields.SetField("Address1", objUser.Profile.GetPropertyValue("Street"))
-            'pdfFormFields.SetField("Address2", objUser.Profile.GetPropertyValue("Unit"))
-            'pdfFormFields.SetField("City", objUser.Profile.GetPropertyValue("City"))
-            'pdfFormFields.SetField("County", objUser.Profile.GetPropertyValue("County"))
-            'pdfFormFields.SetField("Postcode", objUser.Profile.GetPropertyValue("PostalCode"))
-            'pdfFormFields.SetField("Phone", objUser.Profile.GetPropertyValue("Telephone"))
-            'pdfFormFields.SetField("Monthly", IIf(q.First.Frequency = 1, "Yes", "0"))
-            'pdfFormFields.SetField("Quaterly", IIf(q.First.Frequency = 3, "Yes", "0"))
-            'pdfFormFields.SetField("Yearly", IIf(q.First.Frequency = 12, "Yes", "0"))
-            'pdfFormFields.SetField("StartDay", Day(q.First.StartDate))
-            'pdfFormFields.SetField("StartMonth", Month(q.First.StartDate))
-            'pdfFormFields.SetField("StartYear", Year(q.First.StartDate) - 2000)
-
-            pdfStamper.FormFlattening = False
+            pdfFormFields.SetField("LastName", objUser.LastName)
+            pdfFormFields.SetField("FirstName", objUser.FirstName)
+            pdfFormFields.SetField("Address", userAddress)
+            pdfFormFields.SetField("Paragraph", theParagraph)
+            pdfFormFields.SetField("Bank", tbBank.Text)
+            pdfFormFields.SetField("BankAddress", bankAddress)
+            pdfFormFields.SetField("IBAN", tbBankAcc.Text)
+            pdfFormFields.SetField("Paragraph", theParagraph)
+            pdfStamper.FormFlattening = True
 
             ' close the pdf
             pdfStamper.Close()

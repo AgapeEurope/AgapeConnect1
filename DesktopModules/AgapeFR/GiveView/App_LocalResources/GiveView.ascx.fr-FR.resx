@@ -120,7 +120,7 @@
   <data name="AddToCart.Text" xml:space="preserve">
     <value>Ajouter au Panier</value>
   </data>
-  <data name="ListFreqFive.Text" xml:space="preserve">
+  <data name="ListFreqFour.Text" xml:space="preserve">
     <value>Aujourd'hui</value>
   </data>
   <data name="ListFreqOne.Text" xml:space="preserve">
@@ -254,5 +254,17 @@
   </data>
   <data name="BankAccName.Text" xml:space="preserve">
     <value>Nom sur le compte :</value>
+  </data>
+  <data name="FreqParaOne.Text" xml:space="preserve">
+    <value>trimestriel</value>
+  </data>
+  <data name="FreqParaThree.Text" xml:space="preserve">
+    <value>annuel</value>
+  </data>
+  <data name="FreqParaTwo.Text" xml:space="preserve">
+    <value>semestriel</value>
+  </data>
+  <data name="FreqParaZero.Text" xml:space="preserve">
+    <value>mensuel</value>
   </data>
 </root>
