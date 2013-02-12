@@ -6,7 +6,7 @@ Partial Class sso_GetLogo
         Dim logoFile = DotNetNuke.Common.GetPortalSettings.HomeDirectory & DotNetNuke.Common.GetPortalSettings.LogoFile
         'Response.Write(DotNetNuke.Services.FileSystem.FileManager.Instance.GetFileContent(DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(pi.LogoFile)))
         Dim original As System.Drawing.Image = Bitmap.FromFile(Server.MapPath(logoFile))
-       
+
         original.Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg)
 
     End Sub

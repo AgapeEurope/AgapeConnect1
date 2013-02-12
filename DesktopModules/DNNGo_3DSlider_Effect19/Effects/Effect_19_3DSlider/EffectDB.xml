@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DNNGo_DNNGallery>
+  <EffectDB>
+    <Name>
+      <![CDATA[Effect_19_3DSlider]]>
+    </Name>
+    <Description>
+      <![CDATA[3DSlider is an unique jQuery slideshow module. It supports 3d transitions! There are 14 stunning 3d transitions available, and also 16 stylish 2d transitions. You have the option for mentioning a 2d transition fallback for old browsers that don’t support HTML5 Canvas, which is used for producing the 3d transitions. The slider is fully responsive, works in mobile devices and supports touch gestures to navigate through the slides.]]>
+    </Description>
+    <Version>
+      <![CDATA[01.03.01]]>
+    </Version>
+    <Thumbnails>
+      <![CDATA[http://www.dnngo.net/DesktopModules/DNNGo_DNNGallery/Effects/Effect_19_3DSlider/preview.jpg]]>
+    </Thumbnails>
+    <EffectScript>
+      <![CDATA[jquery.ccslider-3.0.1.js]]>
+    </EffectScript>
+    <GlobalScript>
+      <![CDATA[jquery.easing.js]]>
+    </GlobalScript>
+    <DisplayByNormal>
+      <![CDATA[Description,Picture,UrlLink]]>
+    </DisplayByNormal>
+    <DisplayByModule>
+      <![CDATA[Description,ViewType]]>
+    </DisplayByModule>
+    <DemoUrl>
+      <![CDATA[http://www.dnngo.net/OurModules/DNNGallery/3DSlider.aspx]]>
+    </DemoUrl>
+  </EffectDB>
+</DNNGo_DNNGallery>

@@ -112,20 +112,37 @@ public class StaffBrokerFunctions
 
     public static decimal CurrencyConvert(decimal amount, string fromCurrency, string toCurrency)
         {
+            string mode = "Yahoo";
             WebClient web = new WebClient();
-    
-        
 
-            string url = string.Format("http://www.google.com/ig/calculator?hl=en&q={2}{0}%3D%3F{1}", fromCurrency.ToUpper(), toCurrency.ToUpper(), amount);
- 
-            string response = web.DownloadString(url);
- 
-            Regex regex = new Regex("rhs: \"(d*.d*)");
-            Match match = regex.Match(response);
- 
-            decimal rate = System.Convert.ToDecimal(match.Groups[1].Value);
- 
-            return rate;
+            if (mode == "Google")
+            {
+
+
+               
+
+
+
+               // string url = string.Format("http://www.google.com/ig/calculator?hl=en&q={2}{0}%3D%3F{1}", fromCurrency.ToUpper(), toCurrency.ToUpper(), amount);
+
+                //string response = web.DownloadString(url);  
+
+
+//                decimal rate = System.Convert.ToDecimal(response);
+
+                return 1;
+            }
+            else if (mode == "Yahoo")
+            {
+                string url = string.Format("http://download.finance.yahoo.com/d/quotes.csv?s={0}{1}=X&f=l1", fromCurrency.ToUpper(), toCurrency.ToUpper(), amount);
+
+                string response = web.DownloadString(url);
+                decimal rate = System.Convert.ToDecimal(response);
+
+                return rate * amount;
+
+            }
+            return 1;
         }
 
      static public Boolean VerifyCostCenter(int PortalId, string costCenter)
@@ -610,9 +627,9 @@ public class StaffBrokerFunctions
             string root = DotNetNuke.Common.Globals.NavigateURL(PS.HomeTabId);
             root=root.Substring(0,root.IndexOf("/")) ;
 
- 
-            string logo = root +  PS.HomeDirectory + PS.LogoFile ;
 
+            string logo = "http://" + PS.PortalAlias.HTTPAlias  + PS.HomeDirectory + PS.LogoFile;
+            
             string loginURL =   DotNetNuke.Common.Globals.NavigateURL(PS.LoginTabId) ;
 
 

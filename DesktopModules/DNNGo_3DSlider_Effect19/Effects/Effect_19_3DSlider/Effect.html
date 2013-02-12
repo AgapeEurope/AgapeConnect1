@@ -1,0 +1,76 @@
+﻿<div id="slider${ModuleID}" class="$ThemeName" style=" width:${xf.ViewXmlSetting("width",600)}px; height:${xf.ViewXmlSetting("height",300)}px;"> 
+#if($DataList.Count > 0) 
+    #foreach($DataItem in $DataList)
+        <img src="${xf.ViewLinkUrl($DataItem.Picture)}" alt=""
+          #if( $DataItem.Description != "")
+            data-captionelem="#slidehtml${DataItem.ID}"
+          #end
+         
+          data-href="${xf.ViewLinkUrl($DataItem.UrlLink)}" data-caption-position="${xf.ViewXmlSetting("captionPosition","bottom")}" />
+    #end 
+#end 
+</div>
+
+#if($DataList.Count > 0) 
+    #foreach($DataItem in $DataList)
+        #if( $DataItem.Description != "")
+            <div id="slidehtml${DataItem.ID}" class="cc-html slidehtml">
+		        $DataItem.Description
+	        </div>
+        #end
+    #end 
+#end 
+
+
+
+<script type="text/javascript" charset="utf-8">
+    jQuery(window).load(function () {
+        jQuery('#slider${ModuleID}').ccslider({  
+            beforeSlideChange: function (index) {
+                jQuery('.slidehtml').children().hide();
+            },
+            afterSlideChange: function (index) {
+                var children = jQuery('.slidehtml').children();
+                children.css({ position: 'relative', top: '-20px' });
+                children.filter('h3').animate({ top: 0, opacity: 'toggle' }, 600);
+                children.filter('p').eq(0).delay(100).animate({ top: 0, opacity: 'toggle' }, 600);
+                children.find('strong').hide().css('left', '50px').delay(300).animate({ left: 0, opacity: 'toggle' }, 600);
+            },
+            //effectType: '${xf.ViewXmlSetting("effectType","3d")}',   //The type of effect that you want and it should be either '3d' or '2d'.
+            effect: '${xf.ViewXmlSetting("effect","random")}',   //The name of the effect. Specify a 3d effect name if you have chosen a 3d effect type. The same goes for 2d effect.
+            animSpeed: ${xf.ViewXmlSetting("animSpeed",1200)},   //This is the time in ms for the animation to be complete. If 3d effect is chosen then this is the time that each slice will take to animate.
+            pauseTime: ${xf.ViewXmlSetting("pauseTime",3000)},   //The time interval for which a particular slide will be visible before advancing on to the next.
+		    startSlide: ${xf.ViewXmlSetting("startSlide",0)},   //Use this option to start the slideshow at any slide of your choice. Here you have to enter the slide number.
+		    captionAnimationSpeed: ${xf.ViewXmlSetting("captionAnimaSpeed",600)},   //Animation time for the captions.
+		    captionPosition: '${xf.ViewXmlSetting("captionPosition","bottom")}',   //There are 4 supported caption positions and they are 'bottom', 'top', 'left' and 'right'. The default value is 'bottom'.
+		    captionAnimation: '${xf.ViewXmlSetting("captionAnimation","slide")}',   //Animated effect for captions. Available options are 'fade', 'slide' and 'none'. The default effect is 'slide'.
+		    directionNav: ${xf.ViewXmlSetting("directionNav","true")},  //This option is to enable next/prev buttons. Enter 'true' if you want them and 'false' if you don't. They are enabled by default.
+		    autoPlay: ${xf.ViewXmlSetting("autoPlay","true")},          //Enter 'true' if you want autoplay enabled. It is enabled by default. Also when this is enabled a play/pause button will be generated.
+		    pauseOnHover: ${xf.ViewXmlSetting("pauseOnHover","true")},  //If autoPlay is enabled then this gives you the option to pause the slideshow when hovering over it. Autoplay will resume when the mouse moves away from the slideshow. 
+		    captions: ${xf.ViewXmlSetting("captions","true")},          //If you want captions then set this to 'true'. Captions are enabled by default.
+		    controlLinks: ${xf.ViewXmlSetting("controlLinks","true")},  //This option enables links to each individual slide. When enabled then the default output is an unordered list where each list item contains a number corresponding to the slide it links to.
+            _3dOptions: {
+                imageWidth: ${xf.ViewXmlSetting("imageWidth",600)},     //the width of the rendered image.
+			    imageHeight: ${xf.ViewXmlSetting("imageHeight",300)},   //the height of the rendered image.
+			    makeShadow: ${xf.ViewXmlSetting("makeShadow","true")},  //whether a shadow will be rendered or not. Applicable only for 'cube' 3d effects.
+                transparentImg: ${xf.ViewXmlSetting("transparentImg","false")}, //if you are using transparent png images as your slides then enable this. Enabling this avoids an image "pile up" effect.
+			    slices: ${xf.ViewXmlSetting("slices",7)},               //number of slices in which the image will be divided.
+			    rows: ${xf.ViewXmlSetting("rows",7)},                   //number of rows in which the image will be divided (only required for 'grid' effects).
+			    columns: ${xf.ViewXmlSetting("columns",7)},             //number of columns in which the image will be divided (only required for 'grid' effects).
+			    delay: ${xf.ViewXmlSetting("delay",200)},               //delay between the animation of each slice. Value is in ms.
+			    depthOffset: ${xf.ViewXmlSetting("depthOffset",400)},   //the distance the slices will travel along the z-axis (away from the screen) while animating.
+			    sliceGap: ${xf.ViewXmlSetting("sliceGap",20)},          //the distance/separation between the slices while animating.
+			    easing: '${xf.ViewXmlSetting("easing","easeInOutCubic")}'                               //an easing option of your choice. Generally easing values of the 'InOut' variety look much better.
+			}
+        });
+        // animation for html content of first slide on page load
+        var children = jQuery('.slidehtml').children().hide();
+        children.css({ position: 'relative', top: '-20px' });
+        children.filter('h3').animate({ top: 0, opacity: 'toggle' }, 600);
+        children.filter('p').eq(0).delay(100).animate({ top: 0, opacity: 'toggle' }, 600);
+        children.find('strong').hide().css('left', '50px').delay(300).animate({ left: 0, opacity: 'toggle' }, 600);
+
+    });
+</script>
+
+ 

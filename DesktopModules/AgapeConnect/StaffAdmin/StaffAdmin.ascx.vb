@@ -74,10 +74,18 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 Dim StaffList = (From c In d.AP_StaffBroker_Staffs Where c.Active And c.PortalId = PortalId Order By c.User.LastName Select DisplayName = c.User.LastName & ", " & c.User.FirstName, c.StaffId, c.UserId2, c.User2)
                 Dim Staff As New Dictionary(Of String, Integer)
                 For Each row In StaffList
+                  
+
                     If row.UserId2 > 0 Then
-                        Staff.Add(row.DisplayName & " & " & row.User2.FirstName, row.StaffId)
+                        If Not (Staff.ContainsKey(row.DisplayName & " & " & row.User2.FirstName)) Then
+                            Staff.Add(row.DisplayName & " & " & row.User2.FirstName, row.StaffId)
+                        End If
+
                     Else
-                        Staff.Add(row.DisplayName, row.StaffId)
+                        If Not (Staff.ContainsKey(row.DisplayName)) Then
+                            Staff.Add(row.DisplayName, row.StaffId)
+                        End If
+
 
                     End If
 

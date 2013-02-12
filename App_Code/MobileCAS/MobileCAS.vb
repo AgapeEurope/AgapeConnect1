@@ -52,18 +52,37 @@ Public Class MobileCAS
         End If
         Try
 
-      
-        Dim url As String = "http://www.google.com/ig/calculator?hl=en&q=1" & FromCur.ToUpper & "%3D%3F" & ToCur.ToUpper
+            Dim provider As String = "Yahoo"
+            If provider = "Google" Then
 
-        Dim response = web.DownloadString(url)
-        Dim split = response.Split(",")
-        Dim temp = split(1).Replace("rhs: """, "")
-       
-        Dim culture As New CultureInfo("en-US")
 
-        Dim s As Double = Double.Parse(temp.Substring(0, temp.IndexOf(" ")), culture.NumberFormat)
-       
-        Return s
+
+
+                Dim url As String = "http://www.google.com/ig/calculator?hl=en&q=1" & FromCur.ToUpper & "%3D%3F" & ToCur.ToUpper
+
+                Dim response = web.DownloadString(url)
+                Dim split = response.Split(",")
+                Dim temp = split(1).Replace("rhs: """, "")
+
+                Dim culture As New CultureInfo("en-US")
+
+                Dim s As Double = Double.Parse(temp.Substring(0, temp.IndexOf(" ")), culture.NumberFormat)
+
+                Return s
+            Else
+                Dim url As String = "http://download.finance.yahoo.com/d/quotes.csv?s=" & FromCur.ToUpper & ToCur.ToUpper & "=X&f=l1"
+
+
+
+                Dim response As String = web.DownloadString(url)
+                Dim rate As Double = Double.Parse(response, New CultureInfo(""))
+
+                Return rate
+            End If
+
+
+
+
 
         Catch ex As Exception
             Return 1.0

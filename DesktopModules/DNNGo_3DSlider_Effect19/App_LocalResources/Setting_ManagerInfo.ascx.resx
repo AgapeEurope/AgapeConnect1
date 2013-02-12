@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Flash.LinkType" xml:space="preserve">
+    <value>Show in the lightbox when URL is Flash. But should comply with following URL rule. http://www.adobe.com/design.swf?width=792&amp;height=294</value>
+  </data>
+  <data name="iFrame.LinkType" xml:space="preserve">
+    <value>Show in the lightbox when URL is iFrame. But should comply with following URL rule. http://www.google.com?iframe=true&amp;width=100%&amp;height=100% or ?iframe=true&amp;width=500&amp;height=250</value>
+  </data>
+  <data name="lblBaseSetting.Text" xml:space="preserve">
+    <value>Base Views</value>
+  </data>
+  <data name="lblDescription.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="lblEditContentTitle.Text" xml:space="preserve">
+    <value>Edit Content</value>
+  </data>
+  <data name="lblEffectDescription.Text" xml:space="preserve">
+    <value>Effect Description</value>
+  </data>
+  <data name="lblEffectName.Text" xml:space="preserve">
+    <value>Effect Name</value>
+  </data>
+  <data name="lblIncludeModule.Text" xml:space="preserve">
+    <value>Include Module</value>
+  </data>
+  <data name="lblLinkMeta.Text" xml:space="preserve">
+    <value>Link Meta</value>
+  </data>
+  <data name="lblLinkTarget.Text" xml:space="preserve">
+    <value>New Window</value>
+  </data>
+  <data name="lblModuleTitle.Text" xml:space="preserve">
+    <value>Compose a new Content</value>
+  </data>
+  <data name="lblPicture.Text" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="lblStatus.Text" xml:space="preserve">
+    <value>Activation</value>
+  </data>
+  <data name="lblSubTitle.Text" xml:space="preserve">
+    <value>Subtitle</value>
+  </data>
+  <data name="lblThumbnails.Text" xml:space="preserve">
+    <value>Thumbnails</value>
+  </data>
+  <data name="lblTitle.Text" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="lblUrlLink.Text" xml:space="preserve">
+    <value>Url Link</value>
+  </data>
+  <data name="lblUrlLinkTitle.Text" xml:space="preserve">
+    <value>Link Setting</value>
+  </data>
+  <data name="lblViewModule.Text" xml:space="preserve">
+    <value>Select Module</value>
+  </data>
+  <data name="lblViewTab.Text" xml:space="preserve">
+    <value>Select Tab</value>
+  </data>
+  <data name="lblViewType.Text" xml:space="preserve">
+    <value>View Type</value>
+  </data>
+  <data name="Link.LinkType" xml:space="preserve">
+    <value>Redirect to the target page.</value>
+  </data>
+  <data name="Picture.LinkType" xml:space="preserve">
+    <value>Show in the lightbox when URL is Picture.</value>
+  </data>
+  <data name="QuickTime.LinkType" xml:space="preserve">
+    <value>Show in the lightbox when URL is QuickTime video. But should comply with following URL rule. http://trailers.apple.com/movies/universal/despicableme/despicableme-tlr1_r640s.mov?width=640&amp;height=360</value>
+  </data>
+  <data name="Video.LinkType" xml:space="preserve">
+    <value>Show in the lightbox when URL is Video. But should comply with following URL rule. http://www.dnngo.com/abc.mp4?width=640&amp;height=360</value>
+  </data>
+  <data name="Vimeo.LinkType" xml:space="preserve">
+    <value>Show in the lightbox when URL is Vimeo. But should comply with following URL rule. http://vimeo.com/8245346</value>
+  </data>
+  <data name="YouTube.LinkType" xml:space="preserve">
+    <value>Show in the lightbox when URL is YouTube video. But should comply with following URL rule. http://www.youtube.com/watch?v=qqXi8WmQ_WM</value>
+  </data>
+</root>

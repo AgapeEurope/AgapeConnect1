@@ -156,6 +156,7 @@
 
         </td>
         <td>
+            <asp:Label ID="lblMessage" runat="server" Text="" ForColor="#777" Visible="false" Font-Italic="true"></asp:Label>
             <div id="IncExpGraph" style="width: 875px; height: 400px;"></div>
         </td>
     </tr>

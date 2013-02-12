@@ -3,7 +3,7 @@
 
 .content {background-color: White ;}
 .header {background-color: White ;}
-.content_footer .logo {position:absolute; z-index:0; right:8px; top:8px; display: none; height: 100}
+.content_footer .logo {position:absolute; z-index:0; right:8px; top:8px; display: none; height: 100px}
 
 .menu li a {color:#fff; padding:10px; text-decoration:none; background-color:#0d3163;}
 .menu li a:hover {background-color:#4a6ea3;}

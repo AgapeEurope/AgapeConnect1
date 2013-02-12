@@ -1928,12 +1928,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     'Send an email to the end user
                     Dim Message = ""
                     Dim dr As New TemplatesDataContext
-                    Dim ConfTemplate = From c In dr.AP_StaffBroker_Templates Where c.TemplateName = "RmbCancelled" And c.PortalId = PortalId Select c.TemplateHTML
+                    '  Dim ConfTemplate = From c In dr.AP_StaffBroker_Templates Where c.TemplateName = "RmbCancelled" And c.PortalId = PortalId Select c.TemplateHTML
+
+                    Message = StaffBrokerFunctions.GetTemplate("RmbCancelled", PortalId)
 
 
-                    If ConfTemplate.Count > 0 Then
-                        Message = Server.HtmlDecode(ConfTemplate.First)
-                    End If
+
+                    '  If ConfTemplate.Count > 0 Then
+                    'Message = Server.HtmlDecode(ConfTemplate.First)
+                    ' End If
 
                     Dim StaffMbr = UserController.GetUserById(PortalId, rmb.First.UserId)
 
@@ -2002,13 +2005,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim ObjAppr As UserInfo = UserController.GetUserById(PortalId, Me.UserId)
                 Dim theUser As UserInfo = UserController.GetUserById(PortalId, rmb.First.UserId)
                 Dim ApprMessage = ""
-                Dim dr As New TemplatesDataContext
-                Dim ConfTemplate = From c In dr.AP_StaffBroker_Templates Where c.TemplateName = "RmbApprovedEmail-ApproversVersion" And c.PortalId = PortalId Select c.TemplateHTML
+                '   Dim dr As New TemplatesDataContext
+                '  Dim ConfTemplate = From c In dr.AP_StaffBroker_Templates Where c.TemplateName = "RmbApprovedEmail-ApproversVersion" And c.PortalId = PortalId Select c.TemplateHTML
 
-                If ConfTemplate.Count > 0 Then
-                    ApprMessage = Server.HtmlDecode(ConfTemplate.First)
-                End If
-                ApprMessage = ApprMessage.Replace("[APPRNAME]", ObjAppr.DisplayName).Replace("[RMBNO]", rmb.First.RMBNo).Replace("[STAFFNAME]", theUser.DisplayName)
+                '  If ConfTemplate.Count > 0 Then
+                'ApprMessage = Server.HtmlDecode(ConfTemplate.First)
+                ' End If
+                ApprMessage = StaffBrokerFunctions.GetTemplate("RmbApprovedEmail-ApproversVersion", PortalId)
+
+                ' ApprMessage = ApprMessage.Replace("[APPRNAME]", ObjAppr.DisplayName).Replace("[RMBNO]", rmb.First.RMBNo).Replace("[STAFFNAME]", theUser.DisplayName)
 
 
                 For Each row In (From c In myApprovers.UserIds Where c.UserID <> rmb.First.UserId And c.UserID <> SpouseId)
@@ -2026,11 +2031,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                 Dim Emessage = ""
 
-                Dim ApprovedTemp = From c In dr.AP_StaffBroker_Templates Where c.TemplateName = "RmbApprovedEmail" And PortalId = c.PortalId Select c.TemplateHTML
-
-                If ApprovedTemp.Count > 0 Then
-                    Emessage = Server.HtmlDecode(ApprovedTemp.First)
-                End If
+                ' Dim ApprovedTemp = From c In dr.AP_StaffBroker_Templates Where c.TemplateName = "RmbApprovedEmail" And PortalId = c.PortalId Select c.TemplateHTML
+                Emessage = StaffBrokerFunctions.GetTemplate("RmbApprovedEmail", PortalId)
+                'If ApprovedTemp.Count > 0 Then
+                'Emessage = Server.HtmlDecode(ApprovedTemp.First)
+                ' End If
                 Emessage = Emessage.Replace("[STAFFNAME]", theUser.DisplayName).Replace("[RMBNO]", rmb.First.RID).Replace("[USERREF]", IIf(rmb.First.UserRef <> "", rmb.First.UserRef, "None"))
                 Emessage = Emessage.Replace("[APPROVER]", ObjAppr.DisplayName)
                 If rmb.First.Changed = True Then
@@ -3230,8 +3235,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim Auth = UserController.GetUserById(PortalId, Settings("AuthUser"))
             Dim AuthAuth = UserController.GetUserById(PortalId, Settings("AuthAuthUser"))
             Dim myApprovers = StaffRmbFunctions.getApprovers(theRmb, Auth, AuthAuth)
-            Dim message As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbConfirmation", PortalId))
-
+            ' Dim message As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbConfirmation", PortalId))
+            Dim message As String = StaffBrokerFunctions.GetTemplate("RmbConfirmation", PortalId)
 
             message = message.Replace("[STAFFNAME]", UserInfo.DisplayName).Replace("[RMBNO]", theRmb.RID).Replace("[USERREF]", IIf(theRmb.UserRef <> "", theRmb.UserRef, "None"))
             If myApprovers.SpouseSpecial And theRmb.UserId <> Settings("AuthUser") Then
@@ -3251,15 +3256,16 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
 
             Dim Approvers As String = ""
-            Dim message2 As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbApproverEmail", PortalId))
+            ' Dim message2 As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbApproverEmail", PortalId))
+            Dim message2 As String = StaffBrokerFunctions.GetTemplate("RmbApproverEmail", PortalId)
 
 
             'Dim app As UserInfo
 
 
-            If myApprovers.AmountSpecial Then
-                message2 = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbLargeTransaction", PortalId))
-            End If
+            ' If myApprovers.AmountSpecial Then
+            'message2 = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbLargeTransaction", PortalId))
+            'End If
 
 
             If myApprovers.isDept Then
@@ -3726,8 +3732,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim AuthAuth = UserController.GetUserById(PortalId, Settings("AuthAuthUser"))
 
             Dim myApprovers = StaffRmbFunctions.getAdvApprovers(insert, Settings("TeamLeaderLimit"), Auth, AuthAuth)
-            Dim ConfMessage As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvConfirmation", PortalId))
-
+            'Dim ConfMessage As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvConfirmation", PortalId))
+            Dim ConfMessage As String = StaffBrokerFunctions.GetTemplate("AdvConfirmation", PortalId)
             ConfMessage = ConfMessage.Replace("[STAFFNAME]", UserInfo.DisplayName).Replace("[ADVNO]", insert.LocalAdvanceId)
             If myApprovers.SpouseSpecial And insert.UserId <> Auth.UserID Then
                 ConfMessage = ConfMessage.Replace("[EXTRA]", Translate("AdvSpouseSpecial").Replace("[AUTHUSER]", Auth.DisplayName))
@@ -3741,9 +3747,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
 
             Dim Approvers As String = ""
-            Dim message2 As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvApproverEmail", PortalId))
+            Dim message2 As String = StaffBrokerFunctions.GetTemplate("AdvApproverEmail", PortalId)
+
             If myApprovers.AmountSpecial Then
-                message2 = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvLargeTransaction", PortalId))
+                'message2 = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvLargeTransaction", PortalId))
+                message2 = StaffBrokerFunctions.GetTemplate("AdvLargeTransaction", PortalId)
             End If
             Dim toEmail As String = ""
             Dim toName As String = ""
@@ -3808,8 +3816,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim theUser As UserInfo = UserController.GetUserById(PortalId, q.First.UserId)
 
                     Dim dr As New TemplatesDataContext
-                    Dim ApprMessage As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvApprovedEmail-ApproversVersion", PortalId))
-
+                    'Dim ApprMessage As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvApprovedEmail-ApproversVersion", PortalId))
+                    Dim ApprMessage As String = StaffBrokerFunctions.GetTemplate("AdvApprovedEmail-ApproversVersion", PortalId)
 
                     ApprMessage = ApprMessage.Replace("[APPRNAME]", ObjAppr.DisplayName).Replace("[ADVNO]", q.First.LocalAdvanceId).Replace("[STAFFNAME]", theUser.DisplayName)
 
@@ -3824,7 +3832,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     'SEND APRROVE EMAIL
 
 
-                    Dim Emessage As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvApprovedEmail", PortalId))
+                    ' Dim Emessage As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvApprovedEmail", PortalId))
+                    Dim Emessage As String = StaffBrokerFunctions.GetTemplate("AdvApprovedEmail", PortalId)
 
                     Emessage = Emessage.Replace("[STAFFNAME]", theUser.DisplayName).Replace("[ADVNO]", q.First.LocalAdvanceId)
                     Emessage = Emessage.Replace("[APPROVER]", ObjAppr.DisplayName)
@@ -3868,10 +3877,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Log(q.First.AdvanceId, "Advance Cancelled")
                     d.SubmitChanges()
 
+                    Dim Message As String = StaffBrokerFunctions.GetTemplate("AdvCancelled", PortalId)
 
+                    ' Dim dr As New TemplatesDataContext
+                    '  Dim Message As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvCancelled", PortalId))
 
-                    Dim dr As New TemplatesDataContext
-                    Dim Message As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvCancelled", PortalId))
                     Dim StaffMbr = UserController.GetUserById(PortalId, q.First.UserId)
 
 
