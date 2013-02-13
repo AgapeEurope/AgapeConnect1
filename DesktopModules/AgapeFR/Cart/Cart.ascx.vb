@@ -273,7 +273,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
 
         Protected Sub BtnFinalize_Click(sender As Object, e As System.EventArgs) Handles BtnFinalize.Click
-            Response.Redirect(EditUrl("CartSummary"))
+            Response.Redirect(EditUrl("CartLogin"))
         End Sub
 
         Protected Sub btnSettings_Click(sender As Object, e As System.EventArgs) Handles btnSettings.Click

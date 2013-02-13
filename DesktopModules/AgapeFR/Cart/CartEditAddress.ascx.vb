@@ -18,57 +18,61 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
 #Region "Properties"
 
-        'Type of address edition to be processed
-        Public Property Action As String
+        'Previous page URL
+        Public Property PreviousPage As System.Uri
             Get
-                Dim obj = Session("Action")
+                Return ViewState("PreviousPage")
+            End Get
+            Set(value As System.Uri)
+                ViewState("PreviousPage") = value
+            End Set
+        End Property
+
+        'Type of address edition to be processed
+        Public ReadOnly Property Action As String
+            Get
+                Dim obj = ViewState("Action")
                 If obj Is Nothing Then
                     'Initialize action depending on param in URL
                     obj = Me.Request.Params("action")
                     If obj Is Nothing Then
                         Exceptions.ProcessModuleLoadException("Invalid call to the control (action missing)", Me, Nothing)
+                    Else
+                        ViewState("Action") = obj
                     End If
                 End If
                 Return obj
             End Get
-            Private Set(ByVal value As String)
-                Session("Action") = value
-            End Set
         End Property
 
         'Cart ID
-        Public Property TheCartID As Integer
+        Public ReadOnly Property TheCartID As Integer
             Get
-                Dim obj = Session("TheCartID")
+                Dim obj = ViewState("TheCartID")
                 If obj Is Nothing Then
                     Dim anonCookieValue As String = Request.Cookies(".ASPXANONYMOUS").Value
                     obj = CartFunctions.GetCartID(UserId, anonCookieValue)
+                    ViewState("TheCartID") = obj
                 End If
                 Return obj
             End Get
-            Private Set(ByVal value As Integer)
-                Session("TheCartID") = value
-            End Set
         End Property
 
         'The address being edited
-        Public Property EditedAddress As FR_Cart_AddressBook
+        Dim _editedAddress As FR_Cart_AddressBook
+        Public ReadOnly Property EditedAddress As FR_Cart_AddressBook
             Get
-                Dim obj As FR_Cart_AddressBook = Session("EditedAddress")
-                If obj Is Nothing Then
+                If _editedAddress Is Nothing Then
                     Select Case Action
-                        Case EditAddressActions.ModifyBillingAddress : obj = CartFunctions.GetCartBillingAddress(TheCartID)
-                        Case EditAddressActions.ModifyShippingAddress : obj = CartFunctions.GetCartShippingAddress(TheCartID)
+                        Case EditAddressActions.ModifyBillingAddress : _editedAddress = CartFunctions.GetCartBillingAddress(TheCartID)
+                        Case EditAddressActions.ModifyShippingAddress : _editedAddress = CartFunctions.GetCartShippingAddress(TheCartID)
                         Case Else
-                            obj = New FR_Cart_AddressBook
-                            obj.UserID = UserId
+                            _editedAddress = New FR_Cart_AddressBook
+                            _editedAddress.UserID = UserId
                     End Select
                 End If
-                Return obj
+                Return _editedAddress
             End Get
-            Private Set(ByVal value As FR_Cart_AddressBook)
-                Session("EditedAddress") = value
-            End Set
         End Property
 
 #End Region
@@ -78,16 +82,10 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
             ValDisplayName.ErrorMessage = Localization.GetString("DisplayNameRequired", LocalResourceFile)
             CbUpdateProfile.Text = Localization.GetString("CbUpdateProfile", LocalResourceFile)
 
-            'Add event handler for "Cancel" button
-            'DAVID: Cart - Use VB event to redirect to editurl CartSummary
-            BtnCancel.Attributes.Add("onClick", "javascript:history.back(); return false;")
-
             If Not Me.IsPostBack Then
 
-                'Reset session properties
-                Session("Action") = Nothing
-                Session("TheCartID") = Nothing
-                Session("EditedAddress") = Nothing
+                'Init previous page URL
+                PreviousPage = Request.UrlReferrer
 
                 'Initialize title and description
                 LblTitle.Text = Localization.GetString(EditAddressActions.GetName(Action) & "Title", LocalResourceFile)
@@ -157,6 +155,13 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
         End Function
 
         Protected Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles BtnCancel.Click
+            'Redirect to Cart page or CartSummary page depending on the previous page
+            If PreviousPage IsNot Nothing Then
+                If PreviousPage.ToString.Contains(EditUrl("CartSummary")) Then
+                    Response.Redirect(EditUrl("CartSummary"))
+                End If
+            End If
+            Response.Redirect(NavigateURL())
 
         End Sub
     End Class

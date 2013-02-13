@@ -864,6 +864,8 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
             cmdCreateUser.Click += cmdCreateUser_Click;
             cmdProceed.Click += cmdProceed_Click;
 
+            //Agapé: Commented out to be able to include Login module in any page
+            /*
             //Verify if portal has a customized login page
             if (!Null.IsNull(PortalSettings.LoginTabId) && Globals.IsAdminControl())
             {
@@ -886,6 +888,7 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
                     Response.Redirect(Globals.NavigateURL(PortalSettings.LoginTabId, "", parameters));
                 }
             }
+            */
             if (Page.IsPostBack == false)
             {
                 try

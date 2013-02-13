@@ -2,6 +2,7 @@
     Inherits="DotNetNuke.Modules.AgapeFR.Cart.CartEditAddress" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Address" Src="~/controls/Address.ascx" %>
+<%@ Register TagPrefix="dnn2" TagName="CartBreadcrumb" Src="~/DesktopModules/AgapeFR/Cart/CartBreadcrumb.ascx" %>
 <script type="text/javascript">
 
     (function ($, Sys) {
@@ -48,6 +49,7 @@
         margin-bottom: 30px;
     }
 </style>
+<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="Address" />
 <div class="title">
     <asp:Label ID="LblTitle" runat="server" CssClass="AgapeH4"></asp:Label><br />
     <asp:Label ID="LblDescription" runat="server"></asp:Label>
@@ -71,7 +73,7 @@
     </tr>
     <tr>
         <td class="right">
-            <asp:Button ID="BtnCancel" ResourceKey="BtnCancel" runat="server" CssClass="aButton BtnCancel" />
+            <asp:Button ID="BtnCancel" ResourceKey="BtnCancel" runat="server" CssClass="aButton BtnCancel" CausesValidation="False" />
             <asp:Button ID="BtnContinue" ResourceKey="BtnContinue" runat="server" CssClass="aButton" />
         </td>
     </tr>
