@@ -72,8 +72,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
             'If user not connected => redirect to login page
             If UserId = -1 Then
-                Dim service = Request.RawUrl
-                Response.Redirect("/casLogin?returnurl=" & HttpUtility.UrlEncode(service) & "&process=" & LoginType.CartCheckout)
+                Response.Redirect(EditUrl("CartLogin"))
             Else
                 ' Load label translations
                 StrSectionTotalLabelPattern = LocalizeString("SectionTotalLabel")

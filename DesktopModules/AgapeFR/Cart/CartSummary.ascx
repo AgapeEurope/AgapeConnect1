@@ -2,6 +2,7 @@
     Inherits="DotNetNuke.Modules.AgapeFR.Cart.CartSummary" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<%@ Register TagPrefix="dnn2" TagName="CartBreadcrumb" Src="~/DesktopModules/AgapeFR/Cart/CartBreadcrumb.ascx" %>
 <script type="text/javascript">
 
     (function ($, Sys) {
@@ -103,6 +104,9 @@
         padding-top: 20px;
     }
 </style>
+
+<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="Summary" />
+
 <% 'DAVID: Cart - Gérer les traductions restantes dans fichier .resx (voir Cart.ascx et vb) %>
 <asp:Panel ID="PnlEmptyCart" runat="server" Visible="False">
     <br />
