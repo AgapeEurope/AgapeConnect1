@@ -1,0 +1,28 @@
+#top_menu .menuslide ul{
+	background:url(images/submenu_bg.png) repeat;	
+}
+*+html #top_menu{
+	position:relative;
+	z-index:903;
+	zoom:1;	
+}
+*+html #dnn_footer{
+	position:relative;	
+}
+#login_style{
+	display:block!important;	
+}
+#mobile_menu,
+#search{
+	display:none!important;	
+}
+img{
+	max-width:none;	
+}
+#left_menu > .gomenu > ul > li.current > a{
+	zoom:1;	
+}
+
+
+
+

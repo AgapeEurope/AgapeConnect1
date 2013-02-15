@@ -42,7 +42,7 @@ Partial Class DesktopModules_AgapeConnect_Stories_RSS
 
             insert.Title = TextSyndicationContent.CreatePlaintextContent(row.Headline)
 
-            insert.Links.Add(New SyndicationLink(New Uri(NavigateURL(CInt(row.TabId)) & "?StoryId=" & row.StoryId)))
+            insert.Links.Add(New SyndicationLink(New Uri(NavigateURL(CInt(row.TabId)).Replace("en-us/", "") & "?StoryId=" & row.StoryId)))
             insert.Summary = TextSyndicationContent.CreatePlaintextContent(Left(StoryFunctions.StripTags(row.StoryText), 500))
             insert.PublishDate = row.StoryDate
             Dim author As New SyndicationPerson

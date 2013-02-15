@@ -120,6 +120,8 @@ namespace DotNetNuke.UI.Skins.Controls
                     }
                     loginLink.NavigateUrl = Globals.NavigateURL(PortalSettings.ActiveTab.TabID, "Logoff");
                     enhancedLoginLink.NavigateUrl = loginLink.NavigateUrl;
+                    //loginLink.NavigateUrl = "https://thekey.me/cas/logout?url=" + "http://" + Request.Url.Authority + Request.ApplicationPath;
+                    //enhancedLoginLink.NavigateUrl = loginLink.NavigateUrl;
                 }
                 else
                 {

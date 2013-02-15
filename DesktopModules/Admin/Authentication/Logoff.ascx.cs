@@ -114,7 +114,12 @@ namespace DotNetNuke.Modules.Admin.Authentication
 				{
 					//The current auth system has no custom logoff control so LogOff
 					DoLogoff();
-					Redirect();
+                    String logoffURL = "https://thekey.me/cas/logout";
+                    //System.Net.HttpWebRequest request = (System.Net.HttpWebRequest) System.Net.WebRequest.Create(logoffURL);
+                    //request.GetResponse();
+                    Response.Redirect(logoffURL);
+                    Redirect();
+					
 				}
 			}
 			catch (ThreadAbortException)

@@ -148,10 +148,16 @@ Namespace DotNetNuke.Modules.FullStory
 
                 End If
                 ReplaceField(sv, "[LANGUAGES]", "")
+                If (sv.IndexOf("[SUPERPOWERS]") < 0) Then
+                    ltStory1.Text = sv
+                    ltStory2.Text = ""
+                Else
+                    ltStory1.Text = sv.Substring(0, sv.IndexOf("[SUPERPOWERS]"))
 
-                ltStory1.Text = sv.Substring(0, sv.IndexOf("[SUPERPOWERS]"))
+                    ltStory2.Text = sv.Substring(sv.IndexOf("[SUPERPOWERS]") + 13)
+                End If
 
-                ltStory2.Text = sv.Substring(sv.IndexOf("[SUPERPOWERS]") + 13)
+               
 
 
                 If IsEditable Then
