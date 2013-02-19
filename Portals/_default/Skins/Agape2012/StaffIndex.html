@@ -12,29 +12,14 @@
             function setUpWatermark() {
                 $('#searchContainer input[type=text]').Watermark('Search');
             }
-            function setUpScroller() {
-                $('#scroller').addClass('scroller');
-            }
-
             $(document).ready(function () {
                 setUpWatermark();
-                setUpScroller();
                 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                     setUpWatermark();
-                    setUpScroller();
                 });
             });
         }(jQuery, window.Sys));
     </script>
-    <style type="text/css">
-        .scroller {
-            position:fixed;
-            top:50%;
-            left:20%;
-            background-color:green;
-            width:20px;
-        }
-    </style>
     <div id="fb-root">
     </div>
     <script>        (function (d, s, id) {
@@ -46,7 +31,8 @@
         }(document, 'script', 'facebook-jssdk'));</script>
     <div id="outerContainer" style="width: 100%; margin-left: 0px; margin-right: 0px;"
         align="center">
-        <div id="scrollBtn">Hello World</div>
+        [STAFFLINKS]
+        <!--<div id="scrollBtn">Hello World</div>-->
         <div id="innerContainer" style="width: 975px;">
             <!-- The Control Panel -->
             <div id="controlPanelContainer">

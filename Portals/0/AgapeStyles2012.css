@@ -198,6 +198,7 @@ a:hover {
     font-family: 'Source Sans Pro', Arial, sans-serif;
     font-weight: 700;
 }
+
 .Agape_Blue_H5_Thin {
     color: #0180AB !important;
     font-size: 10pt;
@@ -265,13 +266,14 @@ a:hover {
     font-weight: 700 !important;
     text-decoration: none !important;
 }
-.Agape_White_Bold a:hover,.Agape_White_Bold a:link,.Agape_White_Bold a.active,.Agape_White_Bold a.visited {
-    font-family: 'Source Sans Pro', Arial, sans-serif;
-    /*font-size: 10pt;*/
-    color: #FFF !important;
-    font-weight: 700 !important;
-    text-decoration: none !important;
-}
+
+    .Agape_White_Bold a:hover, .Agape_White_Bold a:link, .Agape_White_Bold a.active, .Agape_White_Bold a.visited {
+        font-family: 'Source Sans Pro', Arial, sans-serif;
+        /*font-size: 10pt;*/
+        color: #FFF !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+    }
 /* Billboard */
 
 .Bill_dashed {
@@ -663,4 +665,26 @@ a:hover {
 .searchImage {
     width: 200px;
     margin-right: 20px !important;
+}
+/*Staff Links Panel*/
+.scroller {
+    position: fixed !important;
+    top: 50%;
+    width: 30px;
+    z-index: 9999;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12pt;
+    background-color: #0180AB;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+.scrollPanel {
+    position: fixed !important;
+    top: 50%;
+    z-index: 9999;
+    background-color: #fff;
+    border: 2px solid #3EB3C9;
 }
