@@ -75,7 +75,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             sb.Append("<script language='javascript'>")
 
-            sb.Append(" var jsonCall= ""/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + lc + "&ToCur=" + ac + ";")
+            sb.Append(" var jsonCall= ""https://agapeconnect.me/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + lc + "&ToCur=" + ac + ";")
             sb.Append("$.getJSON( jsonCall ,function(x) { setXRate(x);});")
 
 

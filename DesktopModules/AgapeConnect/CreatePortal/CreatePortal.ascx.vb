@@ -140,9 +140,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
             Dim ac As New PortalAliasController()
 
+            Dim PortalAlias As String = "localhost:37881" 'tbCountryISOCode.Text & ".agapeconnect.me"
 
             Dim aliasCollection = ac.GetPortalAliases()
-            If ac.GetPortalAliases().Contains(tbCountryISOCode.Text & ".agapeconnect.me") Then
+            If ac.GetPortalAliases().Contains(PortalAlias) Then
                 lblStatus.Text &= "Country (ISO) code already exists"
             End If
 
@@ -150,6 +151,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
             'Real PortalAlias tbCountryISOCode.Text & ".agapeconnect.me"
+           
             Dim newPid = p.CreatePortal("AgapeConnect - " & tbCountryName.Text, _
                             firstName:=tbCountryISOCode.Text, lastName:="Admin", _
                              username:=tbCountryISOCode.Text & "-Admin", _
@@ -157,7 +159,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                               email:="donotreply@agapeconnect.me",
                                description:="Agape Connect Site for " & tbCountryName.Text,
                                keyWords:="", templatePath:=HostMapPath, templateFile:="AgapeConnect-v1.0.template",
-                              homeDirectory:="", portalAlias:=tbCountryISOCode.Text & ".agapeconnect.me",
+                              homeDirectory:="", portalAlias:=PortalAlias,
            serverPath:=GetAbsoluteServerPath(Request), childPath:="", isChildPortal:=False)
 
             If newPid > 0 Then

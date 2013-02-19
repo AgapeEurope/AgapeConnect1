@@ -20,7 +20,9 @@
 
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
-                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
+
+                var jsonCall= "https://agapeconnect.me/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
                $('.rmbAmount').val('');
                  $("#<%= hfExchangeRate.ClientId %>").attr('value', -1);
                 $.getJSON( jsonCall ,function(x) {
@@ -32,7 +34,14 @@
                 })      
     
             });
-           
+            $('.rmbAmount').change(function(){
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value', '');
+                $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value','');
+            });
+            $('.advAmount').change(function(){
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value', '');
+                  $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value','');
+              });
 
            //Advance Currency Coverter
             $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('#' + this.id).hide();  });
@@ -42,7 +51,8 @@
 
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
-                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
+                var jsonCall= "https://agapeconnect.me/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
                $('.advAmount').val('');
                  $("#<%= hfExchangeRate.ClientId %>").attr('value', -1);
                 $.getJSON( jsonCall ,function(x) {
@@ -296,7 +306,8 @@
                 return;
               }
                 
-                 if(inCur.length>0){
+              if(inCur.length>0){
+                  $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inCur);
                      $('.rmbAmount').val( (parseFloat(xRate) * parseFloat(inCur)).toFixed(2));
                      
                      }
@@ -310,7 +321,8 @@
                 return;
               }
                 
-                 if(inCur.length>0){
+              if(inCur.length>0){
+                  $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inCur);
                      $('.advAmount').val( (parseFloat(xRate) * parseFloat(inCur)).toFixed(2));
                      
                      }
@@ -394,8 +406,8 @@ padding: 5px 5px 5px 5px;
 <asp:HiddenField ID="hfPortalId" runat="server" Value="-1" />
 <asp:HiddenField ID="hfAccountingCurrency" runat="server" Value="USD" />
 <asp:HiddenField ID="hfExchangeRate" runat="server" Value="1"   />
-    
-
+   <asp:HiddenField ID="hfOrigCurrency" runat="server" Value=""   />
+    <asp:HiddenField ID="hfOrigCurrencyValue" runat="server" Value=""   />
 <table width="100%">
     <tr valign="top">
         <td>

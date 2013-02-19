@@ -89,15 +89,21 @@ Namespace DotNetNuke.Modules.StaffRmb
                     If CType(TabModuleSettings("DistanceUnit"), String) <> "" Then
                         ddlDistance.SelectedValue = CType(TabModuleSettings("DistanceUnit"), String)
                     End If
+
+                    Dim selectedRoles As New ArrayList
+
                     If CType(TabModuleSettings("AccountsRoles"), String) <> "" Then
 
 
-                        rsgAccountsRoles.SelectedRoleNames.Clear()
+                        'rsgAccountsRoles.SelectedRoleNames.Clear()
                         For Each role In CStr(TabModuleSettings("AccountsRoles")).Split(";")
-                            rsgAccountsRoles.SelectedRoleNames.Add(role)
+                            ' rsgAccountsRoles.SelectedRoleNames.Add(role)
+                            selectedRoles.Add(role)
+
                         Next
 
                     End If
+                    rsgAccountsRoles.SelectedRoleNames = selectedRoles
 
                     If CType(TabModuleSettings("AccountsEmail"), String) <> "" Then
                         tbAccountsEmail.Text = CType(TabModuleSettings("AccountsEmail"), String)

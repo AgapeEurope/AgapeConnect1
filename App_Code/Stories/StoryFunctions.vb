@@ -128,6 +128,16 @@ Public Class StoryFunctions
         Return insert.ChannelId
     End Function
 
+    Public Shared Sub RefreshLocalChannel(ByVal tabModuleId As Integer)
+        Dim d As New Stories.StoriesDataContext
+        Dim Channels = From c In d.AP_Stories_Module_Channels Where c.URL.Contains("channel=" & tabModuleId)
+        For Each row In Channels
+            RefreshFeed(row.AP_Stories_Module.TabModuleId, row.ChannelId, False)
+        Next
+
+       
+
+    End Sub
 
    
     Public Shared Sub RefreshFeed(ByVal tabModuleId As Integer, ByVal ChannelId As Integer, Optional ByVal ClearCache As Boolean = False)
@@ -271,6 +281,9 @@ Public Class StoryFunctions
                         End If
 
                         set_if(existingStory.First.StoryDate, row.PublishDate.DateTime)
+
+                        SetImage(existingStory.First, row, theChannel.ImageId)
+
                         Try
 
 

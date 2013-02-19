@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6, .title1, .title2, .title3, .title4, .title5, .title6, .t
 }
 
 #Body {
-    color: #7aa8e0;
+    color: #535050;
     background: url(images/body_bg.jpg) repeat;
 }
 
@@ -17,7 +17,7 @@ html, body {
     height: 100%;
     padding: 0px;
     font: normal 12px/1.5 Arial;
-    color: #535050;
+    color:#535050;
 }
 
 p {
@@ -47,31 +47,36 @@ A:link {
     A:hover {
         text-decoration: underline;
     }
-
-h1 {
+    .Agape_Story_picturebox {
+margin: 0px 15px 15px 0px;
+float: left;
+display: inline;
+width: 300px;
+}
+h1, .AgapeH1 {
     font: normal 24px/28px 'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;
     color: #7aa8e0;
     margin: 5px 0 10px 0;
 }
 
-h2 {
+h2, .AgapeH2 {
     font: normal 20px/24px 'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;
     margin: 5px 0 10px 0;
 }
 
-h3 {
+h3, .AgapeH3 {
     font: normal 16px/20px 'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;
     color: #7aa8e0;
     margin: 5px 0 10px 0;
 }
 
-h4 {
+h4, .AgapeH4 {
     font: normal 14px/18px 'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;
     color: #000;
     margin: 5px 0 10px 0;
 }
 
-h5 {
+h5, .AgapeH5 {
     font: normal 14px/18px 'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;
     color: #000;
     margin: 5px 0 10px 0;

@@ -345,6 +345,9 @@ Namespace DotNetNuke.Modules.Stories
                 Else
                     Return
                 End If
+
+                StoryFunctions.RefreshLocalChannel(CInt(ddlChannels.SelectedValue))
+
                 Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId"))
             Else
                 Dim insert As New AP_Story
@@ -418,7 +421,7 @@ Namespace DotNetNuke.Modules.Stories
                     StoryFunctions.PrecalAllCaches(row.AP_Stories_Module.TabModuleId)
                 Next
 
-
+                StoryFunctions.RefreshLocalChannel(CInt(ddlChannels.SelectedValue))
                 Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & insert.StoryId)
             End If
 

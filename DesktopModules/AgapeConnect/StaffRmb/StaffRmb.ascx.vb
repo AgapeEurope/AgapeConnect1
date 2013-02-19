@@ -193,7 +193,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                 lblHighlight.Visible = acc
                 If acc Then
-                    Dim errors = From c In d.AP_Staff_Rmbs Where c.PortalId = PortalId And c.Error = True
+                    Dim errors = From c In d.AP_Staff_Rmbs Where c.PortalId = PortalId And c.Error = True And (c.Status = RmbStatus.PendingDownload Or c.Status = RmbStatus.DownloadFailed Or c.Status = RmbStatus.Approved)
+
                     If errors.Count > 0 Then
                         Dim s As String = ""
                         For Each rmb In errors
@@ -1444,6 +1445,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim insert As New AP_Staff_RmbLine
                     insert.Comment = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
                     insert.GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
+
+                    'Look for currency conversion
+
+
                     If insert.GrossAmount >= Settings("TeamLeaderLimit") Then
                         insert.LargeTransaction = True
                     Else

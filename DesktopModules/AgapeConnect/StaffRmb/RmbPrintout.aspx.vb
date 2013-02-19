@@ -197,7 +197,25 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             
 
 
-
+            If Not q.First.ApprDate Is Nothing Then
+                output = output.Replace("[APPROVEDON]", q.First.ApprDate.Value.ToString("dd/MM/yyyy"))
+            Else
+                output = output.Replace("[APPROVEDON]", "")
+            End If
+            If Not q.First.ProcDate Is Nothing Then
+                output = output.Replace("[PROCESSEDON]", q.First.ProcDate.Value.ToString("dd/MM/yyyy"))
+            Else
+                output = output.Replace("[PROCESSEDON]", "")
+            End If
+            output = output.Replace("[PAIDON]", "")
+            output = output.Replace("[PAIDBY]", "")
+            If Not q.First.ApprUserId Is Nothing Then
+                output = output.Replace("[APPROVEDBY]", UserController.GetUserById(PS.PortalId, q.First.ApprUserId).DisplayName)
+            Else
+                output = output.Replace("[APPROVEDBY]", "")
+            End If
+           
+            output = output.Replace("[PROCESSEDBY]", "")
 
 
 

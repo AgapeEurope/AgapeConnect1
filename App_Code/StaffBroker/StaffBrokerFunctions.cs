@@ -626,10 +626,11 @@ public class StaffBrokerFunctions
 
             string root = DotNetNuke.Common.Globals.NavigateURL(PS.HomeTabId);
             root=root.Substring(0,root.IndexOf("/")) ;
-
-
-            string logo = "http://" + PS.PortalAlias.HTTPAlias  + PS.HomeDirectory + PS.LogoFile;
-            
+            string logo = "";
+            if(PS.LogoFile.Contains("http"))
+                logo =  PS.LogoFile;
+            else
+                logo = "http://" + PS.PortalAlias.HTTPAlias  + PS.HomeDirectory + PS.LogoFile;
             string loginURL =   DotNetNuke.Common.Globals.NavigateURL(PS.LoginTabId) ;
 
 
