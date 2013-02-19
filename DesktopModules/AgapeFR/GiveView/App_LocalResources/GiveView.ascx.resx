@@ -168,8 +168,8 @@
   <data name="Bank.Text" xml:space="preserve">
     <value>Bank Name:</value>
   </data>
-  <data name="BankAcc.Text" xml:space="preserve">
-    <value>Account Number:</value>
+  <data name="IBAN.Text" xml:space="preserve">
+    <value>IBAN:</value>
   </data>
   <data name="BankInfo.Text" xml:space="preserve">
     <value>Bank Info:</value>
@@ -198,14 +198,8 @@
   <data name="FreqError.Text" xml:space="preserve">
     <value>You must select a frequency for your donation.</value>
   </data>
-  <data name="Password.Text" xml:space="preserve">
-    <value>Password:</value>
-  </data>
   <data name="TheKey.Text" xml:space="preserve">
     <value>Staff Login</value>
-  </data>
-  <data name="UserName.Text" xml:space="preserve">
-    <value>User Name:</value>
   </data>
   <data name="GoBank.Text" xml:space="preserve">
     <value>Finish</value>
@@ -237,22 +231,52 @@
   <data name="Country.Text" xml:space="preserve">
     <value>Country:</value>
   </data>
-  <data name="ListLogOne.Text" xml:space="preserve">
-    <value>I am a returning user.</value>
-  </data>
-  <data name="ListLogTwo.Text" xml:space="preserve">
-    <value>I have a staff account.</value>
-  </data>
-  <data name="ListLogZero.Text" xml:space="preserve">
-    <value>I am a new user.</value>
-  </data>
-  <data name="UserLogin.Text" xml:space="preserve">
-    <value>Login</value>
-  </data>
   <data name="ConfeMail.Text" xml:space="preserve">
     <value>Confirm Email:</value>
   </data>
-  <data name="BankAccName.Text" xml:space="preserve">
-    <value>Name on Acount:</value>
+  <data name="FreqParaOne.Text" xml:space="preserve">
+    <value>quarterly</value>
+  </data>
+  <data name="FreqParaThree.Text" xml:space="preserve">
+    <value>yearly</value>
+  </data>
+  <data name="FreqParaTwo.Text" xml:space="preserve">
+    <value>twice yearly</value>
+  </data>
+  <data name="FreqParaZero.Text" xml:space="preserve">
+    <value>monthly</value>
+  </data>
+  <data name="lblCreditCard.Text" xml:space="preserve">
+    <value>Your gift will be added to the cart. Feel free to leave a personal message for the recipient below.</value>
+  </data>
+  <data name="lblCheque.Text" xml:space="preserve">
+    <value>Here are the instructions for mailing your check. Obviously there is some work to do here.</value>
+  </data>
+  <data name="lblFrequency.Text" xml:space="preserve">
+    <value>I would like to give a gift...</value>
+  </data>
+  <data name="btnEditVirement.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="btnVirementNext.Text" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="WantGivePara1.Text" xml:space="preserve">
+    <value>I would like to give a </value>
+  </data>
+  <data name="WantGivePara2.Text" xml:space="preserve">
+    <value> gift of </value>
+  </data>
+  <data name="WantGivePara3.Text" xml:space="preserve">
+    <value>I can confirm that the information below is correct.</value>
+  </data>
+  <data name="lblSummaryInfo.Text" xml:space="preserve">
+    <value>Please confirm your information before proceeding.</value>
+  </data>
+  <data name="lblSummaryLeft.Text" xml:space="preserve">
+    <value>My Information:</value>
+  </data>
+  <data name="lblSummaryRight.Text" xml:space="preserve">
+    <value>My Bank's Information:</value>
   </data>
 </root>

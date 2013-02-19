@@ -120,7 +120,7 @@
   <data name="AddToCart.Text" xml:space="preserve">
     <value>Ajouter au Panier</value>
   </data>
-  <data name="ListFreqFive.Text" xml:space="preserve">
+  <data name="ListFreqFour.Text" xml:space="preserve">
     <value>Aujourd'hui</value>
   </data>
   <data name="ListFreqOne.Text" xml:space="preserve">
@@ -136,7 +136,7 @@
     <value>et</value>
   </data>
   <data name="OneOffPre.Text" xml:space="preserve">
-    <value>Je tiens à donner par</value>
+    <value>Je souhaite donner par :</value>
   </data>
   <data name="rblMethOne.Text" xml:space="preserve">
     <value>virement</value>
@@ -168,8 +168,8 @@
   <data name="Bank.Text" xml:space="preserve">
     <value>Banque nom :</value>
   </data>
-  <data name="BankAcc.Text" xml:space="preserve">
-    <value>Numéro de compte :</value>
+  <data name="IBAN.Text" xml:space="preserve">
+    <value>IBAN :</value>
   </data>
   <data name="BankInfo.Text" xml:space="preserve">
     <value>Info de la banque :</value>
@@ -198,14 +198,8 @@
   <data name="FreqError.Text" xml:space="preserve">
     <value>Vous devez sélectionner une fréquence pour votre don.</value>
   </data>
-  <data name="Password.Text" xml:space="preserve">
-    <value>Mot de passe :</value>
-  </data>
   <data name="TheKey.Text" xml:space="preserve">
     <value>Equipiers</value>
-  </data>
-  <data name="UserName.Text" xml:space="preserve">
-    <value>Nom d'utilisateur :</value>
   </data>
   <data name="GoBank.Text" xml:space="preserve">
     <value>Finir</value>
@@ -237,22 +231,52 @@
   <data name="Country.Text" xml:space="preserve">
     <value>Pays :</value>
   </data>
-  <data name="ListLogOne.Text" xml:space="preserve">
-    <value>Je suis revenu.</value>
-  </data>
-  <data name="ListLogTwo.Text" xml:space="preserve">
-    <value>Je suis équipier.</value>
-  </data>
-  <data name="ListLogZero.Text" xml:space="preserve">
-    <value>Je suis nouveau.</value>
-  </data>
-  <data name="UserLogin.Text" xml:space="preserve">
-    <value>Connexion</value>
-  </data>
   <data name="ConfeMail.Text" xml:space="preserve">
     <value>Confirmer Courriel :</value>
   </data>
-  <data name="BankAccName.Text" xml:space="preserve">
-    <value>Nom sur le compte :</value>
+  <data name="FreqParaOne.Text" xml:space="preserve">
+    <value>trimestriel</value>
+  </data>
+  <data name="FreqParaThree.Text" xml:space="preserve">
+    <value>annuel</value>
+  </data>
+  <data name="FreqParaTwo.Text" xml:space="preserve">
+    <value>semestriel</value>
+  </data>
+  <data name="FreqParaZero.Text" xml:space="preserve">
+    <value>mensuel</value>
+  </data>
+  <data name="lblCreditCard.Text" xml:space="preserve">
+    <value>Ce don sera ajouter dans votre panier. Vous pouvez laisser un message dessous si vous voulez.</value>
+  </data>
+  <data name="lblCheque.Text" xml:space="preserve">
+    <value>Voici les instructions pour envoyer votre cheque. Il faut que quelq'un les me donne...</value>
+  </data>
+  <data name="lblFrequency.Text" xml:space="preserve">
+    <value>Je veux donner...</value>
+  </data>
+  <data name="btnEditVirement.Text" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="btnVirementNext.Text" xml:space="preserve">
+    <value>Continuer</value>
+  </data>
+  <data name="WantGivePara1.Text" xml:space="preserve">
+    <value>Je veux faire un don </value>
+  </data>
+  <data name="WantGivePara2.Text" xml:space="preserve">
+    <value> de </value>
+  </data>
+  <data name="lblSummaryInfo.Text" xml:space="preserve">
+    <value>Merci de confirmer vos informations avant de continuer.</value>
+  </data>
+  <data name="lblSummaryLeft.Text" xml:space="preserve">
+    <value>Mes infos :</value>
+  </data>
+  <data name="lblSummaryRight.Text" xml:space="preserve">
+    <value>Les infos de ma banque :</value>
+  </data>
+  <data name="WantGivePara3.Text" xml:space="preserve">
+    <value>Je confirme que les informations ci-dessous sont correctes.</value>
   </data>
 </root>
