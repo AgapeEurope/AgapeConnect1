@@ -22,7 +22,6 @@ Imports Cart
 Imports Give
 Imports StaffBrokerFunctions
 Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
-Imports iTextSharp.text.pdf
 
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
@@ -30,30 +29,13 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
 
 #Region "Page Events"
         Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
-            Page.Title = "Agap&eacute; - " & Title.Text
-            'Page.Header.InnerHtml = "<link rel=""image_src"" href=""" & & StoryImage.ImageUrl & """ />"
-
-            'CType(Page.Header.FindControl("MetaDescription"), HtmlMeta).Content = Left(FullStoryController.StripTags(GiveTextLbl.Text), 400) & "..."
-
-            'If Not (System.IO.File.Exists(Server.MapPath("/DesktopModules/StaffDirectory/imageCache/img" & CInt(hfUserId1.Value) & ".jpg"))) Then
-            '    Dim input As WebRequest = WebRequest.Create(Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "/DesktopModules/StaffDirectory/GetImage.aspx?UserId=" & hfUserId1.Value & "&size=200")
-            '    Dim webResponse As Stream = input.GetResponse().GetResponseStream
-            '   Dim original As System.Drawing.Image = Bitmap.FromStream(webResponse)
-
-            '    original.Save(Server.MapPath("/DesktopModules/StaffDirectory/imageCache/img" & CInt(hfUserId1.Value) & ".jpg"), System.Drawing.Imaging.ImageFormat.Jpeg)
-
-            'End If
-
-            'Dim meta As New HtmlMeta
-            'meta.Name = "og:image"
-            'meta.Content = "http://www.agape.org.uk/DesktopModules/StaffDirectory/imageCache/img" & CInt(hfUserId1.Value) & ".jpg"
-
-            'Page.Header.Controls.AddAt(0, meta)
-
+            Page.Title = "Agapé - " & Title.Text
         End Sub
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             'Translate the page
             SetTranslate()
+            'Hide Add to Cart Button - should be optional.
+            btnCarte.Visible = False
             If Not Me.IsPostBack Then
                 'add the css to pick up fields from client side
                 AddCSS()
@@ -86,7 +68,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 If Request.QueryString("giveto") <> "" Then
                     Dim dBroke As New StaffBrokerDataContext
                     Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
-
                     'first try staff
                     If staff.Count > 0 Then
                         'Detect if UnNamed - if so use giving shortcut instead
@@ -96,8 +77,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                             Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
                             hfUserId1.Value = staff.First.UserId1
                         End If
-                        theImage1.ImageUrl = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
-                        Dim GiveText = GetStaffProfileProperty(staff.First.StaffId, "GivingText")
+                        ViewState("imageurl") = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
+                        theImage1.ImageUrl = ViewState("imageurl")
                         RowId.Value = staff.First.StaffId
                         DonationType.Value = "Staff"
                         Return
@@ -117,6 +98,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     badquery()
                 End If
             End If
+            theImage1.ImageUrl = ViewState("imageurl")
         End Sub
         Protected Sub badquery()
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
@@ -126,15 +108,16 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             End If
         End Sub
         Private Sub SetTranslate()
+
             rblFrequency.Items.Item(0).Text = Translate("ListFreqZero")
             rblFrequency.Items.Item(1).Text = Translate("ListFreqOne")
             rblFrequency.Items.Item(2).Text = Translate("ListFreqTwo")
             rblFrequency.Items.Item(3).Text = Translate("ListFreqThree")
             rblFrequency.Items.Item(4).Text = Translate("ListFreqFour")
-            rblLogType.Items.Item(0).Text = Translate("ListLogZero")
-            rblLogType.Items.Item(1).Text = Translate("ListLogOne")
-            rblLogType.Items.Item(2).Text = Translate("ListLogTwo")
             lblWantGive.Text = Translate("WantGive")
+            lblCreditCard.Text = Translate("lblCreditCard")
+            lblCheque.Text = Translate("lblCheque")
+            lblFrequency.Text = Translate("lblFrequency")
             Dim giveName As String = ""
             If Request.QueryString("giveto") <> "" Then
                 Dim dBroke As New StaffBrokerDataContext
@@ -169,22 +152,38 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             LlbCountry.Text = Translate("Country")
             LblRegion.Text = Translate("Region")
             LblPostCode.Text = Translate("PostCode")
-            lblAccName.Text = Translate("BankAccName")
             lblBank.Text = Translate("Bank")
             lblBankStreet1.Text = Translate("BankSt1")
             lblBankStreet2.Text = Translate("BankSt2")
             lblBankCity.Text = Translate("BankCity")
             lblBankPostal.Text = Translate("BankPostal")
-            lblBankAcc.Text = Translate("BankAcc")
+            lblIBAN.Text = Translate("IBAN")
             lblBankInfo.Text = Translate("BankInfo")
-            lblPassword.Text = Translate("Password")
-            lblUserName.Text = Translate("UserName")
-            btnUserLogin.Text = Translate("UserLogin")
             btnGoBank.Text = Translate("GoBank")
+            lblSummaryLeft.Text = Translate("lblSummaryLeft")
+            lblSummaryRight.Text = Translate("lblSummaryRight")
+            lblSummaryInfo1.Text = Translate("lblSummaryInfo")
+            lblSumTextFirst.Text = Translate("FirstName")
+            lblSumTextLast.Text = Translate("LastName")
+            lblSumTextStreet1.Text = Translate("Street1")
+            lblSumTextStreet2.Text = Translate("Street2")
+            lblSumTextCity.Text = Translate("City")
+            lblSumTextCountry.Text = Translate("Country")
+            lblSumTextRegion.Text = Translate("Region")
+            lblSumTextPostal.Text = Translate("PostCode")
+            lblSumTextEmail.Text = Translate("eMail")
+            lblSumTextMobile.Text = Translate("Mobile")
+            lblSumTextPhone.Text = Translate("Telephone")
+            lblSumTextBankName.Text = Translate("Bank")
+            lblSumTextBankAddress1.Text = Translate("BankSt1")
+            lblSumTextBankAddress2.Text = Translate("BankSt2")
+            lblSumTextBankPostal.Text = Translate("BankPostal")
+            lblSumTextBankCity.Text = Translate("BankCity")
+            lblSumTextBankIBAN.Text = Translate("IBAN")
+
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
-            rblLogType.CssClass = rblLogType.CssClass & " rblLog"
             tbAmount.CssClass = tbAmount.CssClass & " tbAmt"
             rblMethod.CssClass = rblMethod.CssClass & " rblMeth"
 
@@ -211,16 +210,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Public Function Translate(ByVal ResourceString As String) As String
             Return DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
         End Function
-        'Private Function CreateUser(ByVal Surname As String, ByVal Forname As String, ByVal Tel As String, ByVal Email As String) As String
-        '    Dim objUser As New DotNetNuke.Entities.Users.UserInfo
-        '    objUser.FirstName = "Chris:"
-        '    objUser.LastName = "Carter"
-        '    objUser.DisplayName = objUser.FirstName & " " & objUser.LastName
-        '    objUser.Username = "thesunisoftenout@googlemail.com"
-        '    objUser.Email = "thesunisoftenout@googlemail.com"
-        '    DotNetNuke.Entities.Users.UserController.CreateUser(objUser)
-        '    Return "Fine"
-        'End Function
         Private Function GetUniqueCode() As String
 
             Dim allChars As String = "ABCDEFGHJKLMNPQRTVWXYZ2346789"
@@ -230,7 +219,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim str As New System.Text.StringBuilder
             Dim xx As Integer
             While Not GotUniqueCode
-
 
                 str = New System.Text.StringBuilder
                 For i As Byte = 1 To 6 'length of req key
@@ -254,66 +242,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim count = (From c In d.Agape_Give_BankTransfers Where c.Reference = code).Count
             Return IIf(count = 0, True, False)
         End Function
-        Private Sub CreatePdf()
-            'Dim d As New AgapeStaff.AgapeStaffDataContext
-            'Dim q = From c In d.Agape_Main_Give_SOs Where c.SOID = hfSOID.Value
-            'If q.Count > 0 Then
-            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-            Dim objUser = UserController.GetUserById(PS.PortalId, UserId)
-            Dim userAddress = objUser.Profile.GetPropertyValue("Street")
-            If Not objUser.Profile.GetPropertyValue("Unit") = "" Then
-                userAddress += vbCrLf & objUser.Profile.GetPropertyValue("Unit")
-            End If
-            userAddress += vbCrLf & objUser.Profile.GetPropertyValue("PostalCode") & " " & objUser.Profile.GetPropertyValue("City")
-            Dim theFreq = "Error"
-            If rblFrequency.SelectedIndex = 0 Then
-                theFreq = Translate("FreqParaZero")
-            ElseIf rblFrequency.SelectedIndex = 1 Then
-                theFreq = Translate("FreqParaOne")
-            ElseIf rblFrequency.SelectedIndex = 2 Then
-                theFreq = Translate("FreqParaTwo")
-            ElseIf rblFrequency.SelectedIndex = 3 Then
-                theFreq = Translate("FreqParaThree")
-            ElseIf rblFrequency.SelectedIndex = 4 Then
-                theFreq = ""
-            End If
-
-            Dim theParagraph = "Je, soussigné(e), prie l’établissement tenant mon compte d’effectuer au profit du titulaire du compte d’Agapé France, désigné ci-dessus, un virement " & theFreq & " de " & tbAmount.Text & "€"
-            If rblFrequency.SelectedIndex = 4 Then
-                theParagraph += "."
-            Else
-                theParagraph += ", à partir du " & Today() & " et jusqu'à résiliation de ma part."
-            End If
-            Dim bankAddress = tbBankStreet1.Text
-            If Not tbBankStreet2.Text = "" Then
-                bankAddress += vbCrLf & tbBankStreet2.Text
-            End If
-            bankAddress += vbCrLf & tbBankPostal.Text & " " & tbBankCity.Text
-            Dim pdfTemplate As String = Server.MapPath("/Portals/0/virement.pdf")
-
-            'Dim newFile As String = Server.MapPath("/Portals/0/Standing Order Form" & UserId & ".pdf")
-            Dim newFile As String = Server.MapPath("/Portals/0/Filled.pdf")
-
-            Dim pdfReader As New PdfReader(pdfTemplate)
-
-            Dim pdfStamper As New PdfStamper(pdfReader, New FileStream(newFile, FileMode.Create))
-
-            Dim pdfFormFields As AcroFields = pdfStamper.AcroFields
-            pdfFormFields.SetField("LastName", objUser.LastName)
-            pdfFormFields.SetField("FirstName", objUser.FirstName)
-            pdfFormFields.SetField("Address", userAddress)
-            pdfFormFields.SetField("Paragraph", theParagraph)
-            pdfFormFields.SetField("Bank", tbBank.Text)
-            pdfFormFields.SetField("BankAddress", bankAddress)
-            pdfFormFields.SetField("IBAN", tbBankAcc.Text)
-            pdfFormFields.SetField("Paragraph", theParagraph)
-            pdfStamper.FormFlattening = True
-
-            ' close the pdf
-            pdfStamper.Close()
-
-            'End If
-        End Sub
 #End Region
 #Region "Buttons"
         ' TODO Changer les valeurs DonationType en utilisant les constantes CartFunctions.DonationType
@@ -407,52 +335,22 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     insert.BankStreet1 = tbBankStreet1.Text
                     insert.BankStreet2 = tbBankStreet2.Text
                     insert.Frequency = rblFrequency.SelectedValue
+                    insert.acNo = tbIBAN.Text
                     'TODO create give message box for Virement
-                    insert.GiveMessage = ""
+                    insert.GiveMessage = "Default Give Message!"
                     insert.Status = 0
                     insert.TypeId = RowId.Value
                     d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
                     d.SubmitChanges()
                     UpdateUser()
-
+                    HyperLink1.NavigateUrl = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
+                    hfSONextStep.Value = 1
+                Else
+                    lblOOError.Text = "No donation type in the db"
+                    lblOOError.Visible = True
                 End If
             End If
         End Sub
-#End Region
-
-
-
-
-
-
-
-
-        'TRENT: eat a cookie
-        'Protected Sub downloadPDF_Click(sender As Object, e As System.EventArgs) Handles downloadPDF.Click
-
-        'End Sub
-
-        'Protected Sub btnSOContinue_Click(sender As Object, e As System.EventArgs) Handles btnSOContinue.Click
-        '    'Validate
-        '    If tbAccNum.Text = "" Or tbSOAmount.Text = "" Or tbSort1.Text = "" Or tbSort2.Text = "" Or tbSort3.Text = "" Then
-        '        lblSOError.Text = "Please make sure all of the boxes are filled in."
-        '        lblSOError.Visible = True
-        '        theHiddenTabIndex.Value = 0
-        '    Else
-        '        'Create the SO
-        '        lblSOError.Visible = False
-        '        Session("SortCode") = tbSort1.Text & tbSort2.Text & tbSort3.Text
-        '        Session("Amount") = CDbl(tbSOAmount.Text)
-        '        Session("Frequency") = CInt(rblFrequency.SelectedValue)
-        '        Session("AccountNo") = tbAccNum.Text
-        '        Session("GiveToType") = CStr(DonationType.Value)
-        '        Session("RefId") = CInt(RowId.Value)
-        '        Session("StartDate") = CDate(dtStartDate.Text)
-        '        Session("SOGUID") = Guid.NewGuid().ToString
-        '        Response.Redirect(EditUrl("SOLogin"))
-        '    End If
-        'End Sub
-
         Protected Sub UpdateUser()
             Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
             Dim theUser = UserController.GetUserById(PS.PortalId, UserId)
@@ -469,9 +367,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theUser.Profile.PostalCode = TxtPostCode.Text
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
+#End Region
 
-        Protected Sub btnPDFTime_Click(sender As Object, e As EventArgs) Handles btnPDFTime.Click
-            CreatePdf()
-        End Sub
+
     End Class
 End Namespace
