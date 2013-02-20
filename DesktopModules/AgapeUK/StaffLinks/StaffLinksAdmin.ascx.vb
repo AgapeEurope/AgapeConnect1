@@ -28,7 +28,7 @@ Namespace DotNetNuke.Modules.StaffLinks
             Dim thisURL As String = ""
             Dim onSite As Integer = -5
             If ddlSiteChoice.SelectedIndex = 0 Then
-                thisURL = DotNetNuke.Common.Globals.NavigateURL(ddlSitePageList.SelectedValue)
+                thisURL = NavigateURL(CInt(ddlSitePageList.SelectedValue))
                 onSite = ddlSitePageList.SelectedValue
             ElseIf ddlSiteChoice.SelectedIndex = 1 Then
                 thisURL = tbPageURL.Text
@@ -106,7 +106,7 @@ Namespace DotNetNuke.Modules.StaffLinks
                         Dim siteChoice As DropDownList = CType(thisRow.FindControl("gvDdlChoice"), DropDownList)
                         If siteChoice.SelectedValue = 0 Then
                             Dim pageChoice As DropDownList = CType(thisRow.FindControl("gvDdlOnSite"), DropDownList)
-                            linkURL = DotNetNuke.Common.Globals.NavigateURL(pageChoice.SelectedValue)
+                            linkURL = NavigateURL(CInt(pageChoice.SelectedValue))
                             onSite = pageChoice.SelectedValue
                         ElseIf siteChoice.SelectedValue = 1 Then
                             linkURL = CType(thisRow.FindControl("gvTbOffSite"), TextBox).Text

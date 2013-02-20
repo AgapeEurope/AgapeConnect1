@@ -13,8 +13,7 @@
             $('#staffShortcuts').hide();
             $('#scrollBtn').click(function () {
                 var fullHeight = document.body.scrollHeight;
-                $('#staffShortcuts').show().css({ 'height': '0px', 'width': '0px', 'opacity': '0.0' });
-                $('#staffShortcuts').animate({ opacity: 1.0, height: "+=200", width: "+=500" }, 1000);
+                $('#staffShortcuts').fadeIn()
                 $('#outerContainer').append('<div id="modeBGrnd" class="ui-widget-overlay" style="z-index: 1001; height:' + fullHeight + 'px;"></div>');
             });
         }
@@ -27,7 +26,7 @@
         });
     }(jQuery, window.Sys));
     function closeStaffBox() {
-        $('#staffShortcuts').animate({opacity:0,height: 0, width: 0 }, 1000);
+        $('#staffShortcuts').hide();
         $('#modeBGrnd').remove();
     }
 </script>
@@ -38,10 +37,23 @@
     F<br />
     F
 </div>
-<div style="width: 500px; height: 200px;" id="staffShortcuts">
-    <div style="text-align:right; width:100%;">
-        <img style="cursor:pointer; width:20px;" src="../../../images/cancel.gif" onclick="closeStaffBox(); return false;" />
-
+<div id="staffShortcuts" style="min-width: 100px;">
+    <div style="text-align: right; width: 100%;">
+        <img style="cursor: pointer; width: 20px;" src="../../../images/cancel.gif" onclick="closeStaffBox(); return false;" />
     </div>
+    <div style="padding: 10px; text-align:left;">
+        <asp:Repeater ID="dRepeatLinks" runat="server" DataSourceID="dsLinks">
+            <ItemTemplate>
+                <div class="Agape_Orange_H4">
+                    <a target='<%# whatTarget(Eval("NewWindow")) %>' href='<%# Eval("LinkURL")%>'>
+                        <asp:Label ID="lblLinkText" runat="server" Text='<%# Eval("LinkName") %>'></asp:Label>
+                    </a>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+    <asp:LinqDataSource ID="dsLinks" runat="server" ContextTypeName="UK.StaffLink.StaffLinkDataContext" EntityTypeName="" OrderBy="SortOrder" Select="new (NewWindow, LinkURL, LinkName, SortOrder, StaffLinkId)" TableName="Agape_Staff_Links">
+    </asp:LinqDataSource>
+
 </div>
 

@@ -102,6 +102,14 @@ a:hover {
     font-family: 'Source Sans Pro', Arial, sans-serif;
     font-weight: 700;
 }
+    .Agape_Orange_H4 a {
+        cursor: pointer;
+        color: #ED8923;;
+        font-size: 12pt;
+        font-family: 'Source Sans Pro', Arial, sans-serif;
+        font-weight: 700;
+        text-decoration: none !important;
+    }
 
 .Agape_Orange_H5 {
     color: #ED8923;
@@ -139,6 +147,7 @@ a:hover {
     font-family: 'Source Sans Pro', Arial, sans-serif;
     font-weight: 700;
 }
+
 
 .Agape_lOrange_H5 {
     color: #FEB925;
@@ -687,4 +696,11 @@ a:hover {
     z-index: 9999;
     background-color: #fff;
     border: 2px solid #3EB3C9;
+}
+.Agape_Orange_H4Overwrite {
+    color: #ED8923 !important;
+    font-size: 12pt !important;
+    font-family: 'Source Sans Pro', Arial, sans-serif !important;
+    font-weight: 700 !important;
+    text-decoration:none !important;
 }
