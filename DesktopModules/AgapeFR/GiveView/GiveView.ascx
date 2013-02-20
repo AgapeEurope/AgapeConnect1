@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
+<%@ Register TagPrefix="dnn2" TagName="Login" Src="~/DesktopModules/AgapeFR/Authentication/AgapeAuth.ascx" %>
 <script type="text/javascript">
     (function ($, Sys) {
         function setUpMyPage() {
@@ -103,7 +104,7 @@
         $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
         $('#freqchoose').slideUp(1000);
         $('#amtchoose').slideUp(1000);
-        $('#login').slideUp(1000);
+        $('#thelogincont').slideUp(1000);
         $('#contact').slideUp(1000);
         $('#methchoose').slideUp(1000);
         $('#virement').slideUp(1000);
@@ -115,7 +116,7 @@
     function btnEditVirement_click() {
         $('#freqchoose').slideDown(1000);
         $('#amtchoose').slideDown(1000);
-        $('#login').slideDown(1000);
+        $('#thelogincont').slideDown(1000);
         $('#contact').slideDown(1000);
         $('#methchoose').slideDown(1000);
         $('#virement').slideDown(1000);
@@ -170,10 +171,10 @@
     function amt_enter() {
         var inp = $(".tbAmt").val();
         if (inp.length > 0 && inp > 0) {
-            $('#login').slideDown(1000);
+            $('#thelogincont').slideDown(1000);
             var logged = $('#hfLoggedIn').val();
             if (logged == "False") {
-                $('#login').slideDown(1000);
+                $('#thelogincont').slideDown(1000);
             }
             else {
                 $('#contact').slideDown(1000);
@@ -185,7 +186,7 @@
         else {
             //hidedivs();
             //$('#amtchoose').show();
-            $('#login').slideUp(1000);
+            $('#thelogincont').slideUp(1000);
             $('#contact').slideUp(1000);
             $('#methchoose').slideUp(1000);
             $('#creditcard').slideUp(1000);
@@ -196,7 +197,7 @@
     function hidedivs() {
 
         $('#amtchoose').hide();
-        $('#login').hide();
+        $('#thelogincont').hide();
         $('#contact').hide();
         $('#methchoose').hide();
         $('#virement').hide();
@@ -322,8 +323,9 @@
             <asp:TextBox ID="tbAmount" runat="server"></asp:TextBox>
             <asp:Label ID="lblTo" runat="server" Text="Label"></asp:Label>
         </div>
-        <div id="login" runat="server" class="bubble">
-            This is the login div.
+        <div id="thelogincont" runat="server" class="bubble">
+            This is the thelogincont div.
+            <dnn2:Login ID="Login1" runat="server" />
         </div>
         <div id="contact" class="bubble">
             <div style="float: left">
@@ -611,8 +613,8 @@
             <a id="btnEditVirement" class="aButton"><%= Translate("btnEditVirement") %></a>
         </div>
         <div id="confirmation" class="bubble">
-            Confirmation Message goes here. Instructions for setting up donation with own bank with option to print PDF from link.
-                        <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">Get your PDF!</asp:HyperLink>
+            <asp:Label ID="lblConfText1" resourcekey="lblConfText1" runat="server" />
+                        <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server"><asp:label ID="lblLinkPDF" text="text" runat="server" /></asp:HyperLink>
         </div>
         <div id="creditcard" class="bubble">
             <asp:Label ID="lblCreditCard" Text="" runat="server" /><br />

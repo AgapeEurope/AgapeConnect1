@@ -58,7 +58,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     cboCountry.SelectedValue = objUser.Profile.Country
                     'lblPassword.Visible = False
                     'tbPassword.Visible = False
-                    login.Style("Display") = "none"
+                    thelogincont.Style("Display") = "none"
                 Else
                     hfLoggedIn.Value = "False"
                 End If
@@ -180,7 +180,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankPostal.Text = Translate("BankPostal")
             lblSumTextBankCity.Text = Translate("BankCity")
             lblSumTextBankIBAN.Text = Translate("IBAN")
-
+            lblLinkPDF.Text = Translate("lblLinkPDF")
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
@@ -292,7 +292,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim x = mc.GetModuleByDefinition(PortalId, "frPresentationPage")
             If Not x Is Nothing Then
                 If Not x.TabID = Nothing Then
-                    Response.Redirect(NavigateURL(x.TabID) & "?giveto=" & shortcut)
+                    Response.Redirect(NavigateURL(x.TabID, "", "giveto=" + shortcut))
                 End If
             End If
         End Sub
