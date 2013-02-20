@@ -183,4 +183,19 @@
   <data name="Cart.Text" xml:space="preserve">
     <value>Cart</value>
   </data>
+  <data name="BillingAddressTitle.Text" xml:space="preserve">
+    <value>Billing Address</value>
+  </data>
+  <data name="BtnCopyBillingAddress.Text" xml:space="preserve">
+    <value>Copy billing address</value>
+  </data>
+  <data name="BtnCopyShippingAddress.Text" xml:space="preserve">
+    <value>Copy shipping address</value>
+  </data>
+  <data name="BtnModify.Text" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="ShippingAddressTitle.Text" xml:space="preserve">
+    <value>Shipping Address</value>
+  </data>
 </root>

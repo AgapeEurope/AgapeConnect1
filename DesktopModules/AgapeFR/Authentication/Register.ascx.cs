@@ -676,7 +676,7 @@ namespace DotNetNuke.Modules.AgapeFR.Authentication
                 {
                     if (!TabPermissionController.CanAdminPage())
                     {
-                        //DAVID: Commented out to avoid null pointer error when user already logged in and no ContainerControl (control within another module)
+                        //Agapé: Commented out to avoid null pointer error when user already logged in and no ContainerControl (control within another module)
                         //ContainerControl.Visible = false;
                     }
                 }
