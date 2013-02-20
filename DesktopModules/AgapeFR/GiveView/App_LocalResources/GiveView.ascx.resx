@@ -285,4 +285,7 @@
   <data name="lblLinkPDF.Text" xml:space="preserve">
     <value>Click for PDF</value>
   </data>
+  <data name="lblTheLoginCont.Text" xml:space="preserve">
+    <value>Please log in to continue.</value>
+  </data>
 </root>

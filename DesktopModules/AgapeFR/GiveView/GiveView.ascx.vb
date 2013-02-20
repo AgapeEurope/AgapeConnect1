@@ -26,6 +26,8 @@ Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
         Inherits Entities.Modules.PortalModuleBase
+        Public loggedin As Boolean
+
 
 #Region "Page Events"
         Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
@@ -41,7 +43,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 AddCSS()
                 'check if the user's logged in
                 If Me.UserId > 0 Then
-                    hfLoggedIn.Value = "True"
+                    loggedin = True
                     'Read in fields if logged in
                     Dim objUser As DotNetNuke.Entities.Users.UserInfo = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, Me.UserId)
                     TxtFirstName.Text = objUser.FirstName
@@ -56,11 +58,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
                     cboCountry.SelectedValue = objUser.Profile.Country
-                    'lblPassword.Visible = False
-                    'tbPassword.Visible = False
-                    thelogincont.Style("Display") = "none"
+                    'thelogincont.Style("Display") = "none"
                 Else
-                    hfLoggedIn.Value = "False"
+                    loggedin = False
                 End If
 
                 'Find the giving type and display the title of the page
@@ -188,6 +188,11 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             rblMethod.CssClass = rblMethod.CssClass & " rblMeth"
 
         End Sub
+
+        Protected Sub Page_Unload(sender As Object, e As EventArgs) Handles Me.Unload
+            Dim blah As String = "vide"
+        End Sub
+
 #End Region
 #Region "Functions"
         Private Function ChangeName(ByVal inName As String) As String
@@ -368,6 +373,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
 #End Region
+
 
 
     End Class
