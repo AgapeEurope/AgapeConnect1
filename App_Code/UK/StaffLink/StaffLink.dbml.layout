@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9" name="StaffLink">
+  <DataContextMoniker Name="/StaffLinkDataContext" />
+  <nestedChildShapes>
+    <classShape Id="3df8ea1d-d7d7-4ff8-8b95-0aedc0f5bf37" absoluteBounds="3.625, 0.75, 2, 7.5399397786458326">
+      <DataClassMoniker Name="/StaffLinkDataContext/Tab" />
+      <nestedChildShapes>
+        <elementListCompartment Id="84800546-ac1c-46df-81f6-45e098b4f29b" absoluteBounds="3.6399999999999997, 1.21, 1.9700000000000002, 6.979939778645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.33423076923077 : 8.28993977864583); (4.33423076923077 : 8.53993977864583); (4.92961538461539 : 8.53993977864583); (4.92961538461539 : 8.28993977864583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/StaffLinkDataContext/Tab/Tab_Tab" />
+      <nodes>
+        <classShapeMoniker Id="3df8ea1d-d7d7-4ff8-8b95-0aedc0f5bf37" />
+        <classShapeMoniker Id="3df8ea1d-d7d7-4ff8-8b95-0aedc0f5bf37" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="e0edbb25-358b-4333-91be-3ef68b3c2c8f" absoluteBounds="0.5, 1.125, 2, 1.9631982421875">
+      <DataClassMoniker Name="/StaffLinkDataContext/Agape_Staff_Link" />
+      <nestedChildShapes>
+        <elementListCompartment Id="564312d0-3f51-4dfa-85c5-0d099b7b5fb6" absoluteBounds="0.515, 1.585, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

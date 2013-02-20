@@ -1,0 +1,28 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="AgapeUK.StaffLinks English (United States)" type="ExtensionLanguagePack" version="1.0.0">
+  <friendlyName>AgapeUK.StaffLinks English (United States)</friendlyName>
+  <description />
+  <iconFile />
+  <owner>
+    <name />
+    <organization />
+    <url />
+    <email />
+  </owner>
+  <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+  <releaseNotes />
+  <components>
+    <component type="ExtensionLanguage">
+      <languageFiles>
+        <code>en-US</code>
+        <package>AgapeUK.StaffLinks</package>
+        <basePath>DesktopModules\AgapeUK/StaffLinks</basePath>
+        <languageFile>
+          <path>DesktopModules\AgapeUK\StaffLinks\App_LocalResources</path>
+          <name>StaffLinks.ascx.resx</name>
+        </languageFile>
+      </languageFiles>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

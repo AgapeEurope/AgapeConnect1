@@ -13,7 +13,9 @@
     width: 100%;
     height: auto;
     overflow: hidden;
-    background: url(/DesktopModules/AgapeConnect/Stories/themes/default/loading.gif) no-repeat 50% 50%;
+    /*background-color:transparent !important;*/
+    background:transparent !important;
+    /*background: url(/DesktopModules/AgapeConnect/Stories/themes/default/loading.gif) no-repeat 50% 50%;*/
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
@@ -77,7 +79,8 @@
     color: #fff;
     width: 100%;
     z-index: 8;
-    padding: 5px 10px;
+    padding-left:5px !important;
+    padding-bottom: 10px !important;
     overflow: hidden;
     display: none;
     -moz-opacity: 0.9;
