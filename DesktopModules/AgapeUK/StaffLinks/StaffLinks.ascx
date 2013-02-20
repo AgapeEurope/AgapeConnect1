@@ -41,6 +41,7 @@
 <div style="width: 500px; height: 200px;" id="staffShortcuts">
     <div style="text-align:right; width:100%;">
         <img style="cursor:pointer; width:20px;" src="../../../images/cancel.gif" onclick="closeStaffBox(); return false;" />
+
     </div>
 </div>
 

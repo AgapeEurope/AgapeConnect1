@@ -41,7 +41,31 @@
             __doPostBack('<%= btnUploadLink.UniqueID %>', '');
         }
 }
+function gvChangePanel(linkId) {
+    var thisLink = linkId;
+    $('.gvOnSite' + thisLink).hide();
+    $('.gvOffSite' + thisLink).hide();
+    if ($('.gvDdl' + thisLink).val() == 0) {
+        $('.gvOnSite' + thisLink).css({ 'display': 'inline', 'width': 200 });
+        $('.gvOffSite' + thisLink).hide();
+    }
+    else {
+        $('.gvOnSite' + thisLink).hide();
+        $('.gvOffSite' + thisLink).css({ 'display': 'inline', 'width': 200 });
+    }
+}
 </script>
+<style type="text/css">
+    .gvSelector {
+        display: inline;
+        width: 100px !important;
+    }
+
+    .gvTextBox {
+        display: inline;
+        width: 200px !important;
+    }
+</style>
 <asp:HiddenField ID="hfPortalId" runat="server" />
 <asp:UpdatePanel ID="upAll" runat="server">
     <ContentTemplate>
@@ -104,34 +128,76 @@
             </table>
             <br />
             <input type="button" class="aButton" id="btnPreUpload" value="Add Link" onclick="testUp(); return false;" />
-            <asp:Button ID="btnUploadLink" runat="server" Text="Add Link" style="display:none;" />
-            <asp:Label ID="lblError" runat="server" style="color:red;" Visible="false"></asp:Label>
-        </fieldset><br />
+            <asp:Button ID="btnUploadLink" runat="server" Text="Add Link" Style="display: none;" />
+            <asp:Label ID="lblError" runat="server" Style="color: red;" Visible="false"></asp:Label>
+        </fieldset>
+        <br />
         <asp:GridView ID="gvLinks" runat="server" AutoGenerateColumns="False" DataSourceID="dsLinks">
             <Columns>
-                <asp:TemplateField HeaderText="Sort Order"></asp:TemplateField>
-                <asp:BoundField DataField="LinkName" HeaderText="Link Name" ReadOnly="True" SortExpression="LinkName" />
-                <asp:TemplateField HeaderText="Link URL" SortExpression="LinkURL">
+                <asp:TemplateField HeaderText="Sort Order" ItemStyle-HorizontalAlign="Center">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LinkButtonTest" CausesValidation="False" Enabled='<%# upEnabled(Eval("SortOrder"))%>' runat="server" CommandArgument='<%#Eval("StaffLinkId")%>' CommandName="Promote">
+                            <asp:Image ID="Image1" runat="server" ImageUrl='<%# upOrGrey(Eval("SortOrder")) %>' Width="15px" />
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="LinkButtonTest2" CausesValidation="False" Enabled='<%# dnEnabled(Eval("SortOrder"))%>' runat="server" CommandArgument='<%#Eval("StaffLinkId")%>' CommandName="Demote">
+                            <asp:Image ID="Image2" runat="server" ImageUrl='<%# dnOrGrey(Eval("SortOrder")) %>' Width="15px" />
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Link Name" SortExpression="LinkName">
                     <EditItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("LinkURL") %>'></asp:Label>
+                        <asp:TextBox ID="tbLinkName" runat="server" Text='<%# Eval("LinkName") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="Label2" runat="server" Text='<%# IsItSite(Eval("StaffLinkId")) %>'></asp:Label><asp:Label ID="Label1" runat="server" Text='<%# outputURL(Eval("StaffLinkId"))%>'></asp:Label>
+                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("LinkName") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:CheckBoxField DataField="NewWindow" HeaderText="New Window" ReadOnly="True" SortExpression="NewWindow" />
+                <asp:TemplateField ControlStyle-Width="350px" HeaderText="Link URL" ItemStyle-Width="400px" ItemStyle-Wrap="True" SortExpression="LinkURL">
+                    <EditItemTemplate>
+                        <asp:HiddenField ID="hfLinkId" runat="server" Value='<%# Eval("StaffLinkId") %>' />
+                        <asp:DropDownList ID="gvDdlChoice" runat="server" CssClass='<%# "gvSelector gvDdl" & Eval("StaffLinkId") %>' onchange='<%# "gvChangePanel(" & Eval("StaffLinkId") & "); return false;"%>' SelectedValue='<%#gvSiteChoice(Eval("StaffLinkId"))%>'>
+                            <asp:ListItem Value="0">On Site</asp:ListItem>
+                            <asp:ListItem Value="1">Not On Site</asp:ListItem>
+                        </asp:DropDownList>
+                        <div class='<%# "gvOnSite" & Eval("StaffLinkId")%>' style='<%# isOnSite(Eval("StaffLinkId"))%>'>
+                            <asp:DropDownList ID="gvDdlOnSite" runat="server" AppendDataBoundItems="True" CssClass="gvTextBox" DataSourceID="dsPages" DataTextField="TabName" DataValueField="TabID" SelectedValue='<%# Eval("TabId") %>' Width="200px">
+                                <asp:ListItem Value="-5">Not Selected</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class='<%# "gvOffSite" & Eval("StaffLinkId")%>' style='<%# isOffSite(Eval("StaffLinkId"))%>'>
+                            <asp:TextBox ID="gvTbOffSite" runat="server" CssClass="gvTextBox" Text='<%# Eval("LinkURL") %>' Width="200px"></asp:TextBox>
+                        </div>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label2" runat="server" CssClass="gvSelector" Text='<%# IsItSite(Eval("StaffLinkId")) %>'></asp:Label>
+                        <asp:Label ID="Label1" runat="server" CssClass="gvTextBox" Text='<%# outputURL(Eval("StaffLinkId"))%>'></asp:Label>
+                    </ItemTemplate>
+                    <ControlStyle Width="400px" />
+                    <ItemStyle Width="400px" Wrap="True" />
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="New Window" SortExpression="NewWindow">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("NewWindow") %>' Enabled="false" />
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:CheckBox ID="cbNewWindow" runat="server" Checked='<%# Eval("NewWindow")%>' Enabled="true" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField ShowHeader="False">
                     <EditItemTemplate>
-                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="MyUpdate" Text="Update"></asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CausesValidation="False" CommandName="MyUpdate" Text="Update"></asp:LinkButton>
                         &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                        <asp:Label ID="lblUpdateError" runat="server" visible="false" ForeColor="red"></asp:Label>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton><br />
-                        <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="MyDelete" Text="Delete"></asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton2" runat="server" CommandArgument='<%# Eval("StaffLinkId") %>' CausesValidation="False" CommandName="MyDelete" Text="Delete"></asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
+        <asp:Label ID="lblGVError" runat="server" ForeColor="Red" Visible="false"></asp:Label>
         <asp:LinqDataSource ID="dsLinks" runat="server" ContextTypeName="UK.StaffLink.StaffLinkDataContext" EntityTypeName="" Select="new (LinkName, LinkURL, NewWindow, StaffLinkId, SortOrder, TabId)" TableName="Agape_Staff_Links" EnableDelete="True" EnableInsert="True" EnableUpdate="True" OrderBy="SortOrder">
         </asp:LinqDataSource>
     </ContentTemplate>
