@@ -67,7 +67,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
             'DAVID: Cart - Check where prices should be updated (to handle different prices when the user logs in)
 
             ' Init shared resource file
-            'DAVID: Cart - Improve translation method?
             LocalResourceFile = ApplicationPath + "/DesktopModules/AgapeFR/Cart/App_LocalResources/CartSharedResources.resx"
 
             'If user not connected => redirect to login page
