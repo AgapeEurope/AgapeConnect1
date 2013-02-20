@@ -6,41 +6,54 @@
 <script src="/js/jquery.numeric.js" type="text/javascript"></script>
 <script src="/js/jquery.watermarkinput.js" type="text/javascript"></script>
 <script type="text/javascript">
-
+    
 
 
     (function ($, Sys) {
         function setUpMyTabs() {
             var stop = false;
             
-            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();  });
+            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide(); alert('test1');  });
             $('.currency').keyup(function() { calculateXRate();});
+           
             $('.ddlCur').change(function() { 
 
 
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
-                $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
+                if(FromCur == ToCur)
+                {
+                    $("#<%= hfExchangeRate.ClientId %>").attr('value', 1.0);
+                    calculateXRate();
+                    return;
+                }
+                else
+                {
+                    $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
 
-                var jsonCall= "https://agapeconnect.me/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
-               $('.rmbAmount').val('');
-                 $("#<%= hfExchangeRate.ClientId %>").attr('value', -1);
-                $.getJSON( jsonCall ,function(x) {
+                    var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+               
+                    $('.rmbAmount').val('');
+                    $("#<%= hfExchangeRate.ClientId %>").attr('value', -1);
+                    $.getJSON( jsonCall ,function(x) {
                     
-                    $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
+                        $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
                         //now need to convert any value in the TextBox
                         calculateXRate();
  
-                })      
+                    }) ;
+                    
+                }
     
             });
-            $('.rmbAmount').change(function(){
-                $("#<%= hfOrigCurrency.ClientID%>").attr('value', '');
-                $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value','');
+
+            
+            $('.rmbAmount').keyup(function(){
+                calculateRevXRate();
+               
             });
-            $('.advAmount').change(function(){
-                $("#<%= hfOrigCurrency.ClientID%>").attr('value', '');
-                  $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value','');
+            $('.advAmount').keyup(function(){
+                calculateRevXRateAdv();
               });
 
            //Advance Currency Coverter
@@ -51,17 +64,25 @@
 
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
+
+                if(FromCur == ToCur)
+                {
+                    $("#<%= hfExchangeRate.ClientId %>").attr('value', 1.0);
+                     calculateXRateAdv();
+                     return;
+                 }
+
                 $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
-                var jsonCall= "https://agapeconnect.me/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
                $('.advAmount').val('');
                  $("#<%= hfExchangeRate.ClientId %>").attr('value', -1);
                 $.getJSON( jsonCall ,function(x) {
                     
                     $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
-                        //now need to convert any value in the TextBox
-                        calculateXRateAdv();
+                    //now need to convert any value in the TextBox
+                    calculateXRateAdv();
  
-                })      
+                })      ;
     
             });
 
@@ -284,9 +305,10 @@
         return False;
     }
 
+ 
+
     
-    
-    function showPopup()  {$("#divSignin").dialog("open");return false;}
+    function showPopup()  {$("#divSignin").dialog("open"); checkCur(); return false;}
     function showPopup2() {$("#divSignin2").dialog("open"); return false; }
     function showPopup3() {$("#divSignin3").dialog("open"); return false; }
      function showPopupSplit() {$("#divSplitPopup").dialog("open"); return false; }
@@ -297,38 +319,98 @@
      function showSuggestedPayments() {$("#divSuggestedPayments").dialog("open"); return false; }
     function showAdvanceReq()  {$("#divAdvanceReq").dialog("open");return false;}
 
-    function calculateXRate() {
-    var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
-                var inCur=$('.currency').val() ;
-              if(parseFloat(xRate) <0)
-              {
-                $('.rmbAmount').val('');
-                return;
-              }
-                
-              if(inCur.length>0){
-                  $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inCur);
-                     $('.rmbAmount').val( (parseFloat(xRate) * parseFloat(inCur)).toFixed(2));
-                     
-                     }
+
+    function checkCur(){
+        
+        var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
+        
+        if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>')
+        {
+            var tempValue=$('.rmbAmount').val();  
+            $('.ddlCur').change();
+            $('.rmbAmount').val(tempValue); 
+            $('.divCur').show(); 
+            $('.hlCur').hide(); 
+          
+        
+           
+        }
+
     }
-    function calculateXRateAdv() {
-    var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
-                var inCur=$('.currencyAdv').val() ;
-              if(parseFloat(xRate) <0)
-              {
-                $('.advAmount').val('');
-                return;
-              }
+
+
+
+    function calculateXRate() {
+        var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
+        var inCur=$('.currency').val() ;
+        if(parseFloat(xRate) <0)
+        {
+            $('.rmbAmount').val('');
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',"");
+         
+            return;
+        }
+        $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inCur);
+             
+        if(inCur.length>0){
                 
-              if(inCur.length>0){
-                  $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inCur);
-                     $('.advAmount').val( (parseFloat(xRate) * parseFloat(inCur)).toFixed(2));
+            $('.rmbAmount').val( (parseFloat(xRate) * parseFloat(inCur)).toFixed(2));
+             
+        }
+    }
+    function calculateRevXRate() {
+        ;
+        var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
+        var inAmt=$('.rmbAmount').val() ;
+        if(parseFloat(xRate) <0)
+        {
+            $('.currency').val('');
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',"");
+         
+            return;
+        }
+        
+           
+        if(inAmt.length>0){
+            $('.currency').val(  (parseFloat(inAmt)/parseFloat(xRate) ).toFixed(2));
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',$('.currency').val());
+        }
+    }
+
+    function calculateXRateAdv() {
+        var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
+        var inCur=$('.currencyAdv').val() ;
+        if(parseFloat(xRate) <0)
+        {
+            $('.advAmount').val('');
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',"");
+            return;
+        }
+        $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inCur);
+        if(inCur.length>0){
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inCur);
+            $('.advAmount').val( (parseFloat(xRate) * parseFloat(inCur)).toFixed(2));
                      
-                     }
+        }
+    }
+    function calculateRevXRateAdv() {
+        var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
+        var inAmt=$('.advAmount').val() ;
+        if(parseFloat(xRate) <0)
+        {
+            $('.currencyAdv').val('');
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',"");
+            return;
+        }
+        $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inAmt);
+        if(inAmt.length>0){
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',inAmt);
+            $('.currencyAdv').val(   parseFloat(inAmt) /(parseFloat(xRate) ).toFixed(2));
+                     
+        }
     }
     
-
+   
     function setXRate(xRate){
      $("#<%= hfExchangeRate.ClientId %>").val(xRate );
 
@@ -408,6 +490,7 @@ padding: 5px 5px 5px 5px;
 <asp:HiddenField ID="hfExchangeRate" runat="server" Value="1"   />
    <asp:HiddenField ID="hfOrigCurrency" runat="server" Value=""   />
     <asp:HiddenField ID="hfOrigCurrencyValue" runat="server" Value=""   />
+        <asp:HiddenField ID="staffInitials" runat="server" Value=""   />
 <table width="100%">
     <tr valign="top">
         <td>
@@ -1172,7 +1255,7 @@ padding: 5px 5px 5px 5px;
                         <div style="padding: 0 20px 0 20px;">
                         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="RmbLineNo"
                             CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" ShowFooter="True" >
-                            <RowStyle CssClass="dnnGridItem" />
+                            <RowStyle CssClass="dnnGridItem"  />
                             <AlternatingRowStyle CssClass="dnnGridAltItem" />
                             <Columns>
                                 <asp:TemplateField HeaderText="TransDate" SortExpression="TransDate">
@@ -1183,9 +1266,9 @@ padding: 5px 5px 5px 5px;
                                         <asp:Label ID="Label2" runat="server" CssClass='<%# IIF(Eval("OutOfDate"), "ui-state-highlight ui-corner-all","") %>' ToolTip='<%# IIF(Eval("OutOfDate"),Translate("OutOfDate"),"") %>' Text='<%# Bind("TransDate", "{0:d}") %>'></asp:Label>
                                     </ItemTemplate>
                                     <HeaderStyle ForeColor="White" />
-                                    <ItemStyle HorizontalAlign="Center" Width="50px" />
+                                    <ItemStyle HorizontalAlign="Left" Width="50px" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Line Type" SortExpression="LineType" ItemStyle-Width="150px">
+                                <asp:TemplateField HeaderText="Line Type" SortExpression="LineType" ItemStyle-Width="110px">
                                     <EditItemTemplate>
                                         <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("LineType") %>'></asp:TextBox>
                                     </EditItemTemplate>
@@ -1193,7 +1276,7 @@ padding: 5px 5px 5px 5px;
                                         <asp:Label ID="Label1" runat="server" CssClass='<%# IIF(IsWrongType(Eval("CostCenter"), Eval("LineType")), "ui-state-error ui-corner-all","") %>' ToolTip='<%# IIF(IsWrongType(Eval("CostCenter"), Eval("LineType")),Translate("lblWrongType"),"") %>' Text='<%# GetLocalTypeName(Eval("AP_Staff_RmbLineType.LineTypeId") )%>'></asp:Label>
                                     </ItemTemplate>
                                     <HeaderStyle ForeColor="White" />
-                                    <ItemStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                
                                 <asp:TemplateField HeaderText="Comment" SortExpression="Comment" >
@@ -1201,15 +1284,19 @@ padding: 5px 5px 5px 5px;
                                     </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lblComment" runat="server" Text='<%#  Eval("Comment")  %>'></asp:Label>
+                                        <asp:Panel ID="pnlRemBal1" runat="server" Visible='<%# CanEdit(Eval("AP_Staff_Rmb.Status")) and IsAccounts()  %>' >
+                                         <asp:Label ID="lblTrimmedComment" runat="server" Font-Size="X-Small" ForeColor="#AAAAAA" Font-Names="Courier" Text='<%# GetLineComment(Eval("Comment"), Eval("OrigCurrency"), Eval("OrigCurrencyAmount"), Eval("ShortComment"))%>'></asp:Label>
+                                       </asp:Panel>
+
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:Label ID="lblTotalAmount" runat="server" Font-Bold="True" Text="Total:"></asp:Label>
                                     <asp:Panel ID="pnlRemBal1" runat="server" Visible='<%# Settings("ShowRemBal") = "True" %>'>
-                                        <asp:Label ID="lblRemainingBalance" runat="server" Font-Size="XX-Small"   Text="Estimated Remaining Balance:"></asp:Label>
+                                        <asp:Label ID="lblRemainingBalance" runat="server" Font-Size="XX-Small" ForeColor="#AAAAAA" Font-Italic="true"  Text="Estimated Remaining Balance:"></asp:Label>
                                     </asp:Panel>
                                     </FooterTemplate>
                                     <HeaderStyle ForeColor="White" />
-                                    <ItemStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Left" />
                                     <FooterStyle HorizontalAlign="Right" />
                                 </asp:TemplateField>
 
@@ -1218,7 +1305,11 @@ padding: 5px 5px 5px 5px;
                                     </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lblAmount" runat="server" CssClass='<%# IIF(Eval("LargeTransaction"), "ui-state-highlight ui-corner-all","") %>' ToolTip='<%# IIF(Eval("LargeTransaction"),Translate("LargeTransaction"),"") %>' Text='<%#  Eval("GrossAmount", "{0:F2}") & IIF(Eval("Taxable")=True, "*", "") %>'></asp:Label>
-                                    </ItemTemplate>
+                                   
+                                         <asp:Panel ID="pnlCur" runat="server" Visible='<%# Not String.IsNullOrEmpty(Eval("OrigCurrency")) And Eval("OrigCurrency") <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)%>'>
+                                        <asp:Label ID="lblCur" runat="server" Font-Size="XX-Small"  ForeColor="#AAAAAA" Text='<%# Eval("OrigCurrency") & Eval("OrigCurrencyAmount", "{0:F2}")%>'></asp:Label>
+                                    </asp:Panel>
+                                         </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:Label ID="lblTotalAmount" runat="server" Text='<%# StaffBrokerFunctions.GetSetting("Currency", PortalId) & GetTotal(Eval("RmbNo")).ToString("F2") %>'></asp:Label>
                                      <asp:Panel ID="pnlRemBal2" runat="server"  Visible='<%# Settings("ShowRemBal") = "True"%>'>
@@ -1226,8 +1317,8 @@ padding: 5px 5px 5px 5px;
                                     </asp:Panel>
                                     </FooterTemplate>
                                     <HeaderStyle ForeColor="White" />
-                                    <ItemStyle HorizontalAlign="Center" />
-                                    <FooterStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Right" />
+                                    <FooterStyle HorizontalAlign="Right" />
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ReceiptNo" HeaderText="Receipt No" SortExpression="ReceiptNo"
                                     HeaderStyle-ForeColor="White" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="75px">
@@ -1240,23 +1331,29 @@ padding: 5px 5px 5px 5px;
                                     <ItemTemplate>
                                         <asp:LinkButton ID="LinkButton5" runat="server" CommandName="myEdit" Visible='<%# CanEdit(Eval("AP_Staff_Rmb.Status"))  %>'
                                             CommandArgument='<%# Eval("RmbLineNo") %>' resourcekey="Edit"></asp:LinkButton>
-                                        <asp:LinkButton ID="LinkButton6" runat="server" CommandName="mySplit" Visible='<%# (CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.Processed and CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.DownloadFailed and CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.PendingDownload)  and IsAccounts()  %>'
+                                          <asp:LinkButton ID="LinkButton4" runat="server" CommandName="myDelete" Visible='<%# CanEdit(Eval("AP_Staff_Rmb.Status")) %>'
+                                            CommandArgument='<%# Eval("RmbLineNo") %>' resourcekey="Delete"></asp:LinkButton>
+                                        <asp:Panel ID="Accounts" runat="server"  Visible='<%# (CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.Processed and CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.DownloadFailed and CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.PendingDownload)  and IsAccounts()  %>'>
+                                         <asp:LinkButton ID="LinkButton6" runat="server" CommandName="mySplit"
                                             CommandArgument='<%# Eval("RmbLineNo") %>' resourcekey="Split"></asp:LinkButton>
-                                      <asp:LinkButton ID="LinkButton7" runat="server" CommandName="myDefer" ToolTip="Moves this transaction to a new 'Pending' Reimbursement." Visible='<%# (CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.Processed and CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.DownloadFailed and CInt(Eval("AP_Staff_Rmb.Status"))<>StaffRmb.rmbStatus.PendingDownload)  and IsAccounts()  %>'
+                                      <asp:LinkButton ID="LinkButton7" runat="server" CommandName="myDefer" ToolTip="Moves this transaction to a new 'Pending' Reimbursement." 
                                         CommandArgument='<%# Eval("RmbLineNo") %>' resourcekey="Defer" Text="Defer"></asp:LinkButton>
-                                    </ItemTemplate>
+                                  
+                                             </asp:Panel>
+                                        
+                                       
+                                         </ItemTemplate>
                                     <HeaderStyle ForeColor="White" />
-                                    <ItemStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="" ItemStyle-Width="10px" ItemStyle-Wrap="false">
                                     <EditItemTemplate>
                                     </EditItemTemplate>
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="LinkButton4" runat="server" CommandName="myDelete" Visible='<%# CanEdit(Eval("AP_Staff_Rmb.Status")) %>'
-                                            CommandArgument='<%# Eval("RmbLineNo") %>' resourcekey="Delete"></asp:LinkButton>
+                                       
                                     </ItemTemplate>
                                     <HeaderStyle ForeColor="White" />
-                                    <ItemStyle HorizontalAlign="Center" />
+                                    <ItemStyle HorizontalAlign="Left" />
                                 </asp:TemplateField>
                             </Columns>
                             <FooterStyle CssClass="ui-widget-header dnnGridFooter acGridHeader" />
@@ -1537,6 +1634,14 @@ padding: 5px 5px 5px 5px;
                         <legend>
                             <asp:Label ID="Label31" runat="server" resourcekey="AccountsOnly"></asp:Label></legend>
                         <table>
+                                <tr>
+                                <td>
+                                        <asp:Label ID="Label47" runat="server" resourcekey="ShortComment"></asp:Label>
+                                    </td>
+                                    <td style="font-family: 'Courier New';">
+                                       <%= staffInitials.Value %>-<asp:TextBox ID="tbShortComment" runat="server"  MaxLength="27" Width="200px"></asp:TextBox>
+                                    </td>
+                              </tr>
                               <tr>
                                 <td>
                                         <asp:Label ID="Label43" runat="server" resourcekey="OverideTax"></asp:Label>

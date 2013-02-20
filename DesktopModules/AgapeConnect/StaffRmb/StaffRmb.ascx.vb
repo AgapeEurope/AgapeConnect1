@@ -1109,9 +1109,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         lblAccComments.Text = ""
                         tbAccComments.Text = ""
                     End If
-
-                    lblSubBy.Text = UserController.GetUserById(PortalId, q.First.UserId).DisplayName
-
+                    Dim theUser = UserController.GetUserById(PortalId, q.First.UserId)
+                    lblSubBy.Text = theUser.DisplayName
+                    staffInitials.Value = theUser.FirstName.Substring(0, 1) & theUser.LastName.Substring(0, 1)
 
 
                     lblWrongType.Visible = False
@@ -1447,6 +1447,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     insert.GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
 
                     'Look for currency conversion
+                    insert.OrigCurrency = hfOrigCurrency.Value
+                    insert.OrigCurrencyAmount = hfOrigCurrencyValue.Value
 
 
                     If insert.GrossAmount >= Settings("TeamLeaderLimit") Then
@@ -1614,14 +1616,36 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     Dim line = From c In d.AP_Staff_RmbLines Where c.RmbLineNo = CInt(btnAddLine.CommandArgument)
                     If line.Count > 0 Then
-                        line.First.Comment = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
-                        line.First.GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
+
+                        Dim comment As String = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
+                        If line.First.Comment <> comment Then
+                            line.First.Comment = comment
+                            If line.First.ShortComment <> tbShortComment.Text Then
+                                line.First.ShortComment = tbShortComment.Text
+                            Else
+                                line.First.ShortComment = Nothing
+                            End If
+                        Else
+                            If line.First.ShortComment <> tbShortComment.Text Then
+                                line.First.ShortComment = tbShortComment.Text
+                            End If
+                        End If
+
+                        Dim GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
+                       
+                        line.First.OrigCurrency = hfOrigCurrency.Value
+                        line.First.OrigCurrencyAmount = hfOrigCurrencyValue.Value
+
+
+                        line.First.GrossAmount = GrossAmount
 
                         If line.First.GrossAmount >= Settings("TeamLeaderLimit") Then
                             line.First.LargeTransaction = True
                         Else
                             line.First.LargeTransaction = False
                         End If
+
+
 
                         line.First.AccountCode = ddlAccountCode.SelectedValue
                         line.First.CostCenter = ddlCostcenter.SelectedValue
@@ -2442,8 +2466,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 LoadRmb(hfRmbNo.Value)
             ElseIf e.CommandName = "myEdit" Then
 
-
-
+              
                 Dim theLine = From c In d.AP_Staff_RmbLines Where c.RmbLineNo = CInt(e.CommandArgument)
                 If theLine.Count > 0 Then
                     'PopupTitle.Text = "Edit Reimbursement Transaction"
@@ -2455,6 +2478,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     '    phLineDetail.Controls.Add(theControl)
                     'End If
                     'theControl = Nothing
+                   
+
                     ddlLineTypes.Items.Clear()
                     Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
 
@@ -2491,6 +2516,16 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim ucType As Type = theControl.GetType()
                     ucType.GetProperty("Comment").SetValue(theControl, theLine.First.Comment, Nothing)
                     ucType.GetProperty("Amount").SetValue(theControl, CDbl(theLine.First.GrossAmount), Nothing)
+                    Dim jscript As String = ""
+                    If (Not theLine.First.OrigCurrencyAmount Is Nothing) Then
+                        hfOrigCurrencyValue.Value = theLine.First.OrigCurrencyAmount
+                        jscript &= " $('.currency').attr('value'," & theLine.First.OrigCurrencyAmount & ");"
+                    End If
+                    If (Not String.IsNullOrEmpty(theLine.First.OrigCurrency)) Then
+                        hfOrigCurrency.Value = theLine.First.OrigCurrency
+                        jscript &= " $('.ddlCur').val('" & theLine.First.OrigCurrency & "');"
+                    End If
+
                     ucType.GetProperty("theDate").SetValue(theControl, theLine.First.TransDate, Nothing)
                     ucType.GetProperty("VAT").SetValue(theControl, theLine.First.VATReceipt, Nothing)
                     ucType.GetProperty("Receipt").SetValue(theControl, theLine.First.Receipt, Nothing)
@@ -2515,6 +2550,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
                     End If
 
+                    tbShortComment.Text = GetLineComment(theLine.First.Comment, theLine.First.OrigCurrency, theLine.First.OrigCurrencyAmount, theLine.First.ShortComment).Substring(3)
+
+
 
                     'If ddlLineTypes.SelectedValue = 7 Then
 
@@ -2534,7 +2572,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim t As Type = GridView1.GetType()
                     Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
                     sb.Append("<script language='javascript'>")
-                    sb.Append("showPopup();")
+                    sb.Append("showPopup();" & jscript)
                     sb.Append("</script>")
                     ScriptManager.RegisterStartupScript(GridView1, t, "popupedit", sb.ToString, False)
 
@@ -2645,9 +2683,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ddlLineTypes.DataBind()
                 lblIncType.Visible = False
                 btnAddLine.Enabled = True
+
+
             End If
 
             ResetNewExpensePopup(False)
+
 
         End Sub
         Protected Sub ddlChargeTo_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlChargeTo.SelectedIndexChanged
@@ -2698,8 +2739,42 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Function
+        Public Function GetLineComment(ByVal comment As String, ByVal Currency As String, ByVal CurrencyValue As Double, ByVal ShortComment As String) As String
+            'Prefix initials  // suffix Currency   // Trim to 30 char
+            
 
 
+
+            If Not String.IsNullOrEmpty(ShortComment) Then
+                Return staffInitials.Value & "-" & ShortComment
+            End If
+            Dim CurString = ""
+            If Currency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
+                CurString = Currency & CurrencyValue.ToString("f2")
+                CurString = CurString.Replace(".00", "")
+            End If
+            Return staffInitials.Value & "-" & comment.Substring(0, Math.Min(comment.Length, 27 - CurString.Length)) & CurString
+
+        End Function
+
+        Private Function FormatNumber(ByVal num As Double) As String
+            If (num >= 1000000) Then
+                Return (num / 1000000).ToString("0.#") + "M"
+            End If
+
+            If (num >= 100000) Then
+                Return (num / 1000).ToString("#,0") + "K"
+            End If
+
+            If (num >= 10000) Then
+                Return (num / 1000D).ToString("0.#") + "K"
+            End If
+           
+            Return num.ToString("#,0")
+
+
+        End Function
+        
         Public Function GetAdvTitle(ByVal LocalAdvanceId As Integer, ByVal RequestDate As Date) As String
 
             Dim rtn = "Advance:<br />" & "<span style=""font-size: 6.5pt; color: #999999;"">Adv#" & ZeroFill(LocalAdvanceId.ToString, 4)
@@ -3047,6 +3122,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Return ""
 
         End Function
+
+
         Public Sub LoadDefaultSettings()
             Dim tmc As New DotNetNuke.Entities.Modules.ModuleController
             If Settings("NoReceipt") = "" Then
@@ -3155,6 +3232,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                 Amount = CDbl(ucTypeOld.GetProperty("Amount").GetValue(theControl, Nothing))
                                 VAT = CStr(ucTypeOld.GetProperty("VAT").GetValue(theControl, Nothing))
                                 Receipt = CStr(ucTypeOld.GetProperty("Receipt").GetValue(theControl, Nothing))
+
+
+
                             End If
 
                         Catch ex As Exception

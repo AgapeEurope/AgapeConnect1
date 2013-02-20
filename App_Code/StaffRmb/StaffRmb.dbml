@@ -150,6 +150,9 @@
       <Column Name="VATRate" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="VATCode" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
       <Column Name="ForceTaxOrig" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OrigCurrency" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="OrigCurrencyAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ShortComment" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
       <Association Name="AP_Staff_Rmb_AP_Staff_RmbLine" Member="AP_Staff_Rmb" ThisKey="RmbNo" OtherKey="RMBNo" Type="AP_Staff_Rmb" IsForeignKey="true" />
       <Association Name="AP_Staff_RmbLineType_AP_Staff_RmbLine" Member="AP_Staff_RmbLineType" ThisKey="LineType" OtherKey="LineTypeId" Type="AP_Staff_RmbLineType" IsForeignKey="true" />
     </Type>

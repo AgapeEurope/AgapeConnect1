@@ -2691,6 +2691,12 @@ namespace StaffRmb
 		
 		private System.Nullable<bool> _ForceTaxOrig;
 		
+		private string _OrigCurrency;
+		
+		private System.Nullable<decimal> _OrigCurrencyAmount;
+		
+		private string _ShortComment;
+		
 		private EntityRef<AP_Staff_Rmb> _AP_Staff_Rmb;
 		
 		private EntityRef<AP_Staff_RmbLineType> _AP_Staff_RmbLineType;
@@ -2753,6 +2759,12 @@ namespace StaffRmb
     partial void OnVATCodeChanged();
     partial void OnForceTaxOrigChanging(System.Nullable<bool> value);
     partial void OnForceTaxOrigChanged();
+    partial void OnOrigCurrencyChanging(string value);
+    partial void OnOrigCurrencyChanged();
+    partial void OnOrigCurrencyAmountChanging(System.Nullable<decimal> value);
+    partial void OnOrigCurrencyAmountChanged();
+    partial void OnShortCommentChanging(string value);
+    partial void OnShortCommentChanged();
     #endregion
 		
 		public AP_Staff_RmbLine()
@@ -3306,6 +3318,66 @@ namespace StaffRmb
 					this._ForceTaxOrig = value;
 					this.SendPropertyChanged("ForceTaxOrig");
 					this.OnForceTaxOrigChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrigCurrency", DbType="VarChar(5)")]
+		public string OrigCurrency
+		{
+			get
+			{
+				return this._OrigCurrency;
+			}
+			set
+			{
+				if ((this._OrigCurrency != value))
+				{
+					this.OnOrigCurrencyChanging(value);
+					this.SendPropertyChanging();
+					this._OrigCurrency = value;
+					this.SendPropertyChanged("OrigCurrency");
+					this.OnOrigCurrencyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrigCurrencyAmount", DbType="Money")]
+		public System.Nullable<decimal> OrigCurrencyAmount
+		{
+			get
+			{
+				return this._OrigCurrencyAmount;
+			}
+			set
+			{
+				if ((this._OrigCurrencyAmount != value))
+				{
+					this.OnOrigCurrencyAmountChanging(value);
+					this.SendPropertyChanging();
+					this._OrigCurrencyAmount = value;
+					this.SendPropertyChanged("OrigCurrencyAmount");
+					this.OnOrigCurrencyAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortComment", DbType="NVarChar(28)")]
+		public string ShortComment
+		{
+			get
+			{
+				return this._ShortComment;
+			}
+			set
+			{
+				if ((this._ShortComment != value))
+				{
+					this.OnShortCommentChanging(value);
+					this.SendPropertyChanging();
+					this._ShortComment = value;
+					this.SendPropertyChanged("ShortComment");
+					this.OnShortCommentChanged();
 				}
 			}
 		}

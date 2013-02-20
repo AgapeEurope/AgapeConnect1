@@ -558,4 +558,10 @@
   <data name="lblAccountWarning.Text" xml:space="preserve">
     <value>There is not enough money in the R/C to cover this Reimbursement. Processing this Reimbursement may result in a negative account balance. Do you with to continue?</value>
   </data>
+  <data name="ShortComment.Help" xml:space="preserve">
+    <value>Your accounting program will probably have a limit on the number of characters in the Comment/Description field. For Dynamics/Solomon, this is typically 30 Characters (Including the staff initals). You can customise this descrption here.</value>
+  </data>
+  <data name="ShortComment.Text" xml:space="preserve">
+    <value>Short Comment</value>
+  </data>
 </root>
