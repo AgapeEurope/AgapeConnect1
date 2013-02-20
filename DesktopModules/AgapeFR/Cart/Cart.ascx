@@ -186,7 +186,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-CssClass="numbersColumn">
                         <HeaderTemplate>
-                            <asp:Label runat="server" ResourceKey="LblQuantityHeader"></asp:Label>
+                            <asp:Label ID="LblQuantityHeader" runat="server" ResourceKey="LblQuantityHeader"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:TextBox ID="TbQuantity" runat="server" Text='<%# Bind("Quantity") %>' CssClass='<%# "tbModifiable_" & eval("CartContentID") & "_" & eval("Quantity") & " tbModifiable" %>'
@@ -203,7 +203,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-CssClass="numbersColumn">
                         <HeaderTemplate>
-                            <asp:Label runat="server" ResourceKey="LblAmountHeader"></asp:Label>
+                            <asp:Label ID="LblAmountHeader1" runat="server" ResourceKey="LblAmountHeader"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="LblAmount" runat="server" Text='<%# StaffBrokerFunctions.GetFormattedCurrency(PortalId, ((CDbl(eval("Cost"))+CDbl(eval("Tax")))*CDbl(eval("Quantity"))).ToString(StrCurrencyAmountsPattern)) %>'
@@ -212,7 +212,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-CssClass="numbersColumn">
                         <HeaderTemplate>
-                            <asp:Label runat="server" ResourceKey="LblAmountHeader"></asp:Label>
+                            <asp:Label ID="LblAmountHeader2" runat="server" ResourceKey="LblAmountHeader"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:Label ID="LblCurrencyLeft" runat="server" Text='<%# StaffBrokerFunctions.GetSetting("Currency", PortalId) %>'

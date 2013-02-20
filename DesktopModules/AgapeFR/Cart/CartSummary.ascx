@@ -107,7 +107,6 @@
 
 <dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="Summary" />
 
-<% 'DAVID: Cart - Gérer les traductions restantes dans fichier .resx (voir Cart.ascx et vb) %>
 <asp:Panel ID="PnlEmptyCart" runat="server" Visible="False">
     <br />
     <asp:Label ID="LblEmptyCart" runat="server" ResourceKey="LblEmptyCart" Text=''></asp:Label>
@@ -117,10 +116,10 @@
 <asp:Panel ID="PnlNotEmptyCart" runat="server" Visible="False">
     <div class="addressBlock">
         <div id="DivBillingAddressContent" class="addressContent">
-            <asp:Label ID="LblBillingAddressTitle" runat="server" Text="Billing Address" CssClass="AgapeH4 addressTitle"></asp:Label>
+            <asp:Label ID="LblBillingAddressTitle" runat="server" ResourceKey="BillingAddressTitle" CssClass="AgapeH4 addressTitle"></asp:Label>
             <div class="addressModifiers">
-                <asp:LinkButton ID="BtnModifyBillingAddress" runat="server" Text="Modifier"></asp:LinkButton><br />
-                <asp:LinkButton ID="BtnCopyShippingAddress" runat="server" Text="Copier l'adresse de livraison"></asp:LinkButton>
+                <asp:LinkButton ID="BtnModifyBillingAddress" runat="server" ResourceKey="BtnModify"></asp:LinkButton><br />
+                <asp:LinkButton ID="BtnCopyShippingAddress" runat="server" ResourceKey="BtnCopyShippingAddress"></asp:LinkButton>
             </div>
             <div class="clear">
                 <asp:Label ID="LblBillingAddress" runat="server" Text=""></asp:Label>
@@ -129,10 +128,10 @@
     </div>
     <div id="DivShippingAddressBlock" runat="server" class="addressBlock">
         <div id="DivShippingAddressContent" class="addressContent">
-            <asp:Label ID="LblShippingAddressTitle" runat="server" Text="Shipping Address" CssClass="AgapeH4 addressTitle"></asp:Label>
+            <asp:Label ID="LblShippingAddressTitle" runat="server" ResourceKey="ShippingAddressTitle" CssClass="AgapeH4 addressTitle"></asp:Label>
             <div class="addressModifiers">
-                <asp:LinkButton ID="BtnModifyShippingAddress" runat="server" Text="Modifier"></asp:LinkButton><br />
-                <asp:LinkButton ID="BtnCopyBillingAddress" runat="server" Text="Copier l'adresse de facturation"></asp:LinkButton>
+                <asp:LinkButton ID="BtnModifyShippingAddress" runat="server" ResourceKey="BtnModify"></asp:LinkButton><br />
+                <asp:LinkButton ID="BtnCopyBillingAddress" runat="server" ResourceKey="BtnCopyBillingAddress"></asp:LinkButton>
             </div>
             <div class="clear">
                 <asp:Label ID="LblShippingAddress" runat="server" Text=""></asp:Label>
@@ -163,7 +162,10 @@
                                     <asp:Label ID="LblItemName" runat="server" Text='<%# eval("ItemName") %>' CssClass="AgapeH5"></asp:Label></a>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Prix unitaire" ItemStyle-CssClass="numbersColumn">
+                        <asp:TemplateField ItemStyle-CssClass="numbersColumn">
+                            <HeaderTemplate>
+                                <asp:Label ID="LblUnitPriceHeader" runat="server" ResourceKey="LblUnitPriceHeader"></asp:Label>
+                            </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblUnitPrice" runat="server" Text='<%# StaffBrokerFunctions.GetFormattedCurrency(PortalId, (CDbl(eval("Cost"))+CDbl(eval("Tax"))).ToString(StrCurrencyAmountsPattern)) %>'></asp:Label>
                             </ItemTemplate>
@@ -180,19 +182,28 @@
                                     Visible='<%# eval("DiscountPercent")<>0 %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Quantité" ItemStyle-CssClass="numbersColumn">
+                        <asp:TemplateField ItemStyle-CssClass="numbersColumn">
+                            <HeaderTemplate>
+                                <asp:Label ID="LblQuantityHeader" runat="server" ResourceKey="LblQuantityHeader"></asp:Label>
+                            </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblQuantity" runat="server" Text='<%# Bind("Quantity") %>'
                                     ViewStateMode="Disabled"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Montant" ItemStyle-CssClass="numbersColumn">
+                        <asp:TemplateField ItemStyle-CssClass="numbersColumn">
+                            <HeaderTemplate>
+                                <asp:Label ID="LblAmountHeader1" runat="server" ResourceKey="LblAmountHeader"></asp:Label>
+                            </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblAmount" runat="server" Text='<%# StaffBrokerFunctions.GetFormattedCurrency(PortalId, ((CDbl(eval("Cost"))+CDbl(eval("Tax")))*CDbl(eval("Quantity"))).ToString(StrCurrencyAmountsPattern)) %>'
                                     CssClass="amount"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Montant" ItemStyle-CssClass="numbersColumn">
+                        <asp:TemplateField ItemStyle-CssClass="numbersColumn">
+                            <HeaderTemplate>
+                                <asp:Label ID="LblAmountHeader2" runat="server" ResourceKey="LblAmountHeader"></asp:Label>
+                            </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="LblCurrencyLeft" runat="server" Text='<%# StaffBrokerFunctions.GetSetting("Currency", PortalId) %>'
                                     Visible='<%# StaffBrokerFunctions.GetSetting("CurrencyLocation", PortalId) <> "Right" %>'
