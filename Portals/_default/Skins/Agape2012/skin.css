@@ -1,0 +1,918 @@
+@import url("/Portals/_default/Skins/Agape2012/jQuery/jquery-ui-1.9.2.custom.css");
+@import url("/portals/0/AgapeStyles2012.css");
+/* CSS Document */
+body {
+    background-color: #EEE9E9;
+    height: 100%;
+    width: 100%;
+}
+
+/* ControlPanel style */
+.ControlPanel {
+    background: transparent url(images/cpanel_center.png) repeat-x bottom left;
+    border: none;
+    padding-bottom: 10px;
+}
+
+.cpanel_left {
+    background: url(images/cpanel_left.png) no-repeat bottom left;
+    padding-left: 21px;
+}
+
+.cpanel_right {
+    background: url(images/cpanel_right.png) no-repeat bottom right;
+    padding-right: 33px;
+}
+
+/*-------- Default Style --------*/
+.atclear {
+    display: none;
+}
+
+/*Datagrids */
+.DataGrid_Container {
+    margin-top: 15px;
+}
+
+.DataGrid_Header {
+    font-weight: bold;
+}
+
+    .DataGrid_Header td, .NormalBold td {
+        font-weight: bold;
+    }
+
+/*-------- design style --------*/
+.template_style {
+    width: 1050px;
+    margin: 0 auto;
+}
+
+.top_space {
+    height: 34px;
+}
+
+.lang_pad {
+    padding: 7px 0 0 25px;
+    float: left;
+}
+
+.logo_top_left {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/logo_top_left.png) no-repeat top left;
+    height: 23px;
+}
+
+.logo_top_right {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/logo_top_right.png) no-repeat top right;
+}
+
+.logo_top_bg {
+    padding: 0px;
+    margin: 0 39px 0 27px;
+    background: #FFF url(images/logo_top_bg.png) repeat-x top;
+    height: 23px;
+}
+
+.logo_left {
+    padding: 0px;
+    background: url(images/logo_left.png) repeat-y top left;
+}
+
+.logo_right {
+    padding: 0px;
+    background: url(images/logo_right.png) repeat-y top right;
+}
+
+.logo_pad {
+    background: #FFF;
+    margin: 0 19px 0 7px;
+    padding: 0;
+    height: 100px;
+}
+
+.menu_bg {
+    padding: 0 0 0 6px;
+    margin: 0 21px 0 9px;
+    background: url(images/menu_bg.png) top left;
+}
+
+.menu_left {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/menu_left.png) repeat-y top left;
+}
+
+.menu_right {
+    margin: 0px;
+    background: url(images/menu_right.png) repeat-y top right;
+}
+
+/*.search_style{float:right; height:10px;}
+.search_bg{padding:8px 2px 0 0;}*/
+
+.bread_bg {
+    padding: 0px;
+    margin: 0 19px 0 7px;
+    background: url(images/bread_bg.png) repeat-x top left;
+    height: 34px;
+}
+
+.bread_left {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/bread_left.png) no-repeat top left;
+    height: 34px;
+}
+
+.bread_right {
+    padding: 0px;
+    background: url(images/bread_right.png) no-repeat top right;
+    height: 34px;
+}
+
+#login_style {
+    float: right;
+    padding: 8px 17px 0px 10px;
+}
+
+#bread_style {
+    float: left;
+    line-height: 34px;
+    padding-left: 18px;
+    color: #000000;
+}
+
+.center_bg {
+    padding: 0px;
+    margin: 0px;
+    clear: both;
+}
+
+.left_bg {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/left_bg.png) repeat-y top left;
+}
+
+.right_bg {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/right_bg.png) repeat-y top right;
+}
+
+.content_pad {
+    padding: 10px 5px 0 5 px;
+    margin: 0 19px 0 7px;
+    background: #FFF url(images/center_bg.png) repeat-x bottom left;
+}
+
+.content_width {
+    padding-top: 15px;
+    min-height: 350px;
+}
+
+.bot_left {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/bot_left.png) no-repeat top left;
+}
+
+.bot_right {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/bot_right.png) no-repeat top right;
+    padding: 0px 39px 0px 27px;
+}
+
+.bot_bg {
+    padding: 0px;
+    margin: 0px;
+    background: url(images/bot_bg.png) repeat-x top left;
+    height: 41px;
+}
+
+.bot_pad {
+    margin-bottom: 20px;
+    padding: 0 30px 0 20px;
+}
+
+#terms_style {
+    float: left;
+}
+
+#copy_style {
+    float: right;
+}
+
+.clear_float {
+    clear: both;
+    line-height: 0;
+    font-size: 0;
+    height: 0;
+}
+
+/* ------- FileManager -------*/
+div.FileManager {
+    height: auto;
+    border: none;
+}
+
+table.FileManager {
+    width: 99%;
+}
+
+
+a.CommandButton:link, a.CommandButton:visited {
+    color: #CB2027;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.CommandButton:hover {
+    color: #3E81B5;
+    text-decoration: underline;
+}
+
+/*-------ControlPanel changes ---------------*/
+.ControlPanel a.CommandButton:link, .ControlPanel a.CommandButton:visited {
+    color: #3E81B5;
+}
+
+.ControlPanel a.CommandButton:hover {
+    color: #CB2027;
+    text-decoration: underline;
+}
+
+.ControlPanel a.CommandButton:link, .ControlPanel a.CommandButton:visited, .ControlPanel .SubHead {
+    font-size: 11px;
+}
+
+/*-------------- User Style --------------*/
+.user, a.user:link, a.user:active, a.user:visited {
+    color: #3E81B5;
+}
+
+a.user:hover {
+    color: #C00;
+}
+
+/*-------------- Empty panes Style --------------*/
+.DNNEmptyPane {
+    width: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/*-------------- Search SkinObject Styles --------------*/
+div.SearchContainer {
+    white-space: nowrap;
+    padding: 0px;
+    margin: 0px;
+    vertical-align: top;
+    display: block;
+}
+
+div.SearchBorder {
+    width: 180px;
+    float: left;
+    background-color: White;
+    white-space: nowrap;
+    padding: 0px;
+    margin: 0px;
+}
+
+div.SearchContainer a {
+    padding: 0px;
+    float: left;
+}
+
+    div.SearchContainer a img {
+        padding-left: 5px;
+    }
+
+div.SearchIcon {
+    float: left;
+    width: 31px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 11;
+    background: no-repeat 2px 2px;
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+}
+
+    div.SearchIcon img {
+        margin-top: 3px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+input.SearchTextBox {
+    float: left;
+    z-index: 10;
+    border: 0px;
+    width: 130px;
+    height: 18px;
+    margin-left: 3px;
+    color: #43494D;
+}
+
+#SearchChoices {
+    clear: both;
+    display: none;
+    border: solid 1px #C3D4DF;
+    z-index: 2000;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background-color: #F3F7FA;
+    position: absolute;
+    top: 22px;
+    left: 0px;
+}
+
+    #SearchChoices li {
+        cursor: pointer;
+        margin: 0;
+        padding: 2px 2px 0 2px;
+        padding-left: 25px;
+        height: 18px;
+        text-align: left;
+        background-color: #F3F7FA;
+        background-repeat: no-repeat;
+        background-position: 2px center;
+        list-style: none;
+        list-style-image: none;
+        border: none;
+        display: block;
+    }
+
+        #SearchChoices li.searchHilite {
+            background-color: #CE0D0D;
+            color: #ffffff;
+            border: none;
+        }
+
+        #SearchChoices li.searchDefault {
+            background-color: #F8FAFF;
+            border: none;
+        }
+
+/*---------Facebook button Hack------------*/
+.fb-like {
+    width: 52px !important;
+    position: relative !important;
+    display: inline-block !important;
+}
+
+    .fb-like iframe {
+        width: 52px !important;
+        position: relative !important;
+        display: inline-block !important;
+    }
+
+/*############## Menu Style ###############*/
+/* main menu td */
+.mainMenu {
+    font-family: 'Source Sans Pro', sans-serif;
+    cursor: pointer;
+    font-size: 11px;
+    background-color: transparent;
+    float: right;
+}
+    /* Main Menu Normal */
+    .mainMenu .root {
+        color: #666666;
+        font-weight: bold;
+        background-color: transparent;
+        font-size: 15px;
+        text-align: center;
+        padding: 4px 8px 4px 8px;
+        margin-left: 3px;
+        white-space: nowrap;
+        float: left;
+        border-top: 3px solid transparent;
+    }
+    /* Main menu hover */
+    .mainMenu .hov {
+        background-color: #FFF;
+        color: #ED8923;
+        border-top: 3px solid #ED8923;
+    }
+
+    /* Main menu selected */
+    .mainMenu .sel, .mainMenu .bc {
+        background-color: #FFF;
+        color: #ED8923;
+        border-top: 3px solid #ED8923;
+    }
+
+    .mainMenu table {
+        z-index: 5000;
+    }
+    /* SUB Menu Normal */
+    .mainMenu tr.mi {
+        background-color: #FFF;
+        border: 1px solid #CCC;
+        padding: 1px;
+        z-index: 1000;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: left;
+        color: #ED8923;
+        line-height: 2em;
+        text-transform: none;
+        border-right: 1px solid #CCC;
+    }
+
+        .mainMenu tr.mi td {
+            padding: 0 2px;
+            text-transform: none;
+            border-top: 1px solid #CCC;
+            padding-top: 2px;
+            color: #ED8923;
+        }
+    /* SUB Menu hover & selected */
+    .mainMenu tr.hov {
+    }
+
+        .mainMenu tr.hov td {
+            color: #ED8923;
+            background-color: #FFF;
+            border-top: 3px solid #ED8923;
+            padding-top: 0px;
+        }
+
+    .mainMenu tr.sel, .mainMenu tr.bc {
+        color: #ED8923;
+        background-color: #FFF;
+        border-top: 3px solid #ED8923;
+        padding-top: 0px;
+    }
+
+        .mainMenu tr.sel td, .mainMenu tr.bc td {
+            color: #ED8923;
+            border-top: 3px solid #ED8923;
+            padding-top: 0px;
+        }
+
+.main_dnnmenu_break {
+    height: 2px;
+    background-color: #0180AB;
+}
+
+.AgapeSearchTitle {
+    font-size: 18pt;
+    font-weight: bold;
+    color: Green;
+}
+
+.AgapeSearchResultTitle {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #105998;
+}
+
+.AgapeSearchResultText {
+    font-size: 9pt;
+    font-weight: normal;
+    color: #444444;
+}
+
+.AgapeSearchLink {
+    font-size: 14pt;
+    margin: 3px 3px 3px 3px;
+}
+
+    .AgapeSearchLink a:link {
+        color: #466629;
+    }
+
+    .AgapeSearchLink a:visited {
+        color: #466629;
+    }
+
+    .AgapeSearchLink a:hover {
+        border-top: solid 2pt #466629;
+        border-bottom: solid 2pt #466629;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .AgapeSearchLink a:active {
+        color: #466629;
+    }
+
+.AgapeSearchLink1 {
+    font-size: 14pt;
+    margin: 3px 3px 3px 3px;
+}
+
+    .AgapeSearchLink1 a:link {
+        color: #663366;
+    }
+
+    .AgapeSearchLink1 a:visited {
+        color: #663366;
+    }
+
+    .AgapeSearchLink1 a:hover {
+        border-top: solid 2pt #663366;
+        border-bottom: solid 2pt #663366;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .AgapeSearchLink1 a:active {
+        color: #663366;
+    }
+
+.AgapeSearchLink2 {
+    font-size: 14pt;
+    margin: 3px 3px 3px 3px;
+}
+
+    .AgapeSearchLink2 a:link {
+        color: #005179;
+    }
+
+    .AgapeSearchLink2 a:visited {
+        color: #005179;
+    }
+
+    .AgapeSearchLink2 a:hover {
+        border-top: solid 2pt #466629;
+        border-bottom: solid 2pt #466629;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .AgapeSearchLink2 a:active {
+        color: #005179;
+    }
+
+.AgapeSearchLinkGreen {
+    font-size: 14pt;
+    margin: 0;
+}
+
+    .AgapeSearchLinkGreen div a:link div {
+        color: #466629;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkGreen div a:visited div {
+        color: #466629;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkGreen div a:hover div {
+        border-top: solid 2pt #466629;
+        border-bottom: solid 2pt #466629;
+        padding: 0;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .AgapeSearchLinkGreen div a:hover div div {
+            border-top: none;
+            border-bottom: none;
+            padding-top: 2pt;
+            padding-bottom: 2pt;
+        }
+
+    .AgapeSearchLinkGreen div a:active div {
+        color: #466629;
+        padding: 0;
+    }
+
+div.Agape_RollOver {
+    font-size: 14pt;
+    margin: 0;
+}
+
+div.Agape_RollOver {
+    color: #466629;
+    padding-top: 2pt;
+    padding-bottom: 2pt;
+}
+
+    div.Agape_RollOver:visited {
+        color: #466629;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    div.Agape_RollOver:hover {
+        border-top: solid 2pt #466629;
+        border-bottom: solid 2pt #466629;
+        padding: 0;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        div.Agape_RollOver:hover div {
+            border-top: none;
+            border-bottom: none;
+            padding-top: 2pt;
+            padding-bottom: 2pt;
+        }
+
+    div.Agape_RollOver:active {
+        color: #466629;
+        padding: 0;
+    }
+
+.AgapeSearchLinkRed {
+    font-size: 14pt;
+    margin: 3px 3px 3px 3px;
+}
+
+    .AgapeSearchLinkRed div a:link div {
+        color: #660000;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkRed div a:visited div {
+        color: #660000;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkRed div a:hover div {
+        border-top: solid 2pt #660000;
+        border-bottom: solid 2pt #660000;
+        padding: 0;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .AgapeSearchLinkRed div a:hover div div {
+            border-top: none;
+            border-bottom: none;
+            padding-top: 2pt;
+            padding-bottom: 2pt;
+        }
+
+    .AgapeSearchLinkRed div a:active div {
+        color: #660000;
+        padding: 0;
+    }
+
+.AgapeSearchLinkBlue {
+    font-size: 14pt;
+    margin: 3px 3px 3px 3px;
+}
+
+    .AgapeSearchLinkBlue div a:link div {
+        color: #005179;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkBlue div a:visited div {
+        color: #005179;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkBlue div a:hover div {
+        border-top: solid 2pt #005179;
+        border-bottom: solid 2pt #005179;
+        padding: 0;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .AgapeSearchLinkBlue div a:hover div div {
+            border-top: none;
+            border-bottom: none;
+            padding-top: 2pt;
+            padding-bottom: 2pt;
+        }
+
+    .AgapeSearchLinkBlue div a:active div {
+        color: #005179;
+        padding: 0;
+    }
+
+.AgapeSearchLinkPlum {
+    font-size: 14pt;
+    margin: 3px 3px 3px 3px;
+}
+
+    .AgapeSearchLinkPlum div a:link div {
+        color: #663366;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkPlum div a:visited div {
+        color: #663366;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+    }
+
+    .AgapeSearchLinkPlum div a:hover div {
+        border-top: solid 2pt #663366;
+        border-bottom: solid 2pt #663366;
+        padding: 0;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .AgapeSearchLinkPlum div a:hover div div {
+            border-top: none;
+            border-bottom: none;
+            padding-top: 2pt;
+            padding-bottom: 2pt;
+        }
+
+    .AgapeSearchLinkPlum div a:active div {
+        color: #663366;
+        padding: 0;
+    }
+
+.Agape_video {
+    float: none;
+    margin: 25px;
+    text-align: center;
+}
+
+.Agape_Search_GridView {
+    border-top: solid 1px gray;
+    border-bottom: solid 1px gray;
+    border-left: none;
+    border-right: none;
+}
+
+
+.Agape_Search_Paging {
+}
+
+.p {
+    margin: 0px;
+    padding: 0px;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    text-align: inherit;
+    color: inherit;
+    line-height: inherit;
+    vertical-align: top;
+}
+
+p {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+img {
+    border: 0px;
+    margin: 0px,;
+}
+
+div {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 12px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.AbsWrap {
+    width: 100%;
+    position: relative;
+}
+
+.rowWrap {
+    width: 100%;
+}
+
+.clearfloat {
+    clear: both;
+    height: 0px;
+}
+
+a:link, a:visited {
+    COLOR: inherit;
+    text-decoration: inherit;
+}
+
+.menuSeparator {
+    margin: 6px;
+}
+
+.mastheadCentre {
+    background-color: #FFF;
+}
+
+.mainContentContainer {
+    background-color: white;
+}
+
+/* ControlPanel style */
+#controlPanelContainer {
+    background-color: transparent;
+    width: 100%;
+}
+
+/* Logo */
+#logoContainer {
+    width: 288px;
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+}
+
+/* Breadrumb */
+#breadcrumbContainer {
+    margin-top: 1px;
+    float: left;
+    white-space: nowrap;
+}
+
+#loginContainer {
+    margin-top: 1px;
+    float: right;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+#searchContainer {
+    white-space: nowrap;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    display: inline;
+    margin-right: 3px;
+}
+
+    #searchContainer .NormalTextBox {
+        border: 1px solid #999;
+        width: 150px;
+        height: 20px;
+        padding-left: 3px;
+        padding-bottom: 0;
+        padding-top: 0;
+        padding-right: 3px;
+        margin: 3px;
+    }
+
+#top_wrap {
+    background-color: #dcdcdc;
+    padding-top: 5px;
+    padding-left: 7px;
+    padding-right: 5px;
+    padding-bottom: 9px;
+    top: 0px;
+}
+
+.AgapeSearchBox img {
+    position: relative;
+    top: 6px;
+    margin-left: -2px;
+}
+
+.TopPane {
+    background-color: White;
+    padding: 7px;
+    margin: 0;
+    text-align: left;
+}
+
+.LeftPane {
+    background-color: White;
+    padding: 7px;
+    margin: 0;
+    text-align: left;
+}
+
+.ContentPane {
+    background-color: White;
+    padding: 7px;
+    margin: 0;
+    text-align: left;
+}
+
+.RightPane {
+    background-color: White;
+    padding: 7px;
+    margin: 0;
+    text-align: left;
+}
+
+.BottomPane {
+    background-color: White;
+    padding: 7px;
+    margin: 0;
+    text-align: left;
+}
+

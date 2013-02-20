@@ -527,6 +527,7 @@
                                         
                                      <asp:DropDownList ID="ddlCurrenciesI" runat="server" class="ddlCur" SelectedValue='<%# Bind("Currency") %>' >
                     <asp:ListItem Value="AED">United Arab Emirates Dirham (AED)</asp:ListItem>
+                                          <asp:ListItem Value="ALL">Albanian Lek (ALL)</asp:ListItem>
 <asp:ListItem Value="ANG">Netherlands Antillean Guilder (ANG)</asp:ListItem>
 <asp:ListItem Value="ARS">Argentine Peso (ARS)</asp:ListItem>
 <asp:ListItem Value="AUD">Australian Dollar (AUD)</asp:ListItem>
@@ -628,6 +629,7 @@
                                     <FooterTemplate>
                                          <asp:DropDownList ID="ddlCurrenciesI" runat="server" class="ddlCur"  >
                     <asp:ListItem Value="AED">United Arab Emirates Dirham (AED)</asp:ListItem>
+                                              <asp:ListItem Value="ALL">Albanian Lek (ALL)</asp:ListItem>
 <asp:ListItem Value="ANG">Netherlands Antillean Guilder (ANG)</asp:ListItem>
 <asp:ListItem Value="ARS">Argentine Peso (ARS)</asp:ListItem>
 <asp:ListItem Value="AUD">Australian Dollar (AUD)</asp:ListItem>

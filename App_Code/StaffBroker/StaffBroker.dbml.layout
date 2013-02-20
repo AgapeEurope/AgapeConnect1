@@ -27,7 +27,7 @@
         <elementListCompartment Id="36f91719-831c-4d31-b148-ae0d33cf8708" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 1.57774983723958); (3.125 : 1.57774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 1.57774983723958); (3.125 : 1.57774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/StaffBrokerDataContext/ProfilePropertyDefinition/ProfilePropertyDefinition_UserProfile" />
       <nodes>
         <classShapeMoniker Id="b20e37ea-5ba4-4072-a271-9c18d6ebe070" />

@@ -74,18 +74,20 @@ Namespace DotNetNuke.Modules.StaffAdmin
                             IIf(IsDBNull(data.Item(7)), "", data.Item(7)),
                             IIf(IsDBNull(data.Item(8)), "", data.Item(8)),
                             IIf(IsDBNull(data.Item(9)), "", data.Item(9)),
-                            IIf(IsDBNull(data.Item(9)), "", data.Item(10)))
+                            IIf(IsDBNull(data.Item(10)), "", data.Item(10)))
 
 
 
 
                     End While
 
-                    
+
 
 
                 Catch ex As Exception
                     lblResponse.Text &= "Error: " & ex.Message
+
+
                 Finally
                     MyConnection.Close()
                 End Try
@@ -110,7 +112,11 @@ Namespace DotNetNuke.Modules.StaffAdmin
             End If
 
             Dim user As UserInfo = UserController.GetUserByName(PortalId, GCXEmail & PortalId)
-            Dim spouse As UserInfo = UserController.GetUserByName(PortalId, SpGCXEmail & PortalId)
+            Dim spouse As UserInfo
+            If (MaritalStatus = 2) Then
+                spouse = UserController.GetUserByName(PortalId, SpGCXEmail & PortalId)
+            End If
+
 
             If user Is Nothing Then
                 user = StaffBrokerFunctions.CreateUser(PortalId, GCXEmail, FirstName, LastName)
@@ -147,7 +153,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
             Dim theStaff As StaffBroker.AP_StaffBroker_Staff
 
-            If (Not theStaff1 Is Nothing) And (Not theStaff2 Is Nothing) Then
+            If MaritalStatus = 2 And (Not theStaff1 Is Nothing) And (Not theStaff2 Is Nothing) Then
                 '2 staff accounts exist. Delete 2 and keep 1
 
 
@@ -157,7 +163,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 theStaff.UserId2 = spouse.UserID
 
                 theStaff.DisplayName = user.FirstName & " & " & spouse.FirstName & " " & user.LastName
-               
+
 
             ElseIf MaritalStatus = 2 And ((Not theStaff1 Is Nothing) Or (Not theStaff2 Is Nothing)) Then
                 'One of the staff accounts exists
@@ -170,19 +176,29 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
 
                 theStaff.UserId2 = spouse.UserID
-              
+
 
             ElseIf MaritalStatus = 2 Then
                 'Need to create both
                 theStaff = StaffBrokerFunctions.CreateStaffMember(PortalId, user, spouse, st)
-                
-               
+
+
             ElseIf MaritalStatus = 3 Then
                 'spouse not on staff
+                If theStaff1 Is Nothing Then
+                    theStaff = StaffBrokerFunctions.CreateStaffMember(PortalId, user, SpFirstName, "01/01/2001", st)
+                Else
+                    theStaff = theStaff1
+                End If
+
 
             Else
                 'Single
-                theStaff = StaffBrokerFunctions.CreateStaffMember(PortalId, user, st)
+                If theStaff1 Is Nothing Then
+                    theStaff = StaffBrokerFunctions.CreateStaffMember(PortalId, user, st)
+                Else
+                    theStaff = theStaff1
+                End If
 
 
 

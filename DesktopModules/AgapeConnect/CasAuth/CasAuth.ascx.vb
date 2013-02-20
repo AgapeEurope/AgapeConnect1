@@ -20,32 +20,68 @@ Namespace DotNetNuke.Modules.AgapePortal
       
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+            'Look for the "ticket=" after the "?" in the URL
 
             If Request.QueryString("mode") = "host" Then
                 ' Service = TabController.CurrentPage.FullUrl
                 ' Response.Write(Service)
-
+                Return
             End If
 
-            'Look for the "ticket=" after the "?" in the URL
+            
             Dim tkt As String = Request.QueryString("ticket")
             
+
+
             Service = TabController.CurrentPage.FullUrl
+
+            ' Dim template = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/template.css"
 
             ' First time through there is no ticket=, so redirect to CAS login
             If (tkt Is Nothing) Then
                 Dim returnUrl As String = Request.QueryString("returnurl")
                 If returnUrl Is Nothing Or returnUrl = "" Then
+
                     Session("returnurl") = Nothing
-                ElseIf Request.RawUrl.Contains(Server.HtmlDecode(returnUrl)) Then
-                    Session("returnurl") = Nothing
+                    '  ElseIf Request.RawUrl.Contains(Server.HtmlDecode(returnUrl)) Then
+
+                    'Session("returnurl") = Nothing
+
                 Else
                     Session("returnurl") = returnUrl
                 End If
 
+                If PortalSettings.DefaultPortalSkin.ToLower.Contains("agape") Then
+
+
+                    If Request.QueryString("renew") = "true" Or PortalId = 5 Then
+
+                        Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3-no-FB.css"
+                        Service &= "&renew=true&template=" & template
+
+                    Else
+                        Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3.css"
+                        Service &= "&template=" & template
+                    End If
+                Else
+                    ' Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3.css"
+                    'Service &= "&template=" & template
+                End If
+
+
+                ' Response.Redirect("https://thekey.me/cas/login.htm?service=" & Service & "&template=https://www.agape.org.uk/sso/template2.css")
+
+                Response.Redirect("https://thekey.me/cas/login.htm?service=" & Service)
+
+
             Else
                 StaffLogin()
             End If
+
+
+
+
+            '   Response.Redirect("https://signin.mygcx.org/cas/login.htm?service=" & Request.Url.GetLeftPart(UriPartial.Path) & "&template=https://www.agape.org.uk/sso/template2.css")
 
         End Sub
 
@@ -53,6 +89,9 @@ Namespace DotNetNuke.Modules.AgapePortal
             Dim returnURL As String = Session("returnurl")
             Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
             Dim tkt As String = Request.QueryString("ticket")
+            ' Dim service As String = Request.Url.GetLeftPart(UriPartial.Path)
+            ' service = "https://www.agape.org.uk"
+            '  CASHOST = "https://173.45.237.49/cas"
 
             ' Second time (back from CAS) there is a ticket= to validate
             Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://myagape.org.uk/pgtCallback.aspx"
@@ -146,8 +185,6 @@ Namespace DotNetNuke.Modules.AgapePortal
                         objUserInfo = New UserInfo()
 
 
-
-
                         objUserInfo.FirstName = firstName
                         objUserInfo.LastName = lastName
                         objUserInfo.DisplayName = firstName & " " & lastName
@@ -198,6 +235,7 @@ Namespace DotNetNuke.Modules.AgapePortal
             Else
                 UserController.UserLogin(PortalSettings.PortalId, objUserInfo, PortalSettings.PortalName, AuthenticationLoginBase.GetIPAddress(), False)
 
+
                 Response.Redirect(Server.HtmlDecode(returnURL))
 
             End If
@@ -211,9 +249,12 @@ Namespace DotNetNuke.Modules.AgapePortal
 
             'theUser.Profile.SetProfileProperty("GCXPGTIOU", Value)
 
+
         End Sub
 
         'Private Function GetStaffProfileProperty(ByVal PropertyName As String, ByVal UserId As Integer) As String
+
+
 
         '    Dim answer = From c In d.UserProfiles Where c.UserID = UserId And c.ProfilePropertyDefinition.PropertyName = PropertyName And c.ProfilePropertyDefinition.PortalID = 0 Select c.PropertyValue
         '    If answer.Count > 0 Then
@@ -229,7 +270,9 @@ Namespace DotNetNuke.Modules.AgapePortal
             'Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
             'Dim theUser = UserController.GetUserById(PS.PortalId, UserId)
 
+
             'theUser.Profile.SetProfileProperty("ssoGUID", Value)
+
 
         End Sub
 
@@ -274,34 +317,15 @@ Namespace DotNetNuke.Modules.AgapePortal
 
             End If
 
+
             ' theUser.Profile.InitialiseProfile(PS.PortalId)
+
+
 
             theUser.Profile.SetProfileProperty(PropertyName, Value)
 
+
             '  UserController.UpdateUser(PS.PortalId, theUser)
-        End Sub
-
-        Protected Sub BtnTheKey_Click(sender As Object, e As EventArgs) Handles BtnTheKey.Click
-            Service = TabController.CurrentPage.FullUrl
-
-            Dim template = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev2.css"
-
-            ' First time through there is no ticket=, so redirect to CAS login
-
-            Dim returnUrl As String = Request.QueryString("returnurl")
-            If returnUrl Is Nothing Or returnUrl = "" Then
-
-                Session("returnurl") = Nothing
-            ElseIf Request.RawUrl.Contains(Server.HtmlDecode(returnUrl)) Then
-
-                Session("returnurl") = Nothing
-            Else
-                Session("returnurl") = returnUrl
-            End If
-
-            Dim redirectUrl As String = CASHOST & "/login.htm?service=" & Service & "&template=" & template
-            Response.Redirect(redirectUrl)
-
         End Sub
     End Class
 End Namespace

@@ -287,7 +287,7 @@ Public Class CartFunctions
             If Not m Is Nothing Then
                 If Not m.TabID = Nothing Then
                     rtn = NavigateURL(m.TabID) & "?giveto=" & StaffBrokerFunctions.GetStaffProfileProperty(TheItemID, "givingshortcut")
-                    'DAVID: Cart - Handle link for Dept and Project
+                    'DAVID: Cart - Handle link for Dept and Project (see GiveList.ascx.vb)
                 End If
             End If
         Else ' Handle other item types

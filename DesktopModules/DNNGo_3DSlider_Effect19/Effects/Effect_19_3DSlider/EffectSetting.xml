@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DNNGo_DNNGallery>
+  <EffectSettings>
+    <Setting>
+      <Name><![CDATA[width]]></Name>
+      <Alias><![CDATA[Width]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[600]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[px]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[height]]></Name>
+      <Alias><![CDATA[Height]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[400]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[px]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+
+    <Setting>
+      <Name><![CDATA[effect]]></Name>
+      <Alias><![CDATA[Effect]]></Alias>
+      <Width><![CDATA[120]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[random]]></DefaultValue>
+      <ControlType><![CDATA[DropDownList]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[random,cubeUp,cubeDown,cubeRight,cubeLeft,flipUp,flipDown,flipRight,flipLeft,blindsVertical,blindsHorizontal,gridBlocksUp,gridBlocksDown,gridBlocksRight,gridBlocksLeft]]></ListContent>
+      <Description><![CDATA[The name of the effect. Specify a 3d effect name if you have chosen a 3d effect type.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[animSpeed]]></Name>
+      <Alias><![CDATA[Anim Speed]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[1200]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[This is the time in ms for the animation to be complete. If 3d effect is chosen then this is the time that each slice will take to animate.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[pauseTime]]></Name>
+      <Alias><![CDATA[Pause Time]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[3000]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[The time interval for which a particular slide will be visible before advancing on to the next.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[startSlide]]></Name>
+      <Alias><![CDATA[Start Slide]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[0]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[Use this option to start the slideshow at any slide of your choice. Here you have to enter the slide number.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[captionAnimaSpeed]]></Name>
+      <Alias><![CDATA[Caption Animation Speed]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[600]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[Animation time for the captions.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[captionPosition]]></Name>
+      <Alias><![CDATA[Caption Position]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[bottom]]></DefaultValue>
+      <ControlType><![CDATA[DropDownList]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[bottom,top,left,right]]></ListContent>
+      <Description><![CDATA[There are 4 supported caption positions and they are 'bottom', 'top', 'left' and 'right'. The default value is 'bottom'.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[captionAnimation]]></Name>
+      <Alias><![CDATA[Caption Animation]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[slide]]></DefaultValue>
+      <ControlType><![CDATA[DropDownList]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[none,fade,slide]]></ListContent>
+      <Description><![CDATA[Animated effect for captions. Available options are 'fade', 'slide' and 'none'. The default effect is 'slide'.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[directionNav]]></Name>
+      <Alias><![CDATA[Direction Nav]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[true]]></DefaultValue>
+      <ControlType><![CDATA[CheckBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[This option is to enable next/prev buttons. Enter 'true' if you want them and 'false' if you don't. They are enabled by default.]]></Description>
+      <Required><![CDATA[False]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[autoPlay]]></Name>
+      <Alias><![CDATA[Auto Play]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[true]]></DefaultValue>
+      <ControlType><![CDATA[CheckBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[Enter 'true' if you want autoplay enabled. It is enabled by default. Also when this is enabled a play/pause button will be generated.]]></Description>
+      <Required><![CDATA[False]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[pauseOnHover]]></Name>
+      <Alias><![CDATA[Pause On Hover]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[true]]></DefaultValue>
+      <ControlType><![CDATA[CheckBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[If autoPlay is enabled then this gives you the option to pause the slideshow when hovering over it. Autoplay will resume when the mouse moves away from the slideshow.]]></Description>
+      <Required><![CDATA[False]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[captions]]></Name>
+      <Alias><![CDATA[Captions]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[true]]></DefaultValue>
+      <ControlType><![CDATA[CheckBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[If you want captions then set this to 'true'. Captions are enabled by default.]]></Description>
+      <Required><![CDATA[False]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+
+    <Setting>
+      <Name><![CDATA[controlLinks]]></Name>
+      <Alias><![CDATA[ControlLinks]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[true]]></DefaultValue>
+      <ControlType><![CDATA[CheckBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[This option enables links to each individual slide. When enabled then the default output is an unordered list where each list item contains a number corresponding to the slide it links to.]]></Description>
+      <Required><![CDATA[False]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+
+    <Setting>
+      <Name><![CDATA[imageWidth]]></Name>
+      <Alias><![CDATA[3D Image Width]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[600]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[the width of the rendered image.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[imageHeight]]></Name>
+      <Alias><![CDATA[3D Image Height]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[300]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[the height of the rendered image.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[makeShadow]]></Name>
+      <Alias><![CDATA[3D Make Shadow]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[true]]></DefaultValue>
+      <ControlType><![CDATA[CheckBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[whether a shadow will be rendered or not. Applicable only for 'cube' 3d effects.]]></Description>
+      <Required><![CDATA[False]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[transparentImg]]></Name>
+      <Alias><![CDATA[3D Transparent Img]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[false]]></DefaultValue>
+      <ControlType><![CDATA[CheckBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[if you are using transparent png images as your slides then enable this. Enabling this avoids an image "pile up" effect.]]></Description>
+      <Required><![CDATA[False]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[slices]]></Name>
+      <Alias><![CDATA[3D Slices]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[7]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[number of slices in which the image will be divided.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[rows]]></Name>
+      <Alias><![CDATA[3D Rows]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[7]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[number of rows in which the image will be divided (only required for 'grid' effects).]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[columns]]></Name>
+      <Alias><![CDATA[3D Columns]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[7]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[number of columns in which the image will be divided (only required for 'grid' effects).]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[delay]]></Name>
+      <Alias><![CDATA[3D Delay]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[200]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[delay between the animation of each slice. Value is in ms.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[depthOffset]]></Name>
+      <Alias><![CDATA[3D Depth Offset]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[400]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[the distance the slices will travel along the z-axis (away from the screen) while animating.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[sliceGap]]></Name>
+      <Alias><![CDATA[3D Slice Gap]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[20]]></DefaultValue>
+      <ControlType><![CDATA[TextBox]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[]]></ListContent>
+      <Description><![CDATA[the distance/separation between the slices while animating.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[integer]]></Verification>
+    </Setting>
+    <Setting>
+      <Name><![CDATA[easing]]></Name>
+      <Alias><![CDATA[3D Easing]]></Alias>
+      <Width><![CDATA[100]]></Width>
+      <Rows><![CDATA[1]]></Rows>
+      <DefaultValue><![CDATA[easeInOutCubic]]></DefaultValue>
+      <ControlType><![CDATA[DropDownList]]></ControlType>
+      <Direction><![CDATA[Vertical]]></Direction>
+      <ListContent><![CDATA[linear,swing,easeInQuad,easeOutQuad,easeInOutQuad,easeInCubic,  easeOutCubic,easeInOutCubic,easeInQuart,easeOutQuart,easeInOutQuart,easeInQuint,easeOutQuint,easeInOutQuint,easeInSine,easeOutSine,easeInOutSine,easeInExpo,easeOutExpo,easeInOutExpo,easeInCirc,easeOutCirc,easeInOutCirc,easeInElastic,easeOutElastic,easeInOutElastic,easeInBack,easeOutBack,easeInOutBack,easeInBounce,easeOutBounce,easeInOutBounce]]></ListContent>
+      <Description><![CDATA[an easing option of your choice. Generally easing values of the 'InOut' variety look much better.]]></Description>
+      <Required><![CDATA[True]]></Required>
+      <Verification><![CDATA[]]></Verification>
+    </Setting>
+    
+    
+    
+  </EffectSettings>
+</DNNGo_DNNGallery>
+
+
+

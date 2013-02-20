@@ -40,8 +40,10 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
-Cache/
-Logs/
+[Cc]ache/
+[Ll]ogs/
+_imageCropper/
+_acDocuments/
 
 # Build results
 [Dd]ebug/
@@ -164,3 +166,5 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
+Portals/0/Cache/Pages/*.attrib.resources
+Portals/0/Cache/Pages

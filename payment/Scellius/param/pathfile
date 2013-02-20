@@ -27,16 +27,16 @@ D_LOGO!/payment/Scellius/logo/!
 #
 # fichier des  paramètres sips
 #
-F_DEFAULT!D:\Dev\Agape\SVN\FRDevelopment\AC-FR\payment\Scellius\param\parmcom.defaut!
-#F_DEFAULT!D:\Dev\Agape\SVN\FRDevelopment\AC-FR\payment\Scellius\param\parmcom.scellius!
+F_DEFAULT!C:\Dev\Agape\Git\AgapeConnect1\payment\Scellius\param\parmcom.defaut!
+#F_DEFAULT!C:\Dev\Agape\Git\AgapeConnect1\payment\Scellius\param\parmcom.scellius!
 #
 # fichier paramètre commercant
 #
-F_PARAM!D:\Dev\Agape\SVN\FRDevelopment\AC-FR\payment\Scellius\param\parmcom!
+F_PARAM!C:\Dev\Agape\Git\AgapeConnect1\payment\Scellius\param\parmcom!
 #
 # certificat du commercant
 #
-F_CERTIFICATE!D:\Dev\Agape\SVN\FRDevelopment\AC-FR\payment\Scellius\param\certif!
+F_CERTIFICATE!C:\Dev\Agape\Git\AgapeConnect1\payment\Scellius\param\certif!
 #
 # type du certificat 	
 # 

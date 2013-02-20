@@ -20,7 +20,8 @@
             running: false,
             paused: false,
             stop: false,
-            controlNavEl: false
+            controlNavEl: false,
+           
         };
 
         // Get this slider
@@ -42,11 +43,21 @@
             // Get img width & height
             var childWidth = (childWidth === 0) ? child.attr('width') : child.width(),
                 childHeight = (childHeight === 0) ? child.attr('height') : child.height();
-            //child.css('heightchildHeight);
+
+            // var offset = slider.height() - childHeight / 2;
+            // alert(childHeight);
+            child.css('height', 'auto');
+
+            child.css('width', slider.width() + 'px');
+
+
             if (link !== '') {
                 link.css('display', 'none');
             }
             child.css('display', 'none');
+          //  child.css('offset', offset + 'px');
+
+            child.hide();
             vars.totalSlides++;
         });
 
@@ -77,12 +88,13 @@
         var sliderImg = $('<img class="nivo-main-image" src="#" />');
         sliderImg.attr('src', vars.currentImage.attr('src')).show();
         slider.append(sliderImg);
-        //alert(vars.currentImage.css('height'));
+       // alert(vars.currentImage.css('height'));
         
         var offset = ($(kids[vars.currentSlide]).css('height').replace("px", "") - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
-      
+       
+       
         $('.nivo-main-image').css('top', offset + 'px');
-
+       //    $('.nivo-main-image').css('opacity',0);
 
         // Detect Window Resize
         $(window).resize(function () {
@@ -158,7 +170,8 @@
 
         // Add Control nav
         if (settings.controlNav) {
-            vars.controlNavEl = $('<div class="nivo-controlNav"></div>');
+           // alert(vars.width);
+            vars.controlNavEl = $('<div class="nivo-controlNav" style="width: ' + settings.width +'px"></div>');
             slider.after(vars.controlNavEl);
             for (var i = 0; i < kids.length; i++) {
                 if (settings.controlNavThumbs) {
@@ -207,6 +220,13 @@
         // Event when Animation finishes
         slider.bind('nivo:animFinished', function () {
             sliderImg.attr('src', vars.currentImage.attr('src'));
+            sliderImg.css('opacity', 1.0);
+          
+           // alert(slider.css('height').replace('px', '') );
+            var offset = (slider.css('height').replace('px', '') - vars.currentImage.css('height').replace('px', '')) / 2;
+            
+           sliderImg.css('top', offset +'px');
+
             vars.running = false;
             // Hide child links
             $(kids).each(function () {
@@ -228,12 +248,15 @@
 
         // Add slices for slice animations
         var createSlices = function (slider, settings, vars) {
+
             if ($(vars.currentImage).parent().is('a')) $(vars.currentImage).parent().css('display', 'block');
             $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').width(slider.width()).css('visibility', 'hidden').show();
             var sliceHeight = ($('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').parent().is('a')) ? $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').parent().height() : $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').height();
+          
+           
             var offset = (sliceHeight - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
-
-
+          
+          
             for (var i = 0; i < settings.slices; i++) {
                 var sliceWidth = Math.round(slider.width() / settings.slices);
 
@@ -264,9 +287,12 @@
             }
 
             $('.nivo-slice', slider).height(sliceHeight);
-            sliderImg.stop().animate({
-                height: $(vars.currentImage).height()
-            }, settings.animSpeed);
+
+        //    sliderImg.css('height', $(vars.currentImage).height() + 'px');
+            
+           // sliderImg.stop().animate({
+           //     height: sliceHeight + 'px' // $(vars.currentImage).height()
+            //}, settings.animSpeed);
         };
 
         // Add boxes for box animations
@@ -336,6 +362,7 @@
                     sliderImg.attr('src', vars.currentImage.attr('src'));
                 }
             }
+           
 
             vars.currentSlide++;
             // Trigger the slideshowEnd callback
@@ -350,6 +377,7 @@
             } else {
                 vars.currentImage = $(kids[vars.currentSlide]).find('img:first');
             }
+          
 
             // Set active links
             if (settings.controlNav) {
@@ -495,11 +523,18 @@
                 });
             } else if (currentEffect === 'fade') {
                 createSlices(slider, settings, vars);
-
+               
                 firstSlice = $('.nivo-slice:first', slider);
                 firstSlice.css({
                     'width': slider.width() + 'px'
                 });
+                sliderImg.css('opacity', 1.0);
+                
+               var offset = (slider.height() - sliderImg.css('height').replace('px', '')) / 2;
+            
+               sliderImg.css('top', offset + 'px');
+               sliderImg.css('height', slider.height + 'px');
+               sliderImg.animate({ opacity: '0.0' }, (settings.animSpeed * 2), '');
 
                 firstSlice.animate({ opacity: '1.0' }, (settings.animSpeed * 2), '', function () { slider.trigger('nivo:animFinished'); });
             } else if (currentEffect === 'slideInRight') {
@@ -512,6 +547,7 @@
                 });
 
                 firstSlice.animate({ width: slider.width() + 'px' }, (settings.animSpeed * 2), '', function () { slider.trigger('nivo:animFinished'); });
+
             } else if (currentEffect === 'slideInLeft') {
                 createSlices(slider, settings, vars);
 
@@ -679,7 +715,8 @@
         afterChange: function () { },
         slideshowEnd: function () { },
         lastSlide: function () { },
-        afterLoad: function () { }
+        afterLoad: function () { },
+        width: 420
     };
 
     $.fn._reverse = [].reverse;

@@ -10,6 +10,7 @@
 <asp:TextBox ID="tbCurrency" runat="server" class="numeric currency" Width="90px"></asp:TextBox>
                 <asp:DropDownList ID="ddlCurrencies" runat="server" class="ddlCur">
                     <asp:ListItem Value="AED">United Arab Emirates Dirham (AED)</asp:ListItem>
+                    <asp:ListItem Value="ALL">Albanian Lek (ALL)</asp:ListItem>
 <asp:ListItem Value="ANG">Netherlands Antillean Guilder (ANG)</asp:ListItem>
 <asp:ListItem Value="ARS">Argentine Peso (ARS)</asp:ListItem>
 <asp:ListItem Value="AUD">Australian Dollar (AUD)</asp:ListItem>

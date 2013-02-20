@@ -1,0 +1,60 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/** Create Table **/
+
+ 
+/** DNNGo_DNNGallery_Content  **/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNGo_DNNGallery_Content]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+BEGIN
+	CREATE TABLE {databaseOwner}[{objectQualifier}DNNGo_DNNGallery_Content](
+			[ID] [int] IDENTITY(1,1) NOT NULL,
+			[Title] [nvarchar](100) NOT NULL,
+			[Subtitle] [nvarchar](100) NULL,
+			[Description] [ntext] NULL,
+			[ContentText] [ntext] NULL,
+			[Picture] [nvarchar](200) NULL,
+			[Thumbnails] [nvarchar](200) NULL,
+			[UrlLink] [nvarchar](200) NULL,
+			[ViewType] [tinyint] NOT NULL,
+			[ViewTabId] [int] NOT NULL,
+			[ViewModuleId] [int] NOT NULL,
+			[Sort] [int] NOT NULL,
+			[ModuleId] [int] NOT NULL,
+			[PortalId] [int] NOT NULL,
+			[Status] [tinyint] NOT NULL,
+			[LastUser] [int] NOT NULL,
+			[LastIP] [nvarchar](50) NOT NULL,
+			[LastTime] [datetime] NOT NULL,
+			[UrlLinkType] tinyint NOT NULL CONSTRAINT DF_{objectQualifier}DNNGo_DNNGallery_Content_UrlLinkType DEFAULT 0,
+			[UrlLinkTarget] tinyint NOT NULL CONSTRAINT DF_{objectQualifier}DNNGo_DNNGallery_Content_UrlLinkTarget DEFAULT 0,
+		 CONSTRAINT [PK_{objectQualifier}DNNGo_DNNGallery_Content] PRIMARY KEY CLUSTERED 
+		(
+			[ID] ASC
+		)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+	  
+END
+ 
+
+
+
+
+
+
+
+ 
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/
+
+
+

@@ -44,7 +44,7 @@
                 <td> <uc1:labelcontrol ID="labelcontrol2" runat="server" Text="Template:" HelpText="Enter the template content here." />
                 </td>
                 <td>
-                    <dnn:TextEditor ID="TextEditor1" runat="server" Width="100%" TextRenderMode="Raw"  Text='<%# Bind("TemplateHTML") %>' HtmlEncode="False" defaultmode="Rich" height="440" choosemode="True" chooserender="False"   />
+                    <dnn:TextEditor ID="TextEditor1" runat="server" Width="100%" TextRenderMode="Raw"  Text='<%# Bind("TemplateHTML") %>' HtmlEncode="False" defaultmode="Rich" height="440" choosemode="True" chooserender="False"  />
                 </td>
             </tr>
         </table>

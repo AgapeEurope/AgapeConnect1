@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AC-FR" Class="StaffBrokerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AC-FR;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgapeConnect" Class="StaffBrokerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AgapeConnect;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -371,5 +371,46 @@
     <Parameter Name="ExistUserName" Parameter="existUserName" Type="System.String" DbType="VarChar(120)" />
     <Parameter Name="NewUserName" Parameter="newUserName" Type="System.String" DbType="VarChar(121)" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetSearchResults" Method="GetSearchResults">
+    <Parameter Name="PortalID" Parameter="portalID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TabId" Parameter="tabId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ModuleId" Parameter="moduleId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetSearchResultsResult">
+      <Column Name="SearchItemID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PortalID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TabID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ModuleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="Author" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PubDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SearchKey" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Guid" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="HitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ImageFileId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthorName" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetSearchResultsByWord" Method="GetSearchResultsByWord">
+    <Parameter Name="PortalID" Parameter="portalID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Word" Parameter="word" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="GetSearchResultsByWordResult">
+      <Column Name="SearchItemID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Word" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Occurrences" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Relevance]" Member="Relevance" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModuleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TabID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="Author" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PubDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SearchKey" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Guid" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ImageFileId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthorName" Type="System.String" DbType="NVarChar(101)" CanBeNull="true" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

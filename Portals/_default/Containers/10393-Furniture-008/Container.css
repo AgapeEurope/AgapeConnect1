@@ -1,0 +1,122 @@
+/* 
+================================
+ Container Styles for DotNetNuke
+================================
+.
+
+
+/*-------------------------------------------------------------------------------*/
+.actions{ width:10px;}
+.clear									 { clear:both;}
+.left 									 { float:left;}
+.right 									 { float:right;}
+.c_footer_1								 { padding-right:10px; text-align:right;}
+.dnntitle 								 { padding-left:10px;}
+.c_contentpane 							 { text-align:left; padding:2px 5px 0px 5px;}
+.ModuleTitle_MenuContainer				 { width:100px!important;}
+.Container-10393-1 						 { margin-bottom:5px; border:1px solid #CDCBCB; padding:5px; background:#FFFFFF; zoom:1;}
+.Container-10393-1 .dnntitle			 { padding:0px 0px 6px 0px; white-space:nowrap; text-align:left; }
+.Container-10393-1 .contentmain1		 { background:url(images/c1_bg.png) 0px 0px repeat-x; padding:12px 17px 0px 17px;}
+.Container-10393-1 .contentpane			 { padding:0px 0px 3px 0px; text-align:left; vertical-align:top; }
+
+.Container-10393-2 						 { margin-bottom:5px; }
+.Container-10393-2 .dnntitle			 { padding:0px 0px 8px 0px;}
+.Container-10393-2 .contentmain1		 { }
+.Container-10393-2 .contentpane			 { padding:0px 0px 1px 0px; text-align:left; vertical-align:top; clear:both;}
+
+.Container-10393-3 						 { margin-bottom:5px; }
+.Container-10393-3 .dnntitle			 { padding:0px 0px 8px 0px;}
+.Container-10393-3 .contentmain1		 { }
+.Container-10393-3 .contentpane			 { padding:0px 0px 1px 0px; text-align:left; vertical-align:top; clear:both;}
+
+.Container-10393-4 						 { margin-bottom:5px; border:1px solid #c4c1c1; padding:5px; background:#e9e9e9; zoom:1;}
+.Container-10393-4 .contentmain_bg       { padding:12px 9px 5px 5px; background:#fff;}
+.Container-10393-4 .c_icon     			 { float:left; padding:3px 0px 15px 0px; background:#fff;}
+.Container-10393-4 .c_icon img           { margin-right:5px;}
+.Container-10393-4 .dnntitle			 { padding:0px 0px 8px 0px; background:url(images/c4_line.jpg) 0px 100% repeat-x}
+.Container-10393-4 .contentmain1		 { }
+.Container-10393-4 .contentpane			 { padding:8px 0px 1px 0px; text-align:left; vertical-align:top;}
+
+.Container-10393-5 						 { margin-bottom:5px; }
+.Container-10393-5 .dnntitle			 { padding:0px 0px 8px 0px;}
+.Container-10393-5 .contentmain1		 { }
+.Container-10393-5 .contentpane			 { padding:0px 0px 1px 0px; text-align:left; vertical-align:top; clear:both;}
+
+.Container-10393-6 						 { margin-bottom:5px; }
+.Container-10393-6 .dnntitle			 { padding:0px 0px 8px 0px; border-bottom-style:solid; border-bottom-width:2px;}
+.Container-10393-6 .contentmain1		 { }
+.Container-10393-6 .contentpane			 { padding:8px 0px 1px 0px; text-align:left; vertical-align:top; clear:both;}
+
+.Container-10393-7 						 { margin-bottom:5px; }
+.Container-10393-7 .dnntitle			 { padding:7px 0px 5px 17px;}
+.Container-10393-7 .contentmain1		 { border-style:solid; border-width:1px; background:#fff; padding:10px 10px 5px 10px; border-radius:0px 0px 5px 5px;}
+.Container-10393-7 .contentpane			 { padding:0px 0px 1px 0px; text-align:left; vertical-align:top; clear:both;}
+
+.Container-10393-8 						 { margin-bottom:5px; background:#fff; border-style:solid; border-width:1px;}
+.Container-10393-8 .dnntitle			 { padding:10px 0px 8px 0px; margin:0px 11px; border-bottom-style:solid; border-bottom-width:1px;}
+.Container-10393-8 .contentmain1		 { padding:8px 11px 1px 11px;}
+.Container-10393-8 .contentpane			 { padding:0px 0px 1px 0px; text-align:left; vertical-align:top; clear:both;}
+
+.Container-10393-9 						 { margin-bottom:5px;}
+.Container-10393-9 .dnntitle			 { padding:5px 0px 5px 19px; background-image:url(images/c9_bg.png); background-repeat:repeat-x; border-radius:7px;}
+.Container-10393-9 .contentmain1		 { padding:8px 2px 1px 2px; border-radius:0px 0px 5px 5px;}
+.Container-10393-9 .contentpane			 { padding:0px 0px 1px 0px; text-align:left; vertical-align:top; clear:both;}
+
+.White {}
+.White .contentpane 					 { padding:0px;}
+.White .cbot							 { float:right;}
+
+
+
+.Container-10393-1 .title1{font-size:18px;font-weight:normal; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-2 .title2{font-size:18px;font-weight:normal;color: #646262; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-3 .title3{font-size:18px;font-weight:normal; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-4 .title4{font-size:16px;font-weight:normal; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-5 .title5{font-size:18px;font-weight:normal;color: #bebdbd; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-6 .title6{font-size:18px;font-weight:normal; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-7 .title7{font-size:18px;font-weight:normal;color: #fff; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-8 .title8{font-size:18px;font-weight:normal; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+.Container-10393-9 .title9{font-size:18px;font-weight:normal;color: #fff; line-height:1.3; font-family:'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

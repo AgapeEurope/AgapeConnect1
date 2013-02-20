@@ -55,6 +55,12 @@ namespace DotNetNuke.Modules.Account
 
             return _googleGraph;
         }
+
+      
+
+        
+           
+       
         protected void Page_Load(object sender, EventArgs e)
          {
              _startDate = FirstDayOfMonthFromDateTime(DateTime.Today.AddMonths(-12));
@@ -67,6 +73,8 @@ namespace DotNetNuke.Modules.Account
                  var ssoGUID = UserInfo.Profile.GetPropertyValue("ssoGUID");
                  var resp = dsw.GetPortalsForUserJson(ssoGUID ).Distinct();
                var thisInstance = StaffBrokerFunctions.GetSetting("DataserverURL", PortalId);
+               if (String.IsNullOrEmpty(thisInstance)) thisInstance = "-unknownLocation";
+
 
            //    MyCountries.Items.Add(new ListItem("South Africa", "https://tntdataserver.com/dataserver/rsa/dataquery/dataqueryservice.asmx"));
 
@@ -81,11 +89,27 @@ namespace DotNetNuke.Modules.Account
                 //MyCountries.Items.Add(new ListItem("devtest","https://tntdataserver.eu/dataserver/devtest/dataquery/dataqueryservice.asmx"));
                 //MyCountries.Items.Add(new ListItem("AgapeAOA","https://tntdataserver.eu/dataserver/AgapeAOA/dataquery/dataqueryservice.asmx"));
                 
-                 
+                
                 
                 
                  ////
-                 MyCountries_SelectedIndexChanged(this, null);
+
+                 if (MyCountries.Items.Count > 0)
+                 {
+                     MyCountries_SelectedIndexChanged(this, null);
+                     lblMessage.Visible = false;
+                 }
+                 else
+                 {
+                     lblMessage.Text = "We cannot find an tntDataserver account for you in any country. Please contact the countries in which you receive donations, as ask them to add your TheKey account to their dataserver.";
+                     string Message="No DataServer accounts for: " + UserInfo.DisplayName + "(" + UserId.ToString() + ") " + ssoGUID + "CountryCount:" + MyCountries.Items.Count.ToString() + ";" + (resp.Count()).ToString();
+                     DotNetNuke.Services.Log.EventLog.EventLogController objEventLog = new DotNetNuke.Services.Log.EventLog.EventLogController();
+
+                     objEventLog.AddLog("Accounts", Message, PortalSettings, UserId, Services.Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT);
+                     
+                     lblMessage.Visible = true;
+                 }
+
 
 
              }
@@ -97,7 +121,9 @@ namespace DotNetNuke.Modules.Account
 
         protected void ReloadTablesAndGraphs()
         {
-           
+            if (MyCountries.Items.Count == 0)
+                return;
+
 
 
             if (dTnT.Url != MyCountries.SelectedValue)
@@ -184,8 +210,9 @@ namespace DotNetNuke.Modules.Account
                 if (index == 0) BalanceTable.Rows[0][col.ColumnName] = Translate("lblBalance");
                 else
                 {
-
-                    balCounter += DecodeNumberString((string)IncomeTable.Rows[0][index]) - DecodeNumberString((string)ExpensesTable.Rows[0][index]);
+                    double NetGain = (double) tntTransactions.Where(x => col.ColumnName == x.TransactionDate.Year + " - " + x.TransactionDate.Month).Select(x => x.Amount).Sum();
+                    //balCounter += DecodeNumberString((string)IncomeTable.Rows[0][index]) - DecodeNumberString((string)ExpensesTable.Rows[0][index]);
+                    balCounter += NetGain; // DecodeNumberString((string)IncomeTable.Rows[0][index]) - DecodeNumberString((string)ExpensesTable.Rows[0][index]);
                     if (index > 6 && index <13 )
                     {
                         avgBalance += balCounter/6.0;
@@ -408,7 +435,13 @@ namespace DotNetNuke.Modules.Account
                     returnTable.Rows.Add();
                    
                     currentGl = transaction.GLAccountDescription;
-                    if(transaction.GLAccountCode != null) _accountCodes.Add(Server.HtmlEncode(currentGl), transaction.GLAccountCode );
+                   //Get Unique GL Name
+                    string i = "";
+
+                    if(_accountCodes.ContainsKey(Server.HtmlDecode(currentGl)))
+                        currentGl += "(" + transaction.GLAccountCode + ")";
+
+                    if (transaction.GLAccountCode != null && !_accountCodes.ContainsKey(Server.HtmlDecode(currentGl))) _accountCodes.Add(Server.HtmlEncode(currentGl), transaction.GLAccountCode);
                     counter++;
                     InitializeRowForDataTable(returnTable, counter, currentGl, columnZeroName);
                 }
@@ -433,8 +466,7 @@ namespace DotNetNuke.Modules.Account
 
         private string FormatNumber(double inputNumber)
         {
-            
-            double num =Math.Abs(inputNumber);
+            double num = inputNumber;//Math.Abs(inputNumber);
             
             if (num >= 1000000)
                 return (num / 1000000).ToString("0.#") + "M";
@@ -460,7 +492,7 @@ namespace DotNetNuke.Modules.Account
 
             currentDonor= t.First().GLAccountDescription  ;
 
-            if (currentDonor != null) _donorCodes.Add(currentDonorCode, Server.HtmlEncode(currentDonor) );
+            if (currentDonor != null && !_donorCodes.ContainsKey(currentDonorCode)) _donorCodes.Add(currentDonorCode, Server.HtmlEncode(currentDonor) );
            
             InitializeRowForDataTable(returnTable, counter,  currentDonorCode, columnZeroName);
 
@@ -715,7 +747,8 @@ namespace DotNetNuke.Modules.Account
         }
         protected void MyCountries_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (MyCountries.Items.Count == 0)
+                return;
             if (dTnT.Url != MyCountries.SelectedValue)
             {
                 dTnT.Url = MyCountries.SelectedValue;
