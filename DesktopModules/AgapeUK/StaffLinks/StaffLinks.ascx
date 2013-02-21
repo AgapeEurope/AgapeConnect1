@@ -111,8 +111,8 @@
             <asp:Repeater ID="rptDates" runat="server" DataSourceID="dsEvents">
                 <ItemTemplate>
                     <asp:Label ID="lblEventName" runat="server" Text='<%# Eval("EventName") %>' CssClass="Agape_lBlue_H5"></asp:Label><br />
-                    <asp:Label ID="lblEventDate" runat="server" Text='<%# Eval("EventDate") %>'></asp:Label><br />
-                    <asp:Label ID="lblEventLocation" runat="server" Text='<%# Eval("EventLocation") %>' CssClass="Links_Event_Subtitle"></asp:Label><br />
+                    <asp:Label ID="lblEventDate" runat="server" Text='<%# addLine(Eval("EventDate"))%>'></asp:Label>
+                    <asp:Label ID="lblEventLocation" runat="server" Text='<%# addLine(Eval("EventLocation")) %>' CssClass="Links_Event_Subtitle"></asp:Label>
                     <br />
                 </ItemTemplate>
             </asp:Repeater>
