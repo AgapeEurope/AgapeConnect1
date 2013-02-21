@@ -188,11 +188,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             rblMethod.CssClass = rblMethod.CssClass & " rblMeth"
 
         End Sub
-
-        Protected Sub Page_Unload(sender As Object, e As EventArgs) Handles Me.Unload
-            Dim blah As String = "vide"
-        End Sub
-
 #End Region
 #Region "Functions"
         Private Function ChangeName(ByVal inName As String) As String
