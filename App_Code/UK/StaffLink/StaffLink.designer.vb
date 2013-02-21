@@ -44,6 +44,12 @@ Namespace UK.StaffLink
     End Sub
     Partial Private Sub DeleteAgape_Staff_Link(instance As Agape_Staff_Link)
     End Sub
+    Partial Private Sub InsertAgape_Staff_Event(instance As Agape_Staff_Event)
+    End Sub
+    Partial Private Sub UpdateAgape_Staff_Event(instance As Agape_Staff_Event)
+    End Sub
+    Partial Private Sub DeleteAgape_Staff_Event(instance As Agape_Staff_Event)
+    End Sub
     #End Region
 		
 		Public Sub New()
@@ -80,6 +86,12 @@ Namespace UK.StaffLink
 		Public ReadOnly Property Agape_Staff_Links() As System.Data.Linq.Table(Of Agape_Staff_Link)
 			Get
 				Return Me.GetTable(Of Agape_Staff_Link)
+			End Get
+		End Property
+		
+		Public ReadOnly Property Agape_Staff_Events() As System.Data.Linq.Table(Of Agape_Staff_Event)
+			Get
+				Return Me.GetTable(Of Agape_Staff_Event)
 			End Get
 		End Property
 	End Class
@@ -1111,6 +1123,156 @@ Namespace UK.StaffLink
 					Me._TabId = value
 					Me.SendPropertyChanged("TabId")
 					Me.OnTabIdChanged
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.Agape_Staff_Event")>  _
+	Partial Public Class Agape_Staff_Event
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _EventId As Integer
+		
+		Private _EventName As String
+		
+		Private _EventDate As String
+		
+		Private _EventLocation As String
+		
+		Private _SortOrder As System.Nullable(Of Short)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnEventIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnEventIdChanged()
+    End Sub
+    Partial Private Sub OnEventNameChanging(value As String)
+    End Sub
+    Partial Private Sub OnEventNameChanged()
+    End Sub
+    Partial Private Sub OnEventDateChanging(value As String)
+    End Sub
+    Partial Private Sub OnEventDateChanged()
+    End Sub
+    Partial Private Sub OnEventLocationChanging(value As String)
+    End Sub
+    Partial Private Sub OnEventLocationChanged()
+    End Sub
+    Partial Private Sub OnSortOrderChanging(value As System.Nullable(Of Short))
+    End Sub
+    Partial Private Sub OnSortOrderChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_EventId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property EventId() As Integer
+			Get
+				Return Me._EventId
+			End Get
+			Set
+				If ((Me._EventId = value)  _
+							= false) Then
+					Me.OnEventIdChanging(value)
+					Me.SendPropertyChanging
+					Me._EventId = value
+					Me.SendPropertyChanged("EventId")
+					Me.OnEventIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_EventName", DbType:="NVarChar(400)")>  _
+		Public Property EventName() As String
+			Get
+				Return Me._EventName
+			End Get
+			Set
+				If (String.Equals(Me._EventName, value) = false) Then
+					Me.OnEventNameChanging(value)
+					Me.SendPropertyChanging
+					Me._EventName = value
+					Me.SendPropertyChanged("EventName")
+					Me.OnEventNameChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_EventDate", DbType:="NVarChar(200)")>  _
+		Public Property EventDate() As String
+			Get
+				Return Me._EventDate
+			End Get
+			Set
+				If (String.Equals(Me._EventDate, value) = false) Then
+					Me.OnEventDateChanging(value)
+					Me.SendPropertyChanging
+					Me._EventDate = value
+					Me.SendPropertyChanged("EventDate")
+					Me.OnEventDateChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_EventLocation", DbType:="NVarChar(200)")>  _
+		Public Property EventLocation() As String
+			Get
+				Return Me._EventLocation
+			End Get
+			Set
+				If (String.Equals(Me._EventLocation, value) = false) Then
+					Me.OnEventLocationChanging(value)
+					Me.SendPropertyChanging
+					Me._EventLocation = value
+					Me.SendPropertyChanged("EventLocation")
+					Me.OnEventLocationChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SortOrder", DbType:="SmallInt")>  _
+		Public Property SortOrder() As System.Nullable(Of Short)
+			Get
+				Return Me._SortOrder
+			End Get
+			Set
+				If (Me._SortOrder.Equals(value) = false) Then
+					Me.OnSortOrderChanging(value)
+					Me.SendPropertyChanging
+					Me._SortOrder = value
+					Me.SendPropertyChanged("SortOrder")
+					Me.OnSortOrderChanged
 				End If
 			End Set
 		End Property

@@ -21,5 +21,11 @@
         <elementListCompartment Id="564312d0-3f51-4dfa-85c5-0d099b7b5fb6" absoluteBounds="0.515, 1.585, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="8a8569f6-066f-4d9c-8ab6-248e0aaa7ffd" absoluteBounds="0.625, 4, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/StaffLinkDataContext/Agape_Staff_Event" />
+      <nestedChildShapes>
+        <elementListCompartment Id="831016e0-6980-4eb4-9956-e9f6acd8c172" absoluteBounds="0.64, 4.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

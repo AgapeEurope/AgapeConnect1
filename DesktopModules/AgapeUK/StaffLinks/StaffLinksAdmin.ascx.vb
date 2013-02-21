@@ -20,8 +20,10 @@ Namespace DotNetNuke.Modules.StaffLinks
             If Not Page.IsPostBack Then
                 hfPortalId.Value = Me.PortalId
                 redoSort()
+                redoSortEvent()
             End If
         End Sub
+#Region "Buttons"
         Protected Sub btnUploadLink_Click(sender As Object, e As EventArgs) Handles btnUploadLink.Click
             lblError.Visible = False
             Dim d As New StaffLinkDataContext
@@ -35,7 +37,7 @@ Namespace DotNetNuke.Modules.StaffLinks
             End If
             Dim q = From c In d.Agape_Staff_Links Where c.LinkName = tbLinkName.Text Or c.LinkURL = thisURL
             If q.Count > 0 Then
-                lblError.Text = "*You have already entered a link with the same name/URL please change this and try again."
+                lblError.Text = "*You have already entered a link with the same name/URL, please change this and try again."
                 lblError.Visible = True
                 CleanUp()
             Else
@@ -56,22 +58,30 @@ Namespace DotNetNuke.Modules.StaffLinks
                 CleanUp()
             End If
         End Sub
-#Region "Sub Functions"
-        Private Sub CleanUp()
-            tbLinkName.Text = ""
-            ddlSiteChoice.SelectedIndex = 0
-            cbNewWindow.Checked = False
-        End Sub
-        Private Sub redoSort()
+        Protected Sub btnAddEvent_Click(sender As Object, e As EventArgs) Handles btnAddEvent.Click
+            lblEventError.Visible = False
             Dim d As New StaffLinkDataContext
-            Dim q = From c In d.Agape_Staff_Links Where 1 = 1 Order By c.SortOrder Ascending
-            Dim counter As Integer = 1
-            For Each link In q
-                link.SortOrder = counter
+            Dim q = From c In d.Agape_Staff_Events Where c.EventName = tbEventName.Text
+            If q.Count > 0 Then
+                lblEventError.Text = "*You have already entered a link with the same name, please change this and try again."
+                lblEventError.Visible = True
+                CleanUpEvent()
+            Else
+                Dim insert As New UK.StaffLink.Agape_Staff_Event
+                insert.EventName = tbEventName.Text
+                insert.EventDate = tbEventDate.Text
+                insert.EventLocation = tbEventLocation.Text
+                Dim r = From c In d.Agape_Staff_Events Where 1 = 1 Order By c.SortOrder Descending Select c.SortOrder
+                If r.Count > 0 Then
+                    insert.SortOrder = r.First + 1
+                Else
+                    insert.SortOrder = 1
+                End If
+                d.Agape_Staff_Events.InsertOnSubmit(insert)
                 d.SubmitChanges()
-                counter += 1
-            Next
-            gvLinks.DataBind()
+                gvEvents.DataBind()
+                CleanUpEvent()
+            End If
         End Sub
 #End Region
 #Region "Grid View Stuff"
@@ -178,6 +188,89 @@ Namespace DotNetNuke.Modules.StaffLinks
 
                 End Try
             End If
+        End Sub
+        Protected Sub gvLinks_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles gvLinks.RowCancelingEdit
+            lblGVError.Visible = False
+        End Sub
+        Public Sub gvEvents_RowCommand(sender As Object, e As System.Web.UI.WebControls.GridViewCommandEventArgs) Handles gvEvents.RowCommand
+            Dim d As New StaffLinkDataContext
+            If e.CommandName = "Promote" Then
+                Try
+                    redoSortEvent()
+                    Dim r = From c In d.Agape_Staff_Events Where c.EventId = CInt(e.CommandArgument)
+                    If r.Count = 1 Then
+                        If r.First.SortOrder > 1 Then
+                            Dim oldNum = r.First.SortOrder
+                            Dim s = From c In d.Agape_Staff_Events Where c.SortOrder = (oldNum - 1)
+                            If s.Count = 1 Then
+                                s.First.SortOrder = oldNum
+                                r.First.SortOrder = oldNum - 1
+                                d.SubmitChanges()
+                                gvEvents.DataBind()
+                            End If
+                        End If
+                    End If
+                Catch ex As Exception
+
+                End Try
+            ElseIf e.CommandName = "Demote" Then
+                Try
+                    redoSortEvent()
+                    Dim t = From c In d.Agape_Staff_Events Where c.EventId = CInt(e.CommandArgument)
+                    Dim u = From c In d.Agape_Staff_Events Where 1 = 1 Order By c.SortOrder Descending Select c.SortOrder
+                    If t.Count = 1 Then
+                        If t.First.SortOrder < u.First Then
+                            Dim oldNum = t.First.SortOrder
+                            Dim v = From c In d.Agape_Staff_Events Where c.SortOrder = (oldNum + 1)
+                            If v.Count = 1 Then
+                                v.First.SortOrder = oldNum
+                                t.First.SortOrder = oldNum + 1
+                                d.SubmitChanges()
+                                gvEvents.DataBind()
+                            End If
+                        End If
+                    End If
+                Catch ex As Exception
+
+                End Try
+            End If
+        End Sub
+        Protected Sub gvEvents_RowDeleted(sender As Object, e As GridViewDeletedEventArgs) Handles gvEvents.RowDeleted
+            redoSortEvent()
+        End Sub
+#End Region
+#Region "Sub Functions"
+        Private Sub CleanUp()
+            tbLinkName.Text = ""
+            ddlSiteChoice.SelectedIndex = 0
+            cbNewWindow.Checked = False
+        End Sub
+        Private Sub redoSort()
+            Dim d As New StaffLinkDataContext
+            Dim q = From c In d.Agape_Staff_Links Where 1 = 1 Order By c.SortOrder Ascending
+            Dim counter As Integer = 1
+            For Each link In q
+                link.SortOrder = counter
+                d.SubmitChanges()
+                counter += 1
+            Next
+            gvLinks.DataBind()
+        End Sub
+        Private Sub CleanUpEvent()
+            tbEventName.Text = ""
+            tbEventDate.Text = ""
+            tbEventLocation.Text = ""
+        End Sub
+        Private Sub redoSortEvent()
+            Dim d As New StaffLinkDataContext
+            Dim q = From c In d.Agape_Staff_Events Where 1 = 1 Order By c.SortOrder Ascending
+            Dim counter As Integer = 1
+            For Each thisEvent In q
+                thisEvent.SortOrder = counter
+                d.SubmitChanges()
+                counter += 1
+            Next
+            gvEvents.DataBind()
         End Sub
 #End Region
 #Region "Functions"
@@ -327,11 +420,75 @@ Namespace DotNetNuke.Modules.StaffLinks
 
             Return out
         End Function
-#End Region
+        Public Function upOrGreyEvent(ByVal thisSort As Integer) As String
+            Dim out As String = ""
 
-        Protected Sub gvLinks_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles gvLinks.RowCancelingEdit
-            lblGVError.Visible = False
-        End Sub
+            Dim d As New StaffLinkDataContext
+            Dim q = From c In d.Agape_Staff_Events Where 1 = 1 Order By c.SortOrder Ascending
+            If q.Count > 1 Then
+                If thisSort = q.First.SortOrder Then
+                    out = "~/images/upGREY.gif"
+                Else
+                    out = "~/images/up.gif"
+                End If
+            Else
+                out = "~/images/upGREY.gif"
+            End If
+
+            Return out
+        End Function
+        Public Function dnOrGreyEvent(ByVal thisSort As Integer) As String
+            Dim out As String = ""
+
+            Dim d As New StaffLinkDataContext
+            Dim q = From c In d.Agape_Staff_Events Where 1 = 1 Order By c.SortOrder Descending
+            If q.Count > 1 Then
+                If thisSort = q.First.SortOrder Then
+                    out = "~/images/dnGREY.gif"
+                Else
+                    out = "~/images/dn.gif"
+                End If
+            Else
+                out = "~/images/dnGREY.gif"
+            End If
+
+            Return out
+        End Function
+        Public Function upEnabledEvent(ByVal thisSort As Integer) As Boolean
+            Dim out As Boolean = True
+
+            Dim d As New StaffLinkDataContext
+            Dim q = From c In d.Agape_Staff_Events Where 1 = 1 Order By c.SortOrder Ascending
+            If q.Count > 1 Then
+                If thisSort = q.First.SortOrder Then
+                    out = False
+                Else
+                    out = True
+                End If
+            Else
+                out = False
+            End If
+
+            Return out
+        End Function
+        Public Function dnEnabledEvent(ByVal thisSort As Integer) As Boolean
+            Dim out As Boolean = True
+
+            Dim d As New StaffLinkDataContext
+            Dim q = From c In d.Agape_Staff_Events Where 1 = 1 Order By c.SortOrder Descending
+            If q.Count > 1 Then
+                If thisSort = q.First.SortOrder Then
+                    out = False
+                Else
+                    out = True
+                End If
+            Else
+                out = False
+            End If
+
+            Return out
+        End Function
+#End Region
     End Class
 End Namespace
 

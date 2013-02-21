@@ -6,7 +6,7 @@
  * Free to use and abuse under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
-
+@import url(http://fonts.googleapis.com/css?family=Cabin|Source+Sans+Pro:400,700);
 /* The Nivo Slider styles */
 .nivoSlider {
     position: relative;
@@ -171,8 +171,9 @@
 .c_big {
     color: #fff !important;
     font-size: 12pt !important;
-    font-weight: 700 !important;
+    font-weight: 400 !important;
     text-align: left !important;
+    font-family: 'Cabin',Arial,sans-serif;
 }
 
 .c_small {

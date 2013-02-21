@@ -51,4 +51,13 @@
       <Column Name="TabId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Agape_Staff_Event" Member="Agape_Staff_Events">
+    <Type Name="Agape_Staff_Event">
+      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventName" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="EventDate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="EventLocation" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

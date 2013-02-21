@@ -17,5 +17,9 @@ Namespace DotNetNuke.UI.Skins.Controls
 
             Return out
         End Function
+
+        Protected Sub btnStaffSearch_Click(sender As Object, e As EventArgs) Handles btnStaffSearch.Click
+            '[CHRIS] Add the link to the search directory page here
+        End Sub
     End Class
 End Namespace
