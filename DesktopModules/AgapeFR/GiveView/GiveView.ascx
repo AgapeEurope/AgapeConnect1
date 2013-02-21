@@ -318,7 +318,7 @@
 <asp:HiddenField ID="hfUniqueRef" runat="server" Value="-1" />
 <div style="font-size: 10pt;">
     <div style="width: 700px; float: left;">
-        <div id="GiveTitle" runat="server" class="h1" style="margin-bottom: 12px;">
+        <div id="GiveTitle" runat="server" class="AgapeH2" style="margin-bottom: 12px;">
             <asp:Label ID="Title" runat="server"></asp:Label>
         </div>
         <asp:Label ID="lblOOError" Visible="False" runat="server"></asp:Label>
