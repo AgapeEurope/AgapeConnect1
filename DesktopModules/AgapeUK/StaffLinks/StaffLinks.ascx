@@ -77,7 +77,7 @@
         <br />
         <asp:Repeater ID="dRepeatLinks" runat="server" DataSourceID="dsLinks">
             <ItemTemplate>
-                <div class="Agape_lBlue_H5" style="padding-left: 5px; padding-right: 5px;">
+                <div class="Agape_lBlue_H5" style="padding-left: 5px; padding-right: 5px; margin-bottom:7px;">
                     <a target='<%# whatTarget(Eval("NewWindow")) %>' href='<%# Eval("LinkURL")%>'>
                         <asp:Label ID="lblLinkText" runat="server" Text='<%# Eval("LinkName") %>'></asp:Label>
                     </a>
@@ -120,7 +120,7 @@
             </asp:LinqDataSource>
         </div>
     </div>
-    <div style="display: block; text-align: right;">
+    <div style="display: block; text-align: right;" class="Agape_Blue_H5_Thin">
         <a href="" onclick="closeStaffBox(); return false;">Close</a>
     </div>
 </div>

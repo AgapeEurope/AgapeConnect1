@@ -217,6 +217,7 @@ function gvChangePanel(linkId) {
         <asp:PostBackTrigger ControlID="gvLinks" />
     </Triggers>
 </asp:UpdatePanel>
+<br />
 <asp:UpdatePanel ID="upUpcoming" runat="server">
     <ContentTemplate>
         <fieldset>
@@ -254,6 +255,7 @@ function gvChangePanel(linkId) {
             <asp:Button ID="btnAddEvent" runat="server" Text="Add Event" Style="display: none;" />
             <asp:Label ID="lblEventError" runat="server" Style="color: red;" Visible="false"></asp:Label>
         </fieldset>
+        <br />
         <asp:GridView ID="gvEvents" runat="server" AutoGenerateColumns="False" DataKeyNames="EventId" DataSourceID="dsEvents">
             <Columns>
                 <asp:TemplateField HeaderText="SortOrder" SortExpression="SortOrder" ItemStyle-HorizontalAlign="Center">

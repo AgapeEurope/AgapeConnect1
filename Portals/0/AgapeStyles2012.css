@@ -672,7 +672,7 @@ a:hover {
 /*Staff Links Panel*/
 .scroller {
     position: fixed !important;
-    top: 50%;
+    top: 35%;
     width: 20px;
     z-index: 9999;
     color: #fff;
@@ -687,7 +687,7 @@ a:hover {
 
 .scrollPanel {
     position: fixed !important;
-    top: 50%;
+    top: 35%;
     z-index: 9999;
     background-color: #fff;
 }
