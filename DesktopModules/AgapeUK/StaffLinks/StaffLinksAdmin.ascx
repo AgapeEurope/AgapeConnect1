@@ -7,6 +7,7 @@
             $('#offSite').hide();
             $('#lblNoText').hide();
             $('#lblNoURL').hide();
+            $('#lblNoEventName').hide();
         }
         $(document).ready(function () {
             setUpPage();
@@ -41,6 +42,16 @@
             __doPostBack('<%= btnUploadLink.UniqueID %>', '');
         }
 }
+function testEv() {
+    $('#lblNoEventName').hide();
+    if ($('.tbEventName').val() == "") {
+        $('#lblNoEventName').show();
+        return false;
+    }
+    else {
+        __doPostBack('<%= btnAddEvent.UniqueID %>', '');
+    }
+}
 function gvChangePanel(linkId) {
     var thisLink = linkId;
     $('.gvOnSite' + thisLink).hide();
@@ -74,7 +85,7 @@ function gvChangePanel(linkId) {
             <table>
                 <tr>
                     <td>
-                        <label id="lblLinkName" class="Agape_Blue_H5">Link Name:</label>
+                        <label id="lblLinkName" class="Agape_lBlue_H5">Link Name:</label>
                     </td>
                     <td>
                         <asp:TextBox ID="tbLinkName" runat="server" Width="200px" CssClass="tbLinkName"></asp:TextBox>
@@ -85,7 +96,7 @@ function gvChangePanel(linkId) {
                 </tr>
                 <tr>
                     <td style="vertical-align: top;">
-                        <label id="lblLink" class="Agape_Blue_H5">Link:</label>
+                        <label id="lblLink" class="Agape_lBlue_H5">Link:</label>
                     </td>
                     <td>
                         <select runat="server" class="ddlSiteChoice" id="ddlSiteChoice" onchange="choiceMade(); return false;">
@@ -119,7 +130,7 @@ function gvChangePanel(linkId) {
                 </tr>
                 <tr>
                     <td>
-                        <label class="Agape_Blue_H5">Open in new window?</label>
+                        <label class="Agape_lBlue_H5">Open in new window?</label>
                     </td>
                     <td colspan="2">
                         <asp:CheckBox ID="cbNewWindow" runat="server" />
@@ -188,7 +199,7 @@ function gvChangePanel(linkId) {
                     <EditItemTemplate>
                         <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Container.DataItemIndex %>' CausesValidation="False" CommandName="MyUpdate" Text="Update"></asp:LinkButton>
                         &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
-                        <asp:Label ID="lblUpdateError" runat="server" visible="false" ForeColor="red"></asp:Label>
+                        <asp:Label ID="lblUpdateError" runat="server" Visible="false" ForeColor="red"></asp:Label>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton><br />
@@ -204,5 +215,80 @@ function gvChangePanel(linkId) {
     <Triggers>
         <asp:PostBackTrigger ControlID="btnUploadLink" />
         <asp:PostBackTrigger ControlID="gvLinks" />
+    </Triggers>
+</asp:UpdatePanel>
+<br />
+<asp:UpdatePanel ID="upUpcoming" runat="server">
+    <ContentTemplate>
+        <fieldset>
+            <legend class="Agape_Blue_H4">Add Upcoming Event</legend>
+            <table>
+                <tr>
+                    <td>
+                        <label id="lblEventName" class="Agape_lOrange_H5">Event Name:</label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="tbEventName" runat="server" Width="200px" CssClass="tbEventName"></asp:TextBox>
+                    </td>
+                    <td>
+                        <div style="color: red;" id="lblNoEventName">*You have to have some text for the event name.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label id="lblEventDate" class="Agape_lOrange_H5">Event Date:</label>
+                    </td>
+                    <td colspan="2">
+                        <asp:TextBox ID="tbEventDate" runat="server" Width="200px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label id="lblEventLocation" class="Agape_lOrange_H5">Event Location:</label>
+                    </td>
+                    <td colspan="2">
+                        <asp:TextBox ID="tbEventLocation" runat="server" Width="200px"></asp:TextBox>
+                    </td>
+                </tr>
+            </table>
+            <input id="btnFakeAddEvent" type="button" value="Add Event" class="aButton" onclick="testEv(); return false;" />
+            <asp:Button ID="btnAddEvent" runat="server" Text="Add Event" Style="display: none;" />
+            <asp:Label ID="lblEventError" runat="server" Style="color: red;" Visible="false"></asp:Label>
+        </fieldset>
+        <br />
+        <asp:GridView ID="gvEvents" runat="server" AutoGenerateColumns="False" DataKeyNames="EventId" DataSourceID="dsEvents">
+            <Columns>
+                <asp:TemplateField HeaderText="SortOrder" SortExpression="SortOrder" ItemStyle-HorizontalAlign="Center">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LinkButtonTest" CausesValidation="False" Enabled='<%# upEnabledEvent(Eval("SortOrder"))%>' runat="server" CommandArgument='<%#Eval("EventId")%>' CommandName="Promote">
+                            <asp:Image ID="Image1" runat="server" ImageUrl='<%# upOrGreyEvent(Eval("SortOrder")) %>' Width="15px" />
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="LinkButtonTest2" CausesValidation="False" Enabled='<%# dnEnabledEvent(Eval("SortOrder"))%>' runat="server" CommandArgument='<%#Eval("EventId")%>' CommandName="Demote">
+                            <asp:Image ID="Image2" runat="server" ImageUrl='<%# dnOrGreyEvent(Eval("SortOrder"))%>' Width="15px" />
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:TemplateField>
+                <asp:BoundField DataField="EventName" HeaderText="EventName" SortExpression="EventName" />
+                <asp:BoundField DataField="EventDate" HeaderText="EventDate" SortExpression="EventDate" />
+                <asp:BoundField DataField="EventLocation" HeaderText="EventLocation" SortExpression="EventLocation" />
+                <asp:TemplateField ShowHeader="False">
+                    <EditItemTemplate>
+                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
+                        &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LinkButton4" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton><br />
+                        <asp:LinkButton ID="LinkButton3" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+        <asp:LinqDataSource ID="dsEvents" runat="server" ContextTypeName="UK.StaffLink.StaffLinkDataContext" EnableDelete="True" EnableUpdate="True" EntityTypeName="" OrderBy="SortOrder" TableName="Agape_Staff_Events">
+        </asp:LinqDataSource>
+    </ContentTemplate>
+    <Triggers>
+        <asp:PostBackTrigger ControlID="btnAddEvent" />
+        <asp:PostBackTrigger ControlID="gvEvents" />
     </Triggers>
 </asp:UpdatePanel>

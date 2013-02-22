@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Delete.Text" xml:space="preserve">
-    <value>Delete</value>
+  <data name="lblNote.Text" xml:space="preserve">
+    <value>NB. All staff options are available in the Staff menu at the top of the page.</value>
   </data>
-  <data name="Edit.Text" xml:space="preserve">
-    <value>Edit</value>
+  <data name="lblQuickAccess.Text" xml:space="preserve">
+    <value>Quick Access</value>
   </data>
-  <data name="Insert.Text" xml:space="preserve">
-    <value>Insert</value>
+  <data name="lblStaffSearch.Text" xml:space="preserve">
+    <value>Search Staff Directory</value>
   </data>
-  <data name="lblAlsoF5.Text" xml:space="preserve">
-    <value>*You will also need to refresh the page, before these settings will apply to the skin...</value>
-  </data>
-  <data name="lblIconHeight.Text" xml:space="preserve">
-    <value>Icon Height (in pixels):</value>
-  </data>
-  <data name="lblShowTitle.Text" xml:space="preserve">
-    <value>Show Title?</value>
+  <data name="lblUpcomingEvents.Text" xml:space="preserve">
+    <value>Key Dates</value>
   </data>
 </root>
