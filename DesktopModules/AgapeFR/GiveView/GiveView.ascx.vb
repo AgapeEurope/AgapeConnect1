@@ -26,6 +26,8 @@ Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
         Inherits Entities.Modules.PortalModuleBase
+        Public loggedin As Boolean
+
 
 #Region "Page Events"
         Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
@@ -41,7 +43,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 AddCSS()
                 'check if the user's logged in
                 If Me.UserId > 0 Then
-                    hfLoggedIn.Value = "True"
+                    loggedin = True
                     'Read in fields if logged in
                     Dim objUser As DotNetNuke.Entities.Users.UserInfo = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, Me.UserId)
                     TxtFirstName.Text = objUser.FirstName
@@ -56,11 +58,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
                     cboCountry.SelectedValue = objUser.Profile.Country
-                    'lblPassword.Visible = False
-                    'tbPassword.Visible = False
-                    login.Style("Display") = "none"
+                    'thelogincont.Style("Display") = "none"
                 Else
-                    hfLoggedIn.Value = "False"
+                    loggedin = False
                 End If
 
                 'Find the giving type and display the title of the page
@@ -180,7 +180,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankPostal.Text = Translate("BankPostal")
             lblSumTextBankCity.Text = Translate("BankCity")
             lblSumTextBankIBAN.Text = Translate("IBAN")
-
+            lblLinkPDF.Text = Translate("lblLinkPDF")
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
@@ -292,7 +292,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim x = mc.GetModuleByDefinition(PortalId, "frPresentationPage")
             If Not x Is Nothing Then
                 If Not x.TabID = Nothing Then
-                    Response.Redirect(NavigateURL(x.TabID) & "?giveto=" & shortcut)
+                    Response.Redirect(NavigateURL(x.TabID, "", "giveto=" + shortcut))
                 End If
             End If
         End Sub
@@ -368,6 +368,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
 #End Region
+
 
 
     End Class

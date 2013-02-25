@@ -50,41 +50,16 @@ Namespace DotNetNuke.Modules.AgapeFR.PresentationlPage
                     If IncList.Contains(staff.First.AP_StaffBroker_StaffType.Name) Then
                         btnGive.Visible = True
                     End If
+
                     'Determine if the user logged in is a staff member viewing their own page, show button
                     Dim nowUser As UserInfo = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo
                     btnEditProfile.Visible = False
-
-
                     If UserInfo.UserID = staff.First.UserId1 Or UserInfo.UserID = staff.First.UserId2 Then
                         btnEditProfile.Visible = True
                     End If
+
                     theImage1.ImageUrl = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
-
-                    'Dim spouseId = From c In d.Agape_StaffWeb_Families Where c.UserId1 = staff.First.UserID Or c.UserId2 = staff.First.UserID Select c.UserId1, c.UserId2
-                    'If spouseId.Count > 0 Then
-                    '    If spouseId.First.UserId2 >= 0 Then
-                    '        If staff.First.UserID = spouseId.First.UserId1 Then
-                    '            Dim spouseName = From c In d.Users Where c.UserID = spouseId.First.UserId2 Select c.FirstName
-                    '            If spouseName.Count > 0 Then
-                    '                Title.Text = staff.First.User.FirstName & " & " & spouseName.First & " " & staff.First.User.LastName
-                    '            End If
-
-                    '        Else
-                    '            Dim spouseName = From c In d.Users Where c.UserID = spouseId.First.UserId1 Select c.FirstName
-                    '            If spouseName.Count > 0 Then
-                    '                Title.Text = staff.First.User.FirstName & " & " & spouseName.First & " " & staff.First.User.LastName
-                    '            End If
-                    '        End If
-                    '    Else
-                    '        Title.Text = staff.First.User.FirstName & " " & staff.First.User.LastName
-                    '    End If
-                    'Else
-                    '    Title.Text = staff.First.User.FirstName & " " & staff.First.User.LastName
-                    'End If
                     Dim GiveText = GetStaffProfileProperty(staff.First.StaffId, "GivingText")
-
-                    'Dim givetext = From c In d.UserProfiles Where c.UserID = staff.First.UserID And c.ProfilePropertyDefinition.PropertyName = "GivingText" Select c.PropertyValue
-
                     If GiveText = "" Then
                         GiveTextLbl.Text = "Each Agapé staff member develops a support team who regularly pray " _
                    & "for them, encourage them, and give financially towards their salary and the " _

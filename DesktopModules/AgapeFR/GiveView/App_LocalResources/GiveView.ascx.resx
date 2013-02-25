@@ -279,4 +279,13 @@
   <data name="lblSummaryRight.Text" xml:space="preserve">
     <value>My Bank's Information:</value>
   </data>
+  <data name="lblConfText1.Text" xml:space="preserve">
+    <value>Thank you! Your donation is recorded in our system. Please send the PDF to your bank.</value>
+  </data>
+  <data name="lblLinkPDF.Text" xml:space="preserve">
+    <value>Click for PDF</value>
+  </data>
+  <data name="lblTheLoginCont.Text" xml:space="preserve">
+    <value>Please log in to continue.</value>
+  </data>
 </root>

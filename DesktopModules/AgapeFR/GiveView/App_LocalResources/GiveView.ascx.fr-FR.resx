@@ -279,4 +279,13 @@
   <data name="WantGivePara3.Text" xml:space="preserve">
     <value>Je confirme que les informations ci-dessous sont correctes.</value>
   </data>
+  <data name="lblConfText1.Text" xml:space="preserve">
+    <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
+  </data>
+  <data name="lblLinkPDF.Text" xml:space="preserve">
+    <value>Cliquer pour PDF</value>
+  </data>
+  <data name="lblTheLoginCont.Text" xml:space="preserve">
+    <value>Merci de se connecter pour continuer.</value>
+  </data>
 </root>

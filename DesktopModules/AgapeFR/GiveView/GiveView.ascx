@@ -5,11 +5,12 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
+<%@ Register TagPrefix="dnn2" TagName="Login" Src="~/DesktopModules/AgapeFR/Authentication/AgapeAuth.ascx" %>
 <script type="text/javascript">
     (function ($, Sys) {
         function setUpMyPage() {
             hidedivs();
-            transClient();
+
             if ($('#stepCount input[type=hidden]').val() == 1) {
                 $('#freqchoose').hide();
                 $('#confirmation').slideDown(1000);
@@ -31,12 +32,25 @@
             $('.rbFreq').click(function () {
                 rbFreq_click();
             });
-            $('#btnVirementNext').click(function () {
+            $('.btnVirementNext').click(function () {
                 btnVirementNext_click();
             });
-            $('#btnEditVirement').click(function () {
+            $('.btnEditVirement').click(function () {
                 btnEditVirement_click();
             });
+            $('.btnGoBank').click(function () {
+                btnGoBank_click();
+            });
+            //get session values
+            sessfreq = sessionStorage.getItem('rbFreq');
+            sessamt = sessionStorage.getItem('tbAmt');
+            //fill field/radiobutton
+            $('.rbFreq input:radio[value="' + sessfreq + '"]').click();
+            $('.tbAmt').val(sessamt);
+            amt_enter();
+            //empty session storage
+            sessionStorage.removeItem('rbFreq');
+            sessionStorage.removeItem('tbAmt');
             $('#addedToCart').dialog({
                 autoOpen: false,
                 height: 80,
@@ -63,6 +77,10 @@
             });
         });
     }(jQuery, window.Sys));
+    function btnGoBank_click() {
+        sessionStorage.removeItem('rbFreq');
+        sessionStorage.removeItem('tbAmt');
+    }
     function btnVirementNext_click() {
         //var str = $('.TxtFirstName').val() + ' is my first name!';
         var str = '<%= Translate("WantGivePara1")%>';
@@ -103,7 +121,7 @@
         $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
         $('#freqchoose').slideUp(1000);
         $('#amtchoose').slideUp(1000);
-        $('#login').slideUp(1000);
+        $('.thelogincont').slideUp(1000);
         $('#contact').slideUp(1000);
         $('#methchoose').slideUp(1000);
         $('#virement').slideUp(1000);
@@ -115,7 +133,9 @@
     function btnEditVirement_click() {
         $('#freqchoose').slideDown(1000);
         $('#amtchoose').slideDown(1000);
-        $('#login').slideDown(1000);
+        <% If Not (loggedin) Then%>
+        $('.thelogincont').slideDown(1000);
+        <% End If%>
         $('#contact').slideDown(1000);
         $('#methchoose').slideDown(1000);
         $('#virement').slideDown(1000);
@@ -148,19 +168,23 @@
         }
     }
     function rbFreq_click() {
-        if ($('.rbFreq input:radio:checked').val() != 99) {
-            $('[value=m1]').parent().fadeOut(500);
-            $('[value=m3]').parent().fadeOut(500);
-            if ($('#creditcard').is(":visible") || $('#cheque').is(":visible")) {
-                jQuery('[value=m2]').attr('checked', 'checked');
-                rblMeth_click();
+        if ($('.rbFreq input:radio:checked').val() != null) {
+            if ($('.rbFreq input:radio:checked').val() != 99) {
+                $('[value=m1]').parent().fadeOut(500);
+                $('[value=m3]').parent().fadeOut(500);
+                $('#amtchoose').slideDown(500);
+                if ($('#creditcard').is(":visible") || $('#cheque').is(":visible")) {
+                    jQuery('[value=m2]').attr('checked', 'checked');
+                    rblMeth_click();
+                }
+            }
+            else if ($('.rbFreq input:radio:checked').val() == 99) {
+                $('[value=m1]').parent().fadeIn(500);
+                $('[value=m3]').parent().fadeIn(500);
+                $('#amtchoose').slideDown(500);
             }
         }
-        else if ($('.rbFreq input:radio:checked').val() == 99) {
-            $('[value=m1]').parent().fadeIn(500);
-            $('[value=m3]').parent().fadeIn(500);
-        }
-        $('#amtchoose').slideDown(500);
+        sessionStorage.setItem('rbFreq', $('.rbFreq input:radio:checked').val())
     }
     function amt_trim() {
         var inp = $(".tbAmt").val();
@@ -170,22 +194,19 @@
     function amt_enter() {
         var inp = $(".tbAmt").val();
         if (inp.length > 0 && inp > 0) {
-            $('#login').slideDown(1000);
-            var logged = $('#hfLoggedIn').val();
-            if (logged == "False") {
-                $('#login').slideDown(1000);
-            }
-            else {
-                $('#contact').slideDown(1000);
-                $('#methchoose').slideDown(1000);
-            }
+            <% If Not (loggedin) Then%>
+            $('.thelogincont').slideDown(1000);
+            <% Else%>
+            $('#contact').slideDown(1000);
+            $('#methchoose').slideDown(1000);
+            <% End If%>
             rbFreq_click();
-
+            sessionStorage.setItem('tbAmt', inp);
         }
         else {
             //hidedivs();
             //$('#amtchoose').show();
-            $('#login').slideUp(1000);
+            $('.thelogincont').slideUp(1000);
             $('#contact').slideUp(1000);
             $('#methchoose').slideUp(1000);
             $('#creditcard').slideUp(1000);
@@ -196,7 +217,7 @@
     function hidedivs() {
 
         $('#amtchoose').hide();
-        $('#login').hide();
+        $('.thelogincont').hide();
         $('#contact').hide();
         $('#methchoose').hide();
         $('#virement').hide();
@@ -206,9 +227,6 @@
         $('#cheque').hide();
 
 
-    }
-    function transClient() {
-        $('#btnAmount').val('<%= Translate("GoButton") %>');
     }
 </script>
 <style type="text/css">
@@ -291,9 +309,6 @@
 <asp:HiddenField ID="DonationType" runat="server" />
 <asp:HiddenField ID="hfUserId1" runat="server" Value="-1" />
 <asp:HiddenField ID="hfGiveToName" runat="server" Value="" />
-<div id="loggedWrap">
-    <asp:HiddenField ID="hfLoggedIn" runat="server" Value="False" ClientIDMode="Static" />
-</div>
 <div id="pauseWrap">
     <asp:HiddenField ID="hfDonBasket" runat="server" Value="-1" />
 </div>
@@ -303,13 +318,13 @@
 <asp:HiddenField ID="hfUniqueRef" runat="server" Value="-1" />
 <div style="font-size: 10pt;">
     <div style="width: 700px; float: left;">
-        <div id="GiveTitle" runat="server" class="h1" style="margin-bottom: 12px;">
+        <div id="GiveTitle" runat="server" class="AgapeH2" style="margin-bottom: 12px;">
             <asp:Label ID="Title" runat="server"></asp:Label>
         </div>
         <asp:Label ID="lblOOError" Visible="False" runat="server"></asp:Label>
         <div id="freqchoose" class="bubble">
             <asp:Label ID="lblFrequency" Text="" runat="server" /><br />
-            <asp:RadioButtonList ID="rblFrequency" runat="server">
+            <asp:RadioButtonList CssClass="rblFrequency" ID="rblFrequency" runat="server">
                 <asp:ListItem Value="1"></asp:ListItem>
                 <asp:ListItem Value="3"></asp:ListItem>
                 <asp:ListItem Value="6"></asp:ListItem>
@@ -322,8 +337,9 @@
             <asp:TextBox ID="tbAmount" runat="server"></asp:TextBox>
             <asp:Label ID="lblTo" runat="server" Text="Label"></asp:Label>
         </div>
-        <div id="login" runat="server" class="bubble">
-            This is the login div.
+        <div id="thelogincont" runat="server" class="bubble thelogincont">
+            <asp:Label ID="lblTheLoginCont" Text="text" resourcekey="lblTheLoginCont" runat="server" />
+            <dnn2:Login ID="login1" runat="server" />
         </div>
         <div id="contact" class="bubble">
             <div style="float: left">
@@ -464,7 +480,7 @@
                 </div>
             </div>
             <div style="clear: both"></div>
-            <a id="btnVirementNext" class="aButton"><%= Translate("btnVirementNext") %></a>
+            <input id="btnVirementNext" class="aButton btnVirementNext" type="button" value="<%= Translate("btnVirementNext") %>" />
         </div>
         <div id="summaryVirement" class="bubble">
             <asp:Label ID="lblSummaryInfo1" Text="" runat="server" /><br />
@@ -607,12 +623,14 @@
                 </table>
             </div>
             <div style="clear: both"></div>
-            <asp:Button ID="btnGoBank" CssClass="aButton" ValidationGroup="OneOffVirement" runat="server" Text="GoBank" />
-            <a id="btnEditVirement" class="aButton"><%= Translate("btnEditVirement") %></a>
+            <asp:Button ID="btnGoBank" CssClass="aButton btnGoBank" ValidationGroup="OneOffVirement" runat="server" Text="GoBank" />
+            <input id="Button1" class="aButton btnEditVirement" type="button" value="<%= Translate("btnEditVirement") %>" />
         </div>
         <div id="confirmation" class="bubble">
-            Confirmation Message goes here. Instructions for setting up donation with own bank with option to print PDF from link.
-                        <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">Get your PDF!</asp:HyperLink>
+            <asp:Label ID="lblConfText1" resourcekey="lblConfText1" runat="server" />
+            <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">
+                <asp:Label ID="lblLinkPDF" Text="text" runat="server" />
+            </asp:HyperLink>
         </div>
         <div id="creditcard" class="bubble">
             <asp:Label ID="lblCreditCard" Text="" runat="server" /><br />
