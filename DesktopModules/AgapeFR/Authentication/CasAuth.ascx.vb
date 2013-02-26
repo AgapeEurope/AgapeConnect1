@@ -15,16 +15,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
         Inherits Entities.Modules.PortalModuleBase
         Dim CASHOST As String = "https://thekey.me/cas/"
 
-#Region "Properties"
-
-        Public ReadOnly Property Service As String
-            Get
-                Return Request.UrlReferrer.ToString 'TabController.CurrentPage.FullUrl
-            End Get
-        End Property
-
-#End Region
-
         Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
             ' Init translation resource file
             AgapeTranslation.InitLocalResourceFile(Me)
@@ -47,12 +37,13 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
         End Sub
 
         Public Sub StaffLogin()
+            Dim service As String = Session("service").ToString
             Dim returnURL As String = Session("returnurl")
             Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
             Dim tkt As String = Request.QueryString("ticket")
 
             ' Second time (back from CAS) there is a ticket= to validate
-            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://myagape.org.uk/pgtCallback.aspx"
+            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & service & "&pgtUrl=https://myagape.org.uk/pgtCallback.aspx"
             Dim Reader1 As StreamReader = New StreamReader(New WebClient().OpenRead(validateurl))
             Dim doc As New XmlDocument()
             doc.Load(Reader1)
@@ -285,14 +276,17 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
             ' First time through there is no ticket=, so get returnurl in request and redirect to CAS login
             Dim returnUrl As String = Request.QueryString("returnurl")
             If returnUrl Is Nothing Or returnUrl = "" Then
-                Session("returnurl") = HttpUtility.UrlEncode(Request.UrlReferrer.ToString) 'Nothing
+                Session("returnurl") = HttpUtility.UrlEncode(Request.UrlReferrer.ToString)
             ElseIf Request.RawUrl.Contains(HttpUtility.UrlDecode(returnUrl)) Then
                 Session("returnurl") = Nothing
             Else
                 Session("returnurl") = returnUrl
             End If
 
-            Dim redirectUrl As String = CASHOST & "/login.htm?service=" & Service & "&template=" & template
+            Dim service As String = HttpUtility.UrlEncode(Request.Url.ToString)
+            Session("service") = service
+
+            Dim redirectUrl As String = CASHOST & "/login.htm?service=" & service & "&template=" & template
             Response.Redirect(redirectUrl)
 
         End Sub
