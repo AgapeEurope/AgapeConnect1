@@ -106,8 +106,17 @@ public class StaffBrokerFunctions
 	{
 	}
 
-    
 
+     static public void EventLog(string title, string message, int userid)
+     {
+
+         DotNetNuke.Entities.Portals.PortalSettings PS = (DotNetNuke.Entities.Portals.PortalSettings)System.Web.HttpContext.Current.Items["PortalSettings"];
+         DotNetNuke.Services.Log.EventLog.EventLogController objEventLog = new DotNetNuke.Services.Log.EventLog.EventLogController();
+
+         objEventLog.AddLog(title, message, PS, userid, DotNetNuke.Services.Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT);
+
+
+     }
     
 
     public static decimal CurrencyConvert(decimal amount, string fromCurrency, string toCurrency)

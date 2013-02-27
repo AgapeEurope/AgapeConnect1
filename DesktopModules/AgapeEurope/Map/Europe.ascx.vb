@@ -26,7 +26,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Function
 
         Protected Sub saveCountryData()
-            Dim Countries() As String = {"AL", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "DZ", "EE", "ES", "FI", "FR", "GB", "GE", "GL", "GR", "HR", "HU", "IE", "IL", "IQ", "IR", "IS", "IT", "JO", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RU", "SA", "SE", "SI", "SK", "SM", "SR", "SY", "TM", "TN", "TR", "UA"}
+            Dim Countries() As String = {"AL", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "DZ", "EE", "ES", "FI", "FR", "GB", "GE", "GL", "GR", "HR", "HU", "IE", "IL", "IQ", "IR", "IS", "IT", "JO", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RU", "SA", "SE", "SI", "SK", "SM", "SR", "SY", "TM", "TN", "TR", "UA", "EEU"}
 
 
             Dim data As String = "["

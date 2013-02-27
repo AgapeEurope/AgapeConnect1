@@ -261,6 +261,15 @@
   <data name="EE.URL" xml:space="preserve">
     <value />
   </data>
+  <data name="EEU.Name" xml:space="preserve">
+    <value>Eastern Europe Area</value>
+  </data>
+  <data name="EEU.Text" xml:space="preserve">
+    <value>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet massa est, at luctus erat. Cras ultrices pharetra cursus. Maecenas rutrum, libero quis vestibulum hendrerit, sapien felis tincidunt justo, nec vestibulum lectus risus sed ipsum. Suspendisse a leo nisl. Vivamus dignissim facilisis massa vel viverra. Nunc nec nulla mauris, eget ornare ligula. Donec sodales gravida venenatis.&lt;/p&gt;&lt;p&gt; Nam at augue diam, sed sollicitudin nulla. Vestibulum ultrices orci id tellus ultrices ultrices. Nunc sit amet dolor et dui volutpat vestibulum. Phasellus a lectus sit amet felis interdum elementum aliquet nec sem. Morbi ut massa mi, vitae ultrices magna. Nulla vitae dolor.&lt;/p&gt;</value>
+  </data>
+  <data name="EEU.URL" xml:space="preserve">
+    <value />
+  </data>
   <data name="ES.Name" xml:space="preserve">
     <value>Spain</value>
   </data>

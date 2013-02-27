@@ -1,3 +1,5 @@
+/// <reference path="data/AreaData.js" />
+
 /*!
  * jQVMap Version 1.0
  *
@@ -9,6 +11,9 @@
  *
  * Fork Me @ https://github.com/manifestinteractive/jqvmap
  */
+
+
+
 (function ($) {
 
   var apiParams = {
@@ -377,7 +382,7 @@
 
     this.width = params.container.width();
     this.height = params.container.height();
-
+   
     this.resize();
 
     jQuery(window).resize(function () {
@@ -428,14 +433,26 @@
       code = e.target.id.split('_').pop(),
       labelShowEvent = $.Event('labelShow.jqvmap'),
       regionMouseOverEvent = $.Event('regionMouseOver.jqvmap');
-
+      var area = sample_data[code];
       if (e.type == 'mouseover') {
         jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.pathes[code].name]);
         if (!regionMouseOverEvent.isDefaultPrevented()) {
-          map.highlight(code, path);
+            
+                map.highlight(code, path);
+          
+          
         }
-        if (params.showTooltip) {
-          map.label.text(mapData.pathes[code].name);
+        if (params.showTooltip && area>=0) {
+            
+            var text = mapData.pathes[code].name;
+            if (area == 1)
+                text = "Eastern Europe";
+            if (area == 2)
+                text = "Northern Africa";
+            if (area == 3)
+                text = "Middle East";
+            
+          map.label.text(text);
           jQuery(params.container).trigger(labelShowEvent, [map.label, code]);
 
           if (!labelShowEvent.isDefaultPrevented()) {
@@ -445,9 +462,14 @@
           }
         }
       } else {
-        map.unhighlight(code, path);
 
-        map.label.hide();
+              map.unhighlight(code, path);
+          
+
+       
+
+          map.label.hide();
+
         jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.pathes[code].name]);
       }
     });
@@ -486,11 +508,22 @@
       });
     }
 
+
+
     this.setColors(params.colors);
 
     this.canvas.canvas.appendChild(this.rootGroup);
+    this.transY = -67;
+    this.transX = -80;
+    this.zoomStep = 1.4;
+    this.setScale(map.scale * map.zoomStep);
+   
+    
 
+
+    this.reset;
     this.applyTransform();
+   
 
     this.colorScale = new ColorScale(params.scaleColors, params.normalizeFunction, params.valueMin, params.valueMax);
 
@@ -598,39 +631,104 @@
     },
 
     highlight: function (cc, path) {
-      path = path || $('#' + this.getCountryId(cc))[0];
-      if (this.hoverOpacity) {
-        path.setOpacity(this.hoverOpacity);
-      } else if (this.hoverColor) {
-        path.currentFillColor = path.getFill() + '';
-        path.setFill(this.hoverColor);
-      }
+        var area = sample_data[cc];
+
+        if (area > 0) {
+            for (var key in sample_data) {
+                if (sample_data[key] == area) {
+                    path =  $('#' + this.getCountryId(key))[0];
+                    if (this.hoverOpacity) {
+                        path.setOpacity(this.hoverOpacity);
+                    } else if (this.hoverColor) {
+                        path.currentFillColor = path.getFill() + '';
+                        
+                        path.setFill('#BBBBBB');
+                    }
+                }
+            }
+        }
+        else if (area ==0) {
+            path = path || $('#' + this.getCountryId(cc))[0];
+            if (this.hoverOpacity) {
+                path.setOpacity(this.hoverOpacity);
+            } else if (this.hoverColor) {
+                path.currentFillColor = path.getFill() + '';
+                path.setFill(this.hoverColor);
+            }
+        }
+
+
+
+
+      
     },
 
     unhighlight: function (cc, path) {
-      path = path || $('#' + this.getCountryId(cc))[0];
-      path.setOpacity(1);
-      if (path.currentFillColor) {
-        path.setFill(path.currentFillColor);
-      }
+        var area = sample_data[cc];
+
+        if (area > 0) {
+            for (var key in sample_data) {
+                if (sample_data[key] == area) {
+
+                    path =  $('#' + this.getCountryId(key))[0];
+                    path.setOpacity(1);
+                    if (path.currentFillColor) {
+                        path.setFill(path.currentFillColor);
+                    }
+
+                }
+            }
+        }
+        else if (area == 0) {
+            path = path || $('#' + this.getCountryId(cc))[0];
+            path.setOpacity(1);
+            if (path.currentFillColor) {
+                path.setFill(path.currentFillColor);
+            }
+        }
+
+    
     },
 
     select: function (cc, path) {
-      path = path || $('#' + this.getCountryId(cc))[0];
-      if(this.selectedRegions.indexOf(cc) < 0) {
-        if (this.multiSelectRegion) {
-          this.selectedRegions.push(cc);
-        } else {
-          this.selectedRegions = [cc];
+        var area = sample_data[cc];
+        
+        if (area >= 0) {
+            if (this.selectedRegions.indexOf(cc) < 0) {
+                if (this.multiSelectRegion) {
+                    this.selectedRegions.push(cc);
+                } else {
+                    this.selectedRegions = [cc];
+                }
+                // MUST BE after the change of selectedRegions
+                // Otherwise, we might loop
+                $(this.container).trigger('regionSelect.jqvmap', [cc]);
+
+
+
+                if (area > 0) {
+
+                    for (var key in sample_data) {
+                        if (sample_data[key] == area) {
+                            if (this.selectedColor) {
+                                path = $('#' + this.getCountryId(key))[0];
+                                path.currentFillColor = '#BBBBBB';
+                                path.setFill('#BBBBBB');
+                            }
+                        }
+                    }
+                }
+                else if(area == 0) {
+                    path = path || $('#' + this.getCountryId(cc))[0];
+                    if (this.selectedColor) {
+                        path.currentFillColor = this.selectedColor;
+                        path.setFill(this.selectedColor);
+                    }
+
+                }
+
+            }
         }
-        // MUST BE after the change of selectedRegions
-        // Otherwise, we might loop
-        $(this.container).trigger('regionSelect.jqvmap', [cc]);
-        if (this.selectedColor) {
-          path.currentFillColor = this.selectedColor;
-          path.setFill(this.selectedColor);
-        }
-      }
     },
 
     deselect: function (cc, path) {
@@ -640,6 +738,11 @@
         // MUST BE after the change of selectedRegions
         // Otherwise, we might loop
         $(this.container).trigger('regionDeselect.jqvmap', [cc]);
+
+
+
+
+
         path.currentFillColor = path.getOriginalFill();
         path.setFill(path.getOriginalFill());
       }

@@ -39,7 +39,7 @@
         <elementListCompartment Id="133948b4-85d8-406c-bc67-a5668c8ec80b" absoluteBounds="7.14, 3.085, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.625 : 5.33735270182292); (7.125 : 5.33735270182292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.625 : 5.33735270182292); (7.125 : 5.33735270182292)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/StoriesDataContext/AP_Stories_Module_Channel/AP_Stories_Module_Channel_AP_Stories_Module_Channel_Cache" />
       <nodes>
         <classShapeMoniker Id="64b62629-5be0-4278-8bfe-1097474d40c0" />

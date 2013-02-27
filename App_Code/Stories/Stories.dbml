@@ -84,7 +84,7 @@
       <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="Langauge" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
       <Column Name="TranslationGroup" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="GUID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GUID" Type="System.String" DbType="NVarChar(154)" CanBeNull="true" />
       <Column Name="Spare1" Type="System.String" DbType="NVarChar(154)" CanBeNull="true" />
       <Column Name="Spare2" Type="System.String" DbType="NVarChar(154)" CanBeNull="true" />
       <Column Name="Spare3" Type="System.String" DbType="NVarChar(154)" CanBeNull="true" />

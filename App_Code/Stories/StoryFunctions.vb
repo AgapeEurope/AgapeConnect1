@@ -142,7 +142,7 @@ Public Class StoryFunctions
    
     Public Shared Sub RefreshFeed(ByVal tabModuleId As Integer, ByVal ChannelId As Integer, Optional ByVal ClearCache As Boolean = False)
 
-
+        'StaffBrokerFunctions.EventLog("Refreshing Channel: " & ChannelId, "", 1)
 
 
         Dim d As New Stories.StoriesDataContext
@@ -202,6 +202,9 @@ Public Class StoryFunctions
                         End If
                         If Not row.Summary Is Nothing Then
                             insert.Description = Left(row.Summary.Text, 500)
+                        ElseIf Not row.Content Is Nothing Then
+
+                            insert.Description = Left(CType(row.Content, TextSyndicationContent).Text, 500)
                         End If
                         insert.ChannelId = theChannel.ChannelId
 
@@ -258,7 +261,7 @@ Public Class StoryFunctions
 
 
                         If Not row.Id Is Nothing Then
-                            insert.GUID = row.Id
+                            insert.GUID = Left(row.Id, 154)
                         End If
 
 
@@ -278,7 +281,10 @@ Public Class StoryFunctions
                         End If
                         If Not row.Summary Is Nothing Then
                             existingStory.First.Description = Left(row.Summary.Text, 500)
+                        ElseIf Not row.Content Is Nothing Then
+                            existingStory.First.Description = Left(CType(row.Content, TextSyndicationContent).Text, 500)
                         End If
+
 
                         set_if(existingStory.First.StoryDate, row.PublishDate.DateTime)
 
@@ -297,17 +303,21 @@ Public Class StoryFunctions
 
 
                     End If
+                    d.SubmitChanges()
                 Catch ex As Exception
                     'If a story wont load, just skip to the nect one..
-                    Dim s = ex.Message
+                    Dim s = ex.ToString
+
+                    StaffBrokerFunctions.EventLog("AddStoryToCache Failed", s, 1)
                 End Try
+
             Next
 
 
-            d.SubmitChanges()
+
 
         Catch ex As Exception
-
+            StaffBrokerFunctions.EventLog("Refresh Cache Failed", ex.ToString(), 1)
         End Try
 
 

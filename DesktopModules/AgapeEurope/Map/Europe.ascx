@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="Europe.ascx.vb" Inherits="DotNetNuke.Modules.AgapeConnect.Europe" %>
 <script src="/DesktopModules/AgapeEurope/Map/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 <script src="/DesktopModules/AgapeEurope/Map/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+<script src="/DesktopModules/AgapeEurope/Map/jqvmap/data/AreaData.js"></script>
 <link href="/DesktopModules/AgapeEurope/Map/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
 <link href="/Portals/_default/Containers/AC-Furniture/Container.css" rel="stylesheet" />
 <script src="/js/jquery.mousewheel.js" type="text/javascript"></script>
@@ -44,11 +45,30 @@
                     $(this).attr("src", url + "PersonPlaceholder.jpeg");
                 }
             });
+
+            var colors = {};
+            for (var key in sample_data) {
+                if (sample_data[key] < 0)
+                    colors[key] = '#DDDDDD' ;
+                else if (sample_data[key] >0)
+                    colors[key] = '#DDDDDD';
+
+
+            }
+
+
             $('#vmap').vectorMap({
-                map: 'europe_en',
+                map: 'europe_en', colors: colors, backgroundColor: '#b9d1ef', hoverColor: '#9c0303',selectedColor:'#9c0303', borderWidth: 1, 
                 enableZoom: false,
                 showTooltip: true,
                 onRegionClick: function (element, code, region) {
+
+                    area = sample_data[code];
+                    if (area == 1) {
+                        code= 'eeu';
+                        
+                    }
+
                     var data = jQuery.parseJSON(unescape(document.getElementById('<%= hfCountryData.ClientID %>').value));
 
                     Enumerable.From(data).Where(function (x) { return x.Code == code.toUpperCase() }).ForEach(function (i) {
@@ -92,17 +112,17 @@
 <table style="width:100%">
     <tr>
         <td style="width: 72%">
-             <div id="vmap" style="width: 100%; height: 515px;"></div>
+             <div id="vmap" style="width: 100%; height: 600px;"></div>
         </td>
         <td  style="width: 28%;">
-              <div id="countryPanel" class="off" onmouseover="this.className='on';" onmouseout="this.className='off';">
+              <div id="countryPanel" class="off" onmouseover="this.className='on';"  onmouseout="this.className='off';">
            
              <div class="Container-10393-1" style="padding: 0; margin: 0">
                 <div class="contentmain1" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;">
-                    <div style="height: 500px;">
+                    <div style="height: 583px;">
                         <h2><span id="countryTitle"></span></h2>
-                        <img alt="" id="countryImage" src="" style="border: 1px inset #000000;" />
-                        <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 300px; margin-top:5px;"></div>
+                        <img alt="" id="countryImage" src="" style="border: 1px inset #000000; width: 233px;" />
+                        <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 387px; margin-top:5px;"></div>
 
                     </div>
                 </div>

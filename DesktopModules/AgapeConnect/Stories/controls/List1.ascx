@@ -72,7 +72,7 @@
                     </td>
 
                     <td width="100%">
-                        <asp:Label ID="HyperLink1" runat="server" CssClass="SubHead AgapeH4" Text='<%# Eval("Headline")%>' />
+                        <asp:Label ID="HyperLink1" runat="server" CssClass="AgapeH4" Text='<%# Eval("Headline")%>' />
                         
                         <br />
 
