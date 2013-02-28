@@ -127,6 +127,6 @@
     <value>Paiement</value>
   </data>
   <data name="Summary.Text" xml:space="preserve">
-    <value>Mon panier</value>
+    <value>Récapitulatif</value>
   </data>
 </root>

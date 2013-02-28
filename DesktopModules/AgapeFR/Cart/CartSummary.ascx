@@ -22,16 +22,16 @@
     }(jQuery, window.Sys));
 </script>
 <style type="text/css">
-    .btnTd {
-        text-align: right;
-    }
 
     .gridHeader {
         font-weight: bold;
         border-bottom: 1px solid #BBBBBB;
         text-align: center;
     }
-
+    .gridHeader th
+    {
+        padding-bottom: 5px;
+    }
     .gridRow {
         border-bottom: 1px solid #EEEEEE;
         height: 60px;
@@ -61,13 +61,38 @@
     .inclVAT {
         color: #888888;
     }
-
-    .totalTd {
+    .totalsTbl
+    {
+        margin-top: 0.8em;
+    }
+    .totalTd
+    {
+        padding-top: 5px;
         text-align: right;
     }
+    .grandTotal
+    {
+        float: right;
+        padding-top: 10px;
+    }
+    .grandTotalBox
+    {
+        border: 1px solid #BBBBBB;
+        padding: 3px;
+        background-color: #5EB6E4;
+        display: inline;
+    }
+    .grandTotalVAT {
+        margin-left: 3px;
+    }
 
-    .btnPay {
-        margin-top: 1.5em;
+    .btnTd {
+        text-align: right;
+        padding-top: 1.5em;
+    }
+
+    .btnBackToCart {
+        margin-right: 1.5em;
     }
 
     .addressBlock {
@@ -232,8 +257,7 @@
             <SeparatorTemplate>
             </SeparatorTemplate>
         </asp:Repeater>
-        <br />
-        <table cellpadding="5" width="100%">
+        <table cellpadding="5" width="100%" class="totalsTbl">
             <tr id="TrDeliveryCost" runat="server">
                 <td class="totalTd">
                     <asp:Label ID="LblDeliveryGrossTitle" runat="server" ResourceKey="LblDeliveryGrossTitle" Text='' CssClass="total"></asp:Label>
@@ -243,14 +267,20 @@
             </tr>
             <tr>
                 <td class="totalTd">
-                    <asp:Label ID="LblGrandTotalTitle" runat="server" ResourceKey="LblGrandTotalTitle" Text='' CssClass="total"></asp:Label>
-                    <asp:Label ID="LblGrandTotalAmount" runat="server" Text="" CssClass="total amount"></asp:Label><asp:Label
-                        ID="LblGrandTotalVAT" runat="server" Text="" CssClass="inclVAT"></asp:Label>
+                    <div class="grandTotal">
+                        <div class="grandTotalBox">
+                            <asp:Label ID="LblGrandTotalTitle" runat="server" ResourceKey="LblGrandTotalTitle" Text='' CssClass="total"></asp:Label>
+                            <asp:Label ID="LblGrandTotalAmount" runat="server" Text="" CssClass="total amount"></asp:Label>
+                        </div>
+                        <asp:Label ID="LblGrandTotalVAT" runat="server" Text="" CssClass="inclVAT grandTotalVAT"></asp:Label>
+                    </div>
+                    <div class="clear" />
                 </td>
             </tr>
             <tr>
                 <td class="btnTd">
-                    <asp:Button ID="BtnPay" runat="server" ResourceKey="BtnPay" Text="" CssClass="aButton btnPay" />
+                    <asp:LinkButton ID="BtnBackToCart" runat="server" ResourceKey="BtnBackToCart" Text="" CssClass="btnBackToCart" />
+                    <asp:Button ID="BtnPay" runat="server" ResourceKey="BtnPay" Text="" CssClass="aButton" />
                 </td>
             </tr>
         </table>
