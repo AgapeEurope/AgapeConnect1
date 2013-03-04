@@ -135,7 +135,8 @@ Namespace DotNetNuke.Modules.FullStory
 
                         For Each row In Translist
                             Dim Lang = GetLanguageName(row.Language)
-                            Flags &= "<a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """ target=""_self""><span title=""" & Lang & """><img  src=""" & GetFlag(row.Language) & """ alt=""" & Lang & """  /></span></a>"
+
+                            Flags &= "<a href=""" & NavigateURL(CInt(Request.QueryString("origTabId"))) & "?StoryId=" & row.StoryId & """ target=""_self""><span title=""" & Lang & """><img  src=""" & GetFlag(row.Language) & """ alt=""" & Lang & """  /></span></a>"
 
                         Next
 
