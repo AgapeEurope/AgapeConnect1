@@ -21,7 +21,28 @@ Namespace DotNetNuke.Modules.Stories
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             If Not Page.IsPostBack Then
                 ddlDisplayTypes.DataSource = (From c In d.AP_Stories_Controls Select c.Name, Value = c.Type & ":" & c.StoryControlId)
+                Dim mc As New DotNetNuke.Entities.Modules.ModuleController
 
+                Dim dtp = DotNetNuke.Entities.Modules.DesktopModuleController.GetDesktopModuleByFriendlyName("ac_ViewStory")
+                Dim allTabs As New ArrayList()
+                If (Not dtp Is Nothing) Then
+
+
+                    Dim tabs = (New TabController).GetTabsByPortal(PortalId)
+                    For Each row In tabs
+
+                        Dim mods = mc.GetTabModules(row.Value.TabID)
+                        For Each row2 In mods
+                            If row2.Value.DesktopModuleID = dtp.DesktopModuleID Then
+                                allTabs.Add(row2.Value)
+                            End If
+                        Next
+                    Next
+                End If
+                ddlTabs.DataSource = (From c As DotNetNuke.Entities.Modules.ModuleInfo In allTabs Select c.ParentTab.TabName, c.ParentTab.TabID)
+                ddlTabs.DataTextField = "TabName"
+                ddlTabs.DataValueField = "TabId"
+                ddlTabs.DataBind()
 
 
                 ddlDisplayTypes.DataTextField = "Name"
@@ -48,7 +69,7 @@ Namespace DotNetNuke.Modules.Stories
 
                     Dim logoFile = StoryFunctions.SetLogo("http://" & PortalSettings.PortalAlias.HTTPAlias & PortalSettings.HomeDirectory & PortalSettings.LogoFile, PortalId)
 
-                    
+
                     Dim imageId = "http://" & PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logoFile))
 
                     StoryFunctions.AddLocalChannel(TabModuleId, PortalAlias.HTTPAlias, RssName, l.longitude, l.latitude, imageId)
@@ -77,7 +98,13 @@ Namespace DotNetNuke.Modules.Stories
 
                 If CType(TabModuleSettings("AspectMode"), String) <> "" Then
                     ddlAspectMode.SelectedValue = CInt(TabModuleSettings("AspectMode"))
-                   
+
+
+                End If
+
+                If CType(TabModuleSettings("ViewTab"), String) <> "" Then
+                    ddlTabs.SelectedValue = CInt(TabModuleSettings("ViewTab"))
+
 
                 End If
 
@@ -107,17 +134,17 @@ Namespace DotNetNuke.Modules.Stories
                     tbRssName.Text = CType(TabModuleSettings("RssName"), String)
 
                 End If
-                
+
 
                 If CType(TabModuleSettings("Speed"), String) <> "" Then
-                   
+
                     hfSpeed.Value = TabModuleSettings("Speed")
                     lblSpeed.Text = TabModuleSettings("Speed")
                 End If
 
                 If CType(TabModuleSettings("Latitude"), String) <> "" And CType(TabModuleSettings("Longitude"), String) <> "" Then
                     tbLocation.Text = CDbl(TabModuleSettings("Latitude")).ToString(New CultureInfo("")) & ", " & Double.Parse(TabModuleSettings("Longitude"), New CultureInfo("")).ToString(New CultureInfo(""))
-                    
+
                 Else
                     tbLocation.Text = l.latitude.ToString(New CultureInfo("")) & ", " & l.longitude.ToString(New CultureInfo(""))
                 End If
@@ -202,6 +229,10 @@ Namespace DotNetNuke.Modules.Stories
 
             'AspectMode
             objModules.UpdateTabModuleSetting(TabModuleId, "AspectMode", ddlAspectMode.SelectedValue)
+
+            'View in Tab
+            objModules.UpdateTabModuleSetting(TabModuleId, "ViewTab", ddlTabs.SelectedValue)
+
 
             'Aspect
             objModules.UpdateTabModuleSetting(TabModuleId, "Aspect", Double.Parse(hfAspect.Value, New CultureInfo("")).ToString(New CultureInfo("")))

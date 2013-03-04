@@ -266,6 +266,21 @@
     </tr>
      <tr valign="middle" >
         <td>
+            <dnn:Label ID="Label15" runat="server" ResourceKey="lblStoriesPage" />
+        </td>
+        
+        <td align="center" style=" white-space: nowrap;">
+         
+            <asp:DropDownList ID="ddlTabs" runat="server" AppendDataBoundItems="true">
+                <asp:ListItem Text="Default" Value="0" />
+
+            </asp:DropDownList>
+        </td>
+    </tr>
+
+
+     <tr valign="middle" >
+        <td>
             <dnn:Label ID="Label4" runat="server" ResourceKey="lblAdvancedSettings" />
         </td>
         
