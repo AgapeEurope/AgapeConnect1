@@ -45,11 +45,11 @@
                 childHeight = (childHeight === 0) ? child.attr('height') : child.height();
 
             // var offset = slider.height() - childHeight / 2;
-            // alert(childHeight);
-            child.css('height', 'auto');
-
+            ///alert(childHeight);
+          //  child.css('height', 'auto');
+            child.css('height', childHeight);
             child.css('width', slider.width() + 'px');
-
+           // alert(child.height());
 
             if (link !== '') {
                 link.css('display', 'none');
@@ -88,12 +88,13 @@
         var sliderImg = $('<img class="nivo-main-image" src="#" />');
         sliderImg.attr('src', vars.currentImage.attr('src')).show();
         slider.append(sliderImg);
-       // alert(vars.currentImage.css('height'));
+        ///alert(parseInt(vars.currentImage.css('height').replace("px", "")));
         
         var offset = ($(kids[vars.currentSlide]).css('height').replace("px", "") - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
+     //   var offset = (sliceHeight - parseInt(vars.currentImage.css('height').replace("px", ""))) / 2;
+
        
-       
-        $('.nivo-main-image').css('top', offset + 'px');
+        $('.nivo-main-image').css('top', offset + 'px');        
        //    $('.nivo-main-image').css('opacity',0);
 
         // Detect Window Resize
