@@ -27,6 +27,17 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
         End Set
     End Property
 
+    Private _saveWidth As Integer
+    Public Property SaveWidth() As Integer
+        Get
+            Return _saveWidth
+        End Get
+        Set(ByVal value As Integer)
+            _saveWidth = value
+        End Set
+    End Property
+
+
     Private _Width As Integer
     Public Property Width() As Integer
         Get
@@ -174,7 +185,9 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
         If Aspect = Nothing Then
             Aspect = 0
         End If
-
+        If SaveWidth = Nothing Then
+            SaveWidth = 500
+        End If
 
 
         hfFileId.Value = _FileId
@@ -265,6 +278,9 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
         If x = "" Or y = "" Or w = "" Or h = "" Then
             Return
         End If
+        If SaveWidth = Nothing Then
+            SaveWidth = 500
+        End If
         _FileId = hfFileId.Value
         _theFile = FileManager.Instance.GetFile(_FileId)
         If Not _theFile Is Nothing Then
@@ -284,9 +300,9 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
             Dim newWidth = w * scale
             Dim newHeight = h * scale
 
-            If newWidth > 500 Then
-                newHeight = newHeight * 500.0 / newWidth
-                newWidth = 500
+            If newWidth > SaveWidth Then
+                newHeight = newHeight * CDbl(SaveWidth) / newWidth
+                newWidth = SaveWidth
 
             End If
 
