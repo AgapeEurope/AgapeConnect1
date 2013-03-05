@@ -64,32 +64,33 @@
                 onRegionClick: function (element, code, region) {
 
                     area = sample_data[code];
-                    if (area == 1) {
-                        code= 'eeu';
-                        
+                    if (area >= 0) {
+                        if (area == 1) {
+                            code = 'eeu';
+
+                        }
+
+                        var data = jQuery.parseJSON(unescape(document.getElementById('<%= hfCountryData.ClientID %>').value));
+
+                        Enumerable.From(data).Where(function (x) { return x.Code == code.toUpperCase() }).ForEach(function (i) {
+                            $('#countryTitle').text(i.Name);
+
+                            $('#countryText').html(i.Text);
+                            $('#<%= hfURL.ClientID%>').val(i.URL);
+
+                        });
+
+                        $('#countryImage').attr("src", "<%= PortalSettings.HomeDirectory %>" + "CountryImages/" + code.toUpperCase() + ".jpg");
+
+
+                        $('#countryPanel').show();
+                        $('#countryText').css("overflow", "-moz-scrollbars-vertical");
+                        $('#countryText').css("overflow-y", "auto");
+                        var message = 'You clicked "'
+                + region
+                + '" which has the code: '
+                + code.toUpperCase();
                     }
-
-                    var data = jQuery.parseJSON(unescape(document.getElementById('<%= hfCountryData.ClientID %>').value));
-
-                    Enumerable.From(data).Where(function (x) { return x.Code == code.toUpperCase() }).ForEach(function (i) {
-                        $('#countryTitle').text(i.Name);
-
-                        $('#countryText').html(i.Text);
-                        $('#<%= hfURL.ClientID%>').val(i.URL);
-
-                    });
-
-                    $('#countryImage').attr("src", "<%= PortalSettings.HomeDirectory %>" + "CountryImages/" + code.toUpperCase() + ".jpg");
-                   
-
-                    $('#countryPanel').show();
-                    $('#countryText').css("overflow", "-moz-scrollbars-vertical");
-                    $('#countryText').css("overflow-y", "auto");
-                    var message = 'You clicked "'
-            + region
-            + '" which has the code: '
-            + code.toUpperCase();
-
                     //alert(message);
                 }
             });

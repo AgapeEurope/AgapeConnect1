@@ -21,8 +21,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Sub
 
         Private Function GetCountryValue(ByVal countryCode As String, ByVal valueType As String) As String
-            Return DotNetNuke.Services.Localization.Localization.GetString(countryCode & "." & valueType, LocalResourceFile)
+            Dim x = DotNetNuke.Services.Localization.Localization.GetString(countryCode & "." & valueType, LocalResourceFile)
+            If Not x Is Nothing Then
+                x = x.Replace(vbNewLine, "")
+            End If
 
+            Return x
         End Function
 
         Protected Sub saveCountryData()

@@ -96,7 +96,7 @@
         <table>
             <tr valign="top">
                 <td >
-                <uc1:acImage ID="acImage1" runat="server" Aspect="1.3" /><br />
+                <uc1:acImage ID="acImage1" runat="server" Aspect="1.3" SaveWidth="700" /><br />
                     <table border="0" cellpadding="0" cellspacing="0">
                          <tr>
                             <td>
