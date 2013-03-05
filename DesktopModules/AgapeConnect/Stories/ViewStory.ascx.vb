@@ -77,14 +77,58 @@ Namespace DotNetNuke.Modules.FullStory
 
 
                 ReplaceField(sv, "[HEADLINE]", r.Headline)
+                Page.Title = "Agap&eacute; - " & r.Headline
                 location = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
                 ReplaceField(sv, "[MAP]", " <div id=""map_canvas""></div>")
+
+
+
+
+
+
 
                 ReplaceField(sv, "[STORYTEXT]", r.StoryText)
                 Dim thePhoto = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(r.PhotoId)
 
+                Dim URL = "http://" & PortalSettings.PortalAlias.HTTPAlias & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto)
+                ReplaceField(sv, "[IMAGEURL]", URL)
+                Dim meta As New HtmlMeta
+                meta.Attributes.Add("property", "og:image")
+                meta.Content = URL
+                Page.Header.Controls.AddAt(0, meta)
+                Dim meta2 As New HtmlMeta
+                meta2.Attributes.Add("property", "og:title")
+                meta2.Content = r.Headline
+                Page.Header.Controls.AddAt(0, meta2)
 
-                ReplaceField(sv, "[IMAGEURL]", DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto))
+                Dim permalink = EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId")
+                ReplaceField(sv, "[DATAHREF]", permalink)
+                Dim meta3 As New HtmlMeta
+                meta3.Attributes.Add("property", "og:url")
+
+                meta3.Content = permalink
+                Page.Header.Controls.AddAt(0, meta3)
+
+                Dim meta4 As New HtmlMeta
+                meta4.Attributes.Add("property", "og:description")
+                meta4.Content = r.TextSample
+                Page.Header.Controls.AddAt(0, meta4)
+
+                Dim meta5 As New HtmlMeta
+                meta5.Attributes.Add("property", "og:site_name")
+                meta5.Content = PortalSettings.PortalName
+                Page.Header.Controls.AddAt(0, meta5)
+
+                Dim Fid = StaffBrokerFunctions.GetSetting("FacebookId", PortalId)
+                If Not String.IsNullOrEmpty(Fid) Then
+                    Dim meta6 As New HtmlMeta
+                    meta6.Attributes.Add("property", "fb:app_id")
+                    meta6.Content = Fid
+                    Page.Header.Controls.AddAt(0, meta6)
+                End If
+                
+                ReplaceField(sv, "[FACEBOOKID]", Fid)
+
 
 
                 ReplaceField(sv, "[AUTHOR]", r.Author)
@@ -94,6 +138,7 @@ Namespace DotNetNuke.Modules.FullStory
                 ReplaceField(sv, "[SUBTITLE]", r.Subtitle)
                 ReplaceField(sv, "[FIELD1]", r.Field1)
                 ReplaceField(sv, "[FIELD2]", r.Field2)
+
 
                 If r.Field3.Contains("#selAuth#") Then
                     Dim authID = r.Field3.Substring(9)
@@ -256,8 +301,6 @@ Namespace DotNetNuke.Modules.FullStory
             End If
 
         End Function
-
-
 
 
 

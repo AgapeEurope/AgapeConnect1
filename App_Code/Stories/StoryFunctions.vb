@@ -11,24 +11,45 @@ Namespace Stories
         Public Function GetSearchItems(ModInfo As DotNetNuke.Entities.Modules.ModuleInfo) As DotNetNuke.Services.Search.SearchItemInfoCollection Implements DotNetNuke.Entities.Modules.ISearchable.GetSearchItems
             Dim d As New StoriesDataContext
             Dim SearchItemCollection As New Services.Search.SearchItemInfoCollection
-            Dim Stories = From c In d.AP_Stories Where c.PortalID = ModInfo.PortalID And c.IsVisible = True
+
+            Dim mc = New DotNetNuke.Entities.Modules.ModuleController
+
+
+
+            Dim Stories = From c In d.AP_Stories Where c.PortalID = ModInfo.PortalID And c.TabId = ModInfo.TabID And c.IsVisible = True
+
+
 
             'From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = ModInfo.TabModuleID()
 
             For Each row In Stories
+               
+                ' Dim t = mc.GetTabModule(row.TabModuleId)
+                'If (t.ModuleID = ModInfo.ModuleID) Then
 
                 Dim SearchText = (row.Headline & " " & row.StoryText & " " & row.Author)
+                Dim summary As String = ""
+                If String.IsNullOrEmpty(row.TextSample) Then
+                    summary = Left(StoryFunctions.StripTags(row.StoryText), 500)
+                Else
+                    summary = Left(StoryFunctions.StripTags(row.TextSample), 500)
+                End If
+                If (summary.IndexOf(".") > 0) Then
+                    summary = summary.Substring(0, summary.LastIndexOf(".") + 1)
+
+                End If
 
 
                 Dim SearchItem As Services.Search.SearchItemInfo
                 SearchItem = New Services.Search.SearchItemInfo _
                  (row.Headline, _
-                Left(StoryFunctions.StripTags(row.StoryText), 500) & "...", _
+                summary, _
                 row.UserId, _
                row.StoryDate, ModInfo.ModuleID, _
                  "S" & row.StoryId, _
               SearchText, Guid:="StoryId=" & row.StoryId, Image:=row.PhotoId, TabID:=row.TabId)
                 SearchItemCollection.Add(SearchItem)
+                ' End If
             Next
 
 

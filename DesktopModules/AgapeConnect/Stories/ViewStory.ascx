@@ -38,7 +38,28 @@
                 $('.boost').prop("checked", <%= CStr(SuperPowers.IsBoosted).ToLower%>).change();
                $('.block').prop("checked", <%= CStr(SuperPowers.IsBlocked).ToLower%>).change();
                    
+                var height = parseInt($(".Agape_FullStory_bodytext").css("height"));
+                if(height>420)
+                {
+                    // $('.Agape_FullStory_bodytext').css({'height': '400px', 'overflow': 'hidden'})
+                    $('.Agape_FullStory_bodytext').addClass('preview');
+                    $('#more').click(function() {
                    
+                        //$('.Agape_FullStory_bodytext').animate({
+                        //    height: height +20
+                        
+                        //}, 2000, function() {
+                        //    // Animation complete.
+                        //    $('#more').hide();
+                        //});
+                        $('.Agape_FullStory_bodytext').removeClass("preview", 2000);
+                        $('#more').hide();
+                    });}
+                else
+                {
+
+                    $('#more').hide();
+                }
 
                 function initialize() {
                     var myLatlng = new google.maps.LatLng(<%= location %>);
@@ -90,13 +111,7 @@
         }
 
     </script>
-<script type="text/javascript">                        (function (d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0];
-                            if (d.getElementById(id)) { return; }
-                            js = d.createElement(s); js.id = id;
-                            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-                            fjs.parentNode.insertBefore(js, fjs);
-                        } (document, 'script', 'facebook-jssdk'));</script>
+
 
 
 <style type="text/css">
@@ -106,6 +121,14 @@
         width: 100%;
         height: 200px;
       }
+
+
+    .textAreaSmall {
+        height: 400px;
+        overflow: hidden;
+
+    }
+
       .tooltip {
   border-bottom: 1px dotted #000000;
   color: #000000; outline: none;
@@ -151,6 +174,19 @@
 
 .custom { padding: 0.5em 0.8em 0.8em 2em; }
 * html a:hover { background: transparent; }
+ #more {
+        width: 100%;
+        text-align: center;
+        font-style:italic;
+    }
+    #more:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .preview {
+        height: 400px;
+        overflow: hidden;
+    }
 
     </style>
 <asp:HiddenField ID="StoryIdHF" runat="server" />
