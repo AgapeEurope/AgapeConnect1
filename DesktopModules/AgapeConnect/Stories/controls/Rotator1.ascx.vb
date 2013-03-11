@@ -95,32 +95,33 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                         If row.Link.Contains(PortalSettings.DefaultPortalAlias) Then
                             target = "_self"
                         End If
-                        out &= "<a href=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"" > "
+                        Dim href = "javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"
+                        out &= "<a href=""" & href & """ > "
 
                         '  out &= StoryFunctions.GetImageHTML(photoWidth, photoAspect, row.ImageWidth, row.ImageHeight, row.ImageId, settings("AspectMode"))
 
-                        Dim title As String = "<h3><span style='font-size: large;color: white; opacity: 1.0 !important;'>" & row.Headline & "</span></h3><div style='font-size: x-small; color: #BAD1EF; margin-top: -7px; line-height: 125%;'>" & row.Description & "</div>"
+                        Dim title As String = "<h3><span style='font-size: large;color: white; opacity: 1.0 !important;'>" & row.Headline & "</span></h3><div style='font-size: 8pt; color: #BAD1EF; margin-top: -7px; line-height: 125%;'>" & row.Description & "</div>"
 
                         Select Case AspectMode
                             Case 0
 
                                 If photoAspect < (CDbl(row.ImageWidth) / CDbl(row.ImageHeight)) Then
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & row.Headline & """  title=""" & title & """ />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & href & """  title=""" & title & """ />"
                                     'out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 Else
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & row.Headline & """  title=""" & title & """ />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & href & """  title=""" & title & """ />"
                                     ' out &= "<img src=""" & row.ImageId & """ style="" height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 End If
                             Case 1
 
                                 If photoAspect < (CDbl(row.ImageWidth) / CDbl(row.ImageHeight)) Then
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & row.Headline & """  title=""" & title & """ />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & href & """  title=""" & title & """ />"
                                     'out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 Else
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & row.Headline & """  title=""" & title & """ />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""" & href & """  title=""" & title & """ />"
                                     ' out &= "<img src=""" & row.ImageId & """ style="" height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 End If

@@ -56,7 +56,7 @@
                 <dnn:SEARCH runat="server" ID="dnnSEARCH" CssClass="search" UseDropDownList="true" ShowSite="False" ShowWeb="False" Submit="GO" />
             </div>
             <div id="mobile_menu">
-                <dnn:GOMENU runat="server" ID="dnnGOMENU1" ViewLevel="0" Effect="AccordionPro" AccordionPro_Sensitivit="1" AccordionPro_Interval="100" AccordionPro_Timeout="1000" AccordionPro_AnimateSpeed="450" />
+                <%--<dnn:GOMENU runat="server" ID="dnnGOMENU1" ViewLevel="0" Effect="AccordionPro" AccordionPro_Sensitivit="1" AccordionPro_Interval="100" AccordionPro_Timeout="1000" AccordionPro_AnimateSpeed="450" />--%>
             </div>
         </div>
     </header>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div id="top_menu" class="hidden-phone">
-                    <dnn:GOMENU runat="server" ID="dnnGOMENU" Effect="Hslide" ViewLevel="0" />
+                    <%--<dnn:GOMENU runat="server" ID="dnnGOMENU" Effect="Hslide" ViewLevel="0" />--%>
                 </div>
             </div>
         </nav>

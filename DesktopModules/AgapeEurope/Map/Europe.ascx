@@ -24,6 +24,32 @@
 	overflow: auto;
 	
 }
+
+     a.link-disabled:hover {
+        cursor: default;
+         text-decoration: none;
+         
+    }
+
+    a.link-disabled #countryImage:hover {
+        
+        border: 1px solid #000000; width: 233px;
+    }
+    a.link-disabled h2:hover {
+        
+        text-decoration: none;
+    }
+
+   a #countryImage:hover {
+        border: 4px inset #7AA8E0; width: 225px;
+
+    }
+   a  #countryImage {
+        border: 1px inset #000000; width: 233px;
+    }
+
+    
+
 </style>
 
 
@@ -32,10 +58,14 @@
         function setUpMyTabs() {
             //$('.scroll-pane').jScrollPane();
 
-            $('#countryPanel').click(function () {
-                window.location = $('#<%= hfURL.ClientID %>').val();
-
-            });
+            //$('#countryPanel img').click(function () {
+            //    var url = $('#<%= hfURL.ClientID %>').val();
+            //    if(url !="")window.open($('#<%= hfURL.ClientID %>').val() ,'_blank');
+            //});
+            //$('#countryPanel h2').click(function () {
+            //    var url = $('#<%= hfURL.ClientID %>').val();
+            //    if (url != "") window.open($('#<%= hfURL.ClientID %>').val(), '_blank');
+            //});
             $('#countryPanel').hide();
             $('#countryImage').error(function () {
                 "PersonPlaceholder.jpg"
@@ -77,11 +107,22 @@
 
                             $('#countryText').html(i.Text);
                             $('#<%= hfURL.ClientID%>').val(i.URL);
+                            
+                            if (i.URL == "") {
+                                $('#countryLink').removeAttr("href");
+                                $('#countryLink').addClass("link-disabled");
+                            }
+                            else {
+                                $('#countryLink').attr("href", i.URL);
+                                $('#countryLink').removeClass("link-disabled");
+                            }
+
+                          
 
                         });
 
                         $('#countryImage').attr("src", "<%= PortalSettings.HomeDirectory %>" + "CountryImages/" + code.toUpperCase() + ".jpg");
-
+                        
 
                         $('#countryPanel').show();
                         $('#countryText').css("overflow", "-moz-scrollbars-vertical");
@@ -108,6 +149,7 @@
 
 
 </script>
+
 <asp:HiddenField ID="hfURL" runat="server" Value="" />
 
 <table style="width:100%">
@@ -116,14 +158,16 @@
              <div id="vmap" style="width: 100%; height: 600px;"></div>
         </td>
         <td  style="width: 28%;">
-              <div id="countryPanel" class="off" onmouseover="this.className='on';"  onmouseout="this.className='off';">
+              <div id="countryPanel">
            
              <div class="Container-10393-1" style="padding: 0; margin: 0">
                 <div class="contentmain1" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;">
                     <div style="height: 583px;">
-                        <h2><span id="countryTitle"></span></h2>
-                        <img alt="" id="countryImage" src="" style="border: 1px inset #000000; width: 233px;" />
-                        <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 387px; margin-top:5px;"></div>
+                       <a id="countryLink" href="" target="_blank">
+                         <h2><span id="countryTitle"></span></h2>
+                        <img alt="" id="countryImage" src=""  />
+                       </a>
+                            <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 387px; margin-top:5px;"></div>
 
                     </div>
                 </div>
