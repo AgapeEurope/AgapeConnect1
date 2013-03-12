@@ -802,6 +802,38 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
                     lblAdvCur.Text = "" 'StaffBrokerFunctions.GetSetting("Currency", PortalId)
+                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
+                    hfAccountingCurrency.Value = ac
+                    hfOrigCurrency.Value = ac
+                    hfOrigCurrencyValue.Value = q.First.RequestAmount
+                    If Not String.IsNullOrEmpty(q.First.OrigCurrency) Then
+                    If q.First.OrigCurrency.ToUpper <> ac.ToUpper Then
+                        lblAdvCur.Text = q.First.OrigCurrencyAmount.Value.ToString("0.00") & " " & q.First.OrigCurrency.ToUpper
+
+                            hfOrigCurrency.Value = q.First.OrigCurrency
+                            hfOrigCurrencyValue.Value = q.First.OrigCurrencyAmount.Value.ToString("0.00")
+
+
+                            Dim jscript As String = ""
+
+                            hfOrigCurrencyValue.Value = q.First.OrigCurrencyAmount
+                            jscript &= " $('.currency').attr('value'," & q.First.OrigCurrencyAmount & ");"
+                      
+                            hfOrigCurrency.Value = q.First.OrigCurrency
+
+                            jscript &= " $('.ddlCur').val('" & q.First.OrigCurrency & "'); checkCur();"
+
+                            hfExchangeRate.Value = q.First.RequestAmount / q.First.OrigCurrencyAmount
+                            Dim t As Type = AdvAmount.GetType()
+                            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+                            sb.Append("<script language='javascript'>")
+                            sb.Append(jscript)
+                            sb.Append("</script>")
+                            ScriptManager.RegisterStartupScript(AdvAmount, t, "loadEditAdvCur", sb.ToString, False)
+                        End If
+                    End If
+
+
                     AdvAmount.Text = q.First.RequestAmount.Value.ToString("0.00")
                     AdvReason.Text = q.First.RequestText
                     AdvDate.Text = Translate("AdvDate").Replace("[DATE]", q.First.RequestDate.Value.ToShortDateString)
@@ -842,7 +874,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
                     End If
 
-                   
+
 
 
                     '   AccBal.Text = StaffBrokerFunctions.GetSetting("Currency", PortalId) & "3000"
@@ -2520,10 +2552,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     If (Not theLine.First.OrigCurrencyAmount Is Nothing) Then
                         hfOrigCurrencyValue.Value = theLine.First.OrigCurrencyAmount
                         jscript &= " $('.currency').attr('value'," & theLine.First.OrigCurrencyAmount & ");"
+                        hfExchangeRate.Value = (theLine.First.GrossAmount / theLine.First.OrigCurrencyAmount).Value.ToString(New CultureInfo(""))
                     End If
                     If (Not String.IsNullOrEmpty(theLine.First.OrigCurrency)) Then
                         hfOrigCurrency.Value = theLine.First.OrigCurrency
                         jscript &= " $('.ddlCur').val('" & theLine.First.OrigCurrency & "');"
+
                     End If
 
                     ucType.GetProperty("theDate").SetValue(theControl, theLine.First.TransDate, Nothing)
@@ -3480,10 +3514,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Else
                         Credit = -line.GrossAmount.ToString("0.00")
                     End If
+                    If (String.IsNullOrEmpty(line.ShortComment)) Then
+                        rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-" & IIf(line.Taxable, "(taxable)", "") & line.Comment,
+                                           Debit, Credit)
+                    Else
+                        rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-" & line.ShortComment,
+                                          Debit, Credit)
+                    End If
 
-                    rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-" & IIf(line.Taxable, "(taxable)", "") & line.Comment,
-                                            Debit, Credit)
-
+                   
 
 
                     'If line.GrossAmount > 0 Then
@@ -3631,6 +3670,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim rtn As String = ""
             Dim theAdv = From c In d.AP_Staff_AdvanceRequests Where c.AdvanceId = AdvanceNo And c.PortalId = PortalId
             If theAdv.Count > 0 Then
+                Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
                 Dim theUser = UserController.GetUserById(PortalId, theAdv.First.UserId)
                 Dim StaffMember = StaffBrokerFunctions.GetStaffMember(theAdv.First.UserId)
 
@@ -3649,8 +3689,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Else
                     Credit = (-theAdv.First.RequestAmount.Value).ToString("0.00")
                 End If
+                Dim curSuffix = ""
+                If Not String.IsNullOrEmpty(theAdv.First.OrigCurrency) Then
 
-                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId,
+                    If theAdv.First.OrigCurrency <> ac Then
+                        curSuffix = "-" & theAdv.First.OrigCurrency & theAdv.First.OrigCurrencyAmount.Value.ToString("0.00").Replace(".00", "")
+
+                    End If
+                End If
+                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId & curSuffix,
                                         Debit, Credit)
 
                 'Now Credit 23xx
@@ -3678,10 +3725,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Debit = (-theAdv.First.RequestAmount.Value).ToString("0.00")
                 End If
 
-                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId,
-                                        Debit, Credit)
-            End If
 
+
+
+
+                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId & curSuffix,
+                                        Debit, Credit)
+
+            End If
             Return rtn
         End Function
         Protected Function GetOrderedString(ByVal Desc As String, ByVal Debit As String, ByVal Credit As String, Optional Company As String = "") As String
@@ -3809,6 +3860,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             insert.RequestDate = Today
             insert.PortalId = PortalId
             insert.RequestStatus = RmbStatus.Submitted
+            insert.OrigCurrency = hfOrigCurrency.Value
+            insert.OrigCurrencyAmount = Double.Parse(hfOrigCurrencyValue.Value, New CultureInfo(""))
+
             d.AP_Staff_AdvanceRequests.InsertOnSubmit(insert)
             d.SubmitChanges()
 
