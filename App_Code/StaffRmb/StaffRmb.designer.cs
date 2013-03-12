@@ -2111,6 +2111,12 @@ namespace StaffRmb
 		
 		private int _PortalId;
 		
+		private string _OrigCurrency;
+		
+		private System.Nullable<decimal> _OrigCurrencyAmount;
+		
+		private string _ShortComment;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2145,6 +2151,12 @@ namespace StaffRmb
     partial void OnErrorMessageChanged();
     partial void OnPortalIdChanging(int value);
     partial void OnPortalIdChanged();
+    partial void OnOrigCurrencyChanging(string value);
+    partial void OnOrigCurrencyChanged();
+    partial void OnOrigCurrencyAmountChanging(System.Nullable<decimal> value);
+    partial void OnOrigCurrencyAmountChanged();
+    partial void OnShortCommentChanging(string value);
+    partial void OnShortCommentChanged();
     #endregion
 		
 		public AP_Staff_AdvanceRequest()
@@ -2448,6 +2460,66 @@ namespace StaffRmb
 					this._PortalId = value;
 					this.SendPropertyChanged("PortalId");
 					this.OnPortalIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrigCurrency", DbType="VarChar(5)")]
+		public string OrigCurrency
+		{
+			get
+			{
+				return this._OrigCurrency;
+			}
+			set
+			{
+				if ((this._OrigCurrency != value))
+				{
+					this.OnOrigCurrencyChanging(value);
+					this.SendPropertyChanging();
+					this._OrigCurrency = value;
+					this.SendPropertyChanged("OrigCurrency");
+					this.OnOrigCurrencyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrigCurrencyAmount", DbType="Money")]
+		public System.Nullable<decimal> OrigCurrencyAmount
+		{
+			get
+			{
+				return this._OrigCurrencyAmount;
+			}
+			set
+			{
+				if ((this._OrigCurrencyAmount != value))
+				{
+					this.OnOrigCurrencyAmountChanging(value);
+					this.SendPropertyChanging();
+					this._OrigCurrencyAmount = value;
+					this.SendPropertyChanged("OrigCurrencyAmount");
+					this.OnOrigCurrencyAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortComment", DbType="NVarChar(28)")]
+		public string ShortComment
+		{
+			get
+			{
+				return this._ShortComment;
+			}
+			set
+			{
+				if ((this._ShortComment != value))
+				{
+					this.OnShortCommentChanging(value);
+					this.SendPropertyChanging();
+					this._ShortComment = value;
+					this.SendPropertyChanged("ShortComment");
+					this.OnShortCommentChanged();
 				}
 			}
 		}

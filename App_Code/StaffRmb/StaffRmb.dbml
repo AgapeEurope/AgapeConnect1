@@ -110,6 +110,9 @@
       <Column Name="Error" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="ErrorMessage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrigCurrency" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="OrigCurrencyAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ShortComment" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.AP_Staff_Rmb_PerDeimMuliTypes" Member="AP_Staff_Rmb_PerDeimMuliTypes">
