@@ -869,7 +869,13 @@ Public Class DatatSync
                 End If
                 set_if(l.AccountCode, line.AccountCode)
                 set_if(l.AnalysisCode, line.AnalysisCode)
-                set_if(l.Comment, line.Comment)
+                If String.IsNullOrEmpty(line.ShortComment) Then
+                    set_if(l.Comment, line.Comment)
+                Else
+                    set_if(l.Comment, line.ShortComment)
+                End If
+
+
                 set_if(l.CostCenter, line.CostCenter)
                 set_if(l.Department, line.Department)
                 set_if(l.GrossAmount, line.GrossAmount)
