@@ -4,6 +4,8 @@ Imports System.IO
 Imports System.Linq
 Imports iTextSharp.text.pdf
 Imports Give
+Imports DotNetNuke.Common
+
 Partial Class DesktopModules_Give_OutputPdf
     Inherits System.Web.UI.Page
 
@@ -77,6 +79,11 @@ Partial Class DesktopModules_Give_OutputPdf
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        LoadPdf()
+        If Not Request.IsAuthenticated Then
+            Dim ps As PortalSettings = Globals.GetPortalSettings
+            Response.Redirect(Globals.NavigateURL(ps.LoginTabId, True, ps, "Login", "returnurl=" & Server.UrlEncode(Request.Url.ToString)))
+        Else
+            LoadPdf()
+        End If
     End Sub
 End Class

@@ -119,6 +119,7 @@
         $('#lblSummaryBankPostal').text($('.TxtBankPostal').val());
         $('#lblSummaryBankCity').text($('.TxtBankCity').val());
         $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
+        $('#lblSummaryDonComment').text($('.theDonationComment').val());
         $('#freqchoose').slideUp(1000);
         $('#amtchoose').slideUp(1000);
         $('.thelogincont').slideUp(1000);
@@ -170,8 +171,8 @@
     function rbFreq_click() {
         if ($('.rbFreq input:radio:checked').val() != null) {
             if ($('.rbFreq input:radio:checked').val() != 99) {
-                $('[value=m1]').parent().fadeOut(500);
-                $('[value=m3]').parent().fadeOut(500);
+                $('[value=m1]').attr('disabled', true);
+                //$('[value=m3]').attr('disabled', true);
                 $('#amtchoose').slideDown(500);
                 if ($('#creditcard').is(":visible") || $('#cheque').is(":visible")) {
                     jQuery('[value=m2]').attr('checked', 'checked');
@@ -179,8 +180,8 @@
                 }
             }
             else if ($('.rbFreq input:radio:checked').val() == 99) {
-                $('[value=m1]').parent().fadeIn(500);
-                $('[value=m3]').parent().fadeIn(500);
+                $('[value=m1]').attr('disabled', false);
+                //$('[value=m3]').attr('disabled', false);
                 $('#amtchoose').slideDown(500);
             }
         }
@@ -301,6 +302,16 @@
 
     .auto-style1 {
         width: 100%;
+    }
+
+    #methchooseright {
+        float: right;
+        width: 65%;
+    }
+
+    #methchooseleft {
+        float: left;
+        width: 30%;
     }
 </style>
 <asp:HiddenField ID="RowId" runat="server" />
@@ -429,12 +440,19 @@
 
         </div>
         <div id="methchoose" class="bubble">
-            <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
-            <asp:RadioButtonList ID="rblMethod" runat="server">
-                <asp:ListItem Value="m1"></asp:ListItem>
-                <asp:ListItem Value="m2"></asp:ListItem>
-                <asp:ListItem Value="m3"></asp:ListItem>
-            </asp:RadioButtonList>
+            <div id="methchooseleft">
+                <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
+                <asp:RadioButtonList ID="rblMethod" runat="server">
+                    <asp:ListItem Value="m1"></asp:ListItem>
+                    <asp:ListItem Value="m2"></asp:ListItem>
+                    <asp:ListItem Value="m3"></asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+            <div id="methchooseright">
+                <asp:Label ID="lblDonComment" resourcekey="lblDonComment" runat="server" />
+                <asp:TextBox ID="theDonationComment" CssClass="theDonationComment" runat="server" Font-Size="12pt" Width="95%" Height="48px" Rows="10" TextMode="MultiLine"></asp:TextBox><br />
+            </div>
+            <div style="clear:both"></div>
         </div>
         <div id="virement" class="bubble">
             <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
@@ -620,6 +638,10 @@
                             <label id="lblSummaryBankIBAN"></label>
                         </td>
                     </tr>
+                    <tr>
+                        <td><asp:Label ID="lblSumDonComment" Text="text" resourcekey="lblSumDonComment" runat="server" /></td>
+                        </tr>
+                    <tr><td><label id="lblSummaryDonComment"></label></td></tr>
                 </table>
             </div>
             <div style="clear: both"></div>
@@ -634,7 +656,6 @@
         </div>
         <div id="creditcard" class="bubble">
             <asp:Label ID="lblCreditCard" Text="" runat="server" /><br />
-            <asp:TextBox ID="theDonationComment" runat="server" Font-Size="12pt" Width="360px" Height="48px" Rows="10" TextMode="MultiLine"></asp:TextBox><br />
             <asp:Button ID="btnCarte" ValidationGroup="OneOffCC" runat="server" Text="" CssClass="aButton" />&nbsp;
                 <asp:Button ID="btnCheckout" ValidationGroup="OneOffCC" runat="server" Text="" CssClass="aButton" />
         </div>

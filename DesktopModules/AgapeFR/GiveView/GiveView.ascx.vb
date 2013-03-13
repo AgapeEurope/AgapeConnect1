@@ -335,9 +335,11 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     insert.BankStreet1 = tbBankStreet1.Text
                     insert.BankStreet2 = tbBankStreet2.Text
                     insert.Frequency = rblFrequency.SelectedValue
+                    insert.SetupDate = Now
+                    'GiveMethod 0 for virement
+                    insert.GiveMethod = 0
                     insert.acNo = tbIBAN.Text
-                    'TODO create give message box for Virement
-                    insert.GiveMessage = "Default Give Message!"
+                    insert.GiveMessage = theDonationComment.Text
                     insert.Status = 0
                     insert.TypeId = RowId.Value
                     d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
