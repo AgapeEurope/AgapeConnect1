@@ -201,7 +201,7 @@
   <data name="TheKey.Text" xml:space="preserve">
     <value>Staff Login</value>
   </data>
-  <data name="GoBank.Text" xml:space="preserve">
+  <data name="btnFinishDon.Text" xml:space="preserve">
     <value>Finish</value>
   </data>
   <data name="ListFreqZero.Text" xml:space="preserve">
@@ -248,9 +248,6 @@
   </data>
   <data name="lblCreditCard.Text" xml:space="preserve">
     <value>Your gift will be added to the cart.</value>
-  </data>
-  <data name="lblCheque.Text" xml:space="preserve">
-    <value>Here are the instructions for mailing your check. Obviously there is some work to do here.</value>
   </data>
   <data name="lblFrequency.Text" xml:space="preserve">
     <value>I would like to give a gift...</value>
