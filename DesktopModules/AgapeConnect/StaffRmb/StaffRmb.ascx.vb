@@ -1479,8 +1479,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     insert.GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
 
                     'Look for currency conversion
-                    insert.OrigCurrency = hfOrigCurrency.Value
-                    insert.OrigCurrencyAmount = hfOrigCurrencyValue.Value
+
+                    If String.IsNullOrEmpty(hfOrigCurrency.Value) Then
+                        insert.OrigCurrency = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
+                        insert.OrigCurrencyAmount = insert.GrossAmount
+                    Else
+                        insert.OrigCurrency = hfOrigCurrency.Value
+                        insert.OrigCurrencyAmount = hfOrigCurrencyValue.Value
+                    End If
+
 
 
                     If insert.GrossAmount >= Settings("TeamLeaderLimit") Then
@@ -1664,9 +1671,16 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
 
                         Dim GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
+
+                        If String.IsNullOrEmpty(hfOrigCurrency.Value) Then
+                            line.First.OrigCurrency = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
+                            line.First.OrigCurrencyAmount = line.First.GrossAmount
+                        Else
+                            line.First.OrigCurrency = hfOrigCurrency.Value
+                            line.First.OrigCurrencyAmount = hfOrigCurrencyValue.Value
+                        End If
+
                        
-                        line.First.OrigCurrency = hfOrigCurrency.Value
-                        line.First.OrigCurrencyAmount = hfOrigCurrencyValue.Value
 
 
                         line.First.GrossAmount = GrossAmount
@@ -2206,11 +2220,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             'PopupTitle.Text = "Add New Reimbursement Expense"
             btnAddLine.CommandName = "Save"
 
+            hfOrigCurrency.Value = ""
+            hfOrigCurrencyValue.Value = ""
+            Dim jscript As String = ""
+            jscript &= " $('#" & hfOrigCurrency.ClientID & "').attr('value', '');"
+            jscript &= " $('#" & hfOrigCurrencyValue.ClientID & "').attr('value', '');"
 
             Dim t As Type = addLinebtn2.GetType()
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             sb.Append("<script language='javascript'>")
-            sb.Append("showPopup();")
+           
+            sb.Append(jscript & "showPopup();")
             sb.Append("</script>")
             ScriptManager.RegisterStartupScript(addLinebtn2, t, "popupAdd", sb.ToString, False)
 
@@ -2551,12 +2571,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim jscript As String = ""
                     If (Not theLine.First.OrigCurrencyAmount Is Nothing) Then
                         hfOrigCurrencyValue.Value = theLine.First.OrigCurrencyAmount
-                        jscript &= " $('.currency').attr('value'," & theLine.First.OrigCurrencyAmount & ");"
+                        jscript &= " $('#" & hfOrigCurrencyValue.ClientID & "').attr('value', '" & theLine.First.OrigCurrencyAmount & "');"
+                        'jscript &= " $('.currency').attr('value'," & theLine.First.OrigCurrencyAmount & ");"
                         hfExchangeRate.Value = (theLine.First.GrossAmount / theLine.First.OrigCurrencyAmount).Value.ToString(New CultureInfo(""))
                     End If
                     If (Not String.IsNullOrEmpty(theLine.First.OrigCurrency)) Then
+                        jscript &= " $('#" & hfOrigCurrency.ClientID & "').attr('value', '" & theLine.First.OrigCurrency & "');"
                         hfOrigCurrency.Value = theLine.First.OrigCurrency
-                        jscript &= " $('.ddlCur').val('" & theLine.First.OrigCurrency & "');"
+                        'jscript &= " $('.ddlCur').val('" & theLine.First.OrigCurrency & "');"
 
                     End If
 
@@ -2606,7 +2628,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim t As Type = GridView1.GetType()
                     Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
                     sb.Append("<script language='javascript'>")
-                    sb.Append("showPopup();" & jscript)
+                    sb.Append(jscript & "showPopup();")
                     sb.Append("</script>")
                     ScriptManager.RegisterStartupScript(GridView1, t, "popupedit", sb.ToString, False)
 
@@ -2782,11 +2804,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             If Not String.IsNullOrEmpty(ShortComment) Then
                 Return staffInitials.Value & "-" & ShortComment
             End If
+
+
             Dim CurString = ""
-            If Currency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
-                CurString = Currency & CurrencyValue.ToString("f2")
-                CurString = CurString.Replace(".00", "")
+            If Not String.IsNullOrEmpty(Currency) Then
+                If Currency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
+                    CurString = Currency & CurrencyValue.ToString("f2")
+                    CurString = CurString.Replace(".00", "")
+
+                End If
             End If
+          
             Return staffInitials.Value & "-" & comment.Substring(0, Math.Min(comment.Length, 27 - CurString.Length)) & CurString
 
         End Function
@@ -3316,7 +3344,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'End If
                     ddlAccountCode.SelectedValue = GetAccountCode(lt.First.LineTypeId, ddlCostcenter.SelectedValue)
-
+                   
 
                 End If
 
@@ -4054,6 +4082,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Else
                     lblAdvErr.Text = ""
                     q.First.RequestAmount = CDbl(AdvAmount.Text)
+                    q.First.OrigCurrencyAmount = CDbl(hfOrigCurrencyValue.Value)
+                    q.First.OrigCurrency = hfOrigCurrency.Value
+                    
+
                     'If IsAccounts() Then
                     '    If ddlAdvPeriod.SelectedIndex > 0 Then
                     '        q.First.Period = ddlAdvPeriod.SelectedValue

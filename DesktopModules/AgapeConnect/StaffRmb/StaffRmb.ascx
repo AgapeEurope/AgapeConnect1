@@ -18,11 +18,11 @@
             $('.currency').keyup(function() { calculateXRate();});
            
             $('.ddlCur').change(function() { 
-
+                console.log('ddlChanged');
                
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
-              
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
                 if(FromCur == ToCur)
                 {
                     $("#<%= hfExchangeRate.ClientId %>").attr('value', 1.0);
@@ -31,7 +31,7 @@
                 }
                 else
                 {
-                    $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
+                   
 
                     var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
                
@@ -62,7 +62,7 @@
             $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('#' + this.id).hide();  });
             $('.currencyAdv').keyup(function() { calculateXRateAdv();});
             $('.ddlCurAdv').change(function() { 
-
+                console.log('ddlCurAdv changed');
 
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
@@ -318,20 +318,41 @@
      function showAccountWarning() { $("#divAccountWarning").dialog("open"); return false; }
 
      
-     function showSuggestedPayments() {$("#divSuggestedPayments").dialog("open"); return false; }
-    function showAdvanceReq()  {$("#divAdvanceReq").dialog("open");return false;}
+     function showSuggestedPayments() {
+      
+         
+      
+         $("#divSuggestedPayments").dialog("open"); 
+         return false;
+
+     }
+     function showAdvanceReq()  {
+         $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value', '');
+         $("#<%= hfOrigCurrency.ClientID%>").attr('value', '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>');
+         $('.ddlCur').val( '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>');
+         $("#<%= hfExchangeRate.ClientID%>").attr('value', '1.0');
+         $("#divAdvanceReq").dialog("open");  
+         return false;
+     }
 
 
     function checkCur(){
         
         var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
-        
-        if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>')
+        console.log('origCur: ' + origCur) ;
+        if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' && origCur != "")
         {
            
-            var tempValue=$('.rmbAmount').val();  
-            $('.ddlCur').change();
-            $('.rmbAmount').val(tempValue); 
+            //var tempValue=$('.rmbAmount').val();  
+            //$('.ddlCur').change();
+            //$('.rmbAmount').val(tempValue); 
+            $('.ddlCur').val(origCur);
+            console.log("selectedCur:" + origCur);
+            var origCurVal =   $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value');
+            console.log("originalVal:" + origCurVal);
+
+            $("#<%= hfExchangeRate.ClientID%>").attr('value', parseFloat($('.rmbAmount').val())/parseFloat(origCurVal));
+            calculateRevXRate();    
             $('.divCur').show(); 
             $('.hlCur').hide(); 
             
@@ -339,7 +360,41 @@
 
         
            
+        }else
+        {
+            
+
+            var selectedCurrency =  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' ;
+            var xRate=1.0;
+            if(origCur == "")
+            {
+                selectedCurrency ='<%= StaffBrokerFunctions.GetSetting("LocalCurrency", PortalId) %>' ;
+                xRate=-1;
+            }
+            $("#<%= hfOrigCurrency.ClientID%>").attr('value',selectedCurrency);
+            $('.ddlCur').val(selectedCurrency);
+            console.log('selectedCurrency: ' + selectedCurrency) ;
+
+            if(xRate!=1.0)
+            {
+                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + selectedCurrency + "&ToCur=" +  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>';
+                console.log(jsonCall);
+                //$('.rmbAmount').val('');
+           
+                $("#<%= hfExchangeRate.ClientId %>").attr('value', xRate);
+                $.getJSON( jsonCall ,function(x) {
+                    console.log(x);
+
+                    $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
+                    //now need to convert any value in the TextBox
+                    calculateRevXRate();    
+
+                }) ;
+
+            }
+
         }
+        
 
     }
 
@@ -364,9 +419,11 @@
         }
     }
     function calculateRevXRate() {
-        ;
+        
         var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
         var inAmt=$('.rmbAmount').val() ;
+        console.log('xRate:' + xRate);
+        console.log('inAmt:' + inAmt);
         if(parseFloat(xRate) <0)
         {
             $('.currency').val('');
@@ -377,8 +434,10 @@
         
            
         if(inAmt.length>0){
-            $('.currency').val(  (parseFloat(inAmt)/parseFloat(xRate) ).toFixed(2));
-            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',$('.currency').val());
+            var value = (parseFloat(inAmt)/parseFloat(xRate) ).toFixed(2) ;
+            $('.currency').val(value);
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',value);
+            console.log("Currency Value:" + value);
         }
     }
 
