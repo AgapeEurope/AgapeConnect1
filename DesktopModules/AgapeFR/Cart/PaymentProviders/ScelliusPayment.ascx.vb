@@ -31,7 +31,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
             Session(ReturnURLPropertyName) = PaymentReturnURL
             Session(AmountPropertyName) = Amount
             Session(OrderIdPropertyName) = OrderId
-            Session(TransactionIdPropertyName) = TransactionId
 
             'Display the iFrame where Scellius API call will be processed
             IfrScelliusCall.Visible = True

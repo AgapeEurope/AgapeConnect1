@@ -1,7 +1,10 @@
 ﻿
 Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
 
-    ' Generic payment provider control to inherite from for any payment control
+    ''' <summary>
+    ''' Generic payment provider control to inherite from for any payment control
+    ''' </summary>
+    ''' <remarks></remarks>
     Public MustInherit Class GenericPaymentProvider
         Inherits DotNetNuke.Entities.Modules.UserModuleBase
 
@@ -37,16 +40,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
         ReadOnly Property OrderId() As String
             Get
                 Return TheCartID
-            End Get
-        End Property
-
-        'The payment transaction ID
-        Public Const TransactionIdPropertyName As String = "TransactionId"
-        Protected _TransactionId As String
-        ReadOnly Property TransactionId() As String
-            Get
-                'DAVID: Cart - Compute TransactionId
-                Return _TransactionId
             End Get
         End Property
 

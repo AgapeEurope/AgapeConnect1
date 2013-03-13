@@ -43,13 +43,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
             End Get
         End Property
 
-        'The payment transaction ID
-        ReadOnly Property TransactionId() As String
-            Get
-                Return Session(GenericPaymentProvider.TransactionIdPropertyName)
-            End Get
-        End Property
-
 #End Region
 
 
@@ -64,7 +57,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
             Try
 
                 ' /* Initialisation du chemin du fichier pathfile
-                Dim api As ApiPayment.Web.SIPSApiWeb = New SIPSApiWeb(Server.MapPath(Pathfile))
+                Dim api As SIPSApiWeb = New SIPSApiWeb(Server.MapPath(Pathfile))
 
 
                 ' Initialisation de l'objet d'appel
@@ -88,7 +81,8 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 ' Identifiant de transaction
                 ' ex : transaction_id = 123456 (genere automatiquement si non renseigne)
                 ' /!\ Si on utilise un TransactionId par Cart, on ne peut pas retenter le paiement d'un Cart.
-                ' theCall.setValue("transaction_id", TransactionId)
+                ' Généré automatiquement si non renseigné
+                'theCall.setValue("transaction_id", SIPSApiWeb.getTransactionId())
                 '******************************************************************************
 
                 ' Affectation d'un numero identifiant pour la transaction
@@ -147,7 +141,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 ' Elles necessitent l'installation de vos logos et templates sur
                 ' le serveur de paiement
 
-
                 ' theCall.setValue("normal_return_logo","")
                 ' theCall.setValue("cancel_return_logo","")
                 ' theCall.setValue("submit_logo","")
@@ -160,7 +153,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
 
                 ' Insertion de la commande dans votre base de donnees
                 ' avec le status "en cours"
-                ' ...
+                ' DAVID: Cart - Modifier le statut de la commande en BD
 
                 ' Appel de l'api SIPS payment et affichage de la réponse
                 LitPageContent.Text = api.sipsPaymentCallFunc(theCall)
@@ -175,7 +168,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 Session(GenericPaymentProvider.ReturnURLPropertyName) = PaymentReturnURL
                 Session(GenericPaymentProvider.AmountPropertyName) = Amount
                 Session(GenericPaymentProvider.OrderIdPropertyName) = OrderId
-                Session(GenericPaymentProvider.TransactionIdPropertyName) = TransactionId
 
             End Try
         End Sub
