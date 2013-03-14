@@ -153,9 +153,6 @@
   <data name="WantGive.Text" xml:space="preserve">
     <value>I would like to give</value>
   </data>
-  <data name="AddedToCart.Text" xml:space="preserve">
-    <value>Thank you, your donation has been added to the cart. Click on the cart to checkout when you're ready.</value>
-  </data>
   <data name="Checkout.Text" xml:space="preserve">
     <value>Checkout</value>
   </data>
@@ -255,7 +252,7 @@
   <data name="btnEditVirement.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="btnVirementNext.Text" xml:space="preserve">
+  <data name="btnNext.Text" xml:space="preserve">
     <value>Continue</value>
   </data>
   <data name="WantGivePara1.Text" xml:space="preserve">
@@ -263,9 +260,6 @@
   </data>
   <data name="WantGivePara2.Text" xml:space="preserve">
     <value> gift of </value>
-  </data>
-  <data name="WantGivePara3.Text" xml:space="preserve">
-    <value>I can confirm that the information below is correct.</value>
   </data>
   <data name="lblSummaryInfo.Text" xml:space="preserve">
     <value>Please confirm your information before proceeding.</value>
@@ -290,5 +284,8 @@
   </data>
   <data name="lblSumDonComment.Text" xml:space="preserve">
     <value>Your message for the recipient:</value>
+  </data>
+  <data name="lblSumCheque.Text" xml:space="preserve">
+    <value>I will be mailing a cheque.</value>
   </data>
 </root>

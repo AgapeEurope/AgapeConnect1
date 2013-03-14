@@ -135,7 +135,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             rblMethod.Items.Item(1).Text = Translate("rblMethOne")
             rblMethod.Items.Item(2).Text = Translate("rblMethTwo")
             lblOneOffChoose.Text = Translate("OneOffPre")
-            lblAddedToCart.Text = Translate("AddedToCart")
             LblEmail.Text = Translate("eMail")
             LblConfEmail.Text = Translate("ConfeMail")
             LblFirstName.Text = Translate("FirstName")
@@ -177,6 +176,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankCity.Text = Translate("BankCity")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
+            lblConfText1.Text = Translate("lblConfText1")
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"

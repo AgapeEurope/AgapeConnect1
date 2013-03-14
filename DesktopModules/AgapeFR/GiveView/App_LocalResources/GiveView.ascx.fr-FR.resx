@@ -153,9 +153,6 @@
   <data name="WantGive.Text" xml:space="preserve">
     <value>je veux donner</value>
   </data>
-  <data name="AddedToCart.Text" xml:space="preserve">
-    <value>Merci, votre don a été ajouté à votre panier. Cliquez sur le panier à la caisse quand vous êtes prêt.</value>
-  </data>
   <data name="Checkout.Text" xml:space="preserve">
     <value>Caisse</value>
   </data>
@@ -255,7 +252,7 @@
   <data name="btnEditVirement.Text" xml:space="preserve">
     <value>Modifier</value>
   </data>
-  <data name="btnVirementNext.Text" xml:space="preserve">
+  <data name="btnNext.Text" xml:space="preserve">
     <value>Continuer</value>
   </data>
   <data name="WantGivePara1.Text" xml:space="preserve">
@@ -273,9 +270,6 @@
   <data name="lblSummaryRight.Text" xml:space="preserve">
     <value>Les infos de ma banque :</value>
   </data>
-  <data name="WantGivePara3.Text" xml:space="preserve">
-    <value>Je confirme que les informations ci-dessous sont correctes.</value>
-  </data>
   <data name="lblConfText1.Text" xml:space="preserve">
     <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
   </data>
@@ -290,5 +284,8 @@
   </data>
   <data name="lblSumDonComment.Text" xml:space="preserve">
     <value>Votre message pour le destinataire :</value>
+  </data>
+  <data name="lblSumCheque.Text" xml:space="preserve">
+    <value>Je vais envoyer un cheque.</value>
   </data>
 </root>
