@@ -44,13 +44,7 @@
                     <img src="<%= SkinPath %>images/menu_icon.png" alt="" title="Menu" /><br />
                     Menu</a></div>
             </div>
-            <div id="login_style" class="clearfix">
-                <div class="language_style">
-                    <dnn:LANGUAGE runat="server" ID="dnnLANGUAGE" ShowMenu="False" ShowLinks="True" />
-                </div>
-                <dnn:LOGIN runat="server" ID="dnnLOGIN" CssClass="login" />
-                &nbsp;&nbsp;|&nbsp;&nbsp;<dnn:USER runat="server" ID="dnnUSER" CssClass="user" />
-            </div>
+           
 
             <div id="search" class="search_bg">
                 <dnn:SEARCH runat="server" ID="dnnSEARCH" CssClass="search" UseDropDownList="true" ShowSite="False" ShowWeb="False" Submit="GO" />
@@ -64,9 +58,24 @@
         <nav>
             <div class="menu_mid dnn_layout clearfix">
                 <div class="clearfix"  style="padding: 0 10px 0 10px">
+                     
+                    
+                    
+                    <div id="login_style" class="clearfix">
+                <div class="language_style">
+                    <dnn:LANGUAGE runat="server" ID="dnnLANGUAGE" ShowMenu="False" ShowLinks="True" />
+                </div>
+                <dnn:LOGIN runat="server" ID="dnnLOGIN" CssClass="login" />
+                &nbsp;&nbsp;|&nbsp;&nbsp;<dnn:USER runat="server" ID="dnnUSER" CssClass="user" />
+            </div>
+
+
+
                     <div class="dnn_logo">
                         <dnn:LOGO runat="server" ID="dnnLOGO" BorderWidth="0" />
                     </div>
+
+
                     <div class="searchp clearfix">
                         <div id="search1" class="search_bg">
                             <dnn:SEARCH runat="server" ID="dnnSEARCH1" CssClass="search" UseDropDownList="true" ShowSite="False" ShowWeb="False" Submit="GO" />

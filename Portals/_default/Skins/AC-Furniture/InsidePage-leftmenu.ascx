@@ -37,8 +37,7 @@
                     <div class="search_icon"><a href="javascript:animatedcollapse.toggle('search')"><img src="<%= SkinPath %>images/search_icon.png" alt="" title="Search" /><br />Search</a></div>
                     <div class="menu_icon"><a href="javascript:animatedcollapse.toggle('mobile_menu')"><img src="<%= SkinPath %>images/menu_icon.png" alt="" title="Menu" /><br />Menu</a></div>
                 </div>
-                <div id="login_style" class="clearfix"><div class="language_style"><dnn:LANGUAGE runat="server" id="dnnLANGUAGE"  showMenu="False" showLinks="True" /></div><dnn:LOGIN runat="server" id="dnnLOGIN" CssClass="login" />&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:USER runat="server" id="dnnUSER" CssClass="user" /></div>
-				
+               
 				<div id="search" class="search_bg"><dnn:SEARCH runat="server" id="dnnSEARCH" CssClass="search" UseDropDownList="true"  ShowSite="False" ShowWeb="False" Submit="GO" /></div>
                 <div id="mobile_menu"><dnn:GOMENU runat="server" id="dnnGOMENU1" ViewLevel="0" Effect="AccordionPro" AccordionPro_Sensitivit="1" AccordionPro_Interval="100"  AccordionPro_Timeout="1000" AccordionPro_AnimateSpeed="450" /></div>
 			</div>
@@ -47,6 +46,8 @@
 			<nav>
 				<div class="menu_mid dnn_layout clearfix">
 					<div class="clearfix"  style="padding: 0 10px 0 10px">
+                         <div id="login_style" class="clearfix"><div class="language_style"><dnn:LANGUAGE runat="server" id="dnnLANGUAGE"  showMenu="False" showLinks="True" /></div><dnn:LOGIN runat="server" id="dnnLOGIN" CssClass="login" />&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:USER runat="server" id="dnnUSER" CssClass="user" /></div>
+				
 						<div class="dnn_logo"><dnn:LOGO runat="server" id="dnnLOGO" BorderWidth="0" /></div>
                         <div class="searchp clearfix">
                             <div id="search1" class="search_bg"><dnn:SEARCH runat="server" id="dnnSEARCH1" CssClass="search" UseDropDownList="true"  ShowSite="False" ShowWeb="False" Submit="GO" /></div>
