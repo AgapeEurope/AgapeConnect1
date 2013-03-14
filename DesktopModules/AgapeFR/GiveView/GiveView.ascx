@@ -36,11 +36,8 @@
             $('.btnGoBank').click(function () {
                 btnGoBank_click();
             });
-            if ($('#stepCount input[type=hidden]').val() == 1) {
-                $('#freqchoose').hide();
-                $('#confirmation').slideDown(1000);
-            }
-            else if ($('#stepCount input[type=hidden]').val() == -1) {
+            //determine what step the page is on
+            if ($('#stepCount input[type=hidden]').val() == -1) {
                 //get session values
                 sessfreq = sessionStorage.getItem('rbFreq');
                 sessamt = sessionStorage.getItem('tbAmt');
@@ -51,6 +48,10 @@
                 sessionStorage.removeItem('rbFreq');
                 sessionStorage.removeItem('tbAmt');
                 rbFreq_click()
+            }
+            else if ($('#stepCount input[type=hidden]').val() != -1) {
+                $('#freqchoose').hide();
+                $('#confirmation').slideDown(1000);
             }
         }
         $(document).ready(function () {
@@ -66,7 +67,6 @@
         sessionStorage.removeItem('tbAmt');
     }
     function btnNext_click() {
-        //var str = $('.TxtFirstName').val() + ' is my first name!';
         var str = '<%= Translate("WantGivePara1")%>';
         if ($('.rbFreq input:radio:checked').val() == 1) {
             str += '<%= Translate("FreqParaZero")%>';
@@ -172,10 +172,10 @@ function rbFreq_click() {
         amt_enter();
         //only set set session storage if user is not logged in.
         <% If Not (loggedin) Then%>
-            sessionStorage.setItem('rbFreq', $('.rbFreq input:radio:checked').val())
+        sessionStorage.setItem('rbFreq', $('.rbFreq input:radio:checked').val())
             <% End If%>
-        }
     }
+}
     function amt_trim() {
         var inp = $(".tbAmt").val();
         while (inp.substr(0, 1) == '0') inp = inp.substr(1);
@@ -640,7 +640,8 @@ function rbFreq_click() {
 
         </div>
         <div id="confirmation" class="bubble">
-            <asp:Label ID="lblConfText1" runat="server" />
+            <asp:Label ID="lblConfVirement" resourcekey="lblConfVirement" runat="server" />
+            <asp:Label id="lblConfCheque" resourcekey="lblConfCheque" runat="server" />
             <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">
                 <asp:Label ID="lblLinkPDF" Text="text" runat="server" />
             </asp:HyperLink>

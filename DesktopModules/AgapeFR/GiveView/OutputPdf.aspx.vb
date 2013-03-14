@@ -18,19 +18,28 @@ Partial Class DesktopModules_Give_OutputPdf
             Response.Redirect(Globals.NavigateURL(ps.LoginTabId, True, ps, "Login", "returnurl=" & Server.UrlEncode(Request.Url.ToString)))
         Else
             Dim d As New GiveDataContext
-            Dim q = From c In d.Agape_Give_BankTransfers Where c.Reference = Request.QueryString("SOID")
-            Dim nowUser As UserInfo = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo
-            Dim GiveMeth = q.First.GiveMethod
-            If q.Count > 0 And GiveMeth > 0 Then
+            Dim soid = Request.QueryString("SOID")
+            Dim count = (From c In d.Agape_Give_BankTransfers Where c.Reference = soid).Count
+            If count > 0 Then
+                Dim q = From c In d.Agape_Give_BankTransfers Where c.Reference = soid
+                Dim nowUser As UserInfo = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo
                 'be sure correct user is logged in
                 If nowUser.UserID = q.First.DonorId Then
+                    Dim GiveMeth = q.First.GiveMethod
                     If GiveMeth = 1 Then
                         LoadPdfVirement()
                     ElseIf GiveMeth = 2 Then
                         LoadPdfCheque()
                     End If
+                Else
+                    'Trent: This needs to redirect to an error page.
+                    Response.Redirect("http://www.agapefrance.org")
                 End If
+            Else
+                'Trent: This is another error page.
+                Response.Redirect("http://www.agapefrance.org")
             End If
+
         End If
     End Sub
 

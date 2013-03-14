@@ -270,9 +270,6 @@
   <data name="lblSummaryRight.Text" xml:space="preserve">
     <value>Les infos de ma banque :</value>
   </data>
-  <data name="lblConfText1.Text" xml:space="preserve">
-    <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
-  </data>
   <data name="lblLinkPDF.Text" xml:space="preserve">
     <value>Cliquer pour PDF</value>
   </data>
@@ -287,5 +284,11 @@
   </data>
   <data name="lblSumCheque.Text" xml:space="preserve">
     <value>Je vais envoyer un cheque.</value>
+  </data>
+  <data name="lblConfCheque.Text" xml:space="preserve">
+    <value>Votre don est enregistré dans notre système. Merci d'envoyer le chèque !</value>
+  </data>
+  <data name="lblConfVirement.Text" xml:space="preserve">
+    <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
   </data>
 </root>

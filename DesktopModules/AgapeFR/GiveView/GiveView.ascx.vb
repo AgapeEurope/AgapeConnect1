@@ -176,7 +176,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankCity.Text = Translate("BankCity")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
-            lblConfText1.Text = Translate("lblConfText1")
+            'lblConfText1.Text = Translate("lblConfText1")
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
@@ -331,7 +331,12 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     d.SubmitChanges()
                     UpdateUser()
                     HyperLink1.NavigateUrl = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
-                    hfSONextStep.Value = 1
+                    hfSONextStep.Value = rblMethod.SelectedIndex
+                    If rblMethod.SelectedIndex = 1 Then
+                        lblConfCheque.Visible = False
+                    ElseIf rblMethod.SelectedIndex = 2 Then
+                        lblConfVirement.Visible = False
+                    End If
                 Else
                     lblOOError.Text = "No donation type in the db"
                     lblOOError.Visible = True
