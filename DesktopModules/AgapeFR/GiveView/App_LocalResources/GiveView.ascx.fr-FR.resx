@@ -291,4 +291,7 @@
   <data name="lblConfVirement.Text" xml:space="preserve">
     <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
   </data>
+  <data name="ErrorLblBank.Text" xml:space="preserve">
+    <value>Merci de donner votre prénom</value>
+  </data>
 </root>
