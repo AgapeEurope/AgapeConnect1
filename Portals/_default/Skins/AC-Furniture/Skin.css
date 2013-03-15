@@ -17,7 +17,7 @@ html, body {
     margin: 0px;
     height: 100%;
     padding: 0px;
-    font: normal 12px/1.5 Arial;
+    font: normal 14px/1.5 Arial;
     color:#535050;
 }
 
@@ -142,14 +142,14 @@ ul.dnnActionMenuBody li ul li a img {
 A.CommandButton:link,
 A.CommandButton:visited,
 A.CommandButton:active {
-    font-size: 12px;
+    font-size: 14px;
     text-decoration: none;
     font-weight: normal;
 }
 
 A.CommandButton:hover {
     text-decoration: underline;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
 }
 
@@ -233,7 +233,7 @@ input.SearchTextBox {
     border: none;
     float: none;
     height: 30px;
-    margin-top: 0px;
+    margin-top: 20px;
     padding: 0px 4px 0px 0px;
     position: relative;
     white-space: nowrap;
@@ -302,7 +302,7 @@ input.SearchTextBox {
 }
 
 .Normal {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.5;
     color: #535050;
     font-family: Arial, Helvetica, sans-serif;
@@ -534,15 +534,17 @@ header {
 }
 
 .language_style {
-    float: left;
-    margin: 0px 10px 0px 8px;
+    float: right;
+    margin: 0px 0px 0px 8px;
 }
 
 #login_style {
+    float: right;
     color: #757373;
+    width: 60%;
     text-align: right;
     margin: 11px 0px 11px 0px;
-    padding: 0px 8px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 .language-object .Language.selected img {
@@ -570,7 +572,7 @@ nav {
 
 .dnn_logo {
     float: left;
-    margin: 14px 0px 0px 0px;
+    margin: 7px 0px 0px 0px;
 }
 
 .searchp {
@@ -584,7 +586,7 @@ nav {
 }
 
 #search1 {
-    margin: 13px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     float: right;
 }
 
@@ -1255,7 +1257,7 @@ nav {
 
     .dnn_logo {
         float: none;
-        margin: 10px auto 0px;
+        margin: 7px auto 0px;
         text-align: center;
     }
 

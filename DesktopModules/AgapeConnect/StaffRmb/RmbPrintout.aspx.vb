@@ -136,7 +136,16 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                     lines = lines & "</td>"
                     lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
-                    lines = lines & "<td>" & Cur & row.GrossAmount.ToString("0.00") & "</td>"
+
+                    Dim amount = Cur & row.GrossAmount.ToString("0.00")
+                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
+                    If Not String.IsNullOrEmpty(row.OrigCurrency) Then
+                        If row.OrigCurrency.ToUpper <> ac.ToUpper Then
+                            amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
+                        End If
+                    End If
+
+                    lines = lines & "<td>" & amount & "</td>"
                     lines = lines & "<td>" & "</td>"   ' row.VATCode & "</td>"
                     lines = lines & "<td></td><td></td></tr>"
 
@@ -175,7 +184,16 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                     lines = lines & "</td>"
                     lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
-                    lines = lines & "<td>" & Cur & row.GrossAmount.ToString("0.00") & "</td>"
+
+                    Dim amount = Cur & row.GrossAmount.ToString("0.00")
+                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
+                    If Not String.IsNullOrEmpty(row.OrigCurrency) Then
+                        If row.OrigCurrency.ToUpper <> ac.ToUpper Then
+                            amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
+                        End If
+                    End If
+
+                    lines = lines & "<td>" & amount & "</td>"
                     lines = lines & "<td>" & "</td>" ' IIf(row.VATReceipt, "Yes", "No") & "</td>"
                     lines = lines & "<td>" & "</td>" ' row.VATCode & "</td>"
                     lines = lines & "<td>" & row.ReceiptNo & "</td></tr>"

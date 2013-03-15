@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 
 <%@ Register src="Controls/StaffAdvanceRmb.ascx" tagname="StaffAdvanceRmb" tagprefix="uc1" %>
+<%@ Register src="Controls/Currency.ascx" tagname="Currency" tagprefix="uc1" %>
 
 <script src="/js/jquery.numeric.js" type="text/javascript"></script>
 <script src="/js/jquery.watermarkinput.js" type="text/javascript"></script>
@@ -13,14 +14,15 @@
         function setUpMyTabs() {
             var stop = false;
             
-            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide(); alert('test1');  });
+            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();   });
             $('.currency').keyup(function() { calculateXRate();});
            
             $('.ddlCur').change(function() { 
-
-
+                console.log('ddlChanged');
+               
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
                 if(FromCur == ToCur)
                 {
                     $("#<%= hfExchangeRate.ClientId %>").attr('value', 1.0);
@@ -29,7 +31,7 @@
                 }
                 else
                 {
-                    $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
+                   
 
                     var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
                
@@ -60,7 +62,7 @@
             $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('#' + this.id).hide();  });
             $('.currencyAdv').keyup(function() { calculateXRateAdv();});
             $('.ddlCurAdv').change(function() { 
-
+                console.log('ddlCurAdv changed');
 
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
@@ -316,25 +318,83 @@
      function showAccountWarning() { $("#divAccountWarning").dialog("open"); return false; }
 
      
-     function showSuggestedPayments() {$("#divSuggestedPayments").dialog("open"); return false; }
-    function showAdvanceReq()  {$("#divAdvanceReq").dialog("open");return false;}
+     function showSuggestedPayments() {
+      
+         
+      
+         $("#divSuggestedPayments").dialog("open"); 
+         return false;
+
+     }
+     function showAdvanceReq()  {
+         $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value', '');
+         $("#<%= hfOrigCurrency.ClientID%>").attr('value', '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>');
+         $('.ddlCur').val( '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>');
+         $("#<%= hfExchangeRate.ClientID%>").attr('value', '1.0');
+         $("#divAdvanceReq").dialog("open");  
+         return false;
+     }
 
 
     function checkCur(){
         
         var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
-        
-        if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>')
+        console.log('origCur: ' + origCur) ;
+        if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' && origCur != "")
         {
-            var tempValue=$('.rmbAmount').val();  
-            $('.ddlCur').change();
-            $('.rmbAmount').val(tempValue); 
+           
+            //var tempValue=$('.rmbAmount').val();  
+            //$('.ddlCur').change();
+            //$('.rmbAmount').val(tempValue); 
+            $('.ddlCur').val(origCur);
+            console.log("selectedCur:" + origCur);
+            var origCurVal =   $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value');
+            console.log("originalVal:" + origCurVal);
+
+            $("#<%= hfExchangeRate.ClientID%>").attr('value', parseFloat($('.rmbAmount').val())/parseFloat(origCurVal));
+            calculateRevXRate();    
             $('.divCur').show(); 
             $('.hlCur').hide(); 
-          
+            
+           
+
         
            
+        }else
+        {
+            
+
+            var selectedCurrency =  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' ;
+            var xRate=1.0;
+            if(origCur == "")
+            {
+                selectedCurrency ='<%= StaffBrokerFunctions.GetSetting("LocalCurrency", PortalId) %>' ;
+                xRate=-1;
+            }
+            $("#<%= hfOrigCurrency.ClientID%>").attr('value',selectedCurrency);
+            $('.ddlCur').val(selectedCurrency);
+            console.log('selectedCurrency: ' + selectedCurrency) ;
+
+            if(xRate!=1.0)
+            {
+                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + selectedCurrency + "&ToCur=" +  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>';
+                console.log(jsonCall);
+                //$('.rmbAmount').val('');
+           
+                $("#<%= hfExchangeRate.ClientId %>").attr('value', xRate);
+                $.getJSON( jsonCall ,function(x) {
+                    console.log(x);
+
+                    $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
+                    //now need to convert any value in the TextBox
+                    calculateRevXRate();    
+
+                }) ;
+
+            }
+
         }
+        
 
     }
 
@@ -359,9 +419,11 @@
         }
     }
     function calculateRevXRate() {
-        ;
+        
         var xRate = $("#<%= hfExchangeRate.ClientId %>").attr('value');
         var inAmt=$('.rmbAmount').val() ;
+        console.log('xRate:' + xRate);
+        console.log('inAmt:' + inAmt);
         if(parseFloat(xRate) <0)
         {
             $('.currency').val('');
@@ -372,8 +434,10 @@
         
            
         if(inAmt.length>0){
-            $('.currency').val(  (parseFloat(inAmt)/parseFloat(xRate) ).toFixed(2));
-            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',$('.currency').val());
+            var value = (parseFloat(inAmt)/parseFloat(xRate) ).toFixed(2) ;
+            $('.currency').val(value);
+            $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value',value);
+            console.log("Currency Value:" + value);
         }
     }
 
@@ -1454,17 +1518,21 @@ padding: 5px 5px 5px 5px;
                        </div>
                         <div style="font-size: large ; margin-top: 10px; padding: 10px;">
                         <asp:Label ID="lblAdv1" runat="server" Font-Italic="true" ></asp:Label>
-                          <table cellpadding="5px" style="width: 100%; margin: 10px 30px 0px 30px;  ">
+                          <table cellpadding="5px" style="margin: 10px 20px 0px 20px;  ">
                             <tr valign="top">
-                                <td style="width: 200px ;">
-                                    <asp:Label ID="lblAdvAmout" runat="server" ResourceKey="Amount" Font-Bold="true"></asp:Label>
-                                     (<asp:Label ID="lblAdvCur" runat="server" Font-Bold="true" > </asp:Label>):
-                                </td>
-                                <td style="width: 500px">
+                                <td style="width: 120px ;">
+                                    <asp:Label ID="lblAdvAmout" runat="server" ResourceKey="Amount" Font-Bold="true"></asp:Label>:
+                               
+                                    
+                                     </td>
+                                <td style="width: 100%">
                                    
-                                    <asp:TextBox ID="AdvAmount" runat="server" enabled="false"></asp:TextBox>
+                                    <asp:TextBox ID="AdvAmount" runat="server" enabled="false" Width="100px" CssClass="numeric rmbAmount"></asp:TextBox>
+                                    <div style="font-size: x-small; float:right;">
+                                     <uc1:Currency ID="advEditCurrency" runat="server"    /></div> <div style="clear: both;"></div>
+                                   <asp:Label ID="lblAdvCur" runat="server" Font-Bold="true" Visible="False" > </asp:Label>
                                 </td>
-                                <td rowspan="4" style="width: 200px;">
+                                <td rowspan="4" style="width: 120px;">
                                     <table style="color: Gray; font-size: x-small;">
                                        
                                         <asp:Panel ID="pnlAdvPeriodYear" runat="server" Visible="false">
