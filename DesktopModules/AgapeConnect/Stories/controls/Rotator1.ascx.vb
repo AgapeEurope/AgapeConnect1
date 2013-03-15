@@ -96,11 +96,11 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                             target = "_self"
                         End If
                         Dim href = "javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"
-                        out &= "<a href=""" & href & """ > "
+                        out &= "<a href=""" & href & """> "
 
                         '  out &= StoryFunctions.GetImageHTML(photoWidth, photoAspect, row.ImageWidth, row.ImageHeight, row.ImageId, settings("AspectMode"))
 
-                        Dim title As String = "<h3><span style='font-size: large;color: white; opacity: 1.0 !important;'>" & row.Headline & "</span></h3><div style='font-size: 8pt; color: #BAD1EF; margin-top: -7px; line-height: 125%;'>" & row.Description & "</div>"
+                        Dim title As String = "<h3><span style='font-size: large;color: white; opacity: 1.0 !important;'>" & row.Headline & "</span></h3><div class='hidden-phone' style='font-size: 8pt; color: #BAD1EF; margin-top: -7px; line-height: 125%;'>" & row.Description & "</div>"
 
                         Select Case AspectMode
                             Case 0

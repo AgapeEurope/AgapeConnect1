@@ -12,8 +12,18 @@
                  width: <%= divWidth %>
              });
 
-
-            
+             var w= $('#rotatorContainer').width();
+             var scale = w/<%= divWidth %>;
+             var offset = (1.0- scale) *50;
+             var newH = <%= divHeight%> * scale;
+             $('#rotatorContainer').css({
+                 'transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
+                 '-ms-transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
+                 '-moz-transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
+                 '-webkit-transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
+                 '-o-transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
+                 'width':<%= divWidth %> +'px', 'height':newH + 'px' });
+           
                
 
 
@@ -37,12 +47,10 @@
   
 </script>
 
-<style type="text/css">
-   
 
-</style>
-
-<div style="width: <%= divWidth %>px; height: <%= divHeight%>px; ">
+<div id="sampleDiv" width="100%" style="height:0;"></div>
+<div id="rotatorContainer" >
+<div style="width: <%= divWidth %>px; height: <%= divHeight%>px; left:0; ">
     <div class="slider-wrapper theme-default">
         
         <div id="slider" class="nivoSlider" style="height: <%= divHeight%>px; max-height: <%= divHeight%>px;  background-color: Black; overflow: hidden;">
@@ -53,9 +61,6 @@
             </div>
        
         </div>
-      
-<%--    </div>
-    
-  
-</div>--%>
+      </div>
+
 
