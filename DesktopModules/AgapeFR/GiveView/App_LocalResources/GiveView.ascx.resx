@@ -153,9 +153,6 @@
   <data name="WantGive.Text" xml:space="preserve">
     <value>I would like to give</value>
   </data>
-  <data name="AddedToCart.Text" xml:space="preserve">
-    <value>Thank you, your donation has been added to the cart. Click on the cart to checkout when you're ready.</value>
-  </data>
   <data name="Checkout.Text" xml:space="preserve">
     <value>Checkout</value>
   </data>
@@ -201,7 +198,7 @@
   <data name="TheKey.Text" xml:space="preserve">
     <value>Staff Login</value>
   </data>
-  <data name="GoBank.Text" xml:space="preserve">
+  <data name="btnFinishDon.Text" xml:space="preserve">
     <value>Finish</value>
   </data>
   <data name="ListFreqZero.Text" xml:space="preserve">
@@ -247,10 +244,7 @@
     <value>monthly</value>
   </data>
   <data name="lblCreditCard.Text" xml:space="preserve">
-    <value>Your gift will be added to the cart. Feel free to leave a personal message for the recipient below.</value>
-  </data>
-  <data name="lblCheque.Text" xml:space="preserve">
-    <value>Here are the instructions for mailing your check. Obviously there is some work to do here.</value>
+    <value>Your gift will be added to the cart.</value>
   </data>
   <data name="lblFrequency.Text" xml:space="preserve">
     <value>I would like to give a gift...</value>
@@ -258,7 +252,7 @@
   <data name="btnEditVirement.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="btnVirementNext.Text" xml:space="preserve">
+  <data name="btnNext.Text" xml:space="preserve">
     <value>Continue</value>
   </data>
   <data name="WantGivePara1.Text" xml:space="preserve">
@@ -266,9 +260,6 @@
   </data>
   <data name="WantGivePara2.Text" xml:space="preserve">
     <value> gift of </value>
-  </data>
-  <data name="WantGivePara3.Text" xml:space="preserve">
-    <value>I can confirm that the information below is correct.</value>
   </data>
   <data name="lblSummaryInfo.Text" xml:space="preserve">
     <value>Please confirm your information before proceeding.</value>
@@ -279,13 +270,28 @@
   <data name="lblSummaryRight.Text" xml:space="preserve">
     <value>My Bank's Information:</value>
   </data>
-  <data name="lblConfText1.Text" xml:space="preserve">
-    <value>Thank you! Your donation is recorded in our system. Please send the PDF to your bank.</value>
-  </data>
   <data name="lblLinkPDF.Text" xml:space="preserve">
     <value>Click for PDF</value>
   </data>
   <data name="lblTheLoginCont.Text" xml:space="preserve">
     <value>Please log in to continue.</value>
+  </data>
+  <data name="lblDonComment.Text" xml:space="preserve">
+    <value>Feel free to leave a personal message for the recipient below.</value>
+  </data>
+  <data name="lblSumDonComment.Text" xml:space="preserve">
+    <value>Your message for the recipient:</value>
+  </data>
+  <data name="lblSumCheque.Text" xml:space="preserve">
+    <value>I will be mailing a cheque.</value>
+  </data>
+  <data name="lblConfCheque.Text" xml:space="preserve">
+    <value>Thank you! Your donation is recorded in our system. Don't forget to send the cheque!</value>
+  </data>
+  <data name="lblConfVirement.Text" xml:space="preserve">
+    <value>Thank you! Your donation is recorded in our system. Please send the PDF to your bank.</value>
+  </data>
+  <data name="ErrorLblBank.Text" xml:space="preserve">
+    <value>Please enter your name</value>
   </data>
 </root>

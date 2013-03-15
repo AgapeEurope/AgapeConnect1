@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AC-FR" Class="GiveDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AC-FR;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AgapeConnect;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Agape_Give_DonationType" Member="Agape_Give_DonationTypes">
     <Type Name="Agape_Give_DonationType">
       <Column Name="DonationTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -27,6 +27,8 @@
       <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="DonationType" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Column Name="TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SetupDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GiveMethod" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
       <Association Name="Agape_Give_DonationType_Agape_Give_BankTransfer" Member="Agape_Give_DonationType" ThisKey="DonationType" OtherKey="DonationTypeNumber" Type="Agape_Give_DonationType" IsForeignKey="true" />
     </Type>
   </Table>
