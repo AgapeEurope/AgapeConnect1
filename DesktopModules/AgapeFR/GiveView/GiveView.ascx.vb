@@ -190,6 +190,17 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         End Sub
 #End Region
 #Region "Functions"
+        'validate a given validationgroup
+        Private Function IsGroupValid(ByVal valgroup As String) As String
+            Page.Validate(valgroup)
+            Dim validator As BaseValidator
+            For Each validator In Page.GetValidators(valgroup)
+                If Not validator.IsValid Then
+                    Return False
+                End If
+            Next
+            Return True
+        End Function
         Private Function ChangeName(ByVal inName As String) As String
             If inName.IndexOf("&") > 0 Then
                 inName = inName.Replace("&", Translate("NameAnd"))
@@ -252,9 +263,13 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             End If
         End Sub
         Protected Sub btnNoScriptGo_Click(sender As Object, e As EventArgs) Handles btnNoScriptGo.Click
-            If rblMethod.SelectedIndex = "0" Then
+            If rblMethod.SelectedIndex = "0" Then 'credit card
                 CartDonation()
-            Else
+            ElseIf rblMethod.SelectedIndex = "1" Then 'bank transfer
+                If IsGroupValid("Bank") Then
+                    GoBank()
+                End If
+            Else 'cheque
                 GoBank()
             End If
         End Sub

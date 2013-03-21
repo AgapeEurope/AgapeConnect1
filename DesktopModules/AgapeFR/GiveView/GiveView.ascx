@@ -6,274 +6,8 @@
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
 <%@ Register TagPrefix="dnn2" TagName="Login" Src="~/DesktopModules/AgapeFR/Authentication/AgapeAuth.ascx" %>
-<script type="text/javascript">
-    (function ($, Sys) {
-        function setUpMyPage() {
-            hidedivs();
-            $('.aButton').button();
-            $('.tbAmt').numeric({ decimal: false });
-            $('.tbAmt').attr('autocomplete', 'off');
-            $('.tbAmt').keyup(function () {
-                amt_enter();
-            });
-            $('.tbAmt').change(function () {
-                amt_trim();
-                amt_enter();
-            });
-            $('.contactfill').keyup(function () {
-                contactfill_enter();
-            });
-            $('.contactfill').change(function () {
-                contactfill_enter();
-            });
-            $('.contact').mouseover(function () {
-                contactfill_enter();
-            });
-            $('.rblMeth').click(function () {
-                rblMeth_click();
-            });
-            $('.rbFreq').click(function () {
-                rbFreq_click();
-            });
-            $('.bankfill').keyup(function () {
-                bankfill_enter();
-            });
-            $('.bankfill').change(function () {
-                bankfill_enter();
-            });
-            $('.virement').mouseover(function () {
-                bankfill_enter();
-            });
-            $('.virement').keyup(function () {
-                bankfill_enter();
-            });
-            $('.btnNext').click(function () {
-                btnNext_click();
-            });
-            $('.btnEditVirement').click(function () {
-                btnEditVirement_click();
-            });
-            $('.btnGoBank').click(function () {
-                btnGoBank_click();
-            });
-            //determine what step the page is on
-            if ($('#stepCount input[type=hidden]').val() == -1) {
-                //get session values
-                sessfreq = sessionStorage.getItem('rbFreq');
-                sessamt = sessionStorage.getItem('tbAmt');
-                //fill field/radiobutton
-                $('.rbFreq input:radio[value="' + sessfreq + '"]').click();
-                $('.tbAmt').val(sessamt);
-                //empty session storage
-                sessionStorage.removeItem('rbFreq');
-                sessionStorage.removeItem('tbAmt');
-                rbFreq_click()
-            }
-            else if ($('#stepCount input[type=hidden]').val() != -1) {
-                $('.freqchoose').hide();
-                $('.confirmation').slideDown(1000);
-            }
-        }
-        $(document).ready(function () {
-            setUpMyPage();
-            if ('<%= IsEditable  %>' == 'False') { $('.addressContainer input:checkbox').each(function () { $(this).hide(); }); }
-            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                setUpMyPage();
-            });
-        });
-    }(jQuery, window.Sys));
-    function contactfill_enter() {
-        var first = $(".TxtFirstName").val();
-        var last = $(".TxtLastName").val();
-        var email = $(".TxtEmail").val();
-        var email2 = $(".TxtConfEmail").val();
-        var street = $(".TxtStreet1").val();
-        var post = $(".TxtPostCode").val();
-        var city = $(".TxtCity").val();
-
-        if (first != "" && last != "" && email != "" && email2 != "" && street != "" && post != "" && city != "" && email.toLowerCase() == email2.toLowerCase()) {
-            $('.methchoose').slideDown(1000);
-            rblMeth_click()
-        }
-        else {
-            $('.methchoose').slideUp(1000);
-            $('.virement').slideUp(1000);
-            $('.doncontinue').slideUp(1000);
-        }
-
-    }
-    function bankfill_enter() {
-        var bank = $(".TxtBank").val();
-        var street = $(".TxtBankStreet1").val();
-        var post = $(".TxtBankPostal").val();
-        var city = $(".TxtBankCity").val();
-        var iban = $(".TxtBankIBAN").val();
-        if (bank != "" && street != "" && post != "" && city != "" && iban != "") {
-            $('.doncontinue').slideDown(1000);
-            $('html, body').animate({
-                scrollTop: $(".doncontinue").offset().top
-            }, 1000);
-        }
-        else {
-            $('.doncontinue').slideUp(1000);
-        }
-    }
-    function amt_trim() {
-        var inp = $(".tbAmt").val();
-        while (inp.substr(0, 1) == '0') inp = inp.substr(1);
-        $(".tbAmt").val(inp);
-    }
-    function amt_enter() {
-        var inp = $(".tbAmt").val();
-        if (inp.length > 0 && inp > 0) {
-            <% If Not (loggedin) Then%>
-            $('.thelogincont').slideDown(1000);
-            <% Else%>
-            $('.contact').slideDown(1000);
-            //$('.methchoose').slideDown(1000);
-            rblMeth_click();
-            <% End If%>
-            //only set set session storage if user is not logged in.
-            <% If Not (loggedin) Then%>
-            sessionStorage.setItem('tbAmt', inp);
-            <% End If%>
-            contactfill_enter()
-        }
-        else {
-            $('.thelogincont').slideUp(1000);
-            $('.contact').slideUp(1000);
-            $('.methchoose').slideUp(1000);
-            $('.doncontinue').slideUp(1000);
-            $('.virement').slideUp(1000);
-        }
-    }
-
-
-    function btnGoBank_click() {
-        sessionStorage.removeItem('rbFreq');
-        sessionStorage.removeItem('tbAmt');
-    }
-    function btnNext_click() {
-        var str = '<%= Translate("WantGivePara1")%>';
-        if ($('.rbFreq input:radio:checked').val() == 1) {
-            str += '<%= Translate("FreqParaZero")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 3) {
-            str += '<%= Translate("FreqParaOne")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 6) {
-            str += '<%= Translate("FreqParaTwo")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 12) {
-            str += '<%= Translate("FreqParaThree")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 99) {
-            str += '<%= Translate("FreqParaFour")%>';
-        }
-    if ($('.rblMeth input:radio:checked').val() == 'm1') {
-        $('#viretable').hide();
-        $('#sumcc').show();
-        $('#sumcheque').hide();
-    }
-    else if ($('.rblMeth input:radio:checked').val() == 'm2') {
-        $('#viretable').show();
-        $('#sumcc').hide();
-        $('#sumcheque').hide();
-    }
-    else if ($('.rblMeth input:radio:checked').val() == 'm3') {
-        $('#viretable').hide();
-        $('#sumcc').hide();
-        $('#sumcheque').show();
-    }
-    str += '<%= Translate("WantGivePara2")%>' + $('.tbAmt').val() + '€.';
-    $('.lblSummaryInfo2').text(str);
-    $('#lblSummaryFirstName').text($('.TxtFirstName').val());
-    $('#lblSummaryLastName').text($('.TxtLastName').val());
-    $('#lblSummaryStreet1').text($('.TxtStreet1').val());
-    $('#lblSummaryStreet2').text($('.TxtStreet2').val());
-    $('#lblSummaryCity').text($('.TxtCity').val());
-    $('#lblSummaryCountry').text($('.TxtCountry').val());
-    $('#lblSummaryRegion').text($('.TxtRegion').val());
-    $('#lblSummaryPostal').text($('.TxtPostCode').val());
-    $('#lblSummaryEmail').text($('.TxtEmail').val());
-    $('#lblSummaryMobile').text($('.TxtMobile').val());
-    $('#lblSummaryPhone').text($('.TxtTelephone').val());
-    $('#lblSummaryBankName').text($('.TxtBank').val());
-    $('#lblSummaryBankAddress1').text($('.TxtBankStreet1').val());
-    $('#lblSummaryBankAddress2').text($('.TxtBankStreet2').val());
-    $('#lblSummaryBankPostal').text($('.TxtBankPostal').val());
-    $('#lblSummaryBankCity').text($('.TxtBankCity').val());
-    $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
-    $('#lblSummaryDonComment').text($('.theDonationComment').val());
-    $('.freqchoose').slideUp(1000);
-    $('.amtchoose').slideUp(1000);
-    $('.contact').slideUp(1000);
-    $('.methchoose').slideUp(1000);
-    $('.virement').slideUp(1000);
-    $('.doncontinue').slideUp(1000);
-    $('.summaryDon').slideDown(1000);
-    $('html, body').animate({
-        scrollTop: $(".summaryDon").offset().top
-    }, 1000);
-}
-function btnEditVirement_click() {
-    $('.summaryDon').slideUp(1000);
-    $('.freqchoose').slideDown(1000);
-    rbFreq_click();
-}
-function rblMeth_click() {
-    if ($('.rblMeth input:radio:checked').val() == 'm1') {
-        $('.virement').slideUp(1000);
-        $('.doncontinue').slideDown(1000);
-        $('html, body').animate({
-            scrollTop: $(".doncontinue").offset().top
-        }, 1000);
-    }
-    else if ($('.rblMeth input:radio:checked').val() == 'm2') {
-        $('.virement').slideDown(1000);
-        bankfill_enter();
-        $('html, body').animate({
-            scrollTop: $(".virement").offset().top
-        }, 1000);
-    }
-    else if ($('.rblMeth input:radio:checked').val() == 'm3') {
-        $('.virement').slideUp(1000);
-        $('.doncontinue').slideDown(1000);
-        $('html, body').animate({
-            scrollTop: $(".doncontinue").offset().top
-        }, 1000);
-    }
-}
-function rbFreq_click() {
-    if ($('.rbFreq input:radio:checked').val() != null) {
-        if ($('.rbFreq input:radio:checked').val() != 99) {
-            $('[value=m1]').attr('checked', false);
-            $('[value=m1]').attr('disabled', true);
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 99) {
-            $('[value=m1]').attr('disabled', false);
-        }
-        //'Trent: Stop this slidedown after postback when showing confirmation
-        $('.amtchoose').slideDown(500);
-        amt_enter();
-        //only set set session storage if user is not logged in.
-        <% If Not (loggedin) Then%>
-        sessionStorage.setItem('rbFreq', $('.rbFreq input:radio:checked').val())
-            <% End If%>
-    }
-}
-    function hidedivs() {
-        $('.amtchoose').hide();
-        $('.thelogincont').hide();
-        $('.contact').hide();
-        $('.methchoose').hide();
-        $('.virement').hide();
-        $('.doncontinue').hide();
-        $('.summaryDon').hide();
-        $('.confirmation').hide();
-        $('.noscriptconf').hide();
-
-    }
+<script>
+    //Page_ClientValidate("Bank")
 </script>
 <style type="text/css">
     .tbAmt {
@@ -283,10 +17,6 @@ function rbFreq_click() {
         border-color: #BCB691;
         border-width: 1px;
         padding: 5px;
-    }
-
-    .dnnForm {
-        min-width: 0 !important;
     }
 
     .bankinforight {
@@ -316,7 +46,7 @@ function rbFreq_click() {
     }
 
     .giveformitem input[type="text"], .giveformitem textarea {
-        min-width: 250px;
+        min-width: 255px;
     }
 
     .giveformitem label {
@@ -372,6 +102,7 @@ function rbFreq_click() {
         </div>
         <div>
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="Don" HeaderText="There Be Errors!" />
+            <asp:ValidationSummary ID="ValidationSummary2" runat="server" ValidationGroup="Bank" HeaderText="Bank Errors!" />
         </div>
         <div id="freqchoose" class="freqchoose bubble" runat="server">
             <asp:Label ID="lblFrequency" Text="" runat="server" />
@@ -423,16 +154,19 @@ function rbFreq_click() {
                 <div class="giveformitem">
                     <dnn:Label ID="LblMobile" runat="server" ControlName="TxtMobile" />
                     <asp:TextBox ID="TxtMobile" runat="server" MaxLength="50" CssClass="virementform TxtMobile contactfill" />
+                    <asp:RegularExpressionValidator ErrorMessage="that is not a moblie number!" ControlToValidate="TxtMobile" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblTelephone" runat="server" ControlName="TxtTelephone" />
                     <asp:TextBox ID="TxtTelephone" runat="server" MaxLength="50" CssClass="virementform TxtTelephone contactfill" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ErrorMessage="that is not a phone number!" ControlToValidate="TxtTelephone" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
                 </div>
             </div>
             <div style="float: right">
                 <div class="giveformitem">
                     <dnn:Label ID="LblStreet1" runat="server" ControlName="TxtStreet1" />
                     <asp:TextBox ID="TxtStreet1" runat="server" MaxLength="50" CssClass="virementform TxtStreet1 contactfill" />
+                    <asp:RequiredFieldValidator ErrorMessage="the address is needed!" ControlToValidate="TxtStreet1" runat="server" Text="*" ValidationGroup="Don" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblStreet2" runat="server" ControlName="TxtStreet2" />
@@ -447,10 +181,13 @@ function rbFreq_click() {
                 <div class="giveformitem">
                     <dnn:Label ID="LblPostCode" runat="server" ControlName="TxtPostCode" />
                     <asp:TextBox ID="TxtPostCode" runat="server" MaxLength="50" CssClass="virementform TxtPostCode contactfill" />
+                    <asp:RequiredFieldValidator ErrorMessage="the post code is needed!" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" Text="*" />
+                    <asp:RegularExpressionValidator ErrorMessage="that is not a post code!" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" ValidationExpression="^\d+$" Visible="True" Text="*" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblCity" runat="server" ControlName="TxtCity" />
                     <asp:TextBox ID="TxtCity" runat="server" MaxLength="50" CssClass="virementform TxtCity contactfill" />
+                    <asp:RequiredFieldValidator ErrorMessage="you need a city!" ControlToValidate="TxtCity" runat="server" Text="*" ValidationGroup="Don" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblRegion" runat="server" ControlName="TxtRegion" />
@@ -462,7 +199,7 @@ function rbFreq_click() {
         <div id="methchoose" class="methchoose bubble" runat="server">
             <div id="methchooseleft">
                 <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
-                <%'Trent: change values to reference GiveFunctions%>
+                <asp:RequiredFieldValidator ErrorMessage="you need a giving method!" ControlToValidate="rblMethod" runat="server" Text="*" ValidationGroup="Don" />
                 <asp:RadioButtonList ID="rblMethod" runat="server">
                     <asp:ListItem Value="m1"></asp:ListItem>
                     <asp:ListItem Value="m2"></asp:ListItem>
@@ -481,29 +218,35 @@ function rbFreq_click() {
             <div class="bankinfoleft">
                 <div class="giveformitem">
                     <dnn:Label ID="lblBank" runat="server" ControlName="TxtBank" />
-                    <asp:TextBox ID="tbBank" ValidationGroup="Don" runat="server" MaxLength="50" CssClass="TxtBank bankfill" />
+                    <asp:TextBox ID="tbBank" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBank bankfill" />
+                    <asp:RequiredFieldValidator ErrorMessage="need the bank name!" ControlToValidate="tbBank" runat="server" Text="*" ValidationGroup="Bank" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankStreet1" runat="server" ControlName="TxtBankStreet1" />
-                    <asp:TextBox ID="tbBankStreet1" ValidationGroup="Don" runat="server" MaxLength="50" CssClass="TxtBankStreet1 bankfill" />
+                    <asp:TextBox ID="tbBankStreet1" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankStreet1 bankfill" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ErrorMessage="need the bank address!" ControlToValidate="tbBankStreet1" runat="server" Text="*" ValidationGroup="Bank" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankStreet2" runat="server" ControlName="TxtBankStreet2" />
-                    <asp:TextBox ID="tbBankStreet2" ValidationGroup="Don" runat="server" MaxLength="50" CssClass="TxtBankStreet2 bankfill" />
+                    <asp:TextBox ID="tbBankStreet2" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankStreet2 bankfill" />
                 </div>
             </div>
             <div class="bankinforight">
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankPostal" runat="server" ControlName="TxtBankPostal" />
-                    <asp:TextBox ID="tbBankPostal" ValidationGroup="Don" runat="server" MaxLength="50" CssClass="TxtBankPostal bankfill" />
+                    <asp:TextBox ID="tbBankPostal" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankPostal bankfill" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ErrorMessage="need the bank post code!" ControlToValidate="tbBankPostal" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RegularExpressionValidator ErrorMessage="bad bank post code!" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="Bank" ValidationExpression="^\d+$" Text="*" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankCity" runat="server" ControlName="TxtBankCity" />
-                    <asp:TextBox ID="tbBankCity" ValidationGroup="Don" runat="server" MaxLength="50" CssClass="TxtBankCity bankfill" />
+                    <asp:TextBox ID="tbBankCity" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankCity bankfill" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ErrorMessage="need the bank city!" ControlToValidate="tbBankCity" runat="server" Text="*" ValidationGroup="Bank" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
-                    <asp:TextBox ID="tbIBAN" ValidationGroup="Don" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
+                    <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ErrorMessage="need your IBAN!" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
                 </div>
             </div>
             <div style="clear: both"></div>
@@ -669,7 +412,9 @@ function rbFreq_click() {
             <asp:Label ID="lblConfCheque" resourcekey="lblConfCheque" runat="server" />
             <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">
                 <asp:Label ID="lblLinkPDF" Text="text" runat="server" />
-            </asp:HyperLink></div><div id="noscriptconf" class="noscriptconf bubble" runat="server">
+            </asp:HyperLink>
+        </div>
+        <div id="noscriptconf" class="noscriptconf bubble" runat="server">
             <asp:Button ID="btnNoScriptGo" CssClass="aButton" ValidationGroup="Don" runat="server" />
         </div>
     </div>
@@ -677,7 +422,7 @@ function rbFreq_click() {
         <asp:Image ID="theImage1" runat="server" Width="300px" BorderColor="Black" BorderStyle="Solid"
             BorderWidth="2px" EnableViewState="False" />
         <br />
-        <asp:Button ID="btnBio" runat="server" Text="See Bio" CausesValidation="false" CssClass="aButton" />
+        <asp:Button ID="btnBio" runat="server" Text="See Bio" CssClass="aButton" />
         <br />
         <div>
             <uc1:frGiveInfo ID="frGiveInfo" runat="server" />
