@@ -6,8 +6,283 @@
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
 <%@ Register TagPrefix="dnn2" TagName="Login" Src="~/DesktopModules/AgapeFR/Authentication/AgapeAuth.ascx" %>
-<script>
-    //Page_ClientValidate("Bank")
+<script type="text/javascript">
+    (function ($, Sys) {
+        function setUpMyPage() {
+            hidedivs();
+            $('.TxtPostCode').numeric({ decimal: false, negative: false });
+            $('.TxtBankPostal').numeric({ decimal: false, negative: false });
+            $('.TxtMobile').numeric({ decimal: false, negative: false });
+            $('.TxtTelephone').numeric({ decimal: false, negative: false });
+            $('.aButton').button();
+            $('.tbAmt').numeric({ decimal: false, negative: false });
+            $('.tbAmt').attr('autocomplete', 'off');
+            $('.tbAmt').keyup(function () {
+                amt_enter();
+            });
+            $('.tbAmt').change(function () {
+                amt_trim();
+                amt_enter();
+            });
+            $('.tbAmt').blur(function () {
+                amt_trim();
+                amt_enter();
+            });
+            $('.contactfill').keyup(function () {
+                contactfill_enter();
+            });
+            $('.contactfill').change(function () {
+                contactfill_enter();
+            });
+            $('.rblMeth').click(function () {
+                rblMeth_click();
+            });
+            $('.rbFreq').click(function () {
+                rbFreq_click();
+            });
+            $('.bankfill').keyup(function () {
+                bankfill_enter();
+            });
+            $('.bankfill').change(function () {
+                bankfill_enter();
+            });
+            $('.virement').keyup(function () {
+                bankfill_enter();
+            });
+            $('.btnNext').click(function () {
+                btnNext_click();
+            });
+            $('.btnEditVirement').click(function () {
+                btnEditVirement_click();
+            });
+            $('.btnGoBank').click(function () {
+                btnGoBank_click();
+            });
+            //determine what step the page is on
+            if ($('#stepCount input[type=hidden]').val() == -1) {
+                //get session values
+                sessfreq = sessionStorage.getItem('rbFreq');
+                sessamt = sessionStorage.getItem('tbAmt');
+                //fill field/radiobutton
+                $('.rbFreq input:radio[value="' + sessfreq + '"]').click();
+                $('.tbAmt').val(sessamt);
+                //empty session storage
+                sessionStorage.removeItem('rbFreq');
+                sessionStorage.removeItem('tbAmt');
+                rbFreq_click()
+            }
+            else if ($('#stepCount input[type=hidden]').val() != -1) {
+                $('.freqchoose').hide();
+                $('.confirmation').slideDown(1000);
+            }
+        }
+        $(document).ready(function () {
+            setUpMyPage();
+            if ('<%= IsEditable  %>' == 'False') { $('.addressContainer input:checkbox').each(function () { $(this).hide(); }); }
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                setUpMyPage();
+            });
+        });
+    }(jQuery, window.Sys));
+    function contactfill_enter() {
+        var first = $(".TxtFirstName").val();
+        var last = $(".TxtLastName").val();
+        var email = $(".TxtEmail").val();
+        var email2 = $(".TxtConfEmail").val();
+        var street = $(".TxtStreet1").val();
+        var post = $(".TxtPostCode").val();
+        var city = $(".TxtCity").val();
+        if (first != "" && last != "" && email != "" && email2 != "" && street != "" && post != "" && city != "" && email.toLowerCase() == email2.toLowerCase()) {
+            $('.methchoose').slideDown(1000);
+            rblMeth_click()
+        }
+        else {
+            $('.methchoose').slideUp(1000);
+            $('.virement').slideUp(1000);
+            $('.doncontinue').slideUp(1000);
+        }
+
+    }
+    function bankfill_enter() {
+        var bank = $(".TxtBank").val();
+        var street = $(".TxtBankStreet1").val();
+        var post = $(".TxtBankPostal").val();
+        var city = $(".TxtBankCity").val();
+        var iban = $(".TxtBankIBAN").val();
+        if (bank != "" && street != "" && post != "" && city != "" && iban != "") {
+            $('.doncontinue').slideDown(1000);
+            $('html, body').animate({
+                scrollTop: $(".doncontinue").offset().top
+            }, 1000);
+        }
+        else {
+            $('.doncontinue').slideUp(1000);
+        }
+    }
+    function isControlValid(control) {
+        var validators = $(control).Validators;
+        var isValid = true;
+        Array.forEach(validtors, function (item) {
+            isValid = isValid && (item.isvalid === true);
+        });
+        return isValid;
+    }
+    function amt_trim() {
+        var inp = $(".tbAmt").val();
+        while (inp.substr(0, 1) == '0') inp = inp.substr(1);
+        $(".tbAmt").val(inp);
+    }
+    function amt_enter() {
+        var inp = $(".tbAmt").val();
+        if (inp.length > 0 && inp > 0) {
+            <% If Not (loggedin) Then%>
+            $('.thelogincont').slideDown(1000);
+            <% Else%>
+            $('.contact').slideDown(1000);
+            //$('.methchoose').slideDown(1000);
+            rblMeth_click();
+            <% End If%>
+            //only set set session storage if user is not logged in.
+            <% If Not (loggedin) Then%>
+            sessionStorage.setItem('tbAmt', inp);
+            <% End If%>
+            contactfill_enter()
+        }
+        else {
+            $('.thelogincont').slideUp(1000);
+            $('.contact').slideUp(1000);
+            $('.methchoose').slideUp(1000);
+            $('.doncontinue').slideUp(1000);
+            $('.virement').slideUp(1000);
+        }
+    }
+
+
+    function btnGoBank_click() {
+        sessionStorage.removeItem('rbFreq');
+        sessionStorage.removeItem('tbAmt');
+    }
+    function btnNext_click() {
+        var str = '<%= Translate("WantGivePara1")%>';
+        if ($('.rbFreq input:radio:checked').val() == 1) {
+            str += '<%= Translate("FreqParaZero")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 3) {
+            str += '<%= Translate("FreqParaOne")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 6) {
+            str += '<%= Translate("FreqParaTwo")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 12) {
+            str += '<%= Translate("FreqParaThree")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 99) {
+            str += '<%= Translate("FreqParaFour")%>';
+        }
+    if ($('.rblMeth input:radio:checked').val() == 'm1') {
+        $('#viretable').hide();
+        $('#sumcc').show();
+        $('#sumcheque').hide();
+    }
+    else if ($('.rblMeth input:radio:checked').val() == 'm2') {
+        $('#viretable').show();
+        $('#sumcc').hide();
+        $('#sumcheque').hide();
+    }
+    else if ($('.rblMeth input:radio:checked').val() == 'm3') {
+        $('#viretable').hide();
+        $('#sumcc').hide();
+        $('#sumcheque').show();
+    }
+    str += '<%= Translate("WantGivePara2")%>' + $('.tbAmt').val() + '€.';
+    $('.lblSummaryInfo2').text(str);
+    $('#lblSummaryFirstName').text($('.TxtFirstName').val());
+    $('#lblSummaryLastName').text($('.TxtLastName').val());
+    $('#lblSummaryStreet1').text($('.TxtStreet1').val());
+    $('#lblSummaryStreet2').text($('.TxtStreet2').val());
+    $('#lblSummaryCity').text($('.TxtCity').val());
+    $('#lblSummaryCountry').text($('.TxtCountry').val());
+    $('#lblSummaryRegion').text($('.TxtRegion').val());
+    $('#lblSummaryPostal').text($('.TxtPostCode').val());
+    $('#lblSummaryEmail').text($('.TxtEmail').val());
+    $('#lblSummaryMobile').text($('.TxtMobile').val());
+    $('#lblSummaryPhone').text($('.TxtTelephone').val());
+    $('#lblSummaryBankName').text($('.TxtBank').val());
+    $('#lblSummaryBankAddress1').text($('.TxtBankStreet1').val());
+    $('#lblSummaryBankAddress2').text($('.TxtBankStreet2').val());
+    $('#lblSummaryBankPostal').text($('.TxtBankPostal').val());
+    $('#lblSummaryBankCity').text($('.TxtBankCity').val());
+    $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
+    $('#lblSummaryDonComment').text($('.theDonationComment').val());
+    $('.freqchoose').slideUp(1000);
+    $('.amtchoose').slideUp(1000);
+    $('.contact').slideUp(1000);
+    $('.methchoose').slideUp(1000);
+    $('.virement').slideUp(1000);
+    $('.doncontinue').slideUp(1000);
+    $('.summaryDon').slideDown(1000);
+    $('html, body').animate({
+        scrollTop: $(".summaryDon").offset().top
+    }, 1000);
+}
+function btnEditVirement_click() {
+    $('.summaryDon').slideUp(1000);
+    $('.freqchoose').slideDown(1000);
+    rbFreq_click();
+}
+function rblMeth_click() {
+    if ($('.rblMeth input:radio:checked').val() == 'm1') {
+        $('.virement').slideUp(1000);
+        $('.doncontinue').slideDown(1000);
+        $('html, body').animate({
+            scrollTop: $(".doncontinue").offset().top
+        }, 1000);
+    }
+    else if ($('.rblMeth input:radio:checked').val() == 'm2') {
+        $('.virement').slideDown(1000);
+        bankfill_enter();
+        $('html, body').animate({
+            scrollTop: $(".virement").offset().top
+        }, 1000);
+    }
+    else if ($('.rblMeth input:radio:checked').val() == 'm3') {
+        $('.virement').slideUp(1000);
+        $('.doncontinue').slideDown(1000);
+        $('html, body').animate({
+            scrollTop: $(".doncontinue").offset().top
+        }, 1000);
+    }
+}
+function rbFreq_click() {
+    if ($('.rbFreq input:radio:checked').val() != null) {
+        if ($('.rbFreq input:radio:checked').val() != 99) {
+            $('[value=m1]').attr('checked', false);
+            $('[value=m1]').attr('disabled', true);
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 99) {
+            $('[value=m1]').attr('disabled', false);
+        }
+        //'Trent: Stop this slidedown after postback when showing confirmation
+        $('.amtchoose').slideDown(500);
+        amt_enter();
+        //only set set session storage if user is not logged in.
+        <% If Not (loggedin) Then%>
+        sessionStorage.setItem('rbFreq', $('.rbFreq input:radio:checked').val())
+            <% End If%>
+    }
+}
+    function hidedivs() {
+        $('.amtchoose').hide();
+        $('.thelogincont').hide();
+        $('.contact').hide();
+        $('.methchoose').hide();
+        $('.virement').hide();
+        $('.doncontinue').hide();
+        $('.summaryDon').hide();
+        $('.confirmation').hide();
+        $('.noscriptconf').hide();
+
+    }
 </script>
 <style type="text/css">
     .tbAmt {

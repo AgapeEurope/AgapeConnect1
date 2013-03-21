@@ -256,9 +256,13 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
 #End Region
 #Region "Buttons"
         Protected Sub btnFinishDon_Click(sender As Object, e As EventArgs) Handles btnFinishDon.Click
-            If rblMethod.SelectedIndex = "0" Then
+            If rblMethod.SelectedIndex = "0" Then 'credit card
                 CartDonation()
-            Else
+            ElseIf rblMethod.SelectedIndex = "1" Then 'bank transfer
+                If IsGroupValid("Bank") Then
+                    GoBank()
+                End If
+            Else 'cheque
                 GoBank()
             End If
         End Sub
