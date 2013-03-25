@@ -121,7 +121,7 @@
     <value>Add to Cart</value>
   </data>
   <data name="ListFreqFour.Text" xml:space="preserve">
-    <value>Today</value>
+    <value>Promptly</value>
   </data>
   <data name="ListFreqOne.Text" xml:space="preserve">
     <value>Quarterly</value>
@@ -293,5 +293,74 @@
   </data>
   <data name="ErrorLblBank.Text" xml:space="preserve">
     <value>Please enter your name</value>
+  </data>
+  <data name="btnBio.Text" xml:space="preserve">
+    <value>See Bio</value>
+  </data>
+  <data name="ValAmt.Text" xml:space="preserve">
+    <value>Please enter an amount</value>
+  </data>
+  <data name="ValAmtRange.Text" xml:space="preserve">
+    <value>Please enter a valid amount</value>
+  </data>
+  <data name="ValBank.Text" xml:space="preserve">
+    <value>Please enter the name of your bank</value>
+  </data>
+  <data name="ValBankCity.Text" xml:space="preserve">
+    <value>Please enter your bank's city</value>
+  </data>
+  <data name="ValBankPostal.Text" xml:space="preserve">
+    <value>Please enter your bank's postal code</value>
+  </data>
+  <data name="ValBankPostalExp.Text" xml:space="preserve">
+    <value>Please enter a valid postal code for your bank</value>
+  </data>
+  <data name="ValBankStreet1.Text" xml:space="preserve">
+    <value>Please enter your bank's address</value>
+  </data>
+  <data name="ValCity.Text" xml:space="preserve">
+    <value>Please enter your city</value>
+  </data>
+  <data name="ValConfEmail.Text" xml:space="preserve">
+    <value>Please confirm your email address</value>
+  </data>
+  <data name="ValEmail.Text" xml:space="preserve">
+    <value>Please enter your email address</value>
+  </data>
+  <data name="ValEmailExp.Text" xml:space="preserve">
+    <value>Please enter a valid email address</value>
+  </data>
+  <data name="ValFirstName.Text" xml:space="preserve">
+    <value>Please enter your first name</value>
+  </data>
+  <data name="ValFreq.Text" xml:space="preserve">
+    <value>Please select a frequency</value>
+  </data>
+  <data name="ValIBAN.Text" xml:space="preserve">
+    <value>Please enter your bank account number</value>
+  </data>
+  <data name="ValLastName.Text" xml:space="preserve">
+    <value>Please enter your last name</value>
+  </data>
+  <data name="ValMethod.Text" xml:space="preserve">
+    <value>Please select a giving method</value>
+  </data>
+  <data name="ValMobileExp.Text" xml:space="preserve">
+    <value>Please enter a valid mobile number</value>
+  </data>
+  <data name="ValPostCode.Text" xml:space="preserve">
+    <value>Please enter your postal code</value>
+  </data>
+  <data name="ValPostCodeExp.Text" xml:space="preserve">
+    <value>Please enter a valid postal code</value>
+  </data>
+  <data name="ValStreet1.Text" xml:space="preserve">
+    <value>Please enter your street address</value>
+  </data>
+  <data name="ValSumDon.Text" xml:space="preserve">
+    <value>There are on or more errors on the page:</value>
+  </data>
+  <data name="ValTelephoneExp.Text" xml:space="preserve">
+    <value>Please enter a valid phone number</value>
   </data>
 </root>

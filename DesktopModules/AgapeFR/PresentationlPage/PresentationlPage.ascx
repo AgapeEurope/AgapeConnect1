@@ -36,7 +36,7 @@
         <asp:Image ID="theImage1" runat="server" Width="300px" BorderColor="Black" BorderStyle="Solid"
             BorderWidth="2px" EnableViewState="False" />
         <br />
-        <asp:Button ID="btnGive" runat="server" Text="Give" CssClass="aButton" />
+        <asp:Button ID="btnGive" runat="server" resourcekey="btnGive" CssClass="aButton" />
         <asp:Button ID="btnEditProfile" runat="server" Text="Edit Profile" CssClass="aButton" />
     </div>
 </div>

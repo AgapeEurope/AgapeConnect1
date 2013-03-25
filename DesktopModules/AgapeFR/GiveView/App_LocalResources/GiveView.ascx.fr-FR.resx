@@ -121,7 +121,7 @@
     <value>Ajouter au Panier</value>
   </data>
   <data name="ListFreqFour.Text" xml:space="preserve">
-    <value>Aujourd'hui</value>
+    <value>Ponctuellement</value>
   </data>
   <data name="ListFreqOne.Text" xml:space="preserve">
     <value>Trimestriellement</value>
@@ -293,5 +293,74 @@
   </data>
   <data name="ErrorLblBank.Text" xml:space="preserve">
     <value>Merci de donner votre prénom</value>
+  </data>
+  <data name="btnBio.Text" xml:space="preserve">
+    <value>Voir Bio</value>
+  </data>
+  <data name="ValAmt.Text" xml:space="preserve">
+    <value>Merci de sasir un montant</value>
+  </data>
+  <data name="ValAmtRange.Text" xml:space="preserve">
+    <value>Merci de sasir un montant valid</value>
+  </data>
+  <data name="ValBank.Text" xml:space="preserve">
+    <value>Merci de sasir le nom de votre banque</value>
+  </data>
+  <data name="ValBankCity.Text" xml:space="preserve">
+    <value>Merci de sasir la ville de votre banque</value>
+  </data>
+  <data name="ValBankPostal.Text" xml:space="preserve">
+    <value>Merci de sasir le code postal de votre banque</value>
+  </data>
+  <data name="ValBankPostalExp.Text" xml:space="preserve">
+    <value>Merci de sasir un code postal valid pour votre banque</value>
+  </data>
+  <data name="ValBankStreet1.Text" xml:space="preserve">
+    <value>Merci de sasir l'adresse de votre banque</value>
+  </data>
+  <data name="ValCity.Text" xml:space="preserve">
+    <value>Merci de sasir votre ville</value>
+  </data>
+  <data name="ValConfEmail.Text" xml:space="preserve">
+    <value>Merci de confirmer votre adresse mail</value>
+  </data>
+  <data name="ValEmail.Text" xml:space="preserve">
+    <value>Merci de sasir votre adresse mail</value>
+  </data>
+  <data name="ValEmailExp.Text" xml:space="preserve">
+    <value>Merci de sasir une adresse mail complete</value>
+  </data>
+  <data name="ValFirstName.Text" xml:space="preserve">
+    <value>Merci de sasir votre prénom</value>
+  </data>
+  <data name="ValFreq.Text" xml:space="preserve">
+    <value>Merci de choisir un frequence</value>
+  </data>
+  <data name="ValIBAN.Text" xml:space="preserve">
+    <value>Merci de sasir votre IBAN</value>
+  </data>
+  <data name="ValLastName.Text" xml:space="preserve">
+    <value>Merci de sasir votre nom</value>
+  </data>
+  <data name="ValMethod.Text" xml:space="preserve">
+    <value>Merci de choisir un method de don</value>
+  </data>
+  <data name="ValMobileExp.Text" xml:space="preserve">
+    <value>Merci de sasir un numero mobile valid</value>
+  </data>
+  <data name="ValPostCode.Text" xml:space="preserve">
+    <value>Merci de sasir votre code postal</value>
+  </data>
+  <data name="ValPostCodeExp.Text" xml:space="preserve">
+    <value>Merci de sasir un code postal valid</value>
+  </data>
+  <data name="ValStreet1.Text" xml:space="preserve">
+    <value>Merci de sasir votre adresse</value>
+  </data>
+  <data name="ValSumDon.Text" xml:space="preserve">
+    <value>Il y a une ou plusiers erreurs sur la page :</value>
+  </data>
+  <data name="ValTelephoneExp.Text" xml:space="preserve">
+    <value>Merci de sasir un numero fixé valid</value>
   </data>
 </root>

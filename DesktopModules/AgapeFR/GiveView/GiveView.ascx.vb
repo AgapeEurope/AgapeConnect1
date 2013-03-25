@@ -21,6 +21,7 @@ Imports StaffBroker
 Imports Cart
 Imports Give
 Imports StaffBrokerFunctions
+Imports DotNetNuke.Common.Lists
 Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
 
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
@@ -36,7 +37,12 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             'Translate the page
             SetTranslate()
-            'Hide Add to Cart Button - should be optional.
+
+            Dim ctlEntry As ListController = New ListController
+            cboCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
+            cboCountry.DataBind()
+
+
             If Not Me.IsPostBack Then
                 'add the css to pick up fields from client side
                 AddCSS()
@@ -59,7 +65,16 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtCity.Text = objUser.Profile.City
                     TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
-                    cboCountry.SelectedValue = objUser.Profile.Country
+                    'cboCountry.SelectedValue =
+                    Dim mycountry As String
+                    Dim lc As New Lists.ListController
+                    Dim c = lc.GetListEntryInfoItems("Country").Where(Function(x) objUser.Profile.Country.EndsWith(x.Text)).Select(Function(x) x.Value)
+                    If c.Count > 0 Then
+                        mycountry = c.First
+                    Else
+                        mycountry = "FR"
+                    End If
+                    cboCountry.SelectedValue = mycountry
                     thelogincont.Style("Display") = "none"
                 Else
                     loggedin = False
@@ -180,7 +195,30 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
             btnNoScriptGo.Text = Translate("btnFinishDon")
-            'lblConfText1.Text = Translate("lblConfText1")
+            ValFreq.ErrorMessage = Translate("ValFreq")
+            ValAmt.ErrorMessage = Translate("ValAmt")
+            ValAmtRange.ErrorMessage = Translate("ValAmtRange")
+            ValFirstName.ErrorMessage = Translate("ValFirstName")
+            ValLastName.ErrorMessage = Translate("ValLastName")
+            ValEmail.ErrorMessage = Translate("ValEmail")
+            ValEmailExp.ErrorMessage = Translate("ValEmailExp")
+            ValConfEmail.ErrorMessage = Translate("ValConfEmail")
+            ValConfEmailComp.ErrorMessage = Translate("ValConfEmail")
+            ValMobileExp.ErrorMessage = Translate("ValMobileExp")
+            ValTelephoneExp.ErrorMessage = Translate("ValTelephoneExp")
+            ValStreet1.ErrorMessage = Translate("ValStreet1")
+            ValPostCode.ErrorMessage = Translate("ValPostCode")
+            ValPostCodeExp.ErrorMessage = Translate("ValPostCodeExp")
+            ValCity.ErrorMessage = Translate("ValCity")
+            ValMethod.ErrorMessage = Translate("ValMethod")
+            ValSumDon.HeaderText = Translate("ValSumDon")
+            ValSumBank.HeaderText = Translate("ValSumDon")
+            ValBank.ErrorMessage = Translate("ValBank")
+            ValBankStreet1.ErrorMessage = Translate("ValBankStreet1")
+            ValBankPostal.ErrorMessage = Translate("ValBankPostal")
+            ValBankPostalExp.ErrorMessage = Translate("ValBankPostal")
+            ValBankCity.ErrorMessage = Translate("ValBankCity")
+            ValIBAN.ErrorMessage = Translate("ValIBAN")
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
@@ -377,7 +415,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theUser.Profile.Street = TxtStreet1.Text
             theUser.Profile.Unit = TxtStreet2.Text
             theUser.Profile.City = TxtCity.Text
-            'theUser.Profile.Country = cboCountry.SelectedValue
+            theUser.Profile.Country = cboCountry.SelectedItem.Text
             theUser.Profile.Region = TxtRegion.Text
             theUser.Profile.PostalCode = TxtPostCode.Text
             MembershipProvider.Instance().UpdateUser(theUser)

@@ -85,31 +85,21 @@
         });
     }(jQuery, window.Sys));
     function contactfill_enter() {
-        var first = $(".TxtFirstName").val();
-        var last = $(".TxtLastName").val();
-        var email = $(".TxtEmail").val();
-        var email2 = $(".TxtConfEmail").val();
-        var street = $(".TxtStreet1").val();
-        var post = $(".TxtPostCode").val();
-        var city = $(".TxtCity").val();
-        if (first != "" && last != "" && email != "" && email2 != "" && street != "" && post != "" && city != "" && email.toLowerCase() == email2.toLowerCase()) {
+        if (Page_ClientValidate('Contact')) {
+            $('.testlabel').text('contact info is valid');
             $('.methchoose').slideDown(1000);
-            rblMeth_click()
+            
         }
         else {
+            $('.testlabel').text('contact info is not valid');
             $('.methchoose').slideUp(1000);
             $('.virement').slideUp(1000);
             $('.doncontinue').slideUp(1000);
         }
-
+        rblMeth_click();
     }
     function bankfill_enter() {
-        var bank = $(".TxtBank").val();
-        var street = $(".TxtBankStreet1").val();
-        var post = $(".TxtBankPostal").val();
-        var city = $(".TxtBankCity").val();
-        var iban = $(".TxtBankIBAN").val();
-        if (bank != "" && street != "" && post != "" && city != "" && iban != "") {
+        if (Page_ClientValidate('jBank')) {
             $('.doncontinue').slideDown(1000);
             $('html, body').animate({
                 scrollTop: $(".doncontinue").offset().top
@@ -146,7 +136,7 @@
             <% If Not (loggedin) Then%>
             sessionStorage.setItem('tbAmt', inp);
             <% End If%>
-            contactfill_enter()
+            contactfill_enter();
         }
         else {
             $('.thelogincont').slideUp(1000);
@@ -252,15 +242,23 @@ function rblMeth_click() {
             scrollTop: $(".doncontinue").offset().top
         }, 1000);
     }
+    else {
+        $('.virement').slideUp(1000);
+        $('.doncontinue').slideUp(1000);
+    }
 }
 function rbFreq_click() {
     if ($('.rbFreq input:radio:checked').val() != null) {
         if ($('.rbFreq input:radio:checked').val() != 99) {
+            var id = $('[value=m1]').attr("id");
             $('[value=m1]').attr('checked', false);
             $('[value=m1]').attr('disabled', true);
+            $('label[for=' + id + ']').addClass('radiogray');
         }
         else if ($('.rbFreq input:radio:checked').val() == 99) {
             $('[value=m1]').attr('disabled', false);
+            var id = $('[value=m1]').attr("id");
+            $('label[for=' + id + ']').removeClass('radiogray');
         }
         //'Trent: Stop this slidedown after postback when showing confirmation
         $('.amtchoose').slideDown(500);
@@ -293,7 +291,9 @@ function rbFreq_click() {
         border-width: 1px;
         padding: 5px;
     }
-
+    .radiogray {
+        color: gray;
+    }
     .bankinforight {
         float: right;
     }
@@ -307,7 +307,7 @@ function rbFreq_click() {
     }
 
     .virementform {
-        width: 250px;
+        width: 255px;
     }
 
     .input {
@@ -321,7 +321,7 @@ function rbFreq_click() {
     }
 
     .giveformitem input[type="text"], .giveformitem textarea {
-        min-width: 255px;
+        min-width: 200px;
     }
 
     .giveformitem label {
@@ -376,12 +376,12 @@ function rbFreq_click() {
             <asp:Label ID="Title" runat="server"></asp:Label>
         </div>
         <div>
-            <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="Don" HeaderText="There Be Errors!" />
-            <asp:ValidationSummary ID="ValidationSummary2" runat="server" ValidationGroup="Bank" HeaderText="Bank Errors!" />
+            <asp:ValidationSummary ID="ValSumDon" runat="server" ValidationGroup="Don" />
+            <asp:ValidationSummary ID="ValSumBank" runat="server" ValidationGroup="Bank" />
         </div>
         <div id="freqchoose" class="freqchoose bubble" runat="server">
             <asp:Label ID="lblFrequency" Text="" runat="server" />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="you forgot the frequency!" ValidationGroup="Don" ControlToValidate="rblFrequency" Text="*"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="ValFreq" runat="server" ValidationGroup="Don" ControlToValidate="rblFrequency" Text="*"></asp:RequiredFieldValidator>
             <br />
             <asp:RadioButtonList CssClass="rblFrequency" ID="rblFrequency" runat="server" ValidationGroup="Don">
                 <asp:ListItem Value="1"></asp:ListItem>
@@ -395,8 +395,8 @@ function rbFreq_click() {
             <asp:Label ID="lblWantGive" runat="server" Text="Label"></asp:Label>
             <asp:TextBox ID="tbAmount" runat="server" ValidationGroup="Don"></asp:TextBox>
             <asp:Label ID="lblTo" runat="server" Text="Label"></asp:Label>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="you need an amount!" Text="*" ControlToValidate="tbAmount" ValidationGroup="Don"></asp:RequiredFieldValidator>
-            <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="You can't enter that amount!" ControlToValidate="tbAmount" MinimumValue="1" MaximumValue="99999999" Text="*" ValidationGroup="Don"></asp:RangeValidator>
+            <asp:RequiredFieldValidator ID="ValAmt" runat="server" Text="*" ControlToValidate="tbAmount" ValidationGroup="Don"></asp:RequiredFieldValidator>
+            <asp:RangeValidator ID="ValAmtRange" runat="server" ControlToValidate="tbAmount" MinimumValue="1" MaximumValue="99999999" Text="*" ValidationGroup="Don"></asp:RangeValidator>
         </div>
         <div id="thelogincont" runat="server" class="bubble thelogincont">
             <asp:Label ID="lblTheLoginCont" Text="text" resourcekey="lblTheLoginCont" runat="server" />
@@ -407,41 +407,50 @@ function rbFreq_click() {
                 <div class="giveformitem">
                     <dnn:Label ID="LblFirstName" runat="server" ControlName="TxtFirstName" />
                     <asp:TextBox ID="TxtFirstName" runat="server" MaxLength="50" CssClass="virementform TxtFirstName contactfill" />
-                    <asp:RequiredFieldValidator ID="ValFirstName" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtFirstName" Display="Dynamic" ValidationGroup="Don" ErrorMessage="You need a first name!" Text="*" />
+                    <asp:RequiredFieldValidator ID="ValFirstName" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtFirstName" Display="Dynamic" ValidationGroup="Don" Text="*" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtFirstName" Display="Dynamic" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblLastName" runat="server" ControlName="TxtLastName" />
                     <asp:TextBox ID="TxtLastName" runat="server" MaxLength="50" CssClass="virementform TxtLastName contactfill" />
-                    <asp:RequiredFieldValidator ID="ValLastName" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtLastName" Display="Dynamic" Text="*" ErrorMessage="you need a last name!" ValidationGroup="Don" />
+                    <asp:RequiredFieldValidator ID="ValLastName" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtLastName" Display="Dynamic" Text="*" ValidationGroup="Don" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtLastName" Display="Dynamic" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblEmail" runat="server" ControlName="TxtEmail" />
                     <asp:TextBox ID="TxtEmail" runat="server" MaxLength="50" CssClass="virementform TxtEmail contactfill" />
-                    <asp:RequiredFieldValidator ID="ValEmail" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtEmail" Display="Dynamic" ValidationGroup="Don" Text="*" ErrorMessage="you need an email!" />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="that is not an email address!" Text="*" ControlToValidate="TxtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Don" CssClass="auto-style1"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="ValEmail" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtEmail" Display="Dynamic" ValidationGroup="Don" Text="*" />
+                    <asp:RegularExpressionValidator ID="ValEmailExp" runat="server" Text="*" ControlToValidate="TxtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Don" CssClass="auto-style1"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtEmail" Display="Dynamic" ValidationGroup="Contact" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="TxtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Contact" CssClass="auto-style1"></asp:RegularExpressionValidator>
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblConfEmail" runat="server" ControlName="TxtConfEmail" />
                     <asp:TextBox ID="TxtConfEmail" runat="server" MaxLength="50" CssClass="virementform TxtConfEmail contactfill" />
-                    <asp:RequiredFieldValidator ID="ValConfEmail" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtConfEmail" ValidationGroup="Don" Display="Dynamic" ErrorMessage="gotta fill email2!" Text="*" />
-                    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="TxtEmail" ControlToValidate="TxtConfEmail" ValidationGroup="Don" ErrorMessage="emails don't match!" Text="*"></asp:CompareValidator>
+                    <asp:RequiredFieldValidator ID="ValConfEmail" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtConfEmail" ValidationGroup="Don" Display="Dynamic" Text="*" />
+                    <asp:CompareValidator ID="ValConfEmailComp" runat="server" ControlToCompare="TxtEmail" ControlToValidate="TxtConfEmail" ValidationGroup="Don" Text="*"></asp:CompareValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtConfEmail" ValidationGroup="Contact" Display="Dynamic" />
+                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="TxtEmail" ControlToValidate="TxtConfEmail" ValidationGroup="Contact"></asp:CompareValidator>
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblMobile" runat="server" ControlName="TxtMobile" />
                     <asp:TextBox ID="TxtMobile" runat="server" MaxLength="50" CssClass="virementform TxtMobile contactfill" />
-                    <asp:RegularExpressionValidator ErrorMessage="that is not a moblie number!" ControlToValidate="TxtMobile" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
+                    <asp:RegularExpressionValidator ID="ValMobileExp" ControlToValidate="TxtMobile" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="TxtMobile" runat="server" ValidationExpression="^\d+$" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblTelephone" runat="server" ControlName="TxtTelephone" />
                     <asp:TextBox ID="TxtTelephone" runat="server" MaxLength="50" CssClass="virementform TxtTelephone contactfill" />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ErrorMessage="that is not a phone number!" ControlToValidate="TxtTelephone" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
+                    <asp:RegularExpressionValidator ID="ValTelephoneExp" ControlToValidate="TxtTelephone" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="TxtTelephone" runat="server" ValidationExpression="^\d+$" ValidationGroup="Contact" />
                 </div>
             </div>
             <div style="float: right">
                 <div class="giveformitem">
                     <dnn:Label ID="LblStreet1" runat="server" ControlName="TxtStreet1" />
                     <asp:TextBox ID="TxtStreet1" runat="server" MaxLength="50" CssClass="virementform TxtStreet1 contactfill" />
-                    <asp:RequiredFieldValidator ErrorMessage="the address is needed!" ControlToValidate="TxtStreet1" runat="server" Text="*" ValidationGroup="Don" />
+                    <asp:RequiredFieldValidator ID="ValStreet1" ControlToValidate="TxtStreet1" runat="server" Text="*" ValidationGroup="Don" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="TxtStreet1" runat="server" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblStreet2" runat="server" ControlName="TxtStreet2" />
@@ -449,20 +458,24 @@ function rbFreq_click() {
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LlbCountry" runat="server" ControlName="TxtCountry" />
-                    <div class="dnnLeft">
-                        <wc:CountryListBox TestIP="" LocalhostCountryCode="France" ID="cboCountry" DataValueField="Value" DataTextField="Text" AutoPostBack="True" runat="server" />
+                    <div>
+
+                        <wc:CountryListBox TestIP="" LocalhostCountryCode="US" id="cboCountry" DataValueField="Value" DataTextField="Text" AutoPostBack="True" runat="server" />
                     </div>
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblPostCode" runat="server" ControlName="TxtPostCode" />
                     <asp:TextBox ID="TxtPostCode" runat="server" MaxLength="50" CssClass="virementform TxtPostCode contactfill" />
-                    <asp:RequiredFieldValidator ErrorMessage="the post code is needed!" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" Text="*" />
-                    <asp:RegularExpressionValidator ErrorMessage="that is not a post code!" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" ValidationExpression="^\d+$" Visible="True" Text="*" />
+                    <asp:RequiredFieldValidator ID="ValPostCode" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" Text="*" />
+                    <asp:RegularExpressionValidator ID="ValPostCodeExp" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" ValidationExpression="^\d+$" Visible="True" Text="*" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Contact" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Contact" ValidationExpression="^\d+$" Visible="True" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblCity" runat="server" ControlName="TxtCity" />
                     <asp:TextBox ID="TxtCity" runat="server" MaxLength="50" CssClass="virementform TxtCity contactfill" />
-                    <asp:RequiredFieldValidator ErrorMessage="you need a city!" ControlToValidate="TxtCity" runat="server" Text="*" ValidationGroup="Don" />
+                    <asp:RequiredFieldValidator ID="ValCity" ControlToValidate="TxtCity" runat="server" Text="*" ValidationGroup="Don" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="TxtCity" runat="server" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblRegion" runat="server" ControlName="TxtRegion" />
@@ -474,7 +487,7 @@ function rbFreq_click() {
         <div id="methchoose" class="methchoose bubble" runat="server">
             <div id="methchooseleft">
                 <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
-                <asp:RequiredFieldValidator ErrorMessage="you need a giving method!" ControlToValidate="rblMethod" runat="server" Text="*" ValidationGroup="Don" />
+                <asp:RequiredFieldValidator ID="ValMethod" ControlToValidate="rblMethod" runat="server" Text="*" ValidationGroup="Don" />
                 <asp:RadioButtonList ID="rblMethod" runat="server">
                     <asp:ListItem Value="m1"></asp:ListItem>
                     <asp:ListItem Value="m2"></asp:ListItem>
@@ -494,34 +507,40 @@ function rbFreq_click() {
                 <div class="giveformitem">
                     <dnn:Label ID="lblBank" runat="server" ControlName="TxtBank" />
                     <asp:TextBox ID="tbBank" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBank bankfill" />
-                    <asp:RequiredFieldValidator ErrorMessage="need the bank name!" ControlToValidate="tbBank" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="ValBank" ControlToValidate="tbBank" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="tbBank" runat="server" ValidationGroup="jBank" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankStreet1" runat="server" ControlName="TxtBankStreet1" />
                     <asp:TextBox ID="tbBankStreet1" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankStreet1 bankfill" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ErrorMessage="need the bank address!" ControlToValidate="tbBankStreet1" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="ValBankStreet1" ControlToValidate="tbBankStreet1" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator15" ControlToValidate="tbBankStreet1" runat="server" ValidationGroup="jBank" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankStreet2" runat="server" ControlName="TxtBankStreet2" />
-                    <asp:TextBox ID="tbBankStreet2" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankStreet2 bankfill" />
+                    <asp:TextBox ID="tbBankStreet2" runat="server" MaxLength="50" CssClass="TxtBankStreet2 bankfill" />
                 </div>
             </div>
             <div class="bankinforight">
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankPostal" runat="server" ControlName="TxtBankPostal" />
                     <asp:TextBox ID="tbBankPostal" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankPostal bankfill" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ErrorMessage="need the bank post code!" ControlToValidate="tbBankPostal" runat="server" Text="*" ValidationGroup="Bank" />
-                    <asp:RegularExpressionValidator ErrorMessage="bad bank post code!" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="Bank" ValidationExpression="^\d+$" Text="*" />
+                    <asp:RequiredFieldValidator ID="ValBankPostal" ControlToValidate="tbBankPostal" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RegularExpressionValidator ID="ValBankPostalExp" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="Bank" ValidationExpression="^\d+$" Text="*" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator16" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="jBank" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="jBank" ValidationExpression="^\d+$" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblBankCity" runat="server" ControlName="TxtBankCity" />
                     <asp:TextBox ID="tbBankCity" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankCity bankfill" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ErrorMessage="need the bank city!" ControlToValidate="tbBankCity" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="ValBankCity" ControlToValidate="tbBankCity" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator17" ControlToValidate="tbBankCity" runat="server" ValidationGroup="jBank" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
                     <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ErrorMessage="need your IBAN!" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="ValIBAN" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="tbIBAN" runat="server" ValidationGroup="jBank" />
                 </div>
             </div>
             <div style="clear: both"></div>
@@ -697,7 +716,7 @@ function rbFreq_click() {
         <asp:Image ID="theImage1" runat="server" Width="300px" BorderColor="Black" BorderStyle="Solid"
             BorderWidth="2px" EnableViewState="False" />
         <br />
-        <asp:Button ID="btnBio" runat="server" Text="See Bio" CssClass="aButton" />
+        <asp:Button ID="btnBio" runat="server" resourcekey="btnBio" CssClass="aButton" CausesValidation="False" />
         <br />
         <div>
             <uc1:frGiveInfo ID="frGiveInfo" runat="server" />
