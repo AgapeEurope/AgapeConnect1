@@ -363,4 +363,7 @@
   <data name="ValTelephoneExp.Text" xml:space="preserve">
     <value>Please enter a valid phone number</value>
   </data>
+  <data name="mailsubject.Text" xml:space="preserve">
+    <value>Thank you for your gift!</value>
+  </data>
 </root>

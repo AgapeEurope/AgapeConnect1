@@ -363,4 +363,7 @@
   <data name="ValTelephoneExp.Text" xml:space="preserve">
     <value>Merci de sasir un numero fixé valid</value>
   </data>
+  <data name="mailsubject.Text" xml:space="preserve">
+    <value>Merci pour votre don !</value>
+  </data>
 </root>

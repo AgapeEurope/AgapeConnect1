@@ -23,12 +23,12 @@ Imports Give
 Imports StaffBrokerFunctions
 Imports DotNetNuke.Common.Lists
 Imports MembershipProvider = DotNetNuke.Security.Membership.MembershipProvider
+Imports DotNetNuke.Services.Mail
 
 Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
         Inherits Entities.Modules.PortalModuleBase
         Public loggedin As Boolean
-
 
 #Region "Page Events"
         Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
@@ -37,12 +37,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             'Translate the page
             SetTranslate()
-
             Dim ctlEntry As ListController = New ListController
             cboCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
             cboCountry.DataBind()
-
-
             If Not Me.IsPostBack Then
                 'add the css to pick up fields from client side
                 AddCSS()
@@ -80,40 +77,40 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     loggedin = False
                 End If
 
-                'Find the giving type and display the title of the page
-                ShowProject.Value = 0
-                If Request.QueryString("giveto") <> "" Then
-                    Dim dBroke As New StaffBrokerDataContext
-                    Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
-                    'first try staff
-                    If staff.Count > 0 Then
-                        'Detect if UnNamed - if so use giving shortcut instead
-                        If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
-                            Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
-                        Else
-                            Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
-                            hfUserId1.Value = staff.First.UserId1
-                        End If
-                        ViewState("imageurl") = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
-                        theImage1.ImageUrl = ViewState("imageurl")
-                        RowId.Value = staff.First.StaffId
-                        DonationType.Value = "Staff"
-                        Return
-                    End If
-
-                    'Second Try Department/Ministry
-                    Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
-                    If Dept.Count > 0 Then
-                        Title.Text = Dept.First.Name
-                        DonationType.Value = "Dept"
-                        RowId.Value = Dept.First.CostCenterId
-                        Return
+            'Find the giving type and display the title of the page
+            ShowProject.Value = 0
+            If Request.QueryString("giveto") <> "" Then
+                Dim dBroke As New StaffBrokerDataContext
+                Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
+                'first try staff
+                If staff.Count > 0 Then
+                    'Detect if UnNamed - if so use giving shortcut instead
+                    If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
+                        Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
                     Else
-                        badquery()
+                        Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
+                        hfUserId1.Value = staff.First.UserId1
                     End If
+                    ViewState("imageurl") = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
+                    theImage1.ImageUrl = ViewState("imageurl")
+                    RowId.Value = staff.First.StaffId
+                    DonationType.Value = "Staff"
+                    Return
+                End If
+
+                'Second Try Department/Ministry
+                Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
+                If Dept.Count > 0 Then
+                    Title.Text = Dept.First.Name
+                    DonationType.Value = "Dept"
+                    RowId.Value = Dept.First.CostCenterId
+                    Return
                 Else
                     badquery()
                 End If
+            Else
+                badquery()
+            End If
             End If
             theImage1.ImageUrl = ViewState("imageurl")
         End Sub
@@ -125,7 +122,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             End If
         End Sub
         Private Sub SetTranslate()
-
             rblFrequency.Items.Item(0).Text = Translate("ListFreqZero")
             rblFrequency.Items.Item(1).Text = Translate("ListFreqOne")
             rblFrequency.Items.Item(2).Text = Translate("ListFreqTwo")
@@ -224,7 +220,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
             tbAmount.CssClass = tbAmount.CssClass & " tbAmt"
             rblMethod.CssClass = rblMethod.CssClass & " rblMeth"
-
         End Sub
 #End Region
 #Region "Functions"
@@ -291,6 +286,76 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim count = (From c In d.Agape_Give_BankTransfers Where c.Reference = code).Count
             Return IIf(count = 0, True, False)
         End Function
+        Protected Sub GoBank()
+            Dim d As New GiveDataContext
+            Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
+            If q.Count > 0 Then
+                Dim insert As New Agape_Give_BankTransfer
+                insert.DonationType = q.First
+                insert.DonorId = Me.UserId
+                insert.Reference = GetUniqueCode()
+                hfUniqueRef.Value = insert.Reference
+                insert.Amount = tbAmount.Text
+                insert.BankCity = tbBankCity.Text
+                insert.BankName = tbBank.Text
+                insert.BankPostal = tbBankPostal.Text
+                insert.BankStreet1 = tbBankStreet1.Text
+                insert.BankStreet2 = tbBankStreet2.Text
+                insert.Frequency = rblFrequency.SelectedValue
+                insert.SetupDate = Now
+                'GiveMethod 1 for virement, 2 for cheque
+                insert.GiveMethod = rblMethod.SelectedIndex
+                insert.acNo = tbIBAN.Text
+                insert.GiveMessage = theDonationComment.Text
+                insert.Status = 0
+                insert.TypeId = RowId.Value
+                d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
+                d.SubmitChanges()
+                UpdateUser()
+                Dim recip As String = TxtEmail.Text
+                Dim mailsubject As String = Translate("mailsubject")
+                Dim mailbody As String = ""
+                Dim pdflink As String = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
+                If rblMethod.SelectedIndex = 1 Then
+                    lblConfCheque.Visible = False
+                    mailbody = Translate("lblConfVirement")
+                ElseIf rblMethod.SelectedIndex = 2 Then
+                    lblConfVirement.Visible = False
+                    mailbody = Translate("lblConfCheque")
+                End If
+                mailbody += " http://localhost:37879" & pdflink
+                SendConfirmationEmail(recip, mailsubject, mailbody)
+                HyperLink1.NavigateUrl = pdflink
+                hfSONextStep.Value = rblMethod.SelectedIndex
+                
+                confirmation.Visible = True
+                freqchoose.Visible = False
+                amtchoose.Visible = False
+                contact.Visible = False
+                methchoose.Visible = False
+                virement.Visible = False
+                noscriptconf.Visible = False
+            End If
+        End Sub
+        Protected Sub UpdateUser()
+            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+            Dim theUser = UserController.GetUserById(PS.PortalId, UserId)
+            theUser.FirstName = TxtFirstName.Text
+            theUser.LastName = TxtLastName.Text
+            theUser.Email = TxtEmail.Text
+            theUser.Profile.Cell = TxtMobile.Text
+            theUser.Profile.Telephone = TxtTelephone.Text
+            theUser.Profile.Street = TxtStreet1.Text
+            theUser.Profile.Unit = TxtStreet2.Text
+            theUser.Profile.City = TxtCity.Text
+            theUser.Profile.Country = cboCountry.SelectedItem.Text
+            theUser.Profile.Region = TxtRegion.Text
+            theUser.Profile.PostalCode = TxtPostCode.Text
+            MembershipProvider.Instance().UpdateUser(theUser)
+        End Sub
+        Protected Sub SendConfirmationEmail(recip As String, mailsubject As String, mailbody As String)
+            Mail.SendEmail("trent.schaller@agapefrance.org", recip, mailsubject, mailbody)
+        End Sub
 #End Region
 #Region "Buttons"
         Protected Sub btnFinishDon_Click(sender As Object, e As EventArgs) Handles btnFinishDon.Click
@@ -315,7 +380,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 GoBank()
             End If
         End Sub
-
         ' TODO Changer les valeurs DonationType en utilisant les constantes CartFunctions.DonationType
         Protected Sub CartDonation()
             If DonationType.Value = "Staff" Then
@@ -343,84 +407,20 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 End If
             End If
         End Sub
-
         Private Sub DonateToStaff()
-
             'TODO Texte à traduire pour le titre
             CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & hfGiveToName.Value, DestinationType.Staff, CInt(RowId.Value), CInt(tbAmount.Text), theDonationComment.Text)
-
         End Sub
         Private Sub DonateToDept()
-
             'TODO Texte à traduire pour le titre
             'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Department, CInt(RowId.Value), CInt(Ammount.Text), theDonationComment.Text)
-
         End Sub
         Private Sub DonateToProject()
-
             'TODO Texte à traduire pour le titre
             'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), theDonationComment.Text)
-
-        End Sub
-        Protected Sub GoBank()
-            Dim d As New GiveDataContext
-            Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
-            If q.Count > 0 Then
-                Dim insert As New Agape_Give_BankTransfer
-                insert.DonationType = q.First
-                insert.DonorId = Me.UserId
-                insert.Reference = GetUniqueCode()
-                hfUniqueRef.Value = insert.Reference
-                insert.Amount = tbAmount.Text
-                insert.BankCity = tbBankCity.Text
-                insert.BankName = tbBank.Text
-                insert.BankPostal = tbBankPostal.Text
-                insert.BankStreet1 = tbBankStreet1.Text
-                insert.BankStreet2 = tbBankStreet2.Text
-                insert.Frequency = rblFrequency.SelectedValue
-                insert.SetupDate = Now
-                'GiveMethod 1 for virement, 2 for cheque
-                insert.GiveMethod = rblMethod.SelectedIndex
-                insert.acNo = tbIBAN.Text
-                insert.GiveMessage = theDonationComment.Text
-                insert.Status = 0
-                insert.TypeId = RowId.Value
-                d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
-                d.SubmitChanges()
-                UpdateUser()
-                HyperLink1.NavigateUrl = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
-                hfSONextStep.Value = rblMethod.SelectedIndex
-                If rblMethod.SelectedIndex = 1 Then
-                    lblConfCheque.Visible = False
-                ElseIf rblMethod.SelectedIndex = 2 Then
-                    lblConfVirement.Visible = False
-                End If
-                confirmation.Visible = True
-                freqchoose.Visible = False
-                amtchoose.Visible = False
-                contact.Visible = False
-                methchoose.Visible = False
-                virement.Visible = False
-                noscriptconf.Visible = False
-            End If
-        End Sub
-        Protected Sub UpdateUser()
-            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-            Dim theUser = UserController.GetUserById(PS.PortalId, UserId)
-            theUser.FirstName = TxtFirstName.Text
-            theUser.LastName = TxtLastName.Text
-            theUser.Email = TxtEmail.Text
-            theUser.Profile.Cell = TxtMobile.Text
-            theUser.Profile.Telephone = TxtTelephone.Text
-            theUser.Profile.Street = TxtStreet1.Text
-            theUser.Profile.Unit = TxtStreet2.Text
-            theUser.Profile.City = TxtCity.Text
-            theUser.Profile.Country = cboCountry.SelectedItem.Text
-            theUser.Profile.Region = TxtRegion.Text
-            theUser.Profile.PostalCode = TxtPostCode.Text
-            MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
 #End Region
+
 
     End Class
 End Namespace

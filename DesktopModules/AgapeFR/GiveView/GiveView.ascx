@@ -6,6 +6,7 @@
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
 <%@ Register TagPrefix="dnn2" TagName="Login" Src="~/DesktopModules/AgapeFR/Authentication/AgapeAuth.ascx" %>
+
 <script type="text/javascript">
     (function ($, Sys) {
         function setUpMyPage() {
@@ -88,7 +89,7 @@
         if (Page_ClientValidate('Contact')) {
             $('.testlabel').text('contact info is valid');
             $('.methchoose').slideDown(1000);
-            
+
         }
         else {
             $('.testlabel').text('contact info is not valid');
@@ -291,9 +292,11 @@ function rbFreq_click() {
         border-width: 1px;
         padding: 5px;
     }
+
     .radiogray {
         color: gray;
     }
+
     .bankinforight {
         float: right;
     }
@@ -460,7 +463,7 @@ function rbFreq_click() {
                     <dnn:Label ID="LlbCountry" runat="server" ControlName="TxtCountry" />
                     <div>
 
-                        <wc:CountryListBox TestIP="" LocalhostCountryCode="US" id="cboCountry" DataValueField="Value" DataTextField="Text" AutoPostBack="True" runat="server" />
+                        <wc:CountryListBox TestIP="" LocalhostCountryCode="US" ID="cboCountry" DataValueField="Value" DataTextField="Text" AutoPostBack="True" runat="server" />
                     </div>
                 </div>
                 <div class="giveformitem">
