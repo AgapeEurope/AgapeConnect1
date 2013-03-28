@@ -366,4 +366,28 @@
   <data name="mailsubject.Text" xml:space="preserve">
     <value>Thank you for your gift!</value>
   </data>
+  <data name="DonorEmailCheque.Text" xml:space="preserve">
+    <value>To complete your gift, you can print this document and send it with your check. You can use the link below:</value>
+  </data>
+  <data name="DonorEmailGreeting.Text" xml:space="preserve">
+    <value>Hello [DONORNAME]!</value>
+  </data>
+  <data name="DonorEmailPara1.Text" xml:space="preserve">
+    <value>Thank you for your donation! It is registered in our system. Here is a summary of your donation:</value>
+  </data>
+  <data name="DonorEmailPara2.Text" xml:space="preserve">
+    <value>You plan to make a [FREQ] donation of [AMOUNT]€ to [RECIP].</value>
+  </data>
+  <data name="DonorEmailPara3.Text" xml:space="preserve">
+    <value>Here is the message you send to the recipient:</value>
+  </data>
+  <data name="DonorEmailPara5.Text" xml:space="preserve">
+    <value>Again a big thanks from our team!</value>
+  </data>
+  <data name="DonorEmailVirement.Text" xml:space="preserve">
+    <value>To complete your gift, please sign and send this document to your bank. You can use the link below:</value>
+  </data>
+  <data name="lblPleaseWait.Text" xml:space="preserve">
+    <value>Please Wait</value>
+  </data>
 </root>

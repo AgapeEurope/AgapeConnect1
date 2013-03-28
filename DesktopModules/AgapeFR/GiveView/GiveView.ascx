@@ -59,6 +59,9 @@
             $('.btnGoBank').click(function () {
                 btnGoBank_click();
             });
+            $('.btnFinishDon').click(function () {
+                btnFinishDon_click();
+            });
             //determine what step the page is on
             if ($('#stepCount input[type=hidden]').val() == -1) {
                 //get session values
@@ -282,8 +285,19 @@ function rbFreq_click() {
         $('.noscriptconf').hide();
 
     }
+    function btnFinishDon_click() {
+        $('.pleasewait').show();
+        $('.summaryDon').slideUp(1000);
+    }
 </script>
 <style type="text/css">
+    .pleasewait {
+        background-image: url(/DesktopModules/AgapeFR/GiveView/files/PleaseWait.gif);
+        background-repeat: no-repeat;
+        padding-left: 40px;
+        height:32px;
+        line-height:32px;
+    }
     .tbAmt {
         width: 60px;
         border-radius: 3px;
@@ -702,7 +716,9 @@ function rbFreq_click() {
             <div style="clear: both"></div>
             <asp:Button ID="btnFinishDon" CssClass="aButton btnFinishDon" ValidationGroup="Don" runat="server" />
             <input id="Button1" class="aButton btnEditVirement" type="button" value="<%= Translate("btnEditVirement") %>" />
-
+        </div>
+        <div id="pleasewait" class="pleasewait" runat="server">
+            <asp:Label ID="lblPleaseWait" resourcekey="lblPleaseWait" runat="server" />
         </div>
         <div id="confirmation" class="confirmation bubble" runat="server">
             <asp:Label ID="lblConfVirement" resourcekey="lblConfVirement" runat="server" />

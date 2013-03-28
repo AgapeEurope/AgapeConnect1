@@ -366,4 +366,28 @@
   <data name="mailsubject.Text" xml:space="preserve">
     <value>Merci pour votre don !</value>
   </data>
+  <data name="DonorEmailPara1.Text" xml:space="preserve">
+    <value>Merci pour votre don ! Il est bien enregistré dans notre système. Voici le résumé de votre don :</value>
+  </data>
+  <data name="DonorEmailPara2.Text" xml:space="preserve">
+    <value>Vous envisagez de faire un don [FREQ] de [AMOUNT]€ pour [RECIP].</value>
+  </data>
+  <data name="DonorEmailCheque.Text" xml:space="preserve">
+    <value>Pour finir votre don, vous pouvez imprimer ce document et l'envoyer avec votre cheque. Vous pouvez utiliser le lien ci-dessous :</value>
+  </data>
+  <data name="DonorEmailGreeting.Text" xml:space="preserve">
+    <value>Bonjour [DONORNAME] !</value>
+  </data>
+  <data name="DonorEmailPara3.Text" xml:space="preserve">
+    <value>Voici le message que vous avez envoyer au destinataire :</value>
+  </data>
+  <data name="DonorEmailPara5.Text" xml:space="preserve">
+    <value>Encore un grand merci de notre part !</value>
+  </data>
+  <data name="DonorEmailVirement.Text" xml:space="preserve">
+    <value>Pour finir votre don, il faut signer et envoyer ce document à votre banque. Vous pouvez utiliser le lien ci-dessous :</value>
+  </data>
+  <data name="lblPleaseWait.Text" xml:space="preserve">
+    <value>Merci d'attendre</value>
+  </data>
 </root>

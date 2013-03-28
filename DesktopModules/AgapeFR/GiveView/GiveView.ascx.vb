@@ -46,6 +46,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 doncontinue.Style("Display") = "none"
                 summaryDon.Style("Display") = "none"
                 confirmation.Visible = False
+                pleasewait.Style("Display") = "none"
                 'check if the user is logged in
                 If Me.UserId > 0 Then
                     loggedin = True
@@ -77,40 +78,40 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     loggedin = False
                 End If
 
-            'Find the giving type and display the title of the page
-            ShowProject.Value = 0
-            If Request.QueryString("giveto") <> "" Then
-                Dim dBroke As New StaffBrokerDataContext
-                Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
-                'first try staff
-                If staff.Count > 0 Then
-                    'Detect if UnNamed - if so use giving shortcut instead
-                    If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
-                        Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
-                    Else
-                        Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
-                        hfUserId1.Value = staff.First.UserId1
+                'Find the giving type and display the title of the page
+                ShowProject.Value = 0
+                If Request.QueryString("giveto") <> "" Then
+                    Dim dBroke As New StaffBrokerDataContext
+                    Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
+                    'first try staff
+                    If staff.Count > 0 Then
+                        'Detect if UnNamed - if so use giving shortcut instead
+                        If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
+                            Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
+                        Else
+                            Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
+                            hfUserId1.Value = staff.First.UserId1
+                        End If
+                        ViewState("imageurl") = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
+                        theImage1.ImageUrl = ViewState("imageurl")
+                        RowId.Value = staff.First.StaffId
+                        DonationType.Value = "Staff"
+                        Return
                     End If
-                    ViewState("imageurl") = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
-                    theImage1.ImageUrl = ViewState("imageurl")
-                    RowId.Value = staff.First.StaffId
-                    DonationType.Value = "Staff"
-                    Return
-                End If
 
-                'Second Try Department/Ministry
-                Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
-                If Dept.Count > 0 Then
-                    Title.Text = Dept.First.Name
-                    DonationType.Value = "Dept"
-                    RowId.Value = Dept.First.CostCenterId
-                    Return
+                    'Second Try Department/Ministry
+                    Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
+                    If Dept.Count > 0 Then
+                        Title.Text = Dept.First.Name
+                        DonationType.Value = "Dept"
+                        RowId.Value = Dept.First.CostCenterId
+                        Return
+                    Else
+                        badquery()
+                    End If
                 Else
                     badquery()
                 End If
-            Else
-                badquery()
-            End If
             End If
             theImage1.ImageUrl = ViewState("imageurl")
         End Sub
@@ -301,7 +302,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 insert.BankPostal = tbBankPostal.Text
                 insert.BankStreet1 = tbBankStreet1.Text
                 insert.BankStreet2 = tbBankStreet2.Text
-                insert.Frequency = rblFrequency.SelectedValue
+                Dim selFreq As Integer = rblFrequency.SelectedValue
+                insert.Frequency = selFreq
                 insert.SetupDate = Now
                 'GiveMethod 1 for virement, 2 for cheque
                 insert.GiveMethod = rblMethod.SelectedIndex
@@ -314,20 +316,43 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 UpdateUser()
                 Dim recip As String = TxtEmail.Text
                 Dim mailsubject As String = Translate("mailsubject")
-                Dim mailbody As String = ""
+                Dim mailbody As String = File.ReadAllText(Server.MapPath("~/DesktopModules/AgapeFR/GiveView/files/DonorEmail.html"))
                 Dim pdflink As String = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
+                Dim theFreq As String = ""
+                If selFreq = 99 Then
+                    theFreq = ""
+                ElseIf selFreq = 1 Then
+                    theFreq = Translate("FreqParaZero")
+                ElseIf selFreq = 3 Then
+                    theFreq = Translate("FreqParaOne")
+                ElseIf selFreq = 6 Then
+                    theFreq = Translate("FreqParaTwo")
+                ElseIf selFreq = 12 Then
+                    theFreq = Translate("FreqParaThree")
+                ElseIf selFreq = 99 Then
+                    theFreq = Translate("FreqParaFour")
+                End If
+                Dim parafour As String = ""
                 If rblMethod.SelectedIndex = 1 Then
                     lblConfCheque.Visible = False
-                    mailbody = Translate("lblConfVirement")
+                    parafour = Translate("DonorEmailVirement")
                 ElseIf rblMethod.SelectedIndex = 2 Then
                     lblConfVirement.Visible = False
-                    mailbody = Translate("lblConfCheque")
+                    parafour = Translate("DonorEmailCheque")
                 End If
-                mailbody += " http://localhost:37879" & pdflink
+                Dim logoURL = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/GetLogo.aspx"
+                Dim paratwo As String = Translate("DonorEmailPara2").Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text).Replace("[RECIP]", Title.Text)
+                mailbody = mailbody.Replace("[PDFTEXT]", Translate("lblLinkPDF")).Replace("[PDFLINK]", ("http://localhost:37879" & pdflink)).Replace("[LOGO]", logoURL)
+                If Not theDonationComment.Text = "" Then
+                    mailbody = mailbody.Replace("[PARATHREE]", Translate("DonorEmailPara3")).Replace("[MESSAGE]", theDonationComment.Text)
+                Else
+                    mailbody = mailbody.Replace("[PARATHREE]", "").Replace("[MESSAGE]", "")
+                End If
+                Dim greeting As String = Translate("DonorEmailGreeting").Replace("[DONORNAME]", TxtFirstName.Text & " " & TxtLastName.Text)
+                mailbody = mailbody.Replace("[GREETING]", greeting).Replace("[PARAONE]", Translate("DonorEmailPara1")).Replace("[PARATWO]", paratwo).Replace("[PARAFOUR]", parafour).Replace("[PARAFIVE]", Translate("DonorEmailPara5"))
                 SendConfirmationEmail(recip, mailsubject, mailbody)
                 HyperLink1.NavigateUrl = pdflink
                 hfSONextStep.Value = rblMethod.SelectedIndex
-                
                 confirmation.Visible = True
                 freqchoose.Visible = False
                 amtchoose.Visible = False
