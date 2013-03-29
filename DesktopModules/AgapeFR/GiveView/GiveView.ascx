@@ -379,9 +379,7 @@ function rbFreq_click() {
 </style>
 <asp:HiddenField ID="RowId" runat="server" />
 <asp:HiddenField ID="theHiddenTabIndex" runat="server" Value="0" ViewStateMode="Enabled" />
-<asp:HiddenField ID="ShowProject" runat="server" Value="0" ViewStateMode="Enabled" />
 <asp:HiddenField ID="DonationType" runat="server" />
-<asp:HiddenField ID="hfUserId1" runat="server" Value="-1" />
 <asp:HiddenField ID="hfGiveToName" runat="server" Value="" />
 <div id="stepCount">
     <asp:HiddenField ID="hfSONextStep" runat="server" Value="-1" />

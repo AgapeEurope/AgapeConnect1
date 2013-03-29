@@ -29,6 +29,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
     Partial Class GiveView
         Inherits Entities.Modules.PortalModuleBase
         Public loggedin As Boolean
+        Public givename As String
 
 #Region "Page Events"
         Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
@@ -77,9 +78,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 Else
                     loggedin = False
                 End If
-
                 'Find the giving type and display the title of the page
-                ShowProject.Value = 0
                 If Request.QueryString("giveto") <> "" Then
                     Dim dBroke As New StaffBrokerDataContext
                     Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
@@ -90,7 +89,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                             Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
                         Else
                             Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
-                            hfUserId1.Value = staff.First.UserId1
+                            Title.Text = ChangeName(Title.Text)
                         End If
                         ViewState("imageurl") = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
                         theImage1.ImageUrl = ViewState("imageurl")
@@ -98,11 +97,12 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         DonationType.Value = "Staff"
                         Return
                     End If
-
                     'Second Try Department/Ministry
                     Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
                     If Dept.Count > 0 Then
                         Title.Text = Dept.First.Name
+                        ViewState("imageurl") = ""
+                        theImage1.ImageUrl = ViewState("imageurl")
                         DonationType.Value = "Dept"
                         RowId.Value = Dept.First.CostCenterId
                         Return
@@ -243,44 +243,33 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         End Function
         Public Function ConvertDisplayToSensible(ByVal CurrentDisp As String) As String
             Dim Output As String = ""
-
             If CurrentDisp.IndexOf(",") > -1 And CurrentDisp.Contains(",") Then
                 Output = CurrentDisp.Substring(CurrentDisp.IndexOf(",") + 2) & " " & CurrentDisp.Substring(0, CurrentDisp.IndexOf(","))
             Else
                 Output = CurrentDisp
             End If
-
             Return Output
         End Function
         Public Function Translate(ByVal ResourceString As String) As String
             Return DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
         End Function
         Private Function GetUniqueCode() As String
-
             Dim allChars As String = "ABCDEFGHJKLMNPQRTVWXYZ2346789"
-
             Dim GotUniqueCode As Boolean = False
             Dim uniqueCode As String = ""
             Dim str As New System.Text.StringBuilder
             Dim xx As Integer
             While Not GotUniqueCode
-
                 str = New System.Text.StringBuilder
                 For i As Byte = 1 To 6 'length of req key
-
                     Randomize()
                     xx = Rnd() * (Len(allChars) - 1) 'number of rawchars
                     str.Append(allChars.Trim.Chars(xx))
                 Next
-
                 uniqueCode = str.ToString
-
                 GotUniqueCode = isUniqueCode(uniqueCode)
-
             End While
-
             Return uniqueCode
-
         End Function
         Private Function isUniqueCode(ByVal code As String) As Boolean
             Dim d As New GiveDataContext
@@ -314,9 +303,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
                 d.SubmitChanges()
                 UpdateUser()
-                Dim recip As String = TxtEmail.Text
-                Dim mailsubject As String = Translate("mailsubject")
-                Dim mailbody As String = File.ReadAllText(Server.MapPath("~/DesktopModules/AgapeFR/GiveView/files/DonorEmail.html"))
+                'Create the Donor Email                
                 Dim pdflink As String = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
                 Dim theFreq As String = ""
                 If selFreq = 99 Then
@@ -342,14 +329,24 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 End If
                 Dim logoURL = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/GetLogo.aspx"
                 Dim paratwo As String = Translate("DonorEmailPara2").Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text).Replace("[RECIP]", Title.Text)
-                mailbody = mailbody.Replace("[PDFTEXT]", Translate("lblLinkPDF")).Replace("[PDFLINK]", ("http://localhost:37879" & pdflink)).Replace("[LOGO]", logoURL)
-                If Not theDonationComment.Text = "" Then
-                    mailbody = mailbody.Replace("[PARATHREE]", Translate("DonorEmailPara3")).Replace("[MESSAGE]", theDonationComment.Text)
-                Else
-                    mailbody = mailbody.Replace("[PARATHREE]", "").Replace("[MESSAGE]", "")
-                End If
+                Dim parathree = ""
+                Dim message = ""
                 Dim greeting As String = Translate("DonorEmailGreeting").Replace("[DONORNAME]", TxtFirstName.Text & " " & TxtLastName.Text)
-                mailbody = mailbody.Replace("[GREETING]", greeting).Replace("[PARAONE]", Translate("DonorEmailPara1")).Replace("[PARATWO]", paratwo).Replace("[PARAFOUR]", parafour).Replace("[PARAFIVE]", Translate("DonorEmailPara5"))
+                If Not theDonationComment.Text = "" Then
+                    parathree = Translate("DonorEmailPara3")
+                    message = theDonationComment.Text
+                End If
+                Dim mailbody As String = File.ReadAllText(Server.MapPath("~/DesktopModules/AgapeFR/GiveView/files/DonorEmail.html"))
+                mailbody = mailbody.Replace("[LOGO]", logoURL).Replace("[GREETING]", greeting).Replace("[PARAONE]", Translate("DonorEmailPara1")).Replace("[PARATWO]", paratwo).Replace("[PARATHREE]", parathree).Replace("[MESSAGE]", message).Replace("[PARAFOUR]", parafour).Replace("[PDFLINK]", ("http://localhost:37879" & pdflink)).Replace("[PDFTEXT]", Translate("lblLinkPDF")).Replace("[PARAFIVE]", Translate("DonorEmailPara5"))
+                Dim recip As String = TxtEmail.Text
+                Dim mailsubject As String = Translate("mailsubject")
+                'Send the Donor Email and clear mail variables.
+                SendConfirmationEmail(recip, mailsubject, mailbody)
+                recip = ""
+                mailsubject = ""
+                mailbody = ""
+                'Create the donation recipient mail
+
                 SendConfirmationEmail(recip, mailsubject, mailbody)
                 HyperLink1.NavigateUrl = pdflink
                 hfSONextStep.Value = rblMethod.SelectedIndex
@@ -434,7 +431,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         End Sub
         Private Sub DonateToStaff()
             'TODO Texte à traduire pour le titre
-            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & hfGiveToName.Value, DestinationType.Staff, CInt(RowId.Value), CInt(tbAmount.Text), theDonationComment.Text)
+            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Staff, CInt(RowId.Value), CInt(tbAmount.Text), theDonationComment.Text)
         End Sub
         Private Sub DonateToDept()
             'TODO Texte à traduire pour le titre
@@ -445,7 +442,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), theDonationComment.Text)
         End Sub
 #End Region
-
 
     End Class
 End Namespace

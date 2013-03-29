@@ -390,4 +390,7 @@
   <data name="lblPleaseWait.Text" xml:space="preserve">
     <value>Merci d'attendre</value>
   </data>
+  <data name="ccDonTo.Text" xml:space="preserve">
+    <value>Don pour </value>
+  </data>
 </root>
