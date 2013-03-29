@@ -35,6 +35,16 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 SetupStaffTypes(NewPortalId)
                 SetupIcons(NewPortalId)
                 SetupRmb(NewPortalId)
+
+               
+
+
+                'Dim pc As New PortalController
+                'Dim p = pc.GetPortal(NewPortalId)
+
+
+
+
                 If cbGenerateUsers.Checked Then
                     createUserFromTnT()
                 End If
@@ -42,6 +52,16 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
 
         End Sub
+
+
+        Private Function CreateUser(ByVal thePortalid As Integer, ByVal username As String, ByVal FirstName As String, ByVal LastName As String) As StaffBroker.AP_StaffBroker_Staff
+
+            Dim user = StaffBrokerFunctions.CreateUser(thePortalid, username, FirstName, LastName)
+
+            Dim staff = StaffBrokerFunctions.CreateStaffMember(thePortalid, user, 1)
+
+
+        End Function
 
         Private Sub SetupRmb(ByVal thePortalId As Integer)
 
@@ -140,8 +160,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
             Dim ac As New PortalAliasController()
 
-            Dim PortalAlias As String = "localhost:37881" 'tbCountryISOCode.Text & ".agapeconnect.me"
-
+           ' Dim PortalAlias As String = "localhost:37881" 'tbCountryISOCode.Text & ".agapeconnect.me"
+            Dim PortalAlias = tbCountryISOCode.Text & ".agapeconnect.me"
             Dim aliasCollection = ac.GetPortalAliases()
             If ac.GetPortalAliases().Contains(PortalAlias) Then
                 lblStatus.Text &= "Country (ISO) code already exists"
@@ -150,8 +170,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
-            'Real PortalAlias tbCountryISOCode.Text & ".agapeconnect.me"
-           
+
+
             Dim newPid = p.CreatePortal("AgapeConnect - " & tbCountryName.Text, _
                             firstName:=tbCountryISOCode.Text, lastName:="Admin", _
                              username:=tbCountryISOCode.Text & "-Admin", _
@@ -211,11 +231,34 @@ Namespace DotNetNuke.Modules.AgapeConnect
                         lblStatus.Text &= "Created User" & vbNewLine
                         'Add user to the Accounts Role Group
                         rc.AddUserRole(newPid, objUserInfo.UserID, ar.RoleID, Null.NullDate)
+                        Dim Jon = CreateUser(newPid, "jon@vellacott.co.uk", "Jon", "Vellacott")
+
 
                         Dim AdminRole = rc.GetRoleByName(newPid, "Administrators")
                         If Not AdminRole Is Nothing Then
                             rc.AddUserRole(newPid, objUserInfo.UserID, AdminRole.RoleID, Null.NullDate)
                             lblStatus.Text &= "Added current user to role" & vbNewLine
+
+                            rc.AddUserRole(newPid, Jon.UserId1, AdminRole.RoleID, Null.NullDate)
+                            If (tbAdminEmail.Text <> "" And tbAdminFirstname.Text <> "" And tbAdminLastname.Text <> "") Then
+                                Dim Admin = CreateUser(newPid, tbAdminEmail.Text, tbAdminFirstname.Text, tbAdminLastname.Text)
+                                rc.AddUserRole(newPid, Admin.UserId1, AdminRole.RoleID, Null.NullDate)
+                                Dim d As New StaffBroker.StaffBrokerDataContext
+                                Dim insert As New StaffBroker.AP_StaffBroker_LeaderMeta
+                                insert.UserId = Jon.UserId1
+                                insert.LeaderId = Admin.UserId2
+                                d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert)
+
+                                Dim insert2 As New StaffBroker.AP_StaffBroker_LeaderMeta
+                                insert2.UserId = Admin.UserId1
+                                insert.LeaderId = Jon.UserId2
+                                d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert2)
+
+                                d.SubmitChanges()
+                            End If
+
+
+
                         Else
                             lblStatus.Text &= "Can't Find admin Role" & vbNewLine
                         End If
@@ -225,6 +268,15 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     Else
                         lblStatus.Text &= "Error creating User" & vbNewLine
                     End If
+
+
+
+
+
+
+
+
+
                 End If
 
 
