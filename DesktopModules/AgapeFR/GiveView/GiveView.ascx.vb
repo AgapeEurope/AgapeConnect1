@@ -37,11 +37,13 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             'Translate the page
             SetTranslate()
             'Hide Add to Cart Button - should be optional.
-            btnCarte.Visible = False
             If Not Me.IsPostBack Then
                 'add the css to pick up fields from client side
                 AddCSS()
-                'check if the user's logged in
+                doncontinue.Style("Display") = "none"
+                summaryDon.Style("Display") = "none"
+                confirmation.Visible = False
+                'check if the user is logged in
                 If Me.UserId > 0 Then
                     loggedin = True
                     'Read in fields if logged in
@@ -58,7 +60,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
                     cboCountry.SelectedValue = objUser.Profile.Country
-                    'thelogincont.Style("Display") = "none"
+                    thelogincont.Style("Display") = "none"
                 Else
                     loggedin = False
                 End If
@@ -116,7 +118,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             rblFrequency.Items.Item(4).Text = Translate("ListFreqFour")
             lblWantGive.Text = Translate("WantGive")
             lblCreditCard.Text = Translate("lblCreditCard")
-            lblCheque.Text = Translate("lblCheque")
             lblFrequency.Text = Translate("lblFrequency")
             Dim giveName As String = ""
             If Request.QueryString("giveto") <> "" Then
@@ -137,9 +138,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             rblMethod.Items.Item(1).Text = Translate("rblMethOne")
             rblMethod.Items.Item(2).Text = Translate("rblMethTwo")
             lblOneOffChoose.Text = Translate("OneOffPre")
-            btnCarte.Text = Translate("AddToCart")
-            btnCheckout.Text = Translate("Checkout")
-            lblAddedToCart.Text = Translate("AddedToCart")
             LblEmail.Text = Translate("eMail")
             LblConfEmail.Text = Translate("ConfeMail")
             LblFirstName.Text = Translate("FirstName")
@@ -159,7 +157,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblBankPostal.Text = Translate("BankPostal")
             lblIBAN.Text = Translate("IBAN")
             lblBankInfo.Text = Translate("BankInfo")
-            btnGoBank.Text = Translate("GoBank")
+            btnFinishDon.Text = Translate("btnFinishDon")
             lblSummaryLeft.Text = Translate("lblSummaryLeft")
             lblSummaryRight.Text = Translate("lblSummaryRight")
             lblSummaryInfo1.Text = Translate("lblSummaryInfo")
@@ -181,6 +179,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankCity.Text = Translate("BankCity")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
+            btnNoScriptGo.Text = Translate("btnFinishDon")
+            'lblConfText1.Text = Translate("lblConfText1")
         End Sub
         Private Sub AddCSS()
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
@@ -244,46 +244,36 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         End Function
 #End Region
 #Region "Buttons"
-        ' TODO Changer les valeurs DonationType en utilisant les constantes CartFunctions.DonationType
-        Protected Sub btnCheckout_Click(sender As Object, e As System.EventArgs) Handles btnCheckout.Click
-
-            If tbAmount.Text = "" Then
-                lblOOError.Text = Translate("AmtError")
-                lblOOError.Visible = True
-                theHiddenTabIndex.Value = 1
+        Protected Sub btnFinishDon_Click(sender As Object, e As EventArgs) Handles btnFinishDon.Click
+            If rblMethod.SelectedIndex = "0" Then
+                CartDonation()
             Else
-                lblOOError.Visible = False
-                If DonationType.Value = "Staff" Then
-                    DonateToStaff()
-                ElseIf DonationType.Value = "Dept" Then
-                ElseIf DonationType.Value = "Project" Then
-                    DonateToProject()
-                End If
-                UpdateUser()
-                Dim mc As New DotNetNuke.Entities.Modules.ModuleController
-                Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
-                If Not x Is Nothing Then
-                    If Not x.TabID = Nothing Then
-                        Response.Redirect(NavigateURL(x.TabID))
-                    End If
-                End If
+                GoBank()
             End If
         End Sub
-        Protected Sub btnCarte_Click(sender As Object, e As System.EventArgs) Handles btnCarte.Click
-            If tbAmount.Text = "" Then
-                lblOOError.Text = "Please enter an amount into the box."
-                lblOOError.Visible = True
-                theHiddenTabIndex.Value = 1
+        Protected Sub btnNoScriptGo_Click(sender As Object, e As EventArgs) Handles btnNoScriptGo.Click
+            If rblMethod.SelectedIndex = "0" Then
+                CartDonation()
             Else
-                lblOOError.Visible = False
-                If DonationType.Value = "Staff" Then
-                    DonateToStaff()
-                ElseIf DonationType.Value = "Dept" Then
-                ElseIf DonationType.Value = "Project" Then
-                    DonateToProject()
-                End If
+                GoBank()
+            End If
+        End Sub
 
-                hfDonBasket.Value = 1
+        ' TODO Changer les valeurs DonationType en utilisant les constantes CartFunctions.DonationType
+        Protected Sub CartDonation()
+            If DonationType.Value = "Staff" Then
+                DonateToStaff()
+            ElseIf DonationType.Value = "Dept" Then
+            ElseIf DonationType.Value = "Project" Then
+                DonateToProject()
+            End If
+            UpdateUser()
+            Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+            Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
+            If Not x Is Nothing Then
+                If Not x.TabID = Nothing Then
+                    Response.Redirect(NavigateURL(x.TabID))
+                End If
             End If
         End Sub
         Protected Sub btnBio_Click(sender As Object, e As System.EventArgs) Handles btnBio.Click
@@ -315,40 +305,46 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), theDonationComment.Text)
 
         End Sub
-        Protected Sub btnGoBank_Click(sender As Object, e As EventArgs) Handles btnGoBank.Click
-            If tbAmount.Text = 0 Or tbAmount.Text = "" Then
-                lblOOError.Text = Translate("AmtError")
-                lblOOError.Visible = True
-            Else
-                Dim d As New GiveDataContext
-                Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
-                If q.Count > 0 Then
-                    Dim insert As New Agape_Give_BankTransfer
-                    insert.DonationType = q.First
-                    insert.DonorId = Me.UserId
-                    insert.Reference = GetUniqueCode()
-                    hfUniqueRef.Value = insert.Reference
-                    insert.Amount = tbAmount.Text
-                    insert.BankCity = tbBankCity.Text
-                    insert.BankName = tbBank.Text
-                    insert.BankPostal = tbBankPostal.Text
-                    insert.BankStreet1 = tbBankStreet1.Text
-                    insert.BankStreet2 = tbBankStreet2.Text
-                    insert.Frequency = rblFrequency.SelectedValue
-                    insert.acNo = tbIBAN.Text
-                    'TODO create give message box for Virement
-                    insert.GiveMessage = "Default Give Message!"
-                    insert.Status = 0
-                    insert.TypeId = RowId.Value
-                    d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
-                    d.SubmitChanges()
-                    UpdateUser()
-                    HyperLink1.NavigateUrl = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
-                    hfSONextStep.Value = 1
-                Else
-                    lblOOError.Text = "No donation type in the db"
-                    lblOOError.Visible = True
+        Protected Sub GoBank()
+            Dim d As New GiveDataContext
+            Dim q = From c In d.Agape_Give_DonationTypes Where c.DonationTypeName = DonationType.Value Select c.DonationTypeNumber
+            If q.Count > 0 Then
+                Dim insert As New Agape_Give_BankTransfer
+                insert.DonationType = q.First
+                insert.DonorId = Me.UserId
+                insert.Reference = GetUniqueCode()
+                hfUniqueRef.Value = insert.Reference
+                insert.Amount = tbAmount.Text
+                insert.BankCity = tbBankCity.Text
+                insert.BankName = tbBank.Text
+                insert.BankPostal = tbBankPostal.Text
+                insert.BankStreet1 = tbBankStreet1.Text
+                insert.BankStreet2 = tbBankStreet2.Text
+                insert.Frequency = rblFrequency.SelectedValue
+                insert.SetupDate = Now
+                'GiveMethod 1 for virement, 2 for cheque
+                insert.GiveMethod = rblMethod.SelectedIndex
+                insert.acNo = tbIBAN.Text
+                insert.GiveMessage = theDonationComment.Text
+                insert.Status = 0
+                insert.TypeId = RowId.Value
+                d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
+                d.SubmitChanges()
+                UpdateUser()
+                HyperLink1.NavigateUrl = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
+                hfSONextStep.Value = rblMethod.SelectedIndex
+                If rblMethod.SelectedIndex = 1 Then
+                    lblConfCheque.Visible = False
+                ElseIf rblMethod.SelectedIndex = 2 Then
+                    lblConfVirement.Visible = False
                 End If
+                confirmation.Visible = True
+                freqchoose.Visible = False
+                amtchoose.Visible = False
+                contact.Visible = False
+                methchoose.Visible = False
+                virement.Visible = False
+                noscriptconf.Visible = False
             End If
         End Sub
         Protected Sub UpdateUser()
@@ -368,8 +364,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
 #End Region
-
-
 
     End Class
 End Namespace
