@@ -252,12 +252,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
                                 Dim d As New StaffBroker.StaffBrokerDataContext
                                 Dim insert As New StaffBroker.AP_StaffBroker_LeaderMeta
                                 insert.UserId = Jon.UserId1
-                                insert.LeaderId = Admin.UserId2
+                                    insert.LeaderId = Admin.UserId1
                                 d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert)
 
                                 Dim insert2 As New StaffBroker.AP_StaffBroker_LeaderMeta
                                 insert2.UserId = Admin.UserId1
-                                insert.LeaderId = Jon.UserId2
+                                    insert.LeaderId = Jon.UserId1
                                 d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert2)
 
                                 d.SubmitChanges()
