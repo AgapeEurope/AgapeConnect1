@@ -15,7 +15,7 @@
             var stop = false;
             
             $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();   });
-            $('.currency').keyup(function() { calculateXRate();});
+            $('.currency').keyup(function() { calculateXRate(); checkRecReq;});
            
             $('.ddlCur').change(function() { 
                 console.log('ddlChanged');
@@ -53,6 +53,10 @@
             $('.rmbAmount').keyup(function(){
                 calculateRevXRate();
                
+                //Is over limit
+                checkRecReq();
+               
+
             });
             $('.advAmount').keyup(function(){
                 calculateRevXRateAdv();
@@ -480,6 +484,26 @@
 
     }
 
+    function checkRecReq(){
+        try{
+            
+            var limit =  $("#<%= hfNoReceiptLimit.ClientID%>").attr('value');
+            var Am=$('.rmbAmount').val() ;
+            console.log(limit, Am);
+           
+            $('.ddlReceipt').val(parseFloat(Am)>parseFloat(limit) ? 1:-1);
+
+            if(parseFloat(Am)>parseFloat(limit)) $('.ddlReceipt').attr("disabled", "disabled");
+            else   $('.ddlReceipt').removeAttr("disabled");
+            
+
+        }
+        catch(err){
+
+        }
+    }
+
+
     function calculateTotal() {
         var total = 0.00;
 
@@ -549,6 +573,7 @@ padding: 5px 5px 5px 5px;
 
 <div style="padding-bottom: 5px;">
     <asp:Label ID="Label2" runat="server" CssClass="AgapeH2" resourcekey="RmbTitle" Visible="false"></asp:Label></div>
+<asp:HiddenField ID="hfNoReceiptLimit" runat="server" Value="0" />
 <asp:HiddenField ID="hfPortalId" runat="server" Value="-1" />
 <asp:HiddenField ID="hfAccountingCurrency" runat="server" Value="USD" />
 <asp:HiddenField ID="hfExchangeRate" runat="server" Value="1"   />
