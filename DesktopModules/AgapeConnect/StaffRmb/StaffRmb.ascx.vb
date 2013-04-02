@@ -90,6 +90,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
 
             lblError.Visible = False
+            If Not String.IsNullOrEmpty(Settings("NoReceipt")) Then
+                hfNoReceiptLimit.Value = Settings("NoReceipt")
+            End If
 
 
 
