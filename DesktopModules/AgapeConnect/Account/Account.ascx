@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Account.ascx.cs" Inherits="DotNetNuke.Modules.Account.AccountReport" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Codefile="Account.ascx.cs" Inherits="DotNetNuke.Modules.Account.AccountReport"  %>
 <link href="/Portals/_default/Skins/AgapeBlue/flick/jquery-ui-1.8.18.custom.css"
     rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

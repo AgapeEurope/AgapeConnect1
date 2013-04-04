@@ -2,6 +2,7 @@
 using System.Linq;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Entities.Modules;
 using MinistryViewDS;
 using System.Collections.Generic;
 using System.Web.Services;
@@ -9,15 +10,14 @@ using System.Web.Script.Services;
 using System.IO;
 using System.Xml;
 
+using System.Web;
+using System.Web.UI.WebControls;
+using System.Data;
+
 namespace DotNetNuke.Modules.Account
 {
-    using DotNetNuke.Entities.Modules;
-    using MinistryViewDS;
-    using System.Web;
-    using System.Web.UI.WebControls;
-    using System.Data;
-
-    public partial class AccountReport : DotNetNuke.Entities.Modules.PortalModuleBase
+    
+    public partial class AccountReport : PortalModuleBase
     {
         
        
@@ -41,6 +41,7 @@ namespace DotNetNuke.Modules.Account
         private double avgBalance = 0.0 ;
         private Boolean overlap2 = false;
 
+        private string relayUsername, relayEncodedPassword, relayPassword;
 
 
         public string GetMonth(int offset)
@@ -63,8 +64,11 @@ namespace DotNetNuke.Modules.Account
        
         protected void Page_Load(object sender, EventArgs e)
          {
+
              _startDate = FirstDayOfMonthFromDateTime(DateTime.Today.AddMonths(-12));
              _endDate = LastDayOfMonthFromDateTime(DateTime.Today);
+            // string test = MPD_Service.getDonations("jon@vellacott.co.uk", "Iowa2001", "TntBalance", _startDate, _endDate);
+          
              if (!Page.IsPostBack)
              {
                 //First Load Countries From Thads Search
@@ -85,6 +89,46 @@ namespace DotNetNuke.Modules.Account
                   
                  }
 
+
+
+                  relayUsername = UserInfo.Profile.GetPropertyValue("RelayName");
+                  relayEncodedPassword = UserInfo.Profile.GetPropertyValue("RelayPassword");
+                 if (!string.IsNullOrEmpty(relayUsername) && !string.IsNullOrEmpty(relayEncodedPassword))
+                 {
+
+
+                      relayPassword = AgapeEncryption.AgapeEncrypt.Decrypt(relayEncodedPassword);
+                     MyCountries.Items.Add(new ListItem("United States", "USA"));
+                 }
+                 else
+                 {
+                     
+                     if (DotNetNuke.Entities.Profile.ProfileController.GetPropertyDefinitionByName(this.PortalId, "RelayName") == null)
+                     {
+                         DotNetNuke.Entities.Profile.ProfileController.AddPropertyDefinition(
+                         new DotNetNuke.Entities.Profile.ProfilePropertyDefinition(this.PortalId)
+                         {
+                             PropertyName = "RelayName",
+                             PropertyCategory = "Other",
+                             DataType = 349,
+                         });
+                     }
+
+                     if (DotNetNuke.Entities.Profile.ProfileController.GetPropertyDefinitionByName(this.PortalId, "RelayPassword") == null)
+                     {
+                         DotNetNuke.Entities.Profile.ProfileController.AddPropertyDefinition(
+                         new DotNetNuke.Entities.Profile.ProfilePropertyDefinition(this.PortalId)
+                         {
+                             PropertyName = "RelayPassword",
+                             PropertyCategory = "Other",
+                             Visibility = 0,
+                             ViewOrder = 99,
+                             DataType = 349,
+                         });
+                     }
+                   //  UserInfo.Profile.SetProfileProperty("RelayPassword", AgapeEncryption.AgapeEncrypt.Encrypt("Iowa2001"));
+
+                 }
 
                 //MyCountries.Items.Add(new ListItem("devtest","https://tntdataserver.eu/dataserver/devtest/dataquery/dataqueryservice.asmx"));
                 //MyCountries.Items.Add(new ListItem("AgapeAOA","https://tntdataserver.eu/dataserver/AgapeAOA/dataquery/dataqueryservice.asmx"));
@@ -749,6 +793,28 @@ namespace DotNetNuke.Modules.Account
         {
             if (MyCountries.Items.Count == 0)
                 return;
+
+            if (MyCountries.SelectedValue == "USA")
+            {
+                //US don't load the typical API.
+                List<MPD_Service.Donation> donations =  MPD_Service.getDonations("jon@vellacott.co.uk", "Iowa2001", "TntDonList", _startDate, _endDate);
+                
+                _googleGraph = "";
+                var q = from c in donations group c by new {c.FiscalPeriod, c.PeopleId} into g 
+                        orderby g.Key.FiscalPeriod, g.First().DonorName 
+                        select new {FiscalPeriod = g.Key.FiscalPeriod, Amount = g.Sum(o=> Decimal.Parse( o.Amount)), Name = g.First().DonorName, MonthName = g.First().MonthName};
+                for(int index = 13 ; index>0; index++)
+                {
+                    string monthName = GetMonth(index - 13);
+                    var monthData = q.Where(x => x.MonthName == monthName);
+
+                    _googleGraph += "data.addRow(['" + monthName + "', " + DecodeNumberString( monthData.Sum(x => x.Amount).ToString()) + ",,'',false,0,0]);" + Environment.NewLine;
+
+                }
+                return;
+            }
+
+
             if (dTnT.Url != MyCountries.SelectedValue)
             {
                 dTnT.Url = MyCountries.SelectedValue;
