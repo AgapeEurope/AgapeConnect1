@@ -299,7 +299,9 @@ Namespace DotNetNuke.Modules.OnlineForm
             Catch ex As Exception
 
             End Try
-            SentLabel.Text = "Your form has been sent!"
+
+
+            SentLabel.Text = "Thank you! Your message has been sent. You will soon hear from us."
             SentLabel.Visible = True
 
             For Each ctrl In QuPlaceHolder.Controls
