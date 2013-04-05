@@ -330,7 +330,7 @@ Namespace DotNetNuke.Modules.Stories
                 q.First.Subtitle = Subtitle.Text
                 q.First.Field1 = tbField1.Text
                 q.First.Field2 = tbField2.Text
-
+                q.First.UpdatedDate = Today
 
                 If cbAutoGenerate.Checked Then
 
