@@ -133,6 +133,16 @@ Namespace DotNetNuke.Modules.FullStory
 
                 ReplaceField(sv, "[AUTHOR]", r.Author)
                 ReplaceField(sv, "[DATE]", r.StoryDate.ToString("d MMM yyyy"))
+                If (Not r.UpdatedDate Is Nothing) Then
+                    If (DateDiff(DateInterval.Day, r.StoryDate, r.UpdatedDate.Value) > 14) Then
+                        'Only show updated date if the update was more than two weeks after the creation date
+                        ReplaceField(sv, "[UPDATEDDATE]", "(updated " & r.UpdatedDate.Value.ToString("d MMM yyyy") & ")")
+                    End If
+
+                End If
+                ReplaceField(sv, "[UPDATEDDATE]", "")
+
+
                 ReplaceField(sv, "[RSSURL]", "/DesktopModules/AgapeConnect/Stories/Feed.aspx?channel=" & TabModuleId)
                 ReplaceField(sv, "[SAMPLE]", r.TextSample)
                 ReplaceField(sv, "[SUBTITLE]", r.Subtitle)
