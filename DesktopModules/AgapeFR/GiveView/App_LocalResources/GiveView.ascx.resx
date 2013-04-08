@@ -363,14 +363,14 @@
   <data name="ValTelephoneExp.Text" xml:space="preserve">
     <value>Please enter a valid phone number</value>
   </data>
-  <data name="mailsubject.Text" xml:space="preserve">
+  <data name="donoremailsubject.Text" xml:space="preserve">
     <value>Thank you for your gift!</value>
   </data>
   <data name="DonorEmailCheque.Text" xml:space="preserve">
     <value>To complete your gift, you can print this document and send it with your check. You can use the link below:</value>
   </data>
-  <data name="DonorEmailGreeting.Text" xml:space="preserve">
-    <value>Hello [DONORNAME]!</value>
+  <data name="EmailGreeting.Text" xml:space="preserve">
+    <value>Hello [NAME]!</value>
   </data>
   <data name="DonorEmailPara1.Text" xml:space="preserve">
     <value>Thank you for your donation! It is registered in our system. Here is a summary of your donation:</value>
@@ -379,7 +379,7 @@
     <value>You plan to make a [FREQ] donation of [AMOUNT]€ to [RECIP].</value>
   </data>
   <data name="DonorEmailPara3.Text" xml:space="preserve">
-    <value>Here is the message you send to the recipient:</value>
+    <value>Here is the message you sent to the recipient:</value>
   </data>
   <data name="DonorEmailPara5.Text" xml:space="preserve">
     <value>Again a big thanks from our team!</value>
@@ -392,5 +392,23 @@
   </data>
   <data name="ccDonTo.Text" xml:space="preserve">
     <value>Donation for </value>
+  </data>
+  <data name="RecipEmailPara1.Text" xml:space="preserve">
+    <value>Someone has set up a donation! Here is a summary of your donation:</value>
+  </data>
+  <data name="RecipEmailPara2.Text" xml:space="preserve">
+    <value>A [FREQ] donation of [AMOUNT]€ by [METHOD].</value>
+  </data>
+  <data name="RecipEmailPara3.Text" xml:space="preserve">
+    <value>Here is the donor's information:</value>
+  </data>
+  <data name="RecipEmailPara4.Text" xml:space="preserve">
+    <value>The donor included the following message:</value>
+  </data>
+  <data name="RecipEmailPara5.Text" xml:space="preserve">
+    <value>Please contact compta if you have questions.</value>
+  </data>
+  <data name="recipemailsubject.Text" xml:space="preserve">
+    <value>You have a new donation</value>
   </data>
 </root>

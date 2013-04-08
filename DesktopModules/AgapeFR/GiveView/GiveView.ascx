@@ -92,7 +92,7 @@
         if (Page_ClientValidate('Contact')) {
             $('.testlabel').text('contact info is valid');
             $('.methchoose').slideDown(1000);
-
+            rblMeth_click();
         }
         else {
             $('.testlabel').text('contact info is not valid');
@@ -100,7 +100,7 @@
             $('.virement').slideUp(1000);
             $('.doncontinue').slideUp(1000);
         }
-        rblMeth_click();
+        
     }
     function bankfill_enter() {
         if (Page_ClientValidate('jBank')) {
@@ -133,8 +133,6 @@
             $('.thelogincont').slideDown(1000);
             <% Else%>
             $('.contact').slideDown(1000);
-            //$('.methchoose').slideDown(1000);
-            rblMeth_click();
             <% End If%>
             //only set set session storage if user is not logged in.
             <% If Not (loggedin) Then%>
