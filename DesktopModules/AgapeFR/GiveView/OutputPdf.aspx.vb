@@ -96,7 +96,7 @@ Partial Class DesktopModules_Give_OutputPdf
         pdfStamper.FormFlattening = True
         ' close the pdf
         pdfStamper.Close()
-        'Response.OutputStream.Flush()
+        Response.OutputStream.Flush()
     End Sub
 
     Private Sub LoadPdfCheque()
@@ -153,7 +153,7 @@ Partial Class DesktopModules_Give_OutputPdf
         pdfStamper.FormFlattening = True
         ' close the pdf
         pdfStamper.Close()
-        'Response.OutputStream.Flush()
+        Response.OutputStream.Flush()
     End Sub
     Public Function ConvertDisplayToSensible(ByVal CurrentDisp As String) As String
         Dim Output As String = ""
