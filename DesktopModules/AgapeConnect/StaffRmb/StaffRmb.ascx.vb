@@ -90,6 +90,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
 
             lblError.Visible = False
+            If Not String.IsNullOrEmpty(Settings("NoReceipt")) Then
+                hfNoReceiptLimit.Value = Settings("NoReceipt")
+            End If
 
 
 
@@ -2088,7 +2091,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ' End If
                 ApprMessage = StaffBrokerFunctions.GetTemplate("RmbApprovedEmail-ApproversVersion", PortalId)
 
-                ' ApprMessage = ApprMessage.Replace("[APPRNAME]", ObjAppr.DisplayName).Replace("[RMBNO]", rmb.First.RMBNo).Replace("[STAFFNAME]", theUser.DisplayName)
+                ApprMessage = ApprMessage.Replace("[APPRNAME]", ObjAppr.DisplayName).Replace("[RMBNO]", rmb.First.RMBNo).Replace("[STAFFNAME]", theUser.DisplayName)
 
 
                 For Each row In (From c In myApprovers.UserIds Where c.UserID <> rmb.First.UserId And c.UserID <> SpouseId)
@@ -2387,7 +2390,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         End Sub
 
         Protected Sub btnMarkProcessed_Click(sender As Object, e As System.EventArgs) Handles btnMarkProcessed.Click
-
+            DownloadBatch()
             Dim RmbList As List(Of Integer) = Session("RmbList")
             If Not RmbList Is Nothing Then
                 Dim q = From c In d.AP_Staff_Rmbs Where RmbList.Contains(c.RMBNo) And c.PortalId = PortalId
@@ -2439,6 +2442,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         End Sub
 
         Protected Sub btnDontMarkProcessed_Click(sender As Object, e As System.EventArgs) Handles btnDontMarkProcessed.Click
+            DownloadBatch()
+
             Dim t As Type = Me.GetType()
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             sb.Append("<script language='javascript'>")
@@ -2518,7 +2523,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 LoadRmb(hfRmbNo.Value)
             ElseIf e.CommandName = "myEdit" Then
 
-              
+
                 Dim theLine = From c In d.AP_Staff_RmbLines Where c.RmbLineNo = CInt(e.CommandArgument)
                 If theLine.Count > 0 Then
                     'PopupTitle.Text = "Edit Reimbursement Transaction"
@@ -2530,7 +2535,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     '    phLineDetail.Controls.Add(theControl)
                     'End If
                     'theControl = Nothing
-                   
+
 
                     ddlLineTypes.Items.Clear()
                     Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
@@ -2719,7 +2724,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
         End Sub
 
-        
+
 
 #End Region
 #Region "DropDownList Events"
@@ -2797,7 +2802,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         End Function
         Public Function GetLineComment(ByVal comment As String, ByVal Currency As String, ByVal CurrencyValue As Double, ByVal ShortComment As String) As String
             'Prefix initials  // suffix Currency   // Trim to 30 char
-            
+
 
 
 
@@ -2814,7 +2819,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                 End If
             End If
-          
+
             Return staffInitials.Value & "-" & comment.Substring(0, Math.Min(comment.Length, 27 - CurString.Length)) & CurString
 
         End Function
@@ -2831,12 +2836,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             If (num >= 10000) Then
                 Return (num / 1000D).ToString("0.#") + "K"
             End If
-           
+
             Return num.ToString("#,0")
 
 
         End Function
-        
+
         Public Function GetAdvTitle(ByVal LocalAdvanceId As Integer, ByVal RequestDate As Date) As String
 
             Dim rtn = "Advance:<br />" & "<span style=""font-size: 6.5pt; color: #999999;"">Adv#" & ZeroFill(LocalAdvanceId.ToString, 4)
@@ -3344,7 +3349,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'End If
                     ddlAccountCode.SelectedValue = GetAccountCode(lt.First.LineTypeId, ddlCostcenter.SelectedValue)
-                   
+
 
                 End If
 
@@ -3511,6 +3516,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         Protected Function DownloadRmbSingle(ByVal RmbNo As Integer) As String
             Dim rtn As String = ""
             Dim theRmb = From c In d.AP_Staff_RmbLines Where c.RmbNo = RmbNo
+
             If theRmb.Count > 0 Then
                 Dim theUserId = (From c In d.AP_Staff_Rmbs Where c.RMBNo = RmbNo Select c.UserId).First
                 Dim theUser = UserController.GetUserById(PortalId, theUserId)
@@ -3521,6 +3527,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
 
                 For Each line In theRmb
+                    theDate = "=""" & line.TransDate.ToString("dd-MMM-yy") & """"
+
                     If line.Taxable Then
                         rtn &= "=""" & Settings("TaxAccountsReceivable") & ""","
                     Else
@@ -3550,7 +3558,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                           Debit, Credit)
                     End If
 
-                   
+
 
 
                     'If line.GrossAmount > 0 Then
@@ -3569,7 +3577,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ' Then add two more transactions. One to back out on 7012 (we will need to get this from a setting)
                 ' Then back in on Tax Accounts Payable
 
-
+                theDate = "=""" & Today.ToString("dd-MMM-yy") & """"
                 Dim theStaff = StaffBrokerFunctions.GetStaffMember(theUserId)
                 Dim PACMode = (
                     theStaff.CostCenter = "" And StaffBrokerFunctions.GetStaffProfileProperty(theStaff.StaffId, "PersonalAccountCode") <> "")
@@ -3662,6 +3670,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                         End If
                         If rmbAdvance <> 0 Then
+
+
                             rtn &= "=""" & Settings("AccountsReceivable") & ""","
 
                             rtn &= "=""" & theStaff.CostCenter & """" & ","
@@ -3704,7 +3714,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                 'First Debit 12xx
                 Dim ref = "A" & ZeroFill(theAdv.First.LocalAdvanceId, 5)
-                Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
+                'Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
+                Dim theDate As String = "=""" & theAdv.First.RequestDate.Value.ToString("dd-MMM-yy") & """"
                 rtn &= "=""" & Settings("AccountsReceivable") & ""","
                 rtn &= "=""" & StaffMember.CostCenter & ""","
                 rtn &= ref & ","
@@ -3793,13 +3804,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
         Protected Sub DownloadBatch()
             Dim downloadStatuses() As Integer = {RmbStatus.PendingDownload, RmbStatus.DownloadFailed}
-
+            Log(0, "Downloading Batched Transactions")
 
             Dim pendDownload = From c In d.AP_Staff_Rmbs Where downloadStatuses.Contains(c.Status) And c.PortalId = PortalId
 
             Dim export As String = "Account,Subaccount,Ref,Date," & GetOrderedString("Description", "Debit", "Credit", "Company")
             Dim RmbList As New List(Of Integer)
             For Each rmb In pendDownload
+                Log(rmb.RMBNo, "Downloading Rmb")
                 export &= DownloadRmbSingle(rmb.RMBNo)
 
                 RmbList.Add(rmb.RMBNo)
@@ -3809,6 +3821,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             Dim AdvList As New List(Of Integer)
             For Each adv In pendDownloadAdv
+                Log(adv.AdvanceId, "Downloading Advance")
                 export &= DownloadAdvSingle(adv.AdvanceId)
 
                 AdvList.Add(adv.AdvanceId)
@@ -4084,7 +4097,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     q.First.RequestAmount = CDbl(AdvAmount.Text)
                     q.First.OrigCurrencyAmount = CDbl(hfOrigCurrencyValue.Value)
                     q.First.OrigCurrency = hfOrigCurrency.Value
-                    
+
 
                     'If IsAccounts() Then
                     '    If ddlAdvPeriod.SelectedIndex > 0 Then

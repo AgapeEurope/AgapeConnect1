@@ -39,28 +39,20 @@
                 $('.boost').prop("checked", <%= CStr(SuperPowers.IsBoosted).ToLower%>).change();
                 $('.block').prop("checked", <%= CStr(SuperPowers.IsBlocked).ToLower%>).change();
                    
-                var height = parseInt($(".Agape_FullStory_bodytext").css("height"));
-                if(height>420)
-                {
-                    // $('.Agape_FullStory_bodytext').css({'height': '400px', 'overflow': 'hidden'})
-                    $('.Agape_FullStory_bodytext').addClass('preview');
-                    $('#more').click(function() {
+                //var height = parseInt($(".Agape_FullStory_bodytext").css("height"));
+                //if(height>420)
+                //{
+                //    $('.Agape_FullStory_bodytext').addClass('preview');
+                //    $('#more').click(function() {
                    
-                        //$('.Agape_FullStory_bodytext').animate({
-                        //    height: height +20
-                        
-                        //}, 2000, function() {
-                        //    // Animation complete.
-                        //    $('#more').hide();
-                        //});
-                        $('.Agape_FullStory_bodytext').removeClass("preview", 2000);
-                        $('#more').hide();
-                    });}
-                else
-                {
+                //        $('.Agape_FullStory_bodytext').removeClass("preview", 2000);
+                //        $('#more').hide();
+                //    });}
+                //else
+                //{
 
-                    $('#more').hide();
-                }
+                //    $('#more').hide();
+                //}
 
                 function initialize() {
                     var myLatlng = new google.maps.LatLng(<%= location %>);

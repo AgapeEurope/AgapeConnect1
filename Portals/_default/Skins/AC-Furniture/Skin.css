@@ -13,6 +13,22 @@ h1, h2, h3, h4, h5, h6, .title1, .title2, .title3, .title4, .title5, .title6, .t
     background: url(images/body_bg.jpg) repeat;
 }
 
+  .aeImageLeft{
+    float: left;
+    margin: 4px 10px 4px 4px;
+    }
+    .aeImageLeft img{
+    border: 1px solid #000000;
+    }
+    .aeImageLeft p{
+    color: #AAA;
+    font-style: italic;
+    font-size: small;
+    text-align: center;
+    }
+
+
+
 html, body {
     margin: 0px;
     height: 100%;

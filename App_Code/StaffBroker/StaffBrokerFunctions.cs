@@ -271,7 +271,7 @@ public class StaffBrokerFunctions
 
     static public AP_StaffBroker_Staff CreateStaffMember(int PortalId, DotNetNuke.Entities.Users.UserInfo User1in, short staffTypeIn = 1)
     {
-
+       
         DotNetNuke.Security.Roles.RoleController rc = new DotNetNuke.Security.Roles.RoleController();
         if (rc.GetRoleByName(PortalId, "Staff") == null)
         {
