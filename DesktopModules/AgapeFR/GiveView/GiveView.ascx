@@ -99,8 +99,7 @@
             $('.methchoose').slideUp(1000);
             $('.virement').slideUp(1000);
             $('.doncontinue').slideUp(1000);
-        }
-        
+        }        
     }
     function bankfill_enter() {
         if (Page_ClientValidate('jBank')) {
@@ -148,8 +147,6 @@
             $('.virement').slideUp(1000);
         }
     }
-
-
     function btnGoBank_click() {
         sessionStorage.removeItem('rbFreq');
         sessionStorage.removeItem('tbAmt');
@@ -193,7 +190,7 @@
     $('#lblSummaryStreet1').text($('.TxtStreet1').val());
     $('#lblSummaryStreet2').text($('.TxtStreet2').val());
     $('#lblSummaryCity').text($('.TxtCity').val());
-    $('#lblSummaryCountry').text($('.TxtCountry').val());
+    $('#lblSummaryCountry').text($('.cboCountry option:selected').text());
     $('#lblSummaryRegion').text($('.TxtRegion').val());
     $('#lblSummaryPostal').text($('.TxtPostCode').val());
     $('#lblSummaryEmail').text($('.TxtEmail').val());
@@ -281,7 +278,6 @@ function rbFreq_click() {
         $('.summaryDon').hide();
         $('.confirmation').hide();
         $('.noscriptconf').hide();
-
     }
     function btnFinishDon_click() {
         $('.pleasewait').show();
@@ -473,7 +469,7 @@ function rbFreq_click() {
                     <dnn:Label ID="LlbCountry" runat="server" ControlName="TxtCountry" />
                     <div>
 
-                        <wc:CountryListBox TestIP="" LocalhostCountryCode="US" ID="cboCountry" DataValueField="Value" DataTextField="Text" AutoPostBack="True" runat="server" />
+                        <wc:CountryListBox TestIP="" LocalhostCountryCode="US" ID="cboCountry" CssClass="cboCountry" DataValueField="Value" DataTextField="Text" runat="server" />
                     </div>
                 </div>
                 <div class="giveformitem">
