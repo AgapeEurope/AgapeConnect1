@@ -29,6 +29,7 @@
       <Column Name="TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SetupDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="GiveMethod" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="BankCountry" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Association Name="Agape_Give_DonationType_Agape_Give_BankTransfer" Member="Agape_Give_DonationType" ThisKey="DonationType" OtherKey="DonationTypeNumber" Type="Agape_Give_DonationType" IsForeignKey="true" />
     </Type>
   </Table>

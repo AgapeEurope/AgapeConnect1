@@ -51,11 +51,11 @@ Partial Class DesktopModules_Give_OutputPdf
         Response.ClearHeaders()
         Response.ClearContent()
         Response.ContentType = "application/pdf"
-        Dim userAddress = objUser.Profile.GetPropertyValue("Street")
-        If Not objUser.Profile.GetPropertyValue("Unit") = "" Then
-            userAddress += vbCrLf & objUser.Profile.GetPropertyValue("Unit")
+        Dim userAddress = objUser.Profile.Street
+        If Not objUser.Profile.Unit = "" Then
+            userAddress += vbCrLf & objUser.Profile.Unit
         End If
-        userAddress += vbCrLf & objUser.Profile.GetPropertyValue("PostalCode") & " " & objUser.Profile.GetPropertyValue("City")
+        userAddress += vbCrLf & objUser.Profile.PostalCode & " " & objUser.Profile.City & vbCrLf & objUser.Profile.Country
         Dim theFreq = "Error"
         'TRENT: work on translation
         If q.First.Frequency = 1 Then
@@ -80,7 +80,7 @@ Partial Class DesktopModules_Give_OutputPdf
         If Not q.First.BankStreet2 = "" Then
             bankAddress += vbCrLf & q.First.BankStreet2
         End If
-        bankAddress += vbCrLf & q.First.BankPostal & " " & q.First.BankCity
+        bankAddress += vbCrLf & q.First.BankPostal & " " & q.First.BankCity & vbCrLf & q.First.BankCountry
         Dim pdfTemplate As String = Server.MapPath("/Portals/0/virement.pdf")
         Dim pdfReader As New PdfReader(pdfTemplate)
         Dim pdfStamper As New PdfStamper(pdfReader, Response.OutputStream)
@@ -107,11 +107,11 @@ Partial Class DesktopModules_Give_OutputPdf
         Response.ClearHeaders()
         Response.ClearContent()
         Response.ContentType = "application/pdf"
-        Dim userAddress = objUser.Profile.GetPropertyValue("Street")
-        If Not objUser.Profile.GetPropertyValue("Unit") = "" Then
-            userAddress += vbCrLf & objUser.Profile.GetPropertyValue("Unit")
+        Dim userAddress = objUser.Profile.Street
+        If Not objUser.Profile.Unit = "" Then
+            userAddress += vbCrLf & objUser.Profile.Unit
         End If
-        userAddress += vbCrLf & objUser.Profile.GetPropertyValue("PostalCode") & " " & objUser.Profile.GetPropertyValue("City")
+        userAddress += vbCrLf & objUser.Profile.PostalCode & " " & objUser.Profile.City & vbCrLf & objUser.Profile.Country
         Dim theFreq = "Error"
         'TRENT: work on translation
         If q.First.Frequency = 1 Then

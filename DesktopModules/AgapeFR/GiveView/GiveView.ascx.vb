@@ -39,6 +39,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim ctlEntry As ListController = New ListController
             cboCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
             cboCountry.DataBind()
+            cboBankCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
+            cboBankCountry.DataBind()
             doncontinue.Style("Display") = "none"
             summaryDon.Style("Display") = "none"
             confirmation.Visible = False
@@ -71,6 +73,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         mycountry = "FR"
                     End If
                     cboCountry.SelectedValue = mycountry
+                    cboBankCountry.SelectedValue = mycountry
                     thelogincont.Style("Display") = "none"
                 Else
                     loggedin = False
@@ -118,7 +121,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theImage1.ImageUrl = ViewState("imageurl")
         End Sub
         Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
-            Page.Title = "Agapé - " & givename
+            Page.Title = "Agapé - " & Title.Text
+
         End Sub
         Protected Sub badquery()
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
@@ -156,6 +160,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblBankStreet1.Text = Translate("BankSt1")
             lblBankStreet2.Text = Translate("BankSt2")
             lblBankCity.Text = Translate("BankCity")
+            lblBankCountry.Text = Translate("BankCountry")
             lblBankPostal.Text = Translate("BankPostal")
             lblIBAN.Text = Translate("IBAN")
             lblBankInfo.Text = Translate("BankInfo")
@@ -179,6 +184,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankAddress2.Text = Translate("BankSt2")
             lblSumTextBankPostal.Text = Translate("BankPostal")
             lblSumTextBankCity.Text = Translate("BankCity")
+            lblSumTextBankCountry.Text = Translate("BankCountry")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
             btnNoScriptGo.Text = Translate("btnFinishDon")
@@ -266,6 +272,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             hfUniqueRef.Value = insert.Reference
             insert.Amount = tbAmount.Text
             insert.BankCity = tbBankCity.Text
+            insert.BankCountry = cboBankCountry.SelectedItem.Text
             insert.BankName = tbBank.Text
             insert.BankPostal = tbBankPostal.Text
             insert.BankStreet1 = tbBankStreet1.Text
