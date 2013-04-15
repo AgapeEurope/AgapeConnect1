@@ -232,16 +232,16 @@
     <value>Confirm Email:</value>
   </data>
   <data name="FreqParaOne.Text" xml:space="preserve">
-    <value>quarterly</value>
+    <value>quarterly </value>
   </data>
   <data name="FreqParaThree.Text" xml:space="preserve">
-    <value>yearly</value>
+    <value>yearly </value>
   </data>
   <data name="FreqParaTwo.Text" xml:space="preserve">
-    <value>twice yearly</value>
+    <value>twice yearly </value>
   </data>
   <data name="FreqParaZero.Text" xml:space="preserve">
-    <value>monthly</value>
+    <value>monthly </value>
   </data>
   <data name="lblCreditCard.Text" xml:space="preserve">
     <value>Your gift will be added to the cart.</value>

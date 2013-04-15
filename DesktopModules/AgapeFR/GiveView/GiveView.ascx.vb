@@ -308,27 +308,36 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 End If
                 Dim theMeth As String = ""
                 'If rblMethod.
-                Dim parafour As String = ""
+
+                Dim reciptemplate As String = ""
+                Dim donortemplate As String = ""
                 If rblMethod.SelectedIndex = 1 Then
                     theMeth = Translate("rblMethOne")
                     lblConfCheque.Visible = False
-                    parafour = Translate("DonorEmailVirement")
-                ElseIf rblMethod.SelectedIndex = 2 Then
-                    theMeth = Translate("rblMethTwo")
+                    If CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "en" Then
+                        reciptemplate = "RecipVirementMailEnglish"
+                        donortemplate = "DonorVirementMailEnglish"
+                    ElseIf CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "fr" Then
+                        reciptemplate = "RecipVirementMailFrancais"
+                        donortemplate = "DonorVirementMailFrancais"
+                    End If
+                    ElseIf rblMethod.SelectedIndex = 2 Then
+                        theMeth = Translate("rblMethTwo")
                     lblConfVirement.Visible = False
-                    parafour = Translate("DonorEmailCheque")
+                    If CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "en" Then
+                        reciptemplate = "RecipChequeMailEnglish"
+                        donortemplate = "DonorChequeMailEnglish"
+                    ElseIf CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "fr" Then
+                        reciptemplate = "RecipChequeMailFrancais"
+                        donortemplate = "DonorChequeMailFrancais"
+                    End If
                 End If
-                Dim logoURL = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/GetLogo.aspx"
-                Dim paratwo As String = Translate("DonorEmailPara2").Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text).Replace("[RECIP]", Title.Text)
-                Dim parathree = ""
                 Dim message = ""
-                Dim greeting As String = Translate("EmailGreeting").Replace("[NAME]", TxtFirstName.Text & " " & TxtLastName.Text)
                 If Not theDonationComment.Text = "" Then
-                    parathree = Translate("DonorEmailPara3")
                     message = theDonationComment.Text
                 End If
-                Dim mailbody As String = File.ReadAllText(Server.MapPath("~/DesktopModules/AgapeFR/GiveView/files/DonorEmail.html"))
-                mailbody = mailbody.Replace("[LOGO]", logoURL).Replace("[GREETING]", greeting).Replace("[PARAONE]", Translate("DonorEmailPara1")).Replace("[PARATWO]", paratwo).Replace("[PARATHREE]", parathree).Replace("[MESSAGE]", message).Replace("[PARAFOUR]", parafour).Replace("[PDFLINK]", ("http://localhost:37879" & pdflink)).Replace("[PDFTEXT]", Translate("lblLinkPDF")).Replace("[PARAFIVE]", Translate("DonorEmailPara5"))
+                Dim mailbody = StaffBrokerFunctions.GetTemplate(donortemplate, PortalId)
+                mailbody = mailbody.Replace("[NAME]", TxtFirstName.Text & " " & TxtLastName.Text).Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text).Replace("[RECIP]", Title.Text).Replace("[MESSAGE]", message).Replace("[PDFLINK]", pdflink).Replace("[IMAGEURL]", "sso/GetLogo.aspx")
                 Dim recip As String = TxtEmail.Text
                 Dim mailsubject As String = Translate("donoremailsubject")
                 'Send the Donor Email
@@ -366,13 +375,11 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     recip = staffEmail1 & IIf(String.IsNullOrEmpty(staffEmail2), String.Empty, ", " & staffEmail2)
                 End If
                 If Not String.IsNullOrEmpty(recip) Then
+
                     mailsubject = Translate("recipemailsubject")
-                    mailbody = File.ReadAllText(Server.MapPath("~/DesktopModules/AgapeFR/GiveView/files/StaffEmail.html"))
-                    greeting = Translate("EmailGreeting").Replace("[NAME]", givename)
-                    paratwo = Translate("RecipEmailPara2").Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text).Replace("[METHOD]", theMeth)
-                    parathree = Translate("RecipEmailPara3") & "<br />" & TxtFirstName.Text & " " & TxtLastName.Text & "<br />" & TxtStreet1.Text & "<br />" & IIf(TxtStreet2.Text = "", "", TxtStreet2.Text & "<br />") & TxtPostCode.Text & " " & TxtCity.Text & " " & cboCountry.SelectedItem.Text & "<br />" & TxtEmail.Text & "<br />" & IIf(TxtMobile.Text = "", "", TxtMobile.Text & "<br />") & IIf(TxtTelephone.Text = "", "", TxtTelephone.Text & "<br />")
-                    parafour = IIf(theDonationComment.Text = "", "", Translate("RecipEmailPara4"))
-                    mailbody = mailbody.Replace("[LOGO]", logoURL).Replace("[GREETING]", greeting).Replace("[PARAONE]", Translate("RecipEmailPara1")).Replace("[PARATWO]", paratwo).Replace("[PARATHREE]", parathree).Replace("[MESSAGE]", message).Replace("[PARAFOUR]", parafour).Replace("[PARAFIVE]", Translate("RecipEmailPara5"))
+                    mailbody = StaffBrokerFunctions.GetTemplate(reciptemplate, PortalId)
+                    'mailbody = File.ReadAllText(Server.MapPath("~/DesktopModules/AgapeFR/GiveView/files/StaffEmail.html"))
+                    mailbody = mailbody.Replace("[LOGO]", "sso/GetLogo.aspx").Replace("[MESSAGE]", message)
                     SendConfirmationEmail(recip, mailsubject, mailbody)
                 Else
                     AgapeLogger.Warn(Me.UserId, "No staff email to send donation notification to.(staffid='" & RowId.Value & "')")
@@ -408,7 +415,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
         Protected Sub SendConfirmationEmail(recip As String, mailsubject As String, mailbody As String)
-            Mail.SendEmail("trent.schaller@agapefrance.org", recip, mailsubject, mailbody)
+            DotNetNuke.Services.Mail.Mail.SendMail("trent.schaller@agapefrance.org", recip, "", mailsubject, mailbody, "", "HTML", "", "", "", "")
         End Sub
 #End Region
 #Region "Buttons"
