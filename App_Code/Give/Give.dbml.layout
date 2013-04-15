@@ -8,10 +8,10 @@
         <elementListCompartment Id="3e7a3219-dc73-4454-87ba-9ed7957f2bf2" absoluteBounds="4.265, 1.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ec7d42ae-b117-48f0-a5f8-79e36c93f73a" absoluteBounds="0.75, 0.75, 2, 4.2708154296875">
+    <classShape Id="ec7d42ae-b117-48f0-a5f8-79e36c93f73a" absoluteBounds="0.75, 0.75, 2, 4.4631168619791666">
       <DataClassMoniker Name="/GiveDataContext/Agape_Give_BankTransfer" />
       <nestedChildShapes>
-        <elementListCompartment Id="f6a1483c-e897-4b44-9270-fd90a266c40b" absoluteBounds="0.76500000000000012, 1.21, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f6a1483c-e897-4b44-9270-fd90a266c40b" absoluteBounds="0.76500000000000012, 1.21, 1.9700000000000002, 3.9031168619791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(4.25 : 2.28929768880208); (2.75 : 2.28929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">

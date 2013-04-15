@@ -120,4 +120,13 @@
   <data name="btnGive.Text" xml:space="preserve">
     <value>Donner</value>
   </data>
+  <data name="NameAnd.Text" xml:space="preserve">
+    <value>et</value>
+  </data>
+  <data name="deptpresent.Text" xml:space="preserve">
+    <value>Du text ici pour les departements.</value>
+  </data>
+  <data name="staffpresent.Text" xml:space="preserve">
+    <value>Du text ici pour les équipiers.</value>
+  </data>
 </root>

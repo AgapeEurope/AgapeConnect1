@@ -277,6 +277,8 @@ Namespace Give
 		
 		Private _GiveMethod As System.Nullable(Of Byte)
 		
+		Private _BankCountry As String
+		
 		Private _Agape_Give_DonationType As EntityRef(Of Agape_Give_DonationType)
 		
     #Region "Extensibility Method Definitions"
@@ -357,6 +359,10 @@ Namespace Give
     Partial Private Sub OnGiveMethodChanging(value As System.Nullable(Of Byte))
     End Sub
     Partial Private Sub OnGiveMethodChanged()
+    End Sub
+    Partial Private Sub OnBankCountryChanging(value As String)
+    End Sub
+    Partial Private Sub OnBankCountryChanged()
     End Sub
     #End Region
 		
@@ -654,6 +660,22 @@ Namespace Give
 					Me._GiveMethod = value
 					Me.SendPropertyChanged("GiveMethod")
 					Me.OnGiveMethodChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BankCountry", DbType:="NVarChar(200)")>  _
+		Public Property BankCountry() As String
+			Get
+				Return Me._BankCountry
+			End Get
+			Set
+				If (String.Equals(Me._BankCountry, value) = false) Then
+					Me.OnBankCountryChanging(value)
+					Me.SendPropertyChanging
+					Me._BankCountry = value
+					Me.SendPropertyChanged("BankCountry")
+					Me.OnBankCountryChanged
 				End If
 			End Set
 		End Property

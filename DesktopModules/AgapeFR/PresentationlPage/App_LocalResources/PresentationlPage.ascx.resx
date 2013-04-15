@@ -120,4 +120,16 @@
   <data name="btnGive.Text" xml:space="preserve">
     <value>Give</value>
   </data>
+  <data name="NameAnd.Text" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="deptpresent.Text" xml:space="preserve">
+    <value>This is the department default presentationtext.</value>
+  </data>
+  <data name="staffpresent.Text" xml:space="preserve">
+    <value>Each Agapé staff member develops a support team who regularly pray " _
+                   &amp; "for them, encourage them, and give financially towards their salary and the " _
+                   &amp; "expenses of their work.  &lt;br /&gt;&lt;br /&gt;Would you like to give a financial gift to support " _
+                   &amp; "the work of this staff member?</value>
+  </data>
 </root>

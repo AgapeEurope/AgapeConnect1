@@ -39,6 +39,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim ctlEntry As ListController = New ListController
             cboCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
             cboCountry.DataBind()
+            cboBankCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
+            cboBankCountry.DataBind()
             doncontinue.Style("Display") = "none"
             summaryDon.Style("Display") = "none"
             confirmation.Visible = False
@@ -62,7 +64,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtCity.Text = objUser.Profile.City
                     TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
-                    'cboCountry.SelectedValue =
                     Dim mycountry As String
                     Dim lc As New Lists.ListController
                     Dim c = lc.GetListEntryInfoItems("Country").Where(Function(x) objUser.Profile.Country.EndsWith(x.Text)).Select(Function(x) x.Value)
@@ -72,6 +73,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         mycountry = "FR"
                     End If
                     cboCountry.SelectedValue = mycountry
+                    cboBankCountry.SelectedValue = mycountry
                     thelogincont.Style("Display") = "none"
                 Else
                     loggedin = False
@@ -84,32 +86,30 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     If staff.Count > 0 Then
                         'Detect if UnNamed - if so use giving shortcut instead
                         If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
-                            Title.Text = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
                             givename = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
                         Else
-                            Title.Text = ConvertDisplayToSensible(staff.First.DisplayName)
-                            'Title.Text = ChangeName(Title.Text)
-                            'givename = ConvertDisplayToSensible(staff.First.DisplayName)
-                            'givename = ChangeName(Title.Text)
-
+                            givename = ChangeName(staff.First.DisplayName)
                         End If
+                        Title.Text = givename
                         ViewState("imageurl") = StaffBrokerFunctions.GetStaffJointPhoto(staff.First.StaffId)
                         theImage1.ImageUrl = ViewState("imageurl")
                         RowId.Value = staff.First.StaffId
                         DonationType.Value = DestinationType.Staff
+                        hfGiveToName.Value = givename
+                        lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
                         Return
                     End If
                     'Second Try Department/Ministry
                     Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
                     If Dept.Count > 0 Then
-                        Title.Text = Dept.First.Name
                         givename = Dept.First.Name
+                        Title.Text = givename
                         ViewState("imageurl") = StaffBrokerFunctions.GetDeptPhoto(Dept.First.CostCenterId)
-                        'Dim imagefile = FileManager.Instance.GetFile(Dept.First.PhotoId)
-                        'ViewState("imageurl") = FileManager.Instance.GetUrl(imagefile)
                         theImage1.ImageUrl = ViewState("imageurl")
                         DonationType.Value = DestinationType.Department
                         RowId.Value = Dept.First.CostCenterId
+                        hfGiveToName.Value = givename
+                        lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
                         Return
                     Else
                         badquery()
@@ -121,7 +121,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theImage1.ImageUrl = ViewState("imageurl")
         End Sub
         Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
-            Page.Title = "Agapé - " & givename
+            Page.Title = "Agapé - " & Title.Text
+
         End Sub
         Protected Sub badquery()
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
@@ -139,21 +140,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblWantGive.Text = Translate("WantGive")
             lblCreditCard.Text = Translate("lblCreditCard")
             lblFrequency.Text = Translate("lblFrequency")
-
-            If Request.QueryString("giveto") <> "" Then
-                Dim dBroke As New StaffBrokerDataContext
-                Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.AP_StaffBroker_StaffProfiles.Where(Function(p) (p.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "GivingShortcut")).First.PropertyValue = Request.QueryString("giveto"))
-                If staff.Count > 0 Then
-                    If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
-                        givename = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
-                    Else
-                        givename = ConvertDisplayToSensible(staff.First.DisplayName)
-                    End If
-                End If
-            End If
-            'givename = ChangeName(givename)
-            hfGiveToName.Value = givename
-            lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
             rblMethod.Items.Item(0).Text = Translate("rblMethZero")
             rblMethod.Items.Item(1).Text = Translate("rblMethOne")
             rblMethod.Items.Item(2).Text = Translate("rblMethTwo")
@@ -174,6 +160,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblBankStreet1.Text = Translate("BankSt1")
             lblBankStreet2.Text = Translate("BankSt2")
             lblBankCity.Text = Translate("BankCity")
+            lblBankCountry.Text = Translate("BankCountry")
             lblBankPostal.Text = Translate("BankPostal")
             lblIBAN.Text = Translate("IBAN")
             lblBankInfo.Text = Translate("BankInfo")
@@ -197,6 +184,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextBankAddress2.Text = Translate("BankSt2")
             lblSumTextBankPostal.Text = Translate("BankPostal")
             lblSumTextBankCity.Text = Translate("BankCity")
+            lblSumTextBankCountry.Text = Translate("BankCountry")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
             btnNoScriptGo.Text = Translate("btnFinishDon")
@@ -249,15 +237,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             End If
             Return inName
         End Function
-        Public Function ConvertDisplayToSensible(ByVal CurrentDisp As String) As String
-            Dim Output As String = ""
-            If CurrentDisp.IndexOf(",") > -1 And CurrentDisp.Contains(",") Then
-                Output = CurrentDisp.Substring(CurrentDisp.IndexOf(",") + 2) & " " & CurrentDisp.Substring(0, CurrentDisp.IndexOf(","))
-            Else
-                Output = CurrentDisp
-            End If
-            Return Output
-        End Function
         Public Function Translate(ByVal ResourceString As String) As String
             Return DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
         End Function
@@ -293,6 +272,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             hfUniqueRef.Value = insert.Reference
             insert.Amount = tbAmount.Text
             insert.BankCity = tbBankCity.Text
+            insert.BankCountry = cboBankCountry.SelectedItem.Text
             insert.BankName = tbBank.Text
             insert.BankPostal = tbBankPostal.Text
             insert.BankStreet1 = tbBankStreet1.Text

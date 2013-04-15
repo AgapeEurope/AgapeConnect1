@@ -411,4 +411,7 @@
   <data name="recipemailsubject.Text" xml:space="preserve">
     <value>Vous avez un nouveau don</value>
   </data>
+  <data name="BankCountry.Text" xml:space="preserve">
+    <value>Pays :</value>
+  </data>
 </root>

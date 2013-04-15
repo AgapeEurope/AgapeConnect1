@@ -201,6 +201,7 @@
     $('#lblSummaryBankAddress2').text($('.TxtBankStreet2').val());
     $('#lblSummaryBankPostal').text($('.TxtBankPostal').val());
     $('#lblSummaryBankCity').text($('.TxtBankCity').val());
+    $('#lblSummaryBankCountry').text($('.cboBankCountry option:selected').text());
     $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
     $('#lblSummaryDonComment').text($('.theDonationComment').val());
     $('.freqchoose').slideUp(1000);
@@ -468,7 +469,6 @@ function rbFreq_click() {
                 <div class="giveformitem">
                     <dnn:Label ID="LlbCountry" runat="server" ControlName="TxtCountry" />
                     <div>
-
                         <wc:CountryListBox TestIP="" LocalhostCountryCode="US" ID="cboCountry" CssClass="cboCountry" DataValueField="Value" DataTextField="Text" runat="server" />
                     </div>
                 </div>
@@ -544,6 +544,12 @@ function rbFreq_click() {
                     <asp:TextBox ID="tbBankCity" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankCity bankfill" />
                     <asp:RequiredFieldValidator ID="ValBankCity" ControlToValidate="tbBankCity" runat="server" Text="*" ValidationGroup="Bank" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator17" ControlToValidate="tbBankCity" runat="server" ValidationGroup="jBank" />
+                </div>
+                <div class="giveformitem">
+                    <dnn:Label ID="lblBankCountry" runat="server" ControlName="TxtBankCountry" />
+                    <div>
+                        <wc:CountryListBox TestIP="" LocalhostCountryCode="US" ID="cboBankCountry" CssClass="cboBankCountry" DataValueField="Value" DataTextField="Text" runat="server" />
+                    </div>
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
@@ -685,6 +691,13 @@ function rbFreq_click() {
                             <asp:Label ID="lblSumTextBankCity" CssClass="lblSumTextBankCity" Text="text" runat="server" /></td>
                         <td>
                             <label id="lblSummaryBankCity"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblSumTextBankCountry" CssClass="lblSumTextBankCountry" Text="text" runat="server" /></td>
+                        <td>
+                            <label id="lblSummaryBankCountry"></label>
                         </td>
                     </tr>
                     <tr>
