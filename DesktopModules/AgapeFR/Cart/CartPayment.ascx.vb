@@ -19,52 +19,52 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
     Partial Class CartPayment
         Inherits Entities.Modules.PortalModuleBase
 
-#Region "Properties"
-        Protected theControl As Object
+#Region "Properties and constants"
 
-        'Cart ID
-        Public Property TheCartID As Integer
+        'Path of the control to be loaded (specified in the request when the payment provider calls back the page)
+        Protected Const PaymentProviderPathParamKey As String = "PPP"
+        Protected ReadOnly Property PaymentProviderPath() As String
             Get
-                Dim obj = Session("TheCartID")
-                If obj Is Nothing Then
-                    Dim anonCookieValue As String = Request.Cookies(".ASPXANONYMOUS").Value
-                    obj = CartFunctions.GetCartID(UserId, anonCookieValue)
-                End If
-                Return obj
+                Return Request.Params(PaymentProviderPathParamKey)
             End Get
-            Private Set(ByVal value As Integer)
-                Session("TheCartID") = value
-            End Set
         End Property
 
 #End Region
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-            'If Not Me.IsPostBack Then
+            If Not Me.IsPostBack Then
 
-            '    ' Make sure no control remains displayed on the page
-            '    PhPaymentMethods.Controls.Clear()
+                ' Make sure no control remains displayed on the page
+                PhPaymentMethods.Controls.Clear()
 
-            '    ' Create Scellius payment control
-            '    theControl = LoadControl("/DesktopModules/AgapeFR/Cart/PaymentProviders/ScelliusPayment.ascx")
-            '    theControl.ID = "ScelliusPayment"
-            '    PhPaymentMethods.Controls.Add(theControl)
+                If Not String.IsNullOrEmpty(PaymentProviderPath) Then
+                    ' Load requested payment provider
+                    LoadPaymentProvider(PaymentProviderPath)
+                Else
+                    'TODO: Cart - Load here any other Payment Provider
 
-            '    Dim theCartTotals As CartFunctions.CartTotals = CartFunctions.GetCartTotals(TheCartID)
+                    ' Load Scellius payment provider
+                    LoadPaymentProvider("/DesktopModules/AgapeFR/Cart/PaymentProviders/ScelliusPayment.ascx")
+                End If
 
-            '    ' Set the control needed properties
-            '    Dim theControlType As Type = theControl.GetType()
-            '    theControlType.GetProperty(Payment.GenericPaymentProvider.AmountPropertyName).SetValue(theControl, theCartTotals.GrandTotal, Nothing)
-            '    theControlType.GetProperty(Payment.GenericPaymentProvider.OrderIdPropertyName).SetValue(theControl, TheCartID.ToString, Nothing)
-            '    theControlType.GetProperty(Payment.GenericPaymentProvider.TransactionIdPropertyName).SetValue(theControl, TheCartID.ToString, Nothing)
-            '    theControlType.GetProperty(Payment.GenericPaymentProvider.CallTypePropertyName).SetValue(theControl, Request.Params.Get(Payment.GenericPaymentProvider.CallTypeParamKey), Nothing)
-            '    theControlType.GetProperty(Payment.GenericPaymentProvider.ReturnURLPropertyName).SetValue(theControl, EditUrl("CartPayment"), Nothing)
+            End If
 
-            '    ' Init the control
-            '    theControlType.GetMethod(Payment.GenericPaymentProvider.InitializeMethodName).Invoke(theControl, Nothing)
+        End Sub
 
-            'End If
+        Protected Sub LoadPaymentProvider(ByVal TheControlPath As String)
+            ' Init the control and add it to the placeholder
+            Dim theControl As Object = LoadControl(TheControlPath)
+            Dim theControlType As Type = theControl.GetType()
+            theControl.ID = theControlType.Name
+            PhPaymentMethods.Controls.Add(theControl)
+
+            ' Set the control needed properties
+            theControlType.GetProperty(Payment.GenericPaymentProvider.ReturnURLPropertyName).SetValue(theControl, EditUrl(PaymentProviderPathParamKey, HttpUtility.UrlEncode(TheControlPath), "CartPayment"), Nothing)
+
+            ' Init the control
+            theControlType.GetMethod(Payment.GenericPaymentProvider.InitializeMethodName).Invoke(theControl, Nothing)
+
         End Sub
 
     End Class

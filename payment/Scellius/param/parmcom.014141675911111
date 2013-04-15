@@ -5,9 +5,9 @@
 #	Remarque :	Ce fichier paramètre est sous la responsabilité du
 #				commercant
 #
-#	Le certificat 011223344551111 est un certificat de test.
+#	Ce certificat est un certificat de test.
 #	Numero de CB qui fonctionne : 4974934125497800
-#	Cryptogramme qui fonctionne : 600
+#	Si besoin, cryptogramme qui fonctionne : 600
 #
 ###############################################################################
 
@@ -65,6 +65,6 @@ SUBMIT_LOGO!!
 
 # Fichier template
 
-TEMPLATE!!
+TEMPLATE!template_scellius!
 
 # END OF FILE

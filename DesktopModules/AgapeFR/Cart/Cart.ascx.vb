@@ -36,9 +36,8 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
             If Not Me.IsPostBack Then
 
-                ' Set "Settings" and "TestPayment" links visible only to users having the right to edit the page
+                ' Set "Settings" link visible only to users having the right to edit the page
                 btnSettings.Visible = IsEditable
-                btnTestPayment.Visible = IsEditable
 
                 LoadCart()
 
@@ -278,10 +277,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
         Protected Sub btnSettings_Click(sender As Object, e As System.EventArgs) Handles btnSettings.Click
             Response.Redirect(EditUrl("CartSettings"))
-        End Sub
-
-        Protected Sub btnTestPayment_Click(sender As Object, e As System.EventArgs) Handles btnTestPayment.Click
-            Response.Redirect(EditUrl("CartPayment"))
         End Sub
 
         Protected Sub AddModuleMessage(message As String, type As ModuleMessageType)

@@ -14,6 +14,7 @@ Namespace DotNetNuke.UI.Skins.Controls.Agape
                     Dim anonCookieValue As String = Request.Cookies(".ASPXANONYMOUS").Value
                     Dim userID = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo().UserID
                     obj = CartFunctions.GetCartID(userID, anonCookieValue)
+                    Session("TheCartID") = obj
                 End If
                 Return obj
             End Get

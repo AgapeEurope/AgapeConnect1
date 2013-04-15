@@ -43,6 +43,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
                 If obj Is Nothing Then
                     Dim anonCookieValue As String = Request.Cookies(".ASPXANONYMOUS").Value
                     obj = CartFunctions.GetCartID(UserId, anonCookieValue)
+                    Session("TheCartID") = obj
                 End If
                 Return obj
             End Get
@@ -272,7 +273,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
             Dim newLine As String = "<br />"
 
             If Not objAddress Is Nothing Then
-                'DAVID: Cart - Handle international formatting for addresses
+                'TODO Cart: Handle international formatting for addresses
                 If Not objAddress.FullName Is Nothing And objAddress.FullName <> "" Then
                     rtn.Append(objAddress.FullName).Append(newLine)
                 End If
@@ -340,6 +341,11 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
             BtnCopyBillingAddress.Visible = False
 
         End Sub
+
+        Protected Sub BtnBackToCart_Click(sender As Object, e As EventArgs) Handles BtnBackToCart.Click
+            Response.Redirect(NavigateURL())
+        End Sub
+
     End Class
 End Namespace
 
