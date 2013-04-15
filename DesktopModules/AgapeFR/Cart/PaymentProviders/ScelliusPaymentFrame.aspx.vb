@@ -153,7 +153,8 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
 
                 ' Insertion de la commande dans votre base de donnees
                 ' avec le status "en cours"
-                ' DAVID: Cart - Modifier le statut de la commande en BD
+                'TODO: Cart - Payment method to be set in DB?
+                CartFunctions.SubmitOrder(OrderId)
 
                 ' Appel de l'api SIPS payment et affichage de la réponse
                 LitPageContent.Text = api.sipsPaymentCallFunc(theCall)
