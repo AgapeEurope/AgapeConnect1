@@ -45,6 +45,79 @@
       <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="FCX_API_Key_FCX_API_FinBat" Member="FCX_API_FinBats" ThisKey="DeveloperId" OtherKey="DeveloperId" Type="FCX_API_FinBat" />
+      <Association Name="FCX_API_Key_FCX_API_DonBat" Member="FCX_API_DonBats" ThisKey="DeveloperId" OtherKey="DeveloperId" Type="FCX_API_DonBat" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCX_API_Donors_Prop" Member="FCX_API_Donors_Props">
+    <Type Name="FCX_API_Donors_Prop">
+      <Column Name="PropertyId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DonorId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyName" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyValue" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="FCX_API_Donor_FCX_API_Donors_Prop" Member="FCX_API_Donor" ThisKey="DonorId" OtherKey="DonorId" Type="FCX_API_Donor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCX_API_Donation_Prop" Member="FCX_API_Donation_Props">
+    <Type Name="FCX_API_Donation_Prop">
+      <Column Name="PropertyId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DonationId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyName" Type="System.String" DbType="NVarChar(80) NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyValue" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="FCX_API_Donation_FCX_API_Donation_Prop" Member="FCX_API_Donation" ThisKey="DonationId" OtherKey="DonationId" Type="FCX_API_Donation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCX_API_DonBat" Member="FCX_API_DonBats">
+    <Type Name="FCX_API_DonBat">
+      <Column Name="DonBatId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeveloperId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="SatusDesc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Received" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Downloaded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ITN_Sent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueBatchRef" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="FCX_API_DonBat_FCX_API_Donation" Member="FCX_API_Donations" ThisKey="DonBatId" OtherKey="DonationBatId" Type="FCX_API_Donation" />
+      <Association Name="FCX_API_Key_FCX_API_DonBat" Member="FCX_API_Key" ThisKey="DeveloperId" OtherKey="DeveloperId" Type="FCX_API_Key" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCX_API_Donors" Member="FCX_API_Donors">
+    <Type Name="FCX_API_Donor">
+      <Column Name="DonorId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="SpouseFirstName" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="SpouseLastName" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobilePhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueDonorRef" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="DonationnProcessorId" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="FCX_API_Donor_FCX_API_Donation" Member="FCX_API_Donations" ThisKey="DonorId" OtherKey="DonationId" Type="FCX_API_Donation" />
+      <Association Name="FCX_API_Donor_FCX_API_Donors_Prop" Member="FCX_API_Donors_Props" ThisKey="DonorId" OtherKey="DonorId" Type="FCX_API_Donors_Prop" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FCX_API_Donation" Member="FCX_API_Donations">
+    <Type Name="FCX_API_Donation">
+      <Column Name="DonationId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DonationBatId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="GiftDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="GlobalDonorCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DesigId" Type="System.String" DbType="NChar(120)" CanBeNull="true" />
+      <Column Name="PaymentProcessor" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PaymentProcessorTrxId" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="DonorId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueDonationRef" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="FCX_API_Donation_FCX_API_Donation_Prop" Member="FCX_API_Donation_Props" ThisKey="DonationId" OtherKey="DonationId" Type="FCX_API_Donation_Prop" />
+      <Association Name="FCX_API_DonBat_FCX_API_Donation" Member="FCX_API_DonBat" ThisKey="DonationBatId" OtherKey="DonBatId" Type="FCX_API_DonBat" IsForeignKey="true" />
+      <Association Name="FCX_API_Donor_FCX_API_Donation" Member="FCX_API_Donor" ThisKey="DonationId" OtherKey="DonorId" Type="FCX_API_Donor" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

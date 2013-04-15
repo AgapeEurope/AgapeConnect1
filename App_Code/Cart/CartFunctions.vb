@@ -43,6 +43,10 @@ Public Module OrderState
     Public Const Completed As Integer = 2
     Public Const Canceled As Integer = 3 'order not shipped out or completed
     Public Const Returned As Integer = 4
+    Public Const Downloading As Integer = 5
+    Public Const Downlaoded As Integer = 6
+    Public Const ErrorDownloading As Integer = 7
+
 End Module
 
 ' List of possible actions for CartEditAddress page
