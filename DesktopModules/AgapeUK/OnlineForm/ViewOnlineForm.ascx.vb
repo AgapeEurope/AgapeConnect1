@@ -162,6 +162,9 @@ Namespace DotNetNuke.Modules.OnlineForm
                     Case 4
                         Dim c As CheckBox = FindControl("Q" & question.FormQuestionId)
                         answer.AnswerText = IIf(c.Checked, "Yes", "No")
+                    Case 5
+                        Dim c As RadioButtonList = FindControl("Q" & question.FormQuestionId)
+                        answer.AnswerText = c.SelectedValue
                 End Select
                 Try
                     answer.UserId = Me.UserId
@@ -296,7 +299,9 @@ Namespace DotNetNuke.Modules.OnlineForm
             Catch ex As Exception
 
             End Try
-            SentLabel.Text = "Your form has been sent!"
+
+
+            SentLabel.Text = "Thank you! Your message has been sent. You will soon hear from us."
             SentLabel.Visible = True
 
             For Each ctrl In QuPlaceHolder.Controls

@@ -71,19 +71,25 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
                 lc = "USD"
             End If
             ddlCurrencies.SelectedValue = lc
-            Dim t As Type = Me.GetType()
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            sb.Append("<script language='javascript'>")
 
-            sb.Append(" var jsonCall= ""/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + lc + "&ToCur=" + ac + ";")
-            sb.Append("$.getJSON( jsonCall ,function(x) { setXRate(x);});")
+
+
+
+            'sb.Append(" var jsonCall= ""/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + lc + "&ToCur=" + ac + """;")
+            ' sb.Append("$.getJSON( jsonCall ,function(x) { setXRate(x);});")
 
 
 
             ' sb.Append(" $('.ddlCur" & suffix & "').change();")
             'sb.Append("setXRate(" & xrate & ");")
 
+
+
             If StaffBrokerFunctions.GetSetting("CurConverter", PortalId) = "True" Then
+
+                Dim t As Type = Me.GetType()
+                Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+                sb.Append("<script language='javascript'>")
                 If suffix = "" Then
                     sb.Append(" var tempValue=$('." & amount & "').val();   $('.ddlCur" & suffix & "').change(); $('." & amount & "').val(tempValue);   $('.currency" & suffix & "').val((parseFloat(tempValue) / parseFloat(" & xrate.ToString("n8", New CultureInfo("en-US")) & ")).toFixed(2));  $('.divCur" & suffix & "').show(); $('#" & btnCurrency.ClientID & "').hide();")
                 Else
@@ -92,11 +98,11 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
                 End If
 
 
-
+                sb.Append("</script>")
+                ScriptManager.RegisterStartupScript(Page, t, "cur" & suffix, sb.ToString, False)
             End If
 
-            sb.Append("</script>")
-            ScriptManager.RegisterStartupScript(Page, t, suffix, sb.ToString, False)
+           
         End If
     End Sub
 End Class

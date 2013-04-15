@@ -91,6 +91,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         End Sub
 
+
+
+
         Protected Sub btnSaveIp_Click(sender As Object, e As System.EventArgs) Handles btnSaveIp.Click
             StaffBrokerFunctions.SetSetting("TB-IP", tbIP.Text, PortalId)
         End Sub
@@ -98,6 +101,24 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Protected Sub btnTBRekey_Click(sender As Object, e As System.EventArgs) Handles btnTBRekey.Click
             StaffBrokerFunctions.SetSetting("TB-KEY", Guid.NewGuid().ToString, PortalId)
             lblTBKEY.Text = StaffBrokerFunctions.GetSetting("TB-KEY", PortalId)
+
+        End Sub
+
+        Protected Sub btnAddNewApiKey_Click(sender As Object, e As EventArgs) Handles btnAddNewApiKey.Click
+            Dim d As New FCX.FCXDataContext
+            Dim insert As New FCX.FCX_API_Key
+            insert.Active = True
+            insert.API_KEY = Guid.NewGuid()
+            insert.ProductName = tbNewName.Text
+            insert.PortalId = PortalId
+            insert.TrustLevel = 1
+            insert.FirstName = ""
+            insert.LastName = ""
+            insert.WhiteList = Request.Url.Host
+
+            d.FCX_API_Keys.InsertOnSubmit(insert)
+            d.SubmitChanges()
+            DataList1.DataBind()
 
         End Sub
     End Class

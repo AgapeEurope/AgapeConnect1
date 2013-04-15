@@ -56,39 +56,6 @@
       <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.AP_Staff_RmbLine" Member="AP_Staff_RmbLines">
-    <Type Name="AP_Staff_RmbLine">
-      <Column Name="RmbLineNo" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="RmbNo" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="LineType" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="GrossAmount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="TransDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="Comment" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Taxable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Receipt" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="VATReceipt" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ReceiptNo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="Mileage" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="MileageRate" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="Spare1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Spare2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Spare3" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Spare4" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Spare5" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="AnalysisCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Split" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="LargeTransaction" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="OutOfDate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Department" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="AccountCode" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
-      <Column Name="CostCenter" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
-      <Column Name="VATRate" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="VATCode" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
-      <Column Name="ForceTaxOrig" Type="System.Boolean" DbType="bit" CanBeNull="true" />
-      <Association Name="AP_Staff_RmbLineType_AP_Staff_RmbLine" Member="AP_Staff_RmbLineType" ThisKey="LineType" OtherKey="LineTypeId" Type="AP_Staff_RmbLineType" IsForeignKey="true" />
-      <Association Name="AP_Staff_Rmb_AP_Staff_RmbLine" Member="AP_Staff_Rmb" ThisKey="RmbNo" OtherKey="RMBNo" Type="AP_Staff_Rmb" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.AP_Staff_Rmb" Member="AP_Staff_Rmbs">
     <Type Name="AP_Staff_Rmb">
       <Column Name="RMBNo" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -143,6 +110,9 @@
       <Column Name="Error" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="ErrorMessage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrigCurrency" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="OrigCurrencyAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ShortComment" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.AP_Staff_Rmb_PerDeimMuliTypes" Member="AP_Staff_Rmb_PerDeimMuliTypes">
@@ -152,6 +122,42 @@
       <Column Name="Currency" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="Value" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="PortalId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_Staff_RmbLine" Member="AP_Staff_RmbLines">
+    <Type Name="AP_Staff_RmbLine">
+      <Column Name="RmbLineNo" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RmbNo" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="LineType" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="GrossAmount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TransDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Taxable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Receipt" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="VATReceipt" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ReceiptNo" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Mileage" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="MileageRate" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Spare1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Spare2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Spare3" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Spare4" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Spare5" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AnalysisCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Split" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LargeTransaction" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OutOfDate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Department" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AccountCode" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="CostCenter" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="VATRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="VATCode" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="ForceTaxOrig" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OrigCurrency" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="OrigCurrencyAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ShortComment" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Association Name="AP_Staff_Rmb_AP_Staff_RmbLine" Member="AP_Staff_Rmb" ThisKey="RmbNo" OtherKey="RMBNo" Type="AP_Staff_Rmb" IsForeignKey="true" />
+      <Association Name="AP_Staff_RmbLineType_AP_Staff_RmbLine" Member="AP_Staff_RmbLineType" ThisKey="LineType" OtherKey="LineTypeId" Type="AP_Staff_RmbLineType" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

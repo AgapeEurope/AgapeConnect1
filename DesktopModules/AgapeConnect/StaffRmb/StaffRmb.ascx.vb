@@ -90,6 +90,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
 
             lblError.Visible = False
+            If Not String.IsNullOrEmpty(Settings("NoReceipt")) Then
+                hfNoReceiptLimit.Value = Settings("NoReceipt")
+            End If
 
 
 
@@ -193,7 +196,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                 lblHighlight.Visible = acc
                 If acc Then
-                    Dim errors = From c In d.AP_Staff_Rmbs Where c.PortalId = PortalId And c.Error = True
+                    Dim errors = From c In d.AP_Staff_Rmbs Where c.PortalId = PortalId And c.Error = True And (c.Status = RmbStatus.PendingDownload Or c.Status = RmbStatus.DownloadFailed Or c.Status = RmbStatus.Approved)
+
                     If errors.Count > 0 Then
                         Dim s As String = ""
                         For Each rmb In errors
@@ -801,6 +805,38 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
                     lblAdvCur.Text = "" 'StaffBrokerFunctions.GetSetting("Currency", PortalId)
+                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
+                    hfAccountingCurrency.Value = ac
+                    hfOrigCurrency.Value = ac
+                    hfOrigCurrencyValue.Value = q.First.RequestAmount
+                    If Not String.IsNullOrEmpty(q.First.OrigCurrency) Then
+                    If q.First.OrigCurrency.ToUpper <> ac.ToUpper Then
+                        lblAdvCur.Text = q.First.OrigCurrencyAmount.Value.ToString("0.00") & " " & q.First.OrigCurrency.ToUpper
+
+                            hfOrigCurrency.Value = q.First.OrigCurrency
+                            hfOrigCurrencyValue.Value = q.First.OrigCurrencyAmount.Value.ToString("0.00")
+
+
+                            Dim jscript As String = ""
+
+                            hfOrigCurrencyValue.Value = q.First.OrigCurrencyAmount
+                            jscript &= " $('.currency').attr('value'," & q.First.OrigCurrencyAmount & ");"
+                      
+                            hfOrigCurrency.Value = q.First.OrigCurrency
+
+                            jscript &= " $('.ddlCur').val('" & q.First.OrigCurrency & "'); checkCur();"
+
+                            hfExchangeRate.Value = q.First.RequestAmount / q.First.OrigCurrencyAmount
+                            Dim t As Type = AdvAmount.GetType()
+                            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+                            sb.Append("<script language='javascript'>")
+                            sb.Append(jscript)
+                            sb.Append("</script>")
+                            ScriptManager.RegisterStartupScript(AdvAmount, t, "loadEditAdvCur", sb.ToString, False)
+                        End If
+                    End If
+
+
                     AdvAmount.Text = q.First.RequestAmount.Value.ToString("0.00")
                     AdvReason.Text = q.First.RequestText
                     AdvDate.Text = Translate("AdvDate").Replace("[DATE]", q.First.RequestDate.Value.ToShortDateString)
@@ -841,7 +877,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
                     End If
 
-                   
+
 
 
                     '   AccBal.Text = StaffBrokerFunctions.GetSetting("Currency", PortalId) & "3000"
@@ -1108,9 +1144,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         lblAccComments.Text = ""
                         tbAccComments.Text = ""
                     End If
-
-                    lblSubBy.Text = UserController.GetUserById(PortalId, q.First.UserId).DisplayName
-
+                    Dim theUser = UserController.GetUserById(PortalId, q.First.UserId)
+                    lblSubBy.Text = theUser.DisplayName
+                    staffInitials.Value = theUser.FirstName.Substring(0, 1) & theUser.LastName.Substring(0, 1)
 
 
                     lblWrongType.Visible = False
@@ -1444,6 +1480,19 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim insert As New AP_Staff_RmbLine
                     insert.Comment = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
                     insert.GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
+
+                    'Look for currency conversion
+
+                    If String.IsNullOrEmpty(hfOrigCurrency.Value) Then
+                        insert.OrigCurrency = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
+                        insert.OrigCurrencyAmount = insert.GrossAmount
+                    Else
+                        insert.OrigCurrency = hfOrigCurrency.Value
+                        insert.OrigCurrencyAmount = hfOrigCurrencyValue.Value
+                    End If
+
+
+
                     If insert.GrossAmount >= Settings("TeamLeaderLimit") Then
                         insert.LargeTransaction = True
                     Else
@@ -1609,14 +1658,43 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     Dim line = From c In d.AP_Staff_RmbLines Where c.RmbLineNo = CInt(btnAddLine.CommandArgument)
                     If line.Count > 0 Then
-                        line.First.Comment = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
-                        line.First.GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
+
+                        Dim comment As String = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
+                        If line.First.Comment <> comment Then
+                            line.First.Comment = comment
+                            If line.First.ShortComment <> tbShortComment.Text Then
+                                line.First.ShortComment = tbShortComment.Text
+                            Else
+                                line.First.ShortComment = Nothing
+                            End If
+                        Else
+                            If line.First.ShortComment <> tbShortComment.Text Then
+                                line.First.ShortComment = tbShortComment.Text
+                            End If
+                        End If
+
+                        Dim GrossAmount = CDbl(ucType.GetProperty("Amount").GetValue(theControl, Nothing))
+
+                        If String.IsNullOrEmpty(hfOrigCurrency.Value) Then
+                            line.First.OrigCurrency = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
+                            line.First.OrigCurrencyAmount = line.First.GrossAmount
+                        Else
+                            line.First.OrigCurrency = hfOrigCurrency.Value
+                            line.First.OrigCurrencyAmount = hfOrigCurrencyValue.Value
+                        End If
+
+                       
+
+
+                        line.First.GrossAmount = GrossAmount
 
                         If line.First.GrossAmount >= Settings("TeamLeaderLimit") Then
                             line.First.LargeTransaction = True
                         Else
                             line.First.LargeTransaction = False
                         End If
+
+
 
                         line.First.AccountCode = ddlAccountCode.SelectedValue
                         line.First.CostCenter = ddlCostcenter.SelectedValue
@@ -2013,7 +2091,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ' End If
                 ApprMessage = StaffBrokerFunctions.GetTemplate("RmbApprovedEmail-ApproversVersion", PortalId)
 
-                ' ApprMessage = ApprMessage.Replace("[APPRNAME]", ObjAppr.DisplayName).Replace("[RMBNO]", rmb.First.RMBNo).Replace("[STAFFNAME]", theUser.DisplayName)
+                ApprMessage = ApprMessage.Replace("[APPRNAME]", ObjAppr.DisplayName).Replace("[RMBNO]", rmb.First.RMBNo).Replace("[STAFFNAME]", theUser.DisplayName)
 
 
                 For Each row In (From c In myApprovers.UserIds Where c.UserID <> rmb.First.UserId And c.UserID <> SpouseId)
@@ -2145,11 +2223,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             'PopupTitle.Text = "Add New Reimbursement Expense"
             btnAddLine.CommandName = "Save"
 
+            hfOrigCurrency.Value = ""
+            hfOrigCurrencyValue.Value = ""
+            Dim jscript As String = ""
+            jscript &= " $('#" & hfOrigCurrency.ClientID & "').attr('value', '');"
+            jscript &= " $('#" & hfOrigCurrencyValue.ClientID & "').attr('value', '');"
 
             Dim t As Type = addLinebtn2.GetType()
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             sb.Append("<script language='javascript'>")
-            sb.Append("showPopup();")
+           
+            sb.Append(jscript & "showPopup();")
             sb.Append("</script>")
             ScriptManager.RegisterStartupScript(addLinebtn2, t, "popupAdd", sb.ToString, False)
 
@@ -2306,7 +2390,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         End Sub
 
         Protected Sub btnMarkProcessed_Click(sender As Object, e As System.EventArgs) Handles btnMarkProcessed.Click
-
+            DownloadBatch()
             Dim RmbList As List(Of Integer) = Session("RmbList")
             If Not RmbList Is Nothing Then
                 Dim q = From c In d.AP_Staff_Rmbs Where RmbList.Contains(c.RMBNo) And c.PortalId = PortalId
@@ -2358,6 +2442,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         End Sub
 
         Protected Sub btnDontMarkProcessed_Click(sender As Object, e As System.EventArgs) Handles btnDontMarkProcessed.Click
+            DownloadBatch()
+
             Dim t As Type = Me.GetType()
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             sb.Append("<script language='javascript'>")
@@ -2438,7 +2524,6 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             ElseIf e.CommandName = "myEdit" Then
 
 
-
                 Dim theLine = From c In d.AP_Staff_RmbLines Where c.RmbLineNo = CInt(e.CommandArgument)
                 If theLine.Count > 0 Then
                     'PopupTitle.Text = "Edit Reimbursement Transaction"
@@ -2450,6 +2535,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     '    phLineDetail.Controls.Add(theControl)
                     'End If
                     'theControl = Nothing
+
+
                     ddlLineTypes.Items.Clear()
                     Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
 
@@ -2486,6 +2573,20 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim ucType As Type = theControl.GetType()
                     ucType.GetProperty("Comment").SetValue(theControl, theLine.First.Comment, Nothing)
                     ucType.GetProperty("Amount").SetValue(theControl, CDbl(theLine.First.GrossAmount), Nothing)
+                    Dim jscript As String = ""
+                    If (Not theLine.First.OrigCurrencyAmount Is Nothing) Then
+                        hfOrigCurrencyValue.Value = theLine.First.OrigCurrencyAmount
+                        jscript &= " $('#" & hfOrigCurrencyValue.ClientID & "').attr('value', '" & theLine.First.OrigCurrencyAmount & "');"
+                        'jscript &= " $('.currency').attr('value'," & theLine.First.OrigCurrencyAmount & ");"
+                        hfExchangeRate.Value = (theLine.First.GrossAmount / theLine.First.OrigCurrencyAmount).Value.ToString(New CultureInfo(""))
+                    End If
+                    If (Not String.IsNullOrEmpty(theLine.First.OrigCurrency)) Then
+                        jscript &= " $('#" & hfOrigCurrency.ClientID & "').attr('value', '" & theLine.First.OrigCurrency & "');"
+                        hfOrigCurrency.Value = theLine.First.OrigCurrency
+                        'jscript &= " $('.ddlCur').val('" & theLine.First.OrigCurrency & "');"
+
+                    End If
+
                     ucType.GetProperty("theDate").SetValue(theControl, theLine.First.TransDate, Nothing)
                     ucType.GetProperty("VAT").SetValue(theControl, theLine.First.VATReceipt, Nothing)
                     ucType.GetProperty("Receipt").SetValue(theControl, theLine.First.Receipt, Nothing)
@@ -2510,6 +2611,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
                     End If
 
+                    tbShortComment.Text = GetLineComment(theLine.First.Comment, theLine.First.OrigCurrency, theLine.First.OrigCurrencyAmount, theLine.First.ShortComment).Substring(3)
+
+
 
                     'If ddlLineTypes.SelectedValue = 7 Then
 
@@ -2529,7 +2633,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim t As Type = GridView1.GetType()
                     Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
                     sb.Append("<script language='javascript'>")
-                    sb.Append("showPopup();")
+                    sb.Append(jscript & "showPopup();")
                     sb.Append("</script>")
                     ScriptManager.RegisterStartupScript(GridView1, t, "popupedit", sb.ToString, False)
 
@@ -2620,7 +2724,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
         End Sub
 
-        
+
 
 #End Region
 #Region "DropDownList Events"
@@ -2640,9 +2744,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ddlLineTypes.DataBind()
                 lblIncType.Visible = False
                 btnAddLine.Enabled = True
+
+
             End If
 
             ResetNewExpensePopup(False)
+
 
         End Sub
         Protected Sub ddlChargeTo_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlChargeTo.SelectedIndexChanged
@@ -2693,7 +2800,47 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Function
+        Public Function GetLineComment(ByVal comment As String, ByVal Currency As String, ByVal CurrencyValue As Double, ByVal ShortComment As String) As String
+            'Prefix initials  // suffix Currency   // Trim to 30 char
 
+
+
+
+            If Not String.IsNullOrEmpty(ShortComment) Then
+                Return staffInitials.Value & "-" & ShortComment
+            End If
+
+
+            Dim CurString = ""
+            If Not String.IsNullOrEmpty(Currency) Then
+                If Currency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
+                    CurString = Currency & CurrencyValue.ToString("f2")
+                    CurString = CurString.Replace(".00", "")
+
+                End If
+            End If
+
+            Return staffInitials.Value & "-" & comment.Substring(0, Math.Min(comment.Length, 27 - CurString.Length)) & CurString
+
+        End Function
+
+        Private Function FormatNumber(ByVal num As Double) As String
+            If (num >= 1000000) Then
+                Return (num / 1000000).ToString("0.#") + "M"
+            End If
+
+            If (num >= 100000) Then
+                Return (num / 1000).ToString("#,0") + "K"
+            End If
+
+            If (num >= 10000) Then
+                Return (num / 1000D).ToString("0.#") + "K"
+            End If
+
+            Return num.ToString("#,0")
+
+
+        End Function
 
         Public Function GetAdvTitle(ByVal LocalAdvanceId As Integer, ByVal RequestDate As Date) As String
 
@@ -3042,6 +3189,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Return ""
 
         End Function
+
+
         Public Sub LoadDefaultSettings()
             Dim tmc As New DotNetNuke.Entities.Modules.ModuleController
             If Settings("NoReceipt") = "" Then
@@ -3150,6 +3299,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                 Amount = CDbl(ucTypeOld.GetProperty("Amount").GetValue(theControl, Nothing))
                                 VAT = CStr(ucTypeOld.GetProperty("VAT").GetValue(theControl, Nothing))
                                 Receipt = CStr(ucTypeOld.GetProperty("Receipt").GetValue(theControl, Nothing))
+
+
+
                             End If
 
                         Catch ex As Exception
@@ -3364,6 +3516,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         Protected Function DownloadRmbSingle(ByVal RmbNo As Integer) As String
             Dim rtn As String = ""
             Dim theRmb = From c In d.AP_Staff_RmbLines Where c.RmbNo = RmbNo
+
             If theRmb.Count > 0 Then
                 Dim theUserId = (From c In d.AP_Staff_Rmbs Where c.RMBNo = RmbNo Select c.UserId).First
                 Dim theUser = UserController.GetUserById(PortalId, theUserId)
@@ -3374,6 +3527,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
 
                 For Each line In theRmb
+                    theDate = "=""" & line.TransDate.ToString("dd-MMM-yy") & """"
+
                     If line.Taxable Then
                         rtn &= "=""" & Settings("TaxAccountsReceivable") & ""","
                     Else
@@ -3395,9 +3550,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Else
                         Credit = -line.GrossAmount.ToString("0.00")
                     End If
+                    If (String.IsNullOrEmpty(line.ShortComment)) Then
+                        rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-" & IIf(line.Taxable, "(taxable)", "") & line.Comment,
+                                           Debit, Credit)
+                    Else
+                        rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-" & line.ShortComment,
+                                          Debit, Credit)
+                    End If
 
-                    rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-" & IIf(line.Taxable, "(taxable)", "") & line.Comment,
-                                            Debit, Credit)
 
 
 
@@ -3417,7 +3577,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ' Then add two more transactions. One to back out on 7012 (we will need to get this from a setting)
                 ' Then back in on Tax Accounts Payable
 
-
+                theDate = "=""" & Today.ToString("dd-MMM-yy") & """"
                 Dim theStaff = StaffBrokerFunctions.GetStaffMember(theUserId)
                 Dim PACMode = (
                     theStaff.CostCenter = "" And StaffBrokerFunctions.GetStaffProfileProperty(theStaff.StaffId, "PersonalAccountCode") <> "")
@@ -3510,6 +3670,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                         End If
                         If rmbAdvance <> 0 Then
+
+
                             rtn &= "=""" & Settings("AccountsReceivable") & ""","
 
                             rtn &= "=""" & theStaff.CostCenter & """" & ","
@@ -3546,12 +3708,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim rtn As String = ""
             Dim theAdv = From c In d.AP_Staff_AdvanceRequests Where c.AdvanceId = AdvanceNo And c.PortalId = PortalId
             If theAdv.Count > 0 Then
+                Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
                 Dim theUser = UserController.GetUserById(PortalId, theAdv.First.UserId)
                 Dim StaffMember = StaffBrokerFunctions.GetStaffMember(theAdv.First.UserId)
 
                 'First Debit 12xx
                 Dim ref = "A" & ZeroFill(theAdv.First.LocalAdvanceId, 5)
-                Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
+                'Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
+                Dim theDate As String = "=""" & theAdv.First.RequestDate.Value.ToString("dd-MMM-yy") & """"
                 rtn &= "=""" & Settings("AccountsReceivable") & ""","
                 rtn &= "=""" & StaffMember.CostCenter & ""","
                 rtn &= ref & ","
@@ -3564,8 +3728,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Else
                     Credit = (-theAdv.First.RequestAmount.Value).ToString("0.00")
                 End If
+                Dim curSuffix = ""
+                If Not String.IsNullOrEmpty(theAdv.First.OrigCurrency) Then
 
-                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId,
+                    If theAdv.First.OrigCurrency <> ac Then
+                        curSuffix = "-" & theAdv.First.OrigCurrency & theAdv.First.OrigCurrencyAmount.Value.ToString("0.00").Replace(".00", "")
+
+                    End If
+                End If
+                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId & curSuffix,
                                         Debit, Credit)
 
                 'Now Credit 23xx
@@ -3593,10 +3764,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Debit = (-theAdv.First.RequestAmount.Value).ToString("0.00")
                 End If
 
-                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId,
-                                        Debit, Credit)
-            End If
 
+
+
+
+                rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Adv#" & theAdv.First.LocalAdvanceId & curSuffix,
+                                        Debit, Credit)
+
+            End If
             Return rtn
         End Function
         Protected Function GetOrderedString(ByVal Desc As String, ByVal Debit As String, ByVal Credit As String, Optional Company As String = "") As String
@@ -3629,13 +3804,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
         Protected Sub DownloadBatch()
             Dim downloadStatuses() As Integer = {RmbStatus.PendingDownload, RmbStatus.DownloadFailed}
-
+            Log(0, "Downloading Batched Transactions")
 
             Dim pendDownload = From c In d.AP_Staff_Rmbs Where downloadStatuses.Contains(c.Status) And c.PortalId = PortalId
 
             Dim export As String = "Account,Subaccount,Ref,Date," & GetOrderedString("Description", "Debit", "Credit", "Company")
             Dim RmbList As New List(Of Integer)
             For Each rmb In pendDownload
+                Log(rmb.RMBNo, "Downloading Rmb")
                 export &= DownloadRmbSingle(rmb.RMBNo)
 
                 RmbList.Add(rmb.RMBNo)
@@ -3645,6 +3821,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             Dim AdvList As New List(Of Integer)
             For Each adv In pendDownloadAdv
+                Log(adv.AdvanceId, "Downloading Advance")
                 export &= DownloadAdvSingle(adv.AdvanceId)
 
                 AdvList.Add(adv.AdvanceId)
@@ -3724,6 +3901,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             insert.RequestDate = Today
             insert.PortalId = PortalId
             insert.RequestStatus = RmbStatus.Submitted
+            insert.OrigCurrency = hfOrigCurrency.Value
+            insert.OrigCurrencyAmount = Double.Parse(hfOrigCurrencyValue.Value, New CultureInfo(""))
+
             d.AP_Staff_AdvanceRequests.InsertOnSubmit(insert)
             d.SubmitChanges()
 
@@ -3915,6 +4095,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Else
                     lblAdvErr.Text = ""
                     q.First.RequestAmount = CDbl(AdvAmount.Text)
+                    q.First.OrigCurrencyAmount = CDbl(hfOrigCurrencyValue.Value)
+                    q.First.OrigCurrency = hfOrigCurrency.Value
+
+
                     'If IsAccounts() Then
                     '    If ddlAdvPeriod.SelectedIndex > 0 Then
                     '        q.First.Period = ddlAdvPeriod.SelectedValue

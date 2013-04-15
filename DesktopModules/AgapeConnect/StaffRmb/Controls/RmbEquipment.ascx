@@ -66,7 +66,7 @@
             </b>
         </td>
         <td>
-            <asp:DropDownList ID="ddlVATReceipt" runat="server">
+             <asp:DropDownList ID="ddlVATReceipt" runat="server" CssClass="ddlReceipt">
                 <asp:ListItem ResourceKey="VAT" Value="0">VAT</asp:ListItem>
                 <asp:ListItem ResourceKey="Standard" Value="1">Standard</asp:ListItem>
                 <asp:ListItem Value="-1">No Receipt (under [LIMIT])</asp:ListItem>

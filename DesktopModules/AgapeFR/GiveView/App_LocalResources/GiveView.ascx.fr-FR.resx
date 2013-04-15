@@ -121,7 +121,7 @@
     <value>Ajouter au Panier</value>
   </data>
   <data name="ListFreqFour.Text" xml:space="preserve">
-    <value>Aujourd'hui</value>
+    <value>Ponctuellement</value>
   </data>
   <data name="ListFreqOne.Text" xml:space="preserve">
     <value>Trimestriellement</value>
@@ -152,9 +152,6 @@
   </data>
   <data name="WantGive.Text" xml:space="preserve">
     <value>je veux donner</value>
-  </data>
-  <data name="AddedToCart.Text" xml:space="preserve">
-    <value>Merci, votre don a été ajouté à votre panier. Cliquez sur le panier à la caisse quand vous êtes prêt.</value>
   </data>
   <data name="Checkout.Text" xml:space="preserve">
     <value>Caisse</value>
@@ -201,7 +198,7 @@
   <data name="TheKey.Text" xml:space="preserve">
     <value>Equipiers</value>
   </data>
-  <data name="GoBank.Text" xml:space="preserve">
+  <data name="btnFinishDon.Text" xml:space="preserve">
     <value>Finir</value>
   </data>
   <data name="ListFreqZero.Text" xml:space="preserve">
@@ -247,10 +244,7 @@
     <value>mensuel</value>
   </data>
   <data name="lblCreditCard.Text" xml:space="preserve">
-    <value>Ce don sera ajouter dans votre panier. Vous pouvez laisser un message dessous si vous voulez.</value>
-  </data>
-  <data name="lblCheque.Text" xml:space="preserve">
-    <value>Voici les instructions pour envoyer votre cheque. Il faut que quelq'un les me donne...</value>
+    <value>Ce don sera ajouter dans votre panier.</value>
   </data>
   <data name="lblFrequency.Text" xml:space="preserve">
     <value>Je veux donner...</value>
@@ -258,7 +252,7 @@
   <data name="btnEditVirement.Text" xml:space="preserve">
     <value>Modifier</value>
   </data>
-  <data name="btnVirementNext.Text" xml:space="preserve">
+  <data name="btnNext.Text" xml:space="preserve">
     <value>Continuer</value>
   </data>
   <data name="WantGivePara1.Text" xml:space="preserve">
@@ -276,16 +270,148 @@
   <data name="lblSummaryRight.Text" xml:space="preserve">
     <value>Les infos de ma banque :</value>
   </data>
-  <data name="WantGivePara3.Text" xml:space="preserve">
-    <value>Je confirme que les informations ci-dessous sont correctes.</value>
-  </data>
-  <data name="lblConfText1.Text" xml:space="preserve">
-    <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
-  </data>
   <data name="lblLinkPDF.Text" xml:space="preserve">
     <value>Cliquer pour PDF</value>
   </data>
   <data name="lblTheLoginCont.Text" xml:space="preserve">
     <value>Merci de se connecter pour continuer.</value>
+  </data>
+  <data name="lblDonComment.Text" xml:space="preserve">
+    <value>Vous pouvez laisser un message dessous si vous voulez.</value>
+  </data>
+  <data name="lblSumDonComment.Text" xml:space="preserve">
+    <value>Votre message pour le destinataire :</value>
+  </data>
+  <data name="lblSumCheque.Text" xml:space="preserve">
+    <value>Je vais envoyer un cheque.</value>
+  </data>
+  <data name="lblConfCheque.Text" xml:space="preserve">
+    <value>Votre don est enregistré dans notre système. Merci d'envoyer le chèque !</value>
+  </data>
+  <data name="lblConfVirement.Text" xml:space="preserve">
+    <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
+  </data>
+  <data name="ErrorLblBank.Text" xml:space="preserve">
+    <value>Merci de donner votre prénom</value>
+  </data>
+  <data name="btnBio.Text" xml:space="preserve">
+    <value>Voir Bio</value>
+  </data>
+  <data name="ValAmt.Text" xml:space="preserve">
+    <value>Merci de sasir un montant</value>
+  </data>
+  <data name="ValAmtRange.Text" xml:space="preserve">
+    <value>Merci de sasir un montant valid</value>
+  </data>
+  <data name="ValBank.Text" xml:space="preserve">
+    <value>Merci de sasir le nom de votre banque</value>
+  </data>
+  <data name="ValBankCity.Text" xml:space="preserve">
+    <value>Merci de sasir la ville de votre banque</value>
+  </data>
+  <data name="ValBankPostal.Text" xml:space="preserve">
+    <value>Merci de sasir le code postal de votre banque</value>
+  </data>
+  <data name="ValBankPostalExp.Text" xml:space="preserve">
+    <value>Merci de sasir un code postal valid pour votre banque</value>
+  </data>
+  <data name="ValBankStreet1.Text" xml:space="preserve">
+    <value>Merci de sasir l'adresse de votre banque</value>
+  </data>
+  <data name="ValCity.Text" xml:space="preserve">
+    <value>Merci de sasir votre ville</value>
+  </data>
+  <data name="ValConfEmail.Text" xml:space="preserve">
+    <value>Merci de confirmer votre adresse mail</value>
+  </data>
+  <data name="ValEmail.Text" xml:space="preserve">
+    <value>Merci de sasir votre adresse mail</value>
+  </data>
+  <data name="ValEmailExp.Text" xml:space="preserve">
+    <value>Merci de sasir une adresse mail complete</value>
+  </data>
+  <data name="ValFirstName.Text" xml:space="preserve">
+    <value>Merci de sasir votre prénom</value>
+  </data>
+  <data name="ValFreq.Text" xml:space="preserve">
+    <value>Merci de choisir un frequence</value>
+  </data>
+  <data name="ValIBAN.Text" xml:space="preserve">
+    <value>Merci de sasir votre IBAN</value>
+  </data>
+  <data name="ValLastName.Text" xml:space="preserve">
+    <value>Merci de sasir votre nom</value>
+  </data>
+  <data name="ValMethod.Text" xml:space="preserve">
+    <value>Merci de choisir un method de don</value>
+  </data>
+  <data name="ValMobileExp.Text" xml:space="preserve">
+    <value>Merci de sasir un numero mobile valid</value>
+  </data>
+  <data name="ValPostCode.Text" xml:space="preserve">
+    <value>Merci de sasir votre code postal</value>
+  </data>
+  <data name="ValPostCodeExp.Text" xml:space="preserve">
+    <value>Merci de sasir un code postal valid</value>
+  </data>
+  <data name="ValStreet1.Text" xml:space="preserve">
+    <value>Merci de sasir votre adresse</value>
+  </data>
+  <data name="ValSumDon.Text" xml:space="preserve">
+    <value>Il y a une ou plusiers erreurs sur la page :</value>
+  </data>
+  <data name="ValTelephoneExp.Text" xml:space="preserve">
+    <value>Merci de sasir un numero fixé valid</value>
+  </data>
+  <data name="donoremailsubject.Text" xml:space="preserve">
+    <value>Merci pour votre don !</value>
+  </data>
+  <data name="DonorEmailPara1.Text" xml:space="preserve">
+    <value>Merci pour votre don ! Il est bien enregistré dans notre système. Voici le résumé de votre don :</value>
+  </data>
+  <data name="DonorEmailPara2.Text" xml:space="preserve">
+    <value>Vous envisagez de faire un don [FREQ] de [AMOUNT]€ pour [RECIP].</value>
+  </data>
+  <data name="DonorEmailCheque.Text" xml:space="preserve">
+    <value>Pour finir votre don, vous pouvez imprimer ce document et l'envoyer avec votre cheque. Vous pouvez utiliser le lien ci-dessous :</value>
+  </data>
+  <data name="EmailGreeting.Text" xml:space="preserve">
+    <value>Bonjour [NAME] !</value>
+  </data>
+  <data name="DonorEmailPara3.Text" xml:space="preserve">
+    <value>Voici le message que vous avez envoyer au destinataire :</value>
+  </data>
+  <data name="DonorEmailPara5.Text" xml:space="preserve">
+    <value>Encore un grand merci de notre part !</value>
+  </data>
+  <data name="DonorEmailVirement.Text" xml:space="preserve">
+    <value>Pour finir votre don, il faut signer et envoyer ce document à votre banque. Vous pouvez utiliser le lien ci-dessous :</value>
+  </data>
+  <data name="lblPleaseWait.Text" xml:space="preserve">
+    <value>Merci d'attendre</value>
+  </data>
+  <data name="ccDonTo.Text" xml:space="preserve">
+    <value>Don pour </value>
+  </data>
+  <data name="RecipEmailPara1.Text" xml:space="preserve">
+    <value>Quelqu'un a fait un don dans notre système! Voici le résumé de votre don :</value>
+  </data>
+  <data name="RecipEmailPara2.Text" xml:space="preserve">
+    <value>Un don [FREQ] de [AMOUNT]€ par [METHOD].</value>
+  </data>
+  <data name="RecipEmailPara3.Text" xml:space="preserve">
+    <value>Voici les informations du donateur :</value>
+  </data>
+  <data name="RecipEmailPara4.Text" xml:space="preserve">
+    <value>Le donateur a ecrit un message :</value>
+  </data>
+  <data name="RecipEmailPara5.Text" xml:space="preserve">
+    <value>Merci de contacter compta si vous avez des questions.</value>
+  </data>
+  <data name="recipemailsubject.Text" xml:space="preserve">
+    <value>Vous avez un nouveau don</value>
+  </data>
+  <data name="BankCountry.Text" xml:space="preserve">
+    <value>Pays :</value>
   </data>
 </root>

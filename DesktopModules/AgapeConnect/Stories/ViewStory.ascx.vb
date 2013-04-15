@@ -77,23 +77,76 @@ Namespace DotNetNuke.Modules.FullStory
 
 
                 ReplaceField(sv, "[HEADLINE]", r.Headline)
+                Page.Title = "Agap&eacute; - " & r.Headline
                 location = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
                 ReplaceField(sv, "[MAP]", " <div id=""map_canvas""></div>")
+
+
+
+
+
+
 
                 ReplaceField(sv, "[STORYTEXT]", r.StoryText)
                 Dim thePhoto = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(r.PhotoId)
 
+                Dim URL = "http://" & PortalSettings.PortalAlias.HTTPAlias & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto)
+                ReplaceField(sv, "[IMAGEURL]", URL)
+                Dim meta As New HtmlMeta
+                meta.Attributes.Add("property", "og:image")
+                meta.Content = URL
+                Page.Header.Controls.AddAt(0, meta)
+                Dim meta2 As New HtmlMeta
+                meta2.Attributes.Add("property", "og:title")
+                meta2.Content = r.Headline
+                Page.Header.Controls.AddAt(0, meta2)
 
-                ReplaceField(sv, "[IMAGEURL]", DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto))
+                Dim permalink = EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId")
+                ReplaceField(sv, "[DATAHREF]", permalink)
+                Dim meta3 As New HtmlMeta
+                meta3.Attributes.Add("property", "og:url")
+
+                meta3.Content = permalink
+                Page.Header.Controls.AddAt(0, meta3)
+
+                Dim meta4 As New HtmlMeta
+                meta4.Attributes.Add("property", "og:description")
+                meta4.Content = r.TextSample
+                Page.Header.Controls.AddAt(0, meta4)
+
+                Dim meta5 As New HtmlMeta
+                meta5.Attributes.Add("property", "og:site_name")
+                meta5.Content = PortalSettings.PortalName
+                Page.Header.Controls.AddAt(0, meta5)
+
+                Dim Fid = StaffBrokerFunctions.GetSetting("FacebookId", PortalId)
+                If Not String.IsNullOrEmpty(Fid) Then
+                    Dim meta6 As New HtmlMeta
+                    meta6.Attributes.Add("property", "fb:app_id")
+                    meta6.Content = Fid
+                    Page.Header.Controls.AddAt(0, meta6)
+                End If
+                
+                ReplaceField(sv, "[FACEBOOKID]", Fid)
+
 
 
                 ReplaceField(sv, "[AUTHOR]", r.Author)
                 ReplaceField(sv, "[DATE]", r.StoryDate.ToString("d MMM yyyy"))
+                If (Not r.UpdatedDate Is Nothing) Then
+                    If (DateDiff(DateInterval.Day, r.StoryDate, r.UpdatedDate.Value) > 14) Then
+                        'Only show updated date if the update was more than two weeks after the creation date
+                        ReplaceField(sv, "[UPDATEDDATE]", "(updated " & r.UpdatedDate.Value.ToString("d MMM yyyy") & ")")
+                    End If
+                    
+                End If
+                ReplaceField(sv, "[UPDATEDDATE]", "")
                 ReplaceField(sv, "[RSSURL]", "/DesktopModules/AgapeConnect/Stories/Feed.aspx?channel=" & TabModuleId)
                 ReplaceField(sv, "[SAMPLE]", r.TextSample)
                 ReplaceField(sv, "[SUBTITLE]", r.Subtitle)
                 ReplaceField(sv, "[FIELD1]", r.Field1)
                 ReplaceField(sv, "[FIELD2]", r.Field2)
+
 
                 If r.Field3.Contains("#selAuth#") Then
                     Dim authID = r.Field3.Substring(9)
@@ -148,10 +201,16 @@ Namespace DotNetNuke.Modules.FullStory
 
                 End If
                 ReplaceField(sv, "[LANGUAGES]", "")
+                If (sv.IndexOf("[SUPERPOWERS]") < 0) Then
+                    ltStory1.Text = sv
+                    ltStory2.Text = ""
+                Else
+                    ltStory1.Text = sv.Substring(0, sv.IndexOf("[SUPERPOWERS]"))
 
-                ltStory1.Text = sv.Substring(0, sv.IndexOf("[SUPERPOWERS]"))
+                    ltStory2.Text = sv.Substring(sv.IndexOf("[SUPERPOWERS]") + 13)
+                End If
 
-                ltStory2.Text = sv.Substring(sv.IndexOf("[SUPERPOWERS]") + 13)
+
 
 
                 If IsEditable Then
@@ -250,8 +309,6 @@ Namespace DotNetNuke.Modules.FullStory
             End If
 
         End Function
-
-
 
 
 

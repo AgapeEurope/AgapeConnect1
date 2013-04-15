@@ -41,10 +41,13 @@ Partial Class controls_RmbSubAct
                 ddlVATReceipt.Items(2).Enabled = False
             End If
         Else
-            'ddlVATReceipt.Items(2).Text = ddlVATReceipt.Items(2).Text.Replace("[LIMIT]", settings("Currency") & settings("NoReceipt"))
             hfNoReceiptLimit.Value = settings("NoReceipt")
+            Dim _LIMIT As String = StaffBrokerFunctions.GetSetting("Currency", PortalId) & settings("NoReceipt")
+            ddlVATReceipt.Items(2).Text = DotNetNuke.Services.Localization.Localization.GetString("NoReceipt.Text", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
+            ttlReceipt.Text = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Text", LocalResourceFile)
+            ttlReceipt.HelpText = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Help", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
             ReceiptLine.Visible = True
-            'ddlVATReceipt.Items(2).Enabled = True
+            ddlVATReceipt.Items(2).Enabled = True
         End If
         If settings("VatAttrib") = False Then
             ddlVATReceipt.Items(0).Enabled = False
@@ -73,6 +76,8 @@ Partial Class controls_RmbSubAct
             End If
         End Set
     End Property
+
+
     Public Property VAT() As Boolean
         Get
             Return (ddlVATReceipt.SelectedValue = 0)
@@ -138,10 +143,12 @@ Partial Class controls_RmbSubAct
     End Property
     Public Property Receipt() As Boolean
         Get
-            Return True
+            Return ddlVATReceipt.SelectedValue >= 0
         End Get
         Set(ByVal value As Boolean)
-           
+            If value = False Then
+                ddlVATReceipt.SelectedValue = -1
+            End If
         End Set
     End Property
     Public Property Taxable() As Boolean

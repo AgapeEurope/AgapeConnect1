@@ -312,7 +312,7 @@
                         <ItemTemplate>
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td style="width: 100%">
+                                    <td style="width: 75%">
                                       <asp:HyperLink ID="HyperLink1" runat="server" Target="_blank" NavigateUrl='<%# Eval("Link") %>'>
                                 <table border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 3px; ">
                                     <tr>

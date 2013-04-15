@@ -32,209 +32,224 @@ Namespace DotNetNuke.Modules.Stories
 
                 Dim mc As New DotNetNuke.Entities.Modules.ModuleController
 
+                Dim dtp = DotNetNuke.Entities.Modules.DesktopModuleController.GetDesktopModuleByFriendlyName(Me.ModuleConfiguration.DesktopModule.FriendlyName).DesktopModuleID
+                'Dim allTabs = mc.GetModulesByDefinition(PortalId, Me.ModuleConfiguration.DesktopModule.FriendlyName)
+                'Dim allTabs = mc.GetAllTabsModulesByModuleID(ModuleId)
+                Dim allTabs As New ArrayList()
 
-                Dim allTabs = mc.GetAllTabsModulesByModuleID(ModuleId)
+                Dim tabs = (New TabController).GetTabsByPortal(PortalId)
+                For Each row In tabs
 
-                Dim channels As New Dictionary(Of Integer, String)
-
-                For Each row As DotNetNuke.Entities.Modules.ModuleInfo In allTabs
-                    'Check permissions.
-                    If DotNetNuke.Security.Permissions.ModulePermissionController.CanEditModuleContent(row) Then
-                        Dim name As String = row.ModuleControl.ControlTitle
-                        If String.IsNullOrEmpty(name) Then
-                            name = row.ParentTab.TabName
+                    Dim mods = mc.GetTabModules(row.Value.TabID)
+                    For Each row2 In mods
+                        If row2.Value.DesktopModuleID = dtp Then
+                            allTabs.Add(row2.Value)
                         End If
-                        channels.Add(row.TabModuleID, name)
-                    End If
+                    Next
                 Next
 
-                ddlChannels.DataSource = channels
-                ddlChannels.DataTextField = "Value"
-                ddlChannels.DataValueField = "Key"
-                ddlChannels.DataBind()
+                    StaffBrokerFunctions.EventLog("TabCount", allTabs.Count, UserId)
+                    Dim channels As New Dictionary(Of Integer, String)
 
-                ddlLanguage.DataSource = From c In CultureInfo.GetCultures(CultureTypes.SpecificCultures) Order By c.EnglishName Select Name = c.Name.ToLower, EnglishName = c.EnglishName
-                ddlLanguage.DataValueField = "Name"
-                ddlLanguage.DataTextField = "EnglishName"
-                ddlLanguage.DataBind()
+                    For Each row As DotNetNuke.Entities.Modules.ModuleInfo In allTabs
+                        'Check permissions.
 
-
-
-                Dim d As New StoriesDataContext
-
-
-
-
-
-                If Me.UserInfo.IsSuperUser And IsEditable() Then
-                    'SuperPowers.Visible = True
-                End If
-                PagePanel.Visible = True
-                NotFoundLabel.Visible = False
-
-                Dim authorTitle = StaffBrokerFunctions.GetSetting("Authors", Me.PortalId)
-                If authorTitle <> "" Then
-                    Dim rc As New DotNetNuke.Security.Roles.RoleController()
-                    Dim theseAuthors = rc.GetUsersByRoleName(Me.PortalId, authorTitle)
-                    ddlAuthor.DataTextField = "DisplayName"
-                    ddlAuthor.DataValueField = "UserID"
-                    ddlAuthor.DataSource = theseAuthors
-                    ddlAuthor.DataBind()
-                    ddlAuthor.Visible = True
-                    Author.Visible = False
-                    tbField3.Visible = False
-                    lblField3.Visible = False
-                Else
-                    ddlAuthor.Visible = False
-                    Author.Visible = True
-                    tbField3.Visible = True
-                    lblField3.Visible = True
-                End If
-
-                If Request.QueryString("StoryID") <> "" Then
-
-
-
-                    StoryIdHF.Value = Request.QueryString("StoryId")
-
-                    Dim r = (From c In d.AP_Stories Where c.StoryId = Request.QueryString("StoryID")).First
-
-                    If channels.Where(Function(x) x.Key = r.TabModuleId).Count > 0 Then
-                        ddlChannels.SelectedValue = r.TabModuleId
-                    Else
-                        'Look for tab (which you don't have permission for
-                        Dim theTab = From c As DotNetNuke.Entities.Modules.ModuleInfo In allTabs Where c.TabModuleID = r.TabModuleId
-                        If theTab.Count > 0 Then
-                            Dim name As String = theTab.First.ModuleControl.ControlTitle
+                        If DotNetNuke.Security.Permissions.ModulePermissionController.CanAdminModule(row) Then
+                            Dim name As String = row.ModuleControl.ControlTitle
                             If String.IsNullOrEmpty(name) Then
-                                name = theTab.First.ParentTab.TabName
+                                name = row.ParentTab.TabName
+                            End If
+                            channels.Add(row.TabModuleID, name)
+                        End If
+                    Next
+
+                    ddlChannels.DataSource = channels
+                    ddlChannels.DataTextField = "Value"
+                    ddlChannels.DataValueField = "Key"
+                    ddlChannels.DataBind()
+
+                    ddlLanguage.DataSource = From c In CultureInfo.GetCultures(CultureTypes.SpecificCultures) Order By c.EnglishName Select Name = c.Name.ToLower, EnglishName = c.EnglishName
+                    ddlLanguage.DataValueField = "Name"
+                    ddlLanguage.DataTextField = "EnglishName"
+                    ddlLanguage.DataBind()
+
+
+
+                    Dim d As New StoriesDataContext
+
+
+
+
+
+                    If Me.UserInfo.IsSuperUser And IsEditable() Then
+                        'SuperPowers.Visible = True
+                    End If
+                    PagePanel.Visible = True
+                    NotFoundLabel.Visible = False
+
+                    Dim authorTitle = StaffBrokerFunctions.GetSetting("Authors", Me.PortalId)
+                    If authorTitle <> "" Then
+                        Dim rc As New DotNetNuke.Security.Roles.RoleController()
+                        Dim theseAuthors = rc.GetUsersByRoleName(Me.PortalId, authorTitle)
+                        ddlAuthor.DataTextField = "DisplayName"
+                        ddlAuthor.DataValueField = "UserID"
+                        ddlAuthor.DataSource = theseAuthors
+                        ddlAuthor.DataBind()
+                        ddlAuthor.Visible = True
+                        Author.Visible = False
+                        tbField3.Visible = False
+                        lblField3.Visible = False
+                    Else
+                        ddlAuthor.Visible = False
+                        Author.Visible = True
+                        tbField3.Visible = True
+                        lblField3.Visible = True
+                    End If
+
+                    If Request.QueryString("StoryID") <> "" Then
+
+
+
+                        StoryIdHF.Value = Request.QueryString("StoryId")
+
+                        Dim r = (From c In d.AP_Stories Where c.StoryId = Request.QueryString("StoryID")).First
+
+                        If channels.Where(Function(x) x.Key = r.TabModuleId).Count > 0 Then
+                            ddlChannels.SelectedValue = r.TabModuleId
+                        Else
+                            'Look for tab (which you don't have permission for
+                            Dim theTab = From c As DotNetNuke.Entities.Modules.ModuleInfo In allTabs Where c.TabModuleID = r.TabModuleId
+                            If theTab.Count > 0 Then
+                                Dim name As String = theTab.First.ModuleControl.ControlTitle
+                                If String.IsNullOrEmpty(name) Then
+                                    name = theTab.First.ParentTab.TabName
+                                End If
+
+                                ddlChannels.Items.Add(New ListItem(r.TabModuleId, name))
                             End If
 
-                            ddlChannels.Items.Add(New ListItem(r.TabModuleId, name))
-                        End If
-
-                        'just use the current tab
-                        ddlChannels.SelectedValue = TabModuleId
-
-                    End If
-
-
-
-
-                    Headline.Text = r.Headline
-                    ' imgbtnPrint.OnClientClick = "window.open('/DesktopModules/FullStory/PrintStory.aspx?StoryId=" & Request.QueryString("StoryId") & "', '_blank'); "
-                    'If Me.UserInfo.IsSuperUser Then
-
-                    '    If Not Page.IsPostBack Then
-
-
-
-                    '        Dim BoostDate As String
-                    '        If r.EditorBoost <= Date.Now Then
-                    '            BoostLabel.Text = "Not currently boosted."
-                    '        Else
-                    '            BoostDate = r.EditorBoost.Value.ToShortDateString()
-                    '            BoostLabel.Text = "Boosted until " & BoostDate
-                    '        End If
-                    '        Editable.Checked = r.Editable
-
-                    '    End If
-
-                    'End If
-
-                    StoryText.Text = r.StoryText
-
-                    tbLocation.Text = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
-
-                    StoryDate.Text = r.StoryDate.ToString("dd MMM yyyy")
-
-
-                    If (Not String.IsNullOrEmpty(r.Field1)) Then
-                        tbField1.Text = r.Field1
-                    End If
-                    If (Not String.IsNullOrEmpty(r.Field2)) Then
-                        tbField2.Text = r.Field2
-                    End If
-                    If Not (authorTitle <> "") Then
-                        Author.Text = r.Author
-                        If (Not String.IsNullOrEmpty(r.Field3)) Then
-                            tbField3.Text = r.Field3
-                        End If
-                    End If
-                    If (Not String.IsNullOrEmpty(r.TextSample)) Then
-                        tbSample.Text = r.TextSample
-                    End If
-                    If (Not String.IsNullOrEmpty(r.Subtitle)) Then
-                        Subtitle.Text = r.Subtitle
-                    End If
-
-
-                    ' Dim thePhoto = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(r.PhotoId)
-                    '  StoryImage.ImageUrl = DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto)
-                    acImage1.FileId = r.PhotoId
-                    PhotoIdHF.Value = r.PhotoId
-                    If (From c As ListItem In ddlLanguage.Items Where c.Value = r.Language).Count > 0 Then
-                        ddlLanguage.SelectedValue = r.Language
-                    Else
-                        ddlLanguage.SelectedValue = CultureInfo.CurrentCulture.Name.ToLower
-                    End If
-                    pnlLanguages.Visible = False
-                    If Not (r.TranslationGroup Is Nothing) Then
-
-
-                        Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = r.TranslationGroup And c.PortalID = r.PortalID And c.StoryId <> r.StoryId Select c.Language, c.StoryId
-
-                        If Translist.Count > 0 Then
-                            pnlLanguages.Visible = True
-                            dlLanuages.DataSource = Translist
-                            dlLanuages.DataBind()
+                            'just use the current tab
+                            ddlChannels.SelectedValue = TabModuleId
 
                         End If
 
 
-                    End If
 
-                Else
 
-                    If String.IsNullOrEmpty(Session("Long")) Or String.IsNullOrEmpty(Session("Lat")) Then
-                        Dim ls As New LookupService(Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD)
-                        ' Dim l As Location = ls.getRegion(Request.ServerVariables("remote_addr"))
+                        Headline.Text = r.Headline
+                        ' imgbtnPrint.OnClientClick = "window.open('/DesktopModules/FullStory/PrintStory.aspx?StoryId=" & Request.QueryString("StoryId") & "', '_blank'); "
+                        'If Me.UserInfo.IsSuperUser Then
 
-                        Dim l As Location = ls.getLocation("80.193.180.102")   '(Solihill)
-                        Session("Long") = l.longitude
-                        Session("Lat") = l.latitude
-                    End If
-                    If Request.QueryString("tg") <> "" Then
+                        '    If Not Page.IsPostBack Then
+
+
+
+                        '        Dim BoostDate As String
+                        '        If r.EditorBoost <= Date.Now Then
+                        '            BoostLabel.Text = "Not currently boosted."
+                        '        Else
+                        '            BoostDate = r.EditorBoost.Value.ToShortDateString()
+                        '            BoostLabel.Text = "Boosted until " & BoostDate
+                        '        End If
+                        '        Editable.Checked = r.Editable
+
+                        '    End If
+
+                        'End If
+
+                        StoryText.Text = r.StoryText
+
+                        tbLocation.Text = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
+
+                        StoryDate.Text = r.StoryDate.ToString("dd MMM yyyy")
+
+
+                        If (Not String.IsNullOrEmpty(r.Field1)) Then
+                            tbField1.Text = r.Field1
+                        End If
+                        If (Not String.IsNullOrEmpty(r.Field2)) Then
+                            tbField2.Text = r.Field2
+                        End If
+                        If Not (authorTitle <> "") Then
+                            Author.Text = r.Author
+                            If (Not String.IsNullOrEmpty(r.Field3)) Then
+                                tbField3.Text = r.Field3
+                            End If
+                        End If
+                        If (Not String.IsNullOrEmpty(r.TextSample)) Then
+                            tbSample.Text = r.TextSample
+                        End If
+                        If (Not String.IsNullOrEmpty(r.Subtitle)) Then
+                            Subtitle.Text = r.Subtitle
+                        End If
+
+
+                        ' Dim thePhoto = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(r.PhotoId)
+                        '  StoryImage.ImageUrl = DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(thePhoto)
+                        acImage1.FileId = r.PhotoId
+                        PhotoIdHF.Value = r.PhotoId
+                        If (From c As ListItem In ddlLanguage.Items Where c.Value = r.Language).Count > 0 Then
+                            ddlLanguage.SelectedValue = r.Language
+                        Else
+                            ddlLanguage.SelectedValue = CultureInfo.CurrentCulture.Name.ToLower
+                        End If
                         pnlLanguages.Visible = False
+                        If Not (r.TranslationGroup Is Nothing) Then
 
-                        Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = CInt(Request.QueryString("tg")) And c.PortalID = PortalId Select c.Language, c.StoryId
 
-                        If Translist.Count > 0 Then
-                            pnlLanguages.Visible = True
-                            dlLanuages.DataSource = Translist
-                            dlLanuages.DataBind()
+                            Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = r.TranslationGroup And c.PortalID = r.PortalID And c.StoryId <> r.StoryId Select c.Language, c.StoryId
+
+                            If Translist.Count > 0 Then
+                                pnlLanguages.Visible = True
+                                dlLanuages.DataSource = Translist
+                                dlLanuages.DataBind()
+
+                            End If
+
+
+                        End If
+
+                    Else
+
+                        If String.IsNullOrEmpty(Session("Long")) Or String.IsNullOrEmpty(Session("Lat")) Then
+                            Dim ls As New LookupService(Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD)
+                            ' Dim l As Location = ls.getRegion(Request.ServerVariables("remote_addr"))
+
+                            Dim l As Location = ls.getLocation("80.193.180.102")   '(Solihill)
+                            Session("Long") = l.longitude
+                            Session("Lat") = l.latitude
+                        End If
+                        If Request.QueryString("tg") <> "" Then
+                            pnlLanguages.Visible = False
+
+                            Dim Translist = From c In d.AP_Stories Where c.TranslationGroup = CInt(Request.QueryString("tg")) And c.PortalID = PortalId Select c.Language, c.StoryId
+
+                            If Translist.Count > 0 Then
+                                pnlLanguages.Visible = True
+                                dlLanuages.DataSource = Translist
+                                dlLanuages.DataBind()
+
+                            End If
+
 
                         End If
 
 
+                        Dim lg As Double = Session("Long")
+                        Dim lt As Double = Session("Lat")
+                        tbLocation.Text = lt.ToString(New CultureInfo("")) & ", " & lg.ToString(New CultureInfo(""))
+
+                        StoryDate.Text = Today.ToString("dd MMM yyyy")
+                        StoryText.Text = "Enter your news here..."
+
+                        Author.Text = UserInfo.DisplayName
+                        ddlChannels.SelectedValue = TabModuleId
+                        'Headline.Text = CultureInfo.CurrentCulture.TwoLetterISOLanguageName
+                        ddlLanguage.SelectedValue = CultureInfo.CurrentCulture.Name.ToLower
+
+
+
                     End If
-
-
-                    Dim lg As Double = Session("Long")
-                    Dim lt As Double = Session("Lat")
-                    tbLocation.Text = lt.ToString(New CultureInfo("")) & ", " & lg.ToString(New CultureInfo(""))
-
-                    StoryDate.Text = Today.ToString("dd MMM yyyy")
-                    StoryText.Text = "Enter your news here..."
-
-                    Author.Text = UserInfo.DisplayName
-                    ddlChannels.SelectedValue = TabModuleId
-                    'Headline.Text = CultureInfo.CurrentCulture.TwoLetterISOLanguageName
-                    ddlLanguage.SelectedValue = CultureInfo.CurrentCulture.Name.ToLower
-
-
-
-                End If
 
 
 
@@ -315,7 +330,7 @@ Namespace DotNetNuke.Modules.Stories
                 q.First.Subtitle = Subtitle.Text
                 q.First.Field1 = tbField1.Text
                 q.First.Field2 = tbField2.Text
-
+                q.First.UpdatedDate = Today
 
                 If cbAutoGenerate.Checked Then
 
@@ -345,6 +360,9 @@ Namespace DotNetNuke.Modules.Stories
                 Else
                     Return
                 End If
+
+                StoryFunctions.RefreshLocalChannel(CInt(ddlChannels.SelectedValue))
+
                 Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId"))
             Else
                 Dim insert As New AP_Story
@@ -418,7 +436,7 @@ Namespace DotNetNuke.Modules.Stories
                     StoryFunctions.PrecalAllCaches(row.AP_Stories_Module.TabModuleId)
                 Next
 
-
+                StoryFunctions.RefreshLocalChannel(CInt(ddlChannels.SelectedValue))
                 Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & insert.StoryId)
             End If
 

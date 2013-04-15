@@ -11,24 +11,45 @@ Namespace Stories
         Public Function GetSearchItems(ModInfo As DotNetNuke.Entities.Modules.ModuleInfo) As DotNetNuke.Services.Search.SearchItemInfoCollection Implements DotNetNuke.Entities.Modules.ISearchable.GetSearchItems
             Dim d As New StoriesDataContext
             Dim SearchItemCollection As New Services.Search.SearchItemInfoCollection
-            Dim Stories = From c In d.AP_Stories Where c.PortalID = ModInfo.PortalID And c.IsVisible = True
+
+            Dim mc = New DotNetNuke.Entities.Modules.ModuleController
+
+
+
+            Dim Stories = From c In d.AP_Stories Where c.PortalID = ModInfo.PortalID And c.TabId = ModInfo.TabID And c.IsVisible = True
+
+
 
             'From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = ModInfo.TabModuleID()
 
             For Each row In Stories
+               
+                ' Dim t = mc.GetTabModule(row.TabModuleId)
+                'If (t.ModuleID = ModInfo.ModuleID) Then
 
                 Dim SearchText = (row.Headline & " " & row.StoryText & " " & row.Author)
+                Dim summary As String = ""
+                If String.IsNullOrEmpty(row.TextSample) Then
+                    summary = Left(StoryFunctions.StripTags(row.StoryText), 500)
+                Else
+                    summary = Left(StoryFunctions.StripTags(row.TextSample), 500)
+                End If
+                If (summary.IndexOf(".") > 0) Then
+                    summary = summary.Substring(0, summary.LastIndexOf(".") + 1)
+
+                End If
 
 
                 Dim SearchItem As Services.Search.SearchItemInfo
                 SearchItem = New Services.Search.SearchItemInfo _
                  (row.Headline, _
-                Left(StoryFunctions.StripTags(row.StoryText), 500) & "...", _
+                summary, _
                 row.UserId, _
                row.StoryDate, ModInfo.ModuleID, _
                  "S" & row.StoryId, _
               SearchText, Guid:="StoryId=" & row.StoryId, Image:=row.PhotoId, TabID:=row.TabId)
                 SearchItemCollection.Add(SearchItem)
+                ' End If
             Next
 
 
@@ -128,11 +149,21 @@ Public Class StoryFunctions
         Return insert.ChannelId
     End Function
 
+    Public Shared Sub RefreshLocalChannel(ByVal tabModuleId As Integer)
+        Dim d As New Stories.StoriesDataContext
+        Dim Channels = From c In d.AP_Stories_Module_Channels Where c.URL.Contains("channel=" & tabModuleId)
+        For Each row In Channels
+            RefreshFeed(row.AP_Stories_Module.TabModuleId, row.ChannelId, False)
+        Next
+
+       
+
+    End Sub
 
    
     Public Shared Sub RefreshFeed(ByVal tabModuleId As Integer, ByVal ChannelId As Integer, Optional ByVal ClearCache As Boolean = False)
 
-
+        'StaffBrokerFunctions.EventLog("Refreshing Channel: " & ChannelId, "", 1)
 
 
         Dim d As New Stories.StoriesDataContext
@@ -192,6 +223,9 @@ Public Class StoryFunctions
                         End If
                         If Not row.Summary Is Nothing Then
                             insert.Description = Left(row.Summary.Text, 500)
+                        ElseIf Not row.Content Is Nothing Then
+
+                            insert.Description = Left(CType(row.Content, TextSyndicationContent).Text, 500)
                         End If
                         insert.ChannelId = theChannel.ChannelId
 
@@ -248,7 +282,7 @@ Public Class StoryFunctions
 
 
                         If Not row.Id Is Nothing Then
-                            insert.GUID = row.Id
+                            insert.GUID = Left(row.Id, 154)
                         End If
 
 
@@ -268,9 +302,15 @@ Public Class StoryFunctions
                         End If
                         If Not row.Summary Is Nothing Then
                             existingStory.First.Description = Left(row.Summary.Text, 500)
+                        ElseIf Not row.Content Is Nothing Then
+                            existingStory.First.Description = Left(CType(row.Content, TextSyndicationContent).Text, 500)
                         End If
 
+
                         set_if(existingStory.First.StoryDate, row.PublishDate.DateTime)
+
+                        SetImage(existingStory.First, row, theChannel.ImageId)
+
                         Try
 
 
@@ -284,17 +324,21 @@ Public Class StoryFunctions
 
 
                     End If
+                    d.SubmitChanges()
                 Catch ex As Exception
                     'If a story wont load, just skip to the nect one..
-                    Dim s = ex.Message
+                    Dim s = ex.ToString
+
+                    StaffBrokerFunctions.EventLog("AddStoryToCache Failed", s, 1)
                 End Try
+
             Next
 
 
-            d.SubmitChanges()
+
 
         Catch ex As Exception
-
+            StaffBrokerFunctions.EventLog("Refresh Cache Failed", ex.ToString(), 1)
         End Try
 
 

@@ -66,7 +66,7 @@ public class Location {
     {
 
 
-        if (System.Web.HttpContext.Current.Session["Long"] == null)
+        if (System.Web.HttpContext.Current.Session["Location"] == null)
         {
 
 

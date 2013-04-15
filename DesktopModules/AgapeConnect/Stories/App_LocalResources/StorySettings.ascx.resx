@@ -192,4 +192,10 @@
   <data name="lblSpeed.Text" xml:space="preserve">
     <value>Speed</value>
   </data>
+  <data name="lblStoriesPage.Help" xml:space="preserve">
+    <value>Select the tab, where the stories from thi module will be displayed.</value>
+  </data>
+  <data name="lblStoriesPage.Text" xml:space="preserve">
+    <value>View Story Page (Optoinal)</value>
+  </data>
 </root>

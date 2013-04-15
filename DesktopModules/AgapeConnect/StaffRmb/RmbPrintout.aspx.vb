@@ -136,7 +136,16 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                     lines = lines & "</td>"
                     lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
-                    lines = lines & "<td>" & Cur & row.GrossAmount.ToString("0.00") & "</td>"
+
+                    Dim amount = Cur & row.GrossAmount.ToString("0.00")
+                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
+                    If Not String.IsNullOrEmpty(row.OrigCurrency) Then
+                        If row.OrigCurrency.ToUpper <> ac.ToUpper Then
+                            amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
+                        End If
+                    End If
+
+                    lines = lines & "<td>" & amount & "</td>"
                     lines = lines & "<td>" & "</td>"   ' row.VATCode & "</td>"
                     lines = lines & "<td></td><td></td></tr>"
 
@@ -175,7 +184,16 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                     lines = lines & "</td>"
                     lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
-                    lines = lines & "<td>" & Cur & row.GrossAmount.ToString("0.00") & "</td>"
+
+                    Dim amount = Cur & row.GrossAmount.ToString("0.00")
+                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
+                    If Not String.IsNullOrEmpty(row.OrigCurrency) Then
+                        If row.OrigCurrency.ToUpper <> ac.ToUpper Then
+                            amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
+                        End If
+                    End If
+
+                    lines = lines & "<td>" & amount & "</td>"
                     lines = lines & "<td>" & "</td>" ' IIf(row.VATReceipt, "Yes", "No") & "</td>"
                     lines = lines & "<td>" & "</td>" ' row.VATCode & "</td>"
                     lines = lines & "<td>" & row.ReceiptNo & "</td></tr>"
@@ -197,7 +215,25 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             
 
 
-
+            If Not q.First.ApprDate Is Nothing Then
+                output = output.Replace("[APPROVEDON]", q.First.ApprDate.Value.ToString("dd/MM/yyyy"))
+            Else
+                output = output.Replace("[APPROVEDON]", "")
+            End If
+            If Not q.First.ProcDate Is Nothing Then
+                output = output.Replace("[PROCESSEDON]", q.First.ProcDate.Value.ToString("dd/MM/yyyy"))
+            Else
+                output = output.Replace("[PROCESSEDON]", "")
+            End If
+            output = output.Replace("[PAIDON]", "")
+            output = output.Replace("[PAIDBY]", "")
+            If Not q.First.ApprUserId Is Nothing Then
+                output = output.Replace("[APPROVEDBY]", UserController.GetUserById(PS.PortalId, q.First.ApprUserId).DisplayName)
+            Else
+                output = output.Replace("[APPROVEDBY]", "")
+            End If
+           
+            output = output.Replace("[PROCESSEDBY]", "")
 
 
 

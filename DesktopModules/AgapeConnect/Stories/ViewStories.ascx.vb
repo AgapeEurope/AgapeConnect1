@@ -18,19 +18,25 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
         Dim theControl As Object
 
         Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
-            Dim addTitle = MyBase.Actions.Add(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+            Dim addTitle = New Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+
             addTitle.Actions.Add(GetNextActionID, "Story Settings", "StorySettings", "", "action_settings.gif", EditUrl("StorySettings"), False, SecurityAccessLevel.Edit, True, False)
             addTitle.Actions.Add(GetNextActionID, "Story Mixer", "StoryMixer", "", "action_settings.gif", EditUrl("Mixer"), False, SecurityAccessLevel.Edit, True, False)
 
             addTitle.Actions.Add(GetNextActionID, "New Story", "NewStory", "", "add.gif", EditUrl("AddEditStory"), False, SecurityAccessLevel.Edit, True, False)
-
+            MyBase.Actions.Insert(0, addTitle)
         End Sub
 
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
             If Request.QueryString("StoryId") <> "" Then
-                Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId"))
+                If String.IsNullOrEmpty(Settings("ViewTab")) Or Settings("ViewTab") = 0 Then
+                    Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId"))
+                Else
+                    Response.Redirect(NavigateURL(CInt(Settings("ViewTab"))) & "?StoryId=" & Request.QueryString("StoryId") & "&origTabId=" & TabId & "&origModId=" & ModuleId)
+                End If
+
             End If
 
             If Not String.IsNullOrEmpty(Request.Form("StoryLink")) Then
@@ -102,7 +108,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                 G = Double.Parse(Settings("WeightPopular"), New CultureInfo(""))
             End If
             'Dim q = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId Order By CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (1.0 - CDbl(CDbl(Math.Min(200, ((Math.Acos(CDbl(Math.Sin(deg2Rad * (lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(deg2Rad * CDbl(lt))) * CDbl(Math.Cos(deg2Rad * CDbl(c.Latitude))) * CDbl(Math.Cos(deg2Rad * (lg - CDbl(c.Longitude)))))) / CDbl(Math.PI) * 180.0) * 1.1515 * 60.0)) / 200.0)))) / 2.0 Descending
-            Dim q = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId Order By CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0))))) / CDbl(2.0) Descending
+            Dim q = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId And Not c.Block Order By CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0))))) / CDbl(2.0) Descending
             Dim culture = CultureInfo.CurrentCulture.Name.ToLower
             'Dim culture2 = CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower
             'q = q.Where(Function(c) (CultureInfo.CurrentCulture.Name.ToLower.Contains(c.Langauge.ToLower) Or c.Langauge.ToLower.Contains(CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower)))
