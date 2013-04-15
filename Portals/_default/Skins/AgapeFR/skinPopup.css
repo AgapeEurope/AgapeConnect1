@@ -79,36 +79,21 @@ a:hover{color:#5eb6e4; text-decoration: underline;  }
 
 /*===== MINICART skin object skinning =====*/
 
-.minicart_background {
-	height: 50px;
-	width: 50px;    
+.minicart {
+    margin-left: 10px;
+}
+
+.minicart_icon {
+	height: 12px;
+	width: 16px;    
 	background-image: url('/Portals/_default/Skins/AgapeFR/images/cart.png');
 	background-repeat: no-repeat;
+    float:left;
+    margin-right: 3px;
 }
-
-.minicart_bubble {
-	margin-left: 6px;
-	height: 26px;
-	width: 26px;  
-	-moz-border-radius: 13px;
-	border-radius: 13px;
-	background-color: #005BC3;
-	text-align: center;
-	line-height: 26px;
-	vertical-align: middle;
-}
-
-.minicart a:hover .minicart_bubble {
-	background-color: #62B4E8;
-} 
-
-.minicart a:hover  {
-	text-decoration: none;
-} 
 
 .minicart a {
-    font-weight: bold;
-    color: white;
+    color: #727373;
 }
 
 /*===== End of MINICART skin object skinning =====*/

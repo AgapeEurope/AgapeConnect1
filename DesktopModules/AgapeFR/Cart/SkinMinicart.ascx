@@ -2,10 +2,6 @@
 
 <div class="minicart">
     <asp:LinkButton ID="BtnCart" CausesValidation="false" runat="server">
-        <div class="minicart_background">
-            <div class="minicart_bubble">
-                <asp:Label ID="LblMinicartText" runat="server"></asp:Label>
-            </div>
-        </div>
+        <div class="minicart_icon"></div><asp:Label ID="LblMinicartText" runat="server"></asp:Label>
     </asp:LinkButton>
 </div>

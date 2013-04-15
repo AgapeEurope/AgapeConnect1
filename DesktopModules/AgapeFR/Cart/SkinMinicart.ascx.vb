@@ -29,11 +29,12 @@ Namespace DotNetNuke.UI.Skins.Controls.Agape
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-            'DAVID La valeur semble être récupérée avant qu'elle soit incrémentée, dans certains cas (ajout d'un don au panier par ex) => Gestion d'événements à voir
-            Dim theCartTotals As CartFunctions.CartTotals = CartFunctions.GetCartTotals(TheCartID)
+            'TO BE CORRECTED: La valeur semble être récupérée avant qu'elle soit incrémentée, dans certains cas (ajout d'un don au panier par ex) => Gestion d'événements à voir
+            'Dim theCartTotals As CartFunctions.CartTotals = CartFunctions.GetCartTotals(TheCartID)
 
-            'LblMinicartText.Text = Translate("Cart")
-            LblMinicartText.Text = theCartTotals.ItemCount
+            LblMinicartText.Text = Translate("Cart")
+
+            'LblMinicartText.Text = theCartTotals.ItemCount 'If we want to display the cart item number
         End Sub
 
         Protected Sub BtnCart_Click(sender As Object, e As EventArgs) Handles BtnCart.Click
