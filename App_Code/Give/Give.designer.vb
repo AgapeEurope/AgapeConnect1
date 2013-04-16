@@ -23,7 +23,7 @@ Imports System.Reflection
 
 Namespace Give
 	
-	<Global.System.Data.Linq.Mapping.DatabaseAttribute(Name:="AC-FR")>  _
+	<Global.System.Data.Linq.Mapping.DatabaseAttribute(Name:="AgapeConnect")>  _
 	Partial Public Class GiveDataContext
 		Inherits System.Data.Linq.DataContext
 		
@@ -31,12 +31,6 @@ Namespace Give
 		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnCreated()
-    End Sub
-    Partial Private Sub InsertAgape_Give_DonationType(instance As Agape_Give_DonationType)
-    End Sub
-    Partial Private Sub UpdateAgape_Give_DonationType(instance As Agape_Give_DonationType)
-    End Sub
-    Partial Private Sub DeleteAgape_Give_DonationType(instance As Agape_Give_DonationType)
     End Sub
     Partial Private Sub InsertAgape_Give_BankTransfer(instance As Agape_Give_BankTransfer)
     End Sub
@@ -71,168 +65,11 @@ Namespace Give
 			OnCreated
 		End Sub
 		
-		Public ReadOnly Property Agape_Give_DonationTypes() As System.Data.Linq.Table(Of Agape_Give_DonationType)
-			Get
-				Return Me.GetTable(Of Agape_Give_DonationType)
-			End Get
-		End Property
-		
 		Public ReadOnly Property Agape_Give_BankTransfers() As System.Data.Linq.Table(Of Agape_Give_BankTransfer)
 			Get
 				Return Me.GetTable(Of Agape_Give_BankTransfer)
 			End Get
 		End Property
-	End Class
-	
-	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.Agape_Give_DonationType")>  _
-	Partial Public Class Agape_Give_DonationType
-		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
-		
-		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
-		
-		Private _DonationTypeId As Integer
-		
-		Private _DonationTypeName As String
-		
-		Private _DonationTypeNumber As System.Nullable(Of Byte)
-		
-		Private _Visible As System.Nullable(Of Boolean)
-		
-		Private _Agape_Give_BankTransfers As EntitySet(Of Agape_Give_BankTransfer)
-		
-    #Region "Extensibility Method Definitions"
-    Partial Private Sub OnLoaded()
-    End Sub
-    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
-    End Sub
-    Partial Private Sub OnCreated()
-    End Sub
-    Partial Private Sub OnDonationTypeIdChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnDonationTypeIdChanged()
-    End Sub
-    Partial Private Sub OnDonationTypeNameChanging(value As String)
-    End Sub
-    Partial Private Sub OnDonationTypeNameChanged()
-    End Sub
-    Partial Private Sub OnDonationTypeNumberChanging(value As System.Nullable(Of Byte))
-    End Sub
-    Partial Private Sub OnDonationTypeNumberChanged()
-    End Sub
-    Partial Private Sub OnVisibleChanging(value As System.Nullable(Of Boolean))
-    End Sub
-    Partial Private Sub OnVisibleChanged()
-    End Sub
-    #End Region
-		
-		Public Sub New()
-			MyBase.New
-			Me._Agape_Give_BankTransfers = New EntitySet(Of Agape_Give_BankTransfer)(AddressOf Me.attach_Agape_Give_BankTransfers, AddressOf Me.detach_Agape_Give_BankTransfers)
-			OnCreated
-		End Sub
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DonationTypeId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
-		Public Property DonationTypeId() As Integer
-			Get
-				Return Me._DonationTypeId
-			End Get
-			Set
-				If ((Me._DonationTypeId = value)  _
-							= false) Then
-					Me.OnDonationTypeIdChanging(value)
-					Me.SendPropertyChanging
-					Me._DonationTypeId = value
-					Me.SendPropertyChanged("DonationTypeId")
-					Me.OnDonationTypeIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DonationTypeName", DbType:="NVarChar(100)")>  _
-		Public Property DonationTypeName() As String
-			Get
-				Return Me._DonationTypeName
-			End Get
-			Set
-				If (String.Equals(Me._DonationTypeName, value) = false) Then
-					Me.OnDonationTypeNameChanging(value)
-					Me.SendPropertyChanging
-					Me._DonationTypeName = value
-					Me.SendPropertyChanged("DonationTypeName")
-					Me.OnDonationTypeNameChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DonationTypeNumber", DbType:="TinyInt")>  _
-		Public Property DonationTypeNumber() As System.Nullable(Of Byte)
-			Get
-				Return Me._DonationTypeNumber
-			End Get
-			Set
-				If (Me._DonationTypeNumber.Equals(value) = false) Then
-					Me.OnDonationTypeNumberChanging(value)
-					Me.SendPropertyChanging
-					Me._DonationTypeNumber = value
-					Me.SendPropertyChanged("DonationTypeNumber")
-					Me.OnDonationTypeNumberChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Visible", DbType:="Bit")>  _
-		Public Property Visible() As System.Nullable(Of Boolean)
-			Get
-				Return Me._Visible
-			End Get
-			Set
-				If (Me._Visible.Equals(value) = false) Then
-					Me.OnVisibleChanging(value)
-					Me.SendPropertyChanging
-					Me._Visible = value
-					Me.SendPropertyChanged("Visible")
-					Me.OnVisibleChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Agape_Give_DonationType_Agape_Give_BankTransfer", Storage:="_Agape_Give_BankTransfers", ThisKey:="DonationTypeNumber", OtherKey:="DonationType")>  _
-		Public Property Agape_Give_BankTransfers() As EntitySet(Of Agape_Give_BankTransfer)
-			Get
-				Return Me._Agape_Give_BankTransfers
-			End Get
-			Set
-				Me._Agape_Give_BankTransfers.Assign(value)
-			End Set
-		End Property
-		
-		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
-		
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
-		
-		Protected Overridable Sub SendPropertyChanging()
-			If ((Me.PropertyChangingEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
-			End If
-		End Sub
-		
-		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
-			If ((Me.PropertyChangedEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-			End If
-		End Sub
-		
-		Private Sub attach_Agape_Give_BankTransfers(ByVal entity As Agape_Give_BankTransfer)
-			Me.SendPropertyChanging
-			entity.Agape_Give_DonationType = Me
-		End Sub
-		
-		Private Sub detach_Agape_Give_BankTransfers(ByVal entity As Agape_Give_BankTransfer)
-			Me.SendPropertyChanging
-			entity.Agape_Give_DonationType = Nothing
-		End Sub
 	End Class
 	
 	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.Agape_Give_BankTransfer")>  _
@@ -263,6 +100,8 @@ Namespace Give
 		
 		Private _BankCity As String
 		
+		Private _BankCountry As String
+		
 		Private _GiveMessage As String
 		
 		Private _Reference As String
@@ -277,9 +116,7 @@ Namespace Give
 		
 		Private _GiveMethod As System.Nullable(Of Byte)
 		
-		Private _BankCountry As String
-		
-		Private _Agape_Give_DonationType As EntityRef(Of Agape_Give_DonationType)
+		Private _PortalID As System.Nullable(Of Integer)
 		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -332,6 +169,10 @@ Namespace Give
     End Sub
     Partial Private Sub OnBankCityChanged()
     End Sub
+    Partial Private Sub OnBankCountryChanging(value As String)
+    End Sub
+    Partial Private Sub OnBankCountryChanged()
+    End Sub
     Partial Private Sub OnGiveMessageChanging(value As String)
     End Sub
     Partial Private Sub OnGiveMessageChanged()
@@ -360,15 +201,14 @@ Namespace Give
     End Sub
     Partial Private Sub OnGiveMethodChanged()
     End Sub
-    Partial Private Sub OnBankCountryChanging(value As String)
+    Partial Private Sub OnPortalIDChanging(value As System.Nullable(Of Integer))
     End Sub
-    Partial Private Sub OnBankCountryChanged()
+    Partial Private Sub OnPortalIDChanged()
     End Sub
     #End Region
 		
 		Public Sub New()
 			MyBase.New
-			Me._Agape_Give_DonationType = CType(Nothing, EntityRef(Of Agape_Give_DonationType))
 			OnCreated
 		End Sub
 		
@@ -549,6 +389,22 @@ Namespace Give
 			End Set
 		End Property
 		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BankCountry", DbType:="NVarChar(200)")>  _
+		Public Property BankCountry() As String
+			Get
+				Return Me._BankCountry
+			End Get
+			Set
+				If (String.Equals(Me._BankCountry, value) = false) Then
+					Me.OnBankCountryChanging(value)
+					Me.SendPropertyChanging
+					Me._BankCountry = value
+					Me.SendPropertyChanged("BankCountry")
+					Me.OnBankCountryChanged
+				End If
+			End Set
+		End Property
+		
 		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_GiveMessage", DbType:="NVarChar(MAX)")>  _
 		Public Property GiveMessage() As String
 			Get
@@ -604,9 +460,6 @@ Namespace Give
 			End Get
 			Set
 				If (Me._DonationType.Equals(value) = false) Then
-					If Me._Agape_Give_DonationType.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
 					Me.OnDonationTypeChanging(value)
 					Me.SendPropertyChanging
 					Me._DonationType = value
@@ -664,46 +517,18 @@ Namespace Give
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BankCountry", DbType:="NVarChar(200)")>  _
-		Public Property BankCountry() As String
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_PortalID", DbType:="Int")>  _
+		Public Property PortalID() As System.Nullable(Of Integer)
 			Get
-				Return Me._BankCountry
+				Return Me._PortalID
 			End Get
 			Set
-				If (String.Equals(Me._BankCountry, value) = false) Then
-					Me.OnBankCountryChanging(value)
+				If (Me._PortalID.Equals(value) = false) Then
+					Me.OnPortalIDChanging(value)
 					Me.SendPropertyChanging
-					Me._BankCountry = value
-					Me.SendPropertyChanged("BankCountry")
-					Me.OnBankCountryChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Agape_Give_DonationType_Agape_Give_BankTransfer", Storage:="_Agape_Give_DonationType", ThisKey:="DonationType", OtherKey:="DonationTypeNumber", IsForeignKey:=true)>  _
-		Public Property Agape_Give_DonationType() As Agape_Give_DonationType
-			Get
-				Return Me._Agape_Give_DonationType.Entity
-			End Get
-			Set
-				Dim previousValue As Agape_Give_DonationType = Me._Agape_Give_DonationType.Entity
-				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._Agape_Give_DonationType.HasLoadedOrAssignedValue = false)) Then
-					Me.SendPropertyChanging
-					If ((previousValue Is Nothing)  _
-								= false) Then
-						Me._Agape_Give_DonationType.Entity = Nothing
-						previousValue.Agape_Give_BankTransfers.Remove(Me)
-					End If
-					Me._Agape_Give_DonationType.Entity = value
-					If ((value Is Nothing)  _
-								= false) Then
-						value.Agape_Give_BankTransfers.Add(Me)
-						Me._DonationType = value.DonationTypeNumber
-					Else
-						Me._DonationType = CType(Nothing, Nullable(Of Byte))
-					End If
-					Me.SendPropertyChanged("Agape_Give_DonationType")
+					Me._PortalID = value
+					Me.SendPropertyChanged("PortalID")
+					Me.OnPortalIDChanged
 				End If
 			End Set
 		End Property

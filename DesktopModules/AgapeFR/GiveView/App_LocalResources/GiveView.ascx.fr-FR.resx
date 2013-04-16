@@ -364,7 +364,7 @@
     <value>Merci de sasir un numero fixé valid</value>
   </data>
   <data name="donoremailsubject.Text" xml:space="preserve">
-    <value>Merci pour votre don !</value>
+    <value>Votre promesse de don</value>
   </data>
   <data name="DonorEmailPara1.Text" xml:space="preserve">
     <value>Merci pour votre don ! Il est bien enregistré dans notre système. Voici le résumé de votre don :</value>
@@ -410,5 +410,8 @@
   </data>
   <data name="BankCountry.Text" xml:space="preserve">
     <value>Pays :</value>
+  </data>
+  <data name="NoMessage.Text" xml:space="preserve">
+    <value>pas de message</value>
   </data>
 </root>

@@ -364,7 +364,7 @@
     <value>Please enter a valid phone number</value>
   </data>
   <data name="donoremailsubject.Text" xml:space="preserve">
-    <value>Thank you for your gift!</value>
+    <value>Your donation pledge</value>
   </data>
   <data name="DonorEmailCheque.Text" xml:space="preserve">
     <value>To complete your gift, you can print this document and send it with your check. You can use the link below:</value>
@@ -413,5 +413,8 @@
   </data>
   <data name="BankCountry.Text" xml:space="preserve">
     <value>Country:</value>
+  </data>
+  <data name="NoMessage.Text" xml:space="preserve">
+    <value>no message</value>
   </data>
 </root>

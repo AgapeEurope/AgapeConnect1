@@ -266,6 +266,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         Protected Sub GoBank()
             Dim d As New GiveDataContext
             Dim insert As New Agape_Give_BankTransfer
+            insert.PortalID = PortalId
             insert.DonationType = DonationType.Value
             insert.DonorId = Me.UserId
             insert.Reference = GetUniqueCode()
@@ -293,46 +294,29 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 'Create the Donor Email                
                 Dim pdflink As String = ("/DesktopModules/AgapeFR/GiveView/OutputPdf.aspx?SOID=" & insert.Reference)
                 Dim theFreq As String = ""
-                If selFreq = 99 Then
+                If selFreq = 99 Then '99 is single donation
                     theFreq = ""
-                ElseIf selFreq = 1 Then
+                ElseIf selFreq = 1 Then 'every one month
                     theFreq = Translate("FreqParaZero")
-                ElseIf selFreq = 3 Then
+                ElseIf selFreq = 3 Then 'every three months
                     theFreq = Translate("FreqParaOne")
-                ElseIf selFreq = 6 Then
+                ElseIf selFreq = 6 Then 'every six months
                     theFreq = Translate("FreqParaTwo")
-                ElseIf selFreq = 12 Then
+                ElseIf selFreq = 12 Then 'every twelve months
                     theFreq = Translate("FreqParaThree")
-                ElseIf selFreq = 99 Then
-                    theFreq = Translate("FreqParaFour")
                 End If
-                Dim theMeth As String = ""
-                'If rblMethod.
-
                 Dim reciptemplate As String = ""
                 Dim donortemplate As String = ""
-                If rblMethod.SelectedIndex = 1 Then
-                    theMeth = Translate("rblMethOne")
+                If rblMethod.SelectedIndex = 1 Then 'virement
                     lblConfCheque.Visible = False
-                    If CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "en" Then
-                        reciptemplate = "RecipVirementMailEnglish"
-                        donortemplate = "DonorVirementMailEnglish"
-                    ElseIf CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "fr" Then
-                        reciptemplate = "RecipVirementMailFrancais"
-                        donortemplate = "DonorVirementMailFrancais"
-                    End If
-                    ElseIf rblMethod.SelectedIndex = 2 Then
-                        theMeth = Translate("rblMethTwo")
+                    reciptemplate = "RecipVirementMail." & CultureInfo.CurrentCulture().ToString
+                    donortemplate = "DonorVirementMail." & CultureInfo.CurrentCulture().ToString
+                ElseIf rblMethod.SelectedIndex = 2 Then 'cheque
                     lblConfVirement.Visible = False
-                    If CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "en" Then
-                        reciptemplate = "RecipChequeMailEnglish"
-                        donortemplate = "DonorChequeMailEnglish"
-                    ElseIf CultureInfo.CurrentCulture().TwoLetterISOLanguageName.ToLower = "fr" Then
-                        reciptemplate = "RecipChequeMailFrancais"
-                        donortemplate = "DonorChequeMailFrancais"
-                    End If
+                    reciptemplate = "RecipChequeMail." & CultureInfo.CurrentCulture().ToString
+                    donortemplate = "DonorChequeMail." & CultureInfo.CurrentCulture().ToString
                 End If
-                Dim message = ""
+                Dim message = Translate("NoMessage")
                 If Not theDonationComment.Text = "" Then
                     message = theDonationComment.Text
                 End If
@@ -343,27 +327,32 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 'Send the Donor Email
                 SendConfirmationEmail(recip, mailsubject, mailbody)
                 'Set up donation recipient address
+                recip = String.Empty
                 'If donation to department or project, get manager email.
                 If DonationType.Value = DestinationType.Department Or DonationType.Value = DestinationType.Project Then
                     Dim dBroke As New StaffBrokerDataContext
-                    Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where c.GivingShortcut = Request.QueryString("giveto")
-                    Dim deptmanageremail As String = String.Empty
-                    Dim deptdelegateemail As String = String.Empty
-                    If Dept.First.CostCentreManager IsNot Nothing Then
-                        Dim deptmanagerid As Integer? = Dept.First.CostCentreManager()
-                        Dim deptmanager = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, deptmanagerid)
-                        deptmanageremail = deptmanager.Email
+                    Dim dept As AP_StaffBroker_Department
+                    dept = StaffBrokerFunctions.GetDeptByGivingShortcut(Request.QueryString("giveto"))
+                    If Not dept Is Nothing Then
+                        Dim deptmanageremail As String = String.Empty
+                        Dim deptdelegateemail As String = String.Empty
+                        If dept.CostCentreManager IsNot Nothing Then
+                            Dim deptmanagerid As Integer? = dept.CostCentreManager
+                            Dim deptmanager = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, deptmanagerid)
+                            deptmanageremail = deptmanager.Email
+                        End If
+                        If dept.CostCentreDelegate IsNot Nothing Then
+                            Dim deptdelegateid As Integer? = dept.CostCentreDelegate()
+                            Dim deptdelegate = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, deptdelegateid)
+                            deptdelegateemail = deptdelegate.Email
+                        End If
+                        recip = deptmanageremail & IIf(String.IsNullOrEmpty(deptdelegateemail), String.Empty, ", " & deptdelegateemail)
                     End If
-                    If Dept.First.CostCentreDelegate IsNot Nothing Then
-                        Dim deptdelegateid As Integer? = Dept.First.CostCentreDelegate()
-                        Dim deptdelegate = DotNetNuke.Entities.Users.UserController.GetUserById(PortalId, deptdelegateid)
-                        deptdelegateemail = deptdelegate.Email
-                    End If
-                    recip = deptmanageremail & IIf(String.IsNullOrEmpty(deptdelegateemail), String.Empty, ", " & deptdelegateemail)
                 End If
                 'If donation to staff, get staff email
+                Dim staff As AP_StaffBroker_Staff
                 If DonationType.Value = DestinationType.Staff Then
-                    Dim staff As AP_StaffBroker_Staff = GetStaffbyStaffId(RowId.Value)
+                    staff = GetStaffbyStaffId(RowId.Value)
                     Dim staffEmail1 As String = String.Empty
                     Dim staffEmail2 As String = String.Empty
                     If staff.User IsNot Nothing Then
@@ -378,15 +367,14 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
 
                     mailsubject = Translate("recipemailsubject")
                     mailbody = StaffBrokerFunctions.GetTemplate(reciptemplate, PortalId)
-                    'mailbody = File.ReadAllText(Server.MapPath("~/DesktopModules/AgapeFR/GiveView/files/StaffEmail.html"))
-                    mailbody = mailbody.Replace("[LOGO]", "sso/GetLogo.aspx").Replace("[MESSAGE]", message)
+                    Dim donoraddress As String = TxtFirstName.Text & " " & TxtLastName.Text & "<br />" & TxtStreet1.Text & "<br />" & IIf(TxtStreet2.Text = "", "", TxtStreet2.Text & "<br />") & cboCountry.SelectedItem.Text & IIf(TxtTelephone.Text = "", "", "<br />" & TxtTelephone.Text) & IIf(TxtMobile.Text = "", "", "<br />" & TxtMobile.Text)
+                    mailbody = mailbody.Replace("[LOGO]", "sso/GetLogo.aspx").Replace("[MESSAGE]", message).Replace("[ADDRESS]", donoraddress).Replace("[NAME]", Title.Text).Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text)
                     SendConfirmationEmail(recip, mailsubject, mailbody)
                 Else
-                    AgapeLogger.Warn(Me.UserId, "No staff email to send donation notification to.(staffid='" & RowId.Value & "')")
+                    AgapeLogger.Warn(Me.UserId, "No staff or manager/delegate email to send donation notification to.(staffid/deptid='" & RowId.Value & "')")
                 End If
                 HyperLink1.NavigateUrl = pdflink
             Catch e As Exception
-                MsgBox("the email did not work." & e.ToString)
                 AgapeLogger.Warn(Me.UserId, "the email did not work." & e.ToString)
             End Try
             hfSONextStep.Value = rblMethod.SelectedIndex
