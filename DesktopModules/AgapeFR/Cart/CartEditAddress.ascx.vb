@@ -131,7 +131,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
             Select Case Action
                 Case EditAddressActions.ModifyBillingAddress : CartFunctions.UpdateCartBillingAddress(TheCartID, theAddress)
                 Case EditAddressActions.ModifyShippingAddress : CartFunctions.UpdateCartShippingAddress(TheCartID, theAddress)
-                Case Else 'TODO Cart: To be completed with new address process when needed
+                Case Else 'To be completed with new address process when needed
             End Select
 
             'Update address in profile if needed

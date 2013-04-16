@@ -37,16 +37,26 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-            'Add the steps to be displayed and set the selected step
-            Dim item As String
-            For Each item In [Enum].GetNames(GetType(CartCheckoutSteps))
-                Dim li As ListItem = New ListItem(LocalizeString(item))
-                If String.Equals([Enum].GetName(GetType(CartCheckoutSteps), CartCheckoutStep), item) Then
-                    li.Attributes.Add("class", "selected")
-                End If
-                ListCartBreadcrumb.Items.Add(li)
-            Next
-            ListCartBreadcrumb.DataBind()
+            If Not Me.IsPostBack Then
+
+                'Add the steps to be displayed and set the selected step
+                Dim item As String
+                For Each item In [Enum].GetNames(GetType(CartCheckoutSteps))
+                    Dim li As ListItem = New ListItem(LocalizeString(item))
+                    If String.Equals([Enum].GetName(GetType(CartCheckoutSteps), CartCheckoutStep), item) Then
+                        li.Attributes.Add("class", "selected")
+                    End If
+                    ListCartBreadcrumb.Items.Add(li)
+                Next
+                ListCartBreadcrumb.DataBind()
+
+            Else
+
+                'ListItem attributes are lost on PostBack, so we need to set the selected step again
+                ListCartBreadcrumb.Items(CartCheckoutStep).Attributes.Add("class", "selected")
+
+            End If
+
         End Sub
 
 #End Region

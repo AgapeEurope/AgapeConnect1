@@ -9,19 +9,6 @@
 #
 ###############################################################################
 
-
-# URL de retour automatique de la reponse du paiement
-
-AUTO_RESPONSE_URL!!
-
-# URL de traitement d'un paiement refuse
-
-CANCEL_URL!!
-
-# URL de retour suite a paiement accepte
-
-RETURN_URL!!
-
 # Logo central 
 
 ADVERT!!

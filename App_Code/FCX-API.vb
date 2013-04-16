@@ -25,7 +25,7 @@ Public Class FCX_API
 
     Structure Donation
         Public Donor As Donor
-        Public Value As String
+
         Public Amount As Double
         Public GiftDate As DateTime
         Public GlobalDonorcode As String
@@ -33,8 +33,10 @@ Public Class FCX_API
         Public DesigId As String
         Public PaymentProcessor As String
         Public PaymentProcessorTrxId As String
+        Public IBAN As String
+        Public VCode As String
         Public Other() As Prop
-
+        Public UniqueDonationRef As String
     End Structure
     Structure Donor
         Public DonorId As String
@@ -57,6 +59,18 @@ Public Class FCX_API
         Public Phone As String
 
         Public Other() As Prop
+        Public UniqueDonorRef As String
+    End Structure
+
+    Structure DonationBatch
+        Public UniqueBatchRef As String
+        Public Status As String
+        Public StatusDesc As String
+        Public Donations As Donation()
+        Public Received As DateTime
+        Public Donwloaded As DateTime
+        Public ITNSent As Boolean
+        Public BatchId_READONLY As Integer
 
     End Structure
 
@@ -178,33 +192,146 @@ Public Class FCX_API
         Return (rtn)
     End Function
   
+    <WebMethod()> _
+    Public Function AddDonationBatch(ByVal ApiKey As Guid, ByVal UniqueRef As String, ByVal Donations() As Donation) As TrxResponse
+
+
+        Dim rtn As New TrxResponse
+
+        Dim developer = Authenticate(ApiKey, rtn)
+        If developer Is Nothing Then
+            Return rtn
+        End If
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Dim d As New FCXDataContext
+
+        'Validate that the unigue Batch ref is really unique
+
+        If d.FCX_API_DonBats.Where(Function(x) x.DeveloperId = developer.DeveloperId And x.UniqueBatchRef = UniqueRef And x.FCX_API_Key.PortalId = PS.PortalId).Count > 0 Then
+            rtn.Status = "FAILED"
+            rtn.Message = "A batch with ID" & UniqueRef & " has already beend added. All batches must have a unique batch Id"
+            Return rtn
+        End If
+
+
+
+        ''Validate that all donations are unique
+        For Each row In Donations
+            If d.FCX_API_Donations.Where(Function(x) x.UniqueDonationRef = row.UniqueDonationRef).Count > 0 Then
+                rtn.Status = "FAILED"
+                rtn.Message = "All donations must have a unique id (within the batch). A duplicate donations has been found for ID '" & row.UniqueDonationRef & "'."
+                Return rtn
+            End If
+        Next
+
+        Dim insert As New FCX_API_DonBat
+        insert.DeveloperId = developer.DeveloperId
+        insert.ITN_Sent = False
+        insert.Received = Now
+        insert.Status = BatchStatus.Received
+        insert.UniqueBatchRef = UniqueRef
+        d.FCX_API_DonBats.InsertOnSubmit(insert)
+
+        For Each row In Donations
+            Dim ExistingDonor = d.FCX_API_Donors.Where(Function(x) x.UniqueDonorRef = row.Donor.UniqueDonorRef)
+            Dim donat = New FCX_API_Donation
+            If ExistingDonor.Count > 0 Then
+                donat.FCX_API_Donor = ExistingDonor.First
+            Else
+                Dim donor = New FCX_API_Donor
+                set_if(donor.City, row.Donor.City)
+                set_if(donor.Country, row.Donor.Country)
+                set_if(donor.Email, row.Donor.Email)
+                set_if(donor.FirstName, row.Donor.FirstName)
+                set_if(donor.LastName, row.Donor.LastName)
+                set_if(donor.MiddleName, row.Donor.MiddleName)
+                set_if(donor.MobilePhone, row.Donor.MobilePhone)
+                set_if(donor.Phone, row.Donor.Phone)
+                set_if(donor.SpouseFirstName, row.Donor.SpouseFirstName)
+                set_if(donor.SpouseLastName, row.Donor.SpouseMiddleName)  'JON: Fix Middle-Last
+                set_if(donor.State, row.Donor.State)
+                set_if(donor.StreetAddress, row.Donor.StreetAddress)
+                set_if(donor.Title, row.Donor.Title)
+                set_if(donor.UniqueDonorRef, row.Donor.UniqueDonorRef)
+                set_if(donor.Zip, row.Donor.Zip)
+                donat.FCX_API_Donor = donor
+            End If
+           
+
+            set_if(donat.Amount, row.Amount)
+            set_if(donat.DesigId, row.DesigId)
+            set_if(donat.DonationBatId, insert.DonBatId)
+            set_if(donat.GiftDate, row.GiftDate)
+            set_if(donat.UniqueDonationRef, row.UniqueDonationRef)
+            set_if(donat.IBAN, row.IBAN)
+            set_if(donat.VCode, row.VCode)
+
+
+            d.FCX_API_Donations.InsertOnSubmit(donat)
+
+        Next
+
+
+
+        d.SubmitChanges()
+
+        rtn.Status = "SUCCESS"
+        rtn.Message = ""
+
+        Return (rtn)
+    End Function
+    Private Sub set_if(ByRef setting As Object, ByVal value As Object)
+        If value Is Nothing Then
+            Return
+        Else
+            setting = value
+
+        End If
+    End Sub
 
 
     <WebMethod()> _
-    Public Function AddDonation(ByVal ApiKey As Guid, ByVal UniqueRef As String, ByVal DonorId As String, ByVal Description As String, ByVal Transactions() As FinancialTransaction) As TrxResponse
-        'Dim rtn As New TrxResponse
+    Public Function AddDonation(ByVal ApiKey As Guid, ByVal UniqueRef As String, 
+                                ByVal DonorId As String, ByVal Description As String, ByVal Donations() As Donation) As TrxResponse
 
-        'Dim developer = Authenticate(ApiKey, rtn)
-        'If developer Is Nothing Then
-        '    Return rtn
-        'End If
-        'Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-        'Dim d As New FCXDataContext
-        ''Validate that BatchId is Unique
-        'If d.FCX_API_FinBats.Where(Function(x) x.DeveloperId = developer.DeveloperId And x.UniqueBatchRef = UniqueBatRef And x.FCX_API_Key.PortalId = PS.PortalId).Count() > 0 Then
-        '    rtn.Status = "FAILED"
-        '    rtn.Message = "A batch with ID" & UniqueRef & " has already beend added. All batches must have a unique batch Id"
-        '    Return rtn
-        'End If
 
-        ''Validate that all Transactions are unique
-        'For Each row In Transactions
-        '    If Transactions.Where(Function(x) x.UniqueTRXRef = row.UniqueTRXRef).Count > 1 Then
-        '        rtn.Status = "FAILED"
-        '        rtn.Message = "All transaction must have a unique id (within the batch). A duplicate transaction has been found for ID '" & row.TransactionId_READONLY & "'."
-        '        Return rtn
-        '    End If
-        'Next
+
+
+        Dim rtn As New TrxResponse
+
+        Dim developer = Authenticate(ApiKey, rtn)
+        If developer Is Nothing Then
+            Return rtn
+        End If
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Dim d As New FCXDataContext
+
+        'Validate that the unigue Batch ref is really unique
+
+        If d.FCX_API_DonBats.Where(Function(x) x.DeveloperId = developer.DeveloperId And x.UniqueBatchRef = UniqueRef And x.FCX_API_Key.PortalId = PS.PortalId).Count > 0 Then
+            rtn.Status = "FAILED"
+            rtn.Message = "A batch with ID" & UniqueRef & " has already beend added. All batches must have a unique batch Id"
+            Return rtn
+        End If
+
+
+
+        ''Validate that all donations are unique
+        For Each row In Donations
+            If Donations.Where(Function(x) x.UniqueDonationRef = row.UniqueDonationRef).Count > 1 Then
+                rtn.Status = "FAILED"
+                rtn.Message = "All donations must have a unique id (within the batch). A duplicate donations has been found for ID '" & row.UniqueDonationRef & "'."
+                Return rtn
+            End If
+        Next
+
+        Dim insert As New FCX_API_DonBat
+        insert.DeveloperId = developer.DeveloperId
+        insert.ITN_Sent = False
+        insert.Received = Now
+        insert.Status = BatchStatus.Received
+        insert.UniqueBatchRef = UniqueRef
+        d.FCX_API_DonBats.InsertOnSubmit(insert)
 
         'Dim insert As New FCX_API_FinBat
         'insert.DeveloperId = developer.DeveloperId
@@ -300,7 +427,7 @@ Public Class FCX_API
         If q.Count > 0 Then
             If q.First.Active Then
                 'Check Whitelist
-                Dim sender = HttpContext.Current.Request.UrlReferrer.AbsoluteUri()
+                Dim sender = HttpContext.Current.Request.Url.Host
                 Dim ipAddress = HttpContext.Current.Request.ServerVariables("remote_addr")
                 If ValidateWhiteList(q.First.WhiteList, sender, ipAddress) Then
                     Return q.First

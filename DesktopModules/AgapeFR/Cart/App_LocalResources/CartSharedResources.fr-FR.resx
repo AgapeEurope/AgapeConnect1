@@ -198,4 +198,7 @@
   <data name="ShippingAddressTitle.Text" xml:space="preserve">
     <value>Adresse de livraison</value>
   </data>
+  <data name="BtnBackToCart.Text" xml:space="preserve">
+    <value>Modifier le panier</value>
+  </data>
 </root>

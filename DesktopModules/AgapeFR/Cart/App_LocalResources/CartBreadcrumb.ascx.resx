@@ -127,6 +127,6 @@
     <value>Payment</value>
   </data>
   <data name="Summary.Text" xml:space="preserve">
-    <value>My cart</value>
+    <value>Summary</value>
   </data>
 </root>

@@ -1,75 +1,72 @@
 ﻿
 Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
 
-    ' Generic payment provider control to inherite from for any payment control
+    ''' <summary>
+    ''' Generic payment provider control to inherite from for any payment control
+    ''' </summary>
+    ''' <remarks></remarks>
     Public MustInherit Class GenericPaymentProvider
-        Inherits DotNetNuke.Entities.Modules.PortalModuleBase
+        Inherits DotNetNuke.Entities.Modules.UserModuleBase
 
 #Region "Properties and constants"
 
-        'Amount to pay for
-        Public Const AmountPropertyName As String = "Amount"
-        Protected _Amount As Double
-        Property Amount() As Double
+        'Cart ID
+        ReadOnly Property TheCartID As Integer
             Get
+                Dim obj = Session("TheCartID")
+                If obj Is Nothing Then
+                    Dim anonCookieValue As String = Request.Cookies(".ASPXANONYMOUS").Value
+                    obj = CartFunctions.GetCartID(UserId, anonCookieValue)
+                    Session("TheCartID") = obj
+                End If
+                Return obj
+            End Get
+        End Property
+
+        'Amount to pay for
+        Public Const AmountPropertyName As String = "OrderAmount"
+        Protected _Amount As Double = 0.0
+        ReadOnly Property Amount() As Double
+            Get
+                If _Amount.Equals(0.0) Then
+                    _Amount = CartFunctions.GetCartTotals(TheCartID).GrandTotal
+                End If
                 Return _Amount
             End Get
-            Set(ByVal value As Double)
-                _Amount = value
-            End Set
         End Property
 
         'The order ID
         Public Const OrderIdPropertyName As String = "OrderId"
-        Protected _OrderId As String
-        Public Property OrderId() As String
+        ReadOnly Property OrderId() As String
             Get
-                Return _OrderId
+                Return TheCartID
             End Get
-            Set(ByVal value As String)
-                _OrderId = value
-            End Set
         End Property
 
-        'The payment transaction ID
-        Public Const TransactionIdPropertyName As String = "TransactionId"
-        Protected _TransactionId As String
-        Public Property TransactionId() As String
-            Get
-                Return _TransactionId
-            End Get
-            Set(ByVal value As String)
-                _TransactionId = value
-            End Set
-        End Property
-
-        'Type of call to the control (Request or Response for exemple)
-        Public Const CallTypePropertyName As String = "CallType"
+        'Type of call: Request or Response
+        Public Const CallTypeRequest As String = "Request"
+        Public Const CallTypeResponse As String = "Response"
         Public Const CallTypeParamKey As String = "CallType"
-        Protected _CallType As String
-        Public Property CallType() As String
+        ReadOnly Property CallType() As String
             Get
-                Return _CallType
+                Return IIf(String.IsNullOrEmpty(Request.Params(CallTypeParamKey)), CallTypeRequest, Request.Params(CallTypeParamKey))
             End Get
-            Set(ByVal value As String)
-                _CallType = value
-            End Set
-        End Property
-
-        'URL to return to after processing the payment
-        Public Const ReturnURLPropertyName As String = "ReturnURL"
-        Protected _ReturnURL As String
-        Public Property ReturnURL() As String
-            Get
-                Return _ReturnURL
-            End Get
-            Set(ByVal value As String)
-                _ReturnURL = value
-            End Set
         End Property
 
         'Name of initialization method
         Public Const InitializeMethodName As String = "Initialize"
+
+        'URL to return to after processing the payment
+        Public Const ReturnURLPropertyName As String = "PaymentReturnURL"
+        Protected _PaymentReturnURL As String
+        Public Property PaymentReturnURL() As String
+            Get
+                Return _PaymentReturnURL
+            End Get
+            Set(ByVal value As String)
+                _PaymentReturnURL = value
+            End Set
+        End Property
 
 #End Region
 
