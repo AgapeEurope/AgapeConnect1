@@ -4,10 +4,10 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
     ' List of possible steps in the checkout process
     Public Enum CartCheckoutSteps
-        Login = 0
-        Address = 1
-        Summary = 2
-        Payment = 3
+        LoginStep = 0
+        AddressStep = 1
+        SummaryStep = 2
+        PaymentStep = 3
     End Enum
 
     Public MustInherit Class CartBreadcrumb
@@ -31,13 +31,15 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 #Region "Event Handlers"
 
         Protected Sub Page_Init(sender As Object, e As EventArgs) Handles MyBase.Init
-            'Init translation resource file
-            AgapeTranslation.InitLocalResourceFile(Me)
+            'Init shared translation resource file
+            LocalResourceFile = ApplicationPath + "/DesktopModules/AgapeFR/Cart/App_LocalResources/CartSharedResources.resx"
         End Sub
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
             If Not Me.IsPostBack Then
+
+                LblMyCart.Text = LocalizeString("MyCart")
 
                 'Add the steps to be displayed and set the selected step
                 Dim item As String

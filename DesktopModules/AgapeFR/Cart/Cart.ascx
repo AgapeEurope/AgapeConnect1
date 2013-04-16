@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="Cart.ascx.vb" Inherits="DotNetNuke.Modules.AgapeFR.Cart.Cart" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<%@ Register TagPrefix="dnn2" TagName="CartBreadcrumb" Src="~/DesktopModules/AgapeFR/Cart/CartBreadcrumb.ascx" %>
 <script type="text/javascript">
 
     (function ($, Sys) {
@@ -116,6 +117,7 @@
     .deleteLink
     {
         font-size: 8pt;
+        margin-top: 5px;
     }
     .total
     {
@@ -163,6 +165,7 @@
     }
 
 </style>
+<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" />
 <asp:Panel ID="PnlEmptyCart" runat="server" Visible="False">
     <br />
     <asp:Label ID="LblEmptyCart" runat="server" ResourceKey="LblEmptyCart" Text=''></asp:Label>  

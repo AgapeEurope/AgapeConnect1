@@ -49,7 +49,7 @@
         margin-bottom: 30px;
     }
 </style>
-<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="Address" />
+<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="AddressStep" />
 <div class="title">
     <asp:Label ID="LblTitle" runat="server" CssClass="AgapeH4"></asp:Label><br />
     <asp:Label ID="LblDescription" runat="server"></asp:Label>
