@@ -64,13 +64,11 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtCity.Text = objUser.Profile.City
                     TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
-                    Dim mycountry As String
+                    Dim mycountry As String = "FR"
                     Dim lc As New Lists.ListController
-                    Dim c = lc.GetListEntryInfoItems("Country").Where(Function(x) objUser.Profile.Country.EndsWith(x.Text)).Select(Function(x) x.Value)
-                    If c.Count > 0 Then
+                    If Not objUser.Profile.Country Is Nothing Then
+                        Dim c = lc.GetListEntryInfoItems("Country").Where(Function(x) objUser.Profile.Country.EndsWith(x.Text)).Select(Function(x) x.Value)
                         mycountry = c.First
-                    Else
-                        mycountry = "FR"
                     End If
                     cboCountry.SelectedValue = mycountry
                     cboBankCountry.SelectedValue = mycountry
