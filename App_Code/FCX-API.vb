@@ -217,7 +217,7 @@ Public Class FCX_API
 
         ''Validate that all donations are unique
         For Each row In Donations
-            If Donations.Where(Function(x) x.UniqueDonationRef = row.UniqueDonationRef).Count > 1 Then
+            If d.FCX_API_Donations.Where(Function(x) x.UniqueDonationRef = row.UniqueDonationRef).Count > 0 Then
                 rtn.Status = "FAILED"
                 rtn.Message = "All donations must have a unique id (within the batch). A duplicate donations has been found for ID '" & row.UniqueDonationRef & "'."
                 Return rtn
@@ -263,6 +263,8 @@ Public Class FCX_API
             set_if(donat.DonationBatId, insert.DonBatId)
             set_if(donat.GiftDate, row.GiftDate)
             set_if(donat.UniqueDonationRef, row.UniqueDonationRef)
+            set_if(donat.IBAN, row.IBAN)
+            set_if(donat.VCode, row.VCode)
 
 
             d.FCX_API_Donations.InsertOnSubmit(donat)
