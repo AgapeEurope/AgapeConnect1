@@ -119,6 +119,66 @@ public class StaffBrokerFunctions
     }
 
 
+    #region Department functions
+
+    static public Boolean IsDept(int PortalId, string costCenter)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var cc = from c in d.AP_StaffBroker_CostCenters where c.CostCentreCode == costCenter select c.Type;
+        if (cc.Count() > 0)
+            return cc.First() == CostCentreType.Department;
+
+        else return false;
+
+    }
+
+    static public String GetDeptGiveToURL(int PortalId, int costCenter)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var cc = from c in d.AP_StaffBroker_Departments where c.CostCenterId == costCenter && c.PortalId == PortalId select c.GivingShortcut;
+        if (cc.Count() > 0)
+            return cc.First();
+
+        else return "";
+    }
+
+    static public string GetDeptPhoto(int deptID)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var cc = from c in d.AP_StaffBroker_Departments where c.CostCenterId == deptID select c.PhotoId;
+        String fileId = cc.First().ToString();
+
+        if (fileId == null || fileId.Equals(""))
+        {
+            return "/images/no_avatar.gif";
+        }
+        else
+        {
+            DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(Convert.ToInt32(fileId));
+            return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
+        }
+    }
+
+    static public AP_StaffBroker_Department GetDeptByGivingShortcut(String GivingShortcut)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var depts = from c in d.AP_StaffBroker_Departments where c.GivingShortcut == GivingShortcut select c;
+        if (depts.Count() > 0)
+        {
+            return depts.First();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    #endregion
+
+
+
+
+
     public static decimal CurrencyConvert(decimal amount, string fromCurrency, string toCurrency)
     {
         string mode = "Yahoo";
@@ -168,30 +228,6 @@ public class StaffBrokerFunctions
         return acc.Count() > 0;
     }
 
-    static public Boolean IsDept(int PortalId, string costCenter)
-    {
-        StaffBrokerDataContext d = new StaffBrokerDataContext();
-        var cc = from c in d.AP_StaffBroker_CostCenters where c.CostCentreCode == costCenter select c.Type;
-        if (cc.Count() > 0)
-            return cc.First() == CostCentreType.Department;
-
-        else return false;
-
-
-
-    }
-    static public String GetDeptGiveToURL(int PortalId, int costCenter)
-    {
-        StaffBrokerDataContext d = new StaffBrokerDataContext();
-        var cc = from c in d.AP_StaffBroker_Departments where c.CostCenterId == costCenter && c.PortalId == PortalId select c.GivingShortcut;
-        if (cc.Count() > 0)
-            return cc.First();
-
-        else return "";
-
-
-
-    }
     static public AP_StaffBroker_Staff CreateStaffMember(int PortalId, DotNetNuke.Entities.Users.UserInfo User1in, DotNetNuke.Entities.Users.UserInfo User2in, short staffTypeIn)
     {
         //Create Married Staff
@@ -271,7 +307,7 @@ public class StaffBrokerFunctions
 
     static public AP_StaffBroker_Staff CreateStaffMember(int PortalId, DotNetNuke.Entities.Users.UserInfo User1in, short staffTypeIn = 1)
     {
-       
+
         DotNetNuke.Security.Roles.RoleController rc = new DotNetNuke.Security.Roles.RoleController();
         if (rc.GetRoleByName(PortalId, "Staff") == null)
         {
@@ -425,24 +461,6 @@ public class StaffBrokerFunctions
             return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
         }
     }
-
-    static public string GetDeptPhoto(int deptID)
-    {
-        StaffBrokerDataContext d = new StaffBrokerDataContext();
-        var cc = from c in d.AP_StaffBroker_Departments where c.CostCenterId == deptID select c.PhotoId;
-        String fileId = cc.First().ToString();
-
-        if (fileId == null || fileId.Equals(""))
-        {
-            return "/images/no_avatar.gif";
-        }
-        else
-        {
-            DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(Convert.ToInt32(fileId));
-            return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
-        }
-    }
-
 
     static public AP_StaffBroker_Staff GetStaffbyStaffId(int StaffId)
     {
