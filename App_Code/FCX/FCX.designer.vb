@@ -1372,9 +1372,9 @@ Namespace FCX
     End Sub
     Partial Private Sub OnStatusChanged()
     End Sub
-    Partial Private Sub OnSatusDescChanging(value As String)
+    Partial Private Sub OnStatusDescChanging(value As String)
     End Sub
-    Partial Private Sub OnSatusDescChanged()
+    Partial Private Sub OnStatusDescChanged()
     End Sub
     Partial Private Sub OnReceivedChanging(value As System.Nullable(Of Date))
     End Sub
@@ -1453,18 +1453,18 @@ Namespace FCX
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SatusDesc", DbType:="NVarChar(MAX)")>  _
-		Public Property SatusDesc() As String
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Name:="SatusDesc", Storage:="_SatusDesc", DbType:="NVarChar(MAX)")>  _
+		Public Property StatusDesc() As String
 			Get
 				Return Me._SatusDesc
 			End Get
 			Set
 				If (String.Equals(Me._SatusDesc, value) = false) Then
-					Me.OnSatusDescChanging(value)
+					Me.OnStatusDescChanging(value)
 					Me.SendPropertyChanging
 					Me._SatusDesc = value
-					Me.SendPropertyChanged("SatusDesc")
-					Me.OnSatusDescChanged
+					Me.SendPropertyChanged("StatusDesc")
+					Me.OnStatusDescChanged
 				End If
 			End Set
 		End Property

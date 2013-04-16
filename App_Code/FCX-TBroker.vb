@@ -185,7 +185,7 @@ Public Class FCX_TBroker
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
 
         Dim v = From c In d.FCX_API_DonBats Where c.FCX_API_Key.PortalId = PS.PortalId And c.Status <> BatchStatus.Received And c.ITN_Sent = False
-                Select c.UniqueBatchRef, c.Status, StatusDesc = c.SatusDesc, c.FCX_API_Key.ITN, Received = c.Received.Value.ToLongTimeString, Downloaded = c.Downloaded.Value.ToLongTimeString, Donations = c.FCX_API_Donations.Select(Function(x) New With {.UniqueTrxRef = x.UniqueDonationRef, x.VCode, x.FCX_API_Donor.UniqueDonorRef})
+                Select c.UniqueBatchRef, c.Status, c.StatusDesc, c.FCX_API_Key.ITN, Received = c.Received.Value.ToLongTimeString, Downloaded = c.Downloaded.Value.ToLongTimeString, Donations = c.FCX_API_Donations.Select(Function(x) New With {.UniqueTrxRef = x.UniqueDonationRef, x.VCode, x.FCX_API_Donor.UniqueDonorRef})
 
 
         '   Dim v = From c In d.FCX_API_DonBats Where c.FCX_API_Key.PortalId = PS.PortalId And c.Status <> BatchStatus.Received And c.ITN_Sent = False
