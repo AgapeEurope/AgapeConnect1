@@ -130,7 +130,7 @@
     }
 </style>
 
-<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="Summary" />
+<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="SummaryStep" />
 
 <asp:Panel ID="PnlEmptyCart" runat="server" Visible="False">
     <br />
