@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="dnn1" TagName="Address" Src="~/controls/Address.ascx" %>
 <%@ Register TagPrefix="wc" Namespace="DotNetNuke.UI.WebControls" Assembly="CountryListBox" %>
 <%@ Register TagPrefix="dnn2" TagName="Login" Src="~/DesktopModules/AgapeFR/Authentication/AgapeAuth.ascx" %>
-
+<script src="/js/jquery.numeric.js" type="text/javascript"></script>
 <script type="text/javascript">
     (function ($, Sys) {
         function setUpMyPage() {
@@ -743,7 +743,7 @@ function rbFreq_click() {
         <asp:Button ID="btnBio" runat="server" resourcekey="btnBio" CssClass="aButton" CausesValidation="False" />
         <br />
         <div>
-            <uc1:frGiveInfo ID="frGiveInfo" runat="server" />
+            <%--<uc1:frGiveInfo ID="frGiveInfo" runat="server" />--%>
         </div>
     </div>
 </div>
