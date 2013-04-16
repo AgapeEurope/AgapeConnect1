@@ -33,6 +33,8 @@ Public Class FCX_API
         Public DesigId As String
         Public PaymentProcessor As String
         Public PaymentProcessorTrxId As String
+        Public IBAN As String
+        Public VCode As String
         Public Other() As Prop
         Public UniqueDonationRef As String
     End Structure
@@ -231,30 +233,37 @@ Public Class FCX_API
         d.FCX_API_DonBats.InsertOnSubmit(insert)
 
         For Each row In Donations
-            Dim donor = New FCX_API_Donor
-            set_if(donor.City, row.Donor.City)
-            set_if(donor.Country, row.Donor.Country)
-            set_if(donor.Email, row.Donor.Email)
-            set_if(donor.FirstName, row.Donor.FirstName)
-            set_if(donor.LastName, row.Donor.LastName)
-            set_if(donor.MiddleName, row.Donor.MiddleName)
-            set_if(donor.MobilePhone, row.Donor.MobilePhone)
-            set_if(donor.Phone, row.Donor.Phone)
-            set_if(donor.SpouseFirstName, row.Donor.SpouseFirstName)
-            set_if(donor.SpouseLastName, row.Donor.SpouseMiddleName)  'JON: Fix Middle-Last
-            set_if(donor.State, row.Donor.State)
-            set_if(donor.StreetAddress, row.Donor.StreetAddress)
-            set_if(donor.Title, row.Donor.Title)
-            set_if(donor.UniqueDonorRef, row.Donor.UniqueDonorRef)
-            set_if(donor.Zip, row.Donor.Zip)
-
+            Dim ExistingDonor = d.FCX_API_Donors.Where(Function(x) x.UniqueDonorRef = row.Donor.UniqueDonorRef)
             Dim donat = New FCX_API_Donation
+            If ExistingDonor.Count > 0 Then
+                donat.FCX_API_Donor = ExistingDonor.First
+            Else
+                Dim donor = New FCX_API_Donor
+                set_if(donor.City, row.Donor.City)
+                set_if(donor.Country, row.Donor.Country)
+                set_if(donor.Email, row.Donor.Email)
+                set_if(donor.FirstName, row.Donor.FirstName)
+                set_if(donor.LastName, row.Donor.LastName)
+                set_if(donor.MiddleName, row.Donor.MiddleName)
+                set_if(donor.MobilePhone, row.Donor.MobilePhone)
+                set_if(donor.Phone, row.Donor.Phone)
+                set_if(donor.SpouseFirstName, row.Donor.SpouseFirstName)
+                set_if(donor.SpouseLastName, row.Donor.SpouseMiddleName)  'JON: Fix Middle-Last
+                set_if(donor.State, row.Donor.State)
+                set_if(donor.StreetAddress, row.Donor.StreetAddress)
+                set_if(donor.Title, row.Donor.Title)
+                set_if(donor.UniqueDonorRef, row.Donor.UniqueDonorRef)
+                set_if(donor.Zip, row.Donor.Zip)
+                donat.FCX_API_Donor = donor
+            End If
+           
+
             set_if(donat.Amount, row.Amount)
             set_if(donat.DesigId, row.DesigId)
             set_if(donat.DonationBatId, insert.DonBatId)
             set_if(donat.GiftDate, row.GiftDate)
             set_if(donat.UniqueDonationRef, row.UniqueDonationRef)
-            set_if(donat.FCX_API_Donor, donor)
+
 
             d.FCX_API_Donations.InsertOnSubmit(donat)
 

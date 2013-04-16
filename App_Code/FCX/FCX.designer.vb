@@ -1999,7 +1999,7 @@ Namespace FCX
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="FCX_API_Donor_FCX_API_Donation", Storage:="_FCX_API_Donations", ThisKey:="DonorId", OtherKey:="DonationId")>  _
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="FCX_API_Donor_FCX_API_Donation", Storage:="_FCX_API_Donations", ThisKey:="DonorId", OtherKey:="DonorId")>  _
 		Public Property FCX_API_Donations() As EntitySet(Of FCX_API_Donation)
 			Get
 				Return Me._FCX_API_Donations
@@ -2064,6 +2064,10 @@ Namespace FCX
 		
 		Private _UniqueDonationRef As String
 		
+		Private _IBAN As String
+		
+		Private _VCode As String
+		
 		Private _FCX_API_Donation_Props As EntitySet(Of FCX_API_Donation_Prop)
 		
 		Private _FCX_API_DonBat As EntityRef(Of FCX_API_DonBat)
@@ -2117,6 +2121,14 @@ Namespace FCX
     End Sub
     Partial Private Sub OnUniqueDonationRefChanged()
     End Sub
+    Partial Private Sub OnIBANChanging(value As String)
+    End Sub
+    Partial Private Sub OnIBANChanged()
+    End Sub
+    Partial Private Sub OnVCodeChanging(value As String)
+    End Sub
+    Partial Private Sub OnVCodeChanged()
+    End Sub
     #End Region
 		
 		Public Sub New()
@@ -2135,9 +2147,6 @@ Namespace FCX
 			Set
 				If ((Me._DonationId = value)  _
 							= false) Then
-					If Me._FCX_API_Donor.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
 					Me.OnDonationIdChanging(value)
 					Me.SendPropertyChanging
 					Me._DonationId = value
@@ -2273,6 +2282,9 @@ Namespace FCX
 			Set
 				If ((Me._DonorId = value)  _
 							= false) Then
+					If Me._FCX_API_Donor.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
 					Me.OnDonorIdChanging(value)
 					Me.SendPropertyChanging
 					Me._DonorId = value
@@ -2294,6 +2306,38 @@ Namespace FCX
 					Me._UniqueDonationRef = value
 					Me.SendPropertyChanged("UniqueDonationRef")
 					Me.OnUniqueDonationRefChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_IBAN", DbType:="NVarChar(100)")>  _
+		Public Property IBAN() As String
+			Get
+				Return Me._IBAN
+			End Get
+			Set
+				If (String.Equals(Me._IBAN, value) = false) Then
+					Me.OnIBANChanging(value)
+					Me.SendPropertyChanging
+					Me._IBAN = value
+					Me.SendPropertyChanged("IBAN")
+					Me.OnIBANChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_VCode", DbType:="NVarChar(20)")>  _
+		Public Property VCode() As String
+			Get
+				Return Me._VCode
+			End Get
+			Set
+				If (String.Equals(Me._VCode, value) = false) Then
+					Me.OnVCodeChanging(value)
+					Me.SendPropertyChanging
+					Me._VCode = value
+					Me.SendPropertyChanged("VCode")
+					Me.OnVCodeChanged
 				End If
 			End Set
 		End Property
@@ -2336,7 +2380,7 @@ Namespace FCX
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="FCX_API_Donor_FCX_API_Donation", Storage:="_FCX_API_Donor", ThisKey:="DonationId", OtherKey:="DonorId", IsForeignKey:=true)>  _
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="FCX_API_Donor_FCX_API_Donation", Storage:="_FCX_API_Donor", ThisKey:="DonorId", OtherKey:="DonorId", IsForeignKey:=true)>  _
 		Public Property FCX_API_Donor() As FCX_API_Donor
 			Get
 				Return Me._FCX_API_Donor.Entity
@@ -2355,9 +2399,9 @@ Namespace FCX
 					If ((value Is Nothing)  _
 								= false) Then
 						value.FCX_API_Donations.Add(Me)
-						Me._DonationId = value.DonorId
+						Me._DonorId = value.DonorId
 					Else
-						Me._DonationId = CType(Nothing, Long)
+						Me._DonorId = CType(Nothing, Long)
 					End If
 					Me.SendPropertyChanged("FCX_API_Donor")
 				End If

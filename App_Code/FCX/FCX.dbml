@@ -99,8 +99,8 @@
       <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="UniqueDonorRef" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="DonationnProcessorId" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
-      <Association Name="FCX_API_Donor_FCX_API_Donation" Member="FCX_API_Donations" ThisKey="DonorId" OtherKey="DonationId" Type="FCX_API_Donation" />
       <Association Name="FCX_API_Donor_FCX_API_Donors_Prop" Member="FCX_API_Donors_Props" ThisKey="DonorId" OtherKey="DonorId" Type="FCX_API_Donors_Prop" />
+      <Association Name="FCX_API_Donor_FCX_API_Donation" Member="FCX_API_Donations" ThisKey="DonorId" OtherKey="DonorId" Type="FCX_API_Donation" />
     </Type>
   </Table>
   <Table Name="dbo.FCX_API_Donation" Member="FCX_API_Donations">
@@ -115,9 +115,11 @@
       <Column Name="PaymentProcessorTrxId" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="DonorId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="UniqueDonationRef" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="IBAN" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="VCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Association Name="FCX_API_Donation_FCX_API_Donation_Prop" Member="FCX_API_Donation_Props" ThisKey="DonationId" OtherKey="DonationId" Type="FCX_API_Donation_Prop" />
       <Association Name="FCX_API_DonBat_FCX_API_Donation" Member="FCX_API_DonBat" ThisKey="DonationBatId" OtherKey="DonBatId" Type="FCX_API_DonBat" IsForeignKey="true" />
-      <Association Name="FCX_API_Donor_FCX_API_Donation" Member="FCX_API_Donor" ThisKey="DonationId" OtherKey="DonorId" Type="FCX_API_Donor" IsForeignKey="true" />
+      <Association Name="FCX_API_Donor_FCX_API_Donation" Member="FCX_API_Donor" ThisKey="DonorId" OtherKey="DonorId" Type="FCX_API_Donor" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
