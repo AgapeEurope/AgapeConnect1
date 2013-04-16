@@ -422,7 +422,9 @@ Public Class FCX_API
 
     Private Function Authenticate(ByVal ApiKey As Guid, ByRef rtn As TrxResponse) As FCX_API_Key
         Dim d As New FCXDataContext
-        Dim q = d.FCX_API_Keys.Where(Function(x) x.API_KEY = ApiKey)
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+
+        Dim q = d.FCX_API_Keys.Where(Function(x) x.API_KEY = ApiKey And x.PortalId = PS.PortalId)
 
         If q.Count > 0 Then
             If q.First.Active Then
