@@ -165,7 +165,7 @@
     }
 
 </style>
-<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" />
+<dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" ShowBreadcrumb="False" />
 <asp:Panel ID="PnlEmptyCart" runat="server" Visible="False">
     <br />
     <asp:Label ID="LblEmptyCart" runat="server" ResourceKey="LblEmptyCart" Text=''></asp:Label>  
