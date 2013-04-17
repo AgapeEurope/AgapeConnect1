@@ -30,20 +30,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
         Public ReadOnly Property ListType As String
             Get
                 Dim value As String = Request.QueryString.Get("givetype")
-                If String.IsNullOrEmpty(value) Then
-
-                    Select Case TabController.CurrentPage.TabName
-                        Case "Permanents"
-                            value = "Staff"
-
-                        Case "Ministères"
-                            value = "Dept"
-
-                        Case "Projets"
-                            value = "Project"
-
-                    End Select
-
+                If String.IsNullOrEmpty(value) Then 'Staff list per default if no param in request
+                    value = "Staff"
                 End If
                 Return value
             End Get
@@ -52,20 +40,19 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             Dim d As New StaffBrokerDataContext
-            
+
             Select Case ListType
                 Case "Staff"
-                    Dim IncList() As String = {"National Staff", "National Staff, Overseas"}
-                    Dim ListItems As System.Linq.IOrderedQueryable
-                    'MAY : get search capabilites working
 
-                    ListItems = From s In d.AP_StaffBroker_Staffs _
-                                Where (s.User.LastName Like "*" & SearchText & "*") And IncList.Contains(s.AP_StaffBroker_StaffType.Name) _
-                                And s.PortalId = PortalId _
-                                And Not (From sp In d.AP_StaffBroker_StaffProfiles _
-                                Join spd In d.AP_StaffBroker_StaffPropertyDefinitions On spd.StaffPropertyDefinitionId Equals sp.StaffPropertyDefinitionId _
-                                Where spd.PropertyName = "UnNamedStaff" And sp.PropertyValue = "True" Select sp.StaffId).Contains(s.StaffId) _
-                                Order By s.User.LastName
+                    Dim ListItems = From c In d.AP_StaffBroker_Staffs Where c.PortalId = PortalId And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "CanReceiveDonations" And x.PropertyValue = "True").Count > 0 _
+                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "UnNamedStaff" And x.PropertyValue = "True").Count = 0 _
+                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut" And Not (x.PropertyValue Is Nothing Or x.PropertyValue.Equals(""))).Count > 0 _
+                    Select c.StaffId, c.User.LastName, c.DisplayName, _
+                    GivingShortcut = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut").FirstOrDefault.PropertyValue, _
+                    JointPhoto = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "JointPhoto").FirstOrDefault.PropertyValue
+                    Order By LastName
+
+                    'And (s.User.LastName Like "*" & SearchText & "*") _ 'A ajouter pour recherche
 
                     dlGiveListStaff.DataSource = ListItems
                     dlGiveListStaff.DataBind()
@@ -73,7 +60,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
                 Case "Dept"
                     Dim ListItems = From s In d.AP_StaffBroker_Departments _
                                     Where s.CanGiveTo = "True" _
-                                    And s.PortalId = PortalId And Not s.IsProject
+                                    And s.PortalId = PortalId And Not s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
 
                     dlGiveListDept.DataSource = ListItems
                     dlGiveListDept.DataBind()
@@ -82,7 +71,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
                 Case "Project"
                     Dim ListItems = From s In d.AP_StaffBroker_Departments _
                                     Where s.CanGiveTo = "True" _
-                                    And s.PortalId = PortalId And s.IsProject
+                                    And s.PortalId = PortalId And s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
 
                     dlGiveListDept.DataSource = ListItems
                     dlGiveListDept.DataBind()
@@ -93,64 +84,17 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
             End Select
         End Sub
 
-        Public Function GetPhotoURL(ByVal PhotoId As Integer?) As String
-            If Not PhotoId Is Nothing Then
-                Dim _theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(PhotoId)
-                If Not _theFile Is Nothing Then
-                    Return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(_theFile)
-                Else
-                    Return "/images/no_avatar.gif"
-
-                End If
-            Else
-                Return "/images/no_avatar.gif"
-
-            End If
-
-
-        End Function
-
-        Public Function GiveToURL(ByVal DataId As Integer) As String
-
-            Dim shortcut As String = ""
-
-            If ListType = "Staff" Then
-                shortcut = StaffBrokerFunctions.GetStaffProfileProperty(DataId, "givingshortcut")
-
-            ElseIf ListType = "Dept" Then
-                shortcut = StaffBrokerFunctions.GetDeptGiveToURL(PortalId, DataId)
-
-            ElseIf ListType = "Project" Then
-                shortcut = StaffBrokerFunctions.GetDeptGiveToURL(PortalId, DataId)
-            End If
-
+        Public Function GiveToURL(ByVal GivingShortcut As String) As String
 
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
             Dim x = mc.GetModuleByDefinition(PortalId, "frGiveView")
             If Not x Is Nothing Then
                 If Not x.TabID = Nothing Then
-                    Return (NavigateURL(x.TabID, "", "giveto=" + shortcut))
+                    Return (NavigateURL(x.TabID, "", "giveto=" + GivingShortcut))
                 End If
             End If
-            'MAY : change this url
-            Return "http://www.agapefrance.org"
-        End Function
-
-        Public Function getFirstNames(ByVal StaffId As Integer) As String
-            Dim theStaff = StaffBrokerFunctions.GetStaffbyStaffId(StaffId)
-            If Not theStaff Is Nothing Then
-
-
-                If theStaff.UserId2 > 0 Then
-                    Return theStaff.User.FirstName & " et " & theStaff.User2.FirstName
-                Else
-                    Return theStaff.User.FirstName
-                End If
-            Else
-
-                Return ""
-            End If
-
+            'No link if frGiveView page not found
+            Return ""
         End Function
 
         '      Private Sub btnSearch_click(sender As Object, e As System.EventArgs) Handles btnSearch.Click
