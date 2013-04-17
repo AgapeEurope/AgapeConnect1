@@ -39,7 +39,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim ctlEntry As ListController = New ListController
             cboCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
             cboCountry.DataBind()
-            doncontinue.Style("Display") = "none"
             summaryDon.Style("Display") = "none"
             confirmation.Visible = False
             pleasewait.Style("Display") = "none"
@@ -152,7 +151,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             LblRegion.Text = Translate("Region")
             LblPostCode.Text = Translate("PostCode")
             lblIBAN.Text = Translate("IBAN")
-            lblBankInfo.Text = Translate("BankInfo")
             btnFinishDon.Text = Translate("btnFinishDon")
             lblSummaryLeft.Text = Translate("lblSummaryLeft")
             lblSummaryRight.Text = Translate("lblSummaryRight")
@@ -170,7 +168,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextPhone.Text = Translate("Telephone")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
-            btnNoScriptGo.Text = Translate("btnFinishDon")
             ValFreq.ErrorMessage = Translate("ValFreq")
             ValAmt.ErrorMessage = Translate("ValAmt")
             ValAmtRange.ErrorMessage = Translate("ValAmtRange")
@@ -192,6 +189,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             rblFrequency.CssClass = rblFrequency.CssClass & " rbFreq"
             tbAmount.CssClass = tbAmount.CssClass & " tbAmt"
             rblMethod.CssClass = rblMethod.CssClass & " rblMeth"
+            tbComment.CssClass = tbComment.CssClass & " tbComm"
         End Sub
 #End Region
 #Region "Functions"
@@ -253,7 +251,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             'GiveMethod 1 for virement, 2 for cheque
             insert.GiveMethod = rblMethod.SelectedIndex
             insert.acNo = tbIBAN.Text
-            insert.GiveMessage = theDonationComment.Text
+            insert.GiveMessage = tbComment.Text
             insert.Status = 0
             insert.TypeId = RowId.Value
             d.Agape_Give_BankTransfers.InsertOnSubmit(insert)
@@ -288,8 +286,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
 
                 End If
                 Dim message = Translate("NoMessage")
-                If Not theDonationComment.Text = "" Then
-                    message = theDonationComment.Text
+                If Not tbComment.Text = "" Then
+                    message = tbComment.Text
                 End If
                 Dim mailbody = StaffBrokerFunctions.GetTemplate(donortemplate, PortalId)
                 mailbody = mailbody.Replace("[NAME]", TxtFirstName.Text & " " & TxtLastName.Text).Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text).Replace("[RECIP]", Title.Text).Replace("[MESSAGE]", message).Replace("[PDFLINK]", pdflink).Replace("[IMAGEURL]", "sso/GetLogo.aspx")
@@ -356,8 +354,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             amtchoose.Visible = False
             contact.Visible = False
             methchoose.Visible = False
-            virement.Visible = False
-            noscriptconf.Visible = False
         End Sub
         Protected Sub UpdateUser()
             Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
@@ -381,17 +377,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
 #End Region
 #Region "Buttons"
         Protected Sub btnFinishDon_Click(sender As Object, e As EventArgs) Handles btnFinishDon.Click
-            If rblMethod.SelectedIndex = "0" Then 'credit card
-                CartDonation()
-            ElseIf rblMethod.SelectedIndex = "1" Then 'bank transfer
-                If IsGroupValid("Bank") Then
-                    GoBank()
-                End If
-            Else 'cheque
-                GoBank()
-            End If
-        End Sub
-        Protected Sub btnNoScriptGo_Click(sender As Object, e As EventArgs) Handles btnNoScriptGo.Click
             If rblMethod.SelectedIndex = "0" Then 'credit card
                 CartDonation()
             ElseIf rblMethod.SelectedIndex = "1" Then 'bank transfer
@@ -430,14 +415,14 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             End If
         End Sub
         Private Sub DonateToStaff()
-            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Staff, CInt(RowId.Value), CInt(tbAmount.Text), theDonationComment.Text)
+            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Staff, CInt(RowId.Value), CInt(tbAmount.Text), tbComment.Text)
         End Sub
         Private Sub DonateToDept()
-            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Department, CInt(RowId.Value), CInt(tbAmount.Text), theDonationComment.Text)
+            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Department, CInt(RowId.Value), CInt(tbAmount.Text), tbComment.Text)
         End Sub
         Private Sub DonateToProject()
             'TODO Texte à traduire pour le titre
-            'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), theDonationComment.Text)
+            'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), tbComment.Text)
         End Sub
 #End Region
 
