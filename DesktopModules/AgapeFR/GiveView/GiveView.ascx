@@ -25,6 +25,9 @@
                 amt_trim();
                 amt_enter();
             });
+            $('.tbComm').change(function () {
+                rblMeth_click();
+            });
             $('.contactfill').keyup(function () {
                 contactfill_enter();
             });
@@ -69,7 +72,7 @@
                 $('.rbFreq input:radio[value="' + sessfreq + '"]').click();
                 $('.tbAmt').val(sessamt);
                 $('.rblMeth input:radio[value="' + sessmeth + '"]').click();
-                $('.tbComment').val(sesscomm);
+                $('.tbComm').val(sesscomm);
                 //empty session storage
                 sessionStorage.removeItem('rbFreq');
                 sessionStorage.removeItem('tbAmt');
@@ -243,7 +246,7 @@
             $('#lblSummaryMobile').text($('.TxtMobile').val());
             $('#lblSummaryPhone').text($('.TxtTelephone').val());
             $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
-            $('#lblSummaryDonComment').text($('.tbComment').val());
+            $('#lblSummaryDonComment').text($('.tbComm').val());
             $('.freqchoose').slideUp(1000);
             $('.amtchoose').slideUp(1000);
             $('.contact').slideUp(1000);
