@@ -12,7 +12,6 @@
         function setUpMyPage() {
             hidedivs();
             $('.TxtPostCode').numeric({ decimal: false, negative: false });
-            $('.TxtBankPostal').numeric({ decimal: false, negative: false });
             $('.TxtMobile').numeric({ decimal: false, negative: false });
             $('.TxtTelephone').numeric({ decimal: false, negative: false });
             $('.aButton').button();
@@ -196,12 +195,6 @@
     $('#lblSummaryEmail').text($('.TxtEmail').val());
     $('#lblSummaryMobile').text($('.TxtMobile').val());
     $('#lblSummaryPhone').text($('.TxtTelephone').val());
-    $('#lblSummaryBankName').text($('.TxtBank').val());
-    $('#lblSummaryBankAddress1').text($('.TxtBankStreet1').val());
-    $('#lblSummaryBankAddress2').text($('.TxtBankStreet2').val());
-    $('#lblSummaryBankPostal').text($('.TxtBankPostal').val());
-    $('#lblSummaryBankCity').text($('.TxtBankCity').val());
-    $('#lblSummaryBankCountry').text($('.cboBankCountry option:selected').text());
     $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
     $('#lblSummaryDonComment').text($('.theDonationComment').val());
     $('.freqchoose').slideUp(1000);
@@ -512,52 +505,14 @@ function rbFreq_click() {
         <div id="virement" class="virement bubble" runat="server">
             <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
             <div style="clear: both"></div>
-            <div class="bankinfoleft">
-                <div class="giveformitem">
-                    <dnn:Label ID="lblBank" runat="server" ControlName="TxtBank" />
-                    <asp:TextBox ID="tbBank" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBank bankfill" />
-                    <asp:RequiredFieldValidator ID="ValBank" ControlToValidate="tbBank" runat="server" Text="*" ValidationGroup="Bank" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="tbBank" runat="server" ValidationGroup="jBank" />
-                </div>
-                <div class="giveformitem">
-                    <dnn:Label ID="lblBankStreet1" runat="server" ControlName="TxtBankStreet1" />
-                    <asp:TextBox ID="tbBankStreet1" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankStreet1 bankfill" />
-                    <asp:RequiredFieldValidator ID="ValBankStreet1" ControlToValidate="tbBankStreet1" runat="server" Text="*" ValidationGroup="Bank" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator15" ControlToValidate="tbBankStreet1" runat="server" ValidationGroup="jBank" />
-                </div>
-                <div class="giveformitem">
-                    <dnn:Label ID="lblBankStreet2" runat="server" ControlName="TxtBankStreet2" />
-                    <asp:TextBox ID="tbBankStreet2" runat="server" MaxLength="50" CssClass="TxtBankStreet2 bankfill" />
-                </div>
-            </div>
-            <div class="bankinforight">
-                <div class="giveformitem">
-                    <dnn:Label ID="lblBankPostal" runat="server" ControlName="TxtBankPostal" />
-                    <asp:TextBox ID="tbBankPostal" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankPostal bankfill" />
-                    <asp:RequiredFieldValidator ID="ValBankPostal" ControlToValidate="tbBankPostal" runat="server" Text="*" ValidationGroup="Bank" />
-                    <asp:RegularExpressionValidator ID="ValBankPostalExp" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="Bank" ValidationExpression="^\d+$" Text="*" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator16" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="jBank" />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="tbBankPostal" runat="server" ValidationGroup="jBank" ValidationExpression="^\d+$" />
-                </div>
-                <div class="giveformitem">
-                    <dnn:Label ID="lblBankCity" runat="server" ControlName="TxtBankCity" />
-                    <asp:TextBox ID="tbBankCity" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankCity bankfill" />
-                    <asp:RequiredFieldValidator ID="ValBankCity" ControlToValidate="tbBankCity" runat="server" Text="*" ValidationGroup="Bank" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator17" ControlToValidate="tbBankCity" runat="server" ValidationGroup="jBank" />
-                </div>
-                <div class="giveformitem">
-                    <dnn:Label ID="lblBankCountry" runat="server" ControlName="TxtBankCountry" />
-                    <div>
-                        <wc:CountryListBox TestIP="" LocalhostCountryCode="US" ID="cboBankCountry" CssClass="cboBankCountry" DataValueField="Value" DataTextField="Text" runat="server" />
-                    </div>
-                </div>
+
                 <div class="giveformitem">
                     <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
                     <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
                     <asp:RequiredFieldValidator ID="ValIBAN" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="tbIBAN" runat="server" ValidationGroup="jBank" />
                 </div>
-            </div>
+
             <div style="clear: both"></div>
         </div>
         <div id="doncontinue" class="bubble doncontinue" runat="server">
@@ -657,48 +612,6 @@ function rbFreq_click() {
                     <tr>
                         <td colspan="2">
                             <asp:Label ID="lblSummaryRight" Text="" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblSumTextBankName" CssClass="lblSumTextBankName" Text="text" runat="server" /></td>
-                        <td>
-                            <label id="lblSummaryBankName"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblSumTextBankAddress1" CssClass="lblSumTextBankAddress1" Text="text" runat="server" /></td>
-                        <td>
-                            <label id="lblSummaryBankAddress1"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblSumTextBankAddress2" CssClass="lblSumTextBankAddress2" Text="text" runat="server" /></td>
-                        <td>
-                            <label id="lblSummaryBankAddress2"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblSumTextBankPostal" CssClass="lblSumTextBankPostal" Text="text" runat="server" /></td>
-                        <td>
-                            <label id="lblSummaryBankPostal"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblSumTextBankCity" CssClass="lblSumTextBankCity" Text="text" runat="server" /></td>
-                        <td>
-                            <label id="lblSummaryBankCity"></label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="lblSumTextBankCountry" CssClass="lblSumTextBankCountry" Text="text" runat="server" /></td>
-                        <td>
-                            <label id="lblSummaryBankCountry"></label>
-                        </td>
                     </tr>
                     <tr>
                         <td>

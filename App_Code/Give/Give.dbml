@@ -4,16 +4,10 @@
     <Type Name="Agape_Give_BankTransfer">
       <Column Name="VirId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="DonorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BankName" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
-      <Column Name="BankStreet1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="BankStreet2" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="BankPostal" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="acNo" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="Frequency" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="StartDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Amount" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="BankCity" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="BankCountry" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="GiveMessage" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Reference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
