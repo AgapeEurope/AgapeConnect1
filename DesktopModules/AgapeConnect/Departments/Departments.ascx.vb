@@ -173,7 +173,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
         Protected Sub LoadImage(sender As Object, e As System.EventArgs)
             Dim x = CType(sender, DesktopModules_AgapePortal_StaffBroker_acImage)
             If x.Aspect = "" Then
-                x.Aspect = "1.3"
+                x.Aspect = "1"
                 x.Width = "200"
 
                 x.LazyLoad(False, True)

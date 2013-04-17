@@ -271,7 +271,7 @@ public class StaffBrokerFunctions
 
     static public AP_StaffBroker_Staff CreateStaffMember(int PortalId, DotNetNuke.Entities.Users.UserInfo User1in, short staffTypeIn = 1)
     {
-       
+
         DotNetNuke.Security.Roles.RoleController rc = new DotNetNuke.Security.Roles.RoleController();
         if (rc.GetRoleByName(PortalId, "Staff") == null)
         {
@@ -426,6 +426,18 @@ public class StaffBrokerFunctions
         }
     }
 
+    static public string GetStaffJointPhotoByFileId(int staffID, int fileId)
+    {
+        if (GetStaffProfileProperty(staffID, "UnNamedStaff") != "True")
+        {
+            // fileId may be 0 if no photo defined, then theFile would be null
+            DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(fileId);
+            if (theFile != null)
+                return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
+        }
+        return "/images/no_avatar.gif";
+    }
+
     static public string GetDeptPhoto(int deptID)
     {
         StaffBrokerDataContext d = new StaffBrokerDataContext();
@@ -441,6 +453,15 @@ public class StaffBrokerFunctions
             DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(Convert.ToInt32(fileId));
             return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
         }
+    }
+
+    static public string GetDeptPhotoByFileId(int fileId)
+    {
+        // fileId may be 0 if no photo defined, then theFile would be null
+        DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile((int)fileId);
+        if (theFile != null)
+            return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
+        return "/images/no_avatar.gif";
     }
 
 
