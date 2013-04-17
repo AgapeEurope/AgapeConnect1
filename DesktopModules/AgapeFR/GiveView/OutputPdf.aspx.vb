@@ -85,7 +85,6 @@ Partial Class DesktopModules_Give_OutputPdf
         pdfFormFields.SetField("FirstName", objUser.FirstName)
         pdfFormFields.SetField("Address", userAddress)
         pdfFormFields.SetField("Paragraph", theParagraph)
-
         pdfFormFields.SetField("IBAN", q.First.acNo)
         pdfFormFields.SetField("Paragraph", theParagraph)
         pdfStamper.FormFlattening = True
