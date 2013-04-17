@@ -98,14 +98,11 @@
             $('.methchoose').slideUp(1000);
             $('.virement').slideUp(1000);
             $('.doncontinue').slideUp(1000);
-        }        
+        }
     }
     function bankfill_enter() {
         if (Page_ClientValidate('jBank')) {
             $('.doncontinue').slideDown(1000);
-            $('html, body').animate({
-                scrollTop: $(".doncontinue").offset().top
-            }, 1000);
         }
         else {
             $('.doncontinue').slideUp(1000);
@@ -204,9 +201,6 @@
     $('.virement').slideUp(1000);
     $('.doncontinue').slideUp(1000);
     $('.summaryDon').slideDown(1000);
-    $('html, body').animate({
-        scrollTop: $(".summaryDon").offset().top
-    }, 1000);
 }
 function btnEditVirement_click() {
     $('.summaryDon').slideUp(1000);
@@ -217,23 +211,14 @@ function rblMeth_click() {
     if ($('.rblMeth input:radio:checked').val() == 'm1') {
         $('.virement').slideUp(1000);
         $('.doncontinue').slideDown(1000);
-        $('html, body').animate({
-            scrollTop: $(".doncontinue").offset().top
-        }, 1000);
     }
     else if ($('.rblMeth input:radio:checked').val() == 'm2') {
         $('.virement').slideDown(1000);
         bankfill_enter();
-        $('html, body').animate({
-            scrollTop: $(".virement").offset().top
-        }, 1000);
     }
     else if ($('.rblMeth input:radio:checked').val() == 'm3') {
         $('.virement').slideUp(1000);
         $('.doncontinue').slideDown(1000);
-        $('html, body').animate({
-            scrollTop: $(".doncontinue").offset().top
-        }, 1000);
     }
     else {
         $('.virement').slideUp(1000);
@@ -283,9 +268,10 @@ function rbFreq_click() {
         background-image: url(/DesktopModules/AgapeFR/GiveView/files/PleaseWait.gif);
         background-repeat: no-repeat;
         padding-left: 40px;
-        height:32px;
-        line-height:32px;
+        height: 32px;
+        line-height: 32px;
     }
+
     .tbAmt {
         width: 60px;
         border-radius: 3px;
@@ -438,14 +424,10 @@ function rbFreq_click() {
                 <div class="giveformitem">
                     <dnn:Label ID="LblMobile" runat="server" ControlName="TxtMobile" />
                     <asp:TextBox ID="TxtMobile" runat="server" MaxLength="50" CssClass="virementform TxtMobile contactfill" />
-                    <asp:RegularExpressionValidator ID="ValMobileExp" ControlToValidate="TxtMobile" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="TxtMobile" runat="server" ValidationExpression="^\d+$" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblTelephone" runat="server" ControlName="TxtTelephone" />
                     <asp:TextBox ID="TxtTelephone" runat="server" MaxLength="50" CssClass="virementform TxtTelephone contactfill" />
-                    <asp:RegularExpressionValidator ID="ValTelephoneExp" ControlToValidate="TxtTelephone" runat="server" ValidationExpression="^\d+$" Text="*" ValidationGroup="Don" />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="TxtTelephone" runat="server" ValidationExpression="^\d+$" ValidationGroup="Contact" />
                 </div>
             </div>
             <div style="float: right">
@@ -469,9 +451,7 @@ function rbFreq_click() {
                     <dnn:Label ID="LblPostCode" runat="server" ControlName="TxtPostCode" />
                     <asp:TextBox ID="TxtPostCode" runat="server" MaxLength="50" CssClass="virementform TxtPostCode contactfill" />
                     <asp:RequiredFieldValidator ID="ValPostCode" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" Text="*" />
-                    <asp:RegularExpressionValidator ID="ValPostCodeExp" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" ValidationExpression="^\d+$" Visible="True" Text="*" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Contact" />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Contact" ValidationExpression="^\d+$" Visible="True" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblCity" runat="server" ControlName="TxtCity" />
@@ -506,12 +486,12 @@ function rbFreq_click() {
             <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
             <div style="clear: both"></div>
 
-                <div class="giveformitem">
-                    <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
-                    <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
-                    <asp:RequiredFieldValidator ID="ValIBAN" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="tbIBAN" runat="server" ValidationGroup="jBank" />
-                </div>
+            <div class="giveformitem">
+                <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
+                <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
+                <asp:RequiredFieldValidator ID="ValIBAN" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="tbIBAN" runat="server" ValidationGroup="jBank" />
+            </div>
 
             <div style="clear: both"></div>
         </div>
