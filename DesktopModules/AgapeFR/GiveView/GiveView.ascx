@@ -11,9 +11,6 @@
     (function ($, Sys) {
         function setUpMyPage() {
             hidedivs();
-            $('.TxtPostCode').numeric({ decimal: false, negative: false });
-            $('.TxtMobile').numeric({ decimal: false, negative: false });
-            $('.TxtTelephone').numeric({ decimal: false, negative: false });
             $('.aButton').button();
             $('.tbAmt').numeric({ decimal: false, negative: false });
             $('.tbAmt').attr('autocomplete', 'off');
