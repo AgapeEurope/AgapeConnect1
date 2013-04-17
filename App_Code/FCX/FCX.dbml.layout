@@ -27,7 +27,7 @@
         <elementListCompartment Id="c984e6ed-a11f-4250-91c7-de77e45e2887" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 1.86620198567708); (3.25 : 1.86620198567708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 1.86620198567708); (3.25 : 1.86620198567708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FCXDataContext/FCX_API_Key/FCX_API_Key_FCX_API_FinBat" />
       <nodes>
         <classShapeMoniker Id="e48cd113-ccb9-4e74-a161-c0faca1e0d21" />
@@ -52,7 +52,7 @@
         <elementListCompartment Id="75445f1f-7553-450d-926c-ef03bb56d16d" absoluteBounds="0.76500000000000012, 4.5850000000000009, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.625 : 3.42470540364583); (1.625 : 4.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.625 : 3.42470540364583); (1.625 : 4.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FCXDataContext/FCX_API_Key/FCX_API_Key_FCX_API_DonBat" />
       <nodes>
         <classShapeMoniker Id="e48cd113-ccb9-4e74-a161-c0faca1e0d21" />
@@ -78,21 +78,21 @@
         <elementListCompartment Id="9b4e8d47-75b1-4c7c-8517-b0a521733d20" absoluteBounds="3.8899999999999997, 5.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 5.61140055338542); (3.875 : 5.61140055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 5.61140055338542); (3.875 : 5.61140055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FCXDataContext/FCX_API_DonBat/FCX_API_DonBat_FCX_API_Donation" />
       <nodes>
         <classShapeMoniker Id="294e9739-cb6c-466b-adee-3603e8ea3d0a" />
         <classShapeMoniker Id="09a9c313-2f53-4e26-bd2c-ad19c36df7b0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.875 : 5.10179768880208); (6.25 : 5.10179768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.875 : 5.10179768880208); (6.25 : 5.10179768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FCXDataContext/FCX_API_Donation/FCX_API_Donation_FCX_API_Donation_Prop" />
       <nodes>
         <classShapeMoniker Id="09a9c313-2f53-4e26-bd2c-ad19c36df7b0" />
         <classShapeMoniker Id="d5202123-64ac-4306-b86d-746c947f004e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.625 : 7.37100341796875); (5.875 : 7.37100341796875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.625 : 7.37100341796875); (5.875 : 7.37100341796875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FCXDataContext/FCX_API_Donor/FCX_API_Donor_FCX_API_Donation" />
       <nodes>
         <classShapeMoniker Id="66677fb0-52d3-4124-aec7-841c4a9dcfe2" />

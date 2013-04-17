@@ -44,7 +44,7 @@ Partial Class FCX_ITN
             Dim dc As New Cart.CartDataContext
             Dim Status As Integer
             If batch.Status = BatchStatus.Downloaded Then
-                Status = OrderState.Downlaoded
+                Status = OrderState.Downloaded
             ElseIf batch.Status = BatchStatus.DownloadError Then
                 Status = OrderState.ErrorDownloading
             End If
