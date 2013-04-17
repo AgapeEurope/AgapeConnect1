@@ -281,12 +281,14 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 Dim donortemplate As String = ""
                 If rblMethod.SelectedIndex = 1 Then 'virement
                     lblConfCheque.Visible = False
-                    reciptemplate = "RecipVirementMail." & CultureInfo.CurrentCulture().ToString
+                    reciptemplate = "RecipVirementMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
                     donortemplate = "DonorVirementMail." & CultureInfo.CurrentCulture().ToString
                 ElseIf rblMethod.SelectedIndex = 2 Then 'cheque
                     lblConfVirement.Visible = False
-                    reciptemplate = "RecipChequeMail." & CultureInfo.CurrentCulture().ToString
                     donortemplate = "DonorChequeMail." & CultureInfo.CurrentCulture().ToString
+                    reciptemplate = "RecipChequeMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
+
+
                 End If
                 Dim message = Translate("NoMessage")
                 If Not theDonationComment.Text = "" Then
@@ -337,8 +339,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     recip = staffEmail1 & IIf(String.IsNullOrEmpty(staffEmail2), String.Empty, ", " & staffEmail2)
                 End If
                 If Not String.IsNullOrEmpty(recip) Then
-
-                    mailsubject = Translate("recipemailsubject")
+                    'mailsubject = Translate("recipemailsubject")
+                    Dim lang = DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
+                    mailsubject = DotNetNuke.Services.Localization.Localization.GetString("recipemailsubject.Text", LocalResourceFile, language:=lang)
                     mailbody = StaffBrokerFunctions.GetTemplate(reciptemplate, PortalId)
                     Dim donoraddress As String = TxtFirstName.Text & " " & TxtLastName.Text & "<br />" & TxtStreet1.Text & "<br />" & IIf(TxtStreet2.Text = "", "", TxtStreet2.Text & "<br />") & cboCountry.SelectedItem.Text & IIf(TxtTelephone.Text = "", "", "<br />" & TxtTelephone.Text) & IIf(TxtMobile.Text = "", "", "<br />" & TxtMobile.Text)
                     mailbody = mailbody.Replace("[LOGO]", "sso/GetLogo.aspx").Replace("[MESSAGE]", message).Replace("[ADDRESS]", donoraddress).Replace("[NAME]", Title.Text).Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text)
