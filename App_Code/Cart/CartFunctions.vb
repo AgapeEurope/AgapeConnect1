@@ -43,6 +43,12 @@ Public Module OrderState
     Public Const Completed As Integer = 2
     Public Const Canceled As Integer = 3 'order not shipped out or completed
     Public Const Returned As Integer = 4
+    Public Const Downloading As Integer = 5
+    Public Const Downloaded As Integer = 6
+    Public Const ErrorDownloading As Integer = 7
+    Public Const ErrorPayment As Integer = 8
+    Public Const ErrorPaymentCancelled As Integer = 9
+
 End Module
 
 ' List of possible actions for CartEditAddress page
@@ -445,7 +451,7 @@ Public Class CartFunctions
 
     End Sub
 
-    Public Shared Sub CompleteOrder(ByVal CartID As Integer)
+    Public Shared Sub CompleteOrder(ByVal CartID As Integer, Optional TransactionId As String = "")
 
         Dim d As New Cart.CartDataContext
         Dim q = From c In d.FR_Carts Where c.CartID = CartID And c.OrderState = OrderState.Submitted
@@ -453,6 +459,7 @@ Public Class CartFunctions
 
         If q.Count > 0 Then
             q.First.OrderState = OrderState.Completed
+            q.First.TransactionId = TransactionId
             d.SubmitChanges()
         End If
 
@@ -467,6 +474,24 @@ Public Class CartFunctions
 
         If q.Count > 0 Then
             q.First.OrderState = OrderState.Canceled
+      
+            d.SubmitChanges()
+        End If
+
+
+    End Sub
+
+    Public Shared Sub ChangeCartState(ByVal CartID As Integer, ByVal NewOrderState As Integer, ByVal PortalId As Integer, Optional TransactionId As String = "", Optional OrderStateDescription As String = "", Optional TransactionLog As String = "")
+
+        Dim d As New Cart.CartDataContext
+
+        Dim q = From c In d.FR_Carts Where c.CartID = CartID And c.PortalID = PortalId
+
+        If q.Count > 0 Then
+            q.First.OrderState = NewOrderState
+            q.First.TransactionId = TransactionId
+            q.First.OrderStateDescription = OrderStateDescription
+            q.First.TransLog &= TransactionLog & " ; "
             d.SubmitChanges()
         End If
 
@@ -484,6 +509,51 @@ Public Class CartFunctions
         End If
 
     End Sub
+
+
+    Public Shared Function CopyCart(ByVal CartId As Integer, ByVal Resubmit As Boolean) As Integer
+        Dim d As New Cart.CartDataContext
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Dim q = From c In d.FR_Carts Where c.CartID = CartId
+        If q.Count > 0 Then
+            Dim insert As New FR_Cart
+            insert.AnonID = q.First.AnonID
+            insert.UserID = q.First.UserID
+            insert.BillAddressBookID = q.First.UserID
+            insert.CreditFee = q.First.CreditFee
+            insert.CreditNote = q.First.CreditNote
+            insert.Date = q.First.Date
+            insert.DeliveryInst = q.First.DeliveryInst
+            insert.MerchantFee = q.First.MerchantFee
+
+            insert.PayMethod = q.First.PayMethod
+            insert.PortalID = PS.PortalId
+            insert.ShipAddressBookID = q.First.ShipAddressBookID
+            insert.ShipCompany = q.First.ShipCompany
+            insert.ShipCost = q.First.ShipCost
+            insert.ShipReference = q.First.ShipReference
+            insert.ShipVAT = q.First.ShipReference
+            insert.StaffComments = q.First.StaffComments
+            insert.UserComments = q.First.UserComments
+            insert.TransLog = "continued from Cart " & q.First.CartID & "(Payment Cancelled)"
+
+           
+            insert.OrderState = IIf(Resubmit, OrderState.Submitted, OrderState.Unprocessed)
+
+            d.FR_Carts.InsertOnSubmit(insert)
+            d.SubmitChanges()
+            For Each row In q.First.FR_Cart_Contents
+                AddToCart(q.First.UserID, q.First.AnonID, row.ItemName, row.ItemType, row.ItemRef, row.Quantity, row.Cost, row.Tax, row.DiscountAmt, _
+                          row.DiscountPercent, row.Dispatchable, row.Details)
+
+
+            Next
+            Return CartId
+        End If
+
+        Return -1
+    End Function
+
 
 #End Region 'Modify cart or content in cart
 

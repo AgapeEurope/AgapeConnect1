@@ -232,16 +232,16 @@
     <value>Confirmer Courriel :</value>
   </data>
   <data name="FreqParaOne.Text" xml:space="preserve">
-    <value>trimestriel</value>
+    <value>trimestriel </value>
   </data>
   <data name="FreqParaThree.Text" xml:space="preserve">
-    <value>annuel</value>
+    <value>annuel </value>
   </data>
   <data name="FreqParaTwo.Text" xml:space="preserve">
-    <value>semestriel</value>
+    <value>semestriel </value>
   </data>
   <data name="FreqParaZero.Text" xml:space="preserve">
-    <value>mensuel</value>
+    <value>mensuel </value>
   </data>
   <data name="lblCreditCard.Text" xml:space="preserve">
     <value>Ce don sera ajouter dans votre panier.</value>
@@ -364,7 +364,7 @@
     <value>Merci de sasir un numero fixé valid</value>
   </data>
   <data name="donoremailsubject.Text" xml:space="preserve">
-    <value>Merci pour votre don !</value>
+    <value>Votre promesse de don</value>
   </data>
   <data name="DonorEmailPara1.Text" xml:space="preserve">
     <value>Merci pour votre don ! Il est bien enregistré dans notre système. Voici le résumé de votre don :</value>
@@ -374,9 +374,6 @@
   </data>
   <data name="DonorEmailCheque.Text" xml:space="preserve">
     <value>Pour finir votre don, vous pouvez imprimer ce document et l'envoyer avec votre cheque. Vous pouvez utiliser le lien ci-dessous :</value>
-  </data>
-  <data name="EmailGreeting.Text" xml:space="preserve">
-    <value>Bonjour [NAME] !</value>
   </data>
   <data name="DonorEmailPara3.Text" xml:space="preserve">
     <value>Voici le message que vous avez envoyer au destinataire :</value>
@@ -413,5 +410,8 @@
   </data>
   <data name="BankCountry.Text" xml:space="preserve">
     <value>Pays :</value>
+  </data>
+  <data name="NoMessage.Text" xml:space="preserve">
+    <value>pas de message</value>
   </data>
 </root>

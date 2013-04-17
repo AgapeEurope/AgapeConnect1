@@ -76,11 +76,7 @@ Partial Class DesktopModules_Give_OutputPdf
         Else
             theParagraph += ", à partir du " & Today() & " et jusqu'à résiliation de ma part. Le code pour ce don est " & soid & "."
         End If
-        Dim bankAddress = q.First.BankStreet1
-        If Not q.First.BankStreet2 = "" Then
-            bankAddress += vbCrLf & q.First.BankStreet2
-        End If
-        bankAddress += vbCrLf & q.First.BankPostal & " " & q.First.BankCity & vbCrLf & q.First.BankCountry
+
         Dim pdfTemplate As String = Server.MapPath("/Portals/0/virement.pdf")
         Dim pdfReader As New PdfReader(pdfTemplate)
         Dim pdfStamper As New PdfStamper(pdfReader, Response.OutputStream)
@@ -89,8 +85,7 @@ Partial Class DesktopModules_Give_OutputPdf
         pdfFormFields.SetField("FirstName", objUser.FirstName)
         pdfFormFields.SetField("Address", userAddress)
         pdfFormFields.SetField("Paragraph", theParagraph)
-        pdfFormFields.SetField("Bank", q.First.BankName)
-        pdfFormFields.SetField("BankAddress", bankAddress)
+
         pdfFormFields.SetField("IBAN", q.First.acNo)
         pdfFormFields.SetField("Paragraph", theParagraph)
         pdfStamper.FormFlattening = True
@@ -137,11 +132,7 @@ Partial Class DesktopModules_Give_OutputPdf
             theRecip = ConvertDisplayToSensible(staff.First.DisplayName)
         End If
         Dim theParagraph = "Je vais envoyer un chèque" & theFreq & " de " & q.First.Amount.ToString() & "€. Le code pour ce don est " & soid & ". Le destinataire est " & theRecip & " ."
-        Dim bankAddress = q.First.BankStreet1
-        If Not q.First.BankStreet2 = "" Then
-            bankAddress += vbCrLf & q.First.BankStreet2
-        End If
-        bankAddress += vbCrLf & q.First.BankPostal & " " & q.First.BankCity
+
         Dim pdfTemplate As String = Server.MapPath("/Portals/0/cheque.pdf")
         Dim pdfReader As New PdfReader(pdfTemplate)
         Dim pdfStamper As New PdfStamper(pdfReader, Response.OutputStream)

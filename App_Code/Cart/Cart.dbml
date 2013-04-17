@@ -1,30 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AC-FR" Class="CartDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AC-FR;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.FR_Cart" Member="FR_Carts">
-    <Type Name="FR_Cart">
-      <Column Name="CartID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AnonID" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
-      <Column Name="PayMethod" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="TransLog" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="MerchantFee" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="CreditFee" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UserComments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="StaffComments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="OrderState" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
-      <Column Name="ShipCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="DeliveryInst" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="PortalID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ShipAddressBookID" Storage="_ShipDetailsID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="ShipCompany" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ShipReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="CreditNote" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ShipVAT" Type="System.Double" DbType="money" CanBeNull="true" />
-      <Column Name="BillAddressBookID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Association Name="FR_Cart_FR_Cart_Content" Member="FR_Cart_Contents" ThisKey="CartID" OtherKey="CartID" Type="FR_Cart_Content" />
-    </Type>
-  </Table>
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgapeConnect" Class="CartDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AgapeConnect;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
   <Table Name="dbo.FR_Donations" Member="FR_Donations">
     <Type Name="FR_Donations">
       <Column Name="DonationID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -51,7 +26,7 @@
       <Column Name="Dispatchable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Details" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="FR_Cart_Content_FR_Donations" Member="FR_Donations" ThisKey="CartContentID" OtherKey="CartContentID" Type="FR_Donations" Cardinality="One" />
-      <Association Name="FR_Cart_FR_Cart_Content" Member="FR_Cart" ThisKey="CartID" OtherKey="CartID" Type="FR_Cart" IsForeignKey="true" />
+      <Association Name="FR_Cart_FR_Cart_Content" Member="FR_Cart" ThisKey="CartID" OtherKey="CartID" Type="FR_Cart" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.FR_Cart_AddressBook" Member="FR_Cart_AddressBook">
@@ -67,6 +42,33 @@
       <Column Name="Mobile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Region" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="FullName" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FR_Cart" Member="FR_Carts">
+    <Type Name="FR_Cart">
+      <Column Name="CartID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnonID" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="PayMethod" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="TransLog" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MerchantFee" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="CreditFee" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserComments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StaffComments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderState" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="OrderStateDescription" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ShipCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="DeliveryInst" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PortalID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShipAddressBookID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ShipCompany" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ShipReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreditNote" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ShipVAT" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BillAddressBookID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="TransactionId" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="FR_Cart_FR_Cart_Content" Member="FR_Cart_Contents" ThisKey="CartID" OtherKey="CartID" Type="FR_Cart_Content" />
     </Type>
   </Table>
 </Database>

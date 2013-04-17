@@ -51,6 +51,239 @@ public static class CostCentreType
             default: return "Other";
         }
 
+    }Imports System
+Imports System.Collections
+Imports System.Configuration
+Imports System.Data
+Imports System.Linq
+Imports System.Web
+Imports System.Web.Security
+Imports System.Web.UI
+Imports System.Web.UI.HtmlControls
+Imports System.Web.UI.WebControls
+Imports System.Web.UI.WebControls.WebParts
+Imports System.Net
+Imports System.IO
+'Imports Staffweb
+'Imports Resources
+'Imports FullStory
+Imports DotNetNuke
+Imports DotNetNuke.Security
+'Imports CATALooK
+Imports StaffBroker
+Imports StaffBrokerFunctions
+
+Namespace DotNetNuke.Modules.AgapeFR.GiveList
+    Partial Class GiveList
+        Inherits Entities.Modules.PortalModuleBase
+        Dim SearchText As String
+
+#Region "Properties"
+
+        Public ReadOnly Property ListType As String
+            Get
+                Dim value As String = Request.QueryString.Get("givetype")
+                If String.IsNullOrEmpty(value) Then 'Staff list per default if no param in request
+                    value = "Staff"
+                End If
+                Return value
+            End Get
+        End Property
+#End Region
+
+        Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+            Dim d As New StaffBrokerDataContext
+
+            Select Case ListType
+                Case "Staff"
+
+                    Dim ListItems = From c In d.AP_StaffBroker_Staffs Where c.PortalId = PortalId And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "CanReceiveDonations" And x.PropertyValue = "True").Count > 0 _
+                                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "UnNamedStaff" And x.PropertyValue = "True").Count = 0 _
+                                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut" And Not (x.PropertyValue Is Nothing Or x.PropertyValue.Equals(""))).Count > 0 _
+                    Select c.StaffId, c.User.LastName, c.DisplayName, _
+                    GivingShortcut = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut").FirstOrDefault.PropertyValue, _
+                    JointPhoto = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "JointPhoto").FirstOrDefault.PropertyValue
+                    Order By LastName
+
+                    'And (s.User.LastName Like "*" & SearchText & "*") _ 'A ajouter pour recherche
+
+                    dlGiveListStaff.DataSource = ListItems
+                    dlGiveListStaff.DataBind()
+
+                Case "Dept"
+                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
+                                    Where s.CanGiveTo = "True" _
+                                    And s.PortalId = PortalId And Not s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
+
+                    dlGiveListDept.DataSource = ListItems
+                    dlGiveListDept.DataBind()
+
+
+                Case "Project"
+                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
+                                    Where s.CanGiveTo = "True" _
+                                    And s.PortalId = PortalId And s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
+
+                    dlGiveListDept.DataSource = ListItems
+                    dlGiveListDept.DataBind()
+
+                Case Else
+
+
+            End Select
+        End Sub
+
+        Public Function GiveToURL(ByVal GivingShortcut As String) As String
+
+            Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+            Dim x = mc.GetModuleByDefinition(PortalId, "frGiveView")
+            If Not x Is Nothing Then
+                If Not x.TabID = Nothing Then
+                    Return (NavigateURL(x.TabID, "", "giveto=" + GivingShortcut))
+                End If
+            End If
+            'No link if frGiveView page not found
+            Return ""
+        End Function
+
+        '      Private Sub btnSearch_click(sender As Object, e As System.EventArgs) Handles btnSearch.Click
+        '         SearchText = TbSearch.Text
+        '        TbSearch.Text = ""
+        '   End Sub
+    End Class
+
+
+
+
+End Namespace
+
+
+
+
+}
+public static class AccountType
+{
+    public const int Normal = 0;
+    public const int AccountsReceivable = 1;
+    public const int AccountsPayable = 2;
+    public const int Income = 3;
+    public const int Exspnse = 4;
+    public const int Other = 5;
+    static public string TypeName(int TypeNo)
+    {
+        switch (TypeNo)
+        {
+            case 0: return "Not Used";
+            case 1: return "AccountsReceivable";
+            case 2: return "AccountsPayable";
+            case 3: return "Income";
+            case 4: return "Expense";
+            case 5: return "Other";
+            default: return "Normal";
+        }
+
+    }
+}
+/// <summary>
+/// Summary description for StaffBrokerFunctions
+/// </summary>
+/// 
+
+public class StaffBrokerFunctions
+{
+    public struct LeaderRelationship
+    {
+
+        public int UserId { get; set; }
+
+        public string UserName { get; set; }
+        public int LeaderId { get; set; }
+        public string LeaderName { get; set; }
+        public int DelegateId { get; set; }
+        public string Delegatename { get; set; }
+    }
+    public struct LeaderInfo
+    {
+
+        public int UserId { get; set; }
+        public string DisplayName { get; set; }
+        public Boolean isDelegate;
+        public Boolean hasDelegated;
+    }
+    public StaffBrokerFunctions()
+    {
+    }
+
+
+    static public void EventLog(string title, string message, int userid)
+    {
+
+        DotNetNuke.Entities.Portals.PortalSettings PS = (DotNetNuke.Entities.Portals.PortalSettings)System.Web.HttpContext.Current.Items["PortalSettings"];
+        DotNetNuke.Services.Log.EventLog.EventLogController objEventLog = new DotNetNuke.Services.Log.EventLog.EventLogController();
+
+        objEventLog.AddLog(title, message, PS, userid, DotNetNuke.Services.Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT);
+
+
+    }
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using StaffBroker;
+using DotNetNuke;
+using System.Net;
+using System.Text.RegularExpressions;
+using DotNetNuke.Services.FileSystem;
+
+public static class MenuLinkType
+{
+    public const int URL = 0;
+    public const int Page = 1;
+    public const int Document = 2;
+    public const int Folder = 3;
+    public const int Resource = 4;
+    public const int Conference = 5;
+    public const int Story = 6;
+    public const int Blank = 20;
+
+
+    static public string TypeName(int TypeNo)
+    {
+        switch (TypeNo)
+        {
+            case 0: return "URL";
+            case 1: return "Page";
+            case 2: return "Document";
+            case 3: return "Folder";
+            case 4: return "Resource";
+            case 5: return "Coference";
+            case 6: return "Story";
+            case 20: return "Blank";
+            default: return "URL";
+        }
+
+    }
+}
+public static class CostCentreType
+{
+    public const int Department = 0;
+    public const int Staff = 1;
+    public const int Other = 2;
+    static public string TypeName(int TypeNo)
+    {
+        switch (TypeNo)
+        {
+            case 0: return "Department";
+            case 1: return "Staff";
+            case 2: return "Other";
+            default: return "Other";
+        }
+
     }
 }
 public static class AccountType
@@ -117,6 +350,66 @@ public class StaffBrokerFunctions
 
 
     }
+
+
+    #region Department functions
+
+    static public Boolean IsDept(int PortalId, string costCenter)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var cc = from c in d.AP_StaffBroker_CostCenters where c.CostCentreCode == costCenter select c.Type;
+        if (cc.Count() > 0)
+            return cc.First() == CostCentreType.Department;
+
+        else return false;
+
+    }
+
+    static public String GetDeptGiveToURL(int PortalId, int costCenter)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var cc = from c in d.AP_StaffBroker_Departments where c.CostCenterId == costCenter && c.PortalId == PortalId select c.GivingShortcut;
+        if (cc.Count() > 0)
+            return cc.First();
+
+        else return "";
+    }
+
+    static public string GetDeptPhoto(int deptID)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var cc = from c in d.AP_StaffBroker_Departments where c.CostCenterId == deptID select c.PhotoId;
+        String fileId = cc.First().ToString();
+
+        if (fileId == null || fileId.Equals(""))
+        {
+            return "/images/no_avatar.gif";
+        }
+        else
+        {
+            DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(Convert.ToInt32(fileId));
+            return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
+        }
+    }
+
+    static public AP_StaffBroker_Department GetDeptByGivingShortcut(String GivingShortcut)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        var depts = from c in d.AP_StaffBroker_Departments where c.GivingShortcut == GivingShortcut select c;
+        if (depts.Count() > 0)
+        {
+            return depts.First();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    #endregion
+
+
+
 
 
     public static decimal CurrencyConvert(decimal amount, string fromCurrency, string toCurrency)
@@ -216,7 +509,119 @@ public class StaffBrokerFunctions
 
 
         StaffBrokerDataContext d = new StaffBrokerDataContext();
-        var searchStaff = from c in d.AP_StaffBroker_Staffs where c.Active && (c.UserId1 == User1in.UserID || c.UserId2 == User1in.UserID || c.UserId1 == User2in.UserID || c.UserId2 == User2in.UserID) select c;
+        var searchStaff Imports System
+Imports System.Collections
+Imports System.Configuration
+Imports System.Data
+Imports System.Linq
+Imports System.Web
+Imports System.Web.Security
+Imports System.Web.UI
+Imports System.Web.UI.HtmlControls
+Imports System.Web.UI.WebControls
+Imports System.Web.UI.WebControls.WebParts
+Imports System.Net
+Imports System.IO
+'Imports Staffweb
+'Imports Resources
+'Imports FullStory
+Imports DotNetNuke
+Imports DotNetNuke.Security
+'Imports CATALooK
+Imports StaffBroker
+Imports StaffBrokerFunctions
+
+Namespace DotNetNuke.Modules.AgapeFR.GiveList
+    Partial Class GiveList
+        Inherits Entities.Modules.PortalModuleBase
+        Dim SearchText As String
+
+#Region "Properties"
+
+        Public ReadOnly Property ListType As String
+            Get
+                Dim value As String = Request.QueryString.Get("givetype")
+                If String.IsNullOrEmpty(value) Then 'Staff list per default if no param in request
+                    value = "Staff"
+                End If
+                Return value
+            End Get
+        End Property
+#End Region
+
+        Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+            Dim d As New StaffBrokerDataContext
+
+            Select Case ListType
+                Case "Staff"
+
+                    Dim ListItems = From c In d.AP_StaffBroker_Staffs Where c.PortalId = PortalId And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "CanReceiveDonations" And x.PropertyValue = "True").Count > 0 _
+                                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "UnNamedStaff" And x.PropertyValue = "True").Count = 0 _
+                                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut" And Not (x.PropertyValue Is Nothing Or x.PropertyValue.Equals(""))).Count > 0 _
+                    Select c.StaffId, c.User.LastName, c.DisplayName, _
+                    GivingShortcut = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut").FirstOrDefault.PropertyValue, _
+                    JointPhoto = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "JointPhoto").FirstOrDefault.PropertyValue
+                    Order By LastName
+
+                    'And (s.User.LastName Like "*" & SearchText & "*") _ 'A ajouter pour recherche
+
+                    dlGiveListStaff.DataSource = ListItems
+                    dlGiveListStaff.DataBind()
+
+                Case "Dept"
+                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
+                                    Where s.CanGiveTo = "True" _
+                                    And s.PortalId = PortalId And Not s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
+
+                    dlGiveListDept.DataSource = ListItems
+                    dlGiveListDept.DataBind()
+
+
+                Case "Project"
+                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
+                                    Where s.CanGiveTo = "True" _
+                                    And s.PortalId = PortalId And s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
+
+                    dlGiveListDept.DataSource = ListItems
+                    dlGiveListDept.DataBind()
+
+                Case Else
+
+
+            End Select
+        End Sub
+
+        Public Function GiveToURL(ByVal GivingShortcut As String) As String
+
+            Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+            Dim x = mc.GetModuleByDefinition(PortalId, "frGiveView")
+            If Not x Is Nothing Then
+                If Not x.TabID = Nothing Then
+                    Return (NavigateURL(x.TabID, "", "giveto=" + GivingShortcut))
+                End If
+            End If
+            'No link if frGiveView page not found
+            Return ""
+        End Function
+
+        '      Private Sub btnSearch_click(sender As Object, e As System.EventArgs) Handles btnSearch.Click
+        '         SearchText = TbSearch.Text
+        '        TbSearch.Text = ""
+        '   End Sub
+    End Class
+
+
+
+
+End Namespace
+
+
+
+= from c in d.AP_StaffBroker_Staffs where c.Active && (c.UserId1 == User1in.UserID || c.UserId2 == User1in.UserID || c.UserId1 == User2in.UserID || c.UserId2 == User2in.UserID) select c;
         if (searchStaff.Count() > 0)
             return searchStaff.First();
 

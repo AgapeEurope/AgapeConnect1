@@ -2,6 +2,6 @@
 <%@ Register TagPrefix="dnn" TagName="Login" Src="~/DesktopModules/AgapeFR/Authentication/AgapeAuth.ascx" %>
 <%@ Register TagPrefix="dnn2" TagName="CartBreadcrumb" Src="~/DesktopModules/AgapeFR/Cart/CartBreadcrumb.ascx" %>
 
-<dnn2:CartBreadcrumb ID="BreadcrumbModule" runat="server" CartCheckoutStep="Login" />
+<dnn2:CartBreadcrumb ID="BreadcrumbModule" runat="server" CartCheckoutStep="LoginStep" />
 <dnn:Login ID="LoginModule" runat="server" />
 

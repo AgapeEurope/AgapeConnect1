@@ -30,7 +30,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 ' Decryptage de la reponse
                 theResp = api.sipsPaymentResponseFunc(cypheredtxt)
 
-                'TODO Payment: Write response into DB
+             
 
                 ' Log response
                 Dim respStr As StringBuilder = New StringBuilder()
@@ -38,12 +38,12 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 respStr.AppendLine("merchant_id = " & theResp.getValue("merchant_id"))
                 respStr.AppendLine("merchant_country = " & theResp.getValue("merchant_country"))
                 respStr.AppendLine("amount = " & theResp.getValue("amount"))
-                respStr.AppendLine("transaction_id = " & theResp.getValue("transaction_id"))
+                respStr.AppendLine("transaction_id = " & theResp.getValue("transaction_id")) '
                 respStr.AppendLine("transmission_date = " & theResp.getValue("transmission_date"))
                 respStr.AppendLine("payment_means = " & theResp.getValue("payment_means"))
                 respStr.AppendLine("payment_time = " & theResp.getValue("payment_time"))
                 respStr.AppendLine("payment_date = " & theResp.getValue("payment_date"))
-                respStr.AppendLine("response_code = " & theResp.getValue("response_code"))
+                respStr.AppendLine("response_code = " & theResp.getValue("response_code")) '17 = Customer Cancelled,  00 OK, Other = Error
                 respStr.AppendLine("payment_certificate = " & theResp.getValue("payment_certificate"))
                 respStr.AppendLine("authorisation_id = " & theResp.getValue("authorisation_id"))
                 respStr.AppendLine("currency_code = " & theResp.getValue("currency_code"))
@@ -78,6 +78,23 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 respStr.AppendLine("threed_relegation_code = " & theResp.getValue("threed_relegation_code"))
 
                 AgapeLogger.Info(-1, respStr.ToString)
+
+                'TODO Payment: Write response into DB
+                Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+                Dim OrderId As Integer = CInt(theResp.getValue("order_id"))
+                Dim Transactionid As String = theResp.getValue("transaction_id")
+
+                Dim responseCode As String = theResp.getValue("response_code") '17 = Customer Cancelled,  00 OK, Other = Error
+                If responseCode = "00" Then ' Payment was OK
+                    CartFunctions.ChangeCartState(OrderId, OrderState.Completed, PS.PortalId, Transactionid, "Error during Payment Processing on Scellius", respStr.ToString)
+                ElseIf responseCode = "17" Then ' Customer Cancelled
+                    CartFunctions.ChangeCartState(OrderId, OrderState.ErrorPaymentCancelled, PS.PortalId, Transactionid, "Error during Payment Processing on Scellius", respStr.ToString)
+                Else 'Other error (Maybe Credit card was declined)
+                    CartFunctions.ChangeCartState(OrderId, OrderState.ErrorPayment, PS.PortalId, Transactionid, "Error during Payment Processing on Scellius", respStr.ToString)
+                End If
+
+
+
 
             Catch e As Exception
 

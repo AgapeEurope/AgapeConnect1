@@ -3,6 +3,8 @@ Imports System.Web.Services
 Imports System.Web.Services.Protocols
 Imports System.Net
 Imports System.IO
+Imports System.Runtime.Serialization.Json
+
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 ' <System.Web.Script.Services.ScriptService()> _
 <WebService(Namespace:="http://tempuri.org/")> _
@@ -10,6 +12,9 @@ Imports System.IO
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class FCX_TBroker
     Inherits System.Web.Services.WebService
+
+
+
 
     Structure TrxResponse
         Public DownloadBatches() As FCX_API.Batch
@@ -175,16 +180,30 @@ Public Class FCX_TBroker
 
 
     'Check and Send unsent ITN
-    Private Sub SendITN()
+    Private Function SendITN() As String
         Dim d As New FCX.FCXDataContext
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
 
+        Dim v = From c In d.FCX_API_DonBats Where c.FCX_API_Key.PortalId = PS.PortalId And c.Status <> BatchStatus.Received And c.ITN_Sent = False
+                Select c.UniqueBatchRef, c.Status, c.StatusDesc, c.FCX_API_Key.ITN, Received = c.Received.Value.ToLongTimeString, Downloaded = c.Downloaded.Value.ToLongTimeString, Donations = c.FCX_API_Donations.Select(Function(x) New With {.UniqueTrxRef = x.UniqueDonationRef, x.VCode, x.FCX_API_Donor.UniqueDonorRef})
 
-        Dim q = From c In d.FCX_API_FinBats Where c.FCX_API_Key.PortalId = PS.PortalId And c.Status <> BatchStatus.Received And c.ITN_Sent = False
-            Group c By c.FCX_API_Key.ITN Into Group Select New With {.ITN = ITN, .CompleteBatches = Group, .Batches = From b In Group Select b.UniqueBatchRef, b.StatusDesc, b.Received, b.Downloaded}
 
-        For Each row In q
-            Dim postData As String = row.Batches.ToJson()
+        '   Dim v = From c In d.FCX_API_DonBats Where c.FCX_API_Key.PortalId = PS.PortalId And c.Status <> BatchStatus.Received And c.ITN_Sent = False
+        '      Group c By c.FCX_API_Key.ITN Into Group Select New With {.ITN = ITN, .CompleteBatches = Group, .Batches = From b In Group Select b.UniqueBatchRef, b.Received, b.Downloaded}
+
+
+        For Each row In v
+
+
+
+            'Dim ser As New DataContractJsonSerializer(row.GetType)
+            'Dim ms As New System.IO.MemoryStream
+            'ser.WriteObject(ms, row)
+
+            Dim postData As String = row.ToJson()
+
+
+
             Dim req As HttpWebRequest = WebRequest.Create(row.ITN)
 
             req.ContentType = "application/json"
@@ -193,20 +212,49 @@ Public Class FCX_TBroker
 
             Dim writer As New StreamWriter(req.GetRequestStream)
 
+
+
             writer.Write(postData)
             writer.Flush()
             writer.Close()
+            Dim v2 = From c In d.FCX_API_DonBats Where c.UniqueBatchRef = row.UniqueBatchRef And c.FCX_API_Key.PortalId = PS.PortalId
+            If v2.Count > 0 Then
+                v2.First.ITN_Sent = True
+            End If
 
-            For Each bat In row.CompleteBatches
-                bat.ITN_Sent = True
 
-            Next
+            d.SubmitChanges()
+
+
+
+        Next
+
+        Dim q = From c In d.FCX_API_FinBats Where c.FCX_API_Key.PortalId = PS.PortalId And c.Status <> BatchStatus.Received And c.ITN_Sent = False
+           Select c.UniqueBatchRef, c.Status, c.StatusDesc, c.FCX_API_Key.ITN, Received = c.Received.Value.ToLongTimeString, Downloaded = c.Downloaded.Value.ToLongTimeString, Donations = c.FCX_API_FinTrans.Select(Function(x) New With {x.UniqueTrxRef, .VCode = "", .UniqueDonorCode = ""})
+
+
+
+        For Each row In q
+            Dim postData As String = row.ToJson()
+             Dim req As HttpWebRequest = WebRequest.Create(row.ITN)
+
+            req.ContentType = "application/json"
+            req.ContentLength = postData.Length
+            req.Method = "POST"
+
+            Dim writer As New StreamWriter(req.GetRequestStream)
+
+
+
+            writer.Write(postData)
+            writer.Flush()
+            writer.Close()
         Next
         d.SubmitChanges()
 
+        Return "Done"
 
-
-    End Sub
+    End Function
 
     <WebMethod()> _
     Public Sub SetAPBalances(ByVal ApiKey As Guid, ByVal Balances As APBalanceInfo())
@@ -263,9 +311,10 @@ Public Class FCX_TBroker
     End Sub
 
     <WebMethod()> _
-    Public Sub TestUpdateBatches(ByVal ApiKey As String)
-        SendITN()
-    End Sub
+    Public Function TestUpdateBatches(ByVal ApiKey As String) As String
+
+        Return SendITN()
+    End Function
 
 
     <WebMethod()> _
