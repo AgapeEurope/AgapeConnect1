@@ -30,9 +30,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 ' Decryptage de la reponse
                 theResp = api.sipsPaymentResponseFunc(cypheredtxt)
 
-             
-
-                ' Log response
+                ' Log reponse
                 Dim respStr As StringBuilder = New StringBuilder()
                 respStr.AppendLine("Réponse automatique du serveur SIPS")
                 respStr.AppendLine("merchant_id = " & theResp.getValue("merchant_id"))
@@ -79,22 +77,18 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
 
                 AgapeLogger.Info(-1, respStr.ToString)
 
-                'TODO Payment: Write response into DB
                 Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
                 Dim OrderId As Integer = CInt(theResp.getValue("order_id"))
                 Dim Transactionid As String = theResp.getValue("transaction_id")
 
                 Dim responseCode As String = theResp.getValue("response_code") '17 = Customer Cancelled,  00 OK, Other = Error
                 If responseCode = "00" Then ' Payment was OK
-                    CartFunctions.ChangeCartState(OrderId, OrderState.Completed, PS.PortalId, Transactionid, "Error during Payment Processing on Scellius", respStr.ToString)
+                    CartFunctions.ChangeCartState(OrderId, OrderState.Completed, PS.PortalId, Transactionid, "Paiement confirmé par Scellius", respStr.ToString)
                 ElseIf responseCode = "17" Then ' Customer Cancelled
-                    CartFunctions.ChangeCartState(OrderId, OrderState.ErrorPaymentCancelled, PS.PortalId, Transactionid, "Error during Payment Processing on Scellius", respStr.ToString)
+                    CartFunctions.ChangeCartState(OrderId, OrderState.ErrorPaymentCancelled, PS.PortalId, Transactionid, "Paiement annulé par l'utilisateur sur la page Scellius", respStr.ToString)
                 Else 'Other error (Maybe Credit card was declined)
-                    CartFunctions.ChangeCartState(OrderId, OrderState.ErrorPayment, PS.PortalId, Transactionid, "Error during Payment Processing on Scellius", respStr.ToString)
+                    CartFunctions.ChangeCartState(OrderId, OrderState.ErrorPayment, PS.PortalId, Transactionid, "Erreur pendant le processus de paiement via Scellius", respStr.ToString)
                 End If
-
-
-
 
             Catch e As Exception
 

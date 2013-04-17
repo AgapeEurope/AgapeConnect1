@@ -6,7 +6,7 @@
 
 
 <div id="divPaymentCanceled" runat="server" visible="false"> <%--Show this on return--%>
-    Il semble que vous avez annulé le paiement de votre panier.<br />Que voulez-vous faire maintenant ?
+    Il semble que vous ayez annulé le paiement de votre panier.<br />Que voulez-vous faire maintenant ?
     <asp:Button ID="BtnPayAgain" runat="server" ResourceKey="BtnPayAgain" Text="" CssClass="aButton" />Recommencer le paiement
     <asp:Button ID="BtnModifyCart" runat="server" ResourceKey="BtnModifyCart" Text="" CssClass="aButton" />Modifier mon panier
     <asp:Button ID="BtnEmptyCart" runat="server" ResourceKey="BtnEmptyCart" Text="" CssClass="aButton" />Vider mon panier
