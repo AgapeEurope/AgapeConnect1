@@ -57,6 +57,7 @@ Partial Class FCX_ITN
                         Dim q = From c In dc.FR_Donations Where uniqueRef.Replace("G", "").TrimStart("0") = c.DonationID
                         If q.Count > 0 Then
                             q.First.FR_Cart_Content.FR_Cart.OrderState = Status
+
                         End If
                         dc.SubmitChanges()
 
