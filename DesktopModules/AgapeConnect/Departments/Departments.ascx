@@ -156,7 +156,7 @@
                                     <uc1:labelcontrol ID="labelcontrol13" runat="server" Text="Photo" HelpText="Enter a shortname for this Department. If you have configures the Online Gifts module - donors can give to this department at https://give.agape.org.uk/ <i>givingshortcut</i>" />
                                 </td>
                                 <td>
-                                     <uc2:acImage ID="acImage1" runat="server"  Width="200"  Apsect="1.3" FileId='<%# Bind("PhotoId") %>' OnPreRender ="LoadImage" />
+                                     <uc2:acImage ID="acImage1" runat="server"  Width="200"  Apsect="1" FileId='<%# Bind("PhotoId") %>' OnPreRender ="LoadImage" />
                                       <asp:Label ID="lblError" runat="server" ForeColor="Red" Text="Please set the photo aspect before updating" Visible="False"></asp:Label>
                                 </td>
                             </tr>
@@ -289,7 +289,7 @@
                                     <uc1:labelcontrol ID="labelcontrol13" runat="server" Text="Photo" HelpText="Enter a shortname for this Department. If you have configures the Online Gifts module - donors can give to this department at https://give.agape.org.uk/ <i>givingshortcut</i>" />
                                 </td>
                                 <td>
-                                     <uc2:acImage ID="acImage1" runat="server"  Width="200"  Apsect="1.3" FileId='<%# Bind("PhotoId") %>' OnPreRender ="LoadImage" />
+                                     <uc2:acImage ID="acImage1" runat="server"  Width="200"  Apsect="1" FileId='<%# Bind("PhotoId") %>' OnPreRender ="LoadImage" />
                                 
                                 <asp:Label ID="lblError" runat="server" ForeColor="Red" Text="Please set the photo aspect before updating" Visible="False"></asp:Label>
 
