@@ -295,9 +295,10 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 Dim mailbody = StaffBrokerFunctions.GetTemplate(donortemplate, PortalId)
                 mailbody = mailbody.Replace("[NAME]", TxtFirstName.Text & " " & TxtLastName.Text).Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text).Replace("[RECIP]", Title.Text).Replace("[MESSAGE]", message).Replace("[PDFLINK]", pdflink).Replace("[IMAGEURL]", "sso/GetLogo.aspx")
                 Dim recip As String = TxtEmail.Text
+                Dim sender As String = "compta@agapefrance.org"
                 Dim mailsubject As String = Translate("donoremailsubject")
                 'Send the Donor Email
-                SendConfirmationEmail(recip, mailsubject, mailbody)
+                SendConfirmationEmail(sender, recip, mailsubject, mailbody)
                 'Set up donation recipient address
                 recip = String.Empty
                 'If donation to department or project, get manager email.
@@ -341,7 +342,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     mailbody = StaffBrokerFunctions.GetTemplate(reciptemplate, PortalId)
                     Dim donoraddress As String = TxtFirstName.Text & " " & TxtLastName.Text & "<br />" & TxtStreet1.Text & "<br />" & IIf(TxtStreet2.Text = "", "", TxtStreet2.Text & "<br />") & cboCountry.SelectedItem.Text & IIf(TxtTelephone.Text = "", "", "<br />" & TxtTelephone.Text) & IIf(TxtMobile.Text = "", "", "<br />" & TxtMobile.Text)
                     mailbody = mailbody.Replace("[LOGO]", "sso/GetLogo.aspx").Replace("[MESSAGE]", message).Replace("[ADDRESS]", donoraddress).Replace("[NAME]", Title.Text).Replace("[FREQ]", theFreq).Replace("[AMOUNT]", tbAmount.Text)
-                    SendConfirmationEmail(recip, mailsubject, mailbody)
+                    SendConfirmationEmail(sender, recip, mailsubject, mailbody)
                 Else
                     AgapeLogger.Warn(Me.UserId, "No staff or manager/delegate email to send donation notification to.(staffid/deptid='" & RowId.Value & "')")
                 End If
@@ -374,8 +375,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theUser.Profile.PostalCode = TxtPostCode.Text
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
-        Protected Sub SendConfirmationEmail(recip As String, mailsubject As String, mailbody As String)
-            DotNetNuke.Services.Mail.Mail.SendMail("trent.schaller@agapefrance.org", recip, "", mailsubject, mailbody, "", "HTML", "", "", "", "")
+        Protected Sub SendConfirmationEmail(sender As String, recip As String, mailsubject As String, mailbody As String)
+            DotNetNuke.Services.Mail.Mail.SendMail(sender, recip, "", mailsubject, mailbody, "", "HTML", "", "", "", "")
         End Sub
 #End Region
 #Region "Buttons"
