@@ -28,26 +28,11 @@
             $('.tbComm').change(function () {
                 rblMeth_click();
             });
-            $('.contactfill').keyup(function () {
-                contactfill_enter();
-            });
-            $('.contactfill').change(function () {
-                contactfill_enter();
-            });
             $('.rblMeth').click(function () {
                 rblMeth_click();
             });
             $('.rbFreq').click(function () {
                 rbFreq_click();
-            });
-            $('.bankfill').keyup(function () {
-                bankfill_enter();
-            });
-            $('.bankfill').change(function () {
-                bankfill_enter();
-            });
-            $('.virement').keyup(function () {
-                bankfill_enter();
             });
             $('.btnNext').click(function () {
                 btnNext_click();
@@ -145,7 +130,6 @@
         }
         else if ($('.rblMeth input:radio:checked').val() == 'm2') {
             $('.virementIBAN').slideDown(1000);
-            bankfill_enter();
             loggedin();
         }
         else if ($('.rblMeth input:radio:checked').val() == 'm3') {
@@ -167,26 +151,9 @@
         $('.thelogincont').slideDown(1000);
             <% Else%>
         $('.contact').slideDown(1000);
-        contactfill_enter();
             <% End If%>
     }
 
-    function contactfill_enter() {
-        if (Page_ClientValidate('Contact')) {
-
-        }
-        else {
-
-        }
-    }
-    function bankfill_enter() {
-        if (Page_ClientValidate('jBank')) {
-
-        }
-        else {
-
-        }
-    }
     function isControlValid(control) {
         var validators = $(control).Validators;
         var isValid = true;
@@ -199,17 +166,29 @@
     function btnGoBank_click() {
         sessionStorage.removeItem('rbFreq');
         sessionStorage.removeItem('tbAmt');
+        sessionStorage.removeItem('rbFreq');
+        sessionStorage.removeItem('tbComm');
     }
+
+
     function btnNext_click() {
+        if (Page_ClientValidate('Don')) {
+            if ($('.virementIBAN').is(":hidden") || Page_ClientValidate('Bank')) {
+                gosummary();
+            }
+        }
+    }
+
+    function gosummary() {
         var str = '<%= Translate("WantGivePara1")%>';
-            if ($('.rbFreq input:radio:checked').val() == 1) {
-                str += '<%= Translate("FreqParaZero")%>';
-            }
-            else if ($('.rbFreq input:radio:checked').val() == 3) {
-                str += '<%= Translate("FreqParaOne")%>';
-            }
-            else if ($('.rbFreq input:radio:checked').val() == 6) {
-                str += '<%= Translate("FreqParaTwo")%>';
+        if ($('.rbFreq input:radio:checked').val() == 1) {
+            str += '<%= Translate("FreqParaZero")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 3) {
+            str += '<%= Translate("FreqParaOne")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 6) {
+            str += '<%= Translate("FreqParaTwo")%>';
             }
             else if ($('.rbFreq input:radio:checked').val() == 12) {
                 str += '<%= Translate("FreqParaThree")%>';
@@ -233,47 +212,47 @@
         $('#sumcheque').show();
     }
     str += '<%= Translate("WantGivePara2")%>' + $('.tbAmt').val() + '€.';
-            $('.lblSummaryInfo2').text(str);
-            $('#lblSummaryFirstName').text($('.TxtFirstName').val());
-            $('#lblSummaryLastName').text($('.TxtLastName').val());
-            $('#lblSummaryStreet1').text($('.TxtStreet1').val());
-            $('#lblSummaryStreet2').text($('.TxtStreet2').val());
-            $('#lblSummaryCity').text($('.TxtCity').val());
-            $('#lblSummaryCountry').text($('.cboCountry option:selected').text());
-            $('#lblSummaryRegion').text($('.TxtRegion').val());
-            $('#lblSummaryPostal').text($('.TxtPostCode').val());
-            $('#lblSummaryEmail').text($('.TxtEmail').val());
-            $('#lblSummaryMobile').text($('.TxtMobile').val());
-            $('#lblSummaryPhone').text($('.TxtTelephone').val());
-            $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
-            $('#lblSummaryDonComment').text($('.tbComm').val());
-            $('.freqchoose').slideUp(1000);
-            $('.amtchoose').slideUp(1000);
-            $('.contact').slideUp(1000);
-            $('.methchoose').slideUp(1000);
-            $('.summaryDon').slideDown(1000);
-        }
-        function btnEditVirement_click() {
-            $('.summaryDon').slideUp(1000);
-            $('.freqchoose').slideDown(1000);
-            rbFreq_click();
-        }
+    $('.lblSummaryInfo2').text(str);
+    $('#lblSummaryFirstName').text($('.TxtFirstName').val());
+    $('#lblSummaryLastName').text($('.TxtLastName').val());
+    $('#lblSummaryStreet1').text($('.TxtStreet1').val());
+    $('#lblSummaryStreet2').text($('.TxtStreet2').val());
+    $('#lblSummaryCity').text($('.TxtCity').val());
+    $('#lblSummaryCountry').text($('.cboCountry option:selected').text());
+    $('#lblSummaryRegion').text($('.TxtRegion').val());
+    $('#lblSummaryPostal').text($('.TxtPostCode').val());
+    $('#lblSummaryEmail').text($('.TxtEmail').val());
+    $('#lblSummaryMobile').text($('.TxtMobile').val());
+    $('#lblSummaryPhone').text($('.TxtTelephone').val());
+    $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
+    $('#lblSummaryDonComment').text($('.tbComm').val());
+    $('.freqchoose').slideUp(1000);
+    $('.amtchoose').slideUp(1000);
+    $('.contact').slideUp(1000);
+    $('.methchoose').slideUp(1000);
+    $('.summaryDon').slideDown(1000);
+}
+function btnEditVirement_click() {
+    $('.summaryDon').slideUp(1000);
+    $('.freqchoose').slideDown(1000);
+    rbFreq_click();
+}
 
 
-        function hidedivs() {
-            $('.amtchoose').hide();
-            $('.thelogincont').hide();
-            $('.contact').hide();
-            $('.methchoose').hide();
+function hidedivs() {
+    $('.amtchoose').hide();
+    $('.thelogincont').hide();
+    $('.contact').hide();
+    $('.methchoose').hide();
 
-            $('.summaryDon').hide();
-            $('.confirmation').hide();
-            $('.noscriptconf').hide();
-        }
-        function btnFinishDon_click() {
-            $('.pleasewait').show();
-            $('.summaryDon').slideUp(1000);
-        }
+    $('.summaryDon').hide();
+    $('.confirmation').hide();
+    $('.noscriptconf').hide();
+}
+function btnFinishDon_click() {
+    $('.pleasewait').show();
+    $('.summaryDon').slideUp(1000);
+}
 </script>
 <style type="text/css">
     .pleasewait {
@@ -423,19 +402,19 @@
             <div style="float: left">
                 <div class="giveformitem">
                     <dnn:Label ID="LblFirstName" runat="server" ControlName="TxtFirstName" />
-                    <asp:TextBox ID="TxtFirstName" runat="server" MaxLength="50" CssClass="virementform TxtFirstName contactfill" />
+                    <asp:TextBox ID="TxtFirstName" runat="server" MaxLength="50" CssClass="virementform TxtFirstName " />
                     <asp:RequiredFieldValidator ID="ValFirstName" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtFirstName" Display="Dynamic" ValidationGroup="Don" Text="*" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtFirstName" Display="Dynamic" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblLastName" runat="server" ControlName="TxtLastName" />
-                    <asp:TextBox ID="TxtLastName" runat="server" MaxLength="50" CssClass="virementform TxtLastName contactfill" />
+                    <asp:TextBox ID="TxtLastName" runat="server" MaxLength="50" CssClass="virementform TxtLastName " />
                     <asp:RequiredFieldValidator ID="ValLastName" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtLastName" Display="Dynamic" Text="*" ValidationGroup="Don" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtLastName" Display="Dynamic" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblEmail" runat="server" ControlName="TxtEmail" />
-                    <asp:TextBox ID="TxtEmail" runat="server" MaxLength="50" CssClass="virementform TxtEmail contactfill" />
+                    <asp:TextBox ID="TxtEmail" runat="server" MaxLength="50" CssClass="virementform TxtEmail " />
                     <asp:RequiredFieldValidator ID="ValEmail" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtEmail" Display="Dynamic" ValidationGroup="Don" Text="*" />
                     <asp:RegularExpressionValidator ID="ValEmailExp" runat="server" Text="*" ControlToValidate="TxtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="Don" CssClass="auto-style1"></asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtEmail" Display="Dynamic" ValidationGroup="Contact" />
@@ -443,7 +422,7 @@
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblConfEmail" runat="server" ControlName="TxtConfEmail" />
-                    <asp:TextBox ID="TxtConfEmail" runat="server" MaxLength="50" CssClass="virementform TxtConfEmail contactfill" />
+                    <asp:TextBox ID="TxtConfEmail" runat="server" MaxLength="50" CssClass="virementform TxtConfEmail " />
                     <asp:RequiredFieldValidator ID="ValConfEmail" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtConfEmail" ValidationGroup="Don" Display="Dynamic" Text="*" />
                     <asp:CompareValidator ID="ValConfEmailComp" runat="server" ControlToCompare="TxtEmail" ControlToValidate="TxtConfEmail" ValidationGroup="Don" Text="*"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" CssClass="giveFormMessage" ControlToValidate="TxtConfEmail" ValidationGroup="Contact" Display="Dynamic" />
@@ -451,23 +430,23 @@
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblMobile" runat="server" ControlName="TxtMobile" />
-                    <asp:TextBox ID="TxtMobile" runat="server" MaxLength="50" CssClass="virementform TxtMobile contactfill" />
+                    <asp:TextBox ID="TxtMobile" runat="server" MaxLength="50" CssClass="virementform TxtMobile " />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblTelephone" runat="server" ControlName="TxtTelephone" />
-                    <asp:TextBox ID="TxtTelephone" runat="server" MaxLength="50" CssClass="virementform TxtTelephone contactfill" />
+                    <asp:TextBox ID="TxtTelephone" runat="server" MaxLength="50" CssClass="virementform TxtTelephone " />
                 </div>
             </div>
             <div style="float: right">
                 <div class="giveformitem">
                     <dnn:Label ID="LblStreet1" runat="server" ControlName="TxtStreet1" />
-                    <asp:TextBox ID="TxtStreet1" runat="server" MaxLength="50" CssClass="virementform TxtStreet1 contactfill" />
+                    <asp:TextBox ID="TxtStreet1" runat="server" MaxLength="50" CssClass="virementform TxtStreet1 " />
                     <asp:RequiredFieldValidator ID="ValStreet1" ControlToValidate="TxtStreet1" runat="server" Text="*" ValidationGroup="Don" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="TxtStreet1" runat="server" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblStreet2" runat="server" ControlName="TxtStreet2" />
-                    <asp:TextBox ID="TxtStreet2" runat="server" MaxLength="50" CssClass="virementform TxtStreet2  contactfill" />
+                    <asp:TextBox ID="TxtStreet2" runat="server" MaxLength="50" CssClass="virementform TxtStreet2  " />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LlbCountry" runat="server" ControlName="TxtCountry" />
@@ -477,25 +456,24 @@
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblPostCode" runat="server" ControlName="TxtPostCode" />
-                    <asp:TextBox ID="TxtPostCode" runat="server" MaxLength="50" CssClass="virementform TxtPostCode contactfill" />
+                    <asp:TextBox ID="TxtPostCode" runat="server" MaxLength="50" CssClass="virementform TxtPostCode " />
                     <asp:RequiredFieldValidator ID="ValPostCode" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Don" Text="*" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="TxtPostCode" runat="server" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblCity" runat="server" ControlName="TxtCity" />
-                    <asp:TextBox ID="TxtCity" runat="server" MaxLength="50" CssClass="virementform TxtCity contactfill" />
+                    <asp:TextBox ID="TxtCity" runat="server" MaxLength="50" CssClass="virementform TxtCity " />
                     <asp:RequiredFieldValidator ID="ValCity" ControlToValidate="TxtCity" runat="server" Text="*" ValidationGroup="Don" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="TxtCity" runat="server" ValidationGroup="Contact" />
                 </div>
                 <div class="giveformitem">
                     <dnn:Label ID="LblRegion" runat="server" ControlName="TxtRegion" />
-                    <asp:TextBox ID="TxtRegion" runat="server" MaxLength="50" CssClass="virementform TxtRegion contactfill" />
+                    <asp:TextBox ID="TxtRegion" runat="server" MaxLength="50" CssClass="virementform TxtRegion " />
                 </div>
                 <div class="giveformitem virementIBAN">
                     <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
-                    <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
+                    <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN " />
                     <asp:RequiredFieldValidator ID="ValIBAN" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="tbIBAN" runat="server" ValidationGroup="jBank" />
                 </div>
                 <div style="clear: both"></div>
             </div>

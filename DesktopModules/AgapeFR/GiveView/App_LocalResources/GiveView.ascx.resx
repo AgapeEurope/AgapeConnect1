@@ -162,26 +162,8 @@
   <data name="ThankYou.Text" xml:space="preserve">
     <value>Thank you!</value>
   </data>
-  <data name="Bank.Text" xml:space="preserve">
-    <value>Bank Name:</value>
-  </data>
   <data name="IBAN.Text" xml:space="preserve">
     <value>IBAN:</value>
-  </data>
-  <data name="BankInfo.Text" xml:space="preserve">
-    <value>Bank Info:</value>
-  </data>
-  <data name="BankCity.Text" xml:space="preserve">
-    <value>City:</value>
-  </data>
-  <data name="BankPostal.Text" xml:space="preserve">
-    <value>Post Code:</value>
-  </data>
-  <data name="BankSt1.Text" xml:space="preserve">
-    <value>Street 1:</value>
-  </data>
-  <data name="BankSt2.Text" xml:space="preserve">
-    <value>Street 2:</value>
   </data>
   <data name="FirstName.Text" xml:space="preserve">
     <value>First Name:</value>
@@ -194,9 +176,6 @@
   </data>
   <data name="FreqError.Text" xml:space="preserve">
     <value>You must select a frequency for your donation.</value>
-  </data>
-  <data name="TheKey.Text" xml:space="preserve">
-    <value>Staff Login</value>
   </data>
   <data name="btnFinishDon.Text" xml:space="preserve">
     <value>Finish</value>
@@ -291,9 +270,6 @@
   <data name="lblConfVirement.Text" xml:space="preserve">
     <value>Thank you! Your donation is recorded in our system. Please send the PDF to your bank.</value>
   </data>
-  <data name="ErrorLblBank.Text" xml:space="preserve">
-    <value>Please enter your name</value>
-  </data>
   <data name="btnBio.Text" xml:space="preserve">
     <value>See Bio</value>
   </data>
@@ -302,21 +278,6 @@
   </data>
   <data name="ValAmtRange.Text" xml:space="preserve">
     <value>Please enter a valid amount</value>
-  </data>
-  <data name="ValBank.Text" xml:space="preserve">
-    <value>Please enter the name of your bank</value>
-  </data>
-  <data name="ValBankCity.Text" xml:space="preserve">
-    <value>Please enter your bank's city</value>
-  </data>
-  <data name="ValBankPostal.Text" xml:space="preserve">
-    <value>Please enter your bank's postal code</value>
-  </data>
-  <data name="ValBankPostalExp.Text" xml:space="preserve">
-    <value>Please enter a valid postal code for your bank</value>
-  </data>
-  <data name="ValBankStreet1.Text" xml:space="preserve">
-    <value>Please enter your bank's address</value>
   </data>
   <data name="ValCity.Text" xml:space="preserve">
     <value>Please enter your city</value>
@@ -345,47 +306,17 @@
   <data name="ValMethod.Text" xml:space="preserve">
     <value>Please select a giving method</value>
   </data>
-  <data name="ValMobileExp.Text" xml:space="preserve">
-    <value>Please enter a valid mobile number</value>
-  </data>
   <data name="ValPostCode.Text" xml:space="preserve">
     <value>Please enter your postal code</value>
-  </data>
-  <data name="ValPostCodeExp.Text" xml:space="preserve">
-    <value>Please enter a valid postal code</value>
   </data>
   <data name="ValStreet1.Text" xml:space="preserve">
     <value>Please enter your street address</value>
   </data>
   <data name="ValSumDon.Text" xml:space="preserve">
-    <value>There are on or more errors on the page:</value>
-  </data>
-  <data name="ValTelephoneExp.Text" xml:space="preserve">
-    <value>Please enter a valid phone number</value>
+    <value>There are one or more errors on the page:</value>
   </data>
   <data name="donoremailsubject.Text" xml:space="preserve">
     <value>Your donation pledge</value>
-  </data>
-  <data name="DonorEmailCheque.Text" xml:space="preserve">
-    <value>To complete your gift, you can print this document and send it with your check. You can use the link below:</value>
-  </data>
-  <data name="EmailGreeting.Text" xml:space="preserve">
-    <value>Hello [NAME]!</value>
-  </data>
-  <data name="DonorEmailPara1.Text" xml:space="preserve">
-    <value>Thank you for your donation! It is registered in our system. Here is a summary of your donation:</value>
-  </data>
-  <data name="DonorEmailPara2.Text" xml:space="preserve">
-    <value>You plan to make a [FREQ] donation of [AMOUNT]€ to [RECIP].</value>
-  </data>
-  <data name="DonorEmailPara3.Text" xml:space="preserve">
-    <value>Here is the message you sent to the recipient:</value>
-  </data>
-  <data name="DonorEmailPara5.Text" xml:space="preserve">
-    <value>Again a big thanks from our team!</value>
-  </data>
-  <data name="DonorEmailVirement.Text" xml:space="preserve">
-    <value>To complete your gift, please sign and send this document to your bank. You can use the link below:</value>
   </data>
   <data name="lblPleaseWait.Text" xml:space="preserve">
     <value>Please Wait</value>
@@ -393,26 +324,8 @@
   <data name="ccDonTo.Text" xml:space="preserve">
     <value>Donation for </value>
   </data>
-  <data name="RecipEmailPara1.Text" xml:space="preserve">
-    <value>Someone has set up a donation! Here is a summary of your donation:</value>
-  </data>
-  <data name="RecipEmailPara2.Text" xml:space="preserve">
-    <value>A [FREQ] donation of [AMOUNT]€ by [METHOD].</value>
-  </data>
-  <data name="RecipEmailPara3.Text" xml:space="preserve">
-    <value>Here is the donor's information:</value>
-  </data>
-  <data name="RecipEmailPara4.Text" xml:space="preserve">
-    <value>The donor included the following message:</value>
-  </data>
-  <data name="RecipEmailPara5.Text" xml:space="preserve">
-    <value>Please contact compta if you have questions.</value>
-  </data>
   <data name="recipemailsubject.Text" xml:space="preserve">
     <value>You have a new donation</value>
-  </data>
-  <data name="BankCountry.Text" xml:space="preserve">
-    <value>Country:</value>
   </data>
   <data name="NoMessage.Text" xml:space="preserve">
     <value>no message</value>
