@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="GiveView.ascx.vb" Inherits="DotNetNuke.Modules.AgapeFR.GiveView.GiveView" %>
-<%@ Register Src="../GiveInfo/GiveInfo.ascx" TagName="frGiveInfo" TagPrefix="uc1" %>
 <%@ Register Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls" TagPrefix="cc2" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
@@ -615,8 +614,5 @@ function btnFinishDon_click() {
         <br />
         <asp:Button ID="btnBio" runat="server" resourcekey="btnBio" CssClass="aButton" CausesValidation="False" />
         <br />
-        <div>
-            <%--<uc1:frGiveInfo ID="frGiveInfo" runat="server" />--%>
-        </div>
     </div>
 </div>
