@@ -4,5 +4,3 @@
 <dnn2:CartBreadcrumb ID="CartBreadcrumb1" runat="server" CartCheckoutStep="PaymentStep" />
 
 <asp:PlaceHolder ID="PhPaymentMethods" runat="server"></asp:PlaceHolder>
-
-<%'DAVID Cart : CONTINUER ICI => Dans ScelliusPayment, si code retour 17, rediriger vers cette page avec param paymentcanceled=true et afficher cette zone si le param est présent %>
