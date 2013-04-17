@@ -63,12 +63,18 @@
                 //get session values
                 sessfreq = sessionStorage.getItem('rbFreq');
                 sessamt = sessionStorage.getItem('tbAmt');
+                sessmeth = sessionStorage.getItem('rblMeth');
+                sesscomm = sessionStorage.getItem('tbComm')
                 //fill field/radiobutton
                 $('.rbFreq input:radio[value="' + sessfreq + '"]').click();
                 $('.tbAmt').val(sessamt);
+                $('.rblMeth input:radio[value="' + sessmeth + '"]').click();
+                $('.tbComment').val(sesscomm);
                 //empty session storage
                 sessionStorage.removeItem('rbFreq');
                 sessionStorage.removeItem('tbAmt');
+                sessionStorage.removeItem('rbFreq');
+                sessionStorage.removeItem('tbComm');
                 rbFreq_click()
             }
             else if ($('#stepCount input[type=hidden]').val() != -1) {
@@ -84,25 +90,98 @@
             });
         });
     }(jQuery, window.Sys));
-    function contactfill_enter() {
-        if (Page_ClientValidate('Contact')) {
-            $('.testlabel').text('contact info is valid');
+
+    function rbFreq_click() {
+        if ($('.rbFreq input:radio:checked').val() != null) {
+            if ($('.rbFreq input:radio:checked').val() != 99) {
+                var id = $('[value=m1]').attr("id");
+                $('[value=m1]').attr('checked', false);
+                $('[value=m1]').attr('disabled', true);
+                $('label[for=' + id + ']').addClass('radiogray');
+            }
+            else if ($('.rbFreq input:radio:checked').val() == 99) {
+                $('[value=m1]').attr('disabled', false);
+                var id = $('[value=m1]').attr("id");
+                $('label[for=' + id + ']').removeClass('radiogray');
+            }
+            $('.amtchoose').slideDown(500);
+            amt_enter();
+            //only set set session storage if user is not logged in.
+        <% If Not (loggedin) Then%>
+            sessionStorage.setItem('rbFreq', $('.rbFreq input:radio:checked').val());
+        <% End If%>
+        }
+    }
+
+    function amt_trim() {
+        var inp = $(".tbAmt").val();
+        while (inp.substr(0, 1) == '0') inp = inp.substr(1);
+        $(".tbAmt").val(inp);
+    }
+    function amt_enter() {
+        var inp = $(".tbAmt").val();
+        if (inp.length > 0 && inp > 0) {
+            //only set set session storage if user is not logged in.
+            <% If Not (loggedin) Then%>
+            sessionStorage.setItem('tbAmt', inp);
+            <% End If%>
             $('.methchoose').slideDown(1000);
             rblMeth_click();
         }
         else {
-            $('.testlabel').text('contact info is not valid');
             $('.methchoose').slideUp(1000);
-            $('.virement').slideUp(1000);
-            $('.doncontinue').slideUp(1000);
+            $('.thelogincont').slideUp(1000);
+            $('.contact').slideUp(1000);
+        }
+    }
+
+    function rblMeth_click() {
+        if ($('.rblMeth input:radio:checked').val() == 'm1') {
+            loggedin();
+            $('.virementIBAN').slideUp(1000);
+        }
+        else if ($('.rblMeth input:radio:checked').val() == 'm2') {
+            $('.virementIBAN').slideDown(1000);
+            bankfill_enter();
+            loggedin();
+        }
+        else if ($('.rblMeth input:radio:checked').val() == 'm3') {
+            loggedin();
+            $('.virementIBAN').slideUp(1000);
+        }
+        else {
+            $('.thelogincont').slideUp(1000);
+            $('.contact').slideUp(1000);
+        }
+        //only set set session storage if user is not logged in.
+        <% If Not (loggedin) Then%>
+        sessionStorage.setItem('rblMeth', $('.rblMeth input:radio:checked').val());
+        sessionStorage.setItem('tbComm', $('.tbComm').val());
+        <% End If%>
+    }
+    function loggedin() {
+        <% If Not (loggedin) Then%>
+        $('.thelogincont').slideDown(1000);
+            <% Else%>
+        $('.contact').slideDown(1000);
+        contactfill_enter();
+            <% End If%>
+    }
+
+    function contactfill_enter() {
+        if (Page_ClientValidate('Contact')) {
+
+        }
+        else {
+
         }
     }
     function bankfill_enter() {
         if (Page_ClientValidate('jBank')) {
-            $('.doncontinue').slideDown(1000);
+
         }
         else {
-            $('.doncontinue').slideUp(1000);
+
         }
     }
     function isControlValid(control) {
@@ -113,54 +192,28 @@
         });
         return isValid;
     }
-    function amt_trim() {
-        var inp = $(".tbAmt").val();
-        while (inp.substr(0, 1) == '0') inp = inp.substr(1);
-        $(".tbAmt").val(inp);
-    }
-    function amt_enter() {
-        var inp = $(".tbAmt").val();
-        if (inp.length > 0 && inp > 0) {
-            <% If Not (loggedin) Then%>
-            $('.thelogincont').slideDown(1000);
-            <% Else%>
-            $('.contact').slideDown(1000);
-            <% End If%>
-            //only set set session storage if user is not logged in.
-            <% If Not (loggedin) Then%>
-            sessionStorage.setItem('tbAmt', inp);
-            <% End If%>
-            contactfill_enter();
-        }
-        else {
-            $('.thelogincont').slideUp(1000);
-            $('.contact').slideUp(1000);
-            $('.methchoose').slideUp(1000);
-            $('.doncontinue').slideUp(1000);
-            $('.virement').slideUp(1000);
-        }
-    }
+
     function btnGoBank_click() {
         sessionStorage.removeItem('rbFreq');
         sessionStorage.removeItem('tbAmt');
     }
     function btnNext_click() {
         var str = '<%= Translate("WantGivePara1")%>';
-        if ($('.rbFreq input:radio:checked').val() == 1) {
-            str += '<%= Translate("FreqParaZero")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 3) {
-            str += '<%= Translate("FreqParaOne")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 6) {
-            str += '<%= Translate("FreqParaTwo")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 12) {
-            str += '<%= Translate("FreqParaThree")%>';
-        }
-        else if ($('.rbFreq input:radio:checked').val() == 99) {
-            str += '<%= Translate("FreqParaFour")%>';
-        }
+            if ($('.rbFreq input:radio:checked').val() == 1) {
+                str += '<%= Translate("FreqParaZero")%>';
+            }
+            else if ($('.rbFreq input:radio:checked').val() == 3) {
+                str += '<%= Translate("FreqParaOne")%>';
+            }
+            else if ($('.rbFreq input:radio:checked').val() == 6) {
+                str += '<%= Translate("FreqParaTwo")%>';
+            }
+            else if ($('.rbFreq input:radio:checked').val() == 12) {
+                str += '<%= Translate("FreqParaThree")%>';
+            }
+            else if ($('.rbFreq input:radio:checked').val() == 99) {
+                str += '<%= Translate("FreqParaFour")%>';
+            }
     if ($('.rblMeth input:radio:checked').val() == 'm1') {
         $('#viretable').hide();
         $('#sumcc').show();
@@ -177,88 +230,47 @@
         $('#sumcheque').show();
     }
     str += '<%= Translate("WantGivePara2")%>' + $('.tbAmt').val() + '€.';
-    $('.lblSummaryInfo2').text(str);
-    $('#lblSummaryFirstName').text($('.TxtFirstName').val());
-    $('#lblSummaryLastName').text($('.TxtLastName').val());
-    $('#lblSummaryStreet1').text($('.TxtStreet1').val());
-    $('#lblSummaryStreet2').text($('.TxtStreet2').val());
-    $('#lblSummaryCity').text($('.TxtCity').val());
-    $('#lblSummaryCountry').text($('.cboCountry option:selected').text());
-    $('#lblSummaryRegion').text($('.TxtRegion').val());
-    $('#lblSummaryPostal').text($('.TxtPostCode').val());
-    $('#lblSummaryEmail').text($('.TxtEmail').val());
-    $('#lblSummaryMobile').text($('.TxtMobile').val());
-    $('#lblSummaryPhone').text($('.TxtTelephone').val());
-    $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
-    $('#lblSummaryDonComment').text($('.theDonationComment').val());
-    $('.freqchoose').slideUp(1000);
-    $('.amtchoose').slideUp(1000);
-    $('.contact').slideUp(1000);
-    $('.methchoose').slideUp(1000);
-    $('.virement').slideUp(1000);
-    $('.doncontinue').slideUp(1000);
-    $('.summaryDon').slideDown(1000);
-}
-function btnEditVirement_click() {
-    $('.summaryDon').slideUp(1000);
-    $('.freqchoose').slideDown(1000);
-    rbFreq_click();
-}
-function rblMeth_click() {
-    if ($('.rblMeth input:radio:checked').val() == 'm1') {
-        $('.virement').slideUp(1000);
-        $('.doncontinue').slideDown(1000);
-    }
-    else if ($('.rblMeth input:radio:checked').val() == 'm2') {
-        $('.virement').slideDown(1000);
-        bankfill_enter();
-    }
-    else if ($('.rblMeth input:radio:checked').val() == 'm3') {
-        $('.virement').slideUp(1000);
-        $('.doncontinue').slideDown(1000);
-    }
-    else {
-        $('.virement').slideUp(1000);
-        $('.doncontinue').slideUp(1000);
-    }
-}
-function rbFreq_click() {
-    if ($('.rbFreq input:radio:checked').val() != null) {
-        if ($('.rbFreq input:radio:checked').val() != 99) {
-            var id = $('[value=m1]').attr("id");
-            $('[value=m1]').attr('checked', false);
-            $('[value=m1]').attr('disabled', true);
-            $('label[for=' + id + ']').addClass('radiogray');
+            $('.lblSummaryInfo2').text(str);
+            $('#lblSummaryFirstName').text($('.TxtFirstName').val());
+            $('#lblSummaryLastName').text($('.TxtLastName').val());
+            $('#lblSummaryStreet1').text($('.TxtStreet1').val());
+            $('#lblSummaryStreet2').text($('.TxtStreet2').val());
+            $('#lblSummaryCity').text($('.TxtCity').val());
+            $('#lblSummaryCountry').text($('.cboCountry option:selected').text());
+            $('#lblSummaryRegion').text($('.TxtRegion').val());
+            $('#lblSummaryPostal').text($('.TxtPostCode').val());
+            $('#lblSummaryEmail').text($('.TxtEmail').val());
+            $('#lblSummaryMobile').text($('.TxtMobile').val());
+            $('#lblSummaryPhone').text($('.TxtTelephone').val());
+            $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
+            $('#lblSummaryDonComment').text($('.tbComment').val());
+            $('.freqchoose').slideUp(1000);
+            $('.amtchoose').slideUp(1000);
+            $('.contact').slideUp(1000);
+            $('.methchoose').slideUp(1000);
+            $('.summaryDon').slideDown(1000);
         }
-        else if ($('.rbFreq input:radio:checked').val() == 99) {
-            $('[value=m1]').attr('disabled', false);
-            var id = $('[value=m1]').attr("id");
-            $('label[for=' + id + ']').removeClass('radiogray');
+        function btnEditVirement_click() {
+            $('.summaryDon').slideUp(1000);
+            $('.freqchoose').slideDown(1000);
+            rbFreq_click();
         }
-        //'Trent: Stop this slidedown after postback when showing confirmation
-        $('.amtchoose').slideDown(500);
-        amt_enter();
-        //only set set session storage if user is not logged in.
-        <% If Not (loggedin) Then%>
-        sessionStorage.setItem('rbFreq', $('.rbFreq input:radio:checked').val())
-            <% End If%>
-    }
-}
-    function hidedivs() {
-        $('.amtchoose').hide();
-        $('.thelogincont').hide();
-        $('.contact').hide();
-        $('.methchoose').hide();
-        $('.virement').hide();
-        $('.doncontinue').hide();
-        $('.summaryDon').hide();
-        $('.confirmation').hide();
-        $('.noscriptconf').hide();
-    }
-    function btnFinishDon_click() {
-        $('.pleasewait').show();
-        $('.summaryDon').slideUp(1000);
-    }
+
+
+        function hidedivs() {
+            $('.amtchoose').hide();
+            $('.thelogincont').hide();
+            $('.contact').hide();
+            $('.methchoose').hide();
+
+            $('.summaryDon').hide();
+            $('.confirmation').hide();
+            $('.noscriptconf').hide();
+        }
+        function btnFinishDon_click() {
+            $('.pleasewait').show();
+            $('.summaryDon').slideUp(1000);
+        }
 </script>
 <style type="text/css">
     .pleasewait {
@@ -384,6 +396,22 @@ function rbFreq_click() {
             <asp:RequiredFieldValidator ID="ValAmt" runat="server" Text="*" ControlToValidate="tbAmount" ValidationGroup="Don"></asp:RequiredFieldValidator>
             <asp:RangeValidator ID="ValAmtRange" runat="server" ControlToValidate="tbAmount" MinimumValue="1" MaximumValue="99999999" Text="*" ValidationGroup="Don"></asp:RangeValidator>
         </div>
+        <div id="methchoose" class="methchoose bubble" runat="server">
+            <div id="methchooseleft">
+                <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
+                <asp:RequiredFieldValidator ID="ValMethod" ControlToValidate="rblMethod" runat="server" Text="*" ValidationGroup="Don" />
+                <asp:RadioButtonList ID="rblMethod" runat="server">
+                    <asp:ListItem Value="m1"></asp:ListItem>
+                    <asp:ListItem Value="m2"></asp:ListItem>
+                    <asp:ListItem Value="m3"></asp:ListItem>
+                </asp:RadioButtonList>
+            </div>
+            <div id="methchooseright">
+                <asp:Label ID="lblDonComment" resourcekey="lblDonComment" runat="server" />
+                <asp:TextBox ID="tbComment" CssClass="tbComment" runat="server" Font-Size="12pt" Width="95%" Height="48px" Rows="10" TextMode="MultiLine"></asp:TextBox><br />
+            </div>
+            <div style="clear: both"></div>
+        </div>
         <div id="thelogincont" runat="server" class="bubble thelogincont">
             <asp:Label ID="lblTheLoginCont" Text="text" resourcekey="lblTheLoginCont" runat="server" />
             <dnn2:Login ID="login1" runat="server" />
@@ -460,41 +488,18 @@ function rbFreq_click() {
                     <dnn:Label ID="LblRegion" runat="server" ControlName="TxtRegion" />
                     <asp:TextBox ID="TxtRegion" runat="server" MaxLength="50" CssClass="virementform TxtRegion contactfill" />
                 </div>
+                <div class="giveformitem virementIBAN">
+                    <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
+                    <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
+                    <asp:RequiredFieldValidator ID="ValIBAN" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="tbIBAN" runat="server" ValidationGroup="jBank" />
+                </div>
+                <div style="clear: both"></div>
             </div>
             <div style="clear: both"></div>
-        </div>
-        <div id="methchoose" class="methchoose bubble" runat="server">
-            <div id="methchooseleft">
-                <asp:Label ID="lblOneOffChoose" runat="server" Text="Label"></asp:Label>
-                <asp:RequiredFieldValidator ID="ValMethod" ControlToValidate="rblMethod" runat="server" Text="*" ValidationGroup="Don" />
-                <asp:RadioButtonList ID="rblMethod" runat="server">
-                    <asp:ListItem Value="m1"></asp:ListItem>
-                    <asp:ListItem Value="m2"></asp:ListItem>
-                    <asp:ListItem Value="m3"></asp:ListItem>
-                </asp:RadioButtonList>
-            </div>
-            <div id="methchooseright">
-                <asp:Label ID="lblDonComment" resourcekey="lblDonComment" runat="server" />
-                <asp:TextBox ID="theDonationComment" CssClass="theDonationComment" runat="server" Font-Size="12pt" Width="95%" Height="48px" Rows="10" TextMode="MultiLine"></asp:TextBox><br />
-            </div>
-            <div style="clear: both"></div>
-        </div>
-        <div id="virement" class="virement bubble" runat="server">
-            <asp:Label ID="lblBankInfo" runat="server" Text="Label"></asp:Label>
-            <div style="clear: both"></div>
-
-            <div class="giveformitem">
-                <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
-                <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN bankfill" />
-                <asp:RequiredFieldValidator ID="ValIBAN" ControlToValidate="tbIBAN" runat="server" Text="*" ValidationGroup="Bank" />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="tbIBAN" runat="server" ValidationGroup="jBank" />
-            </div>
-
-            <div style="clear: both"></div>
-        </div>
-        <div id="doncontinue" class="bubble doncontinue" runat="server">
             <input id="btnNext" class="aButton btnNext" type="button" value="<%= Translate("btnNext")%>" />
         </div>
+
         <div id="summaryDon" class="summaryDon bubble" runat="server">
             <asp:Label ID="lblSummaryInfo1" Text="" runat="server" /><br />
             <br />
@@ -621,9 +626,6 @@ function rbFreq_click() {
             <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">
                 <asp:Label ID="lblLinkPDF" Text="text" runat="server" />
             </asp:HyperLink>
-        </div>
-        <div id="noscriptconf" class="noscriptconf bubble" runat="server">
-            <asp:Button ID="btnNoScriptGo" CssClass="aButton" ValidationGroup="Don" runat="server" />
         </div>
     </div>
     <div style="float: right; font-size: 10pt;">
