@@ -39,8 +39,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             Dim ctlEntry As ListController = New ListController
             cboCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
             cboCountry.DataBind()
-            cboBankCountry.DataSource = ctlEntry.GetListEntryInfoItems("Country")
-            cboBankCountry.DataBind()
             doncontinue.Style("Display") = "none"
             summaryDon.Style("Display") = "none"
             confirmation.Visible = False
@@ -71,7 +69,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         mycountry = c.First
                     End If
                     cboCountry.SelectedValue = mycountry
-                    cboBankCountry.SelectedValue = mycountry
                     thelogincont.Style("Display") = "none"
                 Else
                     loggedin = False
@@ -154,12 +151,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             LlbCountry.Text = Translate("Country")
             LblRegion.Text = Translate("Region")
             LblPostCode.Text = Translate("PostCode")
-            lblBank.Text = Translate("Bank")
-            lblBankStreet1.Text = Translate("BankSt1")
-            lblBankStreet2.Text = Translate("BankSt2")
-            lblBankCity.Text = Translate("BankCity")
-            lblBankCountry.Text = Translate("BankCountry")
-            lblBankPostal.Text = Translate("BankPostal")
             lblIBAN.Text = Translate("IBAN")
             lblBankInfo.Text = Translate("BankInfo")
             btnFinishDon.Text = Translate("btnFinishDon")
@@ -177,12 +168,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextEmail.Text = Translate("eMail")
             lblSumTextMobile.Text = Translate("Mobile")
             lblSumTextPhone.Text = Translate("Telephone")
-            lblSumTextBankName.Text = Translate("Bank")
-            lblSumTextBankAddress1.Text = Translate("BankSt1")
-            lblSumTextBankAddress2.Text = Translate("BankSt2")
-            lblSumTextBankPostal.Text = Translate("BankPostal")
-            lblSumTextBankCity.Text = Translate("BankCity")
-            lblSumTextBankCountry.Text = Translate("BankCountry")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
             btnNoScriptGo.Text = Translate("btnFinishDon")
@@ -204,11 +189,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             ValMethod.ErrorMessage = Translate("ValMethod")
             ValSumDon.HeaderText = Translate("ValSumDon")
             ValSumBank.HeaderText = Translate("ValSumDon")
-            ValBank.ErrorMessage = Translate("ValBank")
-            ValBankStreet1.ErrorMessage = Translate("ValBankStreet1")
-            ValBankPostal.ErrorMessage = Translate("ValBankPostal")
-            ValBankPostalExp.ErrorMessage = Translate("ValBankPostal")
-            ValBankCity.ErrorMessage = Translate("ValBankCity")
             ValIBAN.ErrorMessage = Translate("ValIBAN")
         End Sub
         Private Sub AddCSS()
@@ -270,12 +250,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             insert.Reference = GetUniqueCode()
             hfUniqueRef.Value = insert.Reference
             insert.Amount = tbAmount.Text
-            insert.BankCity = tbBankCity.Text
-            insert.BankCountry = cboBankCountry.SelectedItem.Text
-            insert.BankName = tbBank.Text
-            insert.BankPostal = tbBankPostal.Text
-            insert.BankStreet1 = tbBankStreet1.Text
-            insert.BankStreet2 = tbBankStreet2.Text
             Dim selFreq As Integer = rblFrequency.SelectedValue
             insert.Frequency = selFreq
             insert.SetupDate = Now

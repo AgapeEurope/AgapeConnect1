@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Give">
   <DataContextMoniker Name="/GiveDataContext" />
   <nestedChildShapes>
-    <classShape Id="d3232258-d870-4fcc-8fba-8ea0f51caa94" absoluteBounds="2.25, 2.125, 2, 4.6554182942708326">
+    <classShape Id="d2f8a75f-cadc-44a5-b3ee-9edf8ced84c3" absoluteBounds="1.875, 1.125, 2, 3.5016097005208326">
       <DataClassMoniker Name="/GiveDataContext/Agape_Give_BankTransfer" />
       <nestedChildShapes>
-        <elementListCompartment Id="14acdfb1-8d14-47f3-b4cf-bba3df2b5442" absoluteBounds="2.2649999999999997, 2.585, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="03c60a46-fa64-4f15-b960-c9dd89fa9029" absoluteBounds="1.8899999999999997, 1.585, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
