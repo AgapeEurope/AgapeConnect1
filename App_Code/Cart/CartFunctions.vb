@@ -46,6 +46,8 @@ Public Module OrderState
     Public Const Downloading As Integer = 5
     Public Const Downloaded As Integer = 6
     Public Const ErrorDownloading As Integer = 7
+    Public Const ErrorPayment As Integer = 8
+    Public Const ErrorPaymentCancelled As Integer = 9
 
 End Module
 
@@ -449,7 +451,7 @@ Public Class CartFunctions
 
     End Sub
 
-    Public Shared Sub CompleteOrder(ByVal CartID As Integer)
+    Public Shared Sub CompleteOrder(ByVal CartID As Integer, Optional TransactionId As String = "")
 
         Dim d As New Cart.CartDataContext
         Dim q = From c In d.FR_Carts Where c.CartID = CartID And c.OrderState = OrderState.Submitted
@@ -457,6 +459,7 @@ Public Class CartFunctions
 
         If q.Count > 0 Then
             q.First.OrderState = OrderState.Completed
+            q.First.TransactionId = TransactionId
             d.SubmitChanges()
         End If
 
@@ -471,6 +474,24 @@ Public Class CartFunctions
 
         If q.Count > 0 Then
             q.First.OrderState = OrderState.Canceled
+      
+            d.SubmitChanges()
+        End If
+
+
+    End Sub
+
+    Public Shared Sub ChangeCartState(ByVal CartID As Integer, ByVal NewOrderState As Integer, ByVal PortalId As Integer, Optional TransactionId As String = "", Optional OrderStateDescription As String = "", Optional TransactionLog As String = "")
+
+        Dim d As New Cart.CartDataContext
+
+        Dim q = From c In d.FR_Carts Where c.CartID = CartID And c.PortalID = PortalId
+
+        If q.Count > 0 Then
+            q.First.OrderState = NewOrderState
+            q.First.TransactionId = TransactionId
+            q.First.OrderStateDescription = OrderStateDescription
+            q.First.TransLog &= TransactionLog & " ; "
             d.SubmitChanges()
         End If
 
