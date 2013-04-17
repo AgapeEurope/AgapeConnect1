@@ -103,6 +103,17 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 LitPageContent.Text = respStr.ToString
                 LitPageContent.Visible = True
 
+                Dim OrderId As Integer = CInt(theResp.getValue("order_id"))
+                hfCartId.Value = OrderId
+                Dim responseCode As String = theResp.getValue("response_code") '17 = Customer Cancelled,  00 OK, Other = Error
+                If responseCode = "17" Then
+                    IfrScelliusCall.Visible = False  'Hide On response
+                    divPaymentCanceled.Visible = True
+
+                End If
+
+
+
 
             Catch e As Exception
 
@@ -111,5 +122,49 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
             End Try
         End Sub
 
+        Protected Sub BtnEmptyCart_Click(sender As Object, e As EventArgs) Handles BtnEmptyCart.Click
+            'Redirect to Cart
+            Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+            Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
+            If Not x Is Nothing Then
+                If Not x.TabID = Nothing Then
+                    Response.Redirect(NavigateURL(x.TabID))
+                End If
+            End If
+        End Sub
+
+
+        Protected Sub BtnModifyCart_Click(sender As Object, e As EventArgs) Handles BtnModifyCart.Click
+            'Copy the current cart and redirect to Basket
+            Dim newCartId = CartFunctions.CopyCart(CInt(hfCartId.Value), False)
+            Session("TheCartID") = newCartId
+
+            Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+            Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
+            If Not x Is Nothing Then
+                If Not x.TabID = Nothing Then
+                    Response.Redirect(NavigateURL(x.TabID))
+                End If
+            End If
+
+
+        End Sub
+
+        Protected Sub BtnPayAgain_Click(sender As Object, e As EventArgs) Handles BtnPayAgain.Click
+            'copy the current cart and resubmit.
+            Dim newCartId = CartFunctions.CopyCart(CInt(hfCartId.Value), False)
+            Session("TheCartID") = newCartId
+
+            Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+            Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
+            If Not x Is Nothing Then
+                If Not x.TabID = Nothing Then
+                    Response.Redirect(EditUrl(x.TabID, "CartPayment", True, ""))
+
+                End If
+            End If
+
+
+        End Sub
     End Class
 End Namespace
