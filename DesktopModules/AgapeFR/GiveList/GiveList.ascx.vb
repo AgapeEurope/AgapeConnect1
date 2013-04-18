@@ -46,7 +46,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
 
                     Dim ListItems = From c In d.AP_StaffBroker_Staffs Where c.PortalId = PortalId And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "CanReceiveDonations" And x.PropertyValue = "True").Count > 0 _
                     And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "UnNamedStaff" And x.PropertyValue = "True").Count = 0 _
-                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut" And Not (x.PropertyValue Is Nothing Or x.PropertyValue.Equals(""))).Count > 0 _
+                    And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut" And Not (x.PropertyValue Is Nothing Or x.PropertyValue.Trim().Equals(""))).Count > 0 _
                     Select c.StaffId, c.User.LastName, c.DisplayName, _
                     GivingShortcut = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut").FirstOrDefault.PropertyValue, _
                     JointPhoto = c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "JointPhoto").FirstOrDefault.PropertyValue
@@ -59,7 +59,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
 
                 Case "Dept"
                     Dim ListItems = From s In d.AP_StaffBroker_Departments _
-                                    Where s.CanGiveTo = "True" _
+                                    Where s.CanGiveTo = "True" And (Not (s.GivingShortcut.Trim = Nothing Or s.GivingShortcut = "")) _
                                     And s.PortalId = PortalId And Not s.IsProject _
                                     Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
                                     Order By Name
@@ -70,7 +70,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
 
                 Case "Project"
                     Dim ListItems = From s In d.AP_StaffBroker_Departments _
-                                    Where s.CanGiveTo = "True" _
+                                    Where s.CanGiveTo = "True" And (Not (s.GivingShortcut.Trim = Nothing Or s.GivingShortcut = "")) _
                                     And s.PortalId = PortalId And s.IsProject _
                                     Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
                                     Order By Name
@@ -90,7 +90,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
             Dim x = mc.GetModuleByDefinition(PortalId, "frGiveView")
             If Not x Is Nothing Then
                 If Not x.TabID = Nothing Then
-                    Return (NavigateURL(x.TabID, "", "giveto=" + GivingShortcut))
+
+                    Return (NavigateURL(x.TabID, "", "giveto=" + GivingShortcut.Trim()))
                 End If
             End If
             'No link if frGiveView page not found
