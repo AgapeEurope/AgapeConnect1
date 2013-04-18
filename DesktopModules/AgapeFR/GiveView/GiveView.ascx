@@ -188,12 +188,12 @@
         }
         else if ($('.rbFreq input:radio:checked').val() == 6) {
             str += '<%= Translate("FreqParaTwo")%>';
-            }
-            else if ($('.rbFreq input:radio:checked').val() == 12) {
-                str += '<%= Translate("FreqParaThree")%>';
-            }
-            else if ($('.rbFreq input:radio:checked').val() == 99) {
-                str += '<%= Translate("FreqParaFour")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 12) {
+            str += '<%= Translate("FreqParaThree")%>';
+        }
+        else if ($('.rbFreq input:radio:checked').val() == 99) {
+            str += '<%= Translate("FreqParaFour")%>';
             }
     if ($('.rblMeth input:radio:checked').val() == 'm1') {
         $('#viretable').hide();
@@ -218,7 +218,7 @@
     $('#lblSummaryStreet2').text($('.TxtStreet2').val());
     $('#lblSummaryCity').text($('.TxtCity').val());
     $('#lblSummaryCountry').text($('.cboCountry option:selected').text());
-    //$('#lblSummaryRegion').text($('.TxtRegion').val());
+        //$('#lblSummaryRegion').text($('.TxtRegion').val());
     $('#lblSummaryPostal').text($('.TxtPostCode').val());
     $('#lblSummaryEmail').text($('.TxtEmail').val());
     $('#lblSummaryMobile').text($('.TxtMobile').val());
@@ -229,7 +229,7 @@
     }
     else {
         $('#lblSummaryDonComment').text($('.tbComm').val());
-    }    
+    }
     $('.freqchoose').slideUp(1000);
     $('.amtchoose').slideUp(1000);
     $('.contact').slideUp(1000);
@@ -324,12 +324,12 @@ function btnFinishDon_click() {
 
     .summaryleft {
         float: left;
-        width: 48%;
+        width: 60%;
     }
 
     .summaryright {
         float: right;
-        width: 48%;
+        width: 30%;
     }
 
     .auto-style1 {
@@ -481,9 +481,9 @@ function btnFinishDon_click() {
             <div style="clear: both"></div>
             <input id="btnNext" class="aButton btnNext" type="button" value="<%= Translate("btnNext")%>" />
             <div>
-            <asp:ValidationSummary ID="ValSumDon" runat="server" ValidationGroup="Don" />
-            <asp:ValidationSummary ID="ValSumBank" runat="server" ValidationGroup="Bank" />
-        </div>
+                <asp:ValidationSummary ID="ValSumDon" runat="server" ValidationGroup="Don" />
+                <asp:ValidationSummary ID="ValSumBank" runat="server" ValidationGroup="Bank" />
+            </div>
         </div>
 
         <div id="summaryDon" class="summaryDon bubble" runat="server">
@@ -491,10 +491,6 @@ function btnFinishDon_click() {
             <br />
             <div class="summaryleft">
                 <table class="auto-style1">
-                    <tr>
-                        <td colspan="2">
-                            <asp:Label ID="lblSummaryLeft" CssClass="lblSummaryLeft" Text="text" runat="server" /></td>
-                    </tr>
                     <tr>
                         <td>
                             <asp:Label ID="lblSumTextFirst" CssClass="lblSumTextFirst" Text="text" runat="server" /></td>
@@ -572,35 +568,41 @@ function btnFinishDon_click() {
                             <label id="lblSummaryPhone"></label>
                         </td>
                     </tr>
-                </table>
-            </div>
-            <div class="summaryright">
-                <p><asp:Label ID="lblSummaryInfo2" CssClass="lblSummaryInfo2" Text="text" runat="server" /></p>
-                <br />
-                <table id="viretable">
-                    <tr>
-                        <td colspan="2">
-                            <asp:Label ID="lblSummaryRight" Text="" runat="server" /></td>
-                    </tr>
-                    <tr>
+                    <tr id="viretable">
                         <td>
-                            <asp:Label ID="lblSumTextBankIBAN" CssClass="lblSumTextBankIBAN" Text="text" runat="server" /></td>
+                            <asp:Label ID="lblSumTextBankIBAN" CssClass="lblSumTextBankIBAN" Text="text" runat="server" />
+                        </td>
                         <td>
                             <label id="lblSummaryBankIBAN"></label>
                         </td>
                     </tr>
                 </table>
+            </div>
+            <div class="summaryright">
+                <p>
+                    <asp:Label ID="lblSummaryInfo2" CssClass="lblSummaryInfo2" Text="text" runat="server" />
+                </p>
+                <br />
+                
                 <div id="sumcc">
-                    <p><asp:Label ID="lblCreditCard" runat="server" /></p>
+                    <p>
+                        <asp:Label ID="lblCreditCard" runat="server" />
+                    </p>
                     <br />
                 </div>
                 <div id="sumcheque">
-                    <p><asp:Label ID="lblSumCheque" resourcekey="lblSumCheque" runat="server" /></p>
+                    <p>
+                        <asp:Label ID="lblSumCheque" resourcekey="lblSumCheque" runat="server" />
+                    </p>
                     <br />
                 </div>
-                <p><asp:Label ID="lblSumDonComment" runat="server" /></p>
+                <p>
+                    <asp:Label ID="lblSumDonComment" runat="server" />
+                </p>
                 <br />
-                <p><label id="lblSummaryDonComment"></label></p>
+                <p>
+                    <label id="lblSummaryDonComment"></label>
+                </p>
             </div>
             <div style="clear: both"></div>
             <asp:Button ID="btnFinishDon" CssClass="aButton btnFinishDon" ValidationGroup="Don" runat="server" />
@@ -610,11 +612,17 @@ function btnFinishDon_click() {
             <asp:Label ID="lblPleaseWait" resourcekey="lblPleaseWait" runat="server" />
         </div>
         <div id="confirmation" class="confirmation bubble" runat="server">
-            <asp:Label ID="lblConfVirement" resourcekey="lblConfVirement" runat="server" />
+            <p><asp:Label ID="lblConfVirement1" resourcekey="lblConfVirement1" runat="server" /></p>
+            <p><asp:Label ID="lblConfVirement2" resourcekey="lblConfVirement2" runat="server" /></p>
+            <p><asp:Label ID="lblConfVirement3" resourcekey="lblConfVirement3" runat="server" /></p>
+            <ul><asp:Label ID="lblConfVirement4" resourcekey="lblConfVirement4" runat="server" />
             <asp:Label ID="lblConfCheque" resourcekey="lblConfCheque" runat="server" />
             <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">
                 <asp:Label ID="lblLinkPDF" Text="text" runat="server" />
-            </asp:HyperLink>
+            </asp:HyperLink></ul>
+            <ul><asp:Label ID="lblConfVirement5" resourcekey="lblConfVirement5" runat="server" /></ul>
+            <p><asp:Label ID="lblConfVirement6" text="IBAN : FR31 2004 1010 1236 6404 7A03 305" runat="server" /></p>
+            <p><asp:Label ID="lblConfVirement7" text="BIC : PSSTFRPPSCE" runat="server" /></p>
         </div>
     </div>
     <div style="float: right; font-size: 10pt;">

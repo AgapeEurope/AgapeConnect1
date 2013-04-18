@@ -65,7 +65,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     Dim lc As New Lists.ListController
                     If Not objUser.Profile.Country Is Nothing Then
                         Dim c = lc.GetListEntryInfoItems("Country").Where(Function(x) objUser.Profile.Country.EndsWith(x.Text)).Select(Function(x) x.Value)
-                        mycountry = c.First
+                        If c.Count > 0 Then
+                            mycountry = c.First
+                        End If
                     End If
                     cboCountry.SelectedValue = mycountry
                     thelogincont.Style("Display") = "none"
@@ -156,8 +158,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             LblPostCode.Text = Translate("PostCode")
             lblIBAN.Text = Translate("IBAN")
             btnFinishDon.Text = Translate("btnFinishDon")
-            lblSummaryLeft.Text = Translate("lblSummaryLeft")
-            lblSummaryRight.Text = Translate("lblSummaryRight")
             lblSummaryInfo1.Text = Translate("lblSummaryInfo")
             lblSumTextFirst.Text = Translate("FirstName")
             lblSumTextLast.Text = Translate("LastName")
@@ -283,7 +283,13 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     reciptemplate = "RecipVirementMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
                     donortemplate = "DonorVirementMail." & CultureInfo.CurrentCulture().ToString
                 ElseIf rblMethod.SelectedIndex = 2 Then 'cheque
-                    lblConfVirement.Visible = False
+                    lblConfVirement1.Visible = False
+                    lblConfVirement2.Visible = False
+                    lblConfVirement3.Visible = False
+                    lblConfVirement4.Visible = False
+                    lblConfVirement5.Visible = False
+                    lblConfVirement6.Visible = False
+                    lblConfVirement7.Visible = False
                     donortemplate = "DonorChequeMail." & CultureInfo.CurrentCulture().ToString
                     reciptemplate = "RecipChequeMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
 
@@ -430,5 +436,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
         End Sub
 #End Region
 
+        Protected Sub btnBio_Load(sender As Object, e As EventArgs) Handles btnBio.Load
+
+        End Sub
     End Class
 End Namespace

@@ -267,8 +267,8 @@
   <data name="lblConfCheque.Text" xml:space="preserve">
     <value>Votre don est enregistré dans notre système. Merci d'envoyer le chèque !</value>
   </data>
-  <data name="lblConfVirement.Text" xml:space="preserve">
-    <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
+  <data name="lblConfVirement1.Text" xml:space="preserve">
+    <value>Votre don est bien enregistré dans notre système.</value>
   </data>
   <data name="btnBio.Text" xml:space="preserve">
     <value>Voir Info</value>
@@ -338,5 +338,17 @@
   </data>
   <data name="lblSumDonCommentDept.Text" xml:space="preserve">
     <value>Votre message pour le responsable de [DEPT] :</value>
+  </data>
+  <data name="lblConfVirement2.Text" xml:space="preserve">
+    <value>Vous devez maintentant mettre en place le virement avec votre banque.</value>
+  </data>
+  <data name="lblConfVirement3.Text" xml:space="preserve">
+    <value>Pour cela, vous pouvez :</value>
+  </data>
+  <data name="lblConfVirement4.Text" xml:space="preserve">
+    <value>Imprimer ce document, le signer et l'envoyer à votre banque :</value>
+  </data>
+  <data name="lblConfVirement5.Text" xml:space="preserve">
+    <value>Mettre en place vous-même le virement sur le site internet de votre banque en utilisant les informations pour le compte bancaire d'Agapé France :</value>
   </data>
 </root>
