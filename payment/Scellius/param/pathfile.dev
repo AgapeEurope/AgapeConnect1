@@ -1,6 +1,6 @@
 #########################################################################
 #
-#	Pathfile pour le serveur d'intégration (dev)
+#	Pathfile pour le serveur
 #
 #	Liste des fichiers parametres utilises par le module de paiement
 #
@@ -27,16 +27,16 @@ D_LOGO!/payment/Scellius/logo/!
 #
 # fichier des  paramètres sips
 #
-F_DEFAULT!C:\Websites\FranceDev\payment\Scellius\param\parmcom.defaut!
-#F_DEFAULT!C:\Websites\FranceDev\payment\Scellius\param\parmcom.scellius!
+F_DEFAULT!C:\Websites\AgapeConnect1\payment\Scellius\param\parmcom.defaut!
+#F_DEFAULT!C:\Websites\AgapeConnect1\payment\Scellius\param\parmcom.scellius!
 #
 # fichier paramètre commercant
 #
-F_PARAM!C:\Websites\FranceDev\payment\Scellius\param\parmcom!
+F_PARAM!C:\Websites\AgapeConnect1\payment\Scellius\param\parmcom!
 #
 # certificat du commercant
 #
-F_CERTIFICATE!C:\Websites\FranceDev\payment\Scellius\param\certif!
+F_CERTIFICATE!C:\Websites\AgapeConnect1\payment\Scellius\param\certif!
 #
 # type du certificat 	
 # 

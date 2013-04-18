@@ -150,20 +150,20 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 ' theCall.setValue("background_id","")
                 ' theCall.setValue("templatefile","mon_template")
 
-
-                ' Insertion de la commande dans votre base de donnees
-                ' avec le status "en cours"
-                'TODO: Cart - Payment method to be set in DB?
-                CartFunctions.SubmitOrder(OrderId)
-
                 ' Appel de l'api SIPS payment et affichage de la réponse
                 LitPageContent.Text = api.sipsPaymentCallFunc(theCall)
 
             Catch e As Exception
 
-                LitPageContent.Text = "Error = " & e.GetType().FullName & e.Message
+                AgapeLogger.Error(-1, "Error = " & e.GetType().FullName & e.Message)
+                LitPageContent.Text = "Désolé, il a eu une erreur lors de l'appel du module de paiement. Veuillez revenir à la page précédente pour réessayer et nous contacter si le problème persiste."
 
             Finally
+
+                ' Insertion de la commande dans votre base de donnees
+                ' avec le status "en cours"
+                'TODO: Cart - Payment method to be set in DB?
+                CartFunctions.SubmitOrder(OrderId)
 
                 'Clear session variables
                 Session(GenericPaymentProvider.ReturnURLPropertyName) = PaymentReturnURL
