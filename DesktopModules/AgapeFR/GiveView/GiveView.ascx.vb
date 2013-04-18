@@ -59,7 +59,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtStreet1.Text = objUser.Profile.Street
                     TxtStreet2.Text = objUser.Profile.Unit
                     TxtCity.Text = objUser.Profile.City
-                    TxtRegion.Text = objUser.Profile.Region
+                    'TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
                     Dim mycountry As String = "FR"
                     Dim lc As New Lists.ListController
@@ -91,6 +91,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         DonationType.Value = DestinationType.Staff
                         hfGiveToName.Value = givename
                         lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
+                        lblDonComment.Text = Translate("lblDonCommentStaff").Replace("[RECIP]", givename)
+                        lblSumDonComment.Text = Translate("lblSumDonCommentStaff").Replace("[RECIP]", givename)
                         Return
                     End If
                     'Second Try Department/Ministry
@@ -104,6 +106,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         RowId.Value = Dept.First.CostCenterId
                         hfGiveToName.Value = givename
                         lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
+                        lblDonComment.Text = Translate("lblDonCommentDept").Replace("[DEPT]", givename)
+                        lblSumDonComment.Text = Translate("lblSumDonCommentDept").Replace("[DEPT]", givename)
                         Return
                     Else
                         badquery()
@@ -148,7 +152,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             LblStreet2.Text = Translate("Street2")
             LblCity.Text = Translate("City")
             LlbCountry.Text = Translate("Country")
-            LblRegion.Text = Translate("Region")
+            'LblRegion.Text = Translate("Region")
             LblPostCode.Text = Translate("PostCode")
             lblIBAN.Text = Translate("IBAN")
             btnFinishDon.Text = Translate("btnFinishDon")
@@ -161,7 +165,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextStreet2.Text = Translate("Street2")
             lblSumTextCity.Text = Translate("City")
             lblSumTextCountry.Text = Translate("Country")
-            lblSumTextRegion.Text = Translate("Region")
+            'lblSumTextRegion.Text = Translate("Region")
             lblSumTextPostal.Text = Translate("PostCode")
             lblSumTextEmail.Text = Translate("eMail")
             lblSumTextMobile.Text = Translate("Mobile")
@@ -367,7 +371,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theUser.Profile.Unit = TxtStreet2.Text
             theUser.Profile.City = TxtCity.Text
             theUser.Profile.Country = cboCountry.SelectedItem.Text
-            theUser.Profile.Region = TxtRegion.Text
+            'theUser.Profile.Region = TxtRegion.Text
             theUser.Profile.PostalCode = TxtPostCode.Text
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub

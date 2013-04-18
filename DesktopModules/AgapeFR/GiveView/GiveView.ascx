@@ -218,13 +218,18 @@
     $('#lblSummaryStreet2').text($('.TxtStreet2').val());
     $('#lblSummaryCity').text($('.TxtCity').val());
     $('#lblSummaryCountry').text($('.cboCountry option:selected').text());
-    $('#lblSummaryRegion').text($('.TxtRegion').val());
+    //$('#lblSummaryRegion').text($('.TxtRegion').val());
     $('#lblSummaryPostal').text($('.TxtPostCode').val());
     $('#lblSummaryEmail').text($('.TxtEmail').val());
     $('#lblSummaryMobile').text($('.TxtMobile').val());
     $('#lblSummaryPhone').text($('.TxtTelephone').val());
     $('#lblSummaryBankIBAN').text($('.TxtBankIBAN').val());
-    $('#lblSummaryDonComment').text($('.tbComm').val());
+    if ($('.tbComm').val() == "") {
+        $('#lblSummaryDonComment').text('<%= Translate("NoMessage")%>');
+    }
+    else {
+        $('#lblSummaryDonComment').text($('.tbComm').val());
+    }    
     $('.freqchoose').slideUp(1000);
     $('.amtchoose').slideUp(1000);
     $('.contact').slideUp(1000);
@@ -354,10 +359,6 @@ function btnFinishDon_click() {
         <div id="GiveTitle" runat="server" class="AgapeH2" style="margin-bottom: 12px;">
             <asp:Label ID="Title" runat="server"></asp:Label>
         </div>
-        <div>
-            <asp:ValidationSummary ID="ValSumDon" runat="server" ValidationGroup="Don" />
-            <asp:ValidationSummary ID="ValSumBank" runat="server" ValidationGroup="Bank" />
-        </div>
         <div id="freqchoose" class="freqchoose bubble" runat="server">
             <asp:Label ID="lblFrequency" Text="" runat="server" />
             <asp:RequiredFieldValidator ID="ValFreq" runat="server" ValidationGroup="Don" ControlToValidate="rblFrequency" Text="*"></asp:RequiredFieldValidator>
@@ -388,7 +389,7 @@ function btnFinishDon_click() {
                 </asp:RadioButtonList>
             </div>
             <div id="methchooseright">
-                <asp:Label ID="lblDonComment" resourcekey="lblDonComment" runat="server" />
+                <asp:Label ID="lblDonComment" runat="server" />
                 <asp:TextBox ID="tbComment" CssClass="tbComment" runat="server" Font-Size="12pt" Width="95%" Height="48px" Rows="10" TextMode="MultiLine"></asp:TextBox><br />
             </div>
             <div style="clear: both"></div>
@@ -398,6 +399,7 @@ function btnFinishDon_click() {
             <dnn2:Login ID="login1" runat="server" />
         </div>
         <div id="contact" class="contact bubble" runat="server">
+            <asp:Label ID="lblContactForm" resourcekey="lblContactForm" runat="server" />
             <div style="float: left">
                 <div class="giveformitem">
                     <dnn:Label ID="LblFirstName" runat="server" ControlName="TxtFirstName" />
@@ -465,10 +467,10 @@ function btnFinishDon_click() {
                     <asp:RequiredFieldValidator ID="ValCity" ControlToValidate="TxtCity" runat="server" Text="*" ValidationGroup="Don" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="TxtCity" runat="server" ValidationGroup="Contact" />
                 </div>
-                <div class="giveformitem">
+                <%--<div class="giveformitem">
                     <dnn:Label ID="LblRegion" runat="server" ControlName="TxtRegion" />
                     <asp:TextBox ID="TxtRegion" runat="server" MaxLength="50" CssClass="virementform TxtRegion " />
-                </div>
+                </div>--%>
                 <div class="giveformitem virementIBAN">
                     <dnn:Label ID="lblIBAN" runat="server" ControlName="TxtIBAN" />
                     <asp:TextBox ID="tbIBAN" ValidationGroup="Bank" runat="server" MaxLength="50" CssClass="TxtBankIBAN " />
@@ -478,6 +480,10 @@ function btnFinishDon_click() {
             </div>
             <div style="clear: both"></div>
             <input id="btnNext" class="aButton btnNext" type="button" value="<%= Translate("btnNext")%>" />
+            <div>
+            <asp:ValidationSummary ID="ValSumDon" runat="server" ValidationGroup="Don" />
+            <asp:ValidationSummary ID="ValSumBank" runat="server" ValidationGroup="Bank" />
+        </div>
         </div>
 
         <div id="summaryDon" class="summaryDon bubble" runat="server">
@@ -531,13 +537,13 @@ function btnFinishDon_click() {
                             <label id="lblSummaryCountry"></label>
                         </td>
                     </tr>
-                    <tr>
+                    <%--<tr>
                         <td>
                             <asp:Label ID="lblSumTextRegion" CssClass="lblSumTextRegion" Text="text" runat="server" /></td>
                         <td>
                             <label id="lblSummaryRegion"></label>
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td>
                             <asp:Label ID="lblSumTextPostal" CssClass="lblSumTextPostal" Text="text" runat="server" /></td>
@@ -569,7 +575,8 @@ function btnFinishDon_click() {
                 </table>
             </div>
             <div class="summaryright">
-                <asp:Label ID="lblSummaryInfo2" CssClass="lblSummaryInfo2" Text="text" runat="server" /><br />
+                <p><asp:Label ID="lblSummaryInfo2" CssClass="lblSummaryInfo2" Text="text" runat="server" /></p>
+                <br />
                 <table id="viretable">
                     <tr>
                         <td colspan="2">
@@ -584,14 +591,16 @@ function btnFinishDon_click() {
                     </tr>
                 </table>
                 <div id="sumcc">
-                    <asp:Label ID="lblCreditCard" Text="" runat="server" /><br />
+                    <p><asp:Label ID="lblCreditCard" runat="server" /></p>
+                    <br />
                 </div>
                 <div id="sumcheque">
-                    <asp:Label ID="lblSumCheque" resourcekey="lblSumCheque" runat="server" />
+                    <p><asp:Label ID="lblSumCheque" resourcekey="lblSumCheque" runat="server" /></p>
+                    <br />
                 </div>
-                <asp:Label ID="lblSumDonComment" resourcekey="lblSumDonComment" runat="server" />
+                <p><asp:Label ID="lblSumDonComment" runat="server" /></p>
                 <br />
-                <label id="lblSummaryDonComment"></label>
+                <p><label id="lblSummaryDonComment"></label></p>
             </div>
             <div style="clear: both"></div>
             <asp:Button ID="btnFinishDon" CssClass="aButton btnFinishDon" ValidationGroup="Don" runat="server" />
