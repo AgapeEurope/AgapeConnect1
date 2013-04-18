@@ -118,9 +118,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     Else
                         badquery()
                     End If
-                    Else
-                        badquery()
-                    End If
+                Else
+                    badquery()
+                End If
             End If
             theImage1.ImageUrl = ViewState("imageurl")
         End Sub
