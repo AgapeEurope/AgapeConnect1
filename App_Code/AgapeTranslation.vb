@@ -6,7 +6,7 @@ Public Class AgapeTranslation
     Public Shared Sub [InitLocalResourceFile](Page As Entities.Modules.PortalModuleBase)
         ' Init translation resource file
         Dim FileName As String = System.IO.Path.GetFileNameWithoutExtension(Page.AppRelativeVirtualPath)
-        If Not (Page.ID Is Nothing) Then
+        If (Not (Page.ID Is Nothing)) Then
             'this will fix it when its placed as a ChildUserControl 
             Page.LocalResourceFile = Page.LocalResourceFile.Replace(Page.ID, FileName)
         Else

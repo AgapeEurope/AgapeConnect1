@@ -27,6 +27,11 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+            ' Redirect to specific sub module if requested in URL
+            If Not String.IsNullOrEmpty(Request.QueryString("skip")) Then
+                Response.Redirect(EditUrl(Request.QueryString("skip")))
+            End If
+
             ' Init shared resource file
             LocalResourceFile = ApplicationPath + "/DesktopModules/AgapeFR/Cart/App_LocalResources/CartSharedResources.resx"
 

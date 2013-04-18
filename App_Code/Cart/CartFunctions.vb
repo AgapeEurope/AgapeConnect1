@@ -538,7 +538,7 @@ Public Class CartFunctions
             insert.TransLog = "continued from Cart " & q.First.CartID & "(Payment Cancelled)"
 
            
-            insert.OrderState = IIf(Resubmit, OrderState.Submitted, OrderState.Unprocessed)
+            insert.OrderState = CInt(IIf(Resubmit, OrderState.Submitted, OrderState.Unprocessed))
 
             d.FR_Carts.InsertOnSubmit(insert)
             d.SubmitChanges()
@@ -548,7 +548,7 @@ Public Class CartFunctions
 
 
             Next
-            Return CartId
+            Return insert.CartID
         End If
 
         Return -1
@@ -585,6 +585,22 @@ Public Class CartFunctions
                 q.First.Date = Now
                 d.SubmitChanges()
                 UpdateCartDeliveryCostAndDate(theCart.CartID)
+            End If
+
+        End If
+
+    End Sub
+    Public Shared Sub EmptyCart(ByVal CartId As Integer)
+
+        Dim d As New Cart.CartDataContext
+        Dim q = From c In d.FR_Carts Where c.CartID = CartId
+
+        If q.Count > 0 Then
+            If q.First.OrderState = OrderState.Unprocessed Then
+                d.FR_Cart_Contents.DeleteAllOnSubmit(q.First.FR_Cart_Contents)
+                q.First.Date = Now
+                d.SubmitChanges()
+                UpdateCartDeliveryCostAndDate(CartId)
             End If
 
         End If

@@ -6,7 +6,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
     ''' </summary>
     ''' <remarks></remarks>
     Public MustInherit Class GenericPaymentProvider
-        Inherits DotNetNuke.Entities.Modules.UserModuleBase
+        Inherits Entities.Modules.PortalModuleBase
 
 #Region "Properties and constants"
 
