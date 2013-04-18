@@ -267,7 +267,7 @@
   <data name="lblConfCheque.Text" xml:space="preserve">
     <value>Thank you! Your donation is recorded in our system. Don't forget to send the cheque!</value>
   </data>
-  <data name="lblConfVirement.Text" xml:space="preserve">
+  <data name="lblConfVirement1.Text" xml:space="preserve">
     <value>Thank you! Your donation is recorded in our system. Please send the PDF to your bank.</value>
   </data>
   <data name="btnBio.Text" xml:space="preserve">
