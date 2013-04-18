@@ -33,23 +33,18 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-            If Not Me.IsPostBack Then
+            ' Make sure no control remains displayed on the page
+            PhPaymentMethods.Controls.Clear()
 
-                ' Make sure no control remains displayed on the page
-                PhPaymentMethods.Controls.Clear()
+            If Not String.IsNullOrEmpty(PaymentProviderPath) Then
+                ' Load requested payment provider
+                LoadPaymentProvider(PaymentProviderPath)
+            Else
+                'TODO: Cart - Load here any other Payment Provider
 
-                If Not String.IsNullOrEmpty(PaymentProviderPath) Then
-                    ' Load requested payment provider
-                    LoadPaymentProvider(PaymentProviderPath)
-                Else
-                    'TODO: Cart - Load here any other Payment Provider
-
-                    ' Load Scellius payment provider
-                    LoadPaymentProvider("/DesktopModules/AgapeFR/Cart/PaymentProviders/ScelliusPayment.ascx")
-                End If
-
+                ' Load Scellius payment provider
+                LoadPaymentProvider("/DesktopModules/AgapeFR/Cart/PaymentProviders/ScelliusPayment.ascx")
             End If
-
         End Sub
 
         Protected Sub LoadPaymentProvider(ByVal TheControlPath As String)
