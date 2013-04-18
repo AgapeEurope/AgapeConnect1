@@ -193,10 +193,10 @@
     <value>Région (si approprié) :</value>
   </data>
   <data name="Street1.Text" xml:space="preserve">
-    <value>Adresse :</value>
+    <value>Adresse ligne 1 :</value>
   </data>
   <data name="Street2.Text" xml:space="preserve">
-    <value>Complément d'adresse :</value>
+    <value>Adresse ligne 2 :</value>
   </data>
   <data name="Telephone.Text" xml:space="preserve">
     <value>Téléphone fixe :</value>
@@ -250,7 +250,7 @@
     <value>Les infos de ma banque :</value>
   </data>
   <data name="lblLinkPDF.Text" xml:space="preserve">
-    <value>Cliquer pour PDF</value>
+    <value>Ouvrir le document</value>
   </data>
   <data name="lblTheLoginCont.Text" xml:space="preserve">
     <value>Merci de se connecter pour continuer.</value>
@@ -343,12 +343,12 @@
     <value>Vous devez maintentant mettre en place le virement avec votre banque.</value>
   </data>
   <data name="lblConfVirement3.Text" xml:space="preserve">
-    <value>Pour cela, vous pouvez :</value>
+    <value>Pour cela, merci d'utiliser les informations dans ce document : </value>
   </data>
   <data name="lblConfVirement4.Text" xml:space="preserve">
-    <value>Imprimer ce document, le signer et l'envoyer à votre banque :</value>
+    <value> - Vous pouvez imprimer ce document, le signer et l'envoyer à votre banque.</value>
   </data>
   <data name="lblConfVirement5.Text" xml:space="preserve">
-    <value>Mettre en place vous-même le virement sur le site internet de votre banque en utilisant les informations pour le compte bancaire d'Agapé France :</value>
+    <value> - Ou vous pouvez mettre en place vous-même le virement sur le site internet de votre banque.</value>
   </data>
 </root>

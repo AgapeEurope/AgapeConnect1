@@ -59,13 +59,13 @@ Partial Class DesktopModules_Give_OutputPdf
         Dim theFreq = "Error"
         'TRENT: work on translation
         If q.First.Frequency = 1 Then
-            theFreq = " Mensuelle"
+            theFreq = " mensuel"
         ElseIf q.First.Frequency = 3 Then
-            theFreq = " Trimestrielle"
+            theFreq = " trimestriel"
         ElseIf q.First.Frequency = 6 Then
-            theFreq = " Semestrielle"
+            theFreq = " semestriel"
         ElseIf q.First.Frequency = 12 Then
-            theFreq = " Annuelle"
+            theFreq = " annuel"
         ElseIf q.First.Frequency = 99 Then
             theFreq = ""
         End If
@@ -74,7 +74,7 @@ Partial Class DesktopModules_Give_OutputPdf
         If q.First.Frequency = 99 Then
             theParagraph += ". Le code pour ce don est " & soid & "."
         Else
-            theParagraph += ", à partir du " & Today() & " et jusqu'à résiliation de ma part. Le code pour ce don est " & soid & "."
+            theParagraph += ", à partir du " & Today().ToString("dd/MM/yyyy") & " et jusqu'à résiliation de ma part. Merci d'indiquer cette référence dans le libellé du virement : " & soid & "."
         End If
 
         Dim pdfTemplate As String = Server.MapPath("/Portals/0/virement.pdf")
@@ -130,7 +130,7 @@ Partial Class DesktopModules_Give_OutputPdf
         Else
             theRecip = ConvertDisplayToSensible(staff.First.DisplayName)
         End If
-        Dim theParagraph = "Je vais envoyer un chèque" & theFreq & " de " & q.First.Amount.ToString() & "€. Le code pour ce don est " & soid & ". Le destinataire est " & theRecip & " ."
+        Dim theParagraph = "Je vais envoyer un chèque" & theFreq & " de " & q.First.Amount.ToString() & "€. La référence pour ce don est : " & soid & ". Le destinataire est " & theRecip & " ."
 
         Dim pdfTemplate As String = Server.MapPath("/Portals/0/cheque.pdf")
         Dim pdfReader As New PdfReader(pdfTemplate)
