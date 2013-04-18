@@ -105,18 +105,22 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 AgapeLogger.Info(-1, respStr.ToString)
 
                 Dim OrderId As Integer = CInt(theResp.getValue("order_id"))
-                Dim responseCode As String = theResp.getValue("response_code") '17 = Customer Cancelled,  00 OK, Other = Error
+                Dim responseCode As String = theResp.getValue("response_code") '17 = Customer Cancelled,  00 = OK, 05 = Paiement refusé, Other = Error
 
                 If responseCode = "00" Then ' Payment was OK
-                ElseIf responseCode = "17" Then ' Customer Cancelled
+                    'Show only panel for successfull payment
+                    IfrScelliusCall.Visible = False
+                    divPaymentCanceled.Visible = False
+                    divPaymentSuccessful.Visible = True
+                Else ' Customer Cancelled or error
                     'Copy the current cart
                     Dim newCartId = CartFunctions.CopyCart(OrderId, False)
                     Session("TheCartID") = newCartId
 
-                    IfrScelliusCall.Visible = False  'Hide Scellius call iframe on response
-                    divPaymentCanceled.Visible = True 'Show different options buttons on response
-
-                Else 'Other error (Maybe Credit card was declined)
+                    'Show only panel with different options buttons after cancelled payment or error
+                    IfrScelliusCall.Visible = False
+                    divPaymentCanceled.Visible = True
+                    divPaymentSuccessful.Visible = False
 
                 End If
 
