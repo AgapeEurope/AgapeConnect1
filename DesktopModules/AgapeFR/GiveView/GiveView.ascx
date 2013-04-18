@@ -194,7 +194,7 @@
         }
         else if ($('.rbFreq input:radio:checked').val() == 99) {
             str += '<%= Translate("FreqParaFour")%>';
-            }
+        }
     if ($('.rblMeth input:radio:checked').val() == 'm1') {
         $('#viretable').hide();
         $('#sumcc').show();
@@ -583,7 +583,7 @@ function btnFinishDon_click() {
                     <asp:Label ID="lblSummaryInfo2" CssClass="lblSummaryInfo2" Text="text" runat="server" />
                 </p>
                 <br />
-                
+
                 <div id="sumcc">
                     <p>
                         <asp:Label ID="lblCreditCard" runat="server" />
@@ -612,17 +612,26 @@ function btnFinishDon_click() {
             <asp:Label ID="lblPleaseWait" resourcekey="lblPleaseWait" runat="server" />
         </div>
         <div id="confirmation" class="confirmation bubble" runat="server">
-            <p><asp:Label ID="lblConfVirement1" resourcekey="lblConfVirement1" runat="server" /></p>
-            <p><asp:Label ID="lblConfVirement2" resourcekey="lblConfVirement2" runat="server" /></p>
-            <p><asp:Label ID="lblConfVirement3" resourcekey="lblConfVirement3" runat="server" /></p>
-            <ul><asp:Label ID="lblConfVirement4" resourcekey="lblConfVirement4" runat="server" />
-            <asp:Label ID="lblConfCheque" resourcekey="lblConfCheque" runat="server" />
-            <asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">
-                <asp:Label ID="lblLinkPDF" Text="text" runat="server" />
-            </asp:HyperLink></ul>
-            <ul><asp:Label ID="lblConfVirement5" resourcekey="lblConfVirement5" runat="server" /></ul>
-            <p><asp:Label ID="lblConfVirement6" text="IBAN : FR31 2004 1010 1236 6404 7A03 305" runat="server" /></p>
-            <p><asp:Label ID="lblConfVirement7" text="BIC : PSSTFRPPSCE" runat="server" /></p>
+            <div id="virconf" runat="server">
+                <asp:Label ID="lblConfVirement1" resourcekey="lblConfVirement1" runat="server" /><br />
+                <br />
+                <asp:Label ID="lblConfVirement2" resourcekey="lblConfVirement2" runat="server" /><br />
+                <br />
+                <asp:Label ID="lblConfVirement3" resourcekey="lblConfVirement3" runat="server" /><asp:HyperLink ID="HyperLink1" Target="_blank" runat="server">
+                    <asp:Label ID="lblLinkPDF" runat="server" />
+                </asp:HyperLink><br />
+                <br />
+                <asp:Label ID="lblConfVirement4" resourcekey="lblConfVirement4" runat="server" /><br />
+                <br />
+                <asp:Label ID="lblConfVirement5" resourcekey="lblConfVirement5" runat="server" />
+            </div>
+            <div id="chequeconf" runat="server">
+                <asp:Label ID="lblConfCheque" resourcekey="lblConfCheque" runat="server" /><br />
+                <asp:HyperLink ID="HyperLink2" Target="_blank" runat="server">
+                    <asp:Label ID="lblLinkCheque" runat="server" />
+                </asp:HyperLink><br />
+            </div>
+
         </div>
     </div>
     <div style="float: right; font-size: 10pt;">

@@ -172,6 +172,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextPhone.Text = Translate("Telephone")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
+            lblLinkCheque.Text = Translate("lblLinkPDF")
             ValFreq.ErrorMessage = Translate("ValFreq")
             ValAmt.ErrorMessage = Translate("ValAmt")
             ValAmtRange.ErrorMessage = Translate("ValAmtRange")
@@ -279,17 +280,11 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 Dim reciptemplate As String = ""
                 Dim donortemplate As String = ""
                 If rblMethod.SelectedIndex = 1 Then 'virement
-                    lblConfCheque.Visible = False
+                    chequeconf.Visible = False
                     reciptemplate = "RecipVirementMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
                     donortemplate = "DonorVirementMail." & CultureInfo.CurrentCulture().ToString
                 ElseIf rblMethod.SelectedIndex = 2 Then 'cheque
-                    lblConfVirement1.Visible = False
-                    lblConfVirement2.Visible = False
-                    lblConfVirement3.Visible = False
-                    lblConfVirement4.Visible = False
-                    lblConfVirement5.Visible = False
-                    lblConfVirement6.Visible = False
-                    lblConfVirement7.Visible = False
+                    virconf.Visible = False
                     donortemplate = "DonorChequeMail." & CultureInfo.CurrentCulture().ToString
                     reciptemplate = "RecipChequeMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
 
@@ -355,6 +350,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     AgapeLogger.Warn(Me.UserId, "No staff or manager/delegate email to send donation notification to.(staffid/deptid='" & RowId.Value & "')")
                 End If
                 HyperLink1.NavigateUrl = pdflink
+                HyperLink2.NavigateUrl = pdflink
             Catch e As Exception
                 AgapeLogger.Warn(Me.UserId, "the email did not work." & e.ToString)
             End Try
