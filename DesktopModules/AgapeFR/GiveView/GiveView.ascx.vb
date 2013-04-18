@@ -104,7 +104,11 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         Title.Text = givename
                         ViewState("imageurl") = StaffBrokerFunctions.GetDeptPhoto(Dept.First.CostCenterId)
                         theImage1.ImageUrl = ViewState("imageurl")
-                        DonationType.Value = DestinationType.Department
+                        If Dept.First.IsProject Then
+                            DonationType.Value = DestinationType.Project
+                        Else
+                            DonationType.Value = DestinationType.Department
+                        End If
                         RowId.Value = Dept.First.CostCenterId
                         hfGiveToName.Value = givename
                         lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
@@ -114,9 +118,9 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     Else
                         badquery()
                     End If
-                Else
-                    badquery()
-                End If
+                    Else
+                        badquery()
+                    End If
             End If
             theImage1.ImageUrl = ViewState("imageurl")
         End Sub
@@ -427,8 +431,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Department, CInt(RowId.Value), CInt(tbAmount.Text), tbComment.Text)
         End Sub
         Private Sub DonateToProject()
-            'TODO Texte à traduire pour le titre
-            'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), tbComment.Text)
+            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Project, CInt(RowId.Value), CInt(tbAmount.Text), tbComment.Text)
         End Sub
 #End Region
 
