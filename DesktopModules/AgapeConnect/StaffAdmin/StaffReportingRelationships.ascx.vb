@@ -34,7 +34,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 cblStaffType.DataValueField = "StaffTypeId"
                 cblStaffType.DataBind()
                 For Each row As ListItem In cblStaffType.Items
-                    If row.Text = "National Staff" Then
+                    If row.Text = "UK Staff" Or row.Text = "Natinoal Staff" Then
                         row.Selected = True
 
                     End If

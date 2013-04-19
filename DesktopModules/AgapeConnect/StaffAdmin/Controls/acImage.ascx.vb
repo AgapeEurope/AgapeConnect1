@@ -186,7 +186,7 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
             Aspect = 0
         End If
         If SaveWidth = Nothing Then
-            SaveWidth = 500
+            SaveWidth = 700
         End If
 
 
@@ -279,7 +279,7 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
             Return
         End If
         If SaveWidth = Nothing Then
-            SaveWidth = 500
+            SaveWidth = 700
         End If
         _FileId = hfFileId.Value
         _theFile = FileManager.Instance.GetFile(_FileId)

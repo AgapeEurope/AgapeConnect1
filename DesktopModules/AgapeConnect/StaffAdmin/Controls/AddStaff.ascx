@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="AddStaff.ascx.vb" Inherits="DesktopModules_AgapePortal_StaffBroker_AddStaff" %>
 
- <%@ Register src="~/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
+ <%@ Register src="/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
 
 
 
@@ -11,10 +11,10 @@
 <asp:HiddenField ID="hfPortalId" runat="server" />
 <br />
 
-        <table style="width:100%" align="center">        
+        <table align="center">        
             <tr valign="top">
                 <td>
-                    <uc1:labelcontrol ID="labelcontrol1" runat="server" Text="TheKey Username" HelpText="Enter the staff members 'TheKey' Username. If the user does not have an account on this site, click 'Create' and enter their name." />
+                    <uc1:labelcontrol ID="labelcontrol1" runat="server" Text="GCX Username" HelpText="Enter the staff members GCX Username. If the user does not have an account on this site, click 'Create' and enter their name." />
                 </td>
                 <td>
                     <asp:TextBox ID="tbGCXUserName" runat="server" Width="220px"></asp:TextBox>
@@ -113,7 +113,7 @@
             </asp:LinqDataSource>
         </td>
     </tr>
-    </tabl>
+    </table>
    
 
 
