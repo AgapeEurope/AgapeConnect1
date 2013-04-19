@@ -96,24 +96,26 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_AddStaff
         If valStatus = False Then
             Return
         End If
-        lblError.Text &= _PortalId
         If user Is Nothing And cbCreate1.Checked Then
             user = StaffBrokerFunctions.CreateUser(_PortalId, tbGCXUserName.Text, tbFirstName1.Text, tbLastName1.Text)
         End If
         If spouse Is Nothing And cbCreate2.Checked Then
             spouse = StaffBrokerFunctions.CreateUser(_PortalId, tbSpouseGCX.Text, tbFirstName2.Text, tbLastName2.Text)
         End If
-
+        Dim stff As New AP_StaffBroker_Staff
         If ddlMaritalStatus.SelectedValue = 0 Then
-            StaffBrokerFunctions.CreateStaffMember(_PortalId, user, User2in:=spouse, staffTypeIn:=ddlStaffType.SelectedValue)
+            stff = StaffBrokerFunctions.CreateStaffMember(_PortalId, user, User2in:=spouse, staffTypeIn:=ddlStaffType.SelectedValue)
+            StaffBrokerFunctions.AddProfileValue(_PortalId, stff.StaffId, "Single", "False")
         ElseIf ddlMaritalStatus.SelectedValue = -1 Then
-            StaffBrokerFunctions.CreateStaffMember(_PortalId, user, tbSpouseName.Text, dtSpouseDOB.Text, staffTypeIn:=ddlStaffType.SelectedValue)
+            stff = StaffBrokerFunctions.CreateStaffMember(_PortalId, user, tbSpouseName.Text, dtSpouseDOB.Text, staffTypeIn:=ddlStaffType.SelectedValue)
+            StaffBrokerFunctions.AddProfileValue(_PortalId, stff.StaffId, "Single", "True")
         Else
-            StaffBrokerFunctions.CreateStaffMember(_PortalId, user, staffTypeIn:=ddlStaffType.SelectedValue)
+            stff = StaffBrokerFunctions.CreateStaffMember(_PortalId, user, staffTypeIn:=ddlStaffType.SelectedValue)
+            StaffBrokerFunctions.AddProfileValue(_PortalId, stff.StaffId, "Single", "True")
         End If
 
         StaffBrokerFunctions.SetSetting("tntFlag", "Dirty", _PortalId)
-        
+
         Response.Redirect(NavigateURL())
     End Sub
 
