@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BtnEmptyCart" xml:space="preserve">
-    <value>Vider mon panier</value>
+  <data name="BtnEmptyCart.Text" xml:space="preserve">
+    <value>Empty Cart</value>
   </data>
-  <data name="BtnModifyCart" xml:space="preserve">
-    <value>Modifier mon panier</value>
+  <data name="BtnModifyCart.Text" xml:space="preserve">
+    <value>Modify Cart</value>
   </data>
-  <data name="BtnPayAgain" xml:space="preserve">
-    <value>Relancer le paiement</value>
+  <data name="BtnPayAgain.Text" xml:space="preserve">
+    <value>Retry Payment</value>
   </data>
 </root>

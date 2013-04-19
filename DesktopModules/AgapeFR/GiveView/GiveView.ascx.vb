@@ -59,13 +59,15 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     TxtStreet1.Text = objUser.Profile.Street
                     TxtStreet2.Text = objUser.Profile.Unit
                     TxtCity.Text = objUser.Profile.City
-                    TxtRegion.Text = objUser.Profile.Region
+                    'TxtRegion.Text = objUser.Profile.Region
                     TxtPostCode.Text = objUser.Profile.PostalCode
                     Dim mycountry As String = "FR"
                     Dim lc As New Lists.ListController
                     If Not objUser.Profile.Country Is Nothing Then
                         Dim c = lc.GetListEntryInfoItems("Country").Where(Function(x) objUser.Profile.Country.EndsWith(x.Text)).Select(Function(x) x.Value)
-                        mycountry = c.First
+                        If c.Count > 0 Then
+                            mycountry = c.First
+                        End If
                     End If
                     cboCountry.SelectedValue = mycountry
                     thelogincont.Style("Display") = "none"
@@ -91,6 +93,8 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         DonationType.Value = DestinationType.Staff
                         hfGiveToName.Value = givename
                         lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
+                        lblDonComment.Text = Translate("lblDonCommentStaff").Replace("[RECIP]", givename)
+                        lblSumDonComment.Text = Translate("lblSumDonCommentStaff").Replace("[RECIP]", givename)
                         Return
                     End If
                     'Second Try Department/Ministry
@@ -100,10 +104,16 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                         Title.Text = givename
                         ViewState("imageurl") = StaffBrokerFunctions.GetDeptPhoto(Dept.First.CostCenterId)
                         theImage1.ImageUrl = ViewState("imageurl")
-                        DonationType.Value = DestinationType.Department
+                        If Dept.First.IsProject Then
+                            DonationType.Value = DestinationType.Project
+                        Else
+                            DonationType.Value = DestinationType.Department
+                        End If
                         RowId.Value = Dept.First.CostCenterId
                         hfGiveToName.Value = givename
                         lblTo.Text = GetSetting("Currency", PortalId) & " " & Translate("To") & " " & givename
+                        lblDonComment.Text = Translate("lblDonCommentDept").Replace("[DEPT]", givename)
+                        lblSumDonComment.Text = Translate("lblSumDonCommentDept").Replace("[DEPT]", givename)
                         Return
                     Else
                         badquery()
@@ -148,12 +158,10 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             LblStreet2.Text = Translate("Street2")
             LblCity.Text = Translate("City")
             LlbCountry.Text = Translate("Country")
-            LblRegion.Text = Translate("Region")
+            'LblRegion.Text = Translate("Region")
             LblPostCode.Text = Translate("PostCode")
             lblIBAN.Text = Translate("IBAN")
             btnFinishDon.Text = Translate("btnFinishDon")
-            lblSummaryLeft.Text = Translate("lblSummaryLeft")
-            lblSummaryRight.Text = Translate("lblSummaryRight")
             lblSummaryInfo1.Text = Translate("lblSummaryInfo")
             lblSumTextFirst.Text = Translate("FirstName")
             lblSumTextLast.Text = Translate("LastName")
@@ -161,13 +169,14 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             lblSumTextStreet2.Text = Translate("Street2")
             lblSumTextCity.Text = Translate("City")
             lblSumTextCountry.Text = Translate("Country")
-            lblSumTextRegion.Text = Translate("Region")
+            'lblSumTextRegion.Text = Translate("Region")
             lblSumTextPostal.Text = Translate("PostCode")
             lblSumTextEmail.Text = Translate("eMail")
             lblSumTextMobile.Text = Translate("Mobile")
             lblSumTextPhone.Text = Translate("Telephone")
             lblSumTextBankIBAN.Text = Translate("IBAN")
             lblLinkPDF.Text = Translate("lblLinkPDF")
+            lblLinkCheque.Text = Translate("lblLinkPDF")
             ValFreq.ErrorMessage = Translate("ValFreq")
             ValAmt.ErrorMessage = Translate("ValAmt")
             ValAmtRange.ErrorMessage = Translate("ValAmtRange")
@@ -275,11 +284,11 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                 Dim reciptemplate As String = ""
                 Dim donortemplate As String = ""
                 If rblMethod.SelectedIndex = 1 Then 'virement
-                    lblConfCheque.Visible = False
+                    chequeconf.Visible = False
                     reciptemplate = "RecipVirementMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
                     donortemplate = "DonorVirementMail." & CultureInfo.CurrentCulture().ToString
                 ElseIf rblMethod.SelectedIndex = 2 Then 'cheque
-                    lblConfVirement.Visible = False
+                    virconf.Visible = False
                     donortemplate = "DonorChequeMail." & CultureInfo.CurrentCulture().ToString
                     reciptemplate = "RecipChequeMail." & DotNetNuke.Entities.Portals.PortalController.GetPortalDefaultLanguage(PortalId)
 
@@ -345,6 +354,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
                     AgapeLogger.Warn(Me.UserId, "No staff or manager/delegate email to send donation notification to.(staffid/deptid='" & RowId.Value & "')")
                 End If
                 HyperLink1.NavigateUrl = pdflink
+                HyperLink2.NavigateUrl = pdflink
             Catch e As Exception
                 AgapeLogger.Warn(Me.UserId, "the email did not work." & e.ToString)
             End Try
@@ -367,7 +377,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             theUser.Profile.Unit = TxtStreet2.Text
             theUser.Profile.City = TxtCity.Text
             theUser.Profile.Country = cboCountry.SelectedItem.Text
-            theUser.Profile.Region = TxtRegion.Text
+            'theUser.Profile.Region = TxtRegion.Text
             theUser.Profile.PostalCode = TxtPostCode.Text
             MembershipProvider.Instance().UpdateUser(theUser)
         End Sub
@@ -421,10 +431,12 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveView
             CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Department, CInt(RowId.Value), CInt(tbAmount.Text), tbComment.Text)
         End Sub
         Private Sub DonateToProject()
-            'TODO Texte à traduire pour le titre
-            'CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, "Donation to " & givetoName.Text, DestinationType.Project, CInt(RowId.Value), CInt(Ammount.Text), tbComment.Text)
+            CartFunctions.AddDonationToCart(UserId, Request.Cookies(".ASPXANONYMOUS").Value, Translate("ccDonTo") & hfGiveToName.Value, DestinationType.Project, CInt(RowId.Value), CInt(tbAmount.Text), tbComment.Text)
         End Sub
 #End Region
 
+        Protected Sub btnBio_Load(sender As Object, e As EventArgs) Handles btnBio.Load
+
+        End Sub
     End Class
 End Namespace

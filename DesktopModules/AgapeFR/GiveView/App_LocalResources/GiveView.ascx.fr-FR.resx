@@ -139,19 +139,19 @@
     <value>Je souhaite donner par :</value>
   </data>
   <data name="rblMethOne.Text" xml:space="preserve">
-    <value>virement</value>
+    <value>Virement</value>
   </data>
   <data name="rblMethTwo.Text" xml:space="preserve">
-    <value>cheque</value>
+    <value>Chèque</value>
   </data>
   <data name="rblMethZero.Text" xml:space="preserve">
-    <value>carte de credit</value>
+    <value>Carte de crédit</value>
   </data>
   <data name="To.Text" xml:space="preserve">
     <value>à</value>
   </data>
   <data name="WantGive.Text" xml:space="preserve">
-    <value>je veux donner</value>
+    <value>Je veux donner</value>
   </data>
   <data name="Checkout.Text" xml:space="preserve">
     <value>Caisse</value>
@@ -178,7 +178,7 @@
     <value>Vous devez sélectionner une fréquence pour votre don.</value>
   </data>
   <data name="btnFinishDon.Text" xml:space="preserve">
-    <value>Finir</value>
+    <value>Confirmer</value>
   </data>
   <data name="ListFreqZero.Text" xml:space="preserve">
     <value>Mensuellement</value>
@@ -187,7 +187,7 @@
     <value>Ville :</value>
   </data>
   <data name="Mobile.Text" xml:space="preserve">
-    <value>Mobile :</value>
+    <value>Téléphone mobile :</value>
   </data>
   <data name="Region.Text" xml:space="preserve">
     <value>Région (si approprié) :</value>
@@ -199,7 +199,7 @@
     <value>Adresse ligne 2 :</value>
   </data>
   <data name="Telephone.Text" xml:space="preserve">
-    <value>Téléphone:</value>
+    <value>Téléphone fixe :</value>
   </data>
   <data name="PostCode.Text" xml:space="preserve">
     <value>Code postal :</value>
@@ -208,7 +208,7 @@
     <value>Pays :</value>
   </data>
   <data name="ConfeMail.Text" xml:space="preserve">
-    <value>Confirmer Courriel :</value>
+    <value>Confirmation du courriel :</value>
   </data>
   <data name="FreqParaOne.Text" xml:space="preserve">
     <value>trimestriel </value>
@@ -223,10 +223,10 @@
     <value>mensuel </value>
   </data>
   <data name="lblCreditCard.Text" xml:space="preserve">
-    <value>Ce don sera ajouter dans votre panier.</value>
+    <value>Ce don sera ajouté dans votre panier.</value>
   </data>
   <data name="lblFrequency.Text" xml:space="preserve">
-    <value>Je veux donner...</value>
+    <value>Je veux donner :</value>
   </data>
   <data name="btnEditVirement.Text" xml:space="preserve">
     <value>Modifier</value>
@@ -241,7 +241,7 @@
     <value> de </value>
   </data>
   <data name="lblSummaryInfo.Text" xml:space="preserve">
-    <value>Merci de confirmer vos informations avant de continuer.</value>
+    <value>Merci de vérifier vos informations.</value>
   </data>
   <data name="lblSummaryLeft.Text" xml:space="preserve">
     <value>Mes infos :</value>
@@ -250,16 +250,16 @@
     <value>Les infos de ma banque :</value>
   </data>
   <data name="lblLinkPDF.Text" xml:space="preserve">
-    <value>Cliquer pour PDF</value>
+    <value>Ouvrir le document</value>
   </data>
   <data name="lblTheLoginCont.Text" xml:space="preserve">
     <value>Merci de se connecter pour continuer.</value>
   </data>
-  <data name="lblDonComment.Text" xml:space="preserve">
-    <value>Vous pouvez laisser un message dessous si vous voulez.</value>
+  <data name="lblDonCommentStaff.Text" xml:space="preserve">
+    <value>Vous pouvez ajouter ici un message personnel pour [RECIP] :</value>
   </data>
-  <data name="lblSumDonComment.Text" xml:space="preserve">
-    <value>Votre message pour le destinataire :</value>
+  <data name="lblSumDonCommentStaff.Text" xml:space="preserve">
+    <value>Votre message personnel pour [RECIP] :</value>
   </data>
   <data name="lblSumCheque.Text" xml:space="preserve">
     <value>Je vais envoyer un cheque.</value>
@@ -267,8 +267,8 @@
   <data name="lblConfCheque.Text" xml:space="preserve">
     <value>Votre don est enregistré dans notre système. Merci d'envoyer le chèque !</value>
   </data>
-  <data name="lblConfVirement.Text" xml:space="preserve">
-    <value>Votre don est enregistré dans notre système. Merci d'envoyer le PDF à votre banque.</value>
+  <data name="lblConfVirement1.Text" xml:space="preserve">
+    <value>Votre don est bien enregistré dans notre système.</value>
   </data>
   <data name="btnBio.Text" xml:space="preserve">
     <value>Voir Info</value>
@@ -319,7 +319,7 @@
     <value>Votre promesse de don</value>
   </data>
   <data name="lblPleaseWait.Text" xml:space="preserve">
-    <value>Merci d'attendre</value>
+    <value>Merci de patienter...</value>
   </data>
   <data name="ccDonTo.Text" xml:space="preserve">
     <value>Don pour </value>
@@ -329,5 +329,26 @@
   </data>
   <data name="NoMessage.Text" xml:space="preserve">
     <value>pas de message</value>
+  </data>
+  <data name="lblContactForm.Text" xml:space="preserve">
+    <value>Merci de nous laisser vos coordonnées (nécessaires pour vous envoyer votre reçu fiscal notamment).</value>
+  </data>
+  <data name="lblDonCommentDept.Text" xml:space="preserve">
+    <value>Vous pouvez ajouter ici un message pour le responsable de [DEPT] :</value>
+  </data>
+  <data name="lblSumDonCommentDept.Text" xml:space="preserve">
+    <value>Votre message pour le responsable de [DEPT] :</value>
+  </data>
+  <data name="lblConfVirement2.Text" xml:space="preserve">
+    <value>Vous devez maintentant mettre en place le virement avec votre banque.</value>
+  </data>
+  <data name="lblConfVirement3.Text" xml:space="preserve">
+    <value>Pour cela, merci d'utiliser les informations dans ce document : </value>
+  </data>
+  <data name="lblConfVirement4.Text" xml:space="preserve">
+    <value> - Vous pouvez imprimer ce document, le signer et l'envoyer à votre banque.</value>
+  </data>
+  <data name="lblConfVirement5.Text" xml:space="preserve">
+    <value> - Ou vous pouvez mettre en place vous-même le virement sur le site internet de votre banque.</value>
   </data>
 </root>

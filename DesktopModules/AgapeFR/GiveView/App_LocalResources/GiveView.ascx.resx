@@ -255,11 +255,11 @@
   <data name="lblTheLoginCont.Text" xml:space="preserve">
     <value>Please log in to continue.</value>
   </data>
-  <data name="lblDonComment.Text" xml:space="preserve">
-    <value>Feel free to leave a personal message for the recipient below.</value>
+  <data name="lblDonCommentStaff.Text" xml:space="preserve">
+    <value>Feel free to leave a personal message for [RECIP]:</value>
   </data>
-  <data name="lblSumDonComment.Text" xml:space="preserve">
-    <value>Your message for the recipient:</value>
+  <data name="lblSumDonCommentStaff.Text" xml:space="preserve">
+    <value>Your personal message for [RECIP]:</value>
   </data>
   <data name="lblSumCheque.Text" xml:space="preserve">
     <value>I will be mailing a cheque.</value>
@@ -267,7 +267,7 @@
   <data name="lblConfCheque.Text" xml:space="preserve">
     <value>Thank you! Your donation is recorded in our system. Don't forget to send the cheque!</value>
   </data>
-  <data name="lblConfVirement.Text" xml:space="preserve">
+  <data name="lblConfVirement1.Text" xml:space="preserve">
     <value>Thank you! Your donation is recorded in our system. Please send the PDF to your bank.</value>
   </data>
   <data name="btnBio.Text" xml:space="preserve">
@@ -329,5 +329,14 @@
   </data>
   <data name="NoMessage.Text" xml:space="preserve">
     <value>no message</value>
+  </data>
+  <data name="lblContactForm.Text" xml:space="preserve">
+    <value>Please fill out your contact information so that we can send your financial receipt.</value>
+  </data>
+  <data name="lblDonCommentDept.Text" xml:space="preserve">
+    <value>Feel free to leave a message for the director of [DEPT]:</value>
+  </data>
+  <data name="lblSumDonCommentDept.Text" xml:space="preserve">
+    <value>Your message for the director of [DEPT]:</value>
   </data>
 </root>

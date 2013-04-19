@@ -59,13 +59,13 @@ Partial Class DesktopModules_Give_OutputPdf
         Dim theFreq = "Error"
         'TRENT: work on translation
         If q.First.Frequency = 1 Then
-            theFreq = " Mensuelle"
+            theFreq = " mensuel"
         ElseIf q.First.Frequency = 3 Then
-            theFreq = " Trimestrielle"
+            theFreq = " trimestriel"
         ElseIf q.First.Frequency = 6 Then
-            theFreq = " Semestrielle"
+            theFreq = " semestriel"
         ElseIf q.First.Frequency = 12 Then
-            theFreq = " Annuelle"
+            theFreq = " annuel"
         ElseIf q.First.Frequency = 99 Then
             theFreq = ""
         End If
@@ -74,7 +74,7 @@ Partial Class DesktopModules_Give_OutputPdf
         If q.First.Frequency = 99 Then
             theParagraph += ". Le code pour ce don est " & soid & "."
         Else
-            theParagraph += ", à partir du " & Today() & " et jusqu'à résiliation de ma part. Le code pour ce don est " & soid & "."
+            theParagraph += ", à partir du " & Today().ToString("dd/MM/yyyy") & " et jusqu'à résiliation de ma part. Merci d'indiquer cette référence dans le libellé du virement : " & soid & "."
         End If
 
         Dim pdfTemplate As String = Server.MapPath("/Portals/0/virement.pdf")
@@ -120,17 +120,25 @@ Partial Class DesktopModules_Give_OutputPdf
             theFreq = ""
         End If
         Dim soid = q.First.Reference
-        'Find the staff name.
+        Dim theRecip As String = ""
         Dim dBroke As New StaffBrokerDataContext
-        Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.StaffId = q.First.TypeId)
-        Dim theRecip As String
-        'Detect if UnNamed - if so use giving shortcut instead
-        If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
-            theRecip = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
-        Else
-            theRecip = ConvertDisplayToSensible(staff.First.DisplayName)
+        'Find the staff name.
+        If q.First.DonationType = DestinationType.Staff Then
+            Dim staff = From c In dBroke.AP_StaffBroker_Staffs Where (c.StaffId = q.First.TypeId)
+            'Detect if UnNamed - if so use giving shortcut instead
+            If GetStaffProfileProperty(staff.First.StaffId, "UnNamedStaff") = "True" Then
+                theRecip = GetStaffProfileProperty(staff.First.StaffId, "GivingShortcut")
+            Else
+                theRecip = ChangeName(staff.First.DisplayName)
+            End If
         End If
-        Dim theParagraph = "Je vais envoyer un chèque" & theFreq & " de " & q.First.Amount.ToString() & "€. Le code pour ce don est " & soid & ". Le destinataire est " & theRecip & " ."
+        If q.First.DonationType = DestinationType.Department Or q.First.DonationType.Value = DestinationType.Project Then
+            Dim Dept = From c In dBroke.AP_StaffBroker_Departments Where (c.CostCenterId = q.First.TypeId)
+            If Dept.Count > 0 Then
+                theRecip = Dept.First.Name
+            End If
+        End If
+        Dim theParagraph = "Je vais envoyer un chèque" & theFreq & " de " & q.First.Amount.ToString() & "€. La référence pour ce don est : " & soid & ". Le destinataire est " & theRecip & " ."
 
         Dim pdfTemplate As String = Server.MapPath("/Portals/0/cheque.pdf")
         Dim pdfReader As New PdfReader(pdfTemplate)
@@ -145,15 +153,11 @@ Partial Class DesktopModules_Give_OutputPdf
         pdfStamper.Close()
         Response.OutputStream.Flush()
     End Sub
-    Public Function ConvertDisplayToSensible(ByVal CurrentDisp As String) As String
-        Dim Output As String = ""
-
-        If CurrentDisp.IndexOf(",") > -1 And CurrentDisp.Contains(",") Then
-            Output = CurrentDisp.Substring(CurrentDisp.IndexOf(",") + 2) & " " & CurrentDisp.Substring(0, CurrentDisp.IndexOf(","))
-        Else
-            Output = CurrentDisp
+    Private Function ChangeName(ByVal inName As String) As String
+        If inName.IndexOf("&") > 0 Then
+            inName = inName.Replace("&", "et")
         End If
-
-        Return Output
+        Return inName
     End Function
+
 End Class

@@ -14,11 +14,13 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
 
 #End Region
 
-
-        Public Overrides Sub Initialize()
+        Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
 
             ' Init translation resource file
             AgapeTranslation.InitLocalResourceFile(Me)
+
+        End Sub
+        Public Overrides Sub Initialize()
 
             'Call the right API method (request or response)
             Select Case CallType
@@ -56,10 +58,8 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 ' Decryptage de la reponse
                 theResp = api.sipsPaymentResponseFunc(cypheredtxt)
 
-
-                ' Affichage de la réponse
+                ' Affichage de la réponse dans les logs
                 Dim respStr As StringBuilder = New StringBuilder()
-
                 respStr.AppendLine("Réponse manuelle du serveur SIPS")
                 respStr.AppendLine("merchant_id = " & theResp.getValue("merchant_id"))
                 respStr.AppendLine("merchant_country = " & theResp.getValue("merchant_country"))
@@ -102,20 +102,27 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 respStr.AppendLine("score_profile = " & theResp.getValue("score_profile"))
                 respStr.AppendLine("threed_ls_code = " & theResp.getValue("threed_ls_code"))
                 respStr.AppendLine("threed_relegation_code = " & theResp.getValue("threed_relegation_code"))
-
                 AgapeLogger.Info(-1, respStr.ToString)
 
                 Dim OrderId As Integer = CInt(theResp.getValue("order_id"))
-                hfCartId.Value = OrderId
-                Dim responseCode As String = theResp.getValue("response_code") '17 = Customer Cancelled,  00 OK, Other = Error
-                If responseCode = "17" Then
-                    IfrScelliusCall.Visible = False  'Hide On response
+                Dim responseCode As String = theResp.getValue("response_code") '17 = Customer Cancelled,  00 = OK, 05 = Paiement refusé, Other = Error
+
+                If responseCode = "00" Then ' Payment was OK
+                    'Show only panel for successfull payment
+                    IfrScelliusCall.Visible = False
+                    divPaymentCanceled.Visible = False
+                    divPaymentSuccessful.Visible = True
+                Else ' Customer Cancelled or error
+                    'Copy the current cart
+                    Dim newCartId = CartFunctions.CopyCart(OrderId, False)
+                    Session("TheCartID") = newCartId
+
+                    'Show only panel with different options buttons after cancelled payment or error
+                    IfrScelliusCall.Visible = False
                     divPaymentCanceled.Visible = True
+                    divPaymentSuccessful.Visible = False
 
                 End If
-
-
-
 
             Catch e As Exception
 
@@ -125,7 +132,11 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
         End Sub
 
         Protected Sub BtnEmptyCart_Click(sender As Object, e As EventArgs) Handles BtnEmptyCart.Click
-            'Redirect to Cart
+
+            ' Empty the cart
+            CartFunctions.EmptyCart(TheCartID)
+
+            'Redirect to Cart main page
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
             Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
             If Not x Is Nothing Then
@@ -137,10 +148,8 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
 
 
         Protected Sub BtnModifyCart_Click(sender As Object, e As EventArgs) Handles BtnModifyCart.Click
-            'Copy the current cart and redirect to Basket
-            Dim newCartId = CartFunctions.CopyCart(CInt(hfCartId.Value), False)
-            Session("TheCartID") = newCartId
 
+            ' Redirect to Cart main page
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
             Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
             If Not x Is Nothing Then
@@ -149,23 +158,18 @@ Namespace DotNetNuke.Modules.AgapeFR.Cart.Payment
                 End If
             End If
 
-
         End Sub
 
         Protected Sub BtnPayAgain_Click(sender As Object, e As EventArgs) Handles BtnPayAgain.Click
-            'copy the current cart and resubmit.
-            Dim newCartId = CartFunctions.CopyCart(CInt(hfCartId.Value), False)
-            Session("TheCartID") = newCartId
 
+            'Redirect to CartPayment via Cart main page
             Dim mc As New DotNetNuke.Entities.Modules.ModuleController
             Dim x = mc.GetModuleByDefinition(PortalId, "frCart")
             If Not x Is Nothing Then
                 If Not x.TabID = Nothing Then
-                    Response.Redirect(EditUrl(x.TabID, "CartPayment", True, ""))
-
+                    Response.Redirect(NavigateURL(x.TabID) & "?skip=CartPayment")
                 End If
             End If
-
 
         End Sub
     End Class
