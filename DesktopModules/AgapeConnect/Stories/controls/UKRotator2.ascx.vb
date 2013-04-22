@@ -108,22 +108,22 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                             Case 0
 
                                 If photoAspect < (CDbl(row.ImageWidth) / CDbl(row.ImageHeight)) Then
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');""  title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');""  data-title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
                                     'out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 Else
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"" title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"" data-title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
                                     ' out &= "<img src=""" & row.ImageId & """ style="" height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 End If
                             Case 1
 
                                 If photoAspect < (CDbl(row.ImageWidth) / CDbl(row.ImageHeight)) Then
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"" title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; height: " & CInt((CDbl(divWidth) * row.ImageHeight) / row.ImageWidth) & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"" data-title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
                                     'out &= "<img src=""" & row.ImageId & """ style=""width: " & divWidth & "px; data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 Else
-                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"" title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
+                                    out &= "<img src=""" & row.ImageId & """ style=""width: " & CInt((CDbl(divHeight) * row.ImageWidth) / row.ImageHeight) & "px; height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"" data-title='<div class=""c_big"">" & row.Headline & "</div><div class=""c_small"">" & row.Description & "</div>' />"
                                     ' out &= "<img src=""" & row.ImageId & """ style="" height: " & divHeight & "px;"" data-thumb=""" & row.ImageId & """ alt=""""  title="""" />"
 
                                 End If
