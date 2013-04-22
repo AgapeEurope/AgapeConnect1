@@ -258,7 +258,8 @@ public class DSAccount
     {
         string PGTID = (string) HttpContext.Current.Session["pgtId"] ;
         if(PGTID==null) 
-            PGTID = new theKeyProxyTicket.PGTCallBackSoapClient().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", PGTIOU);
+            
+            PGTID = new theKeyProxyTicket.PGTCallBack().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", PGTIOU);
             
         HttpContext.Current.Session.Add("pgtId", PGTID) ;
         var dTnT =  new dynamicTnT.TntMPDDataServerWebService ();
@@ -359,7 +360,7 @@ public class DSAccount
         {
             try
             {
-                _pgtId = new theKeyProxyTicket.PGTCallBackSoapClient().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", pgtiou);
+                _pgtId = new theKeyProxyTicket.PGTCallBack().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", pgtiou);
                 HttpContext.Current.Session.Add("pgtId",_pgtId);
             }
             catch

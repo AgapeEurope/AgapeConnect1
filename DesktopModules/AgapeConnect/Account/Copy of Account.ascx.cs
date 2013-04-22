@@ -224,7 +224,7 @@ namespace DotNetNuke.Modules.Account
                 {
                     try
                     {
-                        _pgtId = new theKeyProxyTicket.PGTCallBackSoapClient().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", pgtiou);
+                        _pgtId = new theKeyProxyTicket.PGTCallBack.RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", pgtiou);
                     }
                     catch (Exception e)
                     {

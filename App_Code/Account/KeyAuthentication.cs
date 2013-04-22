@@ -328,7 +328,7 @@ namespace KeyUser
 
             try
             {
-                returnPgt = new theKeyProxyTicket.PGTCallBackSoapClient().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", _pgtIou);
+                returnPgt = new theKeyProxyTicket.PGTCallBack().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", _pgtIou);
             }
             catch
             {

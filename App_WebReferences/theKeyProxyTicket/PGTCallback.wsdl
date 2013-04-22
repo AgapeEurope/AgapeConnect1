@@ -18,7 +18,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="string" nillable="true" type="s:string" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="RetrievePGTCallbackSoapIn">
@@ -27,38 +26,10 @@
   <wsdl:message name="RetrievePGTCallbackSoapOut">
     <wsdl:part name="parameters" element="tns:RetrievePGTCallbackResponse" />
   </wsdl:message>
-  <wsdl:message name="RetrievePGTCallbackHttpGetIn">
-    <wsdl:part name="Username" type="s:string" />
-    <wsdl:part name="Password" type="s:string" />
-    <wsdl:part name="PGTIOU" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="RetrievePGTCallbackHttpGetOut">
-    <wsdl:part name="Body" element="tns:string" />
-  </wsdl:message>
-  <wsdl:message name="RetrievePGTCallbackHttpPostIn">
-    <wsdl:part name="Username" type="s:string" />
-    <wsdl:part name="Password" type="s:string" />
-    <wsdl:part name="PGTIOU" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="RetrievePGTCallbackHttpPostOut">
-    <wsdl:part name="Body" element="tns:string" />
-  </wsdl:message>
   <wsdl:portType name="PGTCallBackSoap">
     <wsdl:operation name="RetrievePGTCallback">
       <wsdl:input message="tns:RetrievePGTCallbackSoapIn" />
       <wsdl:output message="tns:RetrievePGTCallbackSoapOut" />
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:portType name="PGTCallBackHttpGet">
-    <wsdl:operation name="RetrievePGTCallback">
-      <wsdl:input message="tns:RetrievePGTCallbackHttpGetIn" />
-      <wsdl:output message="tns:RetrievePGTCallbackHttpGetOut" />
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:portType name="PGTCallBackHttpPost">
-    <wsdl:operation name="RetrievePGTCallback">
-      <wsdl:input message="tns:RetrievePGTCallbackHttpPostIn" />
-      <wsdl:output message="tns:RetrievePGTCallbackHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PGTCallBackSoap" type="tns:PGTCallBackSoap">
@@ -85,42 +56,12 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:binding name="PGTCallBackHttpGet" type="tns:PGTCallBackHttpGet">
-    <http:binding verb="GET" />
-    <wsdl:operation name="RetrievePGTCallback">
-      <http:operation location="/RetrievePGTCallback" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:binding name="PGTCallBackHttpPost" type="tns:PGTCallBackHttpPost">
-    <http:binding verb="POST" />
-    <wsdl:operation name="RetrievePGTCallback">
-      <http:operation location="/RetrievePGTCallback" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
   <wsdl:service name="PGTCallBack">
     <wsdl:port name="PGTCallBackSoap" binding="tns:PGTCallBackSoap">
-      <soap:address location="http://www.agape.org.uk/DesktopModules/CasAuth/PGTCallback.asmx" />
+      <soap:address location="https://agapeconnect.me/desktopmodules/agapeconnect/casauth/pgtcallback.asmx" />
     </wsdl:port>
     <wsdl:port name="PGTCallBackSoap12" binding="tns:PGTCallBackSoap12">
-      <soap12:address location="http://www.agape.org.uk/DesktopModules/CasAuth/PGTCallback.asmx" />
-    </wsdl:port>
-    <wsdl:port name="PGTCallBackHttpGet" binding="tns:PGTCallBackHttpGet">
-      <http:address location="http://www.agape.org.uk/DesktopModules/CasAuth/PGTCallback.asmx" />
-    </wsdl:port>
-    <wsdl:port name="PGTCallBackHttpPost" binding="tns:PGTCallBackHttpPost">
-      <http:address location="http://www.agape.org.uk/DesktopModules/CasAuth/PGTCallback.asmx" />
+      <soap12:address location="https://agapeconnect.me/desktopmodules/agapeconnect/casauth/pgtcallback.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
