@@ -23,8 +23,10 @@
             $('.picker-search-button').click();
             $('.picker-search-button').css('font-size', 'x-small');
           
-          
-         
+            var pickerOpts = {
+                dateFormat: '<%= GetDateFormat() %>'
+          };
+            $('.datepicker').datepicker(pickerOpts);
 
             $('#<%= cbAutoGenerate.ClientId %>').click(function () {
                 if ($(this).is(':checked')) {
@@ -87,7 +89,8 @@
                         <asp:TextBox ID="Subtitle" runat="server"  class="Agape_Story_subtitle" style="width: 90%; display: inline;" ></asp:TextBox>
                     </td>
                     <td class="Agape_Story_subtitle" align="right" style="padding-right: 25px">
-                        <asp:Label ID="StoryDate" runat="server"></asp:Label>
+                       <%-- <asp:Label ID="StoryDate2" runat="server"></asp:Label>--%>
+                        <asp:TextBox ID="StoryDate" width="75px"  runat="server" CssClass="datepicker"></asp:TextBox>
                     </td>
                 </tr>
             </table>

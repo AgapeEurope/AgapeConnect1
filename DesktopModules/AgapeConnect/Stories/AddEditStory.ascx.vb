@@ -161,7 +161,7 @@ Namespace DotNetNuke.Modules.Stories
 
                         tbLocation.Text = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
 
-                        StoryDate.Text = r.StoryDate.ToString("dd MMM yyyy")
+                    StoryDate.Text = r.StoryDate.ToShortDateString
 
 
                         If (Not String.IsNullOrEmpty(r.Field1)) Then
@@ -273,7 +273,14 @@ Namespace DotNetNuke.Modules.Stories
                 Return ""
             End If
         End Function
-
+        Public Function GetDateFormat() As String
+            Dim sdp As String = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower
+            If sdp.IndexOf("d") < sdp.IndexOf("m") Then
+                Return "dd/mm/yy"
+            Else
+                Return "mm/dd/yy"
+            End If
+        End Function
         Public Function GetFlag(ByVal language As String) As String
             If String.IsNullOrEmpty(language) Then
                 Return ""
@@ -314,10 +321,11 @@ Namespace DotNetNuke.Modules.Stories
             Dim authorTitle = StaffBrokerFunctions.GetSetting("Authors", Me.PortalId)
 
             Dim q = From c In d.AP_Stories Where c.StoryId = Request.QueryString("StoryId")
-
+            Dim sd As Date = DateTime.Parse(StoryDate.Text, CultureInfo.CurrentCulture)
             If q.Count > 0 Then
                 q.First.StoryText = StoryText.Text
                 q.First.Headline = Headline.Text
+                q.First.StoryDate = sd
                 If authorTitle <> "" Then
                     q.First.Author = ddlAuthor.SelectedItem.Text
                     q.First.Field3 = "#selAuth#" & ddlAuthor.SelectedItem.Value
@@ -398,7 +406,7 @@ Namespace DotNetNuke.Modules.Stories
 
 
 
-                insert.StoryDate = Today
+                insert.StoryDate = sd
                 insert.StoryText = StoryText.Text
                 insert.PortalID = PortalId
                 insert.Sent = False
