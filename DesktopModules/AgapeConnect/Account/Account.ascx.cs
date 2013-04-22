@@ -967,14 +967,14 @@ namespace DotNetNuke.Modules.Account
                 }
                 else
                 {
-                    
 
 
+                    string cellText = cell.Text;
                     cell.Text = Server.HtmlDecode(cell.Text);
-                    if (!_accountCodes.Keys.Contains(cell.Text))
+                    if (!_accountCodes.Keys.Contains(cellText))
                         return;
-                    AccountCode = Convert.ToString(_accountCodes[cell.Text]);
-                    AccountName = cell.Text;
+                    AccountCode = Convert.ToString(_accountCodes[cellText]);
+                    AccountName = Server.HtmlEncode(cell.Text);
                     firstColumn = false;
                 }
             }
