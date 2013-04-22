@@ -84,13 +84,34 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             divWidth = photoWidth
             divHeight = photoHeight
 
+
             dlStories.DataSource = Stories
             dlStories.DataBind()
 
 
         End Sub
 
-    
+        Public Function GetStoryDateString(ByVal StoryDate As Date, ByVal GUID As String, ByVal Link As String) As String
+            Dim url = New Uri(Link)
+            If NavigateURL.Contains(url.Authority) And Not String.IsNullOrEmpty(GUID) Then  ' local channel
+                Dim d As New StoriesDataContext
+
+                Dim q = From c In d.AP_Stories Where c.StoryId = CInt(GUID)
+
+                If q.Count > 0 Then
+                    If Not q.First.UpdatedDate Is Nothing Then
+                        Return StoryDate.ToString("dd MMM yyyy") & " (updated " & q.First.UpdatedDate.Value.ToString("dd MMM yyyy") & ")"
+                    End If
+
+                End If
+
+            End If
+
+            Return StoryDate.ToString("dd MMM yyyy")
+
+
+
+        End Function
 
 
 

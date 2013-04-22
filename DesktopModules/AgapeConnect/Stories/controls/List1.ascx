@@ -72,14 +72,13 @@
                     </td>
 
                     <td width="100%">
-                        <asp:Label ID="HyperLink1" runat="server" CssClass="AgapeH4" Text='<%# Eval("Headline")%>' />
+                        <asp:Label ID="HyperLink1" runat="server" CssClass="AgapeH4" style="font-size:large" Text='<%# Eval("Headline")%>' />
                         
                         <br />
 
                         <asp:Panel ID="Panel1" runat="server" CssClass="Agape_Story_subtitle" >
-                           <asp:Label ID="Label5" runat="server" CssClass="Normal" Text='<%# Eval("StoryDate")%>'  />
-
-
+                           <asp:Label ID="Label5" runat="server" CssClass="Normal" Text='<%# GetStoryDateString(Eval("StoryDate"), Eval("GUID"), Eval("Link"))%>'  />
+                            
                             <br />
                         </asp:Panel>
 
