@@ -104,7 +104,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                 G = Double.Parse(Settings("WeightRegional"), New CultureInfo(""))
 
             End If
-            If Settings("WeightLocal") <> "" Then
+            If Settings("WeightPopular") <> "" Then
                 P = Double.Parse(Settings("WeightPopular"), New CultureInfo(""))
             End If
             'Dim q = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId Order By CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (1.0 - CDbl(CDbl(Math.Min(200, ((Math.Acos(CDbl(Math.Sin(deg2Rad * (lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(deg2Rad * CDbl(lt))) * CDbl(Math.Cos(deg2Rad * CDbl(c.Latitude))) * CDbl(Math.Cos(deg2Rad * (lg - CDbl(c.Longitude)))))) / CDbl(Math.PI) * 180.0) * 1.1515 * 60.0)) / 200.0)))) / 2.0 Descending

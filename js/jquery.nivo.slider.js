@@ -54,10 +54,11 @@
             if (link !== '') {
                 link.css('display', 'none');
             }
-            child.css('display', 'none');
-          //  child.css('offset', offset + 'px');
+            //child.removeAttr('title')
 
-            child.hide();
+
+            //child.css('display', 'none');
+         //child.hide();
             vars.totalSlides++;
         });
 
@@ -112,8 +113,8 @@
         // Process caption function
         var processCaption = function (settings) {
             var nivoCaption = $('.nivo-caption', slider);
-            if (vars.currentImage.attr('title') != '' && vars.currentImage.attr('title') != undefined) {
-                var title = vars.currentImage.attr('title');
+            if (vars.currentImage.attr('title') != '' && vars.currentImage.attr('data-title') != undefined) {
+                var title = vars.currentImage.attr('data-title');
                 if (title.substr(0, 1) == '#') title = $(title).html();
 
                 if (nivoCaption.css('display') == 'block') {
@@ -251,7 +252,8 @@
         var createSlices = function (slider, settings, vars) {
 
             if ($(vars.currentImage).parent().is('a')) $(vars.currentImage).parent().css('display', 'block');
-            $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').width(slider.width()).css('visibility', 'hidden').show();
+            //   $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').width(slider.width()).css('visibility', 'hidden').show();
+            $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').width(slider.width());
             var sliceHeight = ($('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').parent().is('a')) ? $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').parent().height() : $('img[src="' + vars.currentImage.attr('src') + '"]', slider).not('.nivo-main-image,.nivo-control img').height();
           
            
