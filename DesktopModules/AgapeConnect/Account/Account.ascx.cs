@@ -801,10 +801,16 @@ namespace DotNetNuke.Modules.Account
                 List<MPD_Service.Donation> donations =  MPD_Service.getDonations("jon@vellacott.co.uk", "Iowa2001", "TntDonList", _startDate, _endDate);
                 
                 _googleGraph = "";
-                var q = from c in donations group c by new {c.FiscalPeriod, c.PeopleId} into g 
-                        orderby g.Key.FiscalPeriod, g.First().DonorName 
-                        select new {FiscalPeriod = g.Key.FiscalPeriod, Amount = g.Sum(o=> Decimal.Parse( o.Amount)), Name = g.First().DonorName, MonthName = g.First().MonthName};
-                for(int index = 13 ; index>0; index++)
+                //var q = from c in donations group c by new {c.FiscalPeriod, c.PeopleId} into g 
+                //        orderby g.Key.FiscalPeriod, g.First().DonorName 
+                //        select new {FiscalPeriod = g.Key.FiscalPeriod, Amount = g.Sum(o=> Decimal.Parse( o.Amount)), Name = g.First().DonorName, MonthName = g.First().MonthName};
+                
+
+
+                var q = from c in donations group c by c.FiscalPeriod into g select new {FiscalPeriod = g.Key, Amount = g.Sum(o=> Decimal.Parse( o.Amount)), MonthName = g.First().MonthName};
+
+                
+                for(int index = 13 ; index>0; index--)
                 {
                     string monthName = GetMonth(index - 13);
                     var monthData = q.Where(x => x.MonthName == monthName);

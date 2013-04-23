@@ -76,7 +76,7 @@ public static  class MPD_Service
                     don.Payment_Method = line[6];
                     don.Amount = line[10];
                     don.FiscalPeriod = don.DonationDate.ToString("yyyyMM");
-                    don.MonthName = don.DonationDate.ToString("MMM YY");
+                    don.MonthName = don.DonationDate.ToString("MMM yy");
                     donations.Add(don);
                 }
             }
