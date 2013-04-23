@@ -74,7 +74,7 @@ public static  class MPD_Service
                     don.DonationDate = DateTime.Parse(line[3], culture);
                     don.DonationId = line[4];
                     don.Payment_Method = line[6];
-                    don.Amount = line[9];
+                    don.Amount = line[10];
                     don.FiscalPeriod = don.DonationDate.ToString("yyyyMM");
                     don.MonthName = don.DonationDate.ToString("MMM YY");
                     donations.Add(don);
@@ -114,15 +114,52 @@ public class CSVHelper : List<string[]>
         {
 
 
-            string[] values = Regex.Split(line, ",(?=(?:[^']*'[^']*')*[^']*$)");
+            string[] values = SplitCSV(line).ToArray();
 
             for (int i = 0; i < values.Length; i++)
             {
                 //Trim values
-                values[i] = values[i].Trim('\"');
+                values[i] = values[i].Trim(',').Trim('\"');
             }
 
             this.Add(values);
         }
+    }
+    public static IEnumerable<string> SplitCSV(string csvString)
+    {
+        var sb = new StringBuilder();
+        bool quoted = false;
+
+        foreach (char c in csvString)
+        {
+            if (quoted)
+            {
+                if (c == '"')
+                    quoted = false;
+                else
+                    sb.Append(c);
+            }
+            else
+            {
+                if (c == '"')
+                {
+                    quoted = true;
+                }
+                else if (c == ',')
+                {
+                    yield return sb.ToString();
+                    sb.Length = 0;
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+        }
+
+        if (quoted)
+            throw new ArgumentException("csvString", "Unterminated quotation mark.");
+
+        yield return sb.ToString();
     }
 }

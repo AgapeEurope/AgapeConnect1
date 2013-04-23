@@ -82,6 +82,7 @@ namespace DotNetNuke.Modules.Account
 
            //    MyCountries.Items.Add(new ListItem("South Africa", "https://tntdataserver.com/dataserver/rsa/dataquery/dataqueryservice.asmx"));
 
+               ////MyCountries.Items.Add(new ListItem("Bulgaria Test", "https://tntdataserver.eu/dataserver/bgr/dataquery/dataqueryservice.asmx"));
 
                  foreach (DSPortalsService.DataserverPortal  p in resp.OrderByDescending(x => x.InstanceUri.Contains(thisInstance)).ThenBy(y => y.InstanceName ))
                  {
@@ -132,9 +133,9 @@ namespace DotNetNuke.Modules.Account
 
                 //MyCountries.Items.Add(new ListItem("devtest","https://tntdataserver.eu/dataserver/devtest/dataquery/dataqueryservice.asmx"));
                 //MyCountries.Items.Add(new ListItem("AgapeAOA","https://tntdataserver.eu/dataserver/AgapeAOA/dataquery/dataqueryservice.asmx"));
-                
-                
-                
+
+
+                 MyCountries.SelectedValue = "USA";
                 
                  ////
 
