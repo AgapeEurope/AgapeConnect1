@@ -811,6 +811,11 @@ namespace DotNetNuke.Modules.Account
                     _googleGraph += "data.addRow(['" + monthName + "', " + DecodeNumberString( monthData.Sum(x => x.Amount).ToString()) + ",,'',false,0,0]);" + Environment.NewLine;
 
                 }
+
+                MyProfiles.Items.Clear();
+                MyProfiles.Enabled = false;
+                MyAccounts.Items.Clear();
+                MyProfiles.Enabled = false;
                 return;
             }
 
@@ -879,6 +884,9 @@ namespace DotNetNuke.Modules.Account
 
             if (MyProfiles.Items.Count > 0) MyProfiles.SelectedIndex = 0;
             else MyProfiles.ClearSelection() ;
+
+            MyProfiles.Enabled = true;
+            MyAccounts.Enabled = true;
             MyProfiles_SelectedIndexChanged(this, null);
         }
 

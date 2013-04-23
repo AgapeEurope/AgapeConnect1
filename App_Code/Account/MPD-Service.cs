@@ -112,7 +112,9 @@ public class CSVHelper : List<string[]>
 
         foreach (string line in Regex.Split(csv, System.Environment.NewLine).ToList().Where(s => !string.IsNullOrEmpty(s)))
         {
-            string[] values = Regex.Split(line, separator);
+
+
+            string[] values = Regex.Split(line, ",(?=(?:[^']*'[^']*')*[^']*$)");
 
             for (int i = 0; i < values.Length; i++)
             {
