@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAddCountry.Text" xml:space="preserve">
+    <value>Add Country</value>
+  </data>
+  <data name="btnAddCountryTooltip.Text" xml:space="preserve">
+    <value>Do you have donations from countries not listed here (like the US)? You can now add these countries here.</value>
+  </data>
+  <data name="btnLogin.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="lblAddCountry.Text" xml:space="preserve">
+    <value>Add Country</value>
+  </data>
   <data name="lblAmount.Text" xml:space="preserve">
     <value>Amount</value>
   </data>
@@ -138,6 +150,9 @@
   <data name="lblDesc.Text" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="lblDonationOnly.Text" xml:space="preserve">
+    <value>*This country is only providing information about your donations.</value>
+  </data>
   <data name="lblEndBal.Text" xml:space="preserve">
     <value>Ending Balance:</value>
   </data>
@@ -154,7 +169,7 @@
     <value>Profile:</value>
   </data>
   <data name="lblRC.Text" xml:space="preserve">
-    <value>Responsibility Center</value>
+    <value>Account:</value>
   </data>
   <data name="lblShowDonations.Text" xml:space="preserve">
     <value>(Click here to show Donations...)</value>

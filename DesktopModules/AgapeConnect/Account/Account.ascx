@@ -1,9 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Codefile="Account.ascx.cs" Inherits="DotNetNuke.Modules.Account.AccountReport"  %>
 <link href="/Portals/_default/Skins/AgapeBlue/flick/jquery-ui-1.8.18.custom.css"
     rel="stylesheet" type="text/css" />
+<script src="/Portals/_default/Skins/AgapeBlue/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="/Scripts/linq.js" type="text/javascript"></script>
-
+<link href="/Portals/_default/Skins/AgapeBlue/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <script lang="javascript" type="text/javascript">
     google.load("visualization", "1", { packages: ["corechart"] });
     google.setOnLoadCallback(function () { drawVisualization() });
@@ -37,21 +38,49 @@
         });
         $("#divTransDetail").parent().appendTo($("form:first"));
 
-        $(".heading").unbind('click');
-        $(".content").hide();
-        $(".heading").click(function () {
-            $(this).next(".content").slideToggle(500, function () {
-                if ($(this).is(':hidden')) {
-                    $("#<%= lblChange.ClientID  %>").text("<%= Translate("lblShowDonations") %>");
-				        } else {
+
+        $("#divAddCountry").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 300,
+            modal: true,
+            title: '<%= Translate("lblAddCountry") %>',
+            close: function () {
+                //  allFields.val("").removeClass("ui-state-error");
+            }
+         });
+        $("#divAddCountry").parent().appendTo($("form:first"));
+
+        $("#<%= openAddCountry.ClientID %>").tooltip();
+
+
+
+
+        if ($("#<%= MyCountries.ClientID %>").val().indexOf('ADD') == 0) {
+            $(".heading").hide();
+
+
+        }
+        else {
+            $(".heading").unbind('click');
+            $(".content").hide();
+            $(".heading").click(function () {
+                $(this).next(".content").slideToggle(500, function () {
+                    if ($(this).is(':hidden')) {
+                        $("#<%= lblChange.ClientID  %>").text("<%= Translate("lblShowDonations") %>");
+                } else {
                     $("#<%= lblChange.ClientID %>").text("<%= Translate("lblHideDonations") %>");
-				        }
+                }
 
-                     return false;
-                 });
+                return false;
+            });
 
 
-             });
+        });
+
+        }
+
+      
     });
 
             function drawVisualization() {
@@ -124,6 +153,7 @@
         padding: 5px 0;
         background-color: #fafafa;
     }
+   
 </style>
 
 
@@ -136,7 +166,10 @@
                         <asp:Label ID="Label1" runat="server" Font-Bold="true" ResourceKey="lblCountry" Text="Country:"></asp:Label><br />
                         <asp:DropDownList ID="MyCountries" runat="server" AutoPostBack="true" Font-Bold="true" Style="margin-bottom: 10px;"
                             Width="100%" Font-Size="8pt" OnSelectedIndexChanged="MyCountries_SelectedIndexChanged">
-                        </asp:DropDownList>
+                        </asp:DropDownList><br />
+                        <span class="label label-success">New</span>
+                        <asp:HyperLink ID="openAddCountry" runat="server" data-placement="right" ToolTip="Do you have donations from a country not listed here (like USA)? Add this country here..." onclick=" $('#divAddCountry').dialog('open');" resourcekey="btnAddCountry" >Add Country...</asp:HyperLink>
+                       
                     </div>
                     <div>
                         <asp:Label ID="Label2" runat="server" Font-Bold="true" ResourceKey="lblProfile" Text="Profile:"></asp:Label><br />
@@ -151,6 +184,12 @@
                             Font-Size="8pt" OnSelectedIndexChanged="MyAccounts_SelectedIndexChanged">
                         </asp:DropDownList>
                     </div>
+                    <div ID="lblDonationOnly" runat="server" class="alert alert-block"  Visible="false" >
+                        <asp:Label ID="lbl1" runat="server" ResourceKey="lblDonationOnly"></asp:Label>
+                    </div>
+
+                    
+
                 </div>
             </div>
 
@@ -245,4 +284,47 @@
 <div id="divTransDetail">
     <div id="DetailTable">
     </div>
+</div>
+
+
+
+<div id="divAddCountry" tabindex="-1">
+    
+    <div class="modal-body">
+        <div class="control-group">
+            <asp:Label ID="Label6" runat="server" class="control-label">Country</asp:Label>
+            <div class="controls">
+                <asp:DropDownList ID="ddlAddCountries" runat="server" DataSourceID="dsAddCountries" DataTextField="CountryName" DataValueField="CountryId"></asp:DropDownList>
+
+                <asp:LinqDataSource ID="dsAddCountries" runat="server" ContextTypeName="MinistryView.MinistryViewDataContext" EntityTypeName="" OrderBy="CountryName" TableName="MinistryView_AdditionalCountries">
+                </asp:LinqDataSource>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <asp:Label ID="lblUsername" runat="server" class="control-label">Email</asp:Label>
+            <div class="controls">
+                <asp:TextBox ID="tbUsername" runat="server"></asp:TextBox>
+            </div>
+        </div>
+        <div class="control-group">
+            <asp:Label ID="lblPasswords" runat="server" class="control-label">Password</asp:Label>
+            <div class="controls">
+                <asp:TextBox ID="tbPassword" runat="server" TextMode="Password"></asp:TextBox>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <asp:Button ID="btnLogin" runat="server" CssClass="btn" ResourceKey="btnLogin" OnClick="btnLogin_Click" />
+            </div>
+        </div>
+    </div>
+   
+
+
+
+
+
+
 </div>

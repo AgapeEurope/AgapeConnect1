@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 /// </summary>
 public static  class MPD_Service
 {
-    static string serviceURL = "https://staffweb.cru.org:443/ss/servlet/TntMPDServlet/";
+    //static string serviceURL = "https://staffweb.cru.org:443/ss/servlet/TntMPDServlet/";
 
 
 	public struct Donation
@@ -28,8 +28,9 @@ public static  class MPD_Service
         public string MonthName { get; set; }
     }
 
-    public static List<Donation> getDonations(string Username, string Password, string Action, DateTime DateFrom, DateTime DateTo )
+    public static List<Donation> getDonations(string Username, string Password, string serviceURL, string Action, DateTime DateFrom, DateTime DateTo )
     {
+
         List<Donation> donations = new List<Donation>();
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(serviceURL);
         request.Method = "POST";
