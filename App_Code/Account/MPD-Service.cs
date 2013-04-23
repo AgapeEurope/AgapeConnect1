@@ -23,9 +23,11 @@ public static  class MPD_Service
         public DateTime DonationDate { get; set; }
         public string DonationId { get; set; }
         public string Payment_Method { get; set; }
-        public string Amount { get; set; }
+        public double Amount { get; set; }
+        
         public string FiscalPeriod { get; set; }
         public string MonthName { get; set; }
+       
     }
 
     public static List<Donation> getDonations(string Username, string Password, string serviceURL, string Action, DateTime DateFrom, DateTime DateTo )
@@ -53,7 +55,7 @@ public static  class MPD_Service
             Stream webStream = webResponse.GetResponseStream();
             StreamReader responseReader = new StreamReader(webStream);
             string response = responseReader.ReadToEnd();
-            Console.Out.WriteLine(response);
+            //Console.Out.WriteLine(response);
             responseReader.Close();
 
             
@@ -63,6 +65,7 @@ public static  class MPD_Service
             bool first = true;
             foreach(string[] line in csv)
             {
+                
                 if (first) first = false;
                 else
                 {
@@ -75,7 +78,10 @@ public static  class MPD_Service
                     don.DonationDate = DateTime.Parse(line[3], culture);
                     don.DonationId = line[4];
                     don.Payment_Method = line[6];
-                    don.Amount = line[10];
+                   
+                    don.Amount = double.Parse(line[9], new System.Globalization.CultureInfo(""));
+                  
+                   
                     don.FiscalPeriod = don.DonationDate.ToString("yyyyMM");
                     don.MonthName = don.DonationDate.ToString("MMM yy");
                     donations.Add(don);
@@ -110,18 +116,25 @@ public class CSVHelper : List<string[]>
     {
         this.csv = csv;
         this.separator = separator;
+        var objEventLog = new DotNetNuke.Services.Log.EventLog.EventLogController();
+        var PS = (DotNetNuke.Entities.Portals.PortalSettings)HttpContext.Current.Items["PortalSettings"];
+
+
 
         foreach (string line in Regex.Split(csv, System.Environment.NewLine).ToList().Where(s => !string.IsNullOrEmpty(s)))
         {
-
+            
 
             string[] values = SplitCSV(line).ToArray();
-
+            //string  str = "";
             for (int i = 0; i < values.Length; i++)
             {
                 //Trim values
                 values[i] = values[i].Trim(',').Trim('\"');
+               // str += "Value[" + i + "]: " + values[i];
             }
+           // objEventLog.AddLog("Account",values[9], PS, 0, DotNetNuke.Services.Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT);
+
 
             this.Add(values);
         }

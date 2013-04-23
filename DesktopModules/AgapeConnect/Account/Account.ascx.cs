@@ -94,10 +94,10 @@ namespace DotNetNuke.Modules.Account
 
                 MinistryView.MinistryViewDataContext dm = new MinistryView.MinistryViewDataContext();
 
-                var addCountries = from c in dm.MinistryView_UserCountryProfiles where c.GUID == ssoGUID select new { c.CountryId, c.MinistryView_AdditionalCountry.CountryName };
+                var addCountries = from c in dm.MinistryView_UserCountryProfiles where c.GUID == ssoGUID select new { c.UserCountryProfileId, c.MinistryView_AdditionalCountry.CountryName };
                 foreach (var row in addCountries)
                 {
-                    MyCountries.Items.Add(new ListItem(row.CountryName, "ADD" + row.CountryId));
+                    MyCountries.Items.Add(new ListItem(row.CountryName, "ADD" + row.UserCountryProfileId));
                 }
 
                 
@@ -783,7 +783,7 @@ namespace DotNetNuke.Modules.Account
             {
                 //US don't load the typical API.
                 MinistryView.MinistryViewDataContext dm = new MinistryView.MinistryViewDataContext();
-                var p = from c in dm.MinistryView_UserCountryProfiles where c.CountryId==int.Parse(MyCountries.SelectedValue.Replace("ADD","")) select c;
+                var p = from c in dm.MinistryView_UserCountryProfiles where c.UserCountryProfileId==int.Parse(MyCountries.SelectedValue.Replace("ADD","")) select c;
 
               
 
@@ -794,8 +794,9 @@ namespace DotNetNuke.Modules.Account
                 var q = from c in donations
                         group c by new { c.FiscalPeriod, c.PeopleId } into g
                         orderby g.Key.FiscalPeriod, g.First().DonorName
-                        select new { FiscalPeriod = g.Key.FiscalPeriod, Amount = g.Sum(o => Decimal.Parse(o.Amount)), Name = g.First().DonorName, MonthName = g.First().MonthName, PeopleId = g.Key.PeopleId };
+                        select new { FiscalPeriod = g.Key.FiscalPeriod, Amount = g.Sum(o => (decimal)o.Amount), Name = g.First().DonorName, MonthName = g.First().MonthName, PeopleId = g.Key.PeopleId };
 
+               
 
 
                 // var q = from c in donations group c by c.FiscalPeriod into g select new {FiscalPeriod = g.Key, Amount = g.Sum(o=> Decimal.Parse( o.Amount)), MonthName = g.First().MonthName};
@@ -872,12 +873,13 @@ namespace DotNetNuke.Modules.Account
                 gvBalance.DataSource = null;
                 gvBalance.DataBind();
                 gvExpenses.DataSource = null;
-                gvBalance.DataBind();
+                gvExpenses.DataBind();
                 gvExpensesGLSummary.DataSource = null;
                 gvExpensesGLSummary.DataBind();
                 gvIncomeGLSummary.DataSource = null;
                 gvIncomeGLSummary.DataBind();
-
+                StartingBalance.Text = "";
+                EndingBalance.Text = "";
 
                 lblDonationOnly.Visible = true;
 
@@ -1149,9 +1151,9 @@ namespace DotNetNuke.Modules.Account
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            int CountryId =int.Parse(ddlAddCountries.SelectedValue);
+            int userCountryProfileId =int.Parse(ddlAddCountries.SelectedValue);
             MinistryView.MinistryViewDataContext d = new MinistryView.MinistryViewDataContext();
-            var q= from c in d.MinistryView_UserCountryProfiles where c.GUID==ssoGUID && c.CountryId == CountryId select c;
+            var q= from c in d.MinistryView_UserCountryProfiles where c.GUID==ssoGUID && c.UserCountryProfileId == userCountryProfileId select c;
             ssoGUID = UserInfo.Profile.GetPropertyValue("ssoGUID");
             if(q.Count()>0)
             {
@@ -1166,7 +1168,7 @@ namespace DotNetNuke.Modules.Account
                 insert.Password = AgapeEncryption.ADCEncrypt.Encrypt(tbPassword.Text);
                 insert.GUID = ssoGUID;
                 d.MinistryView_UserCountryProfiles.InsertOnSubmit(insert);
-                MyCountries.Items.Add(new ListItem(ddlAddCountries.SelectedItem.Text, "ADD" + CountryId));
+                MyCountries.Items.Add(new ListItem(ddlAddCountries.SelectedItem.Text, "ADD" + userCountryProfileId));
             }
             d.SubmitChanges();
            
