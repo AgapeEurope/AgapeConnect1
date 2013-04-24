@@ -354,6 +354,7 @@ Public Class StoryFunctions
         If (tm.TabModuleSettings("WeightRecent") <> "") Then
             recentWeight = Double.Parse(tm.TabModuleSettings("WeightRecent"), New CultureInfo(""))
         End If
+        StaffBrokerFunctions.EventLog("RecencyWeight", recentWeight, 1)
         Dim d As New Stories.StoriesDataContext
         Dim allStories = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId
         For Each row In allStories
@@ -382,7 +383,7 @@ Public Class StoryFunctions
             'give an extra boost for the first week
             initialBoost = 2
         End If
-        Return Math.Max(0, 1 - (CDbl(age) / 365.0) * initialBoost)
+        Return Math.Max(0, (1 - (CDbl(age) / 365.0)) * initialBoost)
 
 
 

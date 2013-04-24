@@ -57,8 +57,8 @@
             //child.removeAttr('title')
 
 
-            //child.css('display', 'none');
-         //child.hide();
+            child.css('display', 'none');
+            child.hide();
             vars.totalSlides++;
         });
 
@@ -113,8 +113,11 @@
         // Process caption function
         var processCaption = function (settings) {
             var nivoCaption = $('.nivo-caption', slider);
-            if (vars.currentImage.attr('title') != '' && vars.currentImage.attr('data-title') != undefined) {
+
+            if (vars.currentImage.attr('data-title') != '' && vars.currentImage.attr('data-title') != undefined) {
+               
                 var title = vars.currentImage.attr('data-title');
+               
                 if (title.substr(0, 1) == '#') title = $(title).html();
 
                 if (nivoCaption.css('display') == 'block') {
@@ -127,6 +130,7 @@
                     nivoCaption.stop().fadeIn(settings.animSpeed);
                 }
             } else {
+                
                 nivoCaption.stop().fadeOut(settings.animSpeed);
             }
         }
@@ -537,6 +541,7 @@
             
                sliderImg.css('top', offset + 'px');
                sliderImg.css('height', slider.height + 'px');
+              
                sliderImg.animate({ opacity: '0.0' }, (settings.animSpeed * 2), '');
 
                 firstSlice.animate({ opacity: '1.0' }, (settings.animSpeed * 2), '', function () { slider.trigger('nivo:animFinished'); });

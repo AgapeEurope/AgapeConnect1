@@ -40,7 +40,7 @@ Namespace DotNetNuke.Modules.Stories
                     If theModule.AP_Stories_Module_Channels.Where(Function(x) x.Type = 2).Count = 0 Then
                         'add a local channel!
                         Dim RssName As String = ""
-                        If CType(TabModuleSettings("WeightPopular"), String) <> "" Then
+                        If CType(TabModuleSettings("RssName"), String) <> "" Then
                             RssName = TabModuleSettings("RssName")
 
                         Else
