@@ -30,6 +30,55 @@ public static  class MPD_Service
        
     }
 
+    public static double? GetAccountBalance(string Username, string Password, string serviceURL, string Action)
+    {
+        try
+        {
+
+
+
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(serviceURL);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            StringBuilder data = new StringBuilder();
+            data.Append("Username=" + HttpUtility.UrlEncode(Username));
+            data.Append("&Password=" + HttpUtility.UrlEncode(Password));
+            data.Append("&Action=" + HttpUtility.UrlEncode(Action));
+            data.Append("&TextError=y");
+            request.ContentLength = data.Length;
+
+            StreamWriter requestWriter = new StreamWriter(request.GetRequestStream(), System.Text.Encoding.ASCII);
+            requestWriter.Write(data);
+            requestWriter.Close();
+            WebResponse webResponse = request.GetResponse();
+            if (!webResponse.ContentType.Contains("csv")) return null;
+            Stream webStream = webResponse.GetResponseStream();
+            StreamReader responseReader = new StreamReader(webStream);
+            string response = responseReader.ReadToEnd();
+            responseReader.Close();
+            CSVHelper csv = new CSVHelper(response, ",");
+            bool first = true;
+            double rtn = 0.0;
+            if (csv.Count <= 1) return null;
+            foreach (string[] line in csv)
+            {
+                if (first) first = false;
+                else
+                {
+                    rtn += double.Parse(line[1]);
+                }
+            }
+            return rtn;
+
+        }
+        catch (Exception)
+        {
+
+            return null;
+        }
+    } 
+
     public static List<Donation> getDonations(string Username, string Password, string serviceURL, string Action, DateTime DateFrom, DateTime DateTo )
     {
 
@@ -45,6 +94,7 @@ public static  class MPD_Service
         data.Append("&DateTo=" + HttpUtility.UrlEncode(DateTo.ToString("M/d/yyyy")));
         data.Append("&Order=Date");
         request.ContentLength = data.Length;
+        
         StreamWriter requestWriter = new StreamWriter(request.GetRequestStream(), System.Text.Encoding.ASCII);
         requestWriter.Write(data);
         requestWriter.Close();
@@ -52,9 +102,24 @@ public static  class MPD_Service
         try
         {
             WebResponse webResponse = request.GetResponse();
+            if (!webResponse.ContentType.Contains("csv"))
+            {
+                Donation rtn = new Donation();
+                rtn.DonorName = "Authentication/Connection Error. <a href=\"javascript: $('#divAddCountry').dialog('open');\">Click here</a> to reauthenticate.";
+
+                rtn.PeopleId = -1;
+                StaffBrokerFunctions.EventLog("MPD-ServiceError downloading Transaction for " + Username, rtn.DonorName, 1);
+                donations.Add(rtn);
+                return donations;
+            }
+
             Stream webStream = webResponse.GetResponseStream();
             StreamReader responseReader = new StreamReader(webStream);
             string response = responseReader.ReadToEnd();
+
+            
+
+
             //Console.Out.WriteLine(response);
             responseReader.Close();
 
@@ -69,22 +134,46 @@ public static  class MPD_Service
                 if (first) first = false;
                 else
                 {
-                    Donation don = new Donation();
-                    don.account = int.Parse(line[0]);
-                    don.PeopleId = int.Parse(line[1]);
-                    don.DonorName = line[2].Replace("\"", "");
-                    IFormatProvider culture = new System.Globalization.CultureInfo("en-US");
+                    try
+                    {
 
-                    don.DonationDate = DateTime.Parse(line[3], culture);
-                    don.DonationId = line[4];
-                    don.Payment_Method = line[6];
                    
-                    don.Amount = double.Parse(line[9], new System.Globalization.CultureInfo(""));
+                        Donation don = new Donation();
+                        don.account = int.Parse(line[0]);
+                        don.PeopleId = int.Parse(line[1]);
+                        don.DonorName = line[2].Replace("\"", "");
+                        IFormatProvider culture = new System.Globalization.CultureInfo("en-US");
+
+                        don.DonationDate = DateTime.Parse(line[3], culture);
+                        don.DonationId = line[4];
+                        don.Payment_Method = line[6];
+                        try
+                        {
+                            don.Amount = double.Parse(line[10], new System.Globalization.CultureInfo(""));
                   
+                        }
+                        catch (Exception)
+                        {
+
+                            don.Amount = double.Parse(line[9], new System.Globalization.CultureInfo(""));
+                  
+                        }
+
+                    
                    
-                    don.FiscalPeriod = don.DonationDate.ToString("yyyyMM");
-                    don.MonthName = don.DonationDate.ToString("MMM yy");
-                    donations.Add(don);
+                        don.FiscalPeriod = don.DonationDate.ToString("yyyyMM");
+                        don.MonthName = don.DonationDate.ToString("MMM yy");
+                        donations.Add(don);
+                    }
+                    catch (Exception e)
+                    {
+                        Donation rtn = new Donation();
+                        StaffBrokerFunctions.EventLog("MPD-Service Error downloading a donation for " + Username, e.Message, 1);
+
+                        rtn.DonorName = "There was an error downloading one or more of your donations: this list may not be complete.";
+                        rtn.PeopleId = -3;
+                        donations.Add(rtn);
+                    }
                 }
             }
                     
@@ -97,9 +186,15 @@ public static  class MPD_Service
         }
         catch (Exception e)
         {
-            Console.Out.WriteLine("-----------------");
-            Console.Out.WriteLine(e.Message);
-            return null;
+            
+                Donation rtn = new Donation();
+                StaffBrokerFunctions.EventLog("MPD-Service Error Downloading Donations for " + Username, e.Message, 1);
+
+                rtn.DonorName = "There was an error downloading your transations from the remote server.";
+                rtn.PeopleId = -2;
+                donations.Add(rtn);
+                return donations;
+            
         }
 
     }
