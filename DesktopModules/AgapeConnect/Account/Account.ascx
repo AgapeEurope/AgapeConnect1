@@ -41,8 +41,8 @@
 
         $("#divAddCountry").dialog({
             autoOpen: false,
-            height: 400,
-            width: 300,
+            height: 500,
+            width: 320,
             modal: true,
             title: '<%= Translate("lblAddCountry") %>',
             close: function () {
@@ -184,17 +184,20 @@
                             Font-Size="8pt" OnSelectedIndexChanged="MyAccounts_SelectedIndexChanged">
                         </asp:DropDownList>
                     </div>
-                    <div ID="lblDonationOnly" runat="server" class="alert alert-block"  Visible="false" >
-                        <asp:Label ID="lbl1" runat="server" ResourceKey="lblDonationOnly"></asp:Label>
+                    <div ID="pnlError" runat="server" class="alert  alert-error alert-block"  Visible="false" >
+                        <asp:Label ID="lblError" runat="server" Font-Size="smaller" ></asp:Label>
                     </div>
-
+                    <div ID="lblDonationOnly" runat="server" class="alert alert-block"  Visible="false" >
+                        <asp:Label ID="lbl1" runat="server" Font-Size="smaller" ResourceKey="lblDonationOnly"></asp:Label>
+                    </div>
+                    
                     
 
                 </div>
             </div>
 
         </td>
-        <td>
+        <td style="width: 100%">
             <asp:Label ID="lblMessage" runat="server" Text="" ForColor="#777" Visible="false" Font-Italic="true"></asp:Label>
             <div id="IncExpGraph" style="width: 875px; height: 400px;"></div>
         </td>
@@ -290,7 +293,7 @@
 
 <div id="divAddCountry" tabindex="-1">
     
-    <div class="modal-body">
+    <div >
         <div class="control-group">
             <asp:Label ID="Label6" runat="server" class="control-label">Country</asp:Label>
             <div class="controls">
@@ -302,13 +305,13 @@
             </div>
         </div>
         <div class="control-group">
-            <asp:Label ID="lblUsername" runat="server" class="control-label">Email</asp:Label>
+            <asp:Label ID="lblUsername" runat="server" class="control-label" ResourceKey="lblEmail">Email</asp:Label>
             <div class="controls">
                 <asp:TextBox ID="tbUsername" runat="server"></asp:TextBox>
             </div>
         </div>
         <div class="control-group">
-            <asp:Label ID="lblPasswords" runat="server" class="control-label">Password</asp:Label>
+            <asp:Label ID="lblPasswords" runat="server" class="control-label"  ResourceKey="Password">Password</asp:Label>
             <div class="controls">
                 <asp:TextBox ID="tbPassword" runat="server" TextMode="Password"></asp:TextBox>
             </div>
@@ -316,8 +319,13 @@
 
         <div class="control-group">
             <div class="controls">
-                <asp:Button ID="btnLogin" runat="server" CssClass="btn" ResourceKey="btnLogin" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnAdd" runat="server" CssClass="btn" ResourceKey="btnAdd" OnClick="btnLogin_Click" />
             </div>
+        </div>
+
+
+        <div class="alert alert-info alert-block">
+            <asp:Label ID="lblAddCountryFooter" runat="server" font-size="Smaller" ResourceKey="lblAddCountryFooter">Email</asp:Label>
         </div>
     </div>
    

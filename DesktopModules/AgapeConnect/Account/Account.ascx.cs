@@ -76,7 +76,7 @@ namespace DotNetNuke.Modules.Account
                 //First Load Countries From Thads Search
 
                 DSPortalsService.DSPortalsSoapClient dsw = new DSPortalsService.DSPortalsSoapClient();
-                 ssoGUID = UserInfo.Profile.GetPropertyValue("ssoGUID");
+                ssoGUID = UserInfo.Profile.GetPropertyValue("ssoGUID");
                 var resp = dsw.GetPortalsForUserJson(ssoGUID).Distinct();
                 var thisInstance = StaffBrokerFunctions.GetSetting("DataserverURL", PortalId);
                 if (String.IsNullOrEmpty(thisInstance)) thisInstance = "-unknownLocation";
@@ -100,13 +100,13 @@ namespace DotNetNuke.Modules.Account
                     MyCountries.Items.Add(new ListItem(row.CountryName, "ADD" + row.UserCountryProfileId));
                 }
 
-                
+
 
                 //MyCountries.Items.Add(new ListItem("devtest","https://tntdataserver.eu/dataserver/devtest/dataquery/dataqueryservice.asmx"));
                 //MyCountries.Items.Add(new ListItem("AgapeAOA","https://tntdataserver.eu/dataserver/AgapeAOA/dataquery/dataqueryservice.asmx"));
 
 
-                
+
 
                 ////
 
@@ -766,29 +766,94 @@ namespace DotNetNuke.Modules.Account
 
         }
 
+        protected void clearTables()
+        {
+            MyProfiles.Items.Clear();
+            MyProfiles.Enabled = false;
+            MyAccounts.Items.Clear();
+            MyAccounts.Enabled = false;
+            gvBalance.DataSource = null;
+            gvBalance.DataBind();
+            gvExpenses.DataSource = null;
+            gvExpenses.DataBind();
+            gvExpensesGLSummary.DataSource = null;
+            gvExpensesGLSummary.DataBind();
+            gvIncomeGLSummary.DataSource = null;
+            gvIncomeGLSummary.DataBind();
+            gvDonationSummary.DataSource = null;
+            gvDonationSummary.DataBind();
+            gvIncome.DataSource = null;
+            gvIncome.DataBind();
+
+            StartingBalance.Text = "";
+            EndingBalance.Text = "";
+            lblError.Text = "";
+            pnlError.Visible = false;
+        }
+
+        protected void showError(string Message, bool clearTableRows)
+        {
+            if(clearTableRows)
+                clearTables();
+            lblError.Text = Message;
+            pnlError.Visible = true;
+        }
 
         protected void PopulateDropdowns()
         {
 
-
+            
 
 
         }
         protected void MyCountries_SelectedIndexChanged(object sender, EventArgs e)
         {
+            clearTables();
             if (MyCountries.Items.Count == 0)
                 return;
-
+           
             if (MyCountries.SelectedValue.StartsWith("ADD"))
             {
+
+                
                 //US don't load the typical API.
                 MinistryView.MinistryViewDataContext dm = new MinistryView.MinistryViewDataContext();
-                var p = from c in dm.MinistryView_UserCountryProfiles where c.UserCountryProfileId==int.Parse(MyCountries.SelectedValue.Replace("ADD","")) select c;
+                var p = from c in dm.MinistryView_UserCountryProfiles where c.UserCountryProfileId == int.Parse(MyCountries.SelectedValue.Replace("ADD", "")) select c;
+                double? EndBal = MPD_Service.GetAccountBalance(p.First().Username, (AgapeEncryption.AgapeEncrypt.Decrypt(p.First().Password)), p.First().MinistryView_AdditionalCountry.ServiceURL, "TntBalance");
+                if (EndBal != null)
+                {
+                    EndingBalance.Text = EndBal.Value.ToString("0");
+                }
 
-              
 
 
-                List<MPD_Service.Donation> donations = MPD_Service.getDonations(p.First().Username, (AgapeEncryption.AgapeEncrypt.Decrypt(p.First().Password)),p.First().MinistryView_AdditionalCountry.ServiceURL, "TntDonList", _startDate, _endDate);
+                List<MPD_Service.Donation> donations = MPD_Service.getDonations(p.First().Username, (AgapeEncryption.AgapeEncrypt.Decrypt(p.First().Password)), p.First().MinistryView_AdditionalCountry.ServiceURL, "TntDonList", _startDate, _endDate);
+
+                var errors = donations.Where(x => x.PeopleId < 0);
+                donations = donations.Where(x => x.PeopleId >= 0).ToList();
+
+                foreach (var row in errors)
+                {
+                    switch (row.PeopleId)
+                    {
+                        case -1:
+                            showError(row.DonorName, true);
+                            //Open the login window?
+
+                            return;
+                            
+                        case -2:
+                            showError(row.DonorName, true);
+                            return;
+                           
+                        case -3:
+                            showError(row.DonorName, false);
+                            break;
+                        default:
+                            break;
+
+                    }
+                }
 
                 _googleGraph = "";
                 var q = from c in donations
@@ -796,7 +861,7 @@ namespace DotNetNuke.Modules.Account
                         orderby g.Key.FiscalPeriod, g.First().DonorName
                         select new { FiscalPeriod = g.Key.FiscalPeriod, Amount = g.Sum(o => (decimal)o.Amount), Name = g.First().DonorName, MonthName = g.First().MonthName, PeopleId = g.Key.PeopleId };
 
-               
+
 
 
                 // var q = from c in donations group c by c.FiscalPeriod into g select new {FiscalPeriod = g.Key, Amount = g.Sum(o=> Decimal.Parse( o.Amount)), MonthName = g.First().MonthName};
@@ -866,20 +931,7 @@ namespace DotNetNuke.Modules.Account
 
                 SetColumnWidth(ref gvDonationSummary, System.Drawing.Color.Black);
 
-                MyProfiles.Items.Clear();
-                MyProfiles.Enabled = false;
-                MyAccounts.Items.Clear();
-                MyAccounts.Enabled = false;
-                gvBalance.DataSource = null;
-                gvBalance.DataBind();
-                gvExpenses.DataSource = null;
-                gvExpenses.DataBind();
-                gvExpensesGLSummary.DataSource = null;
-                gvExpensesGLSummary.DataBind();
-                gvIncomeGLSummary.DataSource = null;
-                gvIncomeGLSummary.DataBind();
-                StartingBalance.Text = "";
-                EndingBalance.Text = "";
+                
 
                 lblDonationOnly.Visible = true;
 
@@ -977,7 +1029,9 @@ namespace DotNetNuke.Modules.Account
             MyProfiles.Enabled = true;
             MyAccounts.Enabled = true;
             lblDonationOnly.Visible = false;
-           
+
+            
+
 
             MyProfiles_SelectedIndexChanged(this, null);
         }
@@ -1151,11 +1205,12 @@ namespace DotNetNuke.Modules.Account
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            int userCountryProfileId =int.Parse(ddlAddCountries.SelectedValue);
+            int CountryId = int.Parse(ddlAddCountries.SelectedValue);
             MinistryView.MinistryViewDataContext d = new MinistryView.MinistryViewDataContext();
-            var q= from c in d.MinistryView_UserCountryProfiles where c.GUID==ssoGUID && c.UserCountryProfileId == userCountryProfileId select c;
             ssoGUID = UserInfo.Profile.GetPropertyValue("ssoGUID");
-            if(q.Count()>0)
+            var q = from c in d.MinistryView_UserCountryProfiles where c.GUID == ssoGUID && c.CountryId == CountryId select c;
+
+            if (q.Count() > 0)
             {
                 q.First().Username = tbUsername.Text;
                 q.First().Password = AgapeEncryption.ADCEncrypt.Encrypt(tbPassword.Text);
@@ -1163,15 +1218,18 @@ namespace DotNetNuke.Modules.Account
             else
             {
                 var insert = new MinistryView.MinistryView_UserCountryProfile();
-                insert.CountryId = int.Parse(ddlAddCountries.SelectedValue);
+                insert.CountryId = CountryId;
                 insert.Username = tbUsername.Text;
                 insert.Password = AgapeEncryption.ADCEncrypt.Encrypt(tbPassword.Text);
                 insert.GUID = ssoGUID;
                 d.MinistryView_UserCountryProfiles.InsertOnSubmit(insert);
-                MyCountries.Items.Add(new ListItem(ddlAddCountries.SelectedItem.Text, "ADD" + userCountryProfileId));
+                MyCountries.Items.Add(new ListItem(ddlAddCountries.SelectedItem.Text, "ADD" + insert.UserCountryProfileId));
             }
             d.SubmitChanges();
-           
+
+            MyCountries.SelectedIndex = MyCountries.Items.Count - 1;
+            MyCountries_SelectedIndexChanged(this, null);
+
         }
     }
 }

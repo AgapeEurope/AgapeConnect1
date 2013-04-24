@@ -117,17 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="btnAddCountry.Text" xml:space="preserve">
     <value>Add Country</value>
   </data>
   <data name="btnAddCountryTooltip.Text" xml:space="preserve">
-    <value>Do you have donations from countries not listed here (like the US)? You can now add these countries here.</value>
+    <value>Do you have donations from countries not listed here (like the US)? Add other countries here.</value>
   </data>
   <data name="btnLogin.Text" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="lblAddCountry.Text" xml:space="preserve">
     <value>Add Country</value>
+  </data>
+  <data name="lblAddCountryFooter.Text" xml:space="preserve">
+    <value>If you have accounts in countries that user Tnt.Dataserver, these will automatically appear in your list of countries. Some other countries may be added here. &lt;br /&gt;&lt;i&gt;For the US: enter your relay password.&lt;/i&gt;</value>
   </data>
   <data name="lblAmount.Text" xml:space="preserve">
     <value>Amount</value>
@@ -165,6 +171,9 @@
   <data name="lblIncome.Text" xml:space="preserve">
     <value>Income</value>
   </data>
+  <data name="lblPassword.Text" xml:space="preserve">
+    <value>Password:</value>
+  </data>
   <data name="lblProfile.Text" xml:space="preserve">
     <value>Profile:</value>
   </data>
@@ -179,5 +188,8 @@
   </data>
   <data name="lblTransactionDetail.Text" xml:space="preserve">
     <value>Transaction Detail</value>
+  </data>
+  <data name="lblUsername.Text" xml:space="preserve">
+    <value>Username:</value>
   </data>
 </root>
