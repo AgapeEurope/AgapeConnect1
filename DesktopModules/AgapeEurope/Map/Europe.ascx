@@ -41,11 +41,11 @@
     }
 
    a #countryImage:hover {
-        border: 4px inset #7AA8E0; width: 225px;
+        border: 4px inset #7AA8E0; max-width: 225px;max-height:149px;
 
     }
    a  #countryImage {
-        border: 1px inset #000000; width: 233px;
+        border: 1px inset #000000; max-width: 233px; max-height:157px;
     }
 
     
@@ -164,8 +164,11 @@
                 <div class="contentmain1" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;">
                     <div style="height: 583px;">
                        <a id="countryLink" href="" target="_blank">
+                           <div style="width: 100%; text-align: center;">
                          <h2><span id="countryTitle"></span></h2>
-                        <img alt="" id="countryImage" src=""  />
+                           
+                                <img alt="" id="countryImage" src=""   />
+                           </div>
                        </a>
                             <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 387px; margin-top:5px;"></div>
 

@@ -80,3 +80,17 @@ h6 {
 }
 
 html{height: auto;}
+
+.aeImageRight{
+    float: right;
+    margin: 4px 4px 4px 10px;
+    }
+    .aeImageRight img{
+    border: 1px solid #000000;
+    }
+    .aeImageRight p{
+    color: #AAA;
+    font-style: italic;
+    font-size: small;
+    text-align: center;
+    }

@@ -27,6 +27,21 @@ h1, h2, h3, h4, h5, h6, .title1, .title2, .title3, .title4, .title5, .title6, .t
     text-align: center;
     }
 
+    
+  .aeImageRight{
+    float: right;
+    margin: 4px 4px 4px 10px;
+    }
+    .aeImageRight img{
+    border: 1px solid #000000;
+    }
+    .aeImageRight p{
+    color: #AAA;
+    font-style: italic;
+    font-size: small;
+    text-align: center;
+    }
+
 
 
 html, body {
