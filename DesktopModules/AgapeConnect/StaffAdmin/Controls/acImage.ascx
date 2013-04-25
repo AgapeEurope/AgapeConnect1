@@ -6,8 +6,8 @@
         function setUpMyTabs<%= NewImage.ClientId() %>() {
             $('#<%= NewImage.ClientId() %>').dialog({
                 autoOpen: false,
-                height: 125,
-                width: 270,
+                height: 140,
+                width: 300,
                 modal: true,
                 title: "Upload New Image",
                 close: function () {
