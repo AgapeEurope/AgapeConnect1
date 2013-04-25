@@ -20,6 +20,9 @@ Namespace DotNetNuke.Modules.Stories
         
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             If Not Page.IsPostBack Then
+
+                dlTags.DataSource = d.AP_Stories_Tags.Where(Function(c) c.PortalId = PortalId)
+                dlTags.DataBind()
                 ddlDisplayTypes.DataSource = (From c In d.AP_Stories_Controls Select c.Name, Value = c.Type & ":" & c.StoryControlId)
                 Dim mc As New DotNetNuke.Entities.Modules.ModuleController
 
@@ -279,6 +282,30 @@ Namespace DotNetNuke.Modules.Stories
 
         Protected Sub CancelBtn_Click(sender As Object, e As EventArgs) Handles CancelBtn.Click
             Response.Redirect(NavigateURL())
+
+        End Sub
+
+        Protected Sub dlTags_ItemCommand(source As Object, e As DataListCommandEventArgs) Handles dlTags.ItemCommand
+            If e.CommandName = "DeleteTag" Then
+                Dim TagId As Integer = CInt(e.CommandArgument)
+                d.AP_Stories_Tag_Metas.DeleteAllOnSubmit(d.AP_Stories_Tag_Metas.Where(Function(c) c.TagId = TagId))
+                d.AP_Stories_Tags.DeleteAllOnSubmit(d.AP_Stories_Tags.Where(Function(c) c.StoryTagId = TagId))
+                d.SubmitChanges()
+                dlTags.DataSource = d.AP_Stories_Tags.Where(Function(c) c.PortalId = PortalId)
+                dlTags.DataBind()
+            
+            End If
+        End Sub
+
+        Protected Sub btnAddTag_Click(sender As Object, e As EventArgs) Handles btnAddTag.Click
+            Dim insert As New AP_Stories_Tag
+            insert.PortalId = PortalId
+            insert.TagName = tbAddTag.Text
+
+            d.AP_Stories_Tags.InsertOnSubmit(insert)
+            d.SubmitChanges()
+            dlTags.DataSource = d.AP_Stories_Tags.Where(Function(c) c.PortalId = PortalId)
+            dlTags.DataBind()
 
         End Sub
     End Class

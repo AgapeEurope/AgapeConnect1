@@ -264,6 +264,25 @@
              <i>(drag the bottom-right corner to change)</i>
         </td>
     </tr>
+     <tr valign="middle">
+        <td>
+            <dnn:Label ID="Label16" runat="server" ResourceKey="lblTags" />
+        </td>
+        <td style="text-align: left; " >
+        
+            <asp:DataList ID="dlTags" runat="server" RepeatColumns="6"  RepeatDirection="Horizontal">
+                <ItemTemplate>
+                     <asp:Label ID="lblTagName" runat="server" style="font-size: large; font-weight: bold" Text='<%# Eval("TagName") %>' ></asp:Label>&nbsp;
+                    <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="~/images/delete.gif" Width="10px" CommandName="DeleteTag" CommandArgument='<%# Eval("StoryTagId")%>' />
+                </ItemTemplate>
+               
+            </asp:DataList>
+              <asp:TextBox ID="tbAddTag" runat="server"></asp:TextBox><asp:Button ID="btnAddTag" runat="server" Text="Add" CssClass="aButton" Font-Size="X-Small" /> 
+            <br />*Warning: Deleting a tag will remove this tag from all stories. This cannot be undone!
+        </td>
+    </tr>
+   
+    
      <tr valign="middle" >
         <td>
             <dnn:Label ID="Label15" runat="server" ResourceKey="lblStoriesPage" />

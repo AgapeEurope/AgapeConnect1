@@ -56,11 +56,23 @@ Namespace Stories
     End Sub
     Partial Private Sub DeleteAP_Stories_Module_Channel_Cache(instance As AP_Stories_Module_Channel_Cache)
     End Sub
+    Partial Private Sub InsertAP_Stories_Tag(instance As AP_Stories_Tag)
+    End Sub
+    Partial Private Sub UpdateAP_Stories_Tag(instance As AP_Stories_Tag)
+    End Sub
+    Partial Private Sub DeleteAP_Stories_Tag(instance As AP_Stories_Tag)
+    End Sub
     Partial Private Sub InsertAP_Story(instance As AP_Story)
     End Sub
     Partial Private Sub UpdateAP_Story(instance As AP_Story)
     End Sub
     Partial Private Sub DeleteAP_Story(instance As AP_Story)
+    End Sub
+    Partial Private Sub InsertAP_Stories_Tag_Meta(instance As AP_Stories_Tag_Meta)
+    End Sub
+    Partial Private Sub UpdateAP_Stories_Tag_Meta(instance As AP_Stories_Tag_Meta)
+    End Sub
+    Partial Private Sub DeleteAP_Stories_Tag_Meta(instance As AP_Stories_Tag_Meta)
     End Sub
     #End Region
 		
@@ -113,9 +125,21 @@ Namespace Stories
 			End Get
 		End Property
 		
+		Public ReadOnly Property AP_Stories_Tags() As System.Data.Linq.Table(Of AP_Stories_Tag)
+			Get
+				Return Me.GetTable(Of AP_Stories_Tag)
+			End Get
+		End Property
+		
 		Public ReadOnly Property AP_Stories() As System.Data.Linq.Table(Of AP_Story)
 			Get
 				Return Me.GetTable(Of AP_Story)
+			End Get
+		End Property
+		
+		Public ReadOnly Property AP_Stories_Tag_Metas() As System.Data.Linq.Table(Of AP_Stories_Tag_Meta)
+			Get
+				Return Me.GetTable(Of AP_Stories_Tag_Meta)
 			End Get
 		End Property
 	End Class
@@ -1344,6 +1368,136 @@ Namespace Stories
 		End Sub
 	End Class
 	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories_Tags")>  _
+	Partial Public Class AP_Stories_Tag
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _StoryTagId As Integer
+		
+		Private _TagName As String
+		
+		Private _PortalId As Integer
+		
+		Private _AP_Stories_Tag_Metas As EntitySet(Of AP_Stories_Tag_Meta)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnStoryTagIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnStoryTagIdChanged()
+    End Sub
+    Partial Private Sub OnTagNameChanging(value As String)
+    End Sub
+    Partial Private Sub OnTagNameChanged()
+    End Sub
+    Partial Private Sub OnPortalIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnPortalIdChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._AP_Stories_Tag_Metas = New EntitySet(Of AP_Stories_Tag_Meta)(AddressOf Me.attach_AP_Stories_Tag_Metas, AddressOf Me.detach_AP_Stories_Tag_Metas)
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryTagId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property StoryTagId() As Integer
+			Get
+				Return Me._StoryTagId
+			End Get
+			Set
+				If ((Me._StoryTagId = value)  _
+							= false) Then
+					Me.OnStoryTagIdChanging(value)
+					Me.SendPropertyChanging
+					Me._StoryTagId = value
+					Me.SendPropertyChanged("StoryTagId")
+					Me.OnStoryTagIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TagName", DbType:="NVarChar(50) NOT NULL", CanBeNull:=false)>  _
+		Public Property TagName() As String
+			Get
+				Return Me._TagName
+			End Get
+			Set
+				If (String.Equals(Me._TagName, value) = false) Then
+					Me.OnTagNameChanging(value)
+					Me.SendPropertyChanging
+					Me._TagName = value
+					Me.SendPropertyChanged("TagName")
+					Me.OnTagNameChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_PortalId", DbType:="Int NOT NULL")>  _
+		Public Property PortalId() As Integer
+			Get
+				Return Me._PortalId
+			End Get
+			Set
+				If ((Me._PortalId = value)  _
+							= false) Then
+					Me.OnPortalIdChanging(value)
+					Me.SendPropertyChanging
+					Me._PortalId = value
+					Me.SendPropertyChanged("PortalId")
+					Me.OnPortalIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_Stories_Tag_AP_Stories_Tag_Meta", Storage:="_AP_Stories_Tag_Metas", ThisKey:="StoryTagId", OtherKey:="TagId")>  _
+		Public Property AP_Stories_Tag_Metas() As EntitySet(Of AP_Stories_Tag_Meta)
+			Get
+				Return Me._AP_Stories_Tag_Metas
+			End Get
+			Set
+				Me._AP_Stories_Tag_Metas.Assign(value)
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+		
+		Private Sub attach_AP_Stories_Tag_Metas(ByVal entity As AP_Stories_Tag_Meta)
+			Me.SendPropertyChanging
+			entity.AP_Stories_Tag = Me
+		End Sub
+		
+		Private Sub detach_AP_Stories_Tag_Metas(ByVal entity As AP_Stories_Tag_Meta)
+			Me.SendPropertyChanging
+			entity.AP_Stories_Tag = Nothing
+		End Sub
+	End Class
+	
 	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories")>  _
 	Partial Public Class AP_Story
 		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
@@ -1399,6 +1553,10 @@ Namespace Stories
 		Private _Field3 As String
 		
 		Private _UpdatedDate As System.Nullable(Of Date)
+		
+		Private _Keywords As String
+		
+		Private _AP_Stories_Tag_Metas As EntitySet(Of AP_Stories_Tag_Meta)
 		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -1507,10 +1665,15 @@ Namespace Stories
     End Sub
     Partial Private Sub OnUpdatedDateChanged()
     End Sub
+    Partial Private Sub OnKeywordsChanging(value As String)
+    End Sub
+    Partial Private Sub OnKeywordsChanged()
+    End Sub
     #End Region
 		
 		Public Sub New()
 			MyBase.New
+			Me._AP_Stories_Tag_Metas = New EntitySet(Of AP_Stories_Tag_Meta)(AddressOf Me.attach_AP_Stories_Tag_Metas, AddressOf Me.detach_AP_Stories_Tag_Metas)
 			OnCreated
 		End Sub
 		
@@ -1918,6 +2081,218 @@ Namespace Stories
 					Me._UpdatedDate = value
 					Me.SendPropertyChanged("UpdatedDate")
 					Me.OnUpdatedDateChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Keywords", DbType:="NVarChar(100)")>  _
+		Public Property Keywords() As String
+			Get
+				Return Me._Keywords
+			End Get
+			Set
+				If (String.Equals(Me._Keywords, value) = false) Then
+					Me.OnKeywordsChanging(value)
+					Me.SendPropertyChanging
+					Me._Keywords = value
+					Me.SendPropertyChanged("Keywords")
+					Me.OnKeywordsChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_Story_AP_Stories_Tag_Meta", Storage:="_AP_Stories_Tag_Metas", ThisKey:="StoryId", OtherKey:="StoryId")>  _
+		Public Property AP_Stories_Tag_Metas() As EntitySet(Of AP_Stories_Tag_Meta)
+			Get
+				Return Me._AP_Stories_Tag_Metas
+			End Get
+			Set
+				Me._AP_Stories_Tag_Metas.Assign(value)
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+		
+		Private Sub attach_AP_Stories_Tag_Metas(ByVal entity As AP_Stories_Tag_Meta)
+			Me.SendPropertyChanging
+			entity.AP_Story = Me
+		End Sub
+		
+		Private Sub detach_AP_Stories_Tag_Metas(ByVal entity As AP_Stories_Tag_Meta)
+			Me.SendPropertyChanging
+			entity.AP_Story = Nothing
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Stories_Tag_Meta")>  _
+	Partial Public Class AP_Stories_Tag_Meta
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _StoryTagMetaId As Long
+		
+		Private _StoryId As Integer
+		
+		Private _TagId As Integer
+		
+		Private _AP_Story As EntityRef(Of AP_Story)
+		
+		Private _AP_Stories_Tag As EntityRef(Of AP_Stories_Tag)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnStoryTagMetaIdChanging(value As Long)
+    End Sub
+    Partial Private Sub OnStoryTagMetaIdChanged()
+    End Sub
+    Partial Private Sub OnStoryIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnStoryIdChanged()
+    End Sub
+    Partial Private Sub OnTagIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnTagIdChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._AP_Story = CType(Nothing, EntityRef(Of AP_Story))
+			Me._AP_Stories_Tag = CType(Nothing, EntityRef(Of AP_Stories_Tag))
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryTagMetaId", AutoSync:=AutoSync.OnInsert, DbType:="BigInt NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property StoryTagMetaId() As Long
+			Get
+				Return Me._StoryTagMetaId
+			End Get
+			Set
+				If ((Me._StoryTagMetaId = value)  _
+							= false) Then
+					Me.OnStoryTagMetaIdChanging(value)
+					Me.SendPropertyChanging
+					Me._StoryTagMetaId = value
+					Me.SendPropertyChanged("StoryTagMetaId")
+					Me.OnStoryTagMetaIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StoryId", DbType:="Int NOT NULL")>  _
+		Public Property StoryId() As Integer
+			Get
+				Return Me._StoryId
+			End Get
+			Set
+				If ((Me._StoryId = value)  _
+							= false) Then
+					If Me._AP_Story.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnStoryIdChanging(value)
+					Me.SendPropertyChanging
+					Me._StoryId = value
+					Me.SendPropertyChanged("StoryId")
+					Me.OnStoryIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TagId", DbType:="Int NOT NULL")>  _
+		Public Property TagId() As Integer
+			Get
+				Return Me._TagId
+			End Get
+			Set
+				If ((Me._TagId = value)  _
+							= false) Then
+					If Me._AP_Stories_Tag.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnTagIdChanging(value)
+					Me.SendPropertyChanging
+					Me._TagId = value
+					Me.SendPropertyChanged("TagId")
+					Me.OnTagIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_Story_AP_Stories_Tag_Meta", Storage:="_AP_Story", ThisKey:="StoryId", OtherKey:="StoryId", IsForeignKey:=true)>  _
+		Public Property AP_Story() As AP_Story
+			Get
+				Return Me._AP_Story.Entity
+			End Get
+			Set
+				Dim previousValue As AP_Story = Me._AP_Story.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AP_Story.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AP_Story.Entity = Nothing
+						previousValue.AP_Stories_Tag_Metas.Remove(Me)
+					End If
+					Me._AP_Story.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.AP_Stories_Tag_Metas.Add(Me)
+						Me._StoryId = value.StoryId
+					Else
+						Me._StoryId = CType(Nothing, Integer)
+					End If
+					Me.SendPropertyChanged("AP_Story")
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_Stories_Tag_AP_Stories_Tag_Meta", Storage:="_AP_Stories_Tag", ThisKey:="TagId", OtherKey:="StoryTagId", IsForeignKey:=true)>  _
+		Public Property AP_Stories_Tag() As AP_Stories_Tag
+			Get
+				Return Me._AP_Stories_Tag.Entity
+			End Get
+			Set
+				Dim previousValue As AP_Stories_Tag = Me._AP_Stories_Tag.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AP_Stories_Tag.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AP_Stories_Tag.Entity = Nothing
+						previousValue.AP_Stories_Tag_Metas.Remove(Me)
+					End If
+					Me._AP_Stories_Tag.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.AP_Stories_Tag_Metas.Add(Me)
+						Me._TagId = value.StoryTagId
+					Else
+						Me._TagId = CType(Nothing, Integer)
+					End If
+					Me.SendPropertyChanged("AP_Stories_Tag")
 				End If
 			End Set
 		End Property
