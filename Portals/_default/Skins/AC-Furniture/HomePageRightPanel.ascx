@@ -13,7 +13,7 @@
 <%@ Register TagPrefix="dnn" TagName="LANGUAGE" Src="~/Admin/Skins/Language.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="GOMENU" Src="~/DesktopModules/dnngo_gomenu/ViewMenu.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="GOMENU2" Src="~/DesktopModules/dnngo_gomenu/ViewMenu.ascx" %>
-<dnn:Meta runat="server" Name="viewport" Content="width=device-width, minimum-scale=1.0, maximum-scale=2.0" />
+<%--<dnn:Meta runat="server" Name="viewport" Content="width=device-width, minimum-scale=1.0, maximum-scale=2.0" />--%>
 <dnn:Meta runat="server" Name="robots" Content="noindex" />
 <dnn:Meta runat="server" Name="dnncrawler" Content="doindex" />
 <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
     
     <section id="dnn_content">
         <div class="content_mid_rightmenu dnn_layout">
-            <header>
+      <%--      <header>
         <div class="head_mid dnn_layout clearfix " >
             <div class="mobile_icon clearfix visible-phone">
                 <div class="home_icon"><a href="<%=DotNetNuke.Common.Globals.NavigateURL(PortalSettings.HomeTabId).ToString()%>">
@@ -50,10 +50,10 @@
                 <dnn:SEARCH runat="server" ID="dnnSEARCH" CssClass="search" UseDropDownList="true" ShowSite="False" ShowWeb="False" Submit="GO" />
             </div>
             <div id="mobile_menu">
-                <%--<dnn:GOMENU runat="server" ID="dnnGOMENU1" ViewLevel="0" Effect="AccordionPro" AccordionPro_Sensitivit="1" AccordionPro_Interval="100" AccordionPro_Timeout="1000" AccordionPro_AnimateSpeed="450" />--%>
+                <dnn:GOMENU runat="server" ID="dnnGOMENU1" ViewLevel="0" Effect="AccordionPro" AccordionPro_Sensitivit="1" AccordionPro_Interval="100" AccordionPro_Timeout="1000" AccordionPro_AnimateSpeed="450" />
             </div>
         </div>
-    </header>
+    </header>--%>
     <div class="nav_light">
         <nav>
             <div class="menu_mid dnn_layout clearfix">

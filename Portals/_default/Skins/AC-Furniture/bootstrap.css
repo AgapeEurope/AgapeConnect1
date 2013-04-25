@@ -3176,7 +3176,7 @@ button.close {
 .hidden-desktop {
   display: none !important;
 }
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
   .visible-phone {
     display: inherit !important;
   }
@@ -3655,7 +3655,8 @@ button.close {
   .nav-collapse.collapse {
     height: auto !important;
     overflow: visible !important;
-  }
+  }*/
+  
 }
 
 

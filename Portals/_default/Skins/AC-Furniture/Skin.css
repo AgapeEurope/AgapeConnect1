@@ -468,7 +468,7 @@ a.breadcrumb:hover {
 }
 
 .dnn_layout {
-    width: 970px;
+    width: 970px !important;
     margin: 0px auto;
 }
 
@@ -1182,7 +1182,7 @@ nav {
         display: block;
     }
 
-@media (min-width: 768px) and (max-width: 979px) {
+/*@media (min-width: 768px) and (max-width: 979px) {
     .dnn_layout {
         width: 744px;
     }
@@ -1515,7 +1515,7 @@ nav {
     #dnn_wrapper {
         padding-bottom: 9px;
     }
-}
+}*/
 
 
 
