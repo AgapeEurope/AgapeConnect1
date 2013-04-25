@@ -126,7 +126,7 @@
                 <b>Sample:</b><div style="clear: both;" ></div>
                     
                   
-                    <asp:TextBox ID="tbSample" runat="server" Width="100%" height="180px" TextMode="MultiLine"  Text='<%# Bind("TemplateDescription") %>' style=" background-color: #fff9c8;   " ></asp:TextBox>
+                    <asp:TextBox ID="tbSample" runat="server" Width="100%" height="150px" TextMode="MultiLine"  Text='<%# Bind("TemplateDescription") %>' style=" background-color: #fff9c8;   " ></asp:TextBox>
                     <asp:Label ID="lblSample" runat="server" Font-Size="X-Small" ForeColor="GrayText" Font-Italic="true"  Text="The first 200 characters will be used."></asp:Label>
 
 
@@ -161,7 +161,28 @@
                     
                       <asp:TextBox ID="tbLocation" runat="server" Width="130px" style="margin-right: 3px;"></asp:TextBox>
                          <br /><br />
+
+                   
+
+
                     <table border="0" cellpadding="2" cellspacing="2">
+                        <tr>
+                            <td>
+                              <dnn:Label ID="Label5" runat="server" ResourceKey="lblTags"  />
+                            </td>
+                            <td>
+                                <asp:CheckBoxList ID="cblTags" runat="server"></asp:CheckBoxList>
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                            <td>
+                              <b><dnn:Label ID="Label1" runat="server" ResourceKey="lblKeywords"  /></b>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="tbKeywords" runat="server"  Width="100%" MaxLength="50"></asp:TextBox>
+                            </td>
+                        </tr>
                          <tr>
                             <td>
                               <b>Field1:</b>
@@ -194,7 +215,7 @@
                        
                </td>
                 <td>
-                <dnn:TextEditor ID="StoryText" runat="server"  TextRenderMode="Raw"  Width="100%"  HtmlEncode="False" defaultmode="Rich" height="700" choosemode="True" chooserender="False"   />
+                <dnn:TextEditor ID="StoryText" runat="server"  TextRenderMode="Raw"  Width="100%"  HtmlEncode="False" defaultmode="Rich" height="800" choosemode="True" chooserender="False"   />
                 </td>
             </tr>
         </table>

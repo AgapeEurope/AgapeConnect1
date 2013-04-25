@@ -30,6 +30,7 @@ Namespace DotNetNuke.Modules.Stories
                 lblSample.Style.Add("Display", "none")
 
 
+
                 Dim mc As New DotNetNuke.Entities.Modules.ModuleController
 
                 Dim dtp = DotNetNuke.Entities.Modules.DesktopModuleController.GetDesktopModuleByFriendlyName(Me.ModuleConfiguration.DesktopModule.FriendlyName).DesktopModuleID
@@ -78,6 +79,12 @@ Namespace DotNetNuke.Modules.Stories
                     Dim d As New StoriesDataContext
 
 
+                Dim tags = From c In d.AP_Stories_Tags Where c.PortalId = PortalId
+
+                cblTags.DataSource = d.AP_Stories_Tags.Where(Function(c) c.PortalId = PortalId)
+                cblTags.DataTextField = "TagName"
+                cblTags.DataValueField = "StoryTagId"
+                cblTags.DataBind()
 
 
 
@@ -162,6 +169,13 @@ Namespace DotNetNuke.Modules.Stories
                         tbLocation.Text = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
 
                     StoryDate.Text = r.StoryDate.ToShortDateString
+
+                    tbKeywords.Text = r.Keywords
+                    For Each row As ListItem In cblTags.Items
+
+                        row.Selected = r.AP_Stories_Tag_Metas.Where(Function(c) c.AP_Stories_Tag.StoryTagId = CInt(row.Value)).Count > 0
+
+                    Next
 
 
                         If (Not String.IsNullOrEmpty(r.Field1)) Then
@@ -339,7 +353,28 @@ Namespace DotNetNuke.Modules.Stories
                 q.First.Field1 = tbField1.Text
                 q.First.Field2 = tbField2.Text
                 q.First.UpdatedDate = Today
+                q.First.Keywords = tbKeywords.Text
+                For Each row As ListItem In cblTags.Items
+                    Dim cur = q.First.AP_Stories_Tag_Metas.Where(Function(c) CInt(c.TagId = row.Value))
+                    If row.Selected Then
 
+                        If cur.Count = 0 Then
+                            Dim tm As New AP_Stories_Tag_Meta()
+                            tm.StoryId = q.First.StoryId
+                            tm.TagId = CInt(row.Value)
+                            d.AP_Stories_Tag_Metas.InsertOnSubmit(tm)
+
+                        End If
+                    Else
+                        If (cur.Count > 0) Then
+                            d.AP_Stories_Tag_Metas.DeleteAllOnSubmit(cur)
+
+                        End If
+                    End If
+
+                Next
+
+                d.SubmitChanges()
                 If cbAutoGenerate.Checked Then
 
                     q.First.TextSample = Left(StoryFunctions.StripTags(StoryText.Text), 200)
@@ -418,7 +453,7 @@ Namespace DotNetNuke.Modules.Stories
                 insert.TabId = TabId
                 insert.Language = ddlLanguage.SelectedValue
                 insert.TabModuleId = CInt(ddlChannels.SelectedValue)
-
+                insert.Keywords = tbKeywords.Text
                 If Request.QueryString("tg") <> "" Then
                     insert.TranslationGroup = Request.QueryString("tg")
                 End If
@@ -436,6 +471,18 @@ Namespace DotNetNuke.Modules.Stories
 
                 End Try
                 d.AP_Stories.InsertOnSubmit(insert)
+                d.SubmitChanges()
+
+
+                For Each row As ListItem In cblTags.Items
+                    If row.Selected Then
+                        Dim tm As New AP_Stories_Tag_Meta()
+                        tm.StoryId = insert.StoryId
+                        tm.TagId = CInt(row.Value)
+                        d.AP_Stories_Tag_Metas.InsertOnSubmit(tm)
+
+                    End If
+                Next
                 d.SubmitChanges()
                 Dim feeds = From c In d.AP_Stories_Module_Channels Where c.URL.EndsWith("?channel=" & insert.TabModuleId)
 

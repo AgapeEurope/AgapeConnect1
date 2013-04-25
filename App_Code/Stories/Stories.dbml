@@ -63,6 +63,14 @@
       <Association Name="AP_Stories_Module_Channel_AP_Stories_Module_Channel_Cache" Member="AP_Stories_Module_Channel" ThisKey="ChannelId" OtherKey="ChannelId" Type="AP_Stories_Module_Channel" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.AP_Stories_Tags" Member="AP_Stories_Tags">
+    <Type Name="AP_Stories_Tag">
+      <Column Name="StoryTagId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TagName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AP_Stories_Tag_AP_Stories_Tag_Meta" Member="AP_Stories_Tag_Metas" ThisKey="StoryTagId" OtherKey="TagId" Type="AP_Stories_Tag_Meta" />
+    </Type>
+  </Table>
   <Table Name="dbo.AP_Stories" Member="AP_Stories">
     <Type Name="AP_Story">
       <Column Name="StoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -90,6 +98,17 @@
       <Column Name="Field2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Field3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="UpdatedDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Keywords" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="AP_Story_AP_Stories_Tag_Meta" Member="AP_Stories_Tag_Metas" ThisKey="StoryId" OtherKey="StoryId" Type="AP_Stories_Tag_Meta" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_Stories_Tag_Meta" Member="AP_Stories_Tag_Metas">
+    <Type Name="AP_Stories_Tag_Meta">
+      <Column Name="StoryTagMetaId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TagId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AP_Story_AP_Stories_Tag_Meta" Member="AP_Story" ThisKey="StoryId" OtherKey="StoryId" Type="AP_Story" IsForeignKey="true" />
+      <Association Name="AP_Stories_Tag_AP_Stories_Tag_Meta" Member="AP_Stories_Tag" ThisKey="TagId" OtherKey="StoryTagId" Type="AP_Stories_Tag" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
