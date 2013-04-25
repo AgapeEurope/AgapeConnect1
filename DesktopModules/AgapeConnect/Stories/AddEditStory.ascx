@@ -168,16 +168,17 @@
                     <table border="0" cellpadding="2" cellspacing="2">
                         <tr>
                             <td>
-                              <dnn:Label ID="Label5" runat="server" ResourceKey="lblTags"  />
+                                <strong>Tags:</strong>
+                              
                             </td>
                             <td>
-                                <asp:CheckBoxList ID="cblTags" runat="server"></asp:CheckBoxList>
+                                <asp:CheckBoxList ID="cblTags" runat="server" Font-Size="Small" ></asp:CheckBoxList>
                             </td>
                         </tr>
                        
                         <tr>
                             <td>
-                              <b><dnn:Label ID="Label1" runat="server" ResourceKey="lblKeywords"  /></b>
+                                <strong>Keywords:</strong>
                             </td>
                             <td>
                                 <asp:TextBox ID="tbKeywords" runat="server"  Width="100%" MaxLength="50"></asp:TextBox>
