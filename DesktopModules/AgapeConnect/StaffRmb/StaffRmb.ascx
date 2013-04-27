@@ -13,10 +13,13 @@
     (function ($, Sys) {
         function setUpMyTabs() {
             var stop = false;
-            
-            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();   });
-            $('.currency').keyup(function() { calculateXRate(); checkRecReq;});
            
+            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();  $('.hfCurOpen').val("true");   });
+            
+            
+            
+            $('.currency').keyup(function() { calculateXRate(); checkRecReq;});
+          
             $('.ddlCur').change(function() { 
                 console.log('ddlChanged');
                
@@ -63,7 +66,7 @@
               });
 
            //Advance Currency Coverter
-            $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('#' + this.id).hide();  });
+            $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('.hfCurOpen').val("true"); $('#' + this.id).hide();  });
             $('.currencyAdv').keyup(function() { calculateXRateAdv();});
             $('.ddlCurAdv').change(function() { 
                 console.log('ddlCurAdv changed');
@@ -341,65 +344,66 @@
 
 
     function checkCur(){
-        
-        var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
-        console.log('origCur: ' + origCur) ;
-        if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' && origCur != "")
+        if($('.divCur').doesExist())
         {
+            var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
+            console.log('origCur: ' + origCur) ;
+            if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' && origCur != "")
+            {
            
-            //var tempValue=$('.rmbAmount').val();  
-            //$('.ddlCur').change();
-            //$('.rmbAmount').val(tempValue); 
-            $('.ddlCur').val(origCur);
-            console.log("selectedCur:" + origCur);
-            var origCurVal =   $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value');
-            console.log("originalVal:" + origCurVal);
+                //var tempValue=$('.rmbAmount').val();  
+                //$('.ddlCur').change();
+                //$('.rmbAmount').val(tempValue); 
+                $('.ddlCur').val(origCur);
+                console.log("selectedCur:" + origCur);
+                var origCurVal =   $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value');
+                console.log("originalVal:" + origCurVal);
 
-            $("#<%= hfExchangeRate.ClientID%>").attr('value', parseFloat($('.rmbAmount').val())/parseFloat(origCurVal));
-            calculateRevXRate();    
-            $('.divCur').show(); 
-            $('.hlCur').hide(); 
+                $("#<%= hfExchangeRate.ClientID%>").attr('value', parseFloat($('.rmbAmount').val())/parseFloat(origCurVal));
+                calculateRevXRate();    
+                $('.divCur').show(); 
+                $('.hlCur').hide(); 
             
-           
+                $('.hfCurOpen').val("true");
 
         
            
-        }else
-        {
+            }else
+            {
             
 
-            var selectedCurrency =  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' ;
-            var xRate=1.0;
-            if(origCur == "")
-            {
-                selectedCurrency ='<%= StaffBrokerFunctions.GetSetting("LocalCurrency", PortalId) %>' ;
-                xRate=-1;
-            }
-            $("#<%= hfOrigCurrency.ClientID%>").attr('value',selectedCurrency);
-            $('.ddlCur').val(selectedCurrency);
-            console.log('selectedCurrency: ' + selectedCurrency) ;
+                var selectedCurrency =  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' ;
+                var xRate=1.0;
+                if(origCur == "")
+                {
+                    selectedCurrency ='<%= StaffBrokerFunctions.GetSetting("LocalCurrency", PortalId) %>' ;
+                    xRate=-1;
+                }
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value',selectedCurrency);
+                $('.ddlCur').val(selectedCurrency);
+                console.log('selectedCurrency: ' + selectedCurrency) ;
 
-            if(xRate!=1.0)
-            {
-                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + selectedCurrency + "&ToCur=" +  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>';
-                console.log(jsonCall);
-                //$('.rmbAmount').val('');
+                if(xRate!=1.0)
+                {
+                    var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + selectedCurrency + "&ToCur=" +  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>';
+                    console.log(jsonCall);
+                    //$('.rmbAmount').val('');
            
-                $("#<%= hfExchangeRate.ClientId %>").attr('value', xRate);
-                $.getJSON( jsonCall ,function(x) {
-                    console.log(x);
+                    $("#<%= hfExchangeRate.ClientId %>").attr('value', xRate);
+                    $.getJSON( jsonCall ,function(x) {
+                        console.log(x);
 
-                    $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
-                    //now need to convert any value in the TextBox
-                    calculateRevXRate();    
+                        $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
+                        //now need to convert any value in the TextBox
+                        calculateRevXRate();    
 
-                }) ;
+                    }) ;
+
+                }
 
             }
-
+        
         }
-        
-
     }
 
 
@@ -580,6 +584,7 @@ padding: 5px 5px 5px 5px;
    <asp:HiddenField ID="hfOrigCurrency" runat="server" Value=""   />
     <asp:HiddenField ID="hfOrigCurrencyValue" runat="server" Value=""   />
         <asp:HiddenField ID="staffInitials" runat="server" Value=""   />
+    <asp:HiddenField ID="hfCurOpen" runat="server" Value="false"   />
 <table width="100%">
     <tr valign="top">
         <td>
