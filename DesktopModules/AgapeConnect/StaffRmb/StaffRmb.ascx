@@ -344,65 +344,66 @@
 
 
     function checkCur(){
-        
-        var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
-        console.log('origCur: ' + origCur) ;
-        if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' && origCur != "")
+        if($('.divCur').doesExist())
         {
+            var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
+            console.log('origCur: ' + origCur) ;
+            if(origCur != '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' && origCur != "")
+            {
            
-            //var tempValue=$('.rmbAmount').val();  
-            //$('.ddlCur').change();
-            //$('.rmbAmount').val(tempValue); 
-            $('.ddlCur').val(origCur);
-            console.log("selectedCur:" + origCur);
-            var origCurVal =   $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value');
-            console.log("originalVal:" + origCurVal);
+                //var tempValue=$('.rmbAmount').val();  
+                //$('.ddlCur').change();
+                //$('.rmbAmount').val(tempValue); 
+                $('.ddlCur').val(origCur);
+                console.log("selectedCur:" + origCur);
+                var origCurVal =   $("#<%= hfOrigCurrencyValue.ClientID%>").attr('value');
+                console.log("originalVal:" + origCurVal);
 
-            $("#<%= hfExchangeRate.ClientID%>").attr('value', parseFloat($('.rmbAmount').val())/parseFloat(origCurVal));
-            calculateRevXRate();    
-            $('.divCur').show(); 
-            $('.hlCur').hide(); 
+                $("#<%= hfExchangeRate.ClientID%>").attr('value', parseFloat($('.rmbAmount').val())/parseFloat(origCurVal));
+                calculateRevXRate();    
+                $('.divCur').show(); 
+                $('.hlCur').hide(); 
             
-            $('.hfCurOpen').val("true");
+                $('.hfCurOpen').val("true");
 
         
            
-        }else
-        {
+            }else
+            {
             
 
-            var selectedCurrency =  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' ;
-            var xRate=1.0;
-            if(origCur == "")
-            {
-                selectedCurrency ='<%= StaffBrokerFunctions.GetSetting("LocalCurrency", PortalId) %>' ;
-                xRate=-1;
-            }
-            $("#<%= hfOrigCurrency.ClientID%>").attr('value',selectedCurrency);
-            $('.ddlCur').val(selectedCurrency);
-            console.log('selectedCurrency: ' + selectedCurrency) ;
+                var selectedCurrency =  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>' ;
+                var xRate=1.0;
+                if(origCur == "")
+                {
+                    selectedCurrency ='<%= StaffBrokerFunctions.GetSetting("LocalCurrency", PortalId) %>' ;
+                    xRate=-1;
+                }
+                $("#<%= hfOrigCurrency.ClientID%>").attr('value',selectedCurrency);
+                $('.ddlCur').val(selectedCurrency);
+                console.log('selectedCurrency: ' + selectedCurrency) ;
 
-            if(xRate!=1.0)
-            {
-                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + selectedCurrency + "&ToCur=" +  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>';
-                console.log(jsonCall);
-                //$('.rmbAmount').val('');
+                if(xRate!=1.0)
+                {
+                    var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + selectedCurrency + "&ToCur=" +  '<%= StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) %>';
+                    console.log(jsonCall);
+                    //$('.rmbAmount').val('');
            
-                $("#<%= hfExchangeRate.ClientId %>").attr('value', xRate);
-                $.getJSON( jsonCall ,function(x) {
-                    console.log(x);
+                    $("#<%= hfExchangeRate.ClientId %>").attr('value', xRate);
+                    $.getJSON( jsonCall ,function(x) {
+                        console.log(x);
 
-                    $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
-                    //now need to convert any value in the TextBox
-                    calculateRevXRate();    
+                        $("#<%= hfExchangeRate.ClientId %>").attr('value', x);
+                        //now need to convert any value in the TextBox
+                        calculateRevXRate();    
 
-                }) ;
+                    }) ;
+
+                }
 
             }
-
+        
         }
-        
-
     }
 
 
