@@ -1483,7 +1483,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'Look for currency conversion
 
-                    If String.IsNullOrEmpty(hfOrigCurrency.Value) Then
+                    If hfCurOpen.Value = "false" Or String.IsNullOrEmpty(hfOrigCurrency.Value) Or hfOrigCurrency.Value = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
                         insert.OrigCurrency = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
                         insert.OrigCurrencyAmount = insert.GrossAmount
                     Else

@@ -13,10 +13,13 @@
     (function ($, Sys) {
         function setUpMyTabs() {
             var stop = false;
-            
-            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();   });
-            $('.currency').keyup(function() { calculateXRate(); checkRecReq;});
            
+            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();  $('.hfCurOpen').val("true");   });
+            
+            
+            
+            $('.currency').keyup(function() { calculateXRate(); checkRecReq;});
+          
             $('.ddlCur').change(function() { 
                 console.log('ddlChanged');
                
@@ -63,7 +66,7 @@
               });
 
            //Advance Currency Coverter
-            $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('#' + this.id).hide();  });
+            $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('.hfCurOpen').val("true"); $('#' + this.id).hide();  });
             $('.currencyAdv').keyup(function() { calculateXRateAdv();});
             $('.ddlCurAdv').change(function() { 
                 console.log('ddlCurAdv changed');
@@ -360,7 +363,7 @@
             $('.divCur').show(); 
             $('.hlCur').hide(); 
             
-           
+            $('.hfCurOpen').val("true");
 
         
            
@@ -580,6 +583,7 @@ padding: 5px 5px 5px 5px;
    <asp:HiddenField ID="hfOrigCurrency" runat="server" Value=""   />
     <asp:HiddenField ID="hfOrigCurrencyValue" runat="server" Value=""   />
         <asp:HiddenField ID="staffInitials" runat="server" Value=""   />
+    <asp:HiddenField ID="hfCurOpen" runat="server" Value="false"   />
 <table width="100%">
     <tr valign="top">
         <td>

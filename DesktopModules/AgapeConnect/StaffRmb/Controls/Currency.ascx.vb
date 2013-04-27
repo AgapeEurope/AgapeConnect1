@@ -97,7 +97,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
 
                 End If
 
-
+                sb.Append("$('.hfCurOpen').val('true');")
                 sb.Append("</script>")
                 ScriptManager.RegisterStartupScript(Page, t, "cur" & suffix, sb.ToString, False)
             End If
