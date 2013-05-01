@@ -33,7 +33,7 @@
 
     a.link-disabled #countryImage:hover {
         
-        border: 1px solid #000000; width: 233px;
+        border: 1px solid #000000; width: 263px;
     }
     a.link-disabled h2:hover {
         
@@ -41,11 +41,11 @@
     }
 
    a #countryImage:hover {
-        border: 4px inset #7AA8E0; max-width: 225px;max-height:149px;
+        border: 4px inset #7AA8E0; max-width: 356px;max-height:170px;
 
     }
    a  #countryImage {
-        border: 1px inset #000000; max-width: 233px; max-height:157px;
+        border: 1px inset #000000; max-width: 263px; max-height:177px;
     }
 
     
@@ -127,6 +127,7 @@
                         $('#countryPanel').show();
                         $('#countryText').css("overflow", "-moz-scrollbars-vertical");
                         $('#countryText').css("overflow-y", "auto");
+                        $('#countryText').css("overflow-x", "hidden");
                         var message = 'You clicked "'
                 + region
                 + '" which has the code: '
@@ -154,15 +155,15 @@
 
 <table style="width:100%">
     <tr>
-        <td style="width: 72%">
-             <div id="vmap" style="width: 100%; height: 600px;"></div>
+        <td style="width: 66%">
+             <div id="vmap" style="width: 100%; height: 550px;"></div>
         </td>
-        <td  style="width: 28%;">
+        <td  style="width: 34%;">
               <div id="countryPanel">
            
              <div class="Container-10393-1" style="padding: 0; margin: 0">
                 <div class="contentmain1" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;">
-                    <div style="height: 583px;">
+                    <div style="height: 533px;">
                        <a id="countryLink" href="" target="_blank">
                            <div style="width: 100%; text-align: center;">
                          <h2><span id="countryTitle"></span></h2>
@@ -170,7 +171,7 @@
                                 <img alt="" id="countryImage" src=""   />
                            </div>
                        </a>
-                            <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 387px; margin-top:5px;"></div>
+                            <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 310px; margin-top:5px; font-size: small;"></div>
 
                     </div>
                 </div>
