@@ -85,8 +85,8 @@
                         </div>
                     </div>
                 </div>
-                <div id="top_menu" class="hidden-phone">
-                    <%--<dnn:GOMENU runat="server" ID="dnnGOMENU" Effect="Hslide" ViewLevel="0" />--%>
+                <div id="top_menu" class="SpecialMenu">
+                    <dnn:GOMENU runat="server" ID="dnnGOMENU"  Effect="Hslide" ViewLevel="0" StyleFontSize="small" />
                 </div>
             </div>
         </nav>

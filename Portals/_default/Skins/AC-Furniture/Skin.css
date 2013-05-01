@@ -637,6 +637,10 @@ nav {
     margin: 15px 0px 0px 0px;
     background: url(images/menu_bg.jpg);
 }
+#top_menu.SpecialMenu {
+    margin: 15px 0px 0px 0px;
+    background: none;
+}
 
 /* ********** Banner ************** */
 .BannerPane {
@@ -981,6 +985,23 @@ nav {
     -ms-transition: background 0.3s ease-out 0s; /* IE9? */
 }
 
+#top_menu.SpecialMenu ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    width: auto;
+    float: left;
+    line-height: 25px;
+    transition: background 0.3s ease-out 0s;
+    -moz-transition: background 0.3s ease-out 0s; /* Firefox 4 */
+    -webkit-transition: background 0.3s ease-out 0s; /* Safari and Chrome */
+    -o-transition: background 0.3s ease-out 0s; /* Opera */
+    -ms-transition: background 0.3s ease-out 0s; /* IE9? */
+}
+
 #top_menu ul li span {
     padding: 0px 25px 0px 25px;
     display: block;
@@ -1096,6 +1117,11 @@ nav {
         #top_menu .menuslide ul > li.dir > a.menu_hover {
             background: url(images/icon-2.gif) 96% 50% no-repeat;
         }
+
+
+
+
+
 
 /*--------- Left Menu style ----------*/
 #left_menu {
