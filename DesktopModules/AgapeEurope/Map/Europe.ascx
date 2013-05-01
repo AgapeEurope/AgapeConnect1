@@ -171,7 +171,7 @@
                                 <img alt="" id="countryImage" src=""   />
                            </div>
                        </a>
-                            <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 310px; margin-top:5px; font-size: small;"></div>
+                            <div id="countryText" class="scroll-pane" style="overflow: scroll; height: 310px; margin-top:5px; font-size: small; padding-right: 5px;"></div>
 
                     </div>
                 </div>
