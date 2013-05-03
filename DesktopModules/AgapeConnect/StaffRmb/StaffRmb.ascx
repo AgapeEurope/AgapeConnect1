@@ -3,6 +3,8 @@
 
 <%@ Register src="Controls/StaffAdvanceRmb.ascx" tagname="StaffAdvanceRmb" tagprefix="uc1" %>
 <%@ Register src="Controls/Currency.ascx" tagname="Currency" tagprefix="uc1" %>
+<%@ Register Src="~/DesktopModules/AgapeConnect/StaffRmb/Controls/Currency.ascx" TagPrefix="dnn" TagName="Currency" %>
+
 
 <script src="/js/jquery.numeric.js" type="text/javascript"></script>
 <script src="/js/jquery.watermarkinput.js" type="text/javascript"></script>
@@ -69,7 +71,7 @@
             $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('.hfCurOpen').val("true"); $('#' + this.id).hide();  });
             $('.currencyAdv').keyup(function() { calculateXRateAdv();});
             $('.ddlCurAdv').change(function() { 
-                console.log('ddlCurAdv changed');
+               
 
                 var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
                 var FromCur = $('#' + this.id).val();
@@ -94,6 +96,38 @@
                 })      ;
     
             });
+
+
+            //Advance Pay Off Currency Coverter
+            $('.hlCurAdvPO').click(function() { var tempValue=$('.advPOAmount').val();  $('.ddlCurAdvPO').change();$('.rmbAmountAdvPO').val(tempValue); $('.divCurAdvPO').show(); $('.hfCurOpenAdvPO').val("true"); $('#' + this.id).hide();  });
+            $('.currencyAdvPO').keyup(function() {calculateXRateAdvPO();});
+            $('.ddlCurAdvPO').change(function() { 
+              
+
+                var ToCur= $("#<%= hfAccountingCurrency.ClientId %>").attr('value') ;
+                var FromCur = $('#' + this.id).val();
+
+                if(FromCur == ToCur)
+                {
+                    $("#<%= hfExchangeRateAdvPO.ClientID%>").attr('value', 1.0);
+                    calculateXRateAdvPO();
+                    return;
+                }
+
+                $("#<%= hfOrigCurrencyAdvPO.ClientID%>").attr('value', FromCur);
+                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+                $('.advPOAmount').val('');
+                $("#<%= hfExchangeRateAdvPO.ClientID%>").attr('value', -1);
+               $.getJSON( jsonCall ,function(x) {
+                    
+                   $("#<%= hfExchangeRateAdvPO.ClientID%>").attr('value', x);
+                    //now need to convert any value in the TextBox
+                    calculateXRateAdvPO();
+ 
+                })      ;
+    
+            });
+
 
             
             $("#accordion h3").click(function (event) {
@@ -483,6 +517,41 @@
     }
     
    
+    function calculateXRateAdvPO() {
+        var xRate = $("#<%= hfExchangeRateAdvPO.ClientID%>").attr('value');
+       ;
+        var inCur=$('.currencyAdvPO').val() ;
+        if(parseFloat(xRate) <0)
+        {
+            $('.advPOAmount').val('');
+            $("#<%= hfOrigCurrencyValueAdvPO.ClientID%>").attr('value',"");
+            return;
+        }
+        $("#<%= hfOrigCurrencyValueAdvPO.ClientID%>").attr('value',inCur);
+        if(inCur.length>0){
+            $("#<%= hfOrigCurrencyValueAdvPO.ClientID%>").attr('value',inCur);
+            $('.advPOAmount').val( (parseFloat(xRate) * parseFloat(inCur)).toFixed(2));
+                     
+        }
+    }
+    function calculateRevXRateAdvPO() {
+        var xRate = $("#<%= hfExchangeRateAdvPO.ClientID%>").attr('value');
+        var inAmt=$('.advPOAmount').val() ;
+        if(parseFloat(xRate) <0)
+        {
+            $('.currencyAdvPO').val('');
+            $("#<%= hfOrigCurrencyValueAdvPO.ClientID%>").attr('value',"");
+            return;
+        }
+        $("#<%= hfOrigCurrencyValueAdvPO.ClientID%>").attr('value',inAmt);
+        if(inAmt.length>0){
+            $("#<%= hfOrigCurrencyValueAdvPO.ClientID%>").attr('value',inAmt);
+            $('.currencyAdvPO').val(   parseFloat(inAmt) /(parseFloat(xRate) ).toFixed(2));
+                     
+        }
+    }
+
+
     function setXRate(xRate){
      $("#<%= hfExchangeRate.ClientId %>").val(xRate );
 
@@ -585,6 +654,13 @@ padding: 5px 5px 5px 5px;
     <asp:HiddenField ID="hfOrigCurrencyValue" runat="server" Value=""   />
         <asp:HiddenField ID="staffInitials" runat="server" Value=""   />
     <asp:HiddenField ID="hfCurOpen" runat="server" Value="false"   />
+
+    <asp:HiddenField ID="hfCurOpenAdvPO" runat="server" Value="false"   />
+    <asp:HiddenField ID="hfExchangeRateAdvPO" runat="server" Value="1"   />
+     <asp:HiddenField ID="hfOrigCurrencyAdvPO" runat="server" Value=""   />
+    <asp:HiddenField ID="hfOrigCurrencyValueAdvPO" runat="server" Value=""   />
+
+
 <table width="100%">
     <tr valign="top">
         <td>
@@ -1479,7 +1555,8 @@ padding: 5px 5px 5px 5px;
                                         <dnn:Label ID="Label3" runat="server" ControlName="tbAdvanceAmount" ResourceKey="PayOff" />
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="tbAdvanceAmount" runat="server" class="numeric"></asp:TextBox>
+                                        <asp:TextBox ID="tbAdvanceAmount" runat="server" class="numeric advPOAmount"></asp:TextBox>
+                                        <dnn:Currency runat="server" ID="Currency" AdvPayOffMode="true" />
                                     </td>
                                     <td>
                                         <asp:Button ID="btnSaveAdv" runat="server" resourcekey="btnSave" Font-Size="8pt"
