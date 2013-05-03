@@ -11,7 +11,15 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
             _advMode = value
         End Set
     End Property
-
+    Private _advPayoffMode As Boolean
+    Public Property AdvPayOffMode() As Boolean
+        Get
+            Return _advPayoffMode
+        End Get
+        Set(ByVal value As Boolean)
+            _advPayoffMode = value
+        End Set
+    End Property
 
     Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
         Dim FileName As String = System.IO.Path.GetFileNameWithoutExtension(Me.AppRelativeVirtualPath)
@@ -45,7 +53,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
     End Sub
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
 
-        If Not (AdvMode And Page.IsPostBack) Then
+        If Not ((AdvMode Or AdvPayOffMode) And Page.IsPostBack) Then
 
 
             Dim suffix = ""
@@ -57,6 +65,13 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
                 dCurrency.Attributes("class") &= "Adv"
                 suffix = "Adv"
                 amount = "advAmount"
+            ElseIf AdvPayOffMode And Not btnCurrency.CssClass.EndsWith("AdvPO") Then
+                btnCurrency.CssClass &= "AdvPO"
+                tbCurrency.Attributes("class") &= "AdvPO"
+                ddlCurrencies.Attributes("class") &= "AdvPO"
+                dCurrency.Attributes("class") &= "AdvPO"
+                suffix = "AdvPO"
+                amount = "advPOAmount"
             End If
 
 
@@ -102,7 +117,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
                 ScriptManager.RegisterStartupScript(Page, t, "cur" & suffix, sb.ToString, False)
             End If
 
-           
+
         End If
     End Sub
 End Class
