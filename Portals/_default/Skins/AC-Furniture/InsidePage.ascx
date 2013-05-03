@@ -48,7 +48,7 @@
 			<nav>
 				<div class="menu_mid dnn_layout clearfix">
 					<div class="clearfix" style="padding: 0 10px 0 10px">
-                         <div id="login_style" class="clearfix"><div class="language_style"><dnn:LANGUAGE runat="server" id="dnnLANGUAGE"  showMenu="False" showLinks="True" /></div><dnn:LOGIN runat="server" id="dnnLOGIN" CssClass="login" />&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:USER runat="server" id="dnnUSER" CssClass="user" /></div>
+                         <div id="login_style2" class="clearfix"><div class="language_style"><dnn:LANGUAGE runat="server" id="dnnLANGUAGE"  showMenu="False" showLinks="True" /></div><dnn:LOGIN runat="server" id="dnnLOGIN" CssClass="login" />&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:USER runat="server" id="dnnUSER" CssClass="user" /></div>
 				
 
 

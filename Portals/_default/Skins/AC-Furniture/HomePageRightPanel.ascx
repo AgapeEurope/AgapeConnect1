@@ -61,7 +61,7 @@
                      
                     
                     
-                    <div id="login_style" class="clearfix">
+                    <div id="login_style2" class="clearfix">
                 <div class="language_style">
                     <dnn:LANGUAGE runat="server" ID="dnnLANGUAGE" ShowMenu="False" ShowLinks="True" />
                 </div>
