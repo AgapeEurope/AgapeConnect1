@@ -128,6 +128,7 @@
                         $('#countryText').css("overflow", "-moz-scrollbars-vertical");
                         $('#countryText').css("overflow-y", "auto");
                         $('#countryText').css("overflow-x", "hidden");
+                        $('#countryText').scrollTop(0);
                         var message = 'You clicked "'
                 + region
                 + '" which has the code: '
