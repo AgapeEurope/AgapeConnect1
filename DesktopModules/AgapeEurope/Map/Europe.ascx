@@ -33,7 +33,7 @@
 
     a.link-disabled #countryImage:hover {
         
-        border: 1px solid #000000; width: 263px;
+        border: 1px solid #000000; max-width: 263px;max-height:177px;
     }
     a.link-disabled h2:hover {
         
@@ -41,7 +41,7 @@
     }
 
    a #countryImage:hover {
-        border: 4px inset #7AA8E0; max-width: 356px;max-height:170px;
+        border: 4px inset #7AA8E0; max-width: 256px; max-height:170px;
 
     }
    a  #countryImage {
