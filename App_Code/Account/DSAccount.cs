@@ -210,7 +210,7 @@ public class DSAccount
         }
     }
 
-    static private string GetProxyTicketFromCAS(string targetService, string _pgt)
+    static public string GetProxyTicketFromCAS(string targetService, string _pgt)
     {
         string pt = string.Empty;
         string server = "https://thekey.me/cas/";
