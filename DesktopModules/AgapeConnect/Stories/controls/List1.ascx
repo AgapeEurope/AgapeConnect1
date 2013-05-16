@@ -41,21 +41,22 @@
 
 <style type="text/css">
    .seachImage {
-        width: 80px;
+        width:150px;
         border: 1pt solid black;
+        margin-right: 5px;
     }
     .dnnGridItem:hover, .dnnGridAltItem:hover  {
         border: 2px solid Blue;
     }
     .dnnGridItem, .dnnGridAltItem {
-        border: 2px solid transparent;
+        border: 2px inset transparent;
     }
 
 </style>
 
 
 
-<asp:DataList runat="server" ID="dlStories" AllowPaging="true" BorderStyle="None" CellSpacing="1"  ShowHeader="False" GridLines="None" PagerStyle-Visible="false">
+<asp:DataList runat="server" ID="dlStories" AllowPaging="true" BorderStyle="None" CellSpacing="4" CellPadding="4"  ShowHeader="False" GridLines="None" PagerStyle-Visible="false">
     <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" VerticalAlign="Top"  />
         <AlternatingItemStyle CssClass="dnnGridAltItem" />
         <FooterStyle CssClass="dnnGridFooter" />
@@ -72,12 +73,12 @@
                     </td>
 
                     <td width="100%">
-                        <asp:Label ID="HyperLink1" runat="server" CssClass="AgapeH4" style="font-size:large" Text='<%# Eval("Headline")%>' />
+                        <asp:Label ID="HyperLink1" runat="server" CssClass="AgapeH4" style="font-size: medium" Text='<%# Eval("Headline")%>' />
                         
                         <br />
 
                         <asp:Panel ID="Panel1" runat="server" CssClass="Agape_Story_subtitle" >
-                           <asp:Label ID="Label5" runat="server" CssClass="Normal" Text='<%# GetStoryDateString(Eval("StoryDate"), Eval("GUID"), Eval("Link"))%>'  />
+                           <asp:Label ID="Label5" runat="server" CssClass="Normal" Font-Size="small" Text='<%# GetStoryDateString(Eval("StoryDate"), Eval("GUID"), Eval("Link"))%>'  />
                             
                             <br />
                         </asp:Panel>
