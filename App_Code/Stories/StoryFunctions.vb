@@ -26,9 +26,17 @@ Namespace Stories
                
                 ' Dim t = mc.GetTabModule(row.TabModuleId)
                 'If (t.ModuleID = ModInfo.ModuleID) Then
+                Dim Keywords = row.Keywords
+                For Each tag In row.AP_Stories_Tag_Metas
+                    Keywords &= "," & tag.AP_Stories_Tag.TagName & " " & tag.AP_Stories_Tag.Keywords
 
-                Dim SearchText = (row.Headline & " " & row.StoryText & " " & row.Author)
+                Next
+
+                Dim SearchText = (row.Headline & " " & Keywords & " " & row.StoryText & " " & row.Author)
                 Dim summary As String = ""
+
+
+
                 If String.IsNullOrEmpty(row.TextSample) Then
                     summary = Left(StoryFunctions.StripTags(row.StoryText), 500)
                 Else
@@ -43,7 +51,7 @@ Namespace Stories
                 Dim SearchItem As Services.Search.SearchItemInfo
                 SearchItem = New Services.Search.SearchItemInfo _
                  (row.Headline, _
-                summary, _
+                 summary, _
                 row.UserId, _
                row.StoryDate, ModInfo.ModuleID, _
                  "S" & row.StoryId, _
