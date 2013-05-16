@@ -8,7 +8,7 @@
         function setUpMyTabs() {
 
 
-
+            $('.dropdown-toggle').dropdown()
 
         }
 
@@ -70,6 +70,31 @@
         <div class="span10">
             <!--Body content-->
             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+          
+            <div id="navbar-example" class="navbar navbar-static">
+              <div class="navbar-inner">
+                <div class="container" style="width: auto;">
+                  <a class="brand" href="#">ModU</a>
+                  <ul class="nav" role="navigation">
+                   <li class="active"><a href="#">Staff Reports</a></li>
+      <li><a href="#">Director Reports</a></li>
+                  </ul>
+
+
+                   <div class="pagination pull-right">
+  <ul>
+    <li><a href="#">&laquo;</a></li>
+  
+    <li><a href="#">1 May 13 to 31 May 13</a></li>
+    <li><a href="#" class="disabled">&raquo;</a></li>
+  </ul>
+</div>
+
+                
+                </div>
+              </div>
+            </div>
+
         </div>
     </div>
 </div>
