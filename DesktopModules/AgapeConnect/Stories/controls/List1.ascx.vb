@@ -88,7 +88,11 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             dlStories.DataSource = Stories
             dlStories.DataBind()
 
+            Dim d As New StoriesDataContext
+            Dim tags = From c In d.AP_Stories_Tags Where c.PortalId = PortalId
 
+            dlFilter.DataSource = tags.Take(5)
+            dlFilter.DataBind()
         End Sub
 
         Public Function GetStoryDateString(ByVal StoryDate As Date, ByVal GUID As String, ByVal Link As String) As String
