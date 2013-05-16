@@ -117,9 +117,21 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             '        .OrderByDescending(Function(c) CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0))))) / CDbl(2.0)) _
             '        .Take(CInt(Settings("NumberOfStories"))).ToList().OrderByDescending(Function(c) CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0))))) / CDbl(2.0))
             Dim r = From c In d.AP_Stories_Module_Channel_Caches Select c, ViewOrder = CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0)))) / CDbl(2.0))
+
+            If (Request.QueryString("tags") <> "") Then
+
+                Dim tagList = Request.QueryString("tags").Split(",")
+
+                r = From c In r Join b In d.AP_Stories On CInt(c.c.GUID) Equals b.StoryId Where b.AP_Stories_Tag_Metas.Where(Function(x) tagList.Contains(x.AP_Stories_Tag.TagName)).Count > 0 Select c
+
+
+
+
+            End If
+
             r = r.Where(Function(c) CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower = c.c.Langauge.Substring(0, 2) And c.c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId And Not c.c.Block) _
-                .OrderByDescending(Function(c) c.ViewOrder) _
-            .Take(CInt(Settings("NumberOfStories")))
+                            .OrderByDescending(Function(c) c.ViewOrder) _
+                        .Take(CInt(Settings("NumberOfStories")))
             Dim storyList = r.Select(Function(x) x.c).ToList()
 
             If IsEditable And TabModuleId = 4469 Then
