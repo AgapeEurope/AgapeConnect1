@@ -270,13 +270,40 @@
         </td>
         <td style="text-align: left; " >
         
-            <asp:DataList ID="dlTags" runat="server" RepeatColumns="6"  RepeatDirection="Horizontal">
-                <ItemTemplate>
-                     <asp:Label ID="lblTagName" runat="server" style="font-size: large; font-weight: bold" Text='<%# Eval("TagName") %>' ></asp:Label>&nbsp;
-                    <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="~/images/delete.gif" Width="10px" CommandName="DeleteTag" CommandArgument='<%# Eval("StoryTagId")%>' />
-                </ItemTemplate>
-               
-            </asp:DataList>
+     
+
+            <asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" DataSourceID="dsTags" AutoGenerateColumns="False" DataKeyNames="StoryTagId">
+                <AlternatingRowStyle BackColor="White" />
+                <FooterStyle BackColor="#CCCC99" />
+                <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                <RowStyle BackColor="#F7F7DE" />
+                <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#FBFBF2" />
+                <SortedAscendingHeaderStyle BackColor="#848384" />
+                <SortedDescendingCellStyle BackColor="#EAEAD3" />
+                <SortedDescendingHeaderStyle BackColor="#575357" />
+                <Columns>
+
+                    <asp:BoundField DataField="TagName" HeaderText="TagName" SortExpression="TagName" />
+                    <asp:BoundField DataField="Keywords" HeaderText="Keywords" SortExpression="Keywords" />
+                    <asp:CheckBoxField DataField="Master" HeaderText="Master" SortExpression="Master" />
+                    <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+
+                </Columns>
+                
+            </asp:GridView>
+
+<asp:HiddenField runat="server" ID="hfPortalId"></asp:HiddenField>
+
+              <asp:LinqDataSource ID="dsTags" runat="server" EntityTypeName="" ContextTypeName="Stories.StoriesDataContext" EnableDelete="True" EnableInsert="True" EnableUpdate="True" OrderBy="TagName" TableName="AP_Stories_Tags" Where="PortalId == @PortalId">
+                  <WhereParameters>
+                      <asp:ControlParameter ControlID="hfPortalId" Name="PortalId" PropertyName="Value" Type="Int32" />
+                  </WhereParameters>
+            </asp:LinqDataSource>
+
+
+
               <asp:TextBox ID="tbAddTag" runat="server"></asp:TextBox><asp:Button ID="btnAddTag" runat="server" Text="Add" CssClass="aButton" Font-Size="X-Small" /> 
             <br />*Warning: Deleting a tag will remove this tag from all stories. This cannot be undone!
         </td>
