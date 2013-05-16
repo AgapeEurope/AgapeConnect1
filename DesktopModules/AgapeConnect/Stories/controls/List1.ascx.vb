@@ -95,7 +95,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             dlStories.DataBind()
 
             Dim d As New StoriesDataContext
-            Dim tags = From c In d.AP_Stories_Tags Where c.PortalId = PortalId
+            Dim tags = From c In d.AP_Stories_Tags Where c.PortalId = PortalId And c.Master
 
             dlFilter.DataSource = tags
             dlFilter.DataBind()
