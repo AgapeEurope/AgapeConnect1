@@ -113,7 +113,7 @@
     <ItemTemplate>
         <div class="span2">
           
-                <asp:CheckBox ID="cbFilter" runat="server" CssClass="tagFilter" Text='<%# Eval("TagName") %>' Checked='<%# Request.QueryString("tags").Split(",").Contains(Eval("TagName"))%>' />
+                <asp:CheckBox ID="cbFilter" runat="server" CssClass="tagFilter" Text='<%# Eval("TagName")%>' Checked='<%# hfSelectedTags.Value.Split(",").Contains(Eval("TagName"))%>' />
         
         </div>
 
@@ -125,7 +125,7 @@
 </asp:Repeater>
 
 
-
+<asp:HiddenField ID="hfSelectedTags" runat="server" />
 
 
 
