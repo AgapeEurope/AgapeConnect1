@@ -92,6 +92,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
         End Sub
 
         Public Function GetStoryDateString(ByVal StoryDate As Date, ByVal GUID As String, ByVal Link As String) As String
+            Return StoryDate.ToString("dd MMM yyyy")
             Dim url = New Uri(Link)
             If NavigateURL.Contains(url.Authority) And Not String.IsNullOrEmpty(GUID) Then  ' local channel
                 Dim d As New StoriesDataContext
