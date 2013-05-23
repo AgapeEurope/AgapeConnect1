@@ -9,15 +9,24 @@ Imports System.Linq
 <AspNetCompatibilityRequirements(RequirementsMode:=AspNetCompatibilityRequirementsMode.Allowed)>
 Public Class gma_global_directory
     Implements Igma_global_directory
-
-
     Function GetAllGmaServers(ByVal authKey As String) As List(Of GMA.gma_Server) Implements Igma_global_directory.GetAllGmaServers
         Dim d As New GMA.gmaDataContext
+        Dim password = AgapeEncryption.AgapeEncrypt.Encrypt(authKey)
+        If password = StaffBrokerFunctions.GetSetting("gma_global_directory_authkey", 0) Then
+            Return d.gma_Servers.ToList
+        Else
+            Return Nothing
+        End If
 
-        Return d.gma_Servers.ToList
+
+
+
+
 
 
     End Function
+
+   
     Public Shared Function AddGMAService(ByVal displayName As String, ByVal URL As Uri, ByVal Userid As Integer) As Boolean
         Try
 

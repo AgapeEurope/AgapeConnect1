@@ -47,6 +47,7 @@ Namespace DotNetNuke.Modules.GMA
                 lblValidation.Text = "The GMA Server has been successfully added"
                 tbURL.Text = ""
                 tbDisplayName.Text = ""
+                GridView1.DataBind()
             Else
                 lblValidation.Text = "There was a problem adding your GMA server. Please check the URL and try again. If the problem persists, please contact support@agapeconnect.me. "
             End If
@@ -55,10 +56,7 @@ Namespace DotNetNuke.Modules.GMA
 
 
         End Sub
-        Public Function CanEdit(ByVal addedByUser As Integer) As Boolean
-            Return addedByUser = UserId Or isAdmin
-
-        End Function
+       
 
     End Class
 End Namespace
