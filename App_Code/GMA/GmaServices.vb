@@ -149,7 +149,7 @@ Public Class GmaServices
 
 
 
-
+        Dim Nodes As New List(Of gma_node)
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(_endPoint & method), HttpWebRequest)
         request.CookieContainer = myCookieContainer
 
@@ -161,20 +161,22 @@ Public Class GmaServices
         Dim dict = jss.Deserialize(Of Object)(json)
 
         If dict("success") = "true" Then
-            Dim Nodes As New List(Of gma_node)
+
             For Each row In dict("data")("nodeList")
                 Dim insert As New gma_node
                 insert.nodeId = row("nodeId")
                 insert.shortName = row("shortName")
                 insert.Reports = Reports.Where(Function(c) c.nodeId = insert.nodeId).ToList
-                insert.DirectorReports = Reports.Where(Function(c) c.nodeId = insert.nodeId).ToList
-                Nodes.Add(insert)
-            Next
-            Return Nodes
+                insert.DirectorReports = DirectorReports.Where(Function(c) c.nodeId = insert.nodeId).ToList
+                If insert.Reports.Count + insert.DirectorReports.Count > 0 Then
+                    Nodes.Add(insert)
+                End If
 
+            Next
+            
         End If
 
-        Return Nothing
+        Return Nodes
     End Function
 
     Public Function GetStaffReports() As List(Of gma_Report)
@@ -206,9 +208,9 @@ Public Class GmaServices
 
         Dim jss = New System.Web.Script.Serialization.JavaScriptSerializer()
         Dim dict = jss.Deserialize(Of Object)(json)
-
+        Dim Reports As New List(Of gma_Report)
         If dict("success") = "true" Then
-            Dim Reports As New List(Of gma_Report)
+
             For Each row In dict("data")("staffReports")
                 Dim insert As New gma_Report
                 insert.ReportId = row("staffReportId")
@@ -223,10 +225,10 @@ Public Class GmaServices
                 Reports.Add(insert)
 
             Next
-            Return Reports
-        End If
 
-        Return Nothing
+        End If
+        Return Reports
+
     End Function
 
     Public Function GetDirectorReports() As List(Of gma_Report)
@@ -258,9 +260,9 @@ Public Class GmaServices
 
         Dim jss = New System.Web.Script.Serialization.JavaScriptSerializer()
         Dim dict = jss.Deserialize(Of Object)(json)
-
+        Dim Reports As New List(Of gma_Report)
         If dict("success") = "true" Then
-            Dim Reports As New List(Of gma_Report)
+
             For Each row In dict("data")("directorReports")
                 Dim insert As New gma_Report
                 insert.ReportId = row("directorReportId")
@@ -275,10 +277,10 @@ Public Class GmaServices
                 Reports.Add(insert)
 
             Next
-            Return Reports
-        End If
 
-        Return Nothing
+        End If
+        Return Reports
+
     End Function
 
 
