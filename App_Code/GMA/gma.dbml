@@ -6,6 +6,7 @@
       <Column Name="displayName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="rootUrl" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
       <Column Name="serviceURL" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="addedByUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

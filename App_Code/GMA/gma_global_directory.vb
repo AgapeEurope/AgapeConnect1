@@ -9,23 +9,33 @@ Imports System.Linq
 <AspNetCompatibilityRequirements(RequirementsMode:=AspNetCompatibilityRequirementsMode.Allowed)>
 Public Class gma_global_directory
     Implements Igma_global_directory
-
-
     Function GetAllGmaServers(ByVal authKey As String) As List(Of GMA.gma_Server) Implements Igma_global_directory.GetAllGmaServers
         Dim d As New GMA.gmaDataContext
+        Dim password = AgapeEncryption.AgapeEncrypt.Encrypt(authKey)
+        If password = StaffBrokerFunctions.GetSetting("gma_global_directory_authkey", 0) Then
+            Return d.gma_Servers.ToList
+        Else
+            Return Nothing
+        End If
 
-        Return d.gma_Servers.ToList
+
+
+
+
 
 
     End Function
-    Public Function AddGMAService(ByVal displayName As String, ByVal URL As Uri) As Boolean
+
+   
+    Public Shared Function AddGMAService(ByVal displayName As String, ByVal URL As Uri, ByVal Userid As Integer) As Boolean
         Try
 
 
             Dim d As New GMA.gmaDataContext
             Dim insert As New GMA.gma_Server
             insert.displayName = displayName
-            insert.rootUrl = URL.Scheme & URL.Authority
+            insert.rootUrl = URL.AbsoluteUri
+            insert.addedByUser = Userid
             Dim service = GetTargetService(insert.rootUrl)
             If Not String.IsNullOrEmpty(service) Then
                 insert.serviceURL = service
@@ -35,31 +45,32 @@ Public Class gma_global_directory
 
                 Return True
             End If
+            StaffBrokerFunctions.EventLog("Failed to get CASService for Server: " & displayName & " at: " & URL.AbsoluteUri, "", 1)
             Return False
 
         Catch ex As Exception
-            StaffBrokerFunctions.EventLog("Failed to add GMA Server: " & displayName & " at: " & URL.AbsolutePath, ex.ToString(), 1)
+            StaffBrokerFunctions.EventLog("Failed to add GMA Server: " & displayName & " at: " & URL.AbsoluteUri, ex.ToString(), 1)
             Return False
         End Try
 
     End Function
-    Private Function GetTargetService(ByVal _endPoint As String) As String
+    Private Shared Function GetTargetService(ByVal _endPoint As String) As String
         Try
 
-        
-        Dim method = "?q=gmaservices"
 
-        Dim request As HttpWebRequest = DirectCast(WebRequest.Create(_endPoint & method), HttpWebRequest)
+            Dim method = "?q=gmaservices"
 
-        request.AllowAutoRedirect = False
+            Dim request As HttpWebRequest = DirectCast(WebRequest.Create(_endPoint & method), HttpWebRequest)
 
-        Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
-        If response.StatusCode = HttpStatusCode.Redirect Then
-            Dim redr = response.Headers("Location")
-            Return redr.Substring(redr.IndexOf("service=") + 8)
+            request.AllowAutoRedirect = False
+
+            Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
+            If response.StatusCode = HttpStatusCode.Redirect Then
+                Dim redr = response.Headers("Location")
+                Return redr.Substring(redr.IndexOf("service=") + 8)
 
 
-        End If
+            End If
             Return Nothing
         Catch ex As Exception
             Return Nothing

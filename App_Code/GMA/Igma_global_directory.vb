@@ -4,7 +4,7 @@ Imports System.ServiceModel.Activation
 
 
 ' NOTE: You can use the "Rename" command on the context menu to change the interface name "Igma_global_directory" in both code and config file together.
-<ServiceContract(Namespace:="http://localhost:37881/GMA/", Name:="gma_global_directory.svc")>
+<ServiceContract(Namespace:="https://api.agapeconnect.me/GMA/", Name:="gma_global_directory.svc")>
 Public Interface Igma_global_directory
 
     <OperationContract()>
