@@ -40,6 +40,8 @@ Namespace DotNetNuke.Modules.GMA
 
                 insert.nodes = insert.gma.GetUserNodes(Reports, DirectorReports)
 
+
+
                 gmaServers.Add(insert)
 
 
@@ -72,23 +74,51 @@ Namespace DotNetNuke.Modules.GMA
 
             Dim myNodeId = ref.Substring(ref.IndexOf(":::") + 3)
             Dim myUrl = ref.Substring(0, ref.IndexOf(":::"))
+
             hfNodeId.Value = myNodeId
             hfURL.Value = myUrl
             Dim gmaServer = (From c In gmaServers Where c.URL = myUrl).First
 
             Dim gmaNode = (From c In gmaServer.nodes Where c.nodeId = myNodeId).First
-
+            lblNodeTitle.Text = gmaNode.shortName
 
 
 
             ddlPeriods.DataSource = From c In gmaNode.Reports Select LabelName = c.startDate.ToString("dd MMM yy") & " - " & c.endDate.ToString("dd MMM yy"), c.ReportId
             ddlPeriods.DataBind()
-            ddlPeriods.SelectedValue = gmaNode.Reports.Last.ReportId
-            ddlPeriods_SelectedIndexChanged(Me, Nothing)
+            If gmaNode.Reports.Count > 0 Then
+                ddlPeriods.SelectedValue = gmaNode.Reports.Last.ReportId
+                ddlPeriods_SelectedIndexChanged(Me, Nothing)
+                tabStaff.Visible = True
+            Else
+                tabStaff.Visible = False
+                Dim m As New List(Of gma_measurements)
+                rpStaffMeasurements.DataSource = m
+                rpStaffMeasurements.DataBind()
+                lbPrevPeriod.Enabled = Not (ddlPeriods.SelectedIndex = 0 Or ddlPeriods.Items.Count = 0)
+
+                lbNextPeriod.Enabled = Not (ddlPeriods.SelectedIndex = ddlPeriods.Items.Count - 1 Or ddlPeriods.Items.Count = 0)
+            End If
+
             ddlPeriodsD.DataSource = From c In gmaNode.DirectorReports Select LabelName = c.startDate.ToString("dd MMM yy") & " - " & c.endDate.ToString("dd MMM yy"), c.ReportId
             ddlPeriodsD.DataBind()
-            ddlPeriodsD.SelectedValue = gmaNode.DirectorReports.Last.ReportId
-            ddlPeriodsD_SelectedIndexChanged(Me, Nothing)
+
+            If (gmaNode.DirectorReports.Count > 0) Then
+
+
+
+                ddlPeriodsD.SelectedValue = gmaNode.DirectorReports.Last.ReportId
+                ddlPeriodsD_SelectedIndexChanged(Me, Nothing)
+                tabDirector.Visible = True
+            Else
+                tabDirector.Visible = False
+                Dim m As New List(Of gma_measurements)
+                rpDirectorMeasuremts.DataSource = m
+                rpDirectorMeasuremts.DataBind()
+                lbPrevPeriod.Enabled = Not (ddlPeriods.SelectedIndex = 0 Or ddlPeriods.Items.Count = 0)
+
+                lbNextPeriod.Enabled = Not (ddlPeriods.SelectedIndex = ddlPeriods.Items.Count - 1 Or ddlPeriods.Items.Count = 0)
+            End If
         End Sub
 
 

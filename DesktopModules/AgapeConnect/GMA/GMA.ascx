@@ -118,27 +118,33 @@ text-shadow: 0 1px 0 #fff;
 
 
         </div>
+
         <div class="span10">
             <!--Body content-->
             
-           
+            <asp:Panel ID="pnlMain" runat="server">
                         <div class="container" style="width: auto;">
-                            <div class="brand">ModU</div>
+                            <div class="brand">
+
+                                <asp:Label ID="lblNodeTitle" runat="server"></asp:Label>
+                            </div>
                         </div>
                  
 
             <div id="tabs">
                 <!-- Only required for left/right tabs -->
                 <ul >
-                    <li><a href="#tab1" >Staff Reports</a></li>
-                    <li><a href="#tab2">Director Reports</a></li>
+                    <li> <asp:HyperLink ID="tabStaff" runat="server" href="#tab1" Visible="false">Staff Report</asp:HyperLink></li>
+                    <li>
+                        <asp:HyperLink ID="tabDirector" runat="server" href="#tab2" Visible="false">Director Report</asp:HyperLink>
+                     </li>
                 </ul>
 
                 
 
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab1">
+                    <div class="tab-pane" id="tab1">
                         <div style="width:100%; text-align: center;">
                         <div class="pagination" style="margin-top:0;">
 
@@ -270,6 +276,7 @@ text-shadow: 0 1px 0 #fff;
 
 
         </div>
+                </asp:Panel>
     </div>
 </div>
-<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+<asp:Label ID="Label1" runat="server" Text=""></asp:Label>
