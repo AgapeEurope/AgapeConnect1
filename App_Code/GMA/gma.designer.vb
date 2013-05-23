@@ -86,6 +86,8 @@ Namespace GMA
 		
 		Private _serviceURL As String
 		
+		Private _addedByUser As System.Nullable(Of Integer)
+		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
     End Sub
@@ -108,6 +110,10 @@ Namespace GMA
     Partial Private Sub OnserviceURLChanging(value As String)
     End Sub
     Partial Private Sub OnserviceURLChanged()
+    End Sub
+    Partial Private Sub OnaddedByUserChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnaddedByUserChanged()
     End Sub
     #End Region
 		
@@ -177,6 +183,22 @@ Namespace GMA
 					Me._serviceURL = value
 					Me.SendPropertyChanged("serviceURL")
 					Me.OnserviceURLChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_addedByUser", DbType:="Int")>  _
+		Public Property addedByUser() As System.Nullable(Of Integer)
+			Get
+				Return Me._addedByUser
+			End Get
+			Set
+				If (Me._addedByUser.Equals(value) = false) Then
+					Me.OnaddedByUserChanging(value)
+					Me.SendPropertyChanging
+					Me._addedByUser = value
+					Me.SendPropertyChanged("addedByUser")
+					Me.OnaddedByUserChanged
 				End If
 			End Set
 		End Property
