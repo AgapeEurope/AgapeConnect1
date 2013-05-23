@@ -18,24 +18,24 @@ Public Class gma_global_directory
 
 
     End Function
-    Public Function AddGMAService(ByVal displayName As String, ByVal URL As Uri)
+    Public Function AddGMAService(ByVal displayName As String, ByVal URL As Uri) As Boolean
         Try
 
-        
-        Dim d As New GMA.gmaDataContext
-        Dim insert As New GMA.gma_Server
-        insert.displayName = displayName
-        insert.rootUrl = URL.Scheme & URL.Authority
-        Dim service = GetTargetService(insert.rootUrl)
-        If Not String.IsNullOrEmpty(service) Then
-            insert.serviceURL = service
 
-            d.gma_Servers.InsertOnSubmit(insert)
-            d.SubmitChanges()
+            Dim d As New GMA.gmaDataContext
+            Dim insert As New GMA.gma_Server
+            insert.displayName = displayName
+            insert.rootUrl = URL.Scheme & URL.Authority
+            Dim service = GetTargetService(insert.rootUrl)
+            If Not String.IsNullOrEmpty(service) Then
+                insert.serviceURL = service
 
-            Return True
-        End If
-        Return False
+                d.gma_Servers.InsertOnSubmit(insert)
+                d.SubmitChanges()
+
+                Return True
+            End If
+            Return False
 
         Catch ex As Exception
             StaffBrokerFunctions.EventLog("Failed to add GMA Server: " & displayName & " at: " & URL.AbsolutePath, ex.ToString(), 1)
