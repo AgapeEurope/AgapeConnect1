@@ -230,6 +230,10 @@ Namespace DotNetNuke.Modules.AgapePortal
         End Sub
 
         Private Sub LoginUser(ByVal objUserInfo As UserInfo, ByVal PS As PortalSettings, ByVal returnURL As String)
+          
+
+
+
             If returnURL Is Nothing Then
                 FormsAuthentication.RedirectFromLoginPage(objUserInfo.Username, False)
             Else
