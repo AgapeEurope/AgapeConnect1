@@ -913,7 +913,7 @@ Public Class DatatSync
             set_if(newAdv.Year, row.Year)
             set_if(newAdv.Amount, row.RequestAmount.Value)
 
-            set_if(newAdv.Reason, row.RequestText)
+            set_if(newAdv.Reason, UnidecodeSharpFork.Unidecoder.Unidecode(row.RequestText))
 
             Dim User = UserController.GetUserById(PS.PortalId, row.UserId)
             newAdv.UserName = User.FirstName & " " & User.LastName

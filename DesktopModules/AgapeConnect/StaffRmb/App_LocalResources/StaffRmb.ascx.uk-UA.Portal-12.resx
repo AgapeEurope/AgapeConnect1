@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountBalance.Text">
+    <value>Залишок на рахунку</value>
+  </data>
+  <data name="AccountsComments.Text">
+    <value>Коментарі до рахунків</value>
+  </data>
+  <data name="AccountsOnly.Text" />
+  <data name="AccountWarning.Text">
+    <value>Попередження</value>
+  </data>
+  <data name="AddEditRmb.Text">
+    <value>Додати / Змінити нову компенсаційну витрату </value>
+  </data>
+  <data name="AdvAmountSpecial.Text">
+    <value>Оскільки ваша транзакція перевищує суму [TEAMLEADERLIMIT] вашого авансу, її повинен затвердити [AuthUser].</value>
+  </data>
+  <data name="Advance.Text">
+    <value>Аванс</value>
+  </data>
+  <data name="AdvanceApproved.Text">
+    <value>Аванс # [ADVANCEID] був схвалений!</value>
+  </data>
+  <data name="AdvanceBalance.Text">
+    <value>Баланс по авансам</value>
+  </data>
+  <data name="AdvanceError.Text">
+    <value>Ви ввели невірну суму. Ваші налаштування не були збережені.</value>
+  </data>
+  <data name="AdvanceRequest.Text">
+    <value>Запит на аванс</value>
+  </data>
+  <data name="AdvApproved.Text">
+    <value>Затверджено [дата] [STAFFNAME]</value>
+  </data>
+  <data name="AdvAuthSpecial.Text">
+    <value>Так як ви AuthUser, і ваше звичайний лідер не має права затвердити цей аванс, він повинен бути схвалений AuthAuthUser: [AUTHAUTHUSER].</value>
+  </data>
+  <data name="AdvDate.Text">
+    <value>Отримано [дата]</value>
+  </data>
+  <data name="AdvEmailCancelledSubject.Text">
+    <value>Аванс #: [ADVNO] був скасований</value>
+  </data>
+  <data name="AdvEmailSubmittedSubject.Text">
+    <value>Аванс # [ADVNO]</value>
+  </data>
+  <data name="AdvIntro.Text">
+    <value>[STAFFNAME] відправив Запит на Аванс  для затвердження вами</value>
+  </data>
+  <data name="AdvLocked.Text">
+    <value>Ваш аванс вже був оброблений і не може бути змінений або скасований.</value>
+  </data>
+  <data name="AdvNotApproved.Text">
+    <value>Очікує затвердження: [STAFFNAMES]</value>
+  </data>
+  <data name="AdvProcessed.Text">
+    <value>Оброблено [дата]</value>
+  </data>
+  <data name="AdvReason.Text">
+    <value>Причина</value>
+  </data>
+  <data name="AdvSpouseSpecial.Text">
+    <value>Так як ваш лідер також ваше подружжя, ваш аванс повинен бути оброблений [AuthUser].</value>
+  </data>
+  <data name="AdvSubmittedApprEmailSubject.Text">
+    <value>Аванс для [STAFFNAME]</value>
+  </data>
+  <data name="Amount.Text">
+    <value>Сума</value>
+  </data>
+  <data name="Approved.Text">
+    <value>Затверджено</value>
+  </data>
+  <data name="ApprovedBy.Text">
+    <value>Затверджено</value>
+  </data>
+  <data name="ApprovedOn.Text">
+    <value>Затверджено</value>
+  </data>
+  <data name="AwaitingApproval.Text">
+    <value>Очікує затвердження</value>
+  </data>
+  <data name="BatchedRmbs.Text">
+    <value>Завантажити оброблені компенсації</value>
+  </data>
+  <data name="btnAddExpenseItem.Text">
+    <value>Додати статтю витрат</value>
+  </data>
+  <data name="btnAdvanceRequest.Text">
+    <value>Надіслати запит на аванс</value>
+  </data>
+  <data name="btnAdvReq.Text">
+    <value>Запит на аванс</value>
+  </data>
+  <data name="btnApprove.Text">
+    <value>Затвердити</value>
+  </data>
+  <data name="btnCancel.Text">
+    <value>Скасувати</value>
+  </data>
+  <data name="btnCreate.Text">
+    <value>Створити</value>
+  </data>
+  <data name="btnDownload.Text">
+    <value>Завантажити в Excel</value>
+  </data>
+  <data name="btnDownloadBatch.Text">
+    <value>Завантажити оброблені компенсації</value>
+  </data>
+  <data name="btnEnter.Text">
+    <value>Ввести</value>
+  </data>
+  <data name="btnMoreInfo.Text">
+    <value>Запитати додаткову інформацію</value>
+  </data>
+  <data name="btnNew.Text">
+    <value>Нове відшкодування</value>
+  </data>
+  <data name="btnNo.Text">
+    <value>Ні</value>
+  </data>
+  <data name="btnOK.Text">
+    <value>Так</value>
+  </data>
+  <data name="btnPrint.Text">
+    <value>Друкувати</value>
+  </data>
+  <data name="btnProcess.Text">
+    <value>Обробити</value>
+  </data>
+  <data name="btnReject.Text">
+    <value>Скасувати</value>
+  </data>
+  <data name="btnSave.Text">
+    <value>Зберегти</value>
+  </data>
+  <data name="btnSettings.Text">
+    <value>Налаштування</value>
+  </data>
+  <data name="btnSplitAdd.Text">
+    <value>Додати лінію</value>
+  </data>
+  <data name="btnSubmit.Text">
+    <value>Представляти Submit</value>
+  </data>
+  <data name="btnYes.Text">
+    <value>Так</value>
+  </data>
+  <data name="Cancelled.Text">
+    <value>Скасовано</value>
+  </data>
+  <data name="cbExpenses.Text">
+    <value>Включити витрати</value>
+  </data>
+  <data name="Comment.Text">
+    <value>Коментувати</value>
+  </data>
+  <data name="CreateRmb.Text">
+    <value>Створити нове відшкодування</value>
+  </data>
+  <data name="Default.Text">
+    <value>Умовчання</value>
+  </data>
+  <data name="Delete.Text">
+    <value>Видалити</value>
+  </data>
+  <data name="Description.Text">
+    <value>Опис</value>
+  </data>
+  <data name="DownloadFailed.Text">
+    <value>Помилка завантаження</value>
+  </data>
+  <data name="Draft.Text">
+    <value>Чернетка</value>
+  </data>
+  <data name="Edit.Text">
+    <value>Редагувати</value>
+  </data>
+  <data name="Expenses.Text">
+    <value>Витрати</value>
+  </data>
+  <data name="LargeTransaction.Text">
+    <value>Велика транзакція</value>
+  </data>
+  <data name="lblBankAccount.Text">
+    <value>Банківський рахунок</value>
+  </data>
+  <data name="lblErrorMessage.Text">
+    <value>Повідомлення про помилку</value>
+  </data>
+  <data name="LineTypes.Text">
+    <value>Тип витрат</value>
+  </data>
+  <data name="NewLineTitle.Text">
+    <value>Додати нову транзакцію відшкодування</value>
+  </data>
+  <data name="NoReceipts.Text">
+    <value>Немає квитанцій</value>
+  </data>
+  <data name="OriginalTrans.Text">
+    <value>
+    </value>
+  </data>
+</root>
