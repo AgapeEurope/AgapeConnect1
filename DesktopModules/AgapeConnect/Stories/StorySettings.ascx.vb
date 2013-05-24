@@ -299,6 +299,15 @@ Namespace DotNetNuke.Modules.Stories
             GridView1.DataBind()
 
         End Sub
+
+
+        Protected Sub GridView1_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GridView1.RowDeleting
+            Dim q = From c In d.AP_Stories_Tag_Metas Where c.TagId = CInt(e.Keys(0))
+
+            d.AP_Stories_Tag_Metas.DeleteAllOnSubmit(q)
+            d.SubmitChanges()
+
+        End Sub
     End Class
 
 End Namespace
