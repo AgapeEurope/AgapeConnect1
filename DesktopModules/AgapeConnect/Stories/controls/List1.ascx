@@ -2,6 +2,7 @@
 <script src="/js/jquery.nivo.slider.js" type="text/javascript"></script>
 <link href="/DesktopModules/AgapeConnect/Stories/themes/default/default.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="/js/nivo-slider.css" rel="stylesheet" type="text/css" media="screen" />
+
 <script type="text/javascript">
     (function ($, Sys) {
         function setUpMyTabs() {
@@ -94,6 +95,82 @@
         -moz-border-radius: 15px;
         border-radius: 15px;
     }
+
+    .pagination ul>li:first-child>a, .pagination ul>li:first-child>span {
+border-left-width: 1px;
+-webkit-border-bottom-left-radius: 4px;
+border-bottom-left-radius: 4px;
+-webkit-border-top-left-radius: 4px;
+border-top-left-radius: 4px;
+-moz-border-radius-bottomleft: 4px;
+-moz-border-radius-topleft: 4px;
+}
+.pagination ul>li>a:hover, .pagination ul>li>a:focus, .pagination ul>.active>a, .pagination ul>.active>span {
+background-color: #f5f5f5;
+}
+.pagination ul>li>a, .pagination ul>li>span {
+float: left;
+padding: 4px 12px;
+line-height: 20px;
+text-decoration: none;
+background-color: #fff;
+border: 1px solid #ddd;
+border-left-width: 0;
+}
+.pagination ul>li {
+display: inline;
+}
+
+.pagination ul {
+display: inline-block;
+margin-bottom: 0;
+margin-left: 0;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+ul, ol {
+padding: 0;
+margin: 0 0 10px 25px;
+}
+ul, ol {
+padding: 0;
+margin: 0 0 9px 25px;
+}
+user agent stylesheetul, menu, dir {
+display: block;
+list-style-type: disc;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+-webkit-padding-start: 40px;
+}
+Inherited from div.pagination.pagination-centered
+.pagination-centered {
+text-align: center;
+}
+.pagination-centered {
+text-align: center;
+}
+.pagination {
+margin: 20px 0;
+}
+.pagination ul>.active>a, .pagination ul>.active>span {
+color: #999;
+cursor: default;
+}
+.pagination ul>li>a:hover, .pagination ul>li>a:focus, .pagination ul>.active>a, .pagination ul>.active>span {
+background-color: #f5f5f5;
+}
+.pagination ul>.disabled>span, .pagination ul>.disabled>a, .pagination ul>.disabled>a:hover, .pagination ul>.disabled>a:focus {
+color: #999;
+cursor: default;
+background-color: transparent;
+
 </style>
 
 
@@ -131,7 +208,7 @@
 
 
 
-<asp:DataList runat="server" ID="dlStories" AllowPaging="true" BorderStyle="None" CellSpacing="4" CellPadding="4" ShowHeader="False" GridLines="None" PagerStyle-Visible="false">
+<asp:DataList runat="server" ID="dlStories" AllowPaging="true" BorderStyle="None" Width="100%"  CellSpacing="4" CellPadding="4" ShowHeader="False" GridLines="None" PagerStyle-Visible="false">
     <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" VerticalAlign="Top" />
     <AlternatingItemStyle CssClass="dnnGridAltItem" />
     <FooterStyle CssClass="dnnGridFooter" />
@@ -139,7 +216,7 @@
 
         <asp:HyperLink ID="lnkLink" runat="server" CssClass="CommandButton" NavigateUrl='<%# "javascript: registerClick(" & DataBinder.Eval(Container.DataItem, "CacheId") & ", """ &   CStr(DataBinder.Eval(Container.DataItem, "Link")) & """); "%>'>
 
-            <table>
+            <table width="100%">
                 <tr valign="top">
                     <td>
                         <asp:Image ID="imgImage" runat="server" ImageUrl='<%# Eval("ImageId")  %>' CssClass="seachImage" />
@@ -170,5 +247,17 @@
 
 
     </ItemTemplate>
-
+    
 </asp:DataList>
+
+
+
+<asp:Literal ID="ltPagination" runat="server"></asp:Literal>
+
+
+
+      
+    
+
+   
+   

@@ -63,7 +63,9 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                     Dim dControl = From c In d.AP_Stories_Controls Where c.StoryControlId = CInt(Settings("StoryControlId"))
 
                     If dControl.Count > 0 Then
-                        LoadStoryControl(dControl.First.Location)
+
+                        LoadStoryControl(dControl.First.Location, dControl.First.Type = 2)
+
                     End If
 
                 End If
@@ -72,7 +74,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
         End Sub
 
 
-        Private Sub LoadStoryControl(ByVal URL As String)
+        Private Sub LoadStoryControl(ByVal URL As String, Optional IsList As Boolean = False)
             If String.IsNullOrEmpty(Session("Long")) Or String.IsNullOrEmpty(Session("Lat")) Then
                 Dim ls As New LookupService(Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD)
 
@@ -100,6 +102,12 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             Dim deg2Rad As Double = Math.PI / CDbl(180.0)
             Dim G As Double = 0.8
             Dim P As Double = 0.8
+            Dim N As Integer = Settings("NumberOfStories")
+            If IsList Then
+                N = 500
+
+            End If
+
             If Settings("WeightRegional") <> "" Then
                 G = Double.Parse(Settings("WeightRegional"), New CultureInfo(""))
 
@@ -131,7 +139,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
             r = r.Where(Function(c) CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower = c.c.Langauge.Substring(0, 2) And c.c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId And Not c.c.Block) _
                             .OrderByDescending(Function(c) c.ViewOrder) _
-                        .Take(CInt(Settings("NumberOfStories")))
+                        .Take(N)
             Dim storyList = r.Select(Function(x) x.c).ToList()
 
             If IsEditable And TabModuleId = 4469 Then

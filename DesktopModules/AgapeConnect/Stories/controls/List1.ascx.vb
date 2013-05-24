@@ -63,6 +63,9 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
         Public Sub Initialize(ByVal Stories As List(Of AP_Stories_Module_Channel_Cache), settings As Hashtable)
 
+            'Dim d As New StoriesDataContext
+
+
 
             Dim out As String = ""
 
@@ -90,16 +93,65 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             divWidth = photoWidth
             divHeight = photoHeight
 
+            Dim Skip As Integer = 0
+            Dim pg As Integer = 0
+            If Not String.IsNullOrEmpty(Request.QueryString("p")) Then
+                pg = Request.QueryString("p")
+                Skip = pg * CInt(settings("NumberOfStories"))
+            End If
 
-            dlStories.DataSource = Stories
+
+            dlStories.DataSource = Stories.Skip(Skip).Take(CInt(settings("NumberOfStories")))
             dlStories.DataBind()
+
+            If Stories.Count > CInt(settings("NumberOfStories")) Then
+                Dim urlStub = NavigateURL()
+                If String.IsNullOrEmpty(Request.QueryString("tags")) Then
+                    urlStub &= "?p="
+                Else
+                    urlStub &= "?tabs=" & Request.QueryString("tags") & "&p="
+                End If
+
+
+                Dim p As String = "<div class=""pagination pagination-centered""><ul>"
+                If pg = 0 Then
+                    p &= "<li class=""disabled""><a>Prev</a></li>"
+                Else
+                    p &= "<li><a href='" & urlStub & (pg - 1) & "'>Prev</a></li>"
+                End If
+
+                For i As Integer = 0 To CInt(Stories.Count / CInt(settings("NumberOfStories"))) - 1
+                    If i = pg Then
+                        p &= "<li class=""active""><a>" & (i + 1) & "</a></li>"
+                    Else
+                        p &= "<li><a href='" & urlStub & (i) & "'>" & (i + 1) & "</a></li>"
+                    End If
+
+
+                Next
+
+
+                If pg = CInt(Stories.Count / CInt(settings("NumberOfStories"))) - 1 Then
+                    p &= "<li class=""disabled""><a>Next</a></li>"
+                Else
+                    p &= "<li><a href='" & urlStub & (pg + 1) & "'>Next</a></li>"
+                End If
+
+                p &= "</ul></div>"
+                ltPagination.Text = p
+            End If
+
+
+
+
+
 
             Dim d As New StoriesDataContext
             Dim tags = From c In d.AP_Stories_Tags Where c.PortalId = PortalId And c.Master
 
             dlFilter.DataSource = tags
             dlFilter.DataBind()
-           
+
         End Sub
 
         Public Function GetStoryDateString(ByVal StoryDate As Date, ByVal GUID As String, ByVal Link As String) As String
