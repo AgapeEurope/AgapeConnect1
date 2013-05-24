@@ -590,11 +590,14 @@ header {
 /* ********** NAV ************** */
 nav {
     background: url(images/nav_bg_light.png) center 0px no-repeat;
+     background-size: 100% auto;
 }
 
 .nav_light {
-    background:  0px bottom repeat-x #797367;
-     /*background: url(images/nav_bg.jpg) 0px bottom repeat-x #2a2a2a;*/
+    /*background:  0px bottom repeat-x #797367;*/
+     background: url(images/nav_bg2.jpg)  0px bottom repeat-x #0C0C0C;
+    
+
     /* background:#555; */
 }
 
