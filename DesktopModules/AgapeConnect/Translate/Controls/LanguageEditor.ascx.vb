@@ -195,7 +195,9 @@ Partial Class DesktopModules_AgapeConnect_Translate_LanuguageEditor
 
     Private Function GetLocalizedString(ByVal Key As String, ByVal Fallback As String) As String
 
+        Try
 
+        
         If Not tpDataNodes Is Nothing Then
             Dim foreignNode = (From c As XmlNode In tpDataNodes Where c.Attributes(0).Value = Key Select c.SelectSingleNode("value").InnerText)
             If foreignNode.Count > 0 Then
@@ -208,7 +210,9 @@ Partial Class DesktopModules_AgapeConnect_Translate_LanuguageEditor
                 Return foreignNode.First()
             End If
         End If
-
+        Catch ex As Exception
+            Return Fallback
+        End Try
         Return Fallback
     End Function
     Private Sub CreateNewDataNode(ByRef tdoc As XmlDocument, ByVal KeyName As String)
