@@ -166,40 +166,40 @@ cursor: default;
 .pagination ul>li>a:hover, .pagination ul>li>a:focus, .pagination ul>.active>a, .pagination ul>.active>span {
 background-color: #f5f5f5;
 }
-.pagination ul>.disabled>span, .pagination ul>.disabled>a, .pagination ul>.disabled>a:hover, .pagination ul>.disabled>a:focus {
-color: #999;
-cursor: default;
-background-color: transparent;
-
+    .pagination ul > .disabled > span, .pagination ul > .disabled > a, .pagination ul > .disabled > a:hover, .pagination ul > .disabled > a:focus {
+        color: #999;
+        cursor: default;
+        background-color: transparent;
+    }
+    .tagFilter label {
+        margin-left: 5px;
+    }
 </style>
-
-
-
-
-<asp:Repeater ID="dlFilter" runat="server">
-    <HeaderTemplate>
-        <div class="mynavbar-inner">
+<div class="mynavbar-inner">
 
             <div class="pull-left">
             </div>
             <div class="row-fluid ">
-                <div class="span2">
+                <div class="span1">
                     <strong>Filter:</strong>
                 </div>
-    </HeaderTemplate>
+                <div style="text-align:center;">
+<asp:DataList ID="dlFilter" runat="server" RepeatColumns="3" width="100%" >
+    
     <ItemTemplate>
-        <div class="span2">
+        <div style="padding: 0 10px; width:100%; text-align:left;">
           
                 <asp:CheckBox ID="cbFilter" runat="server" CssClass="tagFilter" Text='<%# Eval("TagName")%>' Checked='<%# hfSelectedTags.Value.Split(",").Contains(Eval("TagName"))%>' />
         
         </div>
 
     </ItemTemplate>
-    <FooterTemplate>
-        </div>
+
+</asp:DataList>
+                    </div>
+  </div>
 </div>
-    </FooterTemplate>
-</asp:Repeater>
+
 
 
 <asp:HiddenField ID="hfSelectedTags" runat="server" />
@@ -249,6 +249,9 @@ background-color: transparent;
     </ItemTemplate>
     
 </asp:DataList>
+
+
+
 
 
 
