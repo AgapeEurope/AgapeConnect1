@@ -41,8 +41,9 @@ function SupportWidgetStep2() {
 		$('.SupportWidget').attr('href', helpdeskUrl + 'Tickets/New/?SimpleMaster=1');
 
 		if (!fancyboxloaded) { //to prevent adding fancybox 2 times
-			fancyboxloaded = true;
-			GetScript("https://jitbitscripts.googlecode.com/svn/trunk/jquery.fancybox-1.3.4.pack.js");
+		    fancyboxloaded = true;
+		    GetScript("/js/jquery.fancybox-1.3.4.pack.js");
+			//GetScript("https://jitbitscripts.googlecode.com/svn/trunk/jquery.fancybox-1.3.4.pack.js");
 		}
 		TryFancyboxReady(0);
 	});
@@ -72,7 +73,7 @@ function AddFancyBoxCSS() {
 	var linktg = document.createElement('link');
 	linktg.type = 'text/css';
 	linktg.rel = 'stylesheet';
-	linktg.href = 'https://jitbitscripts.googlecode.com/svn/trunk/jquery.fancybox-1.3.4.css';
+	linktg.href = '/js/jquery.fancybox-1.3.4.css';
 	headtg.appendChild(linktg);
 }
 
