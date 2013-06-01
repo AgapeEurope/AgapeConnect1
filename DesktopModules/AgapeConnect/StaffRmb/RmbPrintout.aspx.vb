@@ -232,9 +232,14 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             Else
                 output = output.Replace("[APPROVEDBY]", "")
             End If
-           
-            output = output.Replace("[PROCESSEDBY]", "")
 
+
+            If Not q.First.ProcUserId Is Nothing Then
+                output = output.Replace("[PROCESSEDBY]", UserController.GetUserById(PS.PortalId, q.First.ProcUserId).DisplayName)
+            Else
+                output = output.Replace("[PROCESSEDBY]", "")
+            End If
+         
 
 
             PlaceHolder1.Controls.Add(New LiteralControl(output))

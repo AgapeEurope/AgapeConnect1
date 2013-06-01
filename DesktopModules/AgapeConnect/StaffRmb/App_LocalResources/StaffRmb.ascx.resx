@@ -271,7 +271,7 @@
     <value>Would you like to mark the downloaded transactions as 'Processed'?</value>
   </data>
   <data name="MarkProcessedHelp.Text" xml:space="preserve">
-    <value>If you are going to insert these transactions manually into your accounts package, you should select YES. Be aware that by selected YES, these transactions will be marked as processed and ignored by the automatic transaction broker.</value>
+    <value>If you are going to insert these transactions manually into your accounts package, you should select YES. Be aware that by selected YES, these transactions will be marked as processed and therfore ignored by the automatic datapump.</value>
   </data>
   <data name="NewLineTitle.Text" xml:space="preserve">
     <value>Add New Reimbursement Transaction</value>
@@ -490,7 +490,7 @@
     <value> Request more info</value>
   </data>
   <data name="MoreInfo.Text" xml:space="preserve">
-    <value>The accounts team have requested that you supply more information for Reimbursement [RMBNO] - [USERREF].</value>
+    <value>The finance team have requested that you supply more information for Reimbursement [RMBNO] - [USERREF].</value>
   </data>
   <data name="MoreInfoMsg.Text" xml:space="preserve">
     <value>This reimbursment will be highlighted to the staff member on this page. However, you should email the staff member directly, to let him/her know what information you need.</value>
@@ -547,16 +547,16 @@
     <value>Bank Account:</value>
   </data>
   <data name="lblWrongType.Text" xml:space="preserve">
-    <value>This expenses uses an expense that is not valid for this Responsibility Center. You must edit this line and select a valid expense type, before you can submit/process this reimbursement.</value>
+    <value>This reimbursement uses an expense type that is not valid for this Responsibility Center. You must edit this line and select a valid expense type, before you can submit/process this reimbursement.</value>
   </data>
   <data name="lblWrongTypes.Text" xml:space="preserve">
-    <value>The Reimbursement contains expenses with incomatible expense types - highlighted in red. Some expense types are only valid or Personal Reimbursments and others for Department Reimbursements. To correct this, edit the line(s) and select a new (valid) expense type. You must fix these errors before your can Submit/Approve/Process this r.eimbursment.</value>
+    <value>The Reimbursement contains expenses with incompatible expense types - highlighted in red. Some expense types are only valid or Personal Reimbursements and others for Department Reimbursements. To correct this, edit the line(s) and select a new (valid) expense type. You must fix these errors before your can Submit/Approve/Process this r.eimbursment.</value>
   </data>
   <data name="AccountWarning.Text" xml:space="preserve">
     <value>Warning</value>
   </data>
   <data name="lblAccountWarning.Text" xml:space="preserve">
-    <value>There is not enough money in the R/C to cover this Reimbursement. Processing this Reimbursement may result in a negative account balance. Do you with to continue?</value>
+    <value>There is not enough money in the R/C to cover this Reimbursement. Processing this Reimbursement may result in a negative account balance. Do you wish to continue?</value>
   </data>
   <data name="ShortComment.Help" xml:space="preserve">
     <value>Your accounting program will probably have a limit on the number of characters in the Comment/Description field. For Dynamics/Solomon, this is typically 30 Characters (Including the staff initals). You can customise this descrption here.</value>

@@ -770,9 +770,7 @@ Public Class DatatSync
 
         Dim d As New StaffRmb.StaffRmbDataContext
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-        If Not ((GetSetting("RmbDownload", PS.PortalId) <> "False" Or GetSetting("RmbSinglePump", PS.PortalId) = "True")) Then
-            Return
-        End If
+        
         If GetSetting("RmbSinglePump", PS.PortalId) = "True" Then
             SetSetting("RmbSinglePump", False, PS.PortalId)
         End If
@@ -815,6 +813,11 @@ Public Class DatatSync
             rtn.Message &= "Error: The Control Account (Responsibility Center) does not exist. This can be changed in the Rmb Settings; "
             rtn.Status = "Error"
         End If
+
+        If Not ((GetSetting("RmbDownload", PS.PortalId) <> "False" Or GetSetting("RmbSinglePump", PS.PortalId) = "True")) Then
+            Return
+        End If
+
 
         Dim q = From c In d.AP_Staff_Rmbs Where (c.Status >= StaffRmb.RmbStatus.PendingDownload) And c.PortalId = PS.PortalId
 

@@ -1098,6 +1098,24 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     End If
 
+                    If q.First.ProcUserId Is Nothing Then
+                        lblProcessedBy.Text = ""
+                    Else
+                        lblProcessedBy.Text = UserController.GetUserById(PortalId, q.First.ProcUserId).DisplayName
+                    End If
+                    If q.First.ProcDate Is Nothing Then
+                        lblProcessedDate.Text = ""
+                    Else
+                        lblProcessedDate.Text = q.First.ProcDate.Value.ToShortDateString
+
+                    End If
+
+                    If Not q.First.ApprDate Is Nothing Then
+                        lblApprovedDate.Text = q.First.ApprDate.Value.ToShortDateString
+                    Else
+                        lblApprovedDate.Text = ""
+                    End If
+
 
                     ttlYourComments.Visible = (q.First.UserId = UserId)
                     ttlUserComments.Visible = (q.First.UserId <> UserId)
@@ -2358,6 +2376,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             theRmb.First.Status = RmbStatus.PendingDownload
             theRmb.First.ProcDate = Today
             theRmb.First.MoreInfoRequested = False
+            theRmb.First.ProcUserId = Userid
             d.SubmitChanges()
             LoadRmb(hfRmbNo.Value)
             ResetMenu()
@@ -3587,68 +3606,76 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim theStaff = StaffBrokerFunctions.GetStaffMember(theUserId)
                 Dim PACMode = (
                     theStaff.CostCenter = "" And StaffBrokerFunctions.GetStaffProfileProperty(theStaff.StaffId, "PersonalAccountCode") <> "")
-                Dim RmbTotal As Double = (From c In theRmb Select c.GrossAmount).Sum
 
-
-                If PACMode Then
-                    If RmbTotal <> 0 Then
-
-                        rtn &= "=""" & StaffBrokerFunctions.GetStaffProfileProperty(theStaff.StaffId, "PersonalAccountCode") & ""","
-                        rtn &= "=""" & Settings("ControlAccount") & """" & ","
-                        rtn &= ref & ","
-                        rtn &= theDate & ","
-
-                        Dim Debit As String = ""
-                        Dim Credit As String = ""
-
-
-
-                        If RmbTotal > 0 Then
-                            Credit = RmbTotal.ToString("0.00")
-
-                            'rtn &= "," & RmbTotal.ToString("0.00") & ","
-                        Else
-                            'rtn &= -RmbTotal.ToString("0.00") & ",,"
-                            Debit = -RmbTotal.ToString("0.00")
-                        End If
-
-                        'rtn &= Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref & vbNewLine
-                        rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref,
-                                                Debit, Credit)
-
-
-                    End If
-
-                Else
-                    Dim rmbAdvance As Double = 0.0
-                    Dim rmbAdvanceBalance As Double = 300.0
-                    If theRmb.Count > 0 Then
-
-                        Dim Adv As Double = theRmb.First.AP_Staff_Rmb.AdvanceRequest
-                        If Not Adv = Nothing Then
-
-
-                            If Adv > 0 Then
-                                rmbAdvance = Math.Min(Math.Min(RmbTotal, Adv), rmbAdvanceBalance)
-                            ElseIf Adv = -1 Then
-                                rmbAdvance = Math.Min(RmbTotal, rmbAdvanceBalance)
-                            End If
-                        End If
-
-
-                    End If
-
-
-
-                    RmbTotal -= rmbAdvance
+                If theRmb.Count > 0 Then
 
 
 
 
-                    If Not RmbTotal = Nothing Then
+                    Dim RmbTotal As Double = (From c In theRmb Select c.GrossAmount).Sum
+
+
+                    If PACMode Then
                         If RmbTotal <> 0 Then
 
+                            rtn &= "=""" & StaffBrokerFunctions.GetStaffProfileProperty(theStaff.StaffId, "PersonalAccountCode") & ""","
+                            rtn &= "=""" & Settings("ControlAccount") & """" & ","
+                            rtn &= ref & ","
+                            rtn &= theDate & ","
 
+                            Dim Debit As String = ""
+                            Dim Credit As String = ""
+
+
+
+                            If RmbTotal > 0 Then
+                                Credit = RmbTotal.ToString("0.00")
+
+                                'rtn &= "," & RmbTotal.ToString("0.00") & ","
+                            Else
+                                'rtn &= -RmbTotal.ToString("0.00") & ",,"
+                                Debit = -RmbTotal.ToString("0.00")
+                            End If
+
+                            'rtn &= Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref & vbNewLine
+                            rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref,
+                                                    Debit, Credit)
+
+
+                        End If
+
+                    Else
+                        Dim rmbAdvance As Double = 0.0
+                        Dim rmbAdvanceBalance As Double = 0.0
+
+                        If theRmb.Count > 0 Then
+
+                            Dim Adv As Double = theRmb.First.AP_Staff_Rmb.AdvanceRequest
+                            If Not Adv = Nothing Then
+                               
+
+                                If Adv > 0 Then
+                                    rmbAdvance = Math.Min(RmbTotal, 99999.0) ' Math.Min(Math.Min(RmbTotal, Adv), rmbAdvanceBalance)
+                                ElseIf Adv = -1 Then
+                                    rmbAdvance = Math.Min(RmbTotal, rmbAdvanceBalance)
+                                End If
+                                
+                            End If
+
+
+                        End If
+
+
+
+                        RmbTotal -= rmbAdvance
+
+                        
+
+
+
+                        If RmbTotal <> 0 Then
+
+                           
 
                             rtn &= "=""" & Settings("AccountsPayable") & ""","
                             rtn &= "=""" & theStaff.CostCenter & """" & ","
@@ -3676,8 +3703,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                         End If
                         If rmbAdvance <> 0 Then
-
-
+                            
                             rtn &= "=""" & Settings("AccountsReceivable") & ""","
 
                             rtn &= "=""" & theStaff.CostCenter & """" & ","
@@ -3702,8 +3728,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                         End If
 
-                    End If
 
+
+                    End If
                 End If
             End If
 

@@ -90,6 +90,7 @@
       <Column Name="DownloadDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DownloadMode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="MoreInfoRequested" Type="System.Boolean" DbType="bit" CanBeNull="true" />
+      <Column Name="ProcUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="AP_Staff_Rmb_AP_Staff_RmbLine" Member="AP_Staff_RmbLines" ThisKey="RMBNo" OtherKey="RmbNo" Type="AP_Staff_RmbLine" />
     </Type>
   </Table>

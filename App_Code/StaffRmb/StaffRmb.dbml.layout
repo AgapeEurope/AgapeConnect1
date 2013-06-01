@@ -39,10 +39,10 @@
         <elementListCompartment Id="c74745ab-82c8-48cb-948e-ff6a238cd263" absoluteBounds="5.14, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="04cf3e34-0cde-4d87-b8b3-dcae1502bbc1" absoluteBounds="1.25, 0.875, 2, 6.9630354817708326">
+    <classShape Id="04cf3e34-0cde-4d87-b8b3-dcae1502bbc1" absoluteBounds="1.25, 0.875, 2, 7.1553369140625005">
       <DataClassMoniker Name="/StaffRmbDataContext/AP_Staff_Rmb" />
       <nestedChildShapes>
-        <elementListCompartment Id="e08dc11c-e850-44f9-a1ac-9d50ab46a4f3" absoluteBounds="1.2650000000000001, 1.335, 1.9700000000000002, 6.403035481770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e08dc11c-e850-44f9-a1ac-9d50ab46a4f3" absoluteBounds="1.2650000000000001, 1.335, 1.9700000000000002, 6.5953369140625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="2167f53f-73fb-4bdf-906d-de0c2e9a2b9b" absoluteBounds="4.5, 11.25, 2, 4.2708154296875005">
@@ -63,7 +63,7 @@
         <elementListCompartment Id="0f1f339a-acbf-4f94-a573-5a1f6c37a9ab" absoluteBounds="4.265, 3.835, 1.9700000000000002, 6.0184326171875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.25 : 5.60651774088542); (4.25 : 5.60651774088542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.25 : 5.70266845703125); (4.25 : 5.70266845703125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/StaffRmbDataContext/AP_Staff_Rmb/AP_Staff_Rmb_AP_Staff_RmbLine" />
       <nodes>
         <classShapeMoniker Id="04cf3e34-0cde-4d87-b8b3-dcae1502bbc1" />
