@@ -16,7 +16,7 @@
         function setUpMyTabs() {
             var stop = false;
            
-            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();  $('.hfCurOpen').val("true");   });
+            $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();  $('#<%= hfCurOpen.ClientID %>').val("true");   });
             
             
             
@@ -68,7 +68,7 @@
               });
 
            //Advance Currency Coverter
-            $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('.hfCurOpen').val("true"); $('#' + this.id).hide();  });
+            $('.hlCurAdv').click(function() { var tempValue=$('.advAmount').val();  $('.ddlCurAdv').change();$('.rmbAmountAdv').val(tempValue); $('.divCurAdv').show(); $('#<%= hfCurOpen.ClientID %>').val("true"); $('#' + this.id).hide();  });
             $('.currencyAdv').keyup(function() { calculateXRateAdv();});
             $('.ddlCurAdv').change(function() { 
                
@@ -99,7 +99,7 @@
 
 
             //Advance Pay Off Currency Coverter
-            $('.hlCurAdvPO').click(function() { var tempValue=$('.advPOAmount').val();  $('.ddlCurAdvPO').change();$('.rmbAmountAdvPO').val(tempValue); $('.divCurAdvPO').show(); $('.hfCurOpenAdvPO').val("true"); $('#' + this.id).hide();  });
+            $('.hlCurAdvPO').click(function() { var tempValue=$('.advPOAmount').val();  $('.ddlCurAdvPO').change();$('.rmbAmountAdvPO').val(tempValue); $('.divCurAdvPO').show(); $('#<%= hfCurOpenAdvPO.ClientID%>').val("true"); $('#' + this.id).hide();  });
             $('.currencyAdvPO').keyup(function() {calculateXRateAdvPO();});
             $('.ddlCurAdvPO').change(function() { 
               
