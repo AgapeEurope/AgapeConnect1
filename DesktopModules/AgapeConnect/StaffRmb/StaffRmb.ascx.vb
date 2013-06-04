@@ -1509,7 +1509,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         insert.OrigCurrency = hfOrigCurrency.Value
                         insert.OrigCurrencyAmount = hfOrigCurrencyValue.Value
                     End If
-                    insert.ShortComment = GetLineComment(insert.Comment, insert.OrigCurrency, insert.OrigCurrencyAmount, tbShortComment.Text, False)
+                    insert.ShortComment = GetLineComment(insert.Comment, insert.OrigCurrency, insert.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
 
 
                     If insert.GrossAmount >= Settings("TeamLeaderLimit") Then
@@ -1682,15 +1682,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         If line.First.Comment <> comment Then
                             line.First.Comment = comment
                             If line.First.ShortComment = tbShortComment.Text Then
-                                line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, "", False)
+                                line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, "", False, Nothing)
                             Else
-                                line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False)
+                                line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
 
                             End If
                             
 
                         Else
-                            line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False)
+                            line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
 
                         End If
                         
@@ -2637,7 +2637,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
                     End If
 
-                    tbShortComment.Text = GetLineComment(theLine.First.Comment, theLine.First.OrigCurrency, theLine.First.OrigCurrencyAmount, theLine.First.ShortComment, False)
+                    tbShortComment.Text = GetLineComment(theLine.First.Comment, theLine.First.OrigCurrency, theLine.First.OrigCurrencyAmount, theLine.First.ShortComment, False, Nothing)
 
 
 
@@ -2826,12 +2826,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Function
-        Public Function GetLineComment(ByVal comment As String, ByVal Currency As String, ByVal CurrencyValue As Double, ByVal ShortComment As String, Optional ByVal includeInitials As Boolean = True) As String
+        Public Function GetLineComment(ByVal comment As String, ByVal Currency As String, ByVal CurrencyValue As Double, ByVal ShortComment As String, Optional ByVal includeInitials As Boolean = True, Optional ByVal explicitStaffInitals As String = Nothing) As String
             'Prefix initials  // suffix Currency   // Trim to 30 char
 
             Dim initials As String = ""
             If includeInitials Then
-                initials = UnidecodeSharpFork.Unidecoder.Unidecode(staffInitials.Value & "-").Substring(0, 3)
+                If Not String.IsNullOrEmpty(explicitStaffInitals) Then
+                    initials = UnidecodeSharpFork.Unidecoder.Unidecode(explicitStaffInitals & "-").Substring(0, 3)
+                Else
+                    initials = UnidecodeSharpFork.Unidecoder.Unidecode(staffInitials.Value & "-").Substring(0, 3)
+                End If
+
             End If
             If Not String.IsNullOrEmpty(ShortComment) Then
                 Return initials & UnidecodeSharpFork.Unidecoder.Unidecode(ShortComment)
@@ -3577,7 +3582,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Else
                         Credit = -line.GrossAmount.ToString("0.00")
                     End If
-                    Dim shortComment = GetLineComment(line.Comment, line.OrigCurrency, line.OrigCurrencyAmount, line.ShortComment, True)
+                    Dim shortComment = GetLineComment(line.Comment, line.OrigCurrency, line.OrigCurrencyAmount, line.ShortComment, True, Left(theUser.FirstName, 1) & Left(theUser.LastName, 1))
                     rtn &= GetOrderedString(shortComment,
                                          Debit, Credit)
 
@@ -3646,7 +3651,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     Else
                         Dim rmbAdvance As Double = 0.0
-                        Dim rmbAdvanceBalance As Double = 0.0
+                        Dim rmbAdvanceBalance As Double = 99999.99
 
                         If theRmb.Count > 0 Then
 
@@ -3655,7 +3660,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                
 
                                 If Adv > 0 Then
-                                    rmbAdvance = Math.Min(RmbTotal, 99999.0) ' Math.Min(Math.Min(RmbTotal, Adv), rmbAdvanceBalance)
+                                    rmbAdvance = Math.Min(Math.Min(RmbTotal, Adv), rmbAdvanceBalance)
                                 ElseIf Adv = -1 Then
                                     rmbAdvance = Math.Min(RmbTotal, rmbAdvanceBalance)
                                 End If

@@ -4,12 +4,12 @@
 <%@ Register src="Controls/StaffAdvanceRmb.ascx" tagname="StaffAdvanceRmb" tagprefix="uc1" %>
 <%@ Register src="Controls/Currency.ascx" tagname="Currency" tagprefix="uc1" %>
 <%@ Register Src="~/DesktopModules/AgapeConnect/StaffRmb/Controls/Currency.ascx" TagPrefix="dnn" TagName="Currency" %>
-
+<script src="/js/gplus-youtubeembed.js" type="text/javascript"></script>
 
 <script src="/js/jquery.numeric.js" type="text/javascript"></script>
 <script src="/js/jquery.watermarkinput.js" type="text/javascript"></script>
 <script type="text/javascript">
-    
+    optimizeYouTubeEmbeds();
 
 
     (function ($, Sys) {

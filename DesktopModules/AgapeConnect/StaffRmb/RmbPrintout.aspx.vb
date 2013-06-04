@@ -97,6 +97,19 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
             output = output.Replace("[CHARGETO]", GetCostCentreName(q.First.CostCenter, q.First.UserId, q.First.PortalId))
 
+            If (q.First.AdvanceRequest > 0) And q.First.AP_Staff_RmbLines.Count > 0 Then
+                If q.First.AdvanceRequest = q.First.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount) Then
+                    et &= "<p>" & Translate("ClearAdvAll") & "</p>"
+
+                Else
+                    Dim total = q.First.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount)
+                    et &= "<p>" & Translate("ClearAdvPartial").Replace("[CLEARADV]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, q.First.AdvanceRequest.ToString("0.00"))).Replace("[PAYABLE]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, (total - q.First.AdvanceRequest).ToString("0.00"))) & "</p>"
+
+                End If
+
+            End If
+
+
 
 
             output = output.Replace("[EXPENSESTABLE]", et)
@@ -212,7 +225,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                 output = output.Replace("[RMBLINES2]", lines)
             End If
-            
+
 
 
             If Not q.First.ApprDate Is Nothing Then
@@ -239,7 +252,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             Else
                 output = output.Replace("[PROCESSEDBY]", "")
             End If
-         
+
 
 
             PlaceHolder1.Controls.Add(New LiteralControl(output))
@@ -248,7 +261,16 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
     End Sub
 
     Public Function Translate(ByVal ResourceString As String) As String
-        Return DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile  )
+        Dim rtn As String
+        Try
+            rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
+
+        Catch ex As Exception
+            rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", "/DesktopModules/AgapeConnect/StaffRmb/App_LocalResources/RmbPrintout.ascx.resx")
+
+        End Try
+        
+        Return rtn
 
     End Function
 
