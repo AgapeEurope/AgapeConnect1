@@ -1,125 +1,97 @@
 
-@import url("skinPopup.css");
-/*########## PortalCSS ################*/
-
 * {
     margin: 0;
     padding: 0;
 }
 
-#searchContainer, #seachContainer span, #searchContainer span .NormalTextBox {
-    vertical-align: top;
-}
-
-.ui-accordion .ui-accordion-content {
-    padding-right: 3px;
-    padding-left: 3px;
-}
-
-a.dnnFormHelp span {
-    margin-right: 20px!important;
-}
-
-.RadTreeView {
-    text-align: left;
-}
-
-/*############## Menu Style ###############*/
-/* main menu td */
-.main_dnnmenu_bar {
-    cursor: pointer;
-    font-size: 12px;
-    width: 970px;
-    z-index: 1000;
-    height: 34px;
-}
-
-/*  Main Menu Normal  */
-.main_dnnmenu_rootitem {
-    color: #FFF;
-    padding: 9px 7px 9px 7px;
-    font-weight: bold;
-    white-space: nowrap;
-    z-index: 1000;
-    height: 34px;
-}
-
-
-/*  Main menu hover  */
-.main_dnnmenu_rootitem_hover {
-    color: #FFF;
-    background-color: #2f88cf;
-    padding: 9px 7px 8px 7px;
-    font-weight: bold;
-    height: 34px;
-    white-space: nowrap;
-    z-index: 1000;
-    border-radius: 10px 10px 0px 0px;
-}
-
-
-
-/*  Main menu selected  */
-.main_dnnmenu_rootitem_selected {
-    color: white;
-    background-color: #5EB6E4;
-    font-weight: bold;
-    padding: 9px 7px 8px 7px;
-    white-space: nowrap;
-    z-index: 1000;
-    height: 34px;
-    border-radius: 10px 10px 0px 0px;
-}
-
-/*  SUB Menu hover & selected */
-.Language.selected {
-    border: 1px solid white;
-}
-
-/*########### DDR Menu CSS ###############*/
-
-.navhor {
-    display: inline;
-}
-
-    .navhor a {
-        color: #FFF;
-        font-weight: bold;
-        text-decoration: none;
-        padding: 10px 6px 10px 6px;
-    }
-
-        .navhor a:hover {
-
-            background-color: #2f88cf;
-            height: 34px;
-            white-space: nowrap;
-            z-index: 1000;
-            border-radius: 10px 10px 0px 0px;
-        }
-
-    .navhor li.selected a {
-        background-color: #2f88cf;
-        border-radius: 10px 10px 0px 0px;
-    }
-
-    .navhor li {
-        display: inline-block;
-    }
-
-/*########### SKIN CSS ###############*/
-
 html, body, form {
     height: 100%;
-    min-width: 1050px;
-    /*background-image:url(images/rt.png);
-    background-repeat: repeat-y;
-    background-position: right;*/
+    min-width: 975px;
+	background: #F5F5F5;
 }
 
-#wrap {
-    min-height: 100%;
-    background: url('images/footer_shadow3.png') bottom repeat-x;
+.bar {
+	width: 100%;
+	text-align: center; /* To center header in older IE */
+}
+
+.centeredbox {
+    width: 975px;
+    margin-left: auto;
+    margin-right: auto;
+	text-align: left; /* To undo center alignment in bar1 */
+}
+
+#bar1 {
+    background-image: url(images/HeaderBkg.png);
+	background-repeat: repeat-x;
+}
+
+.bar1 {
+	height: 160px;
+}
+
+#headerContent {
+	margin-right: 10px;
+	position:relative;
+}
+
+#logo {
+    float: left;
+}
+
+#header #toplinks {
+    text-align: right;
+	color: #5f5f5f;
+	padding-top: 10px;
+}
+
+#header #toplinks div, #header #toplinks  span, #header #toplinks input  {
+    display:inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+	vertical-align: middle;
+	height: 27px;
+	line-height: 27px;
+}
+
+#header #toplinks .needMargin  {
+	margin-left: 1em;
+}
+
+#header #SearchContainer input {
+	-webkit-border-radius: .5em 0 0 .5em;
+    -moz-border-radius: .5em 0 0 .5em;
+    border-radius: .5em 0 0 .5em;
+	border-style: none;
+	margin: 0px;
+	color: #b3b3b3;
+	font-family: 'OpenSansItalic';
+	padding-left: 8px;
+	width: 150px;
+}
+
+#header #SearchContainer #SearchSubmit {
+	-webkit-border-radius: 0 .5em .5em 0;
+    -moz-border-radius: 0 .5em .5em 0;
+    border-radius: 0 .5em .5em 0;
+
+	border-style: none;
+	background-color: #3A8BC2;
+	margin: 0 0 0 -6px;
+	width: 31px;
+	background:#3A8BC2 url('images/loupe.png') no-repeat center center;
+}
+
+#header .minicart_icon {
+	width: 16px;    
+	background: url('images/cart.png') no-repeat center center;
+    margin-right: .3em;
+}
+
+#bar2 {
+    height: 34px;
+    background: #3A8BC2;
+	text-align: center; /* To center header in IE */
 }
 
 .clear_float {
@@ -129,103 +101,254 @@ html, body, form {
     height: 0;
 }
 
-#firstbar {
-    height: 86px;
-    background-color: #FFF;
+/*===================== MENU1 ===================== */
+
+#header #menu1 {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	text-align: right;
+	width: 671px;
 }
 
-#header {
-    width: 1050px;
-    margin-left: auto;
+#menu1 .navhor {
+    display: inline;
+}
+
+#menu1 .navhor li, #menu1 .navhor  a:link, #menu1 .navhor  a:active, #menu1 .navhor  a:visited, #menu1 .navhor  a:hover {
+	display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+	vertical-align:bottom;
+}
+
+#menu1 .navhor  a:link, #menu1 .navhor  a:active, #menu1 .navhor  a:visited, #menu1 .navhor  a:hover {
+	font-family: OpenSansLight;
+	font-size: 20px;
+	padding: 0 10px 0 10px;
+	color: #0f72b4;
+	margin-bottom: 6px;
+	*margin-bottom: 0px;
+}
+
+#menu1 .navhor li.selected a:link, #menu1 .navhor li.selected a:active, #menu1 .navhor li.selected a:visited, #menu1 .navhor li.selected a:hover {
+	*margin-bottom: -12px; /* Fix for IE7-9 */
+}
+
+#menu1 .navhor  li a
+{
+    border-left: solid 1px #ABABAB;
+}
+
+#menu1 .navhor  li.first a
+{
+    border: none;
+}
+
+#menu1 .navhor li {
+	text-align: center;
+}
+
+#menu1 .navhor li #pointer {
+	width: 0px; 
+	height: 12px; 
+}
+
+#menu1 .navhor li.selected #pointer {
+	margin-left: auto;
     margin-right: auto;
+	/* Blue triangle */
+	width: 0px; 
+	height: 0px; 
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;	
+	border-bottom: 12px solid #3A8BC2;
+	/* End blue triangle */
 }
 
-#logo {
-    float: left;
+/*===================== MENU2 ===================== */
+
+#menu2 {
+	text-align: center;
 }
 
-#reglogsearch {
-    float: right;
-    margin-top: 30px;
+#menu2 .navhor {
+    display: inline;
 }
 
-#langcont {
-    float: right;
-    margin-top: 30px;
+#menu2 .navhor li, #menu2 .navhor  a:link, #menu2 .navhor  a:active, #menu2 .navhor  a:visited, #menu2 .navhor  a:hover {
+	display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */	
 }
 
-#minicartContainer {
-    float: right;
-    margin-top: 30px;
+#menu2 .navhor  a:link, #menu2 .navhor  a:active, #menu2 .navhor  a:visited, #menu2 .navhor  a:hover {
+	font-family: OpenSansRegular;
+	font-size: 12px;
+	padding: 0 5px 0 5px;
+	color: white;
 }
 
-#secondbar {
-    height: 34px;
-    background-color: #005BBB;
-    /*background-image:url(images/rtp.png);
-    background-position: right;
-    background-repeat: no-repeat;*/
+#menu2 .navhor li {
+	text-align: center;
+	line-height: 34px;
 }
 
-.topMenu {
-    width: 1050px;
-    height: 34px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    color: #FFF;
-    padding-top: 10px;
+#menu2 .navhor li #pointer {
+	width: 0; 
+	height: 0; 
+	line-height: 0;
+	font-size: 0;
 }
 
-#thirdbar {
-    height: 34px;
-    background-color: #5EB6E4;
-    /*background-image:url(images/rtp3.png);
-    background-position: right;
-    background-repeat: no-repeat;*/
+#menu2 .navhor li.selected  a:link, #menu2 .navhor li.selected  a:active, #menu2 .navhor li.selected  a:visited, #menu2 .navhor li.selected  a:hover {
+	font-family: OpenSansSemibold;
+	color: #3A8BC2;
+	background: url(images/SubMenuBkg.png) repeat-x center; 
 }
 
-#botMenu {
-    width: 1050px;
-    height: 34px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    color: #FFF;
-    padding-top: 10px;
+/*===================== FOOTER ===================== */
+
+#bar5 {
+	background: url(images/FooterTop.png) repeat-x;
+	height: 8px;
 }
 
-#fourthbar {
-    background: url('images/footer_shadow.png') repeat-x;
-    padding-bottom: 34px; /* must be same height as the footer */
+#bar6, #bar8 {
+	background: #F5F5F5;
+	color: #868686;
 }
 
-#ContentContainer {
-    width: 1050px;
-    margin-left: auto;
-    margin-right: auto;
+#bar7 {
+	background: url(images/FooterBandPatt.png) repeat;
+	color: #3A8BC2;	
 }
 
-#fifthbar {
-    height: 34px;
-    background-color: #6C6F70;
-    position: relative;
-    margin-top: -34px;
-    clear: both;
+/*===================== FONTS ===================== */
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('./font/OpenSans-Light-webfont.eot');
+    src: url('./font/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-Light-webfont.woff') format('woff'),
+         url('./font/OpenSans-Light-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-Light-webfont.svg#OpenSansLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
-#footerCentre {
-    width: 1050px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 10px;
+@font-face {
+    font-family: 'OpenSansLightItalic';
+    src: url('./font/OpenSans-LightItalic-webfont.eot');
+    src: url('./font/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-LightItalic-webfont.woff') format('woff'),
+         url('./font/OpenSans-LightItalic-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-LightItalic-webfont.svg#OpenSansLightItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
+@font-face {
+    font-family: 'OpenSansRegular';
+    src: url('./font/OpenSans-Regular-webfont.eot');
+    src: url('./font/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-Regular-webfont.woff') format('woff'),
+         url('./font/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
-/*-------------- Footer Style --------------*/
-.footer, a.footer:link, a.footer:active, a.footer:visited, a.footer:hover {
-    font-family: Verdana;
-    color: #FFF;
-    font-size: 11px;
-    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'OpenSansItalic';
+    src: url('./font/OpenSans-Italic-webfont.eot');
+    src: url('./font/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-Italic-webfont.woff') format('woff'),
+         url('./font/OpenSans-Italic-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansSemibold';
+    src: url('./font/OpenSans-Semibold-webfont.eot');
+    src: url('./font/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-Semibold-webfont.woff') format('woff'),
+         url('./font/OpenSans-Semibold-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansSemiboldItalic';
+    src: url('./font/OpenSans-SemiboldItalic-webfont.eot');
+    src: url('./font/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-SemiboldItalic-webfont.woff') format('woff'),
+         url('./font/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-SemiboldItalic-webfont.svg#OpenSansSemiboldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('./font/OpenSans-Bold-webfont.eot');
+    src: url('./font/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-Bold-webfont.woff') format('woff'),
+         url('./font/OpenSans-Bold-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansBoldItalic';
+    src: url('./font/OpenSans-BoldItalic-webfont.eot');
+    src: url('./font/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-BoldItalic-webfont.woff') format('woff'),
+         url('./font/OpenSans-BoldItalic-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansExtrabold';
+    src: url('./font/OpenSans-ExtraBold-webfont.eot');
+    src: url('./font/OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-ExtraBold-webfont.woff') format('woff'),
+         url('./font/OpenSans-ExtraBold-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-ExtraBold-webfont.svg#OpenSansExtrabold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSansExtraboldItalic';
+    src: url('./font/OpenSans-ExtraBoldItalic-webfont.eot');
+    src: url('./font/OpenSans-ExtraBoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'),
+         url('./font/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'),
+         url('./font/OpenSans-ExtraBoldItalic-webfont.svg#OpenSansExtraboldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+body {
+	font-size: 12px;
+	font-family: OpenSansRegular;
+	-webkit-text-size-adjust: none; /*Prevent iPhone Text Enlargement*/
+}
+a:link, a:active, a:visited, a:hover {
+	font-size: 12px;
+	font-family: OpenSansRegular;
+	color: #5f5f5f;
 }

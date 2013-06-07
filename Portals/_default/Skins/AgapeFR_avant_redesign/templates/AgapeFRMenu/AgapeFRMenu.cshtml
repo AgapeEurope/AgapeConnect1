@@ -9,17 +9,14 @@
         @foreach (var node in nodes)
         {
             var cssClasses = new List<string>();
-            if (node.First) { cssClasses.Add("first"); }
-            if (node.Last) { cssClasses.Add("last"); }
-            if (node.Selected || HasSelectedChild(node)) { cssClasses.Add("selected"); }
+            if (node.Selected) { cssClasses.Add("selected"); }
             var classString = new HtmlString((cssClasses.Count == 0) ? "" :
                                 (" class=\"" + String.Join(" ", cssClasses.ToArray()) + "\""));
-            <li@classString>
+            <li>
                 @if (node.Enabled)
                 {
                     <a href="@node.Url">@node.Text</a>
-                    <div id="pointer"></div>
-                 }
+                }
                 else
                 {
                     @node.Text
@@ -29,17 +26,4 @@
     </ul>
     }
 }
-
-@functions{
-    Boolean HasSelectedChild(MenuNode node)
-    {
-        foreach (var child in node.Children)
-        {
-            if (child.Selected || HasSelectedChild(child)) { return true; }
-        }
-        return false;
-    }
-    
-}
-
 @RenderNodes(root.Children)

@@ -12,71 +12,93 @@
 <%@ Register TagPrefix="ddr" Namespace="DotNetNuke.Web.DDRMenu.TemplateEngine" Assembly="DotNetNuke.Web.DDRMenu" %>
 <%@ Register TagPrefix="ddr" TagName="MENU" src="~/DesktopModules/DDRMenu/Menu.ascx" %>
 
-<div id="wrap">
-    <!-- The Control Panel -->
-    <div id="controlPanelContainer">
-        <div id="ControlPanel" runat="server" />
-    </div>
-    <div id="firstbar">
-        <div id="header">
-            <div id="logo">
-                <dnn:LOGO runat="server" ID="dnnLOGO" />
-            </div>
-            <div id="minicartContainer">
-                <dnn:MINICART runat="server" ID="dnnMINICART" />
-            </div>
-            <div id="langcont" style="float: right;">
-                <dnn:LANGUAGE runat="server" ID="dnnLANGUAGE" ShowMenu="False" ShowLinks="True" />
-            </div>
-            <div id="reglogsearch">
-                <dnn:USER runat="server" ID="dnnUSER" CssClass="user" />
-                &nbsp;&nbsp;|&nbsp;&nbsp;<dnn:LOGIN runat="server" ID="dnnLOGIN" CssClass="user" />
-                &nbsp;&nbsp;|&nbsp;&nbsp;Search:&nbsp;<dnn:SEARCH runat="server" ID="dnnSEARCH" CssClass="ServerSkinWidget" UseDropDownList="False" ShowWeb="False" ShowSite="False" Submit="<img src=&quot;images/search.gif&quot; border=&quot;0&quot; alt=&quot;Search&quot; /&gt;" />
-            </div>
-        </div>
-    </div>
-    <div id="secondbar">
-        <div class="topMenu">
-            <ddr:MENU ID="MENU1" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="RootOnly" runat="server" />
-            <%--<dnn:NAV runat="server" ID="dnnNAV" ProviderName="DNNMenuNavigationProvider" IndicateChildren="True" IndicateChildImageRoot="/images/1x1.GIF" IndicateChildImageSub="/images/action_right.gif" ControlOrientation="Horizontal" CSSNodeRoot="main_dnnmenu_rootitem" CSSNodeHoverRoot="main_dnnmenu_rootitem_hover" CSSNodeSelectedRoot="main_dnnmenu_rootitem_selected" CSSBreadCrumbRoot="main_dnnmenu_rootitem_selected" CSSContainerSub="main_dnnmenu_submenu" CSSNodeHoverSub="main_dnnmenu_itemhover" CSSNodeSelectedSub="main_dnnmenu_itemselected" CSSContainerRoot="main_dnnmenu_container" CSSControl="main_dnnmenu_bar" CSSBreak="main_dnnmenu_break" />--%>
-        </div>
-    </div>
-    <div id="thirdbar">
-        <div id="botMenu">
-            <ddr:MENU ID="MENU2" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="RootChildren" runat="server" />
-            <%--<dnn:NAV runat="server" ID="dnnNAV2" Level="child" ProviderName="DNNMenuNavigationProvider" PopulateNodesFromClient="false" ExpandDepth="1" IndicateChildren="False" ControlOrientation="Horizontal" CSSNodeRoot="main_dnnmenu_rootitem" CSSNodeHoverRoot="main_dnnmenu_rootitem_hover" CSSNodeSelectedRoot="main_dnnmenu_rootitem_selected" CSSBreadCrumbRoot="main_dnnmenu_rootitem_selected" CSSContainerRoot="main_dnnmenu_container" CSSControl="main_dnnmenu_bar" CSSBreak="main_dnnmenu_break" />--%>
-        </div>
-    </div>
-    <div id="fourthbar">
-        <div id="ContentContainer">
-            <table cellspacing="0" cellpadding="0" border="0" width="100%" class="mainContentContainer">
-                <tr>
-                    <td class="TopPane" colspan="3" id="TopPane" runat="server" valign="top">&nbsp;
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <td class="LeftPane" id="LeftPane" runat="server" valign="top">&nbsp;
-                    </td>
-                    <td class="ContentPane" id="ContentPane" runat="server" valign="top">&nbsp;
-                    </td>
-                    <td class="RightPane" id="RightPane" runat="server" valign="top">&nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td class="BottomPane" colspan="3" id="BottomPane" runat="server" valign="top">&nbsp;
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-<div id="fifthbar">
-    <div id="footerCentre">
-        <div style="text-align: Left; color: #FFF; margin-left: 15px;" class="footer">
-            <dnn:PRIVACY runat="server" ID="dnnPRIVACY" CssClass="footer" />
-            &nbsp;&nbsp;|&nbsp;&nbsp;<dnn:TERMS runat="server" ID="dnnTERMS" CssClass="footer" />
-            &nbsp;&nbsp;|&nbsp;&nbsp;<dnn:COPYRIGHT runat="server" ID="dnnCOPYRIGHT" CssClass="footer" />
-        </div>
-    </div>
-</div>
+<script src="/js/jquery.watermarkinput.js" type="text/javascript"></script>
+<script type="text/javascript">
+        (function ($, Sys) {
+            function initSearchText() {
+                $('#SearchContainer span input[type=text]').Watermark('Recherche');
+            }
 
+            $(document).ready(function () {
+                initSearchText();
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                    initSearchText();
+                });
+            });
+        }(jQuery, window.Sys));
+    </script>
+
+<div id="controlPanelContainer">
+	<div id="ControlPanel" runat="server" />
+</div>
+<div id="globalbar" class="bar">
+	<div id="globalbox" class="centeredbox">
+		<div id="bar1" class="bar bar1">
+			<div id="header" class="centeredbox bar1">
+				<div id="headerContent" class="bar1">
+					<div id="logo">
+						<dnn:LOGO runat="server" ID="dnnLOGO" />
+					</div>	
+					<div id="toplinks">
+						<div id="RegisterContainer" class="needMargin"><dnn:USER runat="server" ID="dnnUSER" CssClass="user" /></div>
+						<div id="LoginContainer" class="needMargin"><dnn:LOGIN runat="server" ID="dnnLOGIN" CssClass="user" /></div>
+						<div id="MinicartContainer" class="needMargin"><dnn:MINICART runat="server" ID="dnnMINICART" /></div>
+						<div id="SearchContainer" class="needMargin"><dnn:SEARCH runat="server" ID="dnnSEARCH" UseDropDownList="False" ShowWeb="False" ShowSite="False" Submit="<div id=&quot;SearchSubmit&quot; alt=&quot;Rechercher&quot;></div>" /></div>
+					</div>
+					<div id="menu1">
+						<ddr:MENU ID="MENU1" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="*" runat="server" ExcludeNodes="" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear_float"></div>
+		<div id="bar2" class="bar">
+			<div id="menu2" class="centeredbox">
+				<ddr:MENU ID="MENU2" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="RootChildren" runat="server" />            
+			</div>
+		</div>
+		<div id="bar3" class="bar">
+			<div id="ContentContainer1" class="centeredbox">
+				<div id="TopPane" class="TopPane" runat="server">
+				</div>
+			</div>
+		</div>			
+		<div id="bar4" class="bar">
+			<div id="ContentContainer2" class="centeredbox">
+				<table cellspacing="0" cellpadding="0" border="0" width="100%" class="mainContentContainer">
+					<tr valign="top">
+						<td class="LeftPane" id="LeftPane" runat="server" valign="top">&nbsp;
+						</td>
+						<td class="ContentPane" id="ContentPane" runat="server" valign="top">&nbsp;
+						</td>
+						<td class="RightPane" id="RightPane" runat="server" valign="top">&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td class="BottomPane" colspan="3" id="BottomPane" runat="server" valign="top">&nbsp;
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>	
+		<div id="bar5" class="bar">
+		</div>		
+		<div id="bar6" class="bar">
+			<div id="footer1" class="centeredbox">
+			</div>
+		</div>
+		<div id="bar7" class="bar">
+			<div id="footer2" class="centeredbox">
+			</div>		
+		</div>
+		<div id="bar8" class="bar">
+			<div id="footer3" class="centeredbox">
+				<div style="text-align: Left; color: #FFF; margin-left: 15px;" class="footer">
+					<dnn:PRIVACY runat="server" ID="dnnPRIVACY" CssClass="footer" />
+					&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:TERMS runat="server" ID="dnnTERMS" CssClass="footer" />
+					&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:COPYRIGHT runat="server" ID="dnnCOPYRIGHT" CssClass="footer" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
