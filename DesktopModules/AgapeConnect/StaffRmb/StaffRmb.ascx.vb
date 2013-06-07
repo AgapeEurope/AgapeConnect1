@@ -2831,7 +2831,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             Dim initials As String = ""
             If includeInitials Then
-                If Not String.IsNullOrEmpty(explicitStaffInitals) Then
+                If Not String.IsNullOrEmpty(explicitStaffInitals) Is Nothing Then
                     initials = UnidecodeSharpFork.Unidecoder.Unidecode(explicitStaffInitals & "-").Substring(0, 3)
                 Else
                     initials = UnidecodeSharpFork.Unidecoder.Unidecode(staffInitials.Value & "-").Substring(0, 3)
