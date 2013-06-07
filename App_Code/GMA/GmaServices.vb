@@ -526,5 +526,79 @@ Public Class GmaServices
     End Function
 
 
+    Public Function getReportData(ByVal NodeId As Integer, ByVal moduleids As String())
+        Dim method = "?q=gmaservices/gma_advancedReport/" & NodeId & "/generate"
+        Dim post As String = "{ ""dateRange"": {""relative"": ""3""}, ""reportFormat"": { ""byReportingInterval"": {""granularity"":""2"", ""showTotalColumn"": false} }, ""organizationSelection"": [""21""], ""strategySelection"": [""1""], ""measurementSelection"": { ""numericList"": [""497"", ""498"", ""499"",""500"",""501"",""502"",""503""], ""calculatedList"":[] } }"
+        Dim request As HttpWebRequest = DirectCast(WebRequest.Create(_endPoint & method), HttpWebRequest)
+        request.CookieContainer = myCookieContainer
+        request.Method = "POST"
+
+
+
+        Dim bytes As Byte() = Encoding.UTF8.GetBytes(post)
+        request.ContentLength = bytes.Length
+        request.ContentType = "application/json"
+        Dim requestStream = request.GetRequestStream()
+        requestStream.Write(bytes, 0, bytes.Length)
+
+
+
+        Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
+
+        Dim reader As New StreamReader(response.GetResponseStream())
+        Dim json = reader.ReadToEnd()
+
+        Dim jss = New System.Web.Script.Serialization.JavaScriptSerializer()
+        Dim dict = jss.Deserialize(Of Object)(json)
+        Dim xml = dict("data")
+        Return xml
+        Dim doc As New System.Xml.XmlDocument
+        doc.LoadXml(xml)
+
+        Dim list = doc.FirstChild.OuterXml
+        Return list
+
+
+
+
+    End Function
+
+
+
+
+
+    Public Function GetReportGraph(ByVal NodeId As Integer, ByVal MeasurementId As Integer) As String
+        Dim method = "?q=gmaservices/gma_advancedReport/" & NodeId & "/graph"
+
+
+        Dim post As String = "{ ""dateRange"": {""relative"": ""3""}, ""reportFormat"": { ""byReportingInterval"": {""granularity"":""2"", ""showTotalColumn"": false} }, ""organizationSelection"": [""21""], ""strategySelection"": [""1""], ""measurementSelection"": { ""numericList"": [""497""], ""calculatedList"":[] } }"
+        Dim request As HttpWebRequest = DirectCast(WebRequest.Create(_endPoint & method), HttpWebRequest)
+        request.CookieContainer = myCookieContainer
+        request.Method = "POST"
+
+
+
+        Dim bytes As Byte() = Encoding.UTF8.GetBytes(post)
+        request.ContentLength = bytes.Length
+        request.ContentType = "application/json"
+        Dim requestStream = request.GetRequestStream()
+        requestStream.Write(bytes, 0, bytes.Length)
+
+
+
+        Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
+
+        Dim reader As New StreamReader(response.GetResponseStream())
+        Dim json = reader.ReadToEnd()
+
+        Dim jss = New System.Web.Script.Serialization.JavaScriptSerializer()
+        Dim dict = jss.Deserialize(Of Object)(json)
+
+
+        Return dict("data")
+
+
+    End Function
+
 
 End Class

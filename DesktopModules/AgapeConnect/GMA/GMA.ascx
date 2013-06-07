@@ -5,12 +5,14 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="/js/jquery.mousewheel.js"></script>
 <script src="/js/jquery.numeric.js"></script>
 <script type="text/javascript">
-
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(function () { drawVisualization() });
     (function ($, Sys) {
-       
+
         function setUpMyTabs() {
             $('.aButton').button();
 
@@ -22,7 +24,7 @@
             $('#tabs').tabs({
 
                 activate: function () {
-                    
+
                     var newIdx = $('#tabs').tabs('option', 'active');
                     $('#<%= theHiddenTabIndex.ClientID  %>').val(newIdx);
                 },
@@ -41,6 +43,33 @@
     }(jQuery, window.Sys));
 
 
+    function drawVisualization() {
+
+        // create and populate the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'period');
+        data.addColumn('number', 'value');
+      
+        <%= GetReportString("Exposing through mass means") %>
+
+          // create and draw the visualization.
+          var chart = new google.visualization.LineChart(document.getElementById("gMass"));
+          //  chart.draw(data,  {chartArea:{left:70,top:10,width:805,height:360}, legend: { position: 'in' }, pointSize: 5, vAxis:{gridLines: {color: '#333',format:'#,###'}}, hAxis:{font: 'Arial Bold'} ,   colors:['#3366cc','#3366cc','#dc3912','#dc3912','#ff9900','#ff9900'] });
+
+          var options = {
+              width: "100",
+              height: "60",
+              chartArea: { width: '100%', height: '100%' },
+              legend: { position: 'none' },
+              lineWidth: 4,
+              titlePosition: 'none', axisTitlesPosition: 'none',
+              hAxis: { textPosition: 'none', baselineColor: 'white', gridlines: { count: 0 } }, vAxis: { textPosition: 'none', baselineColor: 'white', gridlines: { count: 0 } }
+          };
+          chart.draw(data,options);
+
+
+      }
+
 </script>
 <style type="text/css">
     ul.nav li {
@@ -56,25 +85,66 @@
         -moz-transition: none;
         -o-transition: none;
         transition: none;
+        margin: 0;
     }
 
     .pagination ul > li > a[disabled="disabled"] {
-
-        background-color:rgb(221, 221, 221) ;
+        background-color: rgb(221, 221, 221);
     }
+
     .brand {
-display: block;
-float: left;
-padding: 10px 20px 10px;
-margin-left: -20px;
-font-size: 30px;
-font-weight: 200;
-color: #777;
-text-shadow: 0 1px 0 #fff;
+        display: block;
+        float: left;
+        padding: 10px 20px 10px;
+        margin-left: -20px;
+        font-size: 30px;
+        font-weight: 200;
+        color: #777;
+        text-shadow: 0 1px 0 #fff;
+    }
+    .rotate {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  text-align: center;
+  vertical-align: middle;
+
+  /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+
+  /* Should be unset in IE9+ I think. */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
+    .lmiGrid td.rotate {
+        padding: 0;
+    }
+
+    .lmiGrid td {
+        padding:8px;
+        font-size:small;
+    }
+    .lmiGrid tr {
+        vertical-align: middle;
+    }
+    .lmiGrid .control-label {
+        width:140px
+    }
+    .lmiGrid .controls {
+margin-left: 160px;
+}
+    .graph {
+        float: left;
+    }
+    
 </style>
 
-<asp:HiddenField ID="theHiddenTabIndex" runat="server" value="0" ViewStateMode="Enabled" />
+<asp:HiddenField ID="theHiddenTabIndex" runat="server" Value="0" ViewStateMode="Enabled" />
 
 <asp:HiddenField ID="hfNodeId" runat="server" Value="-1" />
 <asp:HiddenField ID="hfURL" runat="server" Value="" />
@@ -121,162 +191,291 @@ text-shadow: 0 1px 0 #fff;
 
         <div class="span10">
             <!--Body content-->
-            
+
             <asp:Panel ID="pnlMain" runat="server">
-                        <div class="container" style="width: auto;">
-                            <div class="brand">
+                <div class="container" style="width: auto;">
+                    <div class="brand">
 
-                                <asp:Label ID="lblNodeTitle" runat="server"></asp:Label>
-                            </div>
-                        </div>
-                 
-
-            <div id="tabs">
-                <!-- Only required for left/right tabs -->
-                <ul >
-                    <li> <asp:HyperLink ID="tabStaff" runat="server" href="#tab1" Visible="false">Staff Report</asp:HyperLink></li>
-                    <li>
-                        <asp:HyperLink ID="tabDirector" runat="server" href="#tab2" Visible="false">Director Report</asp:HyperLink>
-                     </li>
-                </ul>
-
-                
-
-
-                <div class="tab-content">
-                    <div class="tab-pane" id="tab1">
-                        <div style="width:100%; text-align: center;">
-                        <div class="pagination" style="margin-top:0;">
-
-                                <ul>
-                                    <li>
-                                        <asp:LinkButton ID="lbPrevPeriod" runat="server">&laquo;</asp:LinkButton>
-                                    </li>
-
-                                    <li>
-                                        <a style="padding: 0;">
-                                        <asp:DropDownList ID="ddlPeriods" runat="server" DataTextField="LabelName" DataValueField="ReportId" AutoPostBack="true" style="margin: 0;"></asp:DropDownList>
-                                            </a>
-
-                                    </li>
-                                    <li><asp:LinkButton ID="lbNextPeriod" runat="server">&raquo;</asp:LinkButton></li>
-                                </ul>
-
-
-
-                            </div>
-                            </div>
-                        <div class="row-fluid">
-
-                            <asp:DataList ID="rpStaffMeasurements" runat="server" Width="100%" CssClass="form-horizontal">
-                                <ItemTemplate>
-                                    <div class="control-group">
-                                        <div class="span4">
-
-                                            <asp:Label ID="lblQuestion" runat="server" Font-Bold="True" Text='<%# Eval("measurementName")%>'></asp:Label>
-                                        </div>
-                                        <div class="span8">
- <asp:HiddenField ID="hfAnswerType" runat="server" Value='<%# Eval("measurementType") %>' />
-                                            <asp:HiddenField ID="hfMeasurementId" runat="server" Value='<%# Eval("measurementId")%>' />
-                                            <asp:TextBox ID="tbAnswer" runat="server" Text='<%# Eval("measurementValue")%>' CssClass='<%#IIf(Eval("measurementType") = "numeric", "spinner numeric", "")%>' Enabled='<%# Eval("measurementType") = "numeric"%>' Visible='<%# {"numeric", "calculated"}.Contains(Eval("measurementType"))%>' Width="50px"></asp:TextBox>
-                                            <asp:TextBox ID="tbAnswerText" runat="server" Text='<%# Eval("measurementValue")%>'  Visible='<%# Eval("measurementType") = "text"%>' Width="160px" TextMode="MultiLine"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-
-
-                                </ItemTemplate>
-                                <FooterTemplate>
-                                    <div class="control-group">
-                                        <div class="span4"></div>
-                                        <div class="span8">
-                                            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn" CommandName="SaveReport" />
-                                        </div>
-                                    </div>
-                                </FooterTemplate>
-                            </asp:DataList>
-                             
-
-                        </div>
-                        
-                        
-
-                    </div>
-
-
-                    <div class="tab-pane" id="tab2">
-                       
-                        <div style="width:100%; text-align: center;">
-                        <div class="pagination" style="margin-top:0;">
-
-                                <ul>
-                                    <li>
-                                        <asp:LinkButton ID="lbPrevPeriodD" runat="server">&laquo;</asp:LinkButton>
-                                    </li>
-
-                                    <li>
-                                        <a style="padding: 0;">
-                                        <asp:DropDownList ID="ddlPeriodsD" runat="server" DataTextField="LabelName" DataValueField="ReportId" AutoPostBack="true" style="margin: 0;"></asp:DropDownList>
-                                            </a>
-
-                                    </li>
-                                    <li><asp:LinkButton ID="lbNextPeriodD" runat="server">&raquo;</asp:LinkButton></li>
-                                </ul>
-
-
-
-                            </div>
-                            </div>
-                        <div class="row-fluid">
-
-                            <asp:DataList ID="rpDirectorMeasuremts" runat="server" Width="100%" CssClass="form-horizontal">
-                                <ItemTemplate>
-                                    <div class="control-group">
-                                        <div class="span4">
-
-                                            <asp:Label ID="lblQuestion" runat="server" Font-Bold="True" Text='<%# Eval("measurementName")%>'></asp:Label>
-                                        </div>
-                                        <div class="span8">
-                                            <asp:HiddenField ID="hfAnswerType" runat="server" Value='<%# Eval("measurementType") %>' />
-                                            <asp:HiddenField ID="hfMeasurementId" runat="server" Value='<%# Eval("measurementId")%>' />
-                                            <asp:TextBox ID="tbAnswer" runat="server" Text='<%# Eval("measurementValue")%>' CssClass='<%#IIf(Eval("measurementType") = "numeric", "spinner numeric", "")%>' Enabled='<%# Eval("measurementType") = "numeric"%>' Visible='<%# {"numeric", "calculated"}.Contains(Eval("measurementType"))%>' Width="50px"></asp:TextBox>
-                                            <asp:TextBox ID="tbAnswerText" runat="server" Text='<%# Eval("measurementValue")%>'  Visible='<%# Eval("measurementType") = "text"%>' Width="160px" TextMode="MultiLine"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-
-
-                                </ItemTemplate>
-                                <FooterTemplate>
-                                    <div class="control-group">
-                                        <div class="span4"></div>
-                                        <div class="span8">
-                                            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn" CommandName="SaveReport" />
-                                        </div>
-                                    </div>
-                                </FooterTemplate>
-                            </asp:DataList>
-                           
-
-
-
-
+                        <asp:Label ID="lblNodeTitle" runat="server"></asp:Label>
                     </div>
                 </div>
+
+
+                <div id="tabs">
+                    <!-- Only required for left/right tabs -->
+                    <ul>
+                        <li>
+                            <asp:HyperLink ID="tabStaff" runat="server" href="#tab1" Visible="false">Staff Report</asp:HyperLink></li>
+
+                        <li>
+                            <asp:HyperLink ID="tabDirector" runat="server" href="#tab2" Visible="false">Director Report</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink ID="Analysis" runat="server" href="#tab3" Visible="true">Analysis</asp:HyperLink>
+                        </li>
+                    </ul>
+
+
+
+
+                    <div class="tab-content">
+                        <div class="tab-pane" id="tab1">
+                            <div style="width: 100%; text-align: center;">
+                                <div class="pagination" style="margin-top: 0;">
+
+                                    <ul>
+                                        <li>
+                                            <asp:LinkButton ID="lbPrevPeriod" runat="server">&laquo;</asp:LinkButton>
+                                        </li>
+
+                                        <li>
+                                            <a style="padding: 0;">
+                                                <asp:DropDownList ID="ddlPeriods" runat="server" DataTextField="LabelName" DataValueField="ReportId" AutoPostBack="true" Style="margin: 0;"></asp:DropDownList>
+                                            </a>
+
+                                        </li>
+                                        <li>
+                                            <asp:LinkButton ID="lbNextPeriod" runat="server">&raquo;</asp:LinkButton></li>
+                                    </ul>
+
+
+
+                                </div>
+                            </div>
+                            <asp:Panel ID="pnlLmiGrid" runat="server">
+
+                            <table class="well lmiGrid form-horizontal" border="1">
+                                <tr>
+                                    <td></td>
+                                    <td><h3>Faith Actions</h3></td>
+                                    <td><h3>Fruit</h3></td>
+                                    <td><h3>Outcome</h3></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3" class="rotate">
+                                        <h4>Win</h4>
+                                    </td>
+                                    <td><div runat="server" id="dvMass"><span class="control-label">Mass Exposures:</span><div class="controls"> <asp:TextBox ID="tbMass" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div>
+                                        <asp:HiddenField ID="hfMass" runat="server" />
+                                    </div></td>
+                                    <td rowspan="3">
+                                        <div runat="server" id="dvNewBel"><span class="control-label">New Believers:</span><div class="controls"> <asp:TextBox ID="tbNewBel" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfNewBel" runat="server" /></div>
+                                    </td>
+                                    <td rowspan="8">
+                                        <div runat="server" id="dvmovement"><span class="control-label" style="width: 90px;">Movement:</span><div class="controls" style="margin-left:110px;"> <asp:TextBox ID="tbmovement" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfmovement" runat="server" /></div>
+                                    </td>
+                                </tr>
+                                <tr><td><div runat="server" id="dvExposures"><span class="control-label">Personal Exposures:</span><div class="controls"> <asp:TextBox ID="tbExposures" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfExposures" runat="server" /></div></td></tr>
+                                <tr><td><div runat="server" id="dvPresGosp"><span class="control-label">Presenting the Gospel:</span><div class="controls"> <asp:TextBox ID="tbPresGosp" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfPresGosp" runat="server" /></div></td></tr>
+                                <tr> 
+                                    <td rowspan="2" class="rotate">
+                                        <h4>Build</h4>
+                                    </td>
+                                     <td><div runat="server" id="dvFollowup"><span class="control-label">Following Up:</span><div class="controls"> <asp:TextBox ID="tbFollowup" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfFollowup" runat="server" /></div></td>
+                                     <td rowspan="2">
+                                       <div runat="server" id="dvEngagedDisc"><span class="control-label">Engaged Disciples:</span><div class="controls"> <asp:TextBox ID="tbEngagedDisc" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfEngagedDisc" runat="server" /></div>
+                                    </td>
+                                   
+                                </tr>
+                                <tr><td><div runat="server" id="dvHSPres"><span class="control-label">Holy Spirit Presentations:</span><div class="controls"> <asp:TextBox ID="tbHSPres" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfHSPres" runat="server" /></div></td></tr>
+                                <tr> 
+                                    <td rowspan="3" class="rotate">
+                                        <h4>Send</h4>
+                                    </td>
+                                     <td>
+                                       <div runat="server" id="dvTraining"><span class="control-label">Training For action:</span><div class="controls"> <asp:TextBox ID="tbTraining" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfTraining" runat="server" /></div>
+                                    </td>
+                                    <td rowspan="2"><div runat="server" id="dvMultDisc"><span class="control-label">Multiplying Disciples:</span><div class="controls"> <asp:TextBox ID="tbMultDisc" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfMultDisc" runat="server" /></div></td>
+                                </tr>
+                                <tr><td><div runat="server" id="dvSendLifeLab"><span class="control-label">Sending Lifetime Labourors:</span><div class="controls"> <asp:TextBox ID="tbSendLifeLab" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfSendLifeLab" runat="server" /></div></td></tr>
+                                <tr><td><div runat="server" id="dvDevLocRes"><span class="control-label">Developed Local Resources:</span><div class="controls"> <asp:TextBox ID="tbDevLocRes" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfDevLocRes" runat="server" /></div></td>
+                                    <td><div runat="server" id="dvLocGenRes"><span class="control-label">Locally Generated Resourses:</span><div class="controls"> <asp:TextBox ID="tbLocGenRes" runat="server" CssClass='spinner numeric'  Width="60px" ></asp:TextBox></div><asp:HiddenField ID="hfLocGenRes" runat="server" /></div></td>
+                                </tr>
+                            </table>
+                            </asp:Panel>
+
+                                 <div class="row-fluid">
+
+                        <asp:DataList ID="rpStaffMeasurements" runat="server" Width="100%" CssClass="form-horizontal">
+                            <ItemTemplate>
+                                <div class="control-group">
+                                    <div class="span4">
+
+                                        <asp:Label ID="lblQuestion" runat="server" Font-Bold="True" Text='<%# Eval("measurementName")%>'></asp:Label>
+                                    </div>
+                                    <div class="span8">
+                                        <asp:HiddenField ID="hfAnswerType" runat="server" Value='<%# Eval("measurementType") %>' />
+                                        <asp:HiddenField ID="hfMeasurementId" runat="server" Value='<%# Eval("measurementId")%>' />
+                                        <asp:TextBox ID="tbAnswer" runat="server" Text='<%# Eval("measurementValue")%>' CssClass='<%#IIf(Eval("measurementType") = "numeric", "spinner numeric", "")%>' Enabled='<%# Eval("measurementType") = "numeric"%>' Visible='<%# {"numeric", "calculated"}.Contains(Eval("measurementType"))%>' Width="50px"></asp:TextBox>
+                                        <asp:TextBox ID="tbAnswerText" runat="server" Text='<%# Eval("measurementValue")%>' Visible='<%# Eval("measurementType") = "text"%>' Width="160px" TextMode="MultiLine"></asp:TextBox>
+
+                                    </div>
+                                </div>
+
+
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                <div class="control-group">
+                                    <div class="span4"></div>
+                                    <div class="span8">
+                                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn" CommandName="SaveReport" />
+                                    </div>
+                                </div>
+                            </FooterTemplate>
+                        </asp:DataList>
+
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+        <div class="tab-pane" id="tab2">
+
+            <div style="width: 100%; text-align: center;">
+                <div class="pagination" style="margin-top: 0;">
+
+                    <ul>
+                        <li>
+                            <asp:LinkButton ID="lbPrevPeriodD" runat="server">&laquo;</asp:LinkButton>
+                        </li>
+
+                        <li>
+                            <a style="padding: 0;">
+                                <asp:DropDownList ID="ddlPeriodsD" runat="server" DataTextField="LabelName" DataValueField="ReportId" AutoPostBack="true" Style="margin: 0;"></asp:DropDownList>
+                            </a>
+
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="lbNextPeriodD" runat="server">&raquo;</asp:LinkButton></li>
+                    </ul>
+
+
+
+                </div>
             </div>
+            <div class="row-fluid">
+
+                <asp:DataList ID="rpDirectorMeasuremts" runat="server" Width="100%" CssClass="form-horizontal">
+                    <ItemTemplate>
+                        <div class="control-group">
+                            <div class="span4">
+
+                                <asp:Label ID="lblQuestion" runat="server" Font-Bold="True" Text='<%# Eval("measurementName")%>'></asp:Label>
+                            </div>
+                            <div class="span8">
+                                <asp:HiddenField ID="hfAnswerType" runat="server" Value='<%# Eval("measurementType") %>' />
+                                <asp:HiddenField ID="hfMeasurementId" runat="server" Value='<%# Eval("measurementId")%>' />
+                                <asp:TextBox ID="tbAnswer" runat="server" Text='<%# Eval("measurementValue")%>' CssClass='<%#IIf(Eval("measurementType") = "numeric", "spinner numeric", "")%>' Enabled='<%# Eval("measurementType") = "numeric"%>' Visible='<%# {"numeric", "calculated"}.Contains(Eval("measurementType"))%>' Width="50px"></asp:TextBox>
+                                <asp:TextBox ID="tbAnswerText" runat="server" Text='<%# Eval("measurementValue")%>' Visible='<%# Eval("measurementType") = "text"%>' Width="160px" TextMode="MultiLine"></asp:TextBox>
+
+                            </div>
+                        </div>
+
+
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <div class="control-group">
+                            <div class="span4"></div>
+                            <div class="span8">
+                                <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn" CommandName="SaveReport" />
+                            </div>
+                        </div>
+                    </FooterTemplate>
+                </asp:DataList>
 
 
 
 
 
-
-
-
-
-
-
+            </div>
         </div>
-                </asp:Panel>
+
+
+                          <div class="tab-pane" id="tab3">
+                           
+                            <asp:Panel ID="Panel1" runat="server">
+
+                            <table class="well lmiGrid " border="1">
+                                <tr>
+                                    <td></td>
+                                    <td><h3>Faith Actions</h3></td>
+                                    <td><h3>Fruit</h3></td>
+                                    <td><h3>Outcome</h3></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="3" class="rotate">
+                                        <h4>Win</h4>
+                                    </td>
+                                    <td>
+                                        <div id="gMass" class="graph" ></div>
+                                        <span class="gLabel">Mass Exposures</span>
+                                         </td>
+                                    <td rowspan="3">
+                                        <div runat="server" id="Div3"><span class="control-label">New Believers:</span><div class="controls"></div><asp:HiddenField ID="HiddenField2" runat="server" /></div>
+                                    </td>
+                                    <td rowspan="8">
+                                        <div runat="server" id="Div4"><span class="control-label" style="width: 90px;">Movement:</span><div class="controls" style="margin-left:110px;"> </div><asp:HiddenField ID="HiddenField3" runat="server" /></div>
+                                    </td>
+                                </tr>
+                                <tr><td><div runat="server" id="Div5"><span class="control-label">Personal Exposures:</span><div class="controls"> </div><asp:HiddenField ID="HiddenField4" runat="server" /></div></td></tr>
+                                <tr><td><div runat="server" id="Div6"><span class="control-label">Presenting the Gospel:</span><div class="controls"></div><asp:HiddenField ID="HiddenField5" runat="server" /></div></td></tr>
+                                <tr> 
+                                    <td rowspan="2" class="rotate">
+                                        <h4>Build</h4>
+                                    </td>
+                                     <td><div runat="server" id="Div7"><span class="control-label">Following Up:</span><div class="controls"></div><asp:HiddenField ID="HiddenField6" runat="server" /></div></td>
+                                     <td rowspan="2">
+                                       <div runat="server" id="Div8"><span class="control-label">Engaged Disciples:</span><div class="controls"> </div><asp:HiddenField ID="HiddenField7" runat="server" /></div>
+                                    </td>
+                                   
+                                </tr>
+                                <tr><td><div runat="server" id="Div9"><span class="control-label">Holy Spirit Presentations:</span><div class="controls"> </div><asp:HiddenField ID="HiddenField8" runat="server" /></div></td></tr>
+                                <tr> 
+                                    <td rowspan="3" class="rotate">
+                                        <h4>Send</h4>
+                                    </td>
+                                     <td>
+                                       <div runat="server" id="Div10"><span class="control-label">Training For action:</span><div class="controls"></div><asp:HiddenField ID="HiddenField9" runat="server" /></div>
+                                    </td>
+                                    <td rowspan="2"><div runat="server" id="Div11"><span class="control-label">Multiplying Disciples:</span><div class="controls"></div><asp:HiddenField ID="HiddenField10" runat="server" /></div></td>
+                                </tr>
+                                <tr><td><div runat="server" id="Div12"><span class="control-label">Sending Lifetime Labourors:</span><div class="controls"></div><asp:HiddenField ID="HiddenField11" runat="server" /></div></td></tr>
+                                <tr><td><div runat="server" id="Div13"><span class="control-label">Developed Local Resources:</span><div class="controls"></div><asp:HiddenField ID="HiddenField12" runat="server" /></div></td>
+                                    <td><div runat="server" id="Div14"><span class="control-label">Locally Generated Resourses:</span><div class="controls"></div><asp:HiddenField ID="HiddenField13" runat="server" /></div></td>
+                                </tr>
+                            </table>
+                            </asp:Panel>
+
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</asp:Panel>
     </div>
 </div>
 <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
