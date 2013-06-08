@@ -57,7 +57,7 @@ Namespace DotNetNuke.Modules.GMA
 
                     SelectNode(firstServer.URL & ":::" & firstServer.nodes.First.nodeId)
                 Catch ex As Exception
-
+                    Label1.Text = ex.Message
                 End Try
 
 
@@ -112,6 +112,11 @@ Namespace DotNetNuke.Modules.GMA
                 ddlPeriodsD.SelectedValue = gmaNode.DirectorReports.Last.ReportId
                 ddlPeriodsD_SelectedIndexChanged(Me, Nothing)
                 tabDirector.Visible = True
+
+
+                
+
+
             Else
                 tabDirector.Visible = False
                 Dim m As New List(Of gma_measurements)
@@ -121,39 +126,13 @@ Namespace DotNetNuke.Modules.GMA
 
                 lbNextPeriod.Enabled = Not (ddlPeriods.SelectedIndex = ddlPeriods.Items.Count - 1 Or ddlPeriods.Items.Count = 0)
             End If
-            Dim xml As String = gmaServer.gma.getReportData(21, {"497"})
-           
-            xml = xml.Replace("<?xml version=""1.0"" encoding=""UTF-8""?><?mso-application progid=""Excel.Sheet""?>", "")
-            Dim doc As New System.Xml.XmlDocument
-            doc.LoadXml(xml)
 
-            Dim Report = doc.FirstChild.ChildNodes(1).FirstChild
+
+            
 
 
 
-            For Each row As System.Xml.XmlNode In Report.ChildNodes
-                If row.ChildNodes.Count > 1 Then
-                    Dim Name = row.FirstChild.FirstChild.InnerText
-                    Dim Values As New List(Of Integer)
-
-                    For Each cell As System.Xml.XmlNode In row.ChildNodes
-                        If cell.HasChildNodes Then
-                            Dim value As Integer
-                            If cell.FirstChild.InnerText = Name Then
-
-                            ElseIf cell.FirstChild.InnerText = "" Or cell.FirstChild.InnerText = "-" Then
-                                Values.Add(0)
-                            ElseIf Integer.TryParse(cell.FirstChild.InnerText, value) Then
-                                Values.Add(value)
-                            End If
-                        End If
-
-                    Next
-                    ReportData.Add(Name, Values.ToArray)
-                    Label1.Text &= Name & Values.Count & vbNewLine
-
-                End If
-           Next
+            
             ' Label1.Text = Report.InnerXml
             '  imgWin.Src = "data:image/jpg;base64," & gmaServer.gma.GetReportGraph(myNodeId, 497) & ""
         End Sub
@@ -192,6 +171,57 @@ Namespace DotNetNuke.Modules.GMA
             Dim gmaServer = (From c In gmaServers Where c.URL = myURL).First
             Dim sr = (From c In gmaServer.gma.GetStaffReport(CInt(ddlPeriods.SelectedValue))).ToList
 
+            If ReportData.Count = 0 And sr.Count > 0 Then
+
+
+                Dim numericMeasurements = sr.Where(Function(c) c.measurementType = "numeric").Select(Function(c) CStr(c.measurementId))
+
+                Dim calculatedMeasurements = sr.Where(Function(c) c.measurementType = "calculated").Select(Function(c) CStr(c.measurementId))
+
+
+
+                Dim xml As String = gmaServer.gma.getReportData(CInt(hfNodeId.Value), numericMeasurements.ToArray, calculatedMeasurements.ToArray)
+                'Label1.Text = xml
+
+                xml = xml.Replace("<?xml version=""1.0"" encoding=""UTF-8""?><?mso-application progid=""Excel.Sheet""?>", "")
+                Dim doc As New System.Xml.XmlDocument
+                doc.LoadXml(xml)
+
+                Dim Report = doc.FirstChild.ChildNodes(1).FirstChild
+
+
+
+                For Each row As System.Xml.XmlNode In Report.ChildNodes
+                    If row.ChildNodes.Count > 1 Then
+                        Dim Name = row.FirstChild.FirstChild.InnerText
+                        If Not ReportData.ContainsKey(Name) Then
+                            Dim Values As New List(Of Integer)
+
+                            For Each cell As System.Xml.XmlNode In row.ChildNodes
+                                If cell.HasChildNodes Then
+
+
+
+                                    Dim value As Integer
+                                    If cell.FirstChild.InnerText = Name Then
+
+                                    ElseIf cell.FirstChild.InnerText = "" Or cell.FirstChild.InnerText = "-" Then
+                                        Values.Add(0)
+                                    ElseIf Integer.TryParse(cell.FirstChild.InnerText, value) Then
+                                        Values.Add(value)
+                                    End If
+                                End If
+
+
+
+                            Next
+                            ReportData.Add(Name, Values.ToArray)
+                        End If
+                        '  Label1.Text &= Name & Values.Count & vbNewLine
+
+                    End If
+                Next
+            End If
             LoadStaffReport(sr)
             rpStaffMeasurements.DataSource = From c In sr Select c.measurementName, c.measurementValue, c.measurementDescription, c.measurementType, c.measurementId
             rpStaffMeasurements.DataBind()
@@ -287,8 +317,59 @@ Namespace DotNetNuke.Modules.GMA
             ' Dim myNodeId As Integer = hfNodeId.Value
             Dim myURL As String = hfURL.Value
             Dim gmaServer = (From c In gmaServers Where c.URL = myURL).First
+            Dim dr = From c In gmaServer.gma.GetDirectorReport(CInt(ddlPeriodsD.SelectedValue)) Select c.measurementName, c.measurementValue, c.measurementDescription, c.measurementType, c.measurementId
 
-            rpDirectorMeasuremts.DataSource = From c In gmaServer.gma.GetDirectorReport(CInt(ddlPeriodsD.SelectedValue)) Select c.measurementName, c.measurementValue, c.measurementDescription, c.measurementType, c.measurementId
+
+
+            If ReportData.Count = 0 And dr.Count > 0 Then
+
+
+                Dim numericMeasurements = dr.Where(Function(c) c.measurementType = "numeric").Select(Function(c) CStr(c.measurementId))
+
+                Dim calculatedMeasurements = dr.Where(Function(c) c.measurementType = "calculated").Select(Function(c) CStr(c.measurementId))
+
+
+
+                Dim xml As String = gmaServer.gma.getReportData(CInt(hfNodeId.Value), numericMeasurements.ToArray, calculatedMeasurements.ToArray)
+                'Label1.Text = xml
+
+                xml = xml.Replace("<?xml version=""1.0"" encoding=""UTF-8""?><?mso-application progid=""Excel.Sheet""?>", "")
+                Dim doc As New System.Xml.XmlDocument
+                doc.LoadXml(xml)
+
+                Dim Report = doc.FirstChild.ChildNodes(1).FirstChild
+
+
+
+                For Each row As System.Xml.XmlNode In Report.ChildNodes
+                    If row.ChildNodes.Count > 1 Then
+                        Dim Name = row.FirstChild.FirstChild.InnerText
+                        If Not ReportData.ContainsKey(Name) Then
+                            Dim Values As New List(Of Integer)
+
+                            For Each cell As System.Xml.XmlNode In row.ChildNodes
+                                If cell.HasChildNodes Then
+                                    Dim value As Integer
+                                    If cell.FirstChild.InnerText = Name Then
+
+                                    ElseIf cell.FirstChild.InnerText = "" Or cell.FirstChild.InnerText = "-" Then
+                                        Values.Add(0)
+                                    ElseIf Integer.TryParse(cell.FirstChild.InnerText, value) Then
+                                        Values.Add(value)
+                                    End If
+                                End If
+
+                            Next
+                            ReportData.Add(Name, Values.ToArray)
+                        End If
+                        '  Label1.Text &= Name & Values.Count & vbNewLine
+
+                    End If
+                Next
+            End If
+
+
+            rpDirectorMeasuremts.DataSource = dr
             rpDirectorMeasuremts.DataBind()
 
 
@@ -416,14 +497,73 @@ Namespace DotNetNuke.Modules.GMA
             End If
         End Sub
 
-        Public Function GetReportString(ByVal MeasurementName As String) As String
+
+
+        Protected Function getTagFromName(ByVal Name As String) As String
+            If Name.Contains("mass exposures") Or Name.Contains("mass") Then
+                Return "Mass"
+            ElseIf Name.Contains("personal exposures") Or Name.Contains("personal") Then
+                Return "Exposures"
+            ElseIf Name.Contains("presenting the gospel") Or Name.Contains("gospel") Then
+                Return "PresGosp"
+            ElseIf Name.Contains("following up") Or Name.Contains("followed up") Then
+                Return "Followup"
+            ElseIf Name.Contains("holy spirit presentations") Or Name.Contains("holy spirit") Then
+                Return "HSPres"
+            ElseIf Name.Contains("training for action") Or Name.Contains("training") Then
+                Return "Training"
+            ElseIf Name.Contains("sending lifetime laborors") Or Name.Contains("sending") Then
+                Return "SendLifeLab"
+            ElseIf Name.Contains("new believers") Or Name.Contains("new") Then
+                Return "NewBel"
+            ElseIf Name.Contains("engaged disciples") Or Name.Contains("engaged") Then
+                Return "EngagedDisc"
+            ElseIf Name.Contains("movement") Or Name.Contains("communities") Then
+                Return "Movement"
+            ElseIf Name.Contains("multiplying disciples") Or Name.Contains("multiplying") Then
+                Return "MultDisc"
+            ElseIf Name.Contains("developing local resources") Or Name.Contains("developing") Then
+                Return "DevLocRes"
+            ElseIf Name.Contains("locally generated resources") Or Name.Contains("generated") Then
+                Return "LocGenRes"
+            
+            End If
+            Return ""
+           
+        End Function
+
+
+        Public Function GetReportString() As String
             Dim rtn As String = ""
-            Dim i As Integer = 0
-            For Each Row In ReportData(MeasurementName)
-                rtn &= "data.addRow(['" & i & "'," & Row & "]);" & vbNewLine
+            Dim j As Integer = 0
+            For Each row In ReportData
+                Dim tag = getTagFromName(row.Key.ToLower)
+                rtn &= "//" & row.Key & vbNewLine
+                If (tag <> "" And row.Value.Count > 0) Then
+
+
+                    rtn &= "var d" & j & " = new google.visualization.DataTable();d" & j & ".addColumn('string', 'period');d" & j & ".addColumn('number', 'value');" & vbNewLine
+                    Dim i As Integer = 0
+                    For Each d In row.Value
+
+
+                        rtn &= "d" & j & ".addRow(['" & i & "'," & d & "]);" & vbNewLine
+                        i += 1
+                    Next
+                    rtn &= "var chart = new google.visualization.LineChart(document.getElementById('g" & tag & "'));chart.draw(d" & j & ", options);" & vbNewLine
+
+
+
+                    j += 1
+                End If
+
             Next
 
             Return rtn
+
+
+
+
         End Function
 
 

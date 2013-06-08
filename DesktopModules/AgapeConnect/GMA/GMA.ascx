@@ -46,26 +46,21 @@
     function drawVisualization() {
 
         // create and populate the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'period');
-        data.addColumn('number', 'value');
+        var options = {
+            width: "100",
+            height: "60",
+            chartArea: { width: '100%', height: '100%' },
+            legend: { position: 'none' },
+            lineWidth: 4,
+            titlePosition: 'none', axisTitlesPosition: 'none',
+            hAxis: { textPosition: 'none', baselineColor: 'white', gridlines: { count: 0 } }, vAxis: { textPosition: 'none', baselineColor: 'white', gridlines: { count: 0 } }
+        };
+
+       
+        <%= GetReportString()%>
       
-        <%= GetReportString("Exposing through mass means") %>
 
-          // create and draw the visualization.
-          var chart = new google.visualization.LineChart(document.getElementById("gMass"));
-          //  chart.draw(data,  {chartArea:{left:70,top:10,width:805,height:360}, legend: { position: 'in' }, pointSize: 5, vAxis:{gridLines: {color: '#333',format:'#,###'}}, hAxis:{font: 'Arial Bold'} ,   colors:['#3366cc','#3366cc','#dc3912','#dc3912','#ff9900','#ff9900'] });
 
-          var options = {
-              width: "100",
-              height: "60",
-              chartArea: { width: '100%', height: '100%' },
-              legend: { position: 'none' },
-              lineWidth: 4,
-              titlePosition: 'none', axisTitlesPosition: 'none',
-              hAxis: { textPosition: 'none', baselineColor: 'white', gridlines: { count: 0 } }, vAxis: { textPosition: 'none', baselineColor: 'white', gridlines: { count: 0 } }
-          };
-          chart.draw(data,options);
 
 
       }
@@ -417,37 +412,67 @@ margin-left: 160px;
                                         <span class="gLabel">Mass Exposures</span>
                                          </td>
                                     <td rowspan="3">
-                                        <div runat="server" id="Div3"><span class="control-label">New Believers:</span><div class="controls"></div><asp:HiddenField ID="HiddenField2" runat="server" /></div>
+                                        <div id="gNewBel" class="graph" ></div>
+                                        <span class="gLabel">New Believers</span>
+                                      
                                     </td>
                                     <td rowspan="8">
-                                        <div runat="server" id="Div4"><span class="control-label" style="width: 90px;">Movement:</span><div class="controls" style="margin-left:110px;"> </div><asp:HiddenField ID="HiddenField3" runat="server" /></div>
+                                        <div id="gMovement" class="graph" ></div>
+                                        <span class="gLabel">Movements</span>
                                     </td>
                                 </tr>
-                                <tr><td><div runat="server" id="Div5"><span class="control-label">Personal Exposures:</span><div class="controls"> </div><asp:HiddenField ID="HiddenField4" runat="server" /></div></td></tr>
-                                <tr><td><div runat="server" id="Div6"><span class="control-label">Presenting the Gospel:</span><div class="controls"></div><asp:HiddenField ID="HiddenField5" runat="server" /></div></td></tr>
+                                <tr><td><div id="gExposures" class="graph" ></div>
+                                        <span class="gLabel">Personal Exposures</span>
+                                    </td></tr>
+                                <tr><td>
+                                    <div id="gPresGosp" class="graph" ></div>
+                                        <span class="gLabel">Presenting the Gospel</span>
+                                    </td></tr>
                                 <tr> 
                                     <td rowspan="2" class="rotate">
                                         <h4>Build</h4>
                                     </td>
-                                     <td><div runat="server" id="Div7"><span class="control-label">Following Up:</span><div class="controls"></div><asp:HiddenField ID="HiddenField6" runat="server" /></div></td>
+                                     <td>
+                                         <div id="gFollowup" class="graph" ></div>
+                                        <span class="gLabel">Following Up</span>
+                                     </td>
                                      <td rowspan="2">
-                                       <div runat="server" id="Div8"><span class="control-label">Engaged Disciples:</span><div class="controls"> </div><asp:HiddenField ID="HiddenField7" runat="server" /></div>
+                                      <div id="gEngagedDisc" class="graph" ></div>
+                                        <span class="gLabel">Engaged Disciples</span>
                                     </td>
                                    
                                 </tr>
-                                <tr><td><div runat="server" id="Div9"><span class="control-label">Holy Spirit Presentations:</span><div class="controls"> </div><asp:HiddenField ID="HiddenField8" runat="server" /></div></td></tr>
+                                <tr><td>
+                                    <div id="gHSPres" class="graph" ></div>
+                                        <span class="gLabel">Holy Spirit Presentations</span>
+
+                                    </td></tr>
                                 <tr> 
                                     <td rowspan="3" class="rotate">
                                         <h4>Send</h4>
                                     </td>
                                      <td>
-                                       <div runat="server" id="Div10"><span class="control-label">Training For action:</span><div class="controls"></div><asp:HiddenField ID="HiddenField9" runat="server" /></div>
+                                      <div id="gTraining" class="graph" ></div>
+                                        <span class="gLabel">Training for Action</span>
                                     </td>
-                                    <td rowspan="2"><div runat="server" id="Div11"><span class="control-label">Multiplying Disciples:</span><div class="controls"></div><asp:HiddenField ID="HiddenField10" runat="server" /></div></td>
+                                    <td rowspan="2"><div id="gMultDisc" class="graph" ></div>
+                                        <span class="gLabel">Multiplying Disciples</span></td>
                                 </tr>
-                                <tr><td><div runat="server" id="Div12"><span class="control-label">Sending Lifetime Labourors:</span><div class="controls"></div><asp:HiddenField ID="HiddenField11" runat="server" /></div></td></tr>
-                                <tr><td><div runat="server" id="Div13"><span class="control-label">Developed Local Resources:</span><div class="controls"></div><asp:HiddenField ID="HiddenField12" runat="server" /></div></td>
-                                    <td><div runat="server" id="Div14"><span class="control-label">Locally Generated Resourses:</span><div class="controls"></div><asp:HiddenField ID="HiddenField13" runat="server" /></div></td>
+                                <tr><td>
+                                    <div id="gSendLifeLab" class="graph" ></div>
+                                        <span class="gLabel">Sending Lifetime Laborers</span>
+
+                                    </td></tr>
+                                <tr><td>
+                                     <div id="gDevLocRes" class="graph" ></div>
+                                        <span class="gLabel">Developed Local Resources</span>
+
+                                    </td>
+                                    <td>
+                                         <div id="gLocGenRes" class="graph" ></div>
+                                        <span class="gLabel">Locally Generated Resources</span>
+
+                                    </td>
                                 </tr>
                             </table>
                             </asp:Panel>
@@ -474,8 +499,8 @@ margin-left: 160px;
 
 
 
-</div>
+
 </asp:Panel>
     </div>
 </div>
-<asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+<asp:Label ID="Label1" runat="server" Text="Test"></asp:Label>

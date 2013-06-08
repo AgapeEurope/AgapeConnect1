@@ -526,9 +526,22 @@ Public Class GmaServices
     End Function
 
 
-    Public Function getReportData(ByVal NodeId As Integer, ByVal moduleids As String())
+    Public Function getReportData(ByVal NodeId As Integer, ByVal numerics As String(), ByVal calculateds As String()) As String
         Dim method = "?q=gmaservices/gma_advancedReport/" & NodeId & "/generate"
-        Dim post As String = "{ ""dateRange"": {""relative"": ""3""}, ""reportFormat"": { ""byReportingInterval"": {""granularity"":""2"", ""showTotalColumn"": false} }, ""organizationSelection"": [""21""], ""strategySelection"": [""1""], ""measurementSelection"": { ""numericList"": [""497"", ""498"", ""499"",""500"",""501"",""502"",""503""], ""calculatedList"":[] } }"
+        Dim nString As String = ""
+        For Each item In numerics
+            nString &= """" & item & ""","
+        Next
+        nString = nString.TrimEnd(",")
+        Dim cString As String = ""
+        For Each item In calculateds
+            cString &= """" & item & ""","
+        Next
+        cString = cString.TrimEnd(",")
+
+
+        Dim post As String = "{ ""dateRange"": {""relative"": ""3""}, ""reportFormat"": { ""byReportingInterval"": {""granularity"":""2"", ""showTotalColumn"": false} }, ""organizationSelection"": [""" & NodeId & """], ""strategySelection"": [""1""], ""measurementSelection"": { ""numericList"": [" & nString & "], ""calculatedList"":[" & cString & "] } }"
+        ' Return post
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(_endPoint & method), HttpWebRequest)
         request.CookieContainer = myCookieContainer
         request.Method = "POST"
