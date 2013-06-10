@@ -36,8 +36,8 @@
 		<div id="bar1" class="bar bar1">
 			<div id="header" class="centeredbox bar1">
 				<div id="headerContent" class="bar1">
-					<div id="logo">
-						<dnn:LOGO runat="server" ID="dnnLOGO" />
+					<div id="logoHeader">
+						<dnn:LOGO runat="server" ID="dnnLOGOHEADER" />
 					</div>	
 					<div id="toplinks">
 						<div id="RegisterContainer" class="needMargin"><dnn:USER runat="server" ID="dnnUSER" CssClass="user" /></div>
@@ -85,6 +85,10 @@
 		</div>		
 		<div id="bar6" class="bar">
 			<div id="footer1" class="centeredbox">
+                <div id="logoFooter">
+					<dnn:LOGO runat="server" ID="dnnLOGOFOOTER" />
+				</div>
+                <ddr:MENU ID="SITEMAP" MenuStyle="/templates/AgapeFRSitemap/" NodeSelector="*" runat="server" />	
 			</div>
 		</div>
 		<div id="bar7" class="bar">
