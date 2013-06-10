@@ -191,8 +191,8 @@ Namespace DotNetNuke.Modules.GMA
                 xml = xml.Replace("<?xml version=""1.0"" encoding=""UTF-8""?><?mso-application progid=""Excel.Sheet""?>", "")
                 Dim doc As New System.Xml.XmlDocument
                 doc.LoadXml(xml)
-
-                Dim Report = doc.FirstChild.ChildNodes(1).FirstChild
+                Label1.Text = xml
+                Dim Report = doc.FirstChild.ChildNodes(2).FirstChild
 
 
 
@@ -211,7 +211,7 @@ Namespace DotNetNuke.Modules.GMA
                                     If cell.FirstChild.InnerText = Name Then
 
                                     ElseIf cell.FirstChild.InnerText = "" Or cell.FirstChild.InnerText = "-" Then
-                                        Values.Add(0)
+                                        'Values.Add(0)
                                     ElseIf Integer.TryParse(cell.FirstChild.InnerText, value) Then
                                         Values.Add(value)
                                     End If
@@ -348,7 +348,7 @@ Namespace DotNetNuke.Modules.GMA
                 Dim doc As New System.Xml.XmlDocument
                 doc.LoadXml(xml)
 
-                Dim Report = doc.FirstChild.ChildNodes(1).FirstChild
+                Dim Report = doc.FirstChild.ChildNodes(2).FirstChild
 
 
 
@@ -366,7 +366,7 @@ Namespace DotNetNuke.Modules.GMA
                                     If cell.FirstChild.InnerText = Name Then
 
                                     ElseIf cell.FirstChild.InnerText = "" Or cell.FirstChild.InnerText = "-" Then
-                                        Values.Add(0)
+                                        '   Values.Add(0)
                                     ElseIf Integer.TryParse(cell.FirstChild.InnerText, value) Then
                                         Values.Add(value)
                                     End If
