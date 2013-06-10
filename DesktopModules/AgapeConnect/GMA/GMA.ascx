@@ -135,6 +135,16 @@ margin-left: 160px;
 }
     .graph {
         float: left;
+        margin-right: 5px;
+    }
+    .gMin, .gMax {
+       width: 50%;
+    }
+    
+    .gLabel {
+        
+        font-weight: bold;
+
     }
     
 </style>
@@ -396,7 +406,7 @@ margin-left: 160px;
                            
                             <asp:Panel ID="Panel1" runat="server">
 
-                            <table class="well lmiGrid " border="1">
+                            <table class="well lmiGrid " border="1" width="100%">
                                 <tr>
                                     <td></td>
                                     <td><h3>Faith Actions</h3></td>
@@ -409,24 +419,36 @@ margin-left: 160px;
                                     </td>
                                     <td>
                                         <div id="gMass" class="graph" ></div>
-                                        <span class="gLabel">Mass Exposures</span>
+                                        <div class="gLabel">Mass Exposures</div>
+                                        <span id="hMass" class="gMax"></span>
+                                         <span id="lMass" class="gMin"></span>
+                                       
                                          </td>
                                     <td rowspan="3">
                                         <div id="gNewBel" class="graph" ></div>
-                                        <span class="gLabel">New Believers</span>
+                                        <div class="gLabel">New Believers</div>
+                                        <span id="hNewBel" class="gMax"></span>
+                                        <span id="lNewBel" class="gMin"></span>
+                                     
                                       
                                     </td>
                                     <td rowspan="8">
                                         <div id="gMovement" class="graph" ></div>
-                                        <span class="gLabel">Movements</span>
+                                        <div class="gLabel">Movements</div>
+                                        <span id="hMovement" class="gMax"></span>
+                                        <span id="lMovement" class="gMin"></span>
                                     </td>
                                 </tr>
                                 <tr><td><div id="gExposures" class="graph" ></div>
-                                        <span class="gLabel">Personal Exposures</span>
+                                        <div class="gLabel">Personal Exposures</div>
+                                        <span id="hExposures" class="gMax"></span>
+                                        <span id="lExposures" class="gMin"></span>
                                     </td></tr>
                                 <tr><td>
                                     <div id="gPresGosp" class="graph" ></div>
-                                        <span class="gLabel">Presenting the Gospel</span>
+                                        <div class="gLabel">Presenting the Gospel</div>
+                                        <span id="hPresGosp" class="gMax"></span>
+                                        <span id="lPresGosp" class="gMin"></span>
                                     </td></tr>
                                 <tr> 
                                     <td rowspan="2" class="rotate">
@@ -434,18 +456,23 @@ margin-left: 160px;
                                     </td>
                                      <td>
                                          <div id="gFollowup" class="graph" ></div>
-                                        <span class="gLabel">Following Up</span>
+                                        <div class="gLabel">Following Up</div>
+                                         <span id="hFollowup" class="gMax"></span>
+                                        <span id="lFollowup" class="gMin"></span>
                                      </td>
                                      <td rowspan="2">
                                       <div id="gEngagedDisc" class="graph" ></div>
-                                        <span class="gLabel">Engaged Disciples</span>
+                                        <div class="gLabel">Engaged Disciples</div>
+                                         <span id="hEngagedDisc" class="gMax"></span>
+                                        <span id="lEngagedDisc" class="gMin"></span>
                                     </td>
                                    
                                 </tr>
                                 <tr><td>
                                     <div id="gHSPres" class="graph" ></div>
-                                        <span class="gLabel">Holy Spirit Presentations</span>
-
+                                        <div class="gLabel">Holy Spirit Presentations</div>
+                                        <span id="hHSPres" class="gMax"></span>
+                                        <span id="lHSPres" class="gMin"></span>
                                     </td></tr>
                                 <tr> 
                                     <td rowspan="3" class="rotate">
@@ -453,24 +480,35 @@ margin-left: 160px;
                                     </td>
                                      <td>
                                       <div id="gTraining" class="graph" ></div>
-                                        <span class="gLabel">Training for Action</span>
+                                        <div class="gLabel">Training for Action</div>
+                                         <span id="hTraining" class="gMax"></span>
+                                        <span id="lTraining" class="gMin"></span>
                                     </td>
                                     <td rowspan="2"><div id="gMultDisc" class="graph" ></div>
-                                        <span class="gLabel">Multiplying Disciples</span></td>
+                                        <div class="gLabel">Multiplying Disciples</div>
+                                        <span id="hMultDisc" class="gMax"></span>
+                                        <span id="lMultDisc" class="gMin"></span>
+                                    </td>
                                 </tr>
                                 <tr><td>
                                     <div id="gSendLifeLab" class="graph" ></div>
-                                        <span class="gLabel">Sending Lifetime Laborers</span>
+                                        <div class="gLabel">Sending Lifetime Laborers</div>
+                                    <span id="hSendLifeLab" class="gMax"></span>
+                                        <span id="lSendLifeLab" class="gMin"></span>
 
                                     </td></tr>
                                 <tr><td>
                                      <div id="gDevLocRes" class="graph" ></div>
-                                        <span class="gLabel">Developed Local Resources</span>
+                                        <div class="gLabel">Developed Local Resources</div>
+                                    <span id="hDevLocRes" class="gMax"></span>
+                                        <span id="lDevLocRes" class="gMin"></span>
 
                                     </td>
                                     <td>
                                          <div id="gLocGenRes" class="graph" ></div>
-                                        <span class="gLabel">Locally Generated Resources</span>
+                                        <div class="gLabel">Locally Generated Resources</div>
+                                        <span id="hLocGenRes" class="gMax"></span>
+                                        <span id="lLocGenRes" class="gMin"></span>
 
                                     </td>
                                 </tr>

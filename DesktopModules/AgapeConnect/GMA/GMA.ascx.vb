@@ -26,6 +26,9 @@ Namespace DotNetNuke.Modules.GMA
         '  Dim d As New DNNProfileDataContextDataContext
         Private gmaServers As New List(Of gmaServer)
         Public ReportData As New Dictionary(Of String, Integer())
+
+      
+
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
 
             If Not Page.IsPostBack Then
@@ -84,7 +87,9 @@ Namespace DotNetNuke.Modules.GMA
             Dim gmaNode = (From c In gmaServer.nodes Where c.nodeId = myNodeId).First
             lblNodeTitle.Text = gmaNode.shortName
 
-
+            If Not gmaNode.AdvancedReportData Is Nothing Then
+                ReportData = gmaNode.AdvancedReportData
+            End If
 
             ddlPeriods.DataSource = From c In gmaNode.Reports Select LabelName = c.startDate.ToString("dd MMM yy") & " - " & c.endDate.ToString("dd MMM yy"), c.ReportId
             ddlPeriods.DataBind()
@@ -114,7 +119,7 @@ Namespace DotNetNuke.Modules.GMA
                 tabDirector.Visible = True
 
 
-                
+
 
 
             Else
@@ -128,11 +133,11 @@ Namespace DotNetNuke.Modules.GMA
             End If
 
 
-            
 
 
 
-            
+
+
             ' Label1.Text = Report.InnerXml
             '  imgWin.Src = "data:image/jpg;base64," & gmaServer.gma.GetReportGraph(myNodeId, 497) & ""
         End Sub
@@ -221,6 +226,12 @@ Namespace DotNetNuke.Modules.GMA
 
                     End If
                 Next
+
+
+                Dim myNode = gmaServer.nodes.Where(Function(c) c.nodeId = CInt(hfNodeId.Value)).First
+                myNode.AdvancedReportData = ReportData
+                Session("gmaServers") = gmaServers
+           
             End If
             LoadStaffReport(sr)
             rpStaffMeasurements.DataSource = From c In sr Select c.measurementName, c.measurementValue, c.measurementDescription, c.measurementType, c.measurementId
@@ -344,10 +355,12 @@ Namespace DotNetNuke.Modules.GMA
                 For Each row As System.Xml.XmlNode In Report.ChildNodes
                     If row.ChildNodes.Count > 1 Then
                         Dim Name = row.FirstChild.FirstChild.InnerText
+
                         If Not ReportData.ContainsKey(Name) Then
                             Dim Values As New List(Of Integer)
 
                             For Each cell As System.Xml.XmlNode In row.ChildNodes
+
                                 If cell.HasChildNodes Then
                                     Dim value As Integer
                                     If cell.FirstChild.InnerText = Name Then
@@ -366,6 +379,10 @@ Namespace DotNetNuke.Modules.GMA
 
                     End If
                 Next
+                Dim myNode = gmaServer.nodes.Where(Function(c) c.nodeId = CInt(hfNodeId.Value)).First
+                myNode.AdvancedReportData = ReportData
+                Session("gmaServers") = gmaServers
+
             End If
 
 
@@ -540,18 +557,22 @@ Namespace DotNetNuke.Modules.GMA
                 Dim tag = getTagFromName(row.Key.ToLower)
                 rtn &= "//" & row.Key & vbNewLine
                 If (tag <> "" And row.Value.Count > 0) Then
-
+                    Dim high As Integer = row.Value.First
+                    Dim low As Integer = row.Value.First
 
                     rtn &= "var d" & j & " = new google.visualization.DataTable();d" & j & ".addColumn('string', 'period');d" & j & ".addColumn('number', 'value');" & vbNewLine
                     Dim i As Integer = 0
                     For Each d In row.Value
-
+                        low = Math.Min(low, d)
+                        high = Math.Max(high, d)
 
                         rtn &= "d" & j & ".addRow(['" & i & "'," & d & "]);" & vbNewLine
                         i += 1
                     Next
                     rtn &= "var chart = new google.visualization.LineChart(document.getElementById('g" & tag & "'));chart.draw(d" & j & ", options);" & vbNewLine
 
+                    rtn &= "$('#h" & tag & "').text('High: " & high & "');" & vbNewLine
+                    rtn &= "$('#l" & tag & "').text('Low: " & low & "');" & vbNewLine
 
 
                     j += 1

@@ -15,6 +15,7 @@ Public Class GmaServices
         Public shortName As String
         Public Reports As List(Of gma_Report)
         Public DirectorReports As List(Of gma_Report)
+        Public AdvancedReportData As Dictionary(Of String, Integer())
     End Structure
 
     Public Structure gmaServer
