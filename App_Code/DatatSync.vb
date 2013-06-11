@@ -33,6 +33,10 @@ Public Class DatatSync
     Structure UpdateResponse
         Public TntStatus As StatusDescription
         Public Rmbs As StatusDescription()
+        Public Budgets As Budget.AP_Budget_Summary()
+
+
+
     End Structure
 
     Structure SPResponse
@@ -83,6 +87,7 @@ Public Class DatatSync
         Public WebUsers As WebUser()
         Public Rmbs As Rmb()
         Public Advances As Adv()
+        Public ChangedBudgets As Budget.AP_Budget_Summary()
         Public AcctsReceivable As String
         Public AcctsPayable As String
         Public TaxableAcctsReceivable As String
@@ -201,7 +206,12 @@ Public Class DatatSync
         Public acDatalink_PollDelayInSeconds As Integer
         Public currentFiscalPeriod As String
 
+        Public changedBudgets As Budget.AP_Budget_Summary()
+
+
     End Structure
+
+
 
 
     Private Function Validate(ByVal Password As String) As Boolean
@@ -501,6 +511,19 @@ Public Class DatatSync
                 End If
             Next
         End If
+        If Not uResp.Budgets Is Nothing Then
+            Dim db As New Budget.BudgetDataContext
+            For Each bud In uResp.Budgets
+                Dim theBud = From c In db.AP_Budget_Summaries Where c.Portalid = PS.PortalId And c.BudgetSummaryId = bud.BudgetSummaryId
+
+                If theBud.Count > 0 Then
+                    theBud.First.Changed = False
+                    theBud.First.LastUpdated = Now
+
+                End If
+                db.SubmitChanges()
+            Next
+        End If
 
     End Sub
 
@@ -554,6 +577,12 @@ Public Class DatatSync
         d.SubmitChanges()
     End Sub
 
+
+    Private Sub SyncBudgetsChangedInDynamics(ByVal changed As Budget.AP_Budget_Summary())
+        'TODO
+    End Sub
+
+
     Private Sub UpdateSetupInfo(ByVal settings As SetupInfo)
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
         Dim Currency = settings.CurrencyCode
@@ -584,6 +613,7 @@ Public Class DatatSync
         SetSetting("CurrentFiscalPeriod", settings.currentFiscalPeriod, PS.PortalId)
 
         ' SetSetting("CompanyName", settings.CompanyId, PS.PortalId)
+        SyncBudgetsChangedInDynamics(settings.changedBudgets)
 
 
     End Sub
@@ -938,14 +968,29 @@ Public Class DatatSync
 
     End Sub
 
+    Private Sub GetBudgets(ByRef rtn As DownloadResponse, ByVal PortalId As Integer)
+        Dim db As New Budget.BudgetDataContext
+        Dim toDownload = From c In db.AP_Budget_Summaries Where c.Portalid = PortalId And c.Changed
+
+        If toDownload.Count > 0 Then
+            rtn.Status = "New Data"
+            rtn.ChangedBudgets = toDownload.ToArray
+
+        End If
+
+
+
+    End Sub
+
     Private Sub doRequestUpdate(ByRef rtn As DownloadResponse)
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
 
         rtn.Status = "Nothing to do"
-        Dim tntStatus As String = GetSetting("tntFlag", PS.PortalId)
-        If tntStatus = "Dirty" Or tntStatus = "Downloading" Then
-            ProcessTNT(rtn)
-        End If
+
+
+        GetBudgets(rtn, PS.PortalId)
+
+
         ProcessRMB(rtn)
 
         DatapumpOK()
