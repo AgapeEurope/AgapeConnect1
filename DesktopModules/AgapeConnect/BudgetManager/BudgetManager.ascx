@@ -296,12 +296,16 @@
 
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
-                                <br />
-                                <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                               
+                                <asp:ImageButton ID="ImageButton2" runat="server"  ImageUrl ="~/icons/sigma/Save_16X16_Standard.png" CausesValidation="True"  CommandName="Update" Height="16px" ToolTip="Update" />
+                                <asp:ImageButton ID="ImageButton1" runat="server"  ImageUrl ="~/images/cancel.gif"  CausesValidation="False"  CommandName="Cancel" Height="16px" ToolTip="Cancel" />
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
+                              
+                                <asp:ImageButton ID="ImageButton2" runat="server"  ImageUrl ="~/images/edit.gif" CausesValidation="False"  CommandName="Edit" Height="16px" />
+                                <asp:ImageButton ID="ImageButton1" runat="server"  ImageUrl ="~/images/delete.gif"  CausesValidation="False"  CommandName="Delete" Height="16px" />
+                                <asp:Image ID="Image1" runat="server" ImageUrl ="~/images/error-icn.png" Visible='<%# Eval("Error") = True %>' ToolTip='<%# Eval("ErrorMessage")  %>' Height="16px" />
+                                <asp:Image ID="Image2" runat="server" ImageUrl ="~/images/help-icn.png" Visible='<%# Eval("Changed") = True and Not Eval("Error") = True %>' ToolTip='This budget entry will be downloaded into dynamics in the next 10 minutes.' Height="16px" />
                             </ItemTemplate>
                         </asp:TemplateField>
 
