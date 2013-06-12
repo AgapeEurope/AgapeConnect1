@@ -62,6 +62,12 @@ Namespace Budget
     End Sub
     Partial Private Sub DeleteAP_StaffBroker_CostCenter(instance As AP_StaffBroker_CostCenter)
     End Sub
+    Partial Private Sub InsertAP_Budget_Summary1(instance As AP_Budget_Summary1)
+    End Sub
+    Partial Private Sub UpdateAP_Budget_Summary1(instance As AP_Budget_Summary1)
+    End Sub
+    Partial Private Sub DeleteAP_Budget_Summary1(instance As AP_Budget_Summary1)
+    End Sub
     #End Region
 		
 		Public Sub New()
@@ -116,6 +122,12 @@ Namespace Budget
 		Public ReadOnly Property AP_StaffBroker_CostCenters() As System.Data.Linq.Table(Of AP_StaffBroker_CostCenter)
 			Get
 				Return Me.GetTable(Of AP_StaffBroker_CostCenter)
+			End Get
+		End Property
+		
+		Public ReadOnly Property AP_Budget_Summary1s() As System.Data.Linq.Table(Of AP_Budget_Summary1)
+			Get
+				Return Me.GetTable(Of AP_Budget_Summary1)
 			End Get
 		End Property
 	End Class
@@ -1055,6 +1067,10 @@ Namespace Budget
 		
 		Private _Portalid As Integer
 		
+		Private _Error As System.Nullable(Of Boolean)
+		
+		Private _ErrorMessage As String
+		
 		Private _AP_StaffBroker_CostCenter As EntityRef(Of AP_StaffBroker_CostCenter)
 		
 		Private _AP_StaffBroker_AccountCode As EntityRef(Of AP_StaffBroker_AccountCode)
@@ -1141,6 +1157,14 @@ Namespace Budget
     Partial Private Sub OnPortalidChanging(value As Integer)
     End Sub
     Partial Private Sub OnPortalidChanged()
+    End Sub
+    Partial Private Sub OnErrorChanging(value As System.Nullable(Of Boolean))
+    End Sub
+    Partial Private Sub OnErrorChanged()
+    End Sub
+    Partial Private Sub OnErrorMessageChanging(value As String)
+    End Sub
+    Partial Private Sub OnErrorMessageChanged()
     End Sub
     #End Region
 		
@@ -1464,6 +1488,38 @@ Namespace Budget
 					Me._Portalid = value
 					Me.SendPropertyChanged("Portalid")
 					Me.OnPortalidChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Name:="Error", Storage:="_Error", DbType:="bit")>  _
+		Public Property [Error]() As System.Nullable(Of Boolean)
+			Get
+				Return Me._Error
+			End Get
+			Set
+				If (Me._Error.Equals(value) = false) Then
+					Me.OnErrorChanging(value)
+					Me.SendPropertyChanging
+					Me._Error = value
+					Me.SendPropertyChanged("[Error]")
+					Me.OnErrorChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ErrorMessage", DbType:="nvarchar(500)")>  _
+		Public Property ErrorMessage() As String
+			Get
+				Return Me._ErrorMessage
+			End Get
+			Set
+				If (String.Equals(Me._ErrorMessage, value) = false) Then
+					Me.OnErrorMessageChanging(value)
+					Me.SendPropertyChanging
+					Me._ErrorMessage = value
+					Me.SendPropertyChanged("ErrorMessage")
+					Me.OnErrorMessageChanged
 				End If
 			End Set
 		End Property
@@ -1894,6 +1950,511 @@ Namespace Budget
 		Private Sub detach_AP_Budget_Summaries(ByVal entity As AP_Budget_Summary)
 			Me.SendPropertyChanging
 			entity.AP_StaffBroker_CostCenter = Nothing
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_Budget_Summary")>  _
+	Partial Public Class AP_Budget_Summary1
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _BudgetSummaryId As Long
+		
+		Private _Account As String
+		
+		Private _RC As String
+		
+		Private _P1 As System.Nullable(Of Decimal)
+		
+		Private _P2 As System.Nullable(Of Decimal)
+		
+		Private _P3 As System.Nullable(Of Decimal)
+		
+		Private _P4 As System.Nullable(Of Decimal)
+		
+		Private _P5 As System.Nullable(Of Decimal)
+		
+		Private _P6 As System.Nullable(Of Decimal)
+		
+		Private _P7 As System.Nullable(Of Decimal)
+		
+		Private _P8 As System.Nullable(Of Decimal)
+		
+		Private _P9 As System.Nullable(Of Decimal)
+		
+		Private _P10 As System.Nullable(Of Decimal)
+		
+		Private _P11 As System.Nullable(Of Decimal)
+		
+		Private _P12 As System.Nullable(Of Decimal)
+		
+		Private _FiscalYear As Integer
+		
+		Private _Changed As Boolean
+		
+		Private _LastUpdated As System.Nullable(Of Date)
+		
+		Private _Portalid As Integer
+		
+		Private _Error As System.Nullable(Of Boolean)
+		
+		Private _ErrorMessage As String
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnBudgetSummaryIdChanging(value As Long)
+    End Sub
+    Partial Private Sub OnBudgetSummaryIdChanged()
+    End Sub
+    Partial Private Sub OnAccountChanging(value As String)
+    End Sub
+    Partial Private Sub OnAccountChanged()
+    End Sub
+    Partial Private Sub OnRCChanging(value As String)
+    End Sub
+    Partial Private Sub OnRCChanged()
+    End Sub
+    Partial Private Sub OnP1Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP1Changed()
+    End Sub
+    Partial Private Sub OnP2Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP2Changed()
+    End Sub
+    Partial Private Sub OnP3Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP3Changed()
+    End Sub
+    Partial Private Sub OnP4Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP4Changed()
+    End Sub
+    Partial Private Sub OnP5Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP5Changed()
+    End Sub
+    Partial Private Sub OnP6Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP6Changed()
+    End Sub
+    Partial Private Sub OnP7Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP7Changed()
+    End Sub
+    Partial Private Sub OnP8Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP8Changed()
+    End Sub
+    Partial Private Sub OnP9Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP9Changed()
+    End Sub
+    Partial Private Sub OnP10Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP10Changed()
+    End Sub
+    Partial Private Sub OnP11Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP11Changed()
+    End Sub
+    Partial Private Sub OnP12Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnP12Changed()
+    End Sub
+    Partial Private Sub OnFiscalYearChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnFiscalYearChanged()
+    End Sub
+    Partial Private Sub OnChangedChanging(value As Boolean)
+    End Sub
+    Partial Private Sub OnChangedChanged()
+    End Sub
+    Partial Private Sub OnLastUpdatedChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnLastUpdatedChanged()
+    End Sub
+    Partial Private Sub OnPortalidChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnPortalidChanged()
+    End Sub
+    Partial Private Sub OnErrorChanging(value As System.Nullable(Of Boolean))
+    End Sub
+    Partial Private Sub OnErrorChanged()
+    End Sub
+    Partial Private Sub OnErrorMessageChanging(value As String)
+    End Sub
+    Partial Private Sub OnErrorMessageChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BudgetSummaryId", AutoSync:=AutoSync.OnInsert, DbType:="BigInt NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property BudgetSummaryId() As Long
+			Get
+				Return Me._BudgetSummaryId
+			End Get
+			Set
+				If ((Me._BudgetSummaryId = value)  _
+							= false) Then
+					Me.OnBudgetSummaryIdChanging(value)
+					Me.SendPropertyChanging
+					Me._BudgetSummaryId = value
+					Me.SendPropertyChanged("BudgetSummaryId")
+					Me.OnBudgetSummaryIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Account", DbType:="NVarChar(12) NOT NULL", CanBeNull:=false)>  _
+		Public Property Account() As String
+			Get
+				Return Me._Account
+			End Get
+			Set
+				If (String.Equals(Me._Account, value) = false) Then
+					Me.OnAccountChanging(value)
+					Me.SendPropertyChanging
+					Me._Account = value
+					Me.SendPropertyChanged("Account")
+					Me.OnAccountChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_RC", DbType:="NVarChar(12) NOT NULL", CanBeNull:=false)>  _
+		Public Property RC() As String
+			Get
+				Return Me._RC
+			End Get
+			Set
+				If (String.Equals(Me._RC, value) = false) Then
+					Me.OnRCChanging(value)
+					Me.SendPropertyChanging
+					Me._RC = value
+					Me.SendPropertyChanged("RC")
+					Me.OnRCChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P1", DbType:="Money")>  _
+		Public Property P1() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P1
+			End Get
+			Set
+				If (Me._P1.Equals(value) = false) Then
+					Me.OnP1Changing(value)
+					Me.SendPropertyChanging
+					Me._P1 = value
+					Me.SendPropertyChanged("P1")
+					Me.OnP1Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P2", DbType:="Money")>  _
+		Public Property P2() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P2
+			End Get
+			Set
+				If (Me._P2.Equals(value) = false) Then
+					Me.OnP2Changing(value)
+					Me.SendPropertyChanging
+					Me._P2 = value
+					Me.SendPropertyChanged("P2")
+					Me.OnP2Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P3", DbType:="Money")>  _
+		Public Property P3() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P3
+			End Get
+			Set
+				If (Me._P3.Equals(value) = false) Then
+					Me.OnP3Changing(value)
+					Me.SendPropertyChanging
+					Me._P3 = value
+					Me.SendPropertyChanged("P3")
+					Me.OnP3Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P4", DbType:="Money")>  _
+		Public Property P4() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P4
+			End Get
+			Set
+				If (Me._P4.Equals(value) = false) Then
+					Me.OnP4Changing(value)
+					Me.SendPropertyChanging
+					Me._P4 = value
+					Me.SendPropertyChanged("P4")
+					Me.OnP4Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P5", DbType:="Money")>  _
+		Public Property P5() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P5
+			End Get
+			Set
+				If (Me._P5.Equals(value) = false) Then
+					Me.OnP5Changing(value)
+					Me.SendPropertyChanging
+					Me._P5 = value
+					Me.SendPropertyChanged("P5")
+					Me.OnP5Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P6", DbType:="Money")>  _
+		Public Property P6() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P6
+			End Get
+			Set
+				If (Me._P6.Equals(value) = false) Then
+					Me.OnP6Changing(value)
+					Me.SendPropertyChanging
+					Me._P6 = value
+					Me.SendPropertyChanged("P6")
+					Me.OnP6Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P7", DbType:="Money")>  _
+		Public Property P7() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P7
+			End Get
+			Set
+				If (Me._P7.Equals(value) = false) Then
+					Me.OnP7Changing(value)
+					Me.SendPropertyChanging
+					Me._P7 = value
+					Me.SendPropertyChanged("P7")
+					Me.OnP7Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P8", DbType:="Money")>  _
+		Public Property P8() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P8
+			End Get
+			Set
+				If (Me._P8.Equals(value) = false) Then
+					Me.OnP8Changing(value)
+					Me.SendPropertyChanging
+					Me._P8 = value
+					Me.SendPropertyChanged("P8")
+					Me.OnP8Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P9", DbType:="Money")>  _
+		Public Property P9() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P9
+			End Get
+			Set
+				If (Me._P9.Equals(value) = false) Then
+					Me.OnP9Changing(value)
+					Me.SendPropertyChanging
+					Me._P9 = value
+					Me.SendPropertyChanged("P9")
+					Me.OnP9Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P10", DbType:="Money")>  _
+		Public Property P10() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P10
+			End Get
+			Set
+				If (Me._P10.Equals(value) = false) Then
+					Me.OnP10Changing(value)
+					Me.SendPropertyChanging
+					Me._P10 = value
+					Me.SendPropertyChanged("P10")
+					Me.OnP10Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P11", DbType:="Money")>  _
+		Public Property P11() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P11
+			End Get
+			Set
+				If (Me._P11.Equals(value) = false) Then
+					Me.OnP11Changing(value)
+					Me.SendPropertyChanging
+					Me._P11 = value
+					Me.SendPropertyChanged("P11")
+					Me.OnP11Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P12", DbType:="Money")>  _
+		Public Property P12() As System.Nullable(Of Decimal)
+			Get
+				Return Me._P12
+			End Get
+			Set
+				If (Me._P12.Equals(value) = false) Then
+					Me.OnP12Changing(value)
+					Me.SendPropertyChanging
+					Me._P12 = value
+					Me.SendPropertyChanged("P12")
+					Me.OnP12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_FiscalYear", DbType:="Int NOT NULL")>  _
+		Public Property FiscalYear() As Integer
+			Get
+				Return Me._FiscalYear
+			End Get
+			Set
+				If ((Me._FiscalYear = value)  _
+							= false) Then
+					Me.OnFiscalYearChanging(value)
+					Me.SendPropertyChanging
+					Me._FiscalYear = value
+					Me.SendPropertyChanged("FiscalYear")
+					Me.OnFiscalYearChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Changed", DbType:="Bit NOT NULL")>  _
+		Public Property Changed() As Boolean
+			Get
+				Return Me._Changed
+			End Get
+			Set
+				If ((Me._Changed = value)  _
+							= false) Then
+					Me.OnChangedChanging(value)
+					Me.SendPropertyChanging
+					Me._Changed = value
+					Me.SendPropertyChanged("Changed")
+					Me.OnChangedChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LastUpdated", DbType:="DateTime")>  _
+		Public Property LastUpdated() As System.Nullable(Of Date)
+			Get
+				Return Me._LastUpdated
+			End Get
+			Set
+				If (Me._LastUpdated.Equals(value) = false) Then
+					Me.OnLastUpdatedChanging(value)
+					Me.SendPropertyChanging
+					Me._LastUpdated = value
+					Me.SendPropertyChanged("LastUpdated")
+					Me.OnLastUpdatedChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Portalid", DbType:="Int NOT NULL")>  _
+		Public Property Portalid() As Integer
+			Get
+				Return Me._Portalid
+			End Get
+			Set
+				If ((Me._Portalid = value)  _
+							= false) Then
+					Me.OnPortalidChanging(value)
+					Me.SendPropertyChanging
+					Me._Portalid = value
+					Me.SendPropertyChanged("Portalid")
+					Me.OnPortalidChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Name:="Error", Storage:="_Error", DbType:="Bit")>  _
+		Public Property [Error]() As System.Nullable(Of Boolean)
+			Get
+				Return Me._Error
+			End Get
+			Set
+				If (Me._Error.Equals(value) = false) Then
+					Me.OnErrorChanging(value)
+					Me.SendPropertyChanging
+					Me._Error = value
+					Me.SendPropertyChanged("[Error]")
+					Me.OnErrorChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ErrorMessage", DbType:="NVarChar(500)")>  _
+		Public Property ErrorMessage() As String
+			Get
+				Return Me._ErrorMessage
+			End Get
+			Set
+				If (String.Equals(Me._ErrorMessage, value) = false) Then
+					Me.OnErrorMessageChanging(value)
+					Me.SendPropertyChanging
+					Me._ErrorMessage = value
+					Me.SendPropertyChanged("ErrorMessage")
+					Me.OnErrorMessageChanged
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
 		End Sub
 	End Class
 End Namespace

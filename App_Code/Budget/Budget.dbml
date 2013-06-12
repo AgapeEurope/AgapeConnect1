@@ -65,6 +65,8 @@
       <Column Name="Changed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="LastUpdated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Portalid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Error" Type="System.Boolean" DbType="bit" CanBeNull="true" />
+      <Column Name="ErrorMessage" Type="System.String" DbType="nvarchar(500)" CanBeNull="true" />
       <Association Name="AP_StaffBroker_CostCenter_AP_Budget_Summary" Member="AP_StaffBroker_CostCenter" ThisKey="Portalid,RC" OtherKey="PortalId,CostCentreCode" Type="AP_StaffBroker_CostCenter" IsForeignKey="true" />
       <Association Name="AP_StaffBroker_AccountCode_AP_Budget_Summary" Member="AP_StaffBroker_AccountCode" ThisKey="Portalid,Account" OtherKey="PortalId,AccountCode" Type="AP_StaffBroker_AccountCode" IsForeignKey="true" />
     </Type>
@@ -87,6 +89,31 @@
       <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Type" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Association Name="AP_StaffBroker_CostCenter_AP_Budget_Summary" Member="AP_Budget_Summaries" ThisKey="PortalId,CostCentreCode" OtherKey="Portalid,RC" Type="AP_Budget_Summary" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_Budget_Summary" Member="AP_Budget_Summary1s">
+    <Type Name="AP_Budget_Summary1">
+      <Column Name="BudgetSummaryId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Account" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+      <Column Name="RC" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+      <Column Name="P1" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P2" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P3" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P4" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P5" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P6" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P7" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P8" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P9" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P10" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P11" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="P12" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="FiscalYear" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Changed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpdated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Portalid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Error" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ErrorMessage" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
