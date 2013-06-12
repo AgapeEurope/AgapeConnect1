@@ -1,0 +1,8 @@
+﻿@import url("https://thekey.me/cas/themes/thekey/default.css");
+
+.facebookLogin {display:none;}
+.relay-login {display:none;}
+
+.mainContent .submit .form_submit-wrap input.form_submit {
+    background: transparent url(images/button_signin-icon70px_agapefrance.png) no-repeat right top;
+}

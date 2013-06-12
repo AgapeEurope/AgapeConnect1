@@ -11,21 +11,31 @@
 <%@ Register TagPrefix="dnn" TagName="COPYRIGHT" Src="~/Admin/Skins/Copyright.ascx" %>
 <%@ Register TagPrefix="ddr" Namespace="DotNetNuke.Web.DDRMenu.TemplateEngine" Assembly="DotNetNuke.Web.DDRMenu" %>
 <%@ Register TagPrefix="ddr" TagName="MENU" src="~/DesktopModules/DDRMenu/Menu.ascx" %>
+<%@ Register TagPrefix="dnn" TagName="TEXT" Src="~/Admin/Skins/Text.ascx" %>
 
+
+<script runat="server">
+    Protected Function Translate(ResourceKey As String) As String   
+        Dim strFile As String = System.IO.Path.GetFileName(Server.MapPath(PortalSettings.ActiveTab.SkinSrc))
+                strFile = PortalSettings.ActiveTab.SkinPath + Localization.LocalResourceDirectory + "/" + strFile
+        Return Localization.GetString(ResourceKey, strFile)
+    End Function
+    
+</script>
 <script src="/js/jquery.watermarkinput.js" type="text/javascript"></script>
 <script type="text/javascript">
-        (function ($, Sys) {
-            function initSearchText() {
-                $('#SearchContainer span input[type=text]').Watermark('Recherche');
-            }
+    (function ($, Sys) {
+        function initSearchText() {
+            $('#SearchContainer span input[type=text]').Watermark('<%=Translate("SearchWatermark.Text")%>');
+        }
 
-            $(document).ready(function () {
+        $(document).ready(function () {
+            initSearchText();
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 initSearchText();
-                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                    initSearchText();
-                });
             });
-        }(jQuery, window.Sys));
+        });
+    }(jQuery, window.Sys));
     </script>
 
 <div id="controlPanelContainer">
@@ -43,7 +53,7 @@
 						<div id="RegisterContainer" class="needMargin"><dnn:USER runat="server" ID="dnnUSER" CssClass="user" /></div>
 						<div id="LoginContainer" class="needMargin"><dnn:LOGIN runat="server" ID="dnnLOGIN" CssClass="user" /></div>
 						<div id="MinicartContainer" class="needMargin"><dnn:MINICART runat="server" ID="dnnMINICART" /></div>
-						<div id="SearchContainer" class="needMargin"><dnn:SEARCH runat="server" ID="dnnSEARCH" UseDropDownList="False" ShowWeb="False" ShowSite="False" Submit="<div id=&quot;SearchSubmit&quot; alt=&quot;Rechercher&quot;></div>" /></div>
+						<div id="SearchContainer" class="needMargin"><dnn:SEARCH runat="server" ID="dnnSEARCH" UseDropDownList="False" ShowWeb="False" ShowSite="False" Submit="<div id=&quot;SearchSubmit&quot;></div>" /></div>
 					</div>
 					<div id="menu1">
 						<ddr:MENU ID="MENU1" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="*" runat="server" ExcludeNodes="" />
@@ -93,6 +103,9 @@
 		</div>
 		<div id="bar7" class="bar">
 			<div id="footer2" class="centeredbox">
+                <div id="socialmedia"><dnn:TEXT runat="server" ID="txtSocialMedia" ResourceKey="SocialMedia" CssClass=""/></div>
+                <a href="http://www.facebook.com/agapefrance" target="_blank" id="facebook"></a>
+                <a href="http://www.youtube.com/user/VideosAgapeFrance" target="_blank" id="youtube"></a>
 			</div>		
 		</div>
 		<div id="bar8" class="bar">
