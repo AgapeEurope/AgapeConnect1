@@ -43,6 +43,10 @@ Namespace DotNetNuke.Modules.Budget
 
                 Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
 
+                ddlAC.DataSource = Accs
+                ddlAC.DataBind()
+
+
                 ddlAccountNew.DataSource = Accs
                 ddlAccountNew.DataBind()
                 If firstFiscalMonth <> 1 Then
@@ -68,36 +72,63 @@ Namespace DotNetNuke.Modules.Budget
         End Sub
 
         Protected Sub GridView1_DataBound(sender As Object, e As EventArgs) Handles GridView1.DataBound
-            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1))
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.AP_StaffBroker_CostCenter.Type <> 1)) And (ddlAC.SelectedValue = "All" Or c.Account = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 4))
+            If q.Count > 0 Then
+                lblPTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
+                lblPTD2.Text = q.Sum(Function(c) c.P2).Value.ToString("0.00")
+                lblPTD3.Text = q.Sum(Function(c) c.P3).Value.ToString("0.00")
+                lblPTD4.Text = q.Sum(Function(c) c.P4).Value.ToString("0.00")
+                lblPTD5.Text = q.Sum(Function(c) c.P5).Value.ToString("0.00")
+                lblPTD6.Text = q.Sum(Function(c) c.P6).Value.ToString("0.00")
+                lblPTD7.Text = q.Sum(Function(c) c.P7).Value.ToString("0.00")
+                lblPTD8.Text = q.Sum(Function(c) c.P8).Value.ToString("0.00")
+                lblPTD9.Text = q.Sum(Function(c) c.P9).Value.ToString("0.00")
+                lblPTD10.Text = q.Sum(Function(c) c.P10).Value.ToString("0.00")
+                lblPTD11.Text = q.Sum(Function(c) c.P11).Value.ToString("0.00")
+                lblPTD12.Text = q.Sum(Function(c) c.P12).Value.ToString("0.00")
 
-            lblPTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
-            lblPTD2.Text = q.Sum(Function(c) c.P2).Value.ToString("0.00")
-            lblPTD3.Text = q.Sum(Function(c) c.P3).Value.ToString("0.00")
-            lblPTD4.Text = q.Sum(Function(c) c.P4).Value.ToString("0.00")
-            lblPTD5.Text = q.Sum(Function(c) c.P5).Value.ToString("0.00")
-            lblPTD6.Text = q.Sum(Function(c) c.P6).Value.ToString("0.00")
-            lblPTD7.Text = q.Sum(Function(c) c.P7).Value.ToString("0.00")
-            lblPTD8.Text = q.Sum(Function(c) c.P8).Value.ToString("0.00")
-            lblPTD9.Text = q.Sum(Function(c) c.P9).Value.ToString("0.00")
-            lblPTD10.Text = q.Sum(Function(c) c.P10).Value.ToString("0.00")
-            lblPTD11.Text = q.Sum(Function(c) c.P11).Value.ToString("0.00")
-            lblPTD12.Text = q.Sum(Function(c) c.P12).Value.ToString("0.00")
+                lblYTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
+                lblYTD2.Text = q.Sum(Function(c) c.P1 + c.P2).Value.ToString("0.00")
+                lblYTD3.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3).Value.ToString("0.00")
+                lblYTD4.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4).Value.ToString("0.00")
+                lblYTD5.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5).Value.ToString("0.00")
+                lblYTD6.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6).Value.ToString("0.00")
+                lblYTD7.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7).Value.ToString("0.00")
+                lblYTD8.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8).Value.ToString("0.00")
+                lblYTD9.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9).Value.ToString("0.00")
+                lblYTD10.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10).Value.ToString("0.00")
+                lblYTD11.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11).Value.ToString("0.00")
+                lblYTD12.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12).Value.ToString("0.00")
 
-            lblYTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
-            lblYTD2.Text = q.Sum(Function(c) c.P1 + c.P2).Value.ToString("0.00")
-            lblYTD3.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3).Value.ToString("0.00")
-            lblYTD4.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4).Value.ToString("0.00")
-            lblYTD5.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5).Value.ToString("0.00")
-            lblYTD6.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6).Value.ToString("0.00")
-            lblYTD7.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7).Value.ToString("0.00")
-            lblYTD8.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8).Value.ToString("0.00")
-            lblYTD9.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9).Value.ToString("0.00")
-            lblYTD10.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10).Value.ToString("0.00")
-            lblYTD11.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11).Value.ToString("0.00")
-            lblYTD12.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12).Value.ToString("0.00")
+                lblTotal.Text = lblYTD12.Text
+            Else
+                lblPTD1.Text = 0
+                lblPTD2.Text = 0
+                lblPTD3.Text = 0
+                lblPTD4.Text = 0
+                lblPTD5.Text = 0
+                lblPTD6.Text = 0
+                lblPTD7.Text = 0
+                lblPTD8.Text = 0
+                lblPTD9.Text = 0
+                lblPTD10.Text = 0
+                lblPTD11.Text = 0
+                lblPTD12.Text = 0
 
-            lblTotal.Text = lblYTD12.Text
-           
+                lblYTD1.Text = 0
+                lblYTD2.Text = 0
+                lblYTD3.Text = 0
+                lblYTD4.Text = 0
+                lblYTD5.Text = 0
+                lblYTD6.Text = 0
+                lblYTD7.Text = 0
+                lblYTD8.Text = 0
+                lblYTD9.Text = 0
+                lblYTD10.Text = 0
+                lblYTD11.Text = 0
+                lblYTD12.Text = 0
+                lblTotal.Text = 0
+            End If
             If Not firstFiscalMonth = Nothing Then
 
                 lblP1.Text = GetCalendarStartForPeriod(1, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
@@ -274,6 +305,25 @@ Namespace DotNetNuke.Modules.Budget
 
 
             End If
+        End Sub
+
+        Protected Sub ddlRC_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlRC.SelectedIndexChanged
+
+
+
+            Dim RCs = From c In d.AP_StaffBroker_CostCenters Where c.PortalId = PortalId And (c.CostCentreCode = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.Type <> 1))
+                  Select c.CostCentreCode, Name = c.CostCentreCode & " (" & c.CostCentreName & ")" Order By CostCentreCode
+
+            ddlRCNew.DataSource = RCs
+            ddlRCNew.DataBind()
+        End Sub
+
+        Protected Sub ddlAC_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlAC.SelectedIndexChanged
+            Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId And (ddlAC.SelectedValue = "All" Or c.AccountCode = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 4))
+                  Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
+
+            ddlAccountNew.DataSource = Accs
+            ddlAccountNew.DataBind()
         End Sub
     End Class
 End Namespace

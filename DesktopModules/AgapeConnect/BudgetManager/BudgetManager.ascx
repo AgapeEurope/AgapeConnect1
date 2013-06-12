@@ -320,10 +320,12 @@
 
                 </asp:GridView>
 
-                <asp:LinqDataSource ID="dsBudgetSummaries" runat="server" EntityTypeName="" ContextTypeName="Budget.BudgetDataContext" TableName="AP_Budget_Summaries" Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp;  ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1))" EnableInsert="True" EnableUpdate="True" OrderBy="Account">
+                <asp:LinqDataSource ID="dsBudgetSummaries" runat="server" EntityTypeName="" ContextTypeName="Budget.BudgetDataContext" TableName="AP_Budget_Summaries" 
+                    Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp;  ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1) || (@RC==&quot;AllNonStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type!=1)) &amp;&amp; (@AC==&quot;All&quot; || @AC == Account || (@AC==&quot;3&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==3) || (@AC==&quot;4&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==4) || (@AC==&quot;IE&quot; &amp;&amp; (AP_StaffBroker_AccountCode.AccountCodeType==3 || AP_StaffBroker_AccountCode.AccountCodeType==4)))" EnableInsert="True" EnableUpdate="True" OrderBy="Account">
                     <WhereParameters>
                         <asp:ControlParameter ControlID="hfPortalId" Name="Portalid" PropertyName="Value" Type="Int32" />
                         <asp:ControlParameter ControlID="ddlRC" Name="RC" PropertyName="SelectedValue" Type="String" />
+                        <asp:ControlParameter ControlID="ddlAC" Name="AC" PropertyName="SelectedValue" Type="String" />
                         <asp:ControlParameter ControlID="ddlFiscalYear" Name="FiscalYear" PropertyName="SelectedValue" Type="Int32" />
                     </WhereParameters>
                 </asp:LinqDataSource>
