@@ -1,19 +1,23 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="BudgetManager.ascx.vb" Inherits="DotNetNuke.Modules.Budget.BudgetManager" %>
 <script src="/js/jquery.numeric.js"></script>
+<script src="/js/jquery.mousewheel.js" type="text/javascript"></script>
+<script src="/js/mwheelIntent.js" type="text/javascript"></script>
+<script src="/js/jquery.jscrollpane.min.js" type="text/javascript"></script>
+<link href="/js/jquery.jscrollpane.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    
+
     (function ($, Sys) {
 
         function setUpMyTabs() {
-          
+
             $('.aButton').button();
 
             //$('.dropdown-toggle').dropdown();
-           
+
             $('.numeric').numeric();
-           
+            $('.scroll-pane').jScrollPane();
             $('.insertPeriod').keyup(function () {
-             
+
                 var total = parseFloat($('#<%= tbP1new.ClientID%>').val())
                     + parseFloat($('#<%= tbP2new.ClientID%>').val())
                     + parseFloat($('#<%= tbP3new.ClientID%>').val())
@@ -25,13 +29,13 @@
                     + parseFloat($('#<%= tbP9new.ClientID%>').val())
                     + parseFloat($('#<%= tbP10new.ClientID%>').val())
                     + parseFloat($('#<%= tbP11new.ClientID%>').val())
-                    + parseFloat($('#<%= tbP12new.ClientID%>').val()) ;
-              
-                $('#<%= lblTotalNew.ClientID %>').text( total.toString());
-                
-                
-                });
-           
+                    + parseFloat($('#<%= tbP12new.ClientID%>').val());
+
+                $('#<%= lblTotalNew.ClientID %>').text(total.toString());
+
+
+            });
+
 
         }
 
@@ -48,26 +52,55 @@
 
 
 </script>
+<style type="text/css">
+    .scroll-pane {
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 300px;
+    }
 
-<table>
+    .insertPeriod {
+        width:60px;
+    }
+</style>
+
+<table width="100%">
     <tr>
-        <td>Fiscal Year: 
+        <td rowspan="2" style="font-size: large; width: 20%">
+            <h3>Fiscal Year:</h3>
+
         </td>
-        <td>
-            <asp:DropDownList ID="ddlFiscalYear" runat="server" AutoPostBack="true">
+        <td rowspan="2" style="width: 45%">
+            <asp:DropDownList ID="ddlFiscalYear" runat="server" Font-Size="Large" AutoPostBack="true">
                 <asp:ListItem Text="2010-2011" Value="2010" />
                 <asp:ListItem Text="2011-2012" Value="2011" />
                 <asp:ListItem Text="2012-2013" Value="2012" />
                 <asp:ListItem Text="2013-2014" Value="2013" />
             </asp:DropDownList>
         </td>
-    </tr>
-    <tr>
-        <td>Filter by R/C:</td>
-        <td>
+        <td style="width: 15%; text-align: right;">
+            <b>Filter by R/C:</b>
+
+        </td>
+        <td style="width: 20%">
             <asp:DropDownList ID="ddlRC" runat="server" DataTextField="Name" DataValueField="CostCentreCode" AutoPostBack="true" AppendDataBoundItems="true">
                 <asp:ListItem Text="All R/C's" Value="All" />
                 <asp:ListItem Text="All Staff" Value="AllStaff" />
+                <asp:ListItem Text="All Non-Staff" Value="AllNonStaff" />
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;"><b>Filter by A/C:</b>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlAC" runat="server" DataTextField="Name" DataValueField="AccountCode" AutoPostBack="true" AppendDataBoundItems="true">
+                <asp:ListItem Text="All A/C's" Value="All" />
+                <asp:ListItem Text="All Income & Expense Only" Value="IE" />
+                <asp:ListItem Text="Income Only" Value="3" />
+                <asp:ListItem Text="Expense Only" Value="4" />
+
             </asp:DropDownList>
 
         </td>
@@ -75,216 +108,14 @@
 </table>
 
 
+
+
 <asp:HiddenField ID="hfPortalId" runat="server" Value="0" />
 
-<asp:GridView ID="GridView1" runat="server" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False" DataKeyNames="BudgetSummaryId" DataSourceID="dsBudgetSummaries" ShowFooter="True">
-    <AlternatingRowStyle BackColor="White" />
-    <Columns>
-        <asp:TemplateField HeaderText="Account" SortExpression="Account">
-            <EditItemTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# Eval("Account") %>'></asp:Label>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label14" runat="server" ToolTip='<%# Eval("AP_StaffBroker_AccountCode.AccountCodeName") %>' Text='<%# Bind("Account") %>'></asp:Label>
-            </ItemTemplate>
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="RC" SortExpression="RC">
-            <EditItemTemplate>
-                <asp:Label ID="Label1" runat="server" Text='<%# Eval("RC")%>'></asp:Label>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label1" runat="server" ToolTip='<%# Eval("AP_StaffBroker_CostCenter.CostCentreName") %>' Text='<%# Eval("RC")%>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                Total:
-            </FooterTemplate>
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P1" SortExpression="P1">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("P1", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# Bind("P1", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(1).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P2" SortExpression="P2">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("P2", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label3" runat="server" Text='<%# Bind("P2", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(2).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P3" SortExpression="P3">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("P3", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label4" runat="server" Text='<%# Bind("P3", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(3).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P4" SortExpression="P4">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("P4", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label5" runat="server" Text='<%# Bind("P4", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(4).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P5" SortExpression="P5">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("P5", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label6" runat="server" Text='<%# Bind("P5", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(5).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P6" SortExpression="P6">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("P6", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label7" runat="server" Text='<%# Bind("P6", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(6).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P7" SortExpression="P7">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("P7", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label8" runat="server" Text='<%# Bind("P7", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(7).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P8" SortExpression="P8">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("P8", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label9" runat="server" Text='<%# Bind("P8", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(8).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P9" SortExpression="P9">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("P9", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label10" runat="server" Text='<%# Bind("P9", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(9).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P10" SortExpression="P10">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("P10", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label11" runat="server" Text='<%# Bind("P10", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(10).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P11" SortExpression="P11">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox11" runat="server" Text='<%# Bind("P11", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label12" runat="server" Text='<%# Bind("P11", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(11).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-        <asp:TemplateField HeaderText="P12" SortExpression="P12">
-            <EditItemTemplate>
-                <asp:TextBox ID="TextBox12" runat="server" Text='<%# Bind("P12", "{0:0.00}") %>'></asp:TextBox>
-            </EditItemTemplate>
-            <ItemTemplate>
-                <asp:Label ID="Label13" runat="server" Text='<%# Bind("P12", "{0:0.00}") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(12).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-            <ControlStyle Width="60px" />
-        </asp:TemplateField>
-
-
-        <asp:TemplateField HeaderText="Total">
-            <ItemTemplate>
-
-                <asp:Label runat="server" Font-Bold="true" Text='<%# CDbl(Eval("P1") + Eval("P2") +Eval("P3") +Eval("P4") +Eval("P5") +Eval("P6") +Eval("P7") +Eval("P8") +Eval("P9") +Eval("P10") +Eval("P11") +Eval("P12")).ToString("0.00") %>'></asp:Label>
-            </ItemTemplate>
-            <FooterTemplate>
-                <asp:Label ID="Label2" runat="server" Text='<%# GetColumnTotal(-1).ToString("0.00") %>'></asp:Label>
-            </FooterTemplate>
-        </asp:TemplateField>
-
-
-        <asp:CommandField ShowEditButton="True" />
-
-
-    </Columns>
-    <FooterStyle BackColor="#CCCC99" Font-Bold="True" />
-    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-    <RowStyle BackColor="#F7F7DE" />
-    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-    <SortedAscendingCellStyle BackColor="#FBFBF2" />
-    <SortedAscendingHeaderStyle BackColor="#848384" />
-    <SortedDescendingCellStyle BackColor="#EAEAD3" />
-    <SortedDescendingHeaderStyle BackColor="#575357" />
-
-</asp:GridView>
-<asp:LinqDataSource ID="dsBudgetSummaries" runat="server" EntityTypeName="" ContextTypeName="Budget.BudgetDataContext" TableName="AP_Budget_Summaries" Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp;  ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1))" EnableInsert="True" EnableUpdate="True" OrderBy="Account">
-    <WhereParameters>
-        <asp:ControlParameter ControlID="hfPortalId" Name="Portalid" PropertyName="Value" Type="Int32" />
-        <asp:ControlParameter ControlID="ddlRC" Name="RC" PropertyName="SelectedValue" Type="String" />
-        <asp:ControlParameter ControlID="ddlFiscalYear" Name="FiscalYear" PropertyName="SelectedValue" Type="Int32" />
-    </WhereParameters>
-</asp:LinqDataSource>
-
-
-<table>
-    <tr>
-        <td>Fiscal Year</td>
-        <td>Account</td>
-        <td>R/C</td>
+<table class="budGrid" cellpadding="3" cellspacing="0" style="width: 100%; background-color: #FAFAF0;">
+    <tr style="background-color: #6B696B; font-weight: bold; font-size: small; color: white; white-space: nowrap;">
+        <td style="width: 50px">A/C</td>
+        <td style="width: 50px">R/C</td>
         <td>P1</td>
         <td>P2</td>
         <td>P3</td>
@@ -297,58 +128,308 @@
         <td>P10</td>
         <td>P11</td>
         <td>P12</td>
-        <td>Total</td>
+        <td style="width: 55px">Total</td>
         <td></td>
 
     </tr>
+
     <tr>
+        <td colspan="16">
+            <div class="scroll-pane" style="margin: 0 -2px;">
+                <asp:GridView ID="GridView1" runat="server" BackColor="White" ShowHeader="false" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False" DataKeyNames="BudgetSummaryId" DataSourceID="dsBudgetSummaries" ShowFooter="False" Width="100%">
+                    <AlternatingRowStyle BackColor="White" Font-Size="X-Small" />
+                    <Columns>
+                        <asp:TemplateField HeaderText="Account" SortExpression="Account" ItemStyle-Width="48" ItemStyle-Font-Size="small" ItemStyle-Font-Bold="true">
+                            <EditItemTemplate>
+                                <asp:Label ID="Label2" runat="server" Width="48px" Text='<%# Eval("Account") %>'></asp:Label>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label14" runat="server" ToolTip='<%# Eval("AP_StaffBroker_AccountCode.AccountCodeName") %>' Text='<%# Bind("Account") %>'></asp:Label>
+                            </ItemTemplate>
+
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="RC" SortExpression="RC" ItemStyle-Width="48" ItemStyle-Font-Size="small" ItemStyle-Font-Bold="true">
+                            <EditItemTemplate>
+                                <asp:Label ID="Label1" runat="server" Width="48px" Text='<%# Eval("RC")%>'></asp:Label>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label1" runat="server" ToolTip='<%# Eval("AP_StaffBroker_CostCenter.CostCentreName") %>' Text='<%# Eval("RC")%>'></asp:Label>
+                            </ItemTemplate>
+
+
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P1" SortExpression="P1" HeaderStyle-Width="60">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("P1", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label2" runat="server" Text='<%# Bind("P1", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P2" SortExpression="P2">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("P2", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label3" runat="server" Text='<%# Bind("P2", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                           
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P3" SortExpression="P3">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("P3", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label4" runat="server" Text='<%# Bind("P3", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                            
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P4" SortExpression="P4">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("P4", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label5" runat="server" Text='<%# Bind("P4", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                           
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P5" SortExpression="P5">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("P5", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label6" runat="server" Text='<%# Bind("P5", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                          
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P6" SortExpression="P6">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("P6", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label7" runat="server" Text='<%# Bind("P6", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                           
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P7" SortExpression="P7">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("P7", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label8" runat="server" Text='<%# Bind("P7", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                          
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P8" SortExpression="P8">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("P8", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label9" runat="server" Text='<%# Bind("P8", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                       
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P9" SortExpression="P9">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("P9", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label10" runat="server" Text='<%# Bind("P9", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                         
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P10" SortExpression="P10">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("P10", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label11" runat="server" Text='<%# Bind("P10", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                           
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P11" SortExpression="P11">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox11" runat="server" Text='<%# Bind("P11", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label12" runat="server" Text='<%# Bind("P11", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                            
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="P12" SortExpression="P12">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox12" runat="server" Text='<%# Bind("P12", "{0:0.00}") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="Label13" runat="server" Text='<%# Bind("P12", "{0:0.00}") %>'></asp:Label>
+                            </ItemTemplate>
+                          
+                            <ControlStyle Width="60px" />
+                        </asp:TemplateField>
+
+
+                        <asp:TemplateField HeaderText="Total">
+                            <ItemTemplate>
+
+                                <asp:Label runat="server" Font-Bold="true" Text='<%# CDbl(Eval("P1") + Eval("P2") +Eval("P3") +Eval("P4") +Eval("P5") +Eval("P6") +Eval("P7") +Eval("P8") +Eval("P9") +Eval("P10") +Eval("P11") +Eval("P12")).ToString("0.00") %>'></asp:Label>
+                            </ItemTemplate>
+                        
+                        </asp:TemplateField>
+
+
+                        <asp:TemplateField ShowHeader="False">
+                            <EditItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
+                                <br />
+                                <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+
+                    </Columns>
+                    <FooterStyle BackColor="#CCCC99" Font-Bold="True" />
+                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" Height="20px" Wrap="false" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                    <RowStyle BackColor="#F7F7DE" Font-Size="xSmall" />
+                    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                    <SortedAscendingCellStyle BackColor="#FBFBF2" />
+                    <SortedAscendingHeaderStyle BackColor="#848384" />
+                    <SortedDescendingCellStyle BackColor="#EAEAD3" />
+                    <SortedDescendingHeaderStyle BackColor="#575357" />
+
+                </asp:GridView>
+
+                <asp:LinqDataSource ID="dsBudgetSummaries" runat="server" EntityTypeName="" ContextTypeName="Budget.BudgetDataContext" TableName="AP_Budget_Summaries" Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp;  ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1))" EnableInsert="True" EnableUpdate="True" OrderBy="Account">
+                    <WhereParameters>
+                        <asp:ControlParameter ControlID="hfPortalId" Name="Portalid" PropertyName="Value" Type="Int32" />
+                        <asp:ControlParameter ControlID="ddlRC" Name="RC" PropertyName="SelectedValue" Type="String" />
+                        <asp:ControlParameter ControlID="ddlFiscalYear" Name="FiscalYear" PropertyName="SelectedValue" Type="Int32" />
+                    </WhereParameters>
+                </asp:LinqDataSource>
+            </div>
+        </td>
+    </tr>
+    <tr style="background-color: #CCCC99; font-weight: bold;">
+        <td>Total</td>
+        <td>PTD:<br />
+            <asp:Label ID="Label15" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" Text="YTD:"></asp:Label></td>
         <td>
-            <asp:DropDownList ID="ddlFiscalYearNew" runat="server">
-                <asp:ListItem Text="2010-2011" Value="2010" />
-                <asp:ListItem Text="2011-2012" Value="2011" />
-                <asp:ListItem Text="2012-2013" Value="2012" />
-                <asp:ListItem Text="2013-2014" Value="2013" />
-            </asp:DropDownList>
+            <asp:Label ID="lblPTD1" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD1" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
         </td>
         <td>
-             <asp:DropDownList ID="ddlAccountNew" runat="server" DataTextField="AccountCode" DataValueField="AccountCode" DataSourceID="dsAccounts"></asp:DropDownList>
-             <asp:LinqDataSource ID="dsAccounts" runat="server" ContextTypeName="Budget.BudgetDataContext" EntityTypeName="" OrderBy="AccountCode" TableName="AP_StaffBroker_AccountCodes" Where="PortalId == @PortalId">
-                 <WhereParameters>
-                     <asp:ControlParameter ControlID="hfPortalId" Name="PortalId" PropertyName="Value" Type="Int32" />
-                 </WhereParameters>
-             </asp:LinqDataSource>
+            <asp:Label ID="lblPTD2" runat="server"></asp:Label><br />
+            <asp:Label ID="lblYTD2" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlRCNew" runat="server" DataTextField="CostCentreCode" DataValueField="CostCentreCode"></asp:DropDownList>
+            <asp:Label ID="lblPTD3" runat="server"></asp:Label><br />
+            <asp:Label ID="lblYTD3" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="tbP1new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD4" runat="server"></asp:Label><br />
+            <asp:Label ID="lblYTD4" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP2new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD5" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD5" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP3new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD6" runat="server"></asp:Label><br />
+            <asp:Label ID="lblYTD6" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false"></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP4new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD7" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD7" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP5new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD8" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD8" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP6new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD9" runat="server"></asp:Label><br />
+            <asp:Label ID="lblYTD9" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP7new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD10" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD10" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP8new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD11" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD11" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+        </td>
         <td>
-            <asp:TextBox ID="tbP9new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:Label ID="lblPTD12" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD12" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false"></asp:Label>
+        </td>
+
+     
+        <td colspan="2">  <asp:Label ID="lblTotal" runat="server" ></asp:Label></td>
+        
+
+    </tr>
+
+    <tr>
+        <td colspan="16" style="text-align: center; font-style: italic; font-size: x-small; padding-top: 5px; border-bottom: dashed 1px #808080">--Insert New Row--
+        </td>
+    </tr>
+
+
+    <tr>
+
         <td>
-            <asp:TextBox ID="tbP10new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:DropDownList ID="ddlAccountNew" runat="server" DataTextField="Name" DataValueField="AccountCode" Font-Size="X-Small" Width="50px"></asp:DropDownList>
+
+        </td>
         <td>
-            <asp:TextBox ID="tbP11new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+            <asp:DropDownList ID="ddlRCNew" runat="server" DataTextField="Name" Width="50px" DataValueField="CostCentreCode" Font-Size="X-Small"></asp:DropDownList>
+        </td>
         <td>
-            <asp:TextBox ID="tbP12new" runat="server" Width="60px" CssClass="insertPeriod numeric">0</asp:TextBox></td>
-        <td><asp:Label ID="lblTotalNew" runat="server" Text="0"></asp:Label></td>
+            <asp:TextBox ID="tbP1new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
         <td>
-            <asp:LinkButton ID="btnInsertRow" runat="server">Insert</asp:LinkButton>
+            <asp:TextBox ID="tbP2new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP3new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP4new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP5new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP6new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP7new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP8new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP9new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP10new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP11new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:TextBox ID="tbP12new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:Label ID="lblTotalNew" runat="server" Width="60px" Text="0"></asp:Label></td>
+        <td>
+            <asp:LinkButton ID="btnInsertRow" runat="server" Font-Size="X-Small">Insert</asp:LinkButton>
         </td>
     </tr>
 </table>
 
+<asp:Button ID="btnExport" runat="server" Text="Export" CssClass="aButton" />
+<asp:Button ID="btnImport" runat="server" Text="Import" CssClass="aButton" />

@@ -7,6 +7,7 @@
 <script src="/js/jquery.mousewheel.js" type="text/javascript"></script>
 <script src="/js/mwheelIntent.js" type="text/javascript"></script>
 <script src="/Scripts/linq.js" type="text/javascript"></script>
+
 <style>
     div.on {
         border: 3px outset blue;

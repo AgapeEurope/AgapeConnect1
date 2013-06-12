@@ -31,47 +31,55 @@ Namespace DotNetNuke.Modules.Budget
                 ddlRCNew.DataSource = RCs
                 ddlRCNew.DataBind()
 
+                Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
+
+                ddlAccountNew.DataSource = Accs
+                ddlAccountNew.DataBind()
                 ddlFiscalYear.SelectedValue = 2012
-                ddlFiscalYearNew.SelectedValue = 2012
             End If
 
 
         End Sub
 
-        Public Function GetColumnTotal(ByVal PeriodNumber As Integer) As Double
+        Protected Sub GridView1_DataBound(sender As Object, e As EventArgs) Handles GridView1.DataBound
             Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1))
 
-            If q.Count > 0 Then
-                Select Case PeriodNumber
-                    Case 1 : Return q.Sum(Function(c) c.P1)
-                    Case 2 : Return q.Sum(Function(c) c.P2)
-                    Case 3 : Return q.Sum(Function(c) c.P3)
-                    Case 4 : Return q.Sum(Function(c) c.P4)
-                    Case 5 : Return q.Sum(Function(c) c.P5)
-                    Case 6 : Return q.Sum(Function(c) c.P6)
-                    Case 7 : Return q.Sum(Function(c) c.P7)
-                    Case 8 : Return q.Sum(Function(c) c.P8)
-                    Case 9 : Return q.Sum(Function(c) c.P9)
-                    Case 10 : Return q.Sum(Function(c) c.P10)
-                    Case 11 : Return q.Sum(Function(c) c.P11)
-                    Case 12 : Return q.Sum(Function(c) c.P12)
-                    Case -1 : Return q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12)
+            lblPTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
+            lblPTD2.Text = q.Sum(Function(c) c.P2).Value.ToString("0.00")
+            lblPTD3.Text = q.Sum(Function(c) c.P3).Value.ToString("0.00")
+            lblPTD4.Text = q.Sum(Function(c) c.P4).Value.ToString("0.00")
+            lblPTD5.Text = q.Sum(Function(c) c.P5).Value.ToString("0.00")
+            lblPTD6.Text = q.Sum(Function(c) c.P6).Value.ToString("0.00")
+            lblPTD7.Text = q.Sum(Function(c) c.P7).Value.ToString("0.00")
+            lblPTD8.Text = q.Sum(Function(c) c.P8).Value.ToString("0.00")
+            lblPTD9.Text = q.Sum(Function(c) c.P9).Value.ToString("0.00")
+            lblPTD10.Text = q.Sum(Function(c) c.P10).Value.ToString("0.00")
+            lblPTD11.Text = q.Sum(Function(c) c.P11).Value.ToString("0.00")
+            lblPTD12.Text = q.Sum(Function(c) c.P12).Value.ToString("0.00")
 
+            lblYTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
+            lblYTD2.Text = q.Sum(Function(c) c.P1 + c.P2).Value.ToString("0.00")
+            lblYTD3.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3).Value.ToString("0.00")
+            lblYTD4.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4).Value.ToString("0.00")
+            lblYTD5.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5).Value.ToString("0.00")
+            lblYTD6.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6).Value.ToString("0.00")
+            lblYTD7.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7).Value.ToString("0.00")
+            lblYTD8.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8).Value.ToString("0.00")
+            lblYTD9.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9).Value.ToString("0.00")
+            lblYTD10.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10).Value.ToString("0.00")
+            lblYTD11.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11).Value.ToString("0.00")
+            lblYTD12.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12).Value.ToString("0.00")
 
-                    Case Else
-                        Return 0
-                End Select
-            End If
-            Return 0
-        End Function
-
+            lblTotal.Text = lblYTD12.Text
+        End Sub
+       
        
         Protected Sub btnInsertRow_Click(sender As Object, e As EventArgs) Handles btnInsertRow.Click
-            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYearNew.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
             If q.Count = 0 Then
                 Dim insert As New AP_Budget_Summary
                 insert.Portalid = PortalId
-                insert.FiscalYear = ddlFiscalYearNew.SelectedValue
+                insert.FiscalYear = ddlFiscalYear.SelectedValue
                 insert.Account = ddlAccountNew.SelectedValue
                 insert.RC = ddlRCNew.SelectedValue
                 insert.P1 = tbP1new.Text
@@ -91,7 +99,7 @@ Namespace DotNetNuke.Modules.Budget
                 d.AP_Budget_Summaries.InsertOnSubmit(insert)
                 d.SubmitChanges()
                 GridView1.DataBind()
-                ddlFiscalYearNew.SelectedValue = ddlFiscalYear.SelectedValue
+                ddlFiscalYear.SelectedValue = ddlFiscalYear.SelectedValue
                 ddlRCNew.SelectedIndex = 0
                 ddlAccountNew.SelectedIndex = 0
                 tbP1new.Text = "0"
@@ -116,5 +124,7 @@ Namespace DotNetNuke.Modules.Budget
            
 
         End Sub
+
+       
     End Class
 End Namespace
