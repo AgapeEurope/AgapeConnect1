@@ -18,10 +18,20 @@ Namespace DotNetNuke.Modules.Budget
     Partial Class BudgetManager
         Inherits Entities.Modules.PortalModuleBase
         Dim d As New BudgetDataContext
-     
+
+        Dim currentFiscalYear As Integer
+        Dim firstFiscalMonth As Integer
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
             hfPortalId.Value = PortalId
 
+             Dim tmp = StaffBrokerFunctions.GetSetting("FirstFiscalMonth", PortalId)
+            If Not String.IsNullOrEmpty(tmp) Then
+                firstFiscalMonth = tmp
+            End If
+            tmp = StaffBrokerFunctions.GetSetting("CurrentFiscalPeriod", PortalId)
+            If Not String.IsNullOrEmpty(tmp) Then
+                currentFiscalYear = Left(tmp, 4)
+            End If
             If (Not Page.IsPostBack) Then
                 Dim RCs = From c In d.AP_StaffBroker_CostCenters Where c.PortalId = PortalId Select c.CostCentreCode, Name = c.CostCentreCode & " (" & c.CostCentreName & ")" Order By CostCentreCode
 
@@ -35,7 +45,23 @@ Namespace DotNetNuke.Modules.Budget
 
                 ddlAccountNew.DataSource = Accs
                 ddlAccountNew.DataBind()
-                ddlFiscalYear.SelectedValue = 2012
+                If firstFiscalMonth <> 1 Then
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 2) & "-" & (currentFiscalYear - 1), currentFiscalYear - 2))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 1) & "-" & (currentFiscalYear), currentFiscalYear - 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear) & "-" & (currentFiscalYear + 1), currentFiscalYear))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 1) & "-" & (currentFiscalYear + 2), currentFiscalYear + 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 2) & "-" & (currentFiscalYear + 3), currentFiscalYear + 2))
+                Else
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 2), currentFiscalYear - 2))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 1), currentFiscalYear - 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear), currentFiscalYear))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 1), currentFiscalYear + 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 2), currentFiscalYear + 2))
+                End If
+                
+
+
+                ddlFiscalYear.SelectedValue = currentFiscalYear
             End If
 
 
@@ -71,9 +97,36 @@ Namespace DotNetNuke.Modules.Budget
             lblYTD12.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12).Value.ToString("0.00")
 
             lblTotal.Text = lblYTD12.Text
+           
+            If Not firstFiscalMonth = Nothing Then
+
+                lblP1.Text = GetCalendarStartForPeriod(1, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP2.Text = GetCalendarStartForPeriod(2, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP3.Text = GetCalendarStartForPeriod(3, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP4.Text = GetCalendarStartForPeriod(4, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP5.Text = GetCalendarStartForPeriod(5, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP6.Text = GetCalendarStartForPeriod(6, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP7.Text = GetCalendarStartForPeriod(7, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP8.Text = GetCalendarStartForPeriod(8, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP9.Text = GetCalendarStartForPeriod(9, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP10.Text = GetCalendarStartForPeriod(10, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP11.Text = GetCalendarStartForPeriod(11, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP12.Text = GetCalendarStartForPeriod(12, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+
+
+            End If
+
         End Sub
        
-       
+
+        Protected Function GetCalendarStartForPeriod(ByVal period As Integer, ByVal firstMonth As Integer, ByVal FiscalYear As Integer) As Date
+            If period + firstMonth - 1 <= 12 Then
+                Return New Date(FiscalYear, period + firstMonth - 1, 1)
+            Else
+                Return New Date(FiscalYear + 1, period + firstMonth - 13, 1)
+            End If
+        End Function
+
         Protected Sub btnInsertRow_Click(sender As Object, e As EventArgs) Handles btnInsertRow.Click
             Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
             If q.Count = 0 Then
@@ -121,10 +174,10 @@ Namespace DotNetNuke.Modules.Budget
                 'Budget already exists... replace or addto.
             End If
 
-           
+
 
         End Sub
 
-       
+
     End Class
 End Namespace

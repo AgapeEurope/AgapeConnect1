@@ -10,8 +10,8 @@ Imports StaffBrokerFunctions
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class DatatSync
     Inherits System.Web.Services.WebService
-    Public Const VERSION_NUMBER As String = "1.0.61"   'The version of acDatalinks that this webservice is designed against 
-    Public Const CRITICAL_VERSION_NUMBER As String = "1.0.58"  'The minimum acDatalinks version that this webservice requires
+    Public Const VERSION_NUMBER As String = "1.1.0"   'The version of acDatalinks that this webservice is designed against 
+    Public Const CRITICAL_VERSION_NUMBER As String = "1.1.0"  'The minimum acDatalinks version that this webservice requires
 
     Public Const UPDRAGE_AVAILABLE As String = "<p>There is a new version of ACDatalinks available.(ACDatalinks is the datapump that downloads " _
                                                 & "transactions from the website and inserts them into your financial package. Your website has been configured to work with " & VERSION_NUMBER _
@@ -207,6 +207,9 @@ Public Class DatatSync
         Public currentFiscalPeriod As String
 
         Public changedBudgets As Budget.AP_Budget_Summary()
+
+        Public FirstFiscalMonth As Integer
+
 
 
     End Structure
@@ -611,6 +614,7 @@ Public Class DatatSync
         SetSetting("acDatalink_acDatalink_Error", settings.acDatalink_acDatalink_Error, PS.PortalId)
 
         SetSetting("CurrentFiscalPeriod", settings.currentFiscalPeriod, PS.PortalId)
+        SetSetting("FirstFiscalMonth", settings.FirstFiscalMonth, PS.PortalId)
 
         ' SetSetting("CompanyName", settings.CompanyId, PS.PortalId)
         SyncBudgetsChangedInDynamics(settings.changedBudgets)

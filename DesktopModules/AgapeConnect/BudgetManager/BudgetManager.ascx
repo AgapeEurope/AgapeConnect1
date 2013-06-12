@@ -63,6 +63,16 @@
     .insertPeriod {
         width:60px;
     }
+    .headSmall {
+        font-size: x-small;
+        color:  lightgray;
+    }
+    .headBig {
+        text-transform: capitalize;
+        font-size: small;
+        color: white;  
+        margin-left: 2px; 
+    }
 </style>
 
 <table width="100%">
@@ -73,10 +83,7 @@
         </td>
         <td rowspan="2" style="width: 45%">
             <asp:DropDownList ID="ddlFiscalYear" runat="server" Font-Size="Large" AutoPostBack="true">
-                <asp:ListItem Text="2010-2011" Value="2010" />
-                <asp:ListItem Text="2011-2012" Value="2011" />
-                <asp:ListItem Text="2012-2013" Value="2012" />
-                <asp:ListItem Text="2013-2014" Value="2013" />
+                
             </asp:DropDownList>
         </td>
         <td style="width: 15%; text-align: right;">
@@ -116,18 +123,19 @@
     <tr style="background-color: #6B696B; font-weight: bold; font-size: small; color: white; white-space: nowrap;">
         <td style="width: 50px">A/C</td>
         <td style="width: 50px">R/C</td>
-        <td>P1</td>
-        <td>P2</td>
-        <td>P3</td>
-        <td>P4</td>
-        <td>P5</td>
-        <td>P6</td>
-        <td>P7</td>
-        <td>P8</td>
-        <td>P9</td>
-        <td>P10</td>
-        <td>P11</td>
-        <td>P12</td>
+        <td class="headSmall"><asp:Label ID="lblP1" runat="server" Width="48px" CssClass="headBig" Text="P1"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP2" runat="server" Width="48px" CssClass="headBig" Text="P2"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP3" runat="server" Width="48px" CssClass="headBig" Text="P3"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP4" runat="server" Width="48px" CssClass="headBig" Text="P4"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP5" runat="server" Width="48px" CssClass="headBig" Text="P5"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP6" runat="server" Width="48px" CssClass="headBig" Text="P6"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP7" runat="server" Width="48px" CssClass="headBig" Text="P7"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP8" runat="server" Width="48px" CssClass="headBig" Text="P8"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP9" runat="server" Width="48px" CssClass="headBig" Text="P9"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP10" runat="server" Width="48px" CssClass="headBig" Text="P10"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP11" runat="server" Width="48px" CssClass="headBig" Text="P11"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP12" runat="server" Width="48px" CssClass="headBig" Text="P12"></asp:Label></td>
+        
         <td style="width: 55px">Total</td>
         <td></td>
 
