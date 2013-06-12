@@ -18,10 +18,20 @@ Namespace DotNetNuke.Modules.Budget
     Partial Class BudgetManager
         Inherits Entities.Modules.PortalModuleBase
         Dim d As New BudgetDataContext
-     
+
+        Dim currentFiscalYear As Integer
+        Dim firstFiscalMonth As Integer
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
             hfPortalId.Value = PortalId
 
+             Dim tmp = StaffBrokerFunctions.GetSetting("FirstFiscalMonth", PortalId)
+            If Not String.IsNullOrEmpty(tmp) Then
+                firstFiscalMonth = tmp
+            End If
+            tmp = StaffBrokerFunctions.GetSetting("CurrentFiscalPeriod", PortalId)
+            If Not String.IsNullOrEmpty(tmp) Then
+                currentFiscalYear = Left(tmp, 4)
+            End If
             If (Not Page.IsPostBack) Then
                 Dim RCs = From c In d.AP_StaffBroker_CostCenters Where c.PortalId = PortalId Select c.CostCentreCode, Name = c.CostCentreCode & " (" & c.CostCentreName & ")" Order By CostCentreCode
 
@@ -31,47 +41,129 @@ Namespace DotNetNuke.Modules.Budget
                 ddlRCNew.DataSource = RCs
                 ddlRCNew.DataBind()
 
-                ddlFiscalYear.SelectedValue = 2012
-                ddlFiscalYearNew.SelectedValue = 2012
+                Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
+
+                ddlAC.DataSource = Accs
+                ddlAC.DataBind()
+
+
+                ddlAccountNew.DataSource = Accs
+                ddlAccountNew.DataBind()
+                If firstFiscalMonth <> 1 Then
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 2) & "-" & (currentFiscalYear - 1), currentFiscalYear - 2))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 1) & "-" & (currentFiscalYear), currentFiscalYear - 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear) & "-" & (currentFiscalYear + 1), currentFiscalYear))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 1) & "-" & (currentFiscalYear + 2), currentFiscalYear + 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 2) & "-" & (currentFiscalYear + 3), currentFiscalYear + 2))
+                Else
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 2), currentFiscalYear - 2))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 1), currentFiscalYear - 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear), currentFiscalYear))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 1), currentFiscalYear + 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 2), currentFiscalYear + 2))
+                End If
+                
+
+
+                ddlFiscalYear.SelectedValue = currentFiscalYear
             End If
 
 
         End Sub
 
-        Public Function GetColumnTotal(ByVal PeriodNumber As Integer) As Double
-            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1))
-
+        Protected Sub GridView1_DataBound(sender As Object, e As EventArgs) Handles GridView1.DataBound
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.AP_StaffBroker_CostCenter.Type <> 1)) And (ddlAC.SelectedValue = "All" Or c.Account = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 4))
             If q.Count > 0 Then
-                Select Case PeriodNumber
-                    Case 1 : Return q.Sum(Function(c) c.P1)
-                    Case 2 : Return q.Sum(Function(c) c.P2)
-                    Case 3 : Return q.Sum(Function(c) c.P3)
-                    Case 4 : Return q.Sum(Function(c) c.P4)
-                    Case 5 : Return q.Sum(Function(c) c.P5)
-                    Case 6 : Return q.Sum(Function(c) c.P6)
-                    Case 7 : Return q.Sum(Function(c) c.P7)
-                    Case 8 : Return q.Sum(Function(c) c.P8)
-                    Case 9 : Return q.Sum(Function(c) c.P9)
-                    Case 10 : Return q.Sum(Function(c) c.P10)
-                    Case 11 : Return q.Sum(Function(c) c.P11)
-                    Case 12 : Return q.Sum(Function(c) c.P12)
-                    Case -1 : Return q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12)
+                lblPTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
+                lblPTD2.Text = q.Sum(Function(c) c.P2).Value.ToString("0.00")
+                lblPTD3.Text = q.Sum(Function(c) c.P3).Value.ToString("0.00")
+                lblPTD4.Text = q.Sum(Function(c) c.P4).Value.ToString("0.00")
+                lblPTD5.Text = q.Sum(Function(c) c.P5).Value.ToString("0.00")
+                lblPTD6.Text = q.Sum(Function(c) c.P6).Value.ToString("0.00")
+                lblPTD7.Text = q.Sum(Function(c) c.P7).Value.ToString("0.00")
+                lblPTD8.Text = q.Sum(Function(c) c.P8).Value.ToString("0.00")
+                lblPTD9.Text = q.Sum(Function(c) c.P9).Value.ToString("0.00")
+                lblPTD10.Text = q.Sum(Function(c) c.P10).Value.ToString("0.00")
+                lblPTD11.Text = q.Sum(Function(c) c.P11).Value.ToString("0.00")
+                lblPTD12.Text = q.Sum(Function(c) c.P12).Value.ToString("0.00")
 
+                lblYTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
+                lblYTD2.Text = q.Sum(Function(c) c.P1 + c.P2).Value.ToString("0.00")
+                lblYTD3.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3).Value.ToString("0.00")
+                lblYTD4.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4).Value.ToString("0.00")
+                lblYTD5.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5).Value.ToString("0.00")
+                lblYTD6.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6).Value.ToString("0.00")
+                lblYTD7.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7).Value.ToString("0.00")
+                lblYTD8.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8).Value.ToString("0.00")
+                lblYTD9.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9).Value.ToString("0.00")
+                lblYTD10.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10).Value.ToString("0.00")
+                lblYTD11.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11).Value.ToString("0.00")
+                lblYTD12.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12).Value.ToString("0.00")
 
-                    Case Else
-                        Return 0
-                End Select
+                lblTotal.Text = lblYTD12.Text
+            Else
+                lblPTD1.Text = 0
+                lblPTD2.Text = 0
+                lblPTD3.Text = 0
+                lblPTD4.Text = 0
+                lblPTD5.Text = 0
+                lblPTD6.Text = 0
+                lblPTD7.Text = 0
+                lblPTD8.Text = 0
+                lblPTD9.Text = 0
+                lblPTD10.Text = 0
+                lblPTD11.Text = 0
+                lblPTD12.Text = 0
+
+                lblYTD1.Text = 0
+                lblYTD2.Text = 0
+                lblYTD3.Text = 0
+                lblYTD4.Text = 0
+                lblYTD5.Text = 0
+                lblYTD6.Text = 0
+                lblYTD7.Text = 0
+                lblYTD8.Text = 0
+                lblYTD9.Text = 0
+                lblYTD10.Text = 0
+                lblYTD11.Text = 0
+                lblYTD12.Text = 0
+                lblTotal.Text = 0
             End If
-            Return 0
+            If Not firstFiscalMonth = Nothing Then
+
+                lblP1.Text = GetCalendarStartForPeriod(1, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP2.Text = GetCalendarStartForPeriod(2, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP3.Text = GetCalendarStartForPeriod(3, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP4.Text = GetCalendarStartForPeriod(4, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP5.Text = GetCalendarStartForPeriod(5, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP6.Text = GetCalendarStartForPeriod(6, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP7.Text = GetCalendarStartForPeriod(7, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP8.Text = GetCalendarStartForPeriod(8, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP9.Text = GetCalendarStartForPeriod(9, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP10.Text = GetCalendarStartForPeriod(10, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP11.Text = GetCalendarStartForPeriod(11, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+                lblP12.Text = GetCalendarStartForPeriod(12, firstFiscalMonth, ddlFiscalYear.SelectedValue).ToString("MMM ""'""yy")
+
+
+            End If
+
+        End Sub
+       
+
+        Protected Function GetCalendarStartForPeriod(ByVal period As Integer, ByVal firstMonth As Integer, ByVal FiscalYear As Integer) As Date
+            If period + firstMonth - 1 <= 12 Then
+                Return New Date(FiscalYear, period + firstMonth - 1, 1)
+            Else
+                Return New Date(FiscalYear + 1, period + firstMonth - 13, 1)
+            End If
         End Function
 
-       
         Protected Sub btnInsertRow_Click(sender As Object, e As EventArgs) Handles btnInsertRow.Click
-            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYearNew.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
             If q.Count = 0 Then
                 Dim insert As New AP_Budget_Summary
                 insert.Portalid = PortalId
-                insert.FiscalYear = ddlFiscalYearNew.SelectedValue
+                insert.FiscalYear = ddlFiscalYear.SelectedValue
                 insert.Account = ddlAccountNew.SelectedValue
                 insert.RC = ddlRCNew.SelectedValue
                 insert.P1 = tbP1new.Text
@@ -91,7 +183,7 @@ Namespace DotNetNuke.Modules.Budget
                 d.AP_Budget_Summaries.InsertOnSubmit(insert)
                 d.SubmitChanges()
                 GridView1.DataBind()
-                ddlFiscalYearNew.SelectedValue = ddlFiscalYear.SelectedValue
+
                 ddlRCNew.SelectedIndex = 0
                 ddlAccountNew.SelectedIndex = 0
                 tbP1new.Text = "0"
@@ -107,14 +199,131 @@ Namespace DotNetNuke.Modules.Budget
                 tbP11new.Text = "0"
                 tbP12new.Text = "0"
                 lblTotalNew.Text = "0"
-
+                WarningRow.Visible = False
+                btnInsertRow.Visible = True
 
             Else
                 'Budget already exists... replace or addto.
+                WarningRow.Visible = True
+                btnInsertRow.Visible = False
+
+
             End If
 
-           
 
+
+        End Sub
+
+
+        Protected Sub btnCancelInsert_Click(sender As Object, e As EventArgs) Handles btnCancelInsert.Click
+            ddlRCNew.SelectedIndex = 0
+            ddlAccountNew.SelectedIndex = 0
+            tbP1new.Text = "0"
+            tbP2new.Text = "0"
+            tbP3new.Text = "0"
+            tbP4new.Text = "0"
+            tbP5new.Text = "0"
+            tbP6new.Text = "0"
+            tbP7new.Text = "0"
+            tbP8new.Text = "0"
+            tbP9new.Text = "0"
+            tbP10new.Text = "0"
+            tbP11new.Text = "0"
+            tbP12new.Text = "0"
+            lblTotalNew.Text = "0"
+            WarningRow.Visible = False
+            btnInsertRow.Visible = True
+        End Sub
+
+
+
+        Protected Sub btnReplace_Click(sender As Object, e As EventArgs) Handles btnReplace.Click
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
+            If q.Count > 0 Then
+                q.First.Portalid = PortalId
+                q.First.FiscalYear = ddlFiscalYear.SelectedValue
+                q.First.Account = ddlAccountNew.SelectedValue
+                q.First.RC = ddlRCNew.SelectedValue
+                q.First.P1 = tbP1new.Text
+                q.First.P2 = tbP2new.Text
+                q.First.P3 = tbP3new.Text
+                q.First.P4 = tbP4new.Text
+                q.First.P5 = tbP5new.Text
+                q.First.P6 = tbP6new.Text
+                q.First.P7 = tbP7new.Text
+                q.First.P8 = tbP8new.Text
+                q.First.P9 = tbP9new.Text
+                q.First.P10 = tbP10new.Text
+                q.First.P11 = tbP11new.Text
+                q.First.P12 = tbP12new.Text
+                q.First.Changed = True
+                q.First.LastUpdated = Now
+                d.SubmitChanges()
+                GridView1.DataBind()
+                btnCancelInsert_Click(Me, Nothing)
+
+
+            Else
+                'Existing Budget no longer exists... Insert the new row
+                btnInsertRow_Click(Me, Nothing)
+               
+
+
+            End If
+        End Sub
+
+        Protected Sub btnAddTo_Click(sender As Object, e As EventArgs) Handles btnAddTo.Click
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
+            If q.Count > 0 Then
+                q.First.Portalid = PortalId
+                q.First.FiscalYear = ddlFiscalYear.SelectedValue
+                q.First.Account = ddlAccountNew.SelectedValue
+                q.First.RC = ddlRCNew.SelectedValue
+                q.First.P1 += tbP1new.Text
+                q.First.P2 += tbP2new.Text
+                q.First.P3 += tbP3new.Text
+                q.First.P4 += tbP4new.Text
+                q.First.P5 += tbP5new.Text
+                q.First.P6 += tbP6new.Text
+                q.First.P7 += tbP7new.Text
+                q.First.P8 += tbP8new.Text
+                q.First.P9 += tbP9new.Text
+                q.First.P10 += tbP10new.Text
+                q.First.P11 += tbP11new.Text
+                q.First.P12 += tbP12new.Text
+                q.First.Changed = True
+                q.First.LastUpdated = Now
+                d.SubmitChanges()
+                GridView1.DataBind()
+                btnCancelInsert_Click(Me, Nothing)
+
+
+            Else
+                'Existing Budget no longer exists... Insert the new row
+                btnInsertRow_Click(Me, Nothing)
+             
+
+
+            End If
+        End Sub
+
+        Protected Sub ddlRC_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlRC.SelectedIndexChanged
+
+
+
+            Dim RCs = From c In d.AP_StaffBroker_CostCenters Where c.PortalId = PortalId And (c.CostCentreCode = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.Type <> 1))
+                  Select c.CostCentreCode, Name = c.CostCentreCode & " (" & c.CostCentreName & ")" Order By CostCentreCode
+
+            ddlRCNew.DataSource = RCs
+            ddlRCNew.DataBind()
+        End Sub
+
+        Protected Sub ddlAC_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlAC.SelectedIndexChanged
+            Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId And (ddlAC.SelectedValue = "All" Or c.AccountCode = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 4))
+                  Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
+
+            ddlAccountNew.DataSource = Accs
+            ddlAccountNew.DataBind()
         End Sub
     End Class
 End Namespace

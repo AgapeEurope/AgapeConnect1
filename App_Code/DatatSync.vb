@@ -10,8 +10,8 @@ Imports StaffBrokerFunctions
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Public Class DatatSync
     Inherits System.Web.Services.WebService
-    Public Const VERSION_NUMBER As String = "1.0.61"   'The version of acDatalinks that this webservice is designed against 
-    Public Const CRITICAL_VERSION_NUMBER As String = "1.0.58"  'The minimum acDatalinks version that this webservice requires
+    Public Const VERSION_NUMBER As String = "1.1.0"   'The version of acDatalinks that this webservice is designed against 
+    Public Const CRITICAL_VERSION_NUMBER As String = "1.1.0"  'The minimum acDatalinks version that this webservice requires
 
     Public Const UPDRAGE_AVAILABLE As String = "<p>There is a new version of ACDatalinks available.(ACDatalinks is the datapump that downloads " _
                                                 & "transactions from the website and inserts them into your financial package. Your website has been configured to work with " & VERSION_NUMBER _
@@ -33,7 +33,7 @@ Public Class DatatSync
     Structure UpdateResponse
         Public TntStatus As StatusDescription
         Public Rmbs As StatusDescription()
-        Public Budgets As Budget.AP_Budget_Summary()
+        Public Budgets As Budget.AP_Budget_Summary1()
 
 
 
@@ -87,7 +87,7 @@ Public Class DatatSync
         Public WebUsers As WebUser()
         Public Rmbs As Rmb()
         Public Advances As Adv()
-        Public ChangedBudgets As Budget.AP_Budget_Summary()
+        Public ChangedBudgets As Budget.AP_Budget_Summary1()
         Public AcctsReceivable As String
         Public AcctsPayable As String
         Public TaxableAcctsReceivable As String
@@ -206,7 +206,10 @@ Public Class DatatSync
         Public acDatalink_PollDelayInSeconds As Integer
         Public currentFiscalPeriod As String
 
-        Public changedBudgets As Budget.AP_Budget_Summary()
+        Public changedBudgets As Budget.AP_Budget_Summary1()
+
+        Public FirstFiscalMonth As Integer
+
 
 
     End Structure
@@ -517,8 +520,10 @@ Public Class DatatSync
                 Dim theBud = From c In db.AP_Budget_Summaries Where c.Portalid = PS.PortalId And c.BudgetSummaryId = bud.BudgetSummaryId
 
                 If theBud.Count > 0 Then
-                    theBud.First.Changed = False
-                    theBud.First.LastUpdated = Now
+                    theBud.First.Changed = bud.Changed
+                    theBud.First.Error = bud.Error
+                    theBud.First.ErrorMessage = bud.ErrorMessage
+
 
                 End If
                 db.SubmitChanges()
@@ -578,7 +583,7 @@ Public Class DatatSync
     End Sub
 
 
-    Private Sub SyncBudgetsChangedInDynamics(ByVal changed As Budget.AP_Budget_Summary())
+    Private Sub SyncBudgetsChangedInDynamics(ByVal changed As Budget.AP_Budget_Summary1())
         'TODO
     End Sub
 
@@ -611,6 +616,7 @@ Public Class DatatSync
         SetSetting("acDatalink_acDatalink_Error", settings.acDatalink_acDatalink_Error, PS.PortalId)
 
         SetSetting("CurrentFiscalPeriod", settings.currentFiscalPeriod, PS.PortalId)
+        SetSetting("FirstFiscalMonth", settings.FirstFiscalMonth, PS.PortalId)
 
         ' SetSetting("CompanyName", settings.CompanyId, PS.PortalId)
         SyncBudgetsChangedInDynamics(settings.changedBudgets)
@@ -970,7 +976,7 @@ Public Class DatatSync
 
     Private Sub GetBudgets(ByRef rtn As DownloadResponse, ByVal PortalId As Integer)
         Dim db As New Budget.BudgetDataContext
-        Dim toDownload = From c In db.AP_Budget_Summaries Where c.Portalid = PortalId And c.Changed
+        Dim toDownload = (From c In db.AP_Budget_Summary1s Where c.Portalid = PortalId And c.Changed)
 
         If toDownload.Count > 0 Then
             rtn.Status = "New Data"
