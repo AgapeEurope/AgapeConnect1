@@ -42,7 +42,7 @@
 	<div id="ControlPanel" runat="server" />
 </div>
 <div id="globalbar" class="bar">
-	<div id="globalbox" class="centeredbox">
+	<div id="globalbox" class="">
 		<div id="bar1" class="bar bar1">
 			<div id="header" class="centeredbox bar1">
 				<div id="headerContent" class="bar1">
@@ -110,10 +110,32 @@
 		</div>
 		<div id="bar8" class="bar">
 			<div id="footer3" class="centeredbox">
-				<div style="text-align: Left; color: #FFF; margin-left: 15px;" class="footer">
-					<dnn:PRIVACY runat="server" ID="dnnPRIVACY" CssClass="footer" />
-					&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:TERMS runat="server" ID="dnnTERMS" CssClass="footer" />
-					&nbsp;&nbsp;|&nbsp;&nbsp;<dnn:COPYRIGHT runat="server" ID="dnnCOPYRIGHT" CssClass="footer" />
+				<div id="contactAndSlogan">
+				    <div id="postalAddress">
+                        <dnn:TEXT runat="server" ID="txtPostalAddress" ResourceKey="OzoirAddress" />
+				    </div>
+                    <div id="telFaxEmail">
+                        <div id="tel">
+                            <div id="telIcon"></div>
+                            <div id="telText"><dnn:TEXT runat="server" ID="txtTel" ResourceKey="OzoirPhone" CssClass="" /></div>
+                        </div>
+                        <div id="fax">
+                            <div id="faxIcon"></div>
+                            <div id="faxText"><dnn:TEXT runat="server" ID="txtFax" ResourceKey="OzoirFax" CssClass="" /></div>
+                        </div>
+                        <div id="email">
+                            <div id="emailIcon"></div>
+                            <div id="emailText"><dnn:TEXT runat="server" ID="txtEmail" ResourceKey="OzoirEmail" CssClass="" /></div>
+                        </div>
+				    </div>
+                    <div id="slogan">
+                        <dnn:TEXT runat="server" ID="txtSlogan" ResourceKey="Slogan" CssClass="" />
+                    </div>
+                </div>
+                <div id="infosLegales">
+					<div id="copyright"><dnn:COPYRIGHT runat="server" ID="dnnCOPYRIGHT" CssClass="" /></div>
+                    <div id="privacy"><dnn:PRIVACY runat="server" ID="dnnPRIVACY" CssClass="" /></div>
+					<div id="terms"><dnn:TERMS runat="server" ID="dnnTERMS" CssClass="" /></div>
 				</div>
 			</div>
 		</div>
