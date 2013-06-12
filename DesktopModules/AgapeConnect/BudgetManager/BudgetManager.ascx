@@ -35,8 +35,7 @@
 
 
             });
-
-
+           
         }
 
         $(document).ready(function () {
@@ -46,8 +45,6 @@
             });
         });
     }(jQuery, window.Sys));
-
-
 
 
 
@@ -437,7 +434,17 @@
             <asp:LinkButton ID="btnInsertRow" runat="server" Font-Size="X-Small">Insert</asp:LinkButton>
         </td>
     </tr>
+      <tr>
+        <td id="WarningRow" runat="server" colspan="16" style="background-color: #F9DB4F; text-align: center; font-weight: bold; font-size: small; padding-top: 5px; " visible="false">
+            <p>There is already a budget entry for the row you are trying to insert. Would you like to <b>Replace</b> or <b>Add To</b> the current values?</p>
+           <p>  
+            <asp:Button ID="btnReplace" runat="server" Text="Replace" CssClass="aButton"  Font-Size="x-small"/> &nbsp;
+            <asp:Button ID="btnAddTo" runat="server" Text="Add To" CssClass="aButton"  Font-Size="x-small"/> &nbsp;
+            <asp:Button ID="btnCancelInsert" runat="server" Text="Cancel" CssClass="aButton"  Font-Size="x-small"/> </p>
+        </td>
+    </tr>
 </table>
 
-<asp:Button ID="btnExport" runat="server" Text="Export" CssClass="aButton" />
+<asp:Button ID="btnExport" runat="server" Text="Export"  CssClass="aButton"  />
 <asp:Button ID="btnImport" runat="server" Text="Import" CssClass="aButton" />
+

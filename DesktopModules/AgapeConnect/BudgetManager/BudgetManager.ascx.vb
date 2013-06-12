@@ -152,7 +152,7 @@ Namespace DotNetNuke.Modules.Budget
                 d.AP_Budget_Summaries.InsertOnSubmit(insert)
                 d.SubmitChanges()
                 GridView1.DataBind()
-                ddlFiscalYear.SelectedValue = ddlFiscalYear.SelectedValue
+
                 ddlRCNew.SelectedIndex = 0
                 ddlAccountNew.SelectedIndex = 0
                 tbP1new.Text = "0"
@@ -168,10 +168,15 @@ Namespace DotNetNuke.Modules.Budget
                 tbP11new.Text = "0"
                 tbP12new.Text = "0"
                 lblTotalNew.Text = "0"
-
+                WarningRow.Visible = False
+                btnInsertRow.Visible = True
 
             Else
                 'Budget already exists... replace or addto.
+                WarningRow.Visible = True
+                btnInsertRow.Visible = False
+
+
             End If
 
 
@@ -179,5 +184,96 @@ Namespace DotNetNuke.Modules.Budget
         End Sub
 
 
+        Protected Sub btnCancelInsert_Click(sender As Object, e As EventArgs) Handles btnCancelInsert.Click
+            ddlRCNew.SelectedIndex = 0
+            ddlAccountNew.SelectedIndex = 0
+            tbP1new.Text = "0"
+            tbP2new.Text = "0"
+            tbP3new.Text = "0"
+            tbP4new.Text = "0"
+            tbP5new.Text = "0"
+            tbP6new.Text = "0"
+            tbP7new.Text = "0"
+            tbP8new.Text = "0"
+            tbP9new.Text = "0"
+            tbP10new.Text = "0"
+            tbP11new.Text = "0"
+            tbP12new.Text = "0"
+            lblTotalNew.Text = "0"
+            WarningRow.Visible = False
+            btnInsertRow.Visible = True
+        End Sub
+
+
+
+        Protected Sub btnReplace_Click(sender As Object, e As EventArgs) Handles btnReplace.Click
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
+            If q.Count > 0 Then
+                q.First.Portalid = PortalId
+                q.First.FiscalYear = ddlFiscalYear.SelectedValue
+                q.First.Account = ddlAccountNew.SelectedValue
+                q.First.RC = ddlRCNew.SelectedValue
+                q.First.P1 = tbP1new.Text
+                q.First.P2 = tbP2new.Text
+                q.First.P3 = tbP3new.Text
+                q.First.P4 = tbP4new.Text
+                q.First.P5 = tbP5new.Text
+                q.First.P6 = tbP6new.Text
+                q.First.P7 = tbP7new.Text
+                q.First.P8 = tbP8new.Text
+                q.First.P9 = tbP9new.Text
+                q.First.P10 = tbP10new.Text
+                q.First.P11 = tbP11new.Text
+                q.First.P12 = tbP12new.Text
+                q.First.Changed = True
+                q.First.LastUpdated = Now
+                d.SubmitChanges()
+                GridView1.DataBind()
+                btnCancelInsert_Click(Me, Nothing)
+
+
+            Else
+                'Existing Budget no longer exists... Insert the new row
+                btnInsertRow_Click(Me, Nothing)
+               
+
+
+            End If
+        End Sub
+
+        Protected Sub btnAddTo_Click(sender As Object, e As EventArgs) Handles btnAddTo.Click
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
+            If q.Count > 0 Then
+                q.First.Portalid = PortalId
+                q.First.FiscalYear = ddlFiscalYear.SelectedValue
+                q.First.Account = ddlAccountNew.SelectedValue
+                q.First.RC = ddlRCNew.SelectedValue
+                q.First.P1 += tbP1new.Text
+                q.First.P2 += tbP2new.Text
+                q.First.P3 += tbP3new.Text
+                q.First.P4 += tbP4new.Text
+                q.First.P5 += tbP5new.Text
+                q.First.P6 += tbP6new.Text
+                q.First.P7 += tbP7new.Text
+                q.First.P8 += tbP8new.Text
+                q.First.P9 += tbP9new.Text
+                q.First.P10 += tbP10new.Text
+                q.First.P11 += tbP11new.Text
+                q.First.P12 += tbP12new.Text
+                q.First.Changed = True
+                q.First.LastUpdated = Now
+                d.SubmitChanges()
+                GridView1.DataBind()
+                btnCancelInsert_Click(Me, Nothing)
+
+
+            Else
+                'Existing Budget no longer exists... Insert the new row
+                btnInsertRow_Click(Me, Nothing)
+             
+
+
+            End If
+        End Sub
     End Class
 End Namespace
