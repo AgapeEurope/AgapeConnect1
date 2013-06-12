@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="OzoirAddress.Text" xml:space="preserve">
+    <value>Agapé France&lt;br /&gt;BP 29&lt;br /&gt;77831 Ozoir-la-Ferrière Cedex</value>
+  </data>
+  <data name="OzoirEmail.Text" xml:space="preserve">
+    <value>info@agapefrance.org</value>
+  </data>
+  <data name="OzoirFax.Text" xml:space="preserve">
+    <value>01 60 02 55 79</value>
+  </data>
+  <data name="OzoirPhone.Text" xml:space="preserve">
+    <value>01 60 02 55 56</value>
+  </data>
   <data name="SearchButton.Text" xml:space="preserve">
     <value>Rechercher</value>
   </data>
   <data name="SearchWatermark.Text" xml:space="preserve">
     <value>Recherche</value>
+  </data>
+  <data name="Slogan.Text" xml:space="preserve">
+    <value>Découvrir &amp;bull; Vivre &amp;bull; Partager </value>
   </data>
   <data name="SocialMedia.Text" xml:space="preserve">
     <value>Restons connectés</value>
