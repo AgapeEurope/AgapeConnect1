@@ -10,6 +10,8 @@ Imports System.Net.Mail
 Imports System.Collections.Specialized
 Imports System.Xml.Linq
 Imports System.Linq
+Imports System.Data
+Imports System.Data.OleDb
 Imports Budget
 Namespace DotNetNuke.Modules.Budget
 
@@ -324,6 +326,118 @@ Namespace DotNetNuke.Modules.Budget
 
             ddlAccountNew.DataSource = Accs
             ddlAccountNew.DataBind()
+        End Sub
+
+        Protected Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+
+            Dim filename As String = "Budget.xls"
+           
+            File.Copy(Server.MapPath("/DesktopModules/AgapeConnect/BudgetManager/Budget.xls"), PortalSettings.HomeDirectoryMapPath & filename, True)
+
+
+
+            Dim connStr As String = "provider=Microsoft.Jet.OLEDB.4.0;Data Source='" & PortalSettings.HomeDirectoryMapPath & filename & "';Extended Properties='Excel 8.0;HDR=NO;'"
+            Dim MyConnection As OleDbConnection
+            MyConnection = New OleDbConnection(connStr)
+
+            MyConnection.Open()
+
+            'Dim sql = ""
+            Dim MyCommand As New OleDbCommand()
+            MyCommand.Connection = MyConnection
+
+
+            Try
+
+                'Clear the form
+                '  Dim sql2 = "Update [Budget$A2:P99] Set F1='', F2='', F3='', F4='', F5='',F6='', F7='', F8='', F10='', F11='', F12='', F13='', F14='', F16='' ;"
+                ' MyCommand.CommandText = sql2
+                'MyCommand.ExecuteNonQuery()
+
+                Dim sql2 = "Update [Budget$R2:R2] Set F1=@Filter"
+                MyCommand.Parameters.AddWithValue("@Filter", "Fiscal Year: " & ddlFiscalYear.SelectedValue & "; R/C: " & ddlRC.SelectedItem.Text & "; A/C: " & ddlAC.SelectedItem.Text & ";")
+
+                MyCommand.CommandText = sql2
+                MyCommand.ExecuteNonQuery()
+                MyCommand.Parameters.Clear()
+                'Get the Current Selection
+                Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.AP_StaffBroker_CostCenter.Type <> 1)) And (ddlAC.SelectedValue = "All" Or c.Account = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 4))
+                Dim i As Integer = 2
+
+
+                For Each row In q
+                    Dim sql = "Update[Budget$A" & i & ":P" & i & "] set F1=@Account, F2=@RC, "
+                    For j = 1 To 12
+                        sql &= "F" & (j + 2) & "=@P" & j & ", "
+
+                    Next
+                    sql &= "F16=@Notes;"
+                    MyCommand.Parameters.AddWithValue("@Account", row.Account)
+                    MyCommand.Parameters.AddWithValue("@RC", row.Account)
+                    MyCommand.Parameters.AddWithValue("@P1", row.P1)
+                    MyCommand.Parameters.AddWithValue("@P2", row.P2)
+                    MyCommand.Parameters.AddWithValue("@P3", row.P3)
+                    MyCommand.Parameters.AddWithValue("@P4", row.P4)
+                    MyCommand.Parameters.AddWithValue("@P5", row.P5)
+                    MyCommand.Parameters.AddWithValue("@P6", row.P6)
+                    MyCommand.Parameters.AddWithValue("@P7", row.P7)
+                    MyCommand.Parameters.AddWithValue("@P8", row.P8)
+                    MyCommand.Parameters.AddWithValue("@P9", row.P9)
+                    MyCommand.Parameters.AddWithValue("@P10", row.P10)
+                    MyCommand.Parameters.AddWithValue("@P11", row.P11)
+                    MyCommand.Parameters.AddWithValue("@P12", row.P12)
+                    If row.ErrorMessage Is Nothing Then
+                        MyCommand.Parameters.AddWithValue("@Notes", "")
+                    Else
+                        MyCommand.Parameters.AddWithValue("@Notes", row.ErrorMessage)
+                    End If
+
+
+
+                        MyCommand.CommandText = sql
+
+
+
+
+
+
+                        MyCommand.ExecuteNonQuery()
+                        MyCommand.Parameters.Clear()
+                        i += 1
+
+                Next
+
+               
+              
+
+
+
+
+                MyConnection.Close()
+                Dim attachment As String = "attachment; filename=Budget-" & ddlFiscalYear.SelectedValue & ".xls"
+
+                HttpContext.Current.Response.Clear()
+                HttpContext.Current.Response.ClearHeaders()
+                HttpContext.Current.Response.ClearContent()
+                HttpContext.Current.Response.AddHeader("content-disposition", attachment)
+                HttpContext.Current.Response.ContentType = "application/vnd.ms-excel"
+                HttpContext.Current.Response.AddHeader("Pragma", "public")
+                HttpContext.Current.Response.WriteFile(PortalSettings.HomeDirectoryMapPath & filename)
+                HttpContext.Current.Response.End()
+
+
+            Catch ex As Exception
+                StaffBrokerFunctions.EventLog("Budget", "Could Not export budget to excel: " & ex.ToString, UserId)
+                MyConnection.Close()
+                ' File.Delete(PortalSettings.HomeDirectoryMapPath & filename)
+            Finally
+
+
+            End Try
+
+
+
+
         End Sub
     End Class
 End Namespace
