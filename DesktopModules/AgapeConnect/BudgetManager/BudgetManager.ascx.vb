@@ -26,7 +26,7 @@ Namespace DotNetNuke.Modules.Budget
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
             hfPortalId.Value = PortalId
 
-             Dim tmp = StaffBrokerFunctions.GetSetting("FirstFiscalMonth", PortalId)
+            Dim tmp = StaffBrokerFunctions.GetSetting("FirstFiscalMonth", PortalId)
             If Not String.IsNullOrEmpty(tmp) Then
                 firstFiscalMonth = tmp
             End If
@@ -64,7 +64,7 @@ Namespace DotNetNuke.Modules.Budget
                     ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 1), currentFiscalYear + 1))
                     ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 2), currentFiscalYear + 2))
                 End If
-                
+
 
 
                 ddlFiscalYear.SelectedValue = currentFiscalYear
@@ -150,7 +150,7 @@ Namespace DotNetNuke.Modules.Budget
             End If
 
         End Sub
-       
+
 
         Protected Function GetCalendarStartForPeriod(ByVal period As Integer, ByVal firstMonth As Integer, ByVal FiscalYear As Integer) As Date
             If period + firstMonth - 1 <= 12 Then
@@ -268,7 +268,7 @@ Namespace DotNetNuke.Modules.Budget
             Else
                 'Existing Budget no longer exists... Insert the new row
                 btnInsertRow_Click(Me, Nothing)
-               
+
 
 
             End If
@@ -303,7 +303,7 @@ Namespace DotNetNuke.Modules.Budget
             Else
                 'Existing Budget no longer exists... Insert the new row
                 btnInsertRow_Click(Me, Nothing)
-             
+
 
 
             End If
@@ -331,7 +331,7 @@ Namespace DotNetNuke.Modules.Budget
         Protected Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
 
             Dim filename As String = "Budget.xls"
-           
+
             File.Copy(Server.MapPath("/DesktopModules/AgapeConnect/BudgetManager/Budget.xls"), PortalSettings.HomeDirectoryMapPath & filename, True)
 
 
@@ -394,21 +394,21 @@ Namespace DotNetNuke.Modules.Budget
 
 
 
-                        MyCommand.CommandText = sql
+                    MyCommand.CommandText = sql
 
 
 
 
 
 
-                        MyCommand.ExecuteNonQuery()
-                        MyCommand.Parameters.Clear()
-                        i += 1
+                    MyCommand.ExecuteNonQuery()
+                    MyCommand.Parameters.Clear()
+                    i += 1
 
                 Next
 
-               
-              
+
+
 
 
 
@@ -438,6 +438,224 @@ Namespace DotNetNuke.Modules.Budget
 
 
 
+        End Sub
+
+        Private Sub soft_set(ByRef item As Object, ByVal Value As Object, ByVal def As Object)
+            Try
+                item = Value
+
+            Catch ex As Exception
+                item = def
+            End Try
+        End Sub
+
+        Private Sub Import(ByVal Overwrite As Boolean)
+            If (fuImport.HasFile) Then
+                Dim BudgetImport As New List(Of AP_Budget_Summary)
+                Dim fileName = Path.GetFileName(fuImport.PostedFile.FileName)
+                Dim fileExtension = Path.GetExtension(fuImport.PostedFile.FileName)
+                Dim fileLocation As String = PortalSettings.HomeDirectoryMapPath & fileName
+                fuImport.SaveAs(fileLocation)
+                Dim connectionString = ""
+
+                If (fileExtension = ".xls") Then
+                    connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileLocation + ";Extended Properties=""Excel 8.0;HDR=NO;IMEX=2"""
+                ElseIf fileExtension = ".xlsx" Then
+                    connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileLocation + ";Extended Properties=""Excel 12.0;HDR=NO;IMEX=2"""
+                End If
+
+                Dim MyConnection As OleDbConnection
+                MyConnection = New OleDbConnection(connectionString)
+
+                MyConnection.Open()
+                Try
+
+                    Dim MyCommand As New OleDbCommand()
+                    MyCommand.Connection = MyConnection
+
+                    MyCommand.CommandText = "Select * from [Budget$A2:N99]"
+
+                    Dim data = MyCommand.ExecuteReader()
+
+                    While data.Read
+                        If IsDBNull(data.Item(0)) Or IsDBNull(data.Item(1)) Then
+                            Exit While
+                        End If
+
+
+
+                        Dim insert As New AP_Budget_Summary
+
+                        insert.Account = data.Item(0)
+                        insert.RC = data.Item(1)
+
+                        Try
+                            insert.P1 = CDbl(data.Item(2))
+                        Catch ex As Exception
+                            insert.P1 = 0.0
+                        End Try
+                        Try
+                            insert.P2 = CDbl(data.Item(3))
+                        Catch ex As Exception
+                            insert.P2 = 0.0
+                        End Try
+                        Try
+                            insert.P3 = CDbl(data.Item(4))
+                        Catch ex As Exception
+                            insert.P3 = 0.0
+                        End Try
+                        Try
+                            insert.P4 = CDbl(data.Item(5))
+                        Catch ex As Exception
+                            insert.P4 = 0.0
+                        End Try
+                        Try
+                            insert.P5 = CDbl(data.Item(6))
+                        Catch ex As Exception
+                            insert.P5 = 0.0
+                        End Try
+                        Try
+                            insert.P6 = CDbl(data.Item(7))
+                        Catch ex As Exception
+                            insert.P6 = 0.0
+                        End Try
+                        Try
+                            insert.P7 = CDbl(data.Item(8))
+                        Catch ex As Exception
+                            insert.P7 = 0.0
+                        End Try
+                        Try
+                            insert.P8 = CDbl(data.Item(9))
+                        Catch ex As Exception
+                            insert.P8 = 0.0
+                        End Try
+                        Try
+                            insert.P9 = CDbl(data.Item(10))
+                        Catch ex As Exception
+                            insert.P9 = 0.0
+                        End Try
+                        Try
+                            insert.P10 = CDbl(data.Item(11))
+                        Catch ex As Exception
+                            insert.P10 = 0.0
+                        End Try
+                        Try
+                            insert.P11 = CDbl(data.Item(12))
+                        Catch ex As Exception
+                            insert.P11 = 0.0
+                        End Try
+                        Try
+                            insert.P12 = CDbl(data.Item(13))
+                        Catch ex As Exception
+                            insert.P12 = 0.0
+                        End Try
+
+
+
+
+                        insert.FiscalYear = ddlFiscalYear.SelectedValue
+                        insert.Error = False
+                        insert.Changed = True
+                        insert.Portalid = PortalId
+                        insert.LastUpdated = Now
+                        BudgetImport.Add(insert)
+
+
+                    End While
+                
+
+
+
+
+                Catch ex As Exception
+                    StaffBrokerFunctions.EventLog("Budget", "Import Failed" & ex.ToString, UserId)
+                Finally
+                    MyConnection.Close()
+                End Try
+
+                'Now save these values
+                For Each row In BudgetImport
+                    Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = row.Portalid And c.Account = row.Account And c.RC = row.RC And c.FiscalYear = ddlFiscalYear.SelectedValue
+                    If q.Count > 0 Then
+                        If Overwrite Then
+                            d.AP_Budget_Summaries.DeleteAllOnSubmit(q)
+                            d.AP_Budget_Summaries.InsertOnSubmit(row)
+                        Else
+                            Try
+                                q.First.P1 += row.P1
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P2 += row.P2
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P3 += row.P3
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P4 += row.P4
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P5 += row.P5
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P6 += row.P6
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P7 += row.P7
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P8 += row.P8
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P9 += row.P9
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P10 += row.P10
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P11 += row.P11
+                            Catch ex As Exception
+                            End Try
+                            Try
+                                q.First.P12 += row.P12
+                            Catch ex As Exception
+                            End Try
+                            q.First.LastUpdated = Now
+                            q.First.Changed = True
+                        End If
+                    Else
+                        d.AP_Budget_Summaries.InsertOnSubmit(row)
+                    End If
+                    d.SubmitChanges()
+                Next
+
+                GridView1.DataBind()
+
+
+
+            Else
+
+            End If
+        End Sub
+
+
+
+
+        Protected Sub btnImpOverwrite_Click(sender As Object, e As EventArgs) Handles btnImpOverwrite.Click
+            Import(True)
+        End Sub
+
+        Protected Sub btnImpAddTo_Click(sender As Object, e As EventArgs) Handles btnImpAddTo.Click
+            Import(False)
         End Sub
     End Class
 End Namespace

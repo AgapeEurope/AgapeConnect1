@@ -36,6 +36,18 @@
 
             });
            
+            $("#divImport").dialog({
+                autoOpen: false,
+                height: 300,
+                width: 400,
+                modal: true,
+                title: "Import",
+                close: function () {
+                    //  allFields.val("").removeClass("ui-state-error");
+                }
+             });
+            $("#divImport").parent().appendTo($("form:first"));
+
         }
 
         $(document).ready(function () {
@@ -296,14 +308,14 @@
 
                         <asp:TemplateField ShowHeader="False">
                             <EditItemTemplate>
-                               
+                               <div style="white-space:nowrap;">
                                 <asp:ImageButton ID="ImageButton2" runat="server"  ImageUrl ="~/icons/sigma/Save_16X16_Standard.png" CausesValidation="True"  CommandName="Update" Height="16px" ToolTip="Update" />
                                 <asp:ImageButton ID="ImageButton1" runat="server"  ImageUrl ="~/images/cancel.gif"  CausesValidation="False"  CommandName="Cancel" Height="16px" ToolTip="Cancel" />
-                            </EditItemTemplate>
+                            </div>
+                                   </EditItemTemplate>
                             <ItemTemplate>
                               
                                 <asp:ImageButton ID="ImageButton2" runat="server"  ImageUrl ="~/images/edit.gif" CausesValidation="False"  CommandName="Edit" Height="16px" />
-                                <asp:ImageButton ID="ImageButton1" runat="server"  ImageUrl ="~/images/delete.gif"  CausesValidation="False"  CommandName="Delete" Height="16px" />
                                 <asp:Image ID="Image1" runat="server" ImageUrl ="~/images/error-icn.png" Visible='<%# Eval("Error") = True %>' ToolTip='<%# Eval("ErrorMessage")  %>' Height="16px" />
                                 <asp:Image ID="Image2" runat="server" ImageUrl ="~/images/help-icn.png" Visible='<%# Eval("Changed") = True and Not Eval("Error") = True %>' ToolTip='This budget entry will be downloaded into dynamics in the next 10 minutes.' Height="16px" />
                             </ItemTemplate>
@@ -325,7 +337,7 @@
                 </asp:GridView>
 
                 <asp:LinqDataSource ID="dsBudgetSummaries" runat="server" EntityTypeName="" ContextTypeName="Budget.BudgetDataContext" TableName="AP_Budget_Summaries" 
-                    Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp;  ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1) || (@RC==&quot;AllNonStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type!=1)) &amp;&amp; (@AC==&quot;All&quot; || @AC == Account || (@AC==&quot;3&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==3) || (@AC==&quot;4&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==4) || (@AC==&quot;IE&quot; &amp;&amp; (AP_StaffBroker_AccountCode.AccountCodeType==3 || AP_StaffBroker_AccountCode.AccountCodeType==4)))" EnableInsert="True" EnableUpdate="True" OrderBy="Account">
+                    Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp;  ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1) || (@RC==&quot;AllNonStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type!=1)) &amp;&amp; (@AC==&quot;All&quot; || @AC == Account || (@AC==&quot;3&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==3) || (@AC==&quot;4&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==4) || (@AC==&quot;IE&quot; &amp;&amp; (AP_StaffBroker_AccountCode.AccountCodeType==3 || AP_StaffBroker_AccountCode.AccountCodeType==4)))  &amp;&amp; (P1!=0 || P2!=0 || P3!=0 || P4!=0 || P5!=0 || P6!=0 || P7!=0 || P8!=0 || P9!=0 || P10!=0 || P11!=0 || P12!=0) " EnableInsert="True" EnableUpdate="True" OrderBy="Account">
                     <WhereParameters>
                         <asp:ControlParameter ControlID="hfPortalId" Name="Portalid" PropertyName="Value" Type="Int32" />
                         <asp:ControlParameter ControlID="ddlRC" Name="RC" PropertyName="SelectedValue" Type="String" />
@@ -336,6 +348,8 @@
             </div>
         </td>
     </tr>
+    
+
     <tr style="background-color: #CCCC99; font-weight: bold;">
         <td>Total</td>
         <td>PTD:<br />
@@ -440,17 +454,51 @@
             <asp:LinkButton ID="btnInsertRow" runat="server" Font-Size="X-Small">Insert</asp:LinkButton>
         </td>
     </tr>
+
+
       <tr>
         <td id="WarningRow" runat="server" colspan="16" style="background-color: #F9DB4F; text-align: center; font-weight: bold; font-size: small; padding-top: 5px; " visible="false">
             <p>There is already a budget entry for the row you are trying to insert. Would you like to <b>Replace</b> or <b>Add To</b> the current values?</p>
-           <p>  
+          
+            <p>  
+           
             <asp:Button ID="btnReplace" runat="server" Text="Replace" CssClass="aButton"  Font-Size="x-small"/> &nbsp;
             <asp:Button ID="btnAddTo" runat="server" Text="Add To" CssClass="aButton"  Font-Size="x-small"/> &nbsp;
             <asp:Button ID="btnCancelInsert" runat="server" Text="Cancel" CssClass="aButton"  Font-Size="x-small"/> </p>
         </td>
     </tr>
+
+
+
+
+
+
 </table>
+<p>
+<asp:Button ID="btnExport" runat="server" Text="Export"  CssClass="aButton" Font-Size="X-Small"  />&nbsp;&nbsp;
+<input type="button" class="aButton" onclick="$('#divImport').dialog('open'); " style="font-size: x-small"  value="Import"/>&nbsp;&nbsp;
 
-<asp:Button ID="btnExport" runat="server" Text="Export"  CssClass="aButton"  />
-<asp:Button ID="btnImport" runat="server" Text="Import" CssClass="aButton" />
+<asp:HyperLink ID="hlImportTemplate" runat="server" NavigateUrl="~/DesktopModules/AgapeConnect/BudgetManager/Budget-Import.xls">  
 
+
+    <img style="margin-bottom: -3px;" src="/Icons/Sigma/ExtXls_16X16_Standard.png" />
+    Import Template</asp:HyperLink>
+</p>
+<div id="divImport" class="ui-widget">
+  <p> <strong>Select File to Import:</strong> </p>
+    <p><asp:FileUpload ID="fuImport" runat="server" /></p>
+
+    <p>
+        Would you like to <b><i>overwrite</i></b> existing values, or <b><i>add</i></b> the imported values to the existing entries?
+    </p>
+     <p><span style="font-style: italic; color: grey;">
+               * Please ensure you have selected the correct year. The budget entries you are importing will be added to the <strong> <%= ddlFiscalYear.SelectedItem.Text%> Fiscal Year</strong>. 
+               To select a different year, click Cancel and select a different year (top left).
+           </span></p>
+    <div style="width: 100%; text-align: center;">
+        <asp:Button ID="btnImpOverwrite" runat="server" Text="Overwrite"  CssClass="aButton"  />&nbsp; &nbsp;
+        <asp:Button ID="btnImpAddTo" runat="server" Text="Add To"  CssClass="aButton"  />&nbsp; &nbsp;
+        <input type="button" class="aButton" onclick="$('#divImport').dialog('close'); "  value="Cancel"/>
+
+    </div>
+</div>
