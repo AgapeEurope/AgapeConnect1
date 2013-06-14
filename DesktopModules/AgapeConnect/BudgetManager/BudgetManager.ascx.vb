@@ -76,31 +76,31 @@ Namespace DotNetNuke.Modules.Budget
         Protected Sub GridView1_DataBound(sender As Object, e As EventArgs) Handles GridView1.DataBound
             Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.AP_StaffBroker_CostCenter.Type <> 1)) And (ddlAC.SelectedValue = "All" Or c.Account = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 4))
             If q.Count > 0 Then
-                lblPTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
-                lblPTD2.Text = q.Sum(Function(c) c.P2).Value.ToString("0.00")
-                lblPTD3.Text = q.Sum(Function(c) c.P3).Value.ToString("0.00")
-                lblPTD4.Text = q.Sum(Function(c) c.P4).Value.ToString("0.00")
-                lblPTD5.Text = q.Sum(Function(c) c.P5).Value.ToString("0.00")
-                lblPTD6.Text = q.Sum(Function(c) c.P6).Value.ToString("0.00")
-                lblPTD7.Text = q.Sum(Function(c) c.P7).Value.ToString("0.00")
-                lblPTD8.Text = q.Sum(Function(c) c.P8).Value.ToString("0.00")
-                lblPTD9.Text = q.Sum(Function(c) c.P9).Value.ToString("0.00")
-                lblPTD10.Text = q.Sum(Function(c) c.P10).Value.ToString("0.00")
-                lblPTD11.Text = q.Sum(Function(c) c.P11).Value.ToString("0.00")
-                lblPTD12.Text = q.Sum(Function(c) c.P12).Value.ToString("0.00")
+                lblPTD1.Text = FormatCurrency(q.Sum(Function(c) c.P1).Value)
+                lblPTD2.Text = FormatCurrency(q.Sum(Function(c) c.P2).Value)
+                lblPTD3.Text = FormatCurrency(q.Sum(Function(c) c.P3).Value)
+                lblPTD4.Text = FormatCurrency(q.Sum(Function(c) c.P4).Value)
+                lblPTD5.Text = FormatCurrency(q.Sum(Function(c) c.P5).Value)
+                lblPTD6.Text = FormatCurrency(q.Sum(Function(c) c.P6).Value)
+                lblPTD7.Text = FormatCurrency(q.Sum(Function(c) c.P7).Value)
+                lblPTD8.Text = FormatCurrency(q.Sum(Function(c) c.P8).Value)
+                lblPTD9.Text = FormatCurrency(q.Sum(Function(c) c.P9).Value)
+                lblPTD10.Text = FormatCurrency(q.Sum(Function(c) c.P10).Value)
+                lblPTD11.Text = FormatCurrency(q.Sum(Function(c) c.P11).Value)
+                lblPTD12.Text = FormatCurrency(q.Sum(Function(c) c.P12).Value)
 
-                lblYTD1.Text = q.Sum(Function(c) c.P1).Value.ToString("0.00")
-                lblYTD2.Text = q.Sum(Function(c) c.P1 + c.P2).Value.ToString("0.00")
-                lblYTD3.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3).Value.ToString("0.00")
-                lblYTD4.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4).Value.ToString("0.00")
-                lblYTD5.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5).Value.ToString("0.00")
-                lblYTD6.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6).Value.ToString("0.00")
-                lblYTD7.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7).Value.ToString("0.00")
-                lblYTD8.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8).Value.ToString("0.00")
-                lblYTD9.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9).Value.ToString("0.00")
-                lblYTD10.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10).Value.ToString("0.00")
-                lblYTD11.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11).Value.ToString("0.00")
-                lblYTD12.Text = q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12).Value.ToString("0.00")
+                lblYTD1.Text = FormatCurrency(q.Sum(Function(c) c.P1).Value)
+                lblYTD2.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2).Value)
+                lblYTD3.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3).Value)
+                lblYTD4.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4).Value)
+                lblYTD5.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5).Value)
+                lblYTD6.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6).Value)
+                lblYTD7.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7).Value)
+                lblYTD8.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8).Value)
+                lblYTD9.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9).Value)
+                lblYTD10.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10).Value)
+                lblYTD11.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11).Value)
+                lblYTD12.Text = FormatCurrency(q.Sum(Function(c) c.P1 + c.P2 + c.P3 + c.P4 + c.P5 + c.P6 + c.P7 + c.P8 + c.P9 + c.P10 + c.P11 + c.P12).Value)
 
                 lblTotal.Text = lblYTD12.Text
             Else
@@ -205,6 +205,10 @@ Namespace DotNetNuke.Modules.Budget
                 btnInsertRow.Visible = True
 
             Else
+                If q.First.P1 = 0 And q.First.P2 = 0 And q.First.P3 = 0 And q.First.P4 = 0 And q.First.P5 = 0 And q.First.P6 = 0 And q.First.P7 = 0 And q.First.P8 = 0 And q.First.P9 = 0 And q.First.P10 = 0 And q.First.P11 = 0 And q.First.P12 = 0 Then
+                    btnAddTo_Click(Me, Nothing)
+                End If
+
                 'Budget already exists... replace or addto.
                 WarningRow.Visible = True
                 btnInsertRow.Visible = False
@@ -301,6 +305,7 @@ Namespace DotNetNuke.Modules.Budget
 
 
             Else
+               
                 'Existing Budget no longer exists... Insert the new row
                 btnInsertRow_Click(Me, Nothing)
 
@@ -647,6 +652,17 @@ Namespace DotNetNuke.Modules.Budget
             End If
         End Sub
 
+        Public Function FormatCurrency(ByVal amount As Double) As String
+            If amount = 0 Then
+                Return "-"
+            End If
+            Dim rtn = amount.ToString("0.00")
+            If rtn.EndsWith("00") Then
+                Return amount.ToString("#,###,###")
+            Else
+                Return amount.ToString("#,###,###.00")
+            End If
+        End Function
 
 
 

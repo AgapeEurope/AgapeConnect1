@@ -70,7 +70,7 @@
     }
 
     .insertPeriod {
-        width:60px;
+        width:100%;
     }
     .headSmall {
         font-size: x-small;
@@ -78,7 +78,7 @@
     }
     .headBig {
         text-transform: capitalize;
-        font-size: small;
+        font-size: 9pt;
         color: white;  
         margin-left: 2px; 
     }
@@ -156,7 +156,7 @@
                 <asp:GridView ID="GridView1" runat="server" BackColor="White" ShowHeader="false" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False" DataKeyNames="BudgetSummaryId" DataSourceID="dsBudgetSummaries" ShowFooter="False" Width="100%">
                     <AlternatingRowStyle BackColor="White" Font-Size="X-Small" />
                     <Columns>
-                        <asp:TemplateField HeaderText="Account" SortExpression="Account" ItemStyle-Width="48" ItemStyle-Font-Size="small" ItemStyle-Font-Bold="true">
+                        <asp:TemplateField HeaderText="Account" SortExpression="Account" ItemStyle-Width="48" ItemStyle-Font-Size="9pt" ItemStyle-Font-Bold="true">
                             <EditItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Width="48px" Text='<%# Eval("Account") %>'></asp:Label>
                             </EditItemTemplate>
@@ -165,7 +165,7 @@
                             </ItemTemplate>
 
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="RC" SortExpression="RC" ItemStyle-Width="48" ItemStyle-Font-Size="small" ItemStyle-Font-Bold="true">
+                        <asp:TemplateField HeaderText="RC" SortExpression="RC" ItemStyle-Width="48" ItemStyle-Font-Size="9pt" ItemStyle-Font-Bold="true">
                             <EditItemTemplate>
                                 <asp:Label ID="Label1" runat="server" Width="48px" Text='<%# Eval("RC")%>'></asp:Label>
                             </EditItemTemplate>
@@ -177,10 +177,10 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="P1" SortExpression="P1" HeaderStyle-Width="60">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("P1", "{0:0.00}") %>'></asp:TextBox>
+                                <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("P1", "{0:0.00}")%>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label2" runat="server" Text='<%# Bind("P1", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label2" runat="server" Text='<%# FormatCurrency(Eval("P1"))%>'></asp:Label>
                             </ItemTemplate>
 
                             <ControlStyle Width="60px" />
@@ -190,7 +190,7 @@
                                 <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("P2", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label3" runat="server" Text='<%# Bind("P2", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label3" runat="server" Text='<%# FormatCurrency(Eval("P2"))%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -200,7 +200,7 @@
                                 <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("P3", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label4" runat="server" Text='<%# Bind("P3", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label4" runat="server" Text='<%# FormatCurrency(Eval("P3"))%>'></asp:Label>
                             </ItemTemplate>
                             
                             <ControlStyle Width="60px" />
@@ -210,7 +210,7 @@
                                 <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("P4", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label5" runat="server" Text='<%# Bind("P4", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label5" runat="server" Text='<%# FormatCurrency(Eval("P4"))%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -220,7 +220,7 @@
                                 <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("P5", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label6" runat="server" Text='<%# Bind("P5", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label6" runat="server" Text='<%# FormatCurrency(Eval("P5"))%>'></asp:Label>
                             </ItemTemplate>
                           
                             <ControlStyle Width="60px" />
@@ -230,7 +230,7 @@
                                 <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("P6", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label7" runat="server" Text='<%# Bind("P6", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label7" runat="server" Text='<%# FormatCurrency(Eval("P6"))%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -240,7 +240,7 @@
                                 <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("P7", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label8" runat="server" Text='<%# Bind("P7", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label8" runat="server" Text='<%# FormatCurrency(Eval("P7"))%>'></asp:Label>
                             </ItemTemplate>
                           
                             <ControlStyle Width="60px" />
@@ -250,7 +250,7 @@
                                 <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("P8", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label9" runat="server" Text='<%# Bind("P8", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label9" runat="server" Text='<%# FormatCurrency(Eval("P8"))%>'></asp:Label>
                             </ItemTemplate>
                        
                             <ControlStyle Width="60px" />
@@ -260,7 +260,7 @@
                                 <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("P9", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label10" runat="server" Text='<%# Bind("P9", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label10" runat="server" Text='<%# FormatCurrency(Eval("P9"))%>'></asp:Label>
                             </ItemTemplate>
                          
                             <ControlStyle Width="60px" />
@@ -270,7 +270,7 @@
                                 <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("P10", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label11" runat="server" Text='<%# Bind("P10", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label11" runat="server" Text='<%# FormatCurrency(Eval("P10"))%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -280,7 +280,7 @@
                                 <asp:TextBox ID="TextBox11" runat="server" Text='<%# Bind("P11", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label12" runat="server" Text='<%# Bind("P11", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label12" runat="server" Text='<%# FormatCurrency(Eval("P11"))%>'></asp:Label>
                             </ItemTemplate>
                             
                             <ControlStyle Width="60px" />
@@ -290,7 +290,7 @@
                                 <asp:TextBox ID="TextBox12" runat="server" Text='<%# Bind("P12", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label13" runat="server" Text='<%# Bind("P12", "{0:0.00}") %>'></asp:Label>
+                                <asp:Label ID="Label13" runat="server" Text='<%# FormatCurrency(Eval("P12"))%>'></asp:Label>
                             </ItemTemplate>
                           
                             <ControlStyle Width="60px" />
@@ -300,7 +300,7 @@
                         <asp:TemplateField HeaderText="Total">
                             <ItemTemplate>
 
-                                <asp:Label runat="server" Font-Bold="true" Text='<%# CDbl(Eval("P1") + Eval("P2") +Eval("P3") +Eval("P4") +Eval("P5") +Eval("P6") +Eval("P7") +Eval("P8") +Eval("P9") +Eval("P10") +Eval("P11") +Eval("P12")).ToString("0.00") %>'></asp:Label>
+                                <asp:Label runat="server" Font-Bold="true" Text='<%# FormatCurrency(CDbl(Eval("P1") + Eval("P2") +Eval("P3") +Eval("P4") +Eval("P5") +Eval("P6") +Eval("P7") +Eval("P8") +Eval("P9") +Eval("P10") +Eval("P11") +Eval("P12"))) %>'></asp:Label>
                             </ItemTemplate>
                         
                         </asp:TemplateField>
@@ -325,7 +325,7 @@
 
                     </Columns>
                     <FooterStyle BackColor="#CCCC99" Font-Bold="True" />
-                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" Height="20px" Wrap="false" />
+                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" Height="20px" Wrap="false" Font-Size="9pt" />
                     <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
                     <RowStyle BackColor="#F7F7DE" Font-Size="xSmall" />
                     <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
@@ -350,57 +350,57 @@
     </tr>
     
 
-    <tr style="background-color: #CCCC99; font-weight: bold;">
+    <tr style="background-color: #CCCC99; font-weight: bold; font-size: 8pt;">
         <td>Total</td>
         <td>PTD:<br />
-            <asp:Label ID="Label15" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" Text="YTD:"></asp:Label></td>
+            <asp:Label ID="Label15" runat="server" Font-Italic="true"  Font-Bold="false" Text="YTD:"></asp:Label></td>
         <td>
-            <asp:Label ID="lblPTD1" runat="server" ></asp:Label><br />
-            <asp:Label ID="lblYTD1" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD1" runat="server"  ></asp:Label><br />
+            <asp:Label ID="lblYTD1" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD2" runat="server"></asp:Label><br />
-            <asp:Label ID="lblYTD2" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD2" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD2" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD3" runat="server"></asp:Label><br />
-            <asp:Label ID="lblYTD3" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false"></asp:Label>
+            <asp:Label ID="lblPTD3" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD3" runat="server" Font-Italic="true"  Font-Bold="false"></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD4" runat="server"></asp:Label><br />
-            <asp:Label ID="lblYTD4" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD4" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD4" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD5" runat="server" ></asp:Label><br />
-            <asp:Label ID="lblYTD5" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD5" runat="server"  ></asp:Label><br />
+            <asp:Label ID="lblYTD5" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD6" runat="server"></asp:Label><br />
-            <asp:Label ID="lblYTD6" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false"></asp:Label>
+            <asp:Label ID="lblPTD6" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD6" runat="server" Font-Italic="true"  Font-Bold="false"></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD7" runat="server" ></asp:Label><br />
-            <asp:Label ID="lblYTD7" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD7" runat="server"  ></asp:Label><br />
+            <asp:Label ID="lblYTD7" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD8" runat="server" ></asp:Label><br />
-            <asp:Label ID="lblYTD8" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD8" runat="server"  ></asp:Label><br />
+            <asp:Label ID="lblYTD8" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD9" runat="server"></asp:Label><br />
-            <asp:Label ID="lblYTD9" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD9" runat="server" ></asp:Label><br />
+            <asp:Label ID="lblYTD9" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD10" runat="server" ></asp:Label><br />
-            <asp:Label ID="lblYTD10" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD10" runat="server"  ></asp:Label><br />
+            <asp:Label ID="lblYTD10" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD11" runat="server" ></asp:Label><br />
-            <asp:Label ID="lblYTD11" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false" ></asp:Label>
+            <asp:Label ID="lblPTD11" runat="server"  ></asp:Label><br />
+            <asp:Label ID="lblYTD11" runat="server" Font-Italic="true"  Font-Bold="false" ></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblPTD12" runat="server" ></asp:Label><br />
-            <asp:Label ID="lblYTD12" runat="server" Font-Italic="true" Font-Size="X-Small" Font-Bold="false"></asp:Label>
+            <asp:Label ID="lblPTD12" runat="server"  ></asp:Label><br />
+            <asp:Label ID="lblYTD12" runat="server" Font-Italic="true"  Font-Bold="false"></asp:Label>
         </td>
 
      
@@ -418,11 +418,11 @@
     <tr>
 
         <td>
-            <asp:DropDownList ID="ddlAccountNew" runat="server" DataTextField="Name" DataValueField="AccountCode" Font-Size="X-Small" Width="50px"></asp:DropDownList>
+            <asp:DropDownList ID="ddlAccountNew" runat="server" DataTextField="Name" DataValueField="AccountCode" Font-Size="7pt" Width="55px"></asp:DropDownList>
 
         </td>
         <td>
-            <asp:DropDownList ID="ddlRCNew" runat="server" DataTextField="Name" Width="50px" DataValueField="CostCentreCode" Font-Size="X-Small"></asp:DropDownList>
+            <asp:DropDownList ID="ddlRCNew" runat="server" DataTextField="Name" Width="55px" DataValueField="CostCentreCode" Font-Size="7pt"></asp:DropDownList>
         </td>
         <td>
             <asp:TextBox ID="tbP1new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
