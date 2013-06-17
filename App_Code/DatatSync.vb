@@ -182,7 +182,7 @@ Public Class DatatSync
         Public ProcessDate As Date
         Public Period As Integer
         Public Year As Integer
-
+        Public OrigCurrency As String
 
     End Structure
 
@@ -979,7 +979,7 @@ Public Class DatatSync
             Dim newAdv As New Adv
             newAdv.AdvanceId = row.AdvanceId
             newAdv.LocalAdvanceId = row.LocalAdvanceId
-
+            newAdv.OrigCurrency = ""
             set_if(newAdv.ApprovedDate, row.ApprovedDate)
             set_if(newAdv.Period, row.Period)
             set_if(newAdv.ProcessDate, row.ProcessedDate)
@@ -988,11 +988,21 @@ Public Class DatatSync
             set_if(newAdv.Year, row.Year)
             set_if(newAdv.Amount, row.RequestAmount.Value)
 
+            If Not String.IsNullOrEmpty(row.OrigCurrency) Then
+                If row.OrigCurrency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId) Then
+                    newAdv.OrigCurrency = "-" & row.OrigCurrency & row.OrigCurrencyAmount.Value.ToString("f2")
+                    newAdv.OrigCurrency = newAdv.OrigCurrency.Replace(".00", "")
+
+                End If
+            End If
+
+
+
             set_if(newAdv.Reason, UnidecodeSharpFork.Unidecoder.Unidecode(row.RequestText))
 
             Dim User = UserController.GetUserById(PS.PortalId, row.UserId)
             newAdv.UserName = User.FirstName & " " & User.LastName
-            newAdv.UserInitials = Left(User.FirstName.First, 1) & Left(User.LastName.First, 1)
+            newAdv.UserInitials = UnidecodeSharpFork.Unidecoder.Unidecode(Left(User.FirstName.First, 1) & Left(User.LastName.First, 1))
             Dim staff = GetStaffMember(User.UserID)
             newAdv.StaffName = staff.DisplayName
             newAdv.PersonalCostCenter = staff.CostCenter
