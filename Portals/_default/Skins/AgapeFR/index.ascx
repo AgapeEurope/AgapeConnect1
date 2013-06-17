@@ -28,11 +28,15 @@
         function initSearchText() {
             $('#SearchContainer span input[type=text]').Watermark('<%=Translate("SearchWatermark.Text")%>');
         }
-
+        function initContentTitle() {
+            $('#DefaultPageContainer #ContentTitle').text(document.title);
+         }
         $(document).ready(function () {
             initSearchText();
+            initContentTitle();
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 initSearchText();
+                initContentTitle();
             });
         });
     }(jQuery, window.Sys));
@@ -68,29 +72,18 @@
 			</div>
 		</div>
 		<div id="bar3" class="bar">
-			<div id="ContentContainer1" class="centeredbox">
-				<div id="TopPane" class="TopPane" runat="server">
+			<div id="DefaultPageContainer" class="centeredbox">
+				<div id="PhotoOverlay">
+				</div>
+				<div id="PhotoPane" class="PhotoPane" runat="server">
+				</div>
+                <div id="ContentTitle">
+				</div>
+                <div id="ContentPane" class="ContentPane" runat="server">
 				</div>
 			</div>
-		</div>			
-		<div id="bar4" class="bar">
-			<div id="ContentContainer2" class="centeredbox">
-				<table cellspacing="0" cellpadding="0" border="0" width="100%" class="mainContentContainer">
-					<tr valign="top">
-						<td class="LeftPane" id="LeftPane" runat="server" valign="top">&nbsp;
-						</td>
-						<td class="ContentPane" id="ContentPane" runat="server" valign="top">&nbsp;
-						</td>
-						<td class="RightPane" id="RightPane" runat="server" valign="top">&nbsp;
-						</td>
-					</tr>
-					<tr>
-						<td class="BottomPane" colspan="3" id="BottomPane" runat="server" valign="top">&nbsp;
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>	
+		</div>
+        <div class="clear_float"></div>			
 		<div id="bar5" class="bar">
 		</div>		
 		<div id="bar6" class="bar">

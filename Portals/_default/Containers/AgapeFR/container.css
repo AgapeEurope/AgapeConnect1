@@ -1,22 +1,28 @@
-/* CSS Document */
+/*========== Default for all containers ==========*/
 
-.c_head{padding:8px 5px 0 5px; text-align:left;}
+.c_content {
+    clear:none;
 
-.c_content{clear:both;}
+}
 
-.c_contentpane{padding: 8px 5px 5px ; text-align:left;}
+.c_contentpane {
+    padding: 10px;
+    margin: 0px;
+    text-align:left;
+}
 
-.c_footer {margin-bottom:20px;padding:8px 10px 8px 15px; text-align:right;}
+.Normal p {
+    margin-top:0px;
+}
 
-.title{margin:0; float:left; white-space:nowrap;}
-.title_vis{margin:0; float:right; text-align:right;}
+.Normal {
+    text-align:justify;
+    font-size: 14px;
+}
 
-/*---------- default style for head & normal -----------*/
-.Head{font-weight:bold; font-size:14px;}
-
-.Normal{color:#43494D;}
-
-.Normal p{margin-top:0px;}
+.c_contentpane p {
+    background-color: white; /* To disable auto-fit on Android */
+}
 
 
 
