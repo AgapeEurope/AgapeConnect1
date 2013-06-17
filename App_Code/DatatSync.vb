@@ -11,7 +11,7 @@ Imports StaffBrokerFunctions
 Public Class DatatSync
     Inherits System.Web.Services.WebService
     Public Const VERSION_NUMBER As String = "1.1.0"   'The version of acDatalinks that this webservice is designed against 
-    Public Const CRITICAL_VERSION_NUMBER As String = "1.1.0"  'The minimum acDatalinks version that this webservice requires
+    Public Const CRITICAL_VERSION_NUMBER As String = "1.0.66"  'The minimum acDatalinks version that this webservice requires
 
     Public Const UPDRAGE_AVAILABLE As String = "<p>There is a new version of ACDatalinks available.(ACDatalinks is the datapump that downloads " _
                                                 & "transactions from the website and inserts them into your financial package. Your website has been configured to work with " & VERSION_NUMBER _
@@ -596,31 +596,35 @@ Public Class DatatSync
 
 
     Private Sub SyncBudgetsChangedInDynamics(ByVal changed As Budget.AP_Budget_Summary1())
-        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-        Dim d As New Budget.BudgetDataContext
-        For Each row In changed
-            row.Portalid = PS.PortalId
-            Dim q = From c In d.AP_Budget_Summary1s Where c.Portalid = PS.PortalId And c.Account = row.Account And c.RC = row.RC And c.FiscalYear = row.FiscalYear
+        If Not changed Is Nothing Then
 
 
-            If q.Count > 0 Then ' Already a budget value exists
-                If row.LastUpdated > q.First.LastUpdated Then
-                    'Value in Dynamics is most recent
-                    d.AP_Budget_Summary1s.DeleteAllOnSubmit(q)
-                    d.SubmitChanges()
+            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+            Dim d As New Budget.BudgetDataContext
+            For Each row In changed
+                row.Portalid = PS.PortalId
+                Dim q = From c In d.AP_Budget_Summary1s Where c.Portalid = PS.PortalId And c.Account = row.Account And c.RC = row.RC And c.FiscalYear = row.FiscalYear
+
+
+                If q.Count > 0 Then ' Already a budget value exists
+                    If row.LastUpdated > q.First.LastUpdated Then
+                        'Value in Dynamics is most recent
+                        d.AP_Budget_Summary1s.DeleteAllOnSubmit(q)
+                        d.SubmitChanges()
+                        d.AP_Budget_Summary1s.InsertOnSubmit(row)
+                        d.SubmitChanges()
+                    Else ' Value on Website is most recent
+                        q.First.Changed = True
+                        d.SubmitChanges()
+                    End If
+                Else 'new budget value entered in Dynamics
                     d.AP_Budget_Summary1s.InsertOnSubmit(row)
                     d.SubmitChanges()
-                Else ' Value on Website is most recent
-                    q.First.Changed = True
-                    d.SubmitChanges()
                 End If
-            Else 'new budget value entered in Dynamics
-                d.AP_Budget_Summary1s.InsertOnSubmit(row)
-                d.SubmitChanges()
-            End If
 
 
-        Next
+            Next
+        End If
     End Sub
 
 
