@@ -673,5 +673,47 @@ Namespace DotNetNuke.Modules.Budget
         Protected Sub btnImpAddTo_Click(sender As Object, e As EventArgs) Handles btnImpAddTo.Click
             Import(False)
         End Sub
+
+        Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
+            If e.CommandName = "myDelete" Then
+                Dim d As New BudgetDataContext
+                Dim q = From c In d.AP_Budget_Summaries Where c.BudgetSummaryId = CInt(e.CommandArgument)
+
+                If q.Count > 0 Then
+                    If q.First.Error = True And q.First.ErrorMessage.ToLower.Contains("combination") Then
+                        d.AP_Budget_Summaries.DeleteAllOnSubmit(q)
+                    Else
+                        q.First.P1 = 0
+                        q.First.P2 = 0
+                        q.First.P3 = 0
+                        q.First.P4 = 0
+                        q.First.P5 = 0
+                        q.First.P6 = 0
+                        q.First.P7 = 0
+                        q.First.P8 = 0
+                        q.First.P9 = 0
+                        q.First.P10 = 0
+                        q.First.P11 = 0
+                        q.First.P12 = 0
+
+                    End If
+                End If
+                d.SubmitChanges()
+                GridView1.DataBind()
+            End If
+        End Sub
+
+        Protected Sub GridView1_RowUpdated(sender As Object, e As GridViewUpdatedEventArgs) Handles GridView1.RowUpdated
+            Dim q = From c In d.AP_Budget_Summaries Where c.BudgetSummaryId = CInt(GridView1.DataKeys(GridView1.EditIndex).Value.ToString)
+
+            If q.Count > 0 Then
+                q.First.Changed = True
+                q.First.Error = False
+                q.First.ErrorMessage = ""
+                d.SubmitChanges()
+                GridView1.DataBind()
+
+            End If
+        End Sub
     End Class
 End Namespace

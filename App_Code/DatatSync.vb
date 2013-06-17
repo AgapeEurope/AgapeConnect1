@@ -437,9 +437,9 @@ Public Class DatatSync
             Return Nothing
         End If
         Dim rtn As New DownloadResponse()
-       
+
         doRequestUpdate(rtn)
-        
+
         Return rtn
     End Function
 
@@ -520,13 +520,25 @@ Public Class DatatSync
                 Dim theBud = From c In db.AP_Budget_Summaries Where c.Portalid = PS.PortalId And c.BudgetSummaryId = bud.BudgetSummaryId
 
                 If theBud.Count > 0 Then
-                    theBud.First.Changed = bud.Changed
-                    theBud.First.Error = bud.Error
-                    theBud.First.ErrorMessage = bud.ErrorMessage
+                    If bud.Error Is Nothing Then
+                        bud.Error = False
+                    End If
+                    If ((bud.Error And bud.ErrorMessage.ToLower.Contains("combination")) And bud.P1 = 0 And bud.P2 = 0 And bud.P3 = 0 And bud.P4 = 0 And bud.P5 = 0 And bud.P6 = 0 And bud.P7 = 0 And bud.P8 = 0 And bud.P9 = 0 And bud.P10 = 0 And bud.P11 = 0 And bud.P12 = 0) _
+                        Or ((Not bud.Error) And bud.P1 = 0 And bud.P2 = 0 And bud.P3 = 0 And bud.P4 = 0 And bud.P5 = 0 And bud.P6 = 0 And bud.P7 = 0 And bud.P8 = 0 And bud.P9 = 0 And bud.P10 = 0 And bud.P11 = 0 And bud.P12 = 0) Then
+                        db.AP_Budget_Summaries.DeleteAllOnSubmit(theBud)
+                    Else
+                        theBud.First.Changed = bud.Changed
+                        theBud.First.Error = bud.Error
+                        theBud.First.ErrorMessage = bud.ErrorMessage
+
+                    End If
 
 
+
+
+                    db.SubmitChanges()
                 End If
-                db.SubmitChanges()
+
             Next
         End If
 
@@ -584,7 +596,31 @@ Public Class DatatSync
 
 
     Private Sub SyncBudgetsChangedInDynamics(ByVal changed As Budget.AP_Budget_Summary1())
-        'TODO
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Dim d As New Budget.BudgetDataContext
+        For Each row In changed
+            row.Portalid = PS.PortalId
+            Dim q = From c In d.AP_Budget_Summary1s Where c.Portalid = PS.PortalId And c.Account = row.Account And c.RC = row.RC And c.FiscalYear = row.FiscalYear
+
+
+            If q.Count > 0 Then ' Already a budget value exists
+                If row.LastUpdated > q.First.LastUpdated Then
+                    'Value in Dynamics is most recent
+                    d.AP_Budget_Summary1s.DeleteAllOnSubmit(q)
+                    d.SubmitChanges()
+                    d.AP_Budget_Summary1s.InsertOnSubmit(row)
+                    d.SubmitChanges()
+                Else ' Value on Website is most recent
+                    q.First.Changed = True
+                    d.SubmitChanges()
+                End If
+            Else 'new budget value entered in Dynamics
+                d.AP_Budget_Summary1s.InsertOnSubmit(row)
+                d.SubmitChanges()
+            End If
+
+
+        Next
     End Sub
 
 
@@ -668,7 +704,7 @@ Public Class DatatSync
     End Sub
 
 
-   
+
 
 
     Private Sub ProcessTNT(ByRef rtn As DownloadResponse)
@@ -718,8 +754,8 @@ Public Class DatatSync
             wpa.Name = member.FirstName & " " & member.LastName
             Try
 
-            
-            wpa.Designations = GetStaffProfileProperty(GetStaffMember(member.UserID), "Designation(s)")
+
+                wpa.Designations = GetStaffProfileProperty(GetStaffMember(member.UserID), "Designation(s)")
             Catch ex As Exception
 
             End Try
@@ -806,7 +842,7 @@ Public Class DatatSync
 
         Dim d As New StaffRmb.StaffRmbDataContext
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-        
+
         If GetSetting("RmbSinglePump", PS.PortalId) = "True" Then
             SetSetting("RmbSinglePump", False, PS.PortalId)
         End If

@@ -9,7 +9,17 @@
     (function ($, Sys) {
 
         function setUpMyTabs() {
-
+  $("#divImport").dialog({
+                autoOpen: false,
+                height: 300,
+                width: 400,
+                modal: true,
+                title: "Import",
+                close: function () {
+                    //  allFields.val("").removeClass("ui-state-error");
+                }
+             });
+            $("#divImport").parent().appendTo($("form:first"));
             $('.aButton').button();
 
             //$('.dropdown-toggle').dropdown();
@@ -36,17 +46,7 @@
 
             });
            
-            $("#divImport").dialog({
-                autoOpen: false,
-                height: 300,
-                width: 400,
-                modal: true,
-                title: "Import",
-                close: function () {
-                    //  allFields.val("").removeClass("ui-state-error");
-                }
-             });
-            $("#divImport").parent().appendTo($("form:first"));
+          
 
         }
 
@@ -70,7 +70,7 @@
     }
 
     .insertPeriod {
-        width:100%;
+        width:55px;
     }
     .headSmall {
         font-size: x-small;
@@ -80,7 +80,8 @@
         text-transform: capitalize;
         font-size: 9pt;
         color: white;  
-        margin-left: 2px; 
+        Width: 46px;
+      
     }
 </style>
 
@@ -130,20 +131,20 @@
 
 <table class="budGrid" cellpadding="3" cellspacing="0" style="width: 100%; background-color: #FAFAF0;">
     <tr style="background-color: #6B696B; font-weight: bold; font-size: small; color: white; white-space: nowrap;">
-        <td style="width: 50px">A/C</td>
-        <td style="width: 50px">R/C</td>
-        <td class="headSmall"><asp:Label ID="lblP1" runat="server" Width="48px" CssClass="headBig" Text="P1"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP2" runat="server" Width="48px" CssClass="headBig" Text="P2"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP3" runat="server" Width="48px" CssClass="headBig" Text="P3"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP4" runat="server" Width="48px" CssClass="headBig" Text="P4"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP5" runat="server" Width="48px" CssClass="headBig" Text="P5"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP6" runat="server" Width="48px" CssClass="headBig" Text="P6"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP7" runat="server" Width="48px" CssClass="headBig" Text="P7"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP8" runat="server" Width="48px" CssClass="headBig" Text="P8"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP9" runat="server" Width="48px" CssClass="headBig" Text="P9"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP10" runat="server" Width="48px" CssClass="headBig" Text="P10"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP11" runat="server" Width="48px" CssClass="headBig" Text="P11"></asp:Label></td>
-        <td class="headSmall"><asp:Label ID="lblP12" runat="server" Width="48px" CssClass="headBig" Text="P12"></asp:Label></td>
+        <td style="width: 47px">A/C</td>
+        <td style="width: 47px">R/C</td>
+        <td class="headSmall"><asp:Label ID="lblP1" runat="server" CssClass="headBig" Text="P1"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP2" runat="server" CssClass="headBig" Text="P2"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP3" runat="server" CssClass="headBig" Text="P3"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP4" runat="server" CssClass="headBig" Text="P4"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP5" runat="server"  CssClass="headBig" Text="P5"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP6" runat="server" CssClass="headBig" Text="P6"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP7" runat="server" CssClass="headBig" Text="P7"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP8" runat="server"  CssClass="headBig" Text="P8"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP9" runat="server" CssClass="headBig" Text="P9"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP10" runat="server" CssClass="headBig" Text="P10"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP11" runat="server" CssClass="headBig" Text="P11"></asp:Label></td>
+        <td class="headSmall"><asp:Label ID="lblP12" runat="server" CssClass="headBig" Text="P12"></asp:Label></td>
         
         <td style="width: 55px">Total</td>
         <td></td>
@@ -156,7 +157,7 @@
                 <asp:GridView ID="GridView1" runat="server" BackColor="White" ShowHeader="false" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False" DataKeyNames="BudgetSummaryId" DataSourceID="dsBudgetSummaries" ShowFooter="False" Width="100%">
                     <AlternatingRowStyle BackColor="White" Font-Size="X-Small" />
                     <Columns>
-                        <asp:TemplateField HeaderText="Account" SortExpression="Account" ItemStyle-Width="48" ItemStyle-Font-Size="9pt" ItemStyle-Font-Bold="true">
+                        <asp:TemplateField HeaderText="Account" SortExpression="Account" ItemStyle-Width="50" ItemStyle-Font-Size="9pt" ItemStyle-Font-Bold="true">
                             <EditItemTemplate>
                                 <asp:Label ID="Label2" runat="server" Width="48px" Text='<%# Eval("Account") %>'></asp:Label>
                             </EditItemTemplate>
@@ -165,7 +166,7 @@
                             </ItemTemplate>
 
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="RC" SortExpression="RC" ItemStyle-Width="48" ItemStyle-Font-Size="9pt" ItemStyle-Font-Bold="true">
+                        <asp:TemplateField HeaderText="RC" SortExpression="RC" ItemStyle-Width="50" ItemStyle-Font-Size="9pt" ItemStyle-Font-Bold="true">
                             <EditItemTemplate>
                                 <asp:Label ID="Label1" runat="server" Width="48px" Text='<%# Eval("RC")%>'></asp:Label>
                             </EditItemTemplate>
@@ -300,25 +301,29 @@
                         <asp:TemplateField HeaderText="Total">
                             <ItemTemplate>
 
-                                <asp:Label runat="server" Font-Bold="true" Text='<%# FormatCurrency(CDbl(Eval("P1") + Eval("P2") +Eval("P3") +Eval("P4") +Eval("P5") +Eval("P6") +Eval("P7") +Eval("P8") +Eval("P9") +Eval("P10") +Eval("P11") +Eval("P12"))) %>'></asp:Label>
+                                <asp:Label runat="server" Font-Bold="true" Width="60px" Text='<%# FormatCurrency(CDbl(Eval("P1") + Eval("P2") +Eval("P3") +Eval("P4") +Eval("P5") +Eval("P6") +Eval("P7") +Eval("P8") +Eval("P9") +Eval("P10") +Eval("P11") +Eval("P12"))) %>'></asp:Label>
                             </ItemTemplate>
-                        
+                         <ControlStyle Width="60px" />
                         </asp:TemplateField>
 
 
-                        <asp:TemplateField ShowHeader="False">
+                        <asp:TemplateField ShowHeader="False" ItemStyle-Width="54px">
                             <EditItemTemplate>
                                <div style="white-space:nowrap;">
                                 <asp:ImageButton ID="ImageButton2" runat="server"  ImageUrl ="~/icons/sigma/Save_16X16_Standard.png" CausesValidation="True"  CommandName="Update" Height="16px" ToolTip="Update" />
                                 <asp:ImageButton ID="ImageButton1" runat="server"  ImageUrl ="~/images/cancel.gif"  CausesValidation="False"  CommandName="Cancel" Height="16px" ToolTip="Cancel" />
                             </div>
                                    </EditItemTemplate>
-                            <ItemTemplate>
+                            <ItemTemplate >
                               
-                                <asp:ImageButton ID="ImageButton2" runat="server"  ImageUrl ="~/images/edit.gif" CausesValidation="False"  CommandName="Edit" Height="16px" />
-                                <asp:Image ID="Image1" runat="server" ImageUrl ="~/images/error-icn.png" Visible='<%# Eval("Error") = True %>' ToolTip='<%# Eval("ErrorMessage")  %>' Height="16px" />
-                                <asp:Image ID="Image2" runat="server" ImageUrl ="~/images/help-icn.png" Visible='<%# Eval("Changed") = True and Not Eval("Error") = True %>' ToolTip='This budget entry will be downloaded into dynamics in the next 10 minutes.' Height="16px" />
+                                <asp:ImageButton ID="ImageButton2" runat="server"  ImageUrl ="~/images/edit.gif" CausesValidation="False"  CommandName="Edit" Height="12px" />
+                                <asp:Image ID="Image1" runat="server" ImageUrl ="~/images/error-icn.png" Visible='<%# Eval("Error") = True%>' ToolTip='<%# Eval("ErrorMessage")  %>' Height="12px" />
+                                <asp:Image ID="Image2" runat="server" ImageUrl ="~/images/icon_scheduler_16px.gif" Visible='<%# Eval("Changed") = True and Not Eval("Error") = True %>' ToolTip='This budget entry will be downloaded into dynamics in the next 10 minutes.' Height="12px" />
+                                <asp:Image ID="Image3" runat="server" ImageUrl ="~/images/help-icn.png" Visible='<%# (Not String.IsNullOrEmpty(Eval("ErrorMessage")) and Eval("Error") = False ) %>' ToolTip='<%# Eval("ErrorMessage")  %>' Height="12px" />
+                               <asp:ImageButton ID="ImageButton3" runat="server"  ImageUrl ="~/images/delete.gif" CausesValidation="False"  CommandName="myDelete" CommandArgument='<%# Eval("BudgetSummaryId")%>'  ToolTip="Clear/Remove the current row" Height="12px" />
+                                
                             </ItemTemplate>
+                            <ItemStyle Wrap="false" />
                         </asp:TemplateField>
 
 
@@ -417,12 +422,12 @@
 
     <tr>
 
-        <td>
-            <asp:DropDownList ID="ddlAccountNew" runat="server" DataTextField="Name" DataValueField="AccountCode" Font-Size="7pt" Width="55px"></asp:DropDownList>
+        <td style="padding: 0; margin:0;">
+            <asp:DropDownList ID="ddlAccountNew" runat="server" DataTextField="Name" DataValueField="AccountCode" Font-Size="7pt" Width="50px"></asp:DropDownList>
 
         </td>
-        <td>
-            <asp:DropDownList ID="ddlRCNew" runat="server" DataTextField="Name" Width="55px" DataValueField="CostCentreCode" Font-Size="7pt"></asp:DropDownList>
+        <td style="padding: 0; margin:0;">
+            <asp:DropDownList ID="ddlRCNew" runat="server" DataTextField="Name" Width="50px" DataValueField="CostCentreCode" Font-Size="7pt"></asp:DropDownList>
         </td>
         <td>
             <asp:TextBox ID="tbP1new" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
@@ -451,7 +456,7 @@
         <td>
             <asp:Label ID="lblTotalNew" runat="server" Width="60px" Text="0"></asp:Label></td>
         <td>
-            <asp:LinkButton ID="btnInsertRow" runat="server" Font-Size="X-Small">Insert</asp:LinkButton>
+            <asp:LinkButton ID="btnInsertRow" runat="server" Width="58px" Font-Size="X-Small">Insert</asp:LinkButton>
         </td>
     </tr>
 
@@ -502,3 +507,5 @@
 
     </div>
 </div>
+
+
