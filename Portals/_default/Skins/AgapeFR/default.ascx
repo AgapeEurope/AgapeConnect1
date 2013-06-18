@@ -28,15 +28,10 @@
         function initSearchText() {
             $('#SearchContainer span input[type=text]').Watermark('<%=Translate("SearchWatermark.Text")%>');
         }
-        function initContentTitle() {
-            $('#DefaultPageContainer #ContentTitle').text(document.title);
-         }
         $(document).ready(function () {
             initSearchText();
-            initContentTitle();
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 initSearchText();
-                initContentTitle();
             });
         });
     }(jQuery, window.Sys));
@@ -72,13 +67,7 @@
 			</div>
 		</div>
 		<div id="bar3" class="bar">
-			<div id="DefaultPageContainer" class="centeredbox">
-				<div id="PhotoOverlay">
-				</div>
-				<div id="PhotoPane" class="PhotoPane" runat="server">
-				</div>
-                <div id="ContentTitle">
-				</div>
+			<div id="ContentContainer" class="centeredbox">
                 <div id="ContentPane" class="ContentPane" runat="server">
 				</div>
 			</div>

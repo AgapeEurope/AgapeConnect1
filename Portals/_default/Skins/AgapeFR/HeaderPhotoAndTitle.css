@@ -1,6 +1,6 @@
 ﻿
 /*========================== MODULE CONTAINER =======================*/
-#DefaultPageContainer {
+#ContentContainer {
     text-align: left;
     position: relative;
     padding-bottom: 50px;
@@ -9,14 +9,14 @@
 
 /*========================== PHOTO =======================*/
 
-#DefaultPageContainer .PhotoPane .DNNModuleContent img {
+#ContentContainer .PhotoPane .DNNModuleContent img {
     width: 975px;
     border-width: 0;
     margin: 0;
     padding: 0;   
 }
 
-#DefaultPageContainer .PhotoPane {
+#ContentContainer .PhotoPane {
     display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
     position: absolute;
@@ -25,30 +25,30 @@
     z-index: 0;
 }
 
-#DefaultPageContainer .PhotoPane div {
+#ContentContainer .PhotoPane div {
     padding: 0;  
 }
 
-#DefaultPageContainer .PhotoPane .DNNModuleContent {
+#ContentContainer .PhotoPane .DNNModuleContent {
     height: 300px;
     overflow: hidden;
 }
 
 /*========================== PHOTO OVERLAY =======================*/
 
-#DefaultPageContainer #PhotoOverlay {
+#ContentContainer #PhotoOverlay {
 	width: 100%;
 	height: 300px;
 	position: absolute;
     top: 0;
     left: 0;
-    background: url('../images/HeaderPhotoOverlay.png') no-repeat center;
+    background: url('images/HeaderPhotoOverlay.png') no-repeat center;
     z-index: 1;
 }
 
 /*========================== TITLE =======================*/
 
-#DefaultPageContainer #ContentTitle {
+#ContentContainer #ContentTitle {
 	display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
     position:relative;
@@ -65,13 +65,15 @@
 
 /*========================== CONTENT =======================*/
 
-#DefaultPageContainer .ContentPane {
+#ContentContainer .ContentPane {
     position:relative;
     z-index: 300;
     margin: 0 150px 0 150px;
     background-color: white;
 }
 
+/* Prevent the PhotoPane to be above the footer if the photo is higher than the content 
 .bar {
-    position:relative; z-index: 1; /* Prevent the PhotoPane to be above the footer if the photo is higher than the content */
+    position:relative; z-index: 10; 
 }
+*/
