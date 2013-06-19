@@ -13,7 +13,6 @@
 <%@ Register TagPrefix="ddr" TagName="MENU" src="~/DesktopModules/DDRMenu/Menu.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="TEXT" Src="~/Admin/Skins/Text.ascx" %>
 
-
 <script runat="server">
     Protected Function Translate(ResourceKey As String) As String   
         Dim strFile = PortalSettings.ActiveTab.SkinPath + Localization.LocalResourceDirectory + "/" + "SharedResources.resx"
@@ -29,13 +28,24 @@
         }
         function initContentTitle() {
             $('#ContentContainer #ContentTitle').text(document.title);
-         }
+        }
+
+        // Functions to fix the problem of DNN admin ActionMenu opening under the PhotoPane
+        function onActionMenu() {
+            $('.PhotoPane').css("z-index","400");
+        }
+        function offActionMenu() {
+            $('.PhotoPane').css("z-index", "0");
+        }     
+
         $(document).ready(function () {
             initSearchText();
             initContentTitle();
+            $('.PhotoPane .dnnActionMenu').hover(onActionMenu, offActionMenu);
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 initSearchText();
                 initContentTitle();
+                $('.PhotoPane .dnnActionMenu').hover(onActionMenu, offActionMenu);
             });
         });
     }(jQuery, window.Sys));
@@ -72,9 +82,9 @@
 		</div>
 		<div id="bar3" class="bar">
 			<div id="ContentContainer" class="centeredbox">
-				<div id="PhotoOverlay">
-				</div>
 				<div id="PhotoPane" class="PhotoPane" runat="server">
+				</div>
+                <div id="PhotoOverlay">
 				</div>
                 <div id="ContentTitle">
 				</div>
