@@ -10,11 +10,11 @@
 
         // Functions to fix the problem of DNN admin ActionMenu opening under the PhotoPane
         function onActionMenu() {
-            $('.PhotoPane').css("z-index","400");
+            $('.PhotoPane').css("z-index", "400");
         }
         function offActionMenu() {
             $('.PhotoPane').css("z-index", "0");
-        }     
+        }
 
         $(document).ready(function () {
             initContentTitle();

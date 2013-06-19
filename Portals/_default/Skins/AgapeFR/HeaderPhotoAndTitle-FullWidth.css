@@ -1,0 +1,9 @@
+﻿@import url("./HeaderPhotoAndTitle.css");
+
+#ContentContainer .ContentPane {
+    margin: 0;
+}
+
+#ContentContainer #ContentTitle {
+    margin: 100px 0 0 30px;
+}
