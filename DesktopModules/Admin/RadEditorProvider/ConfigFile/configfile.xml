@@ -12,7 +12,7 @@
   <property name="EnableResize">True</property>
   <property name="Language">
   </property>
-  <property name="ContentFilters">MakeUrlsAbsolute,FixUlBoldItalic,FixEnclosingP,IECleanAnchors,MozEmStrong,ConvertFontToSpan,ConvertToXhtml,IndentHTMLContent,EncodeScripts,OptimizeSpans,ConvertCharactersToEntities,PdfExportFilter,ConvertInlineStylesToAttributes</property>
+  <property name="ContentFilters">FixUlBoldItalic,FixEnclosingP,IECleanAnchors,MozEmStrong,ConvertFontToSpan,ConvertToXhtml,IndentHTMLContent,EncodeScripts,OptimizeSpans,ConvertCharactersToEntities,PdfExportFilter,ConvertInlineStylesToAttributes</property>
   <property name="CssFile">/editor.css</property>
   <property name="NewLineBr">False</property>
   <property name="StripFormattingOptions">MSWordRemoveAll</property>
