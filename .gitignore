@@ -168,5 +168,6 @@ pip-log.txt
 
 Portals/0/Cache/Pages/*.attrib.resources
 Portals/0/Cache/Pages
+Portals/0/HeaderPhoto
 
 App_Data/ClientDependency/*-map.xml
