@@ -1,14 +1,13 @@
 /*========== Default for all containers ==========*/
 
-.c_content {
-    clear:none;
-
-}
-
 .c_contentpane {
     padding: 10px;
     margin: 0px;
     text-align:left;
+}
+
+.c_contentpane p {
+    background-color: white; /* To disable auto-fit on Android */
 }
 
 .Normal p {
@@ -20,9 +19,6 @@
     font-size: 14px;
 }
 
-.c_contentpane p {
-    background-color: white; /* To disable auto-fit on Android */
-}
 
 
 
