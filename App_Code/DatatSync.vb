@@ -452,13 +452,7 @@ Public Class DatatSync
 
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
         Dim objEventLog As New DotNetNuke.Services.Log.EventLog.EventLogController
-        If uResp.TntStatus.Status = "OK" And GetSetting("tntFlag", PS.PortalId) = "Downloading" Then
-            SetSetting("tntFlag", "Clean", PS.PortalId)
-        End If
-        If uResp.TntStatus.Status = "Error" Then
-            objEventLog.AddLog("ERROR-  tntWebUser sync FAILED", uResp.TntStatus.Message, PS, 1, Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT)
-
-        End If
+        
         If Not uResp.Rmbs Is Nothing Then
 
 
@@ -522,6 +516,9 @@ Public Class DatatSync
                 If theBud.Count > 0 Then
                     If bud.Error Is Nothing Then
                         bud.Error = False
+                    End If
+                    If bud.ErrorMessage Is Nothing Then
+                        bud.ErrorMessage = ""
                     End If
                     If ((bud.Error And bud.ErrorMessage.ToLower.Contains("combination")) And bud.P1 = 0 And bud.P2 = 0 And bud.P3 = 0 And bud.P4 = 0 And bud.P5 = 0 And bud.P6 = 0 And bud.P7 = 0 And bud.P8 = 0 And bud.P9 = 0 And bud.P10 = 0 And bud.P11 = 0 And bud.P12 = 0) _
                         Or ((Not bud.Error) And bud.P1 = 0 And bud.P2 = 0 And bud.P3 = 0 And bud.P4 = 0 And bud.P5 = 0 And bud.P6 = 0 And bud.P7 = 0 And bud.P8 = 0 And bud.P9 = 0 And bud.P10 = 0 And bud.P11 = 0 And bud.P12 = 0) Then
