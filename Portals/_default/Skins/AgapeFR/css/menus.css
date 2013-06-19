@@ -21,6 +21,7 @@
 #menu1 .navhor  a:link, #menu1 .navhor  a:active, #menu1 .navhor  a:visited, #menu1 .navhor  a:hover {
 	font-family: OpenSansLight;
 	font-size: 20px;
+    white-space: nowrap; /* Needed for first iPad */
 	padding: 0 10px 0 10px;
 	color: #0f72b4;
 	margin-bottom: 6px;

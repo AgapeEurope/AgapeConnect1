@@ -73,6 +73,7 @@ html>body #bar3 {
     background: #3A8BC2;
     font-family: OpenSansLight;
 	font-size: 20px;
+    white-space: nowrap; /* Needed for first iPad */
 }
 
 /*========================== CONTENT =======================*/
