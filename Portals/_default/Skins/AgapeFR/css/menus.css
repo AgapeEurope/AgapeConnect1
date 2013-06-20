@@ -61,10 +61,10 @@
 /*===================== MENU2 ===================== */
 
 #menu2 .navhor {
-    display: inline;
+    width: 100%;
 }
 
-#menu2 .navhor li, #menu2 .navhor  a:link, #menu2 .navhor  a:active, #menu2 .navhor  a:visited, #menu2 .navhor  a:hover {
+#menu2 .navhor, #menu2 .navhor li, #menu2 .navhor a:link, #menu2 .navhor a:active, #menu2 .navhor a:visited, #menu2 .navhor a:hover {
 	display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */	
 }
