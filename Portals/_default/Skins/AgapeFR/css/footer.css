@@ -144,11 +144,6 @@
     zoom: 1; *display: inline; /* IE fix for inline-block display */
 }
 
-#footer3 #postalAddress, #footer3 #telFaxEmail, #footer3 #slogan {
-    *width: 240px;
-    *overflow: hidden;
-}
-
 #footer3 div#tel, #footer3 div#fax, #footer3 div#email {
     display: block;
 }
