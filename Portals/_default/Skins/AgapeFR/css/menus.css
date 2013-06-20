@@ -25,11 +25,6 @@
 	padding: 0 10px 0 10px;
 	color: #0f72b4;
 	margin-bottom: 6px;
-	*margin-bottom: 0px;
-}
-
-#menu1 .navhor li.selected a:link, #menu1 .navhor li.selected a:active, #menu1 .navhor li.selected a:visited, #menu1 .navhor li.selected a:hover {
-	*margin-bottom: -12px; /* Fix for IE7-9 */
 }
 
 #menu1 .navhor  li a
@@ -52,8 +47,8 @@
 }
 
 #menu1 .navhor li.selected #pointer {
-	margin-left: auto;
-    margin-right: auto;
+	margin-left: auto; *margin-left: 0;
+    margin-right: auto; *margin-right: 0;
 	/* Blue triangle */
 	width: 0px; 
 	height: 0px; 

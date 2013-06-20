@@ -23,7 +23,7 @@
 html, body, form {
     height: 100%;
     min-width: 975px;
-	background: #F5F5F5;
+	background: white;
 }
 
 body, .Normal, a:link, a:active, a:visited, a:hover {

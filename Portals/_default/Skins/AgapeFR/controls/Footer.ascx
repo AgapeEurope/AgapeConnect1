@@ -7,8 +7,8 @@
 <%@ Register TagPrefix="ddr" TagName="MENU" src="~/DesktopModules/DDRMenu/Menu.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="TEXT" Src="~/Admin/Skins/Text.ascx" %>
 
-<div id="globalbar" class="bar">
-	<div id="globalbox">
+<div class="bar">
+	<div class="globalbox">
 		<div id="bar5" class="bar">
 		</div>		
 		<div id="bar6" class="bar">

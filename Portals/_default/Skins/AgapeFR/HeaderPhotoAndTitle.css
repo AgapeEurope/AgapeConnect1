@@ -34,17 +34,6 @@
     overflow: hidden;
 }
 
-#bar3 {
-    height: 300px; /* For IE */
-}
-
-/* For non IE */
-html>body #bar3 {
-    height: auto;
-    min-height: 300px;
-} 
-
-
 /*========================== PHOTO OVERLAY =======================*/
 
 #ContentContainer #PhotoOverlay {

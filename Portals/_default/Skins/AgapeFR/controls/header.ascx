@@ -35,8 +35,8 @@
 <div id="controlPanelContainer">
 	<div id="ControlPanel" runat="server" />
 </div>
-<div id="globalbar" class="bar">
-	<div id="globalbox">
+<div class="bar">
+	<div class="globalbox">
 		<div id="bar1" class="bar bar1">
 			<div id="header" class="centeredbox bar1">
 				<div id="headerContent" class="bar1">
@@ -55,7 +55,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="clear_float"></div>
 		<div id="bar2" class="bar">
 			<div id="menu2" class="centeredbox">
 				<ddr:MENU ID="MENU2" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="RootChildren" runat="server" />            
