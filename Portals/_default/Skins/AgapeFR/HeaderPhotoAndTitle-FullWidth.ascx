@@ -10,11 +10,11 @@
 
         // Functions to fix the problem of DNN admin ActionMenu opening under the PhotoPane
         function onActionMenu() {
-            $('.PhotoPane').css("z-index","400");
+            $('.PhotoPane').css("z-index", "400");
         }
         function offActionMenu() {
             $('.PhotoPane').css("z-index", "0");
-        }     
+        }
 
         $(document).ready(function () {
             initContentTitle();
@@ -37,7 +37,15 @@
 		</div>
         <div id="ContentTitle">
 		</div>
-        <div id="ContentPane" class="ContentPane" runat="server">
+        <div class="ContentPane">
+            <div id="TopPane" class="TopPane" runat="server">
+		    </div>
+            <div id="LeftPane" class="LeftPane" runat="server">
+		    </div>
+            <div id="ContentPane" class="CenterPane" runat="server">
+		    </div>
+            <div id="RightPane" class="RightPane" runat="server">
+		    </div>
 		</div>
 	</div>
 </div>	

@@ -19,12 +19,13 @@
 }
 
 #bar2 {
-    height: 34px;
+    min-height: 34px;
     background: #3A8BC2;
 }
 
 #bar3 {
     background: white;
+    min-height: 400px;
 }
 
 #bar5 {

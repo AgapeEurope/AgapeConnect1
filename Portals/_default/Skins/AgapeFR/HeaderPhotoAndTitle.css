@@ -3,7 +3,6 @@
 #ContentContainer {
     text-align: left;
     position: relative;
-    padding-bottom: 50px;
 }
 
 
@@ -33,17 +32,6 @@
     height: 300px;
     overflow: hidden;
 }
-
-#bar3 {
-    height: 300px; /* For IE */
-}
-
-/* For non IE */
-html>body #bar3 {
-    height: auto;
-    min-height: 300px;
-} 
-
 
 /*========================== PHOTO OVERLAY =======================*/
 
@@ -82,6 +70,7 @@ html>body #bar3 {
     position: relative;
     z-index: 300;
     margin: 0 150px 0 150px;
+    padding-bottom: 50px;
     background-color: white;
 }
 
