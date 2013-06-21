@@ -1,6 +1,6 @@
 
-.PromotionBox {
-    width: 310px;
+.BluePromotionBox {
+    width: 273px;
     margin-bottom: 15px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -11,73 +11,80 @@
     box-shadow:         1px 1px 5px 2px #F4F4F4;
 }
 
-.PromotionBox .titleContainer {
+.BluePromotionBox .titleContainer {
     position: relative;
     height: 48px;
     line-height: 48px;
     vertical-align: middle;
     text-align: left;
     padding: 0px 10px 0 10px;
-    background: url('images/GreyBoxTitle.png') repeat-x;
+    background: #3A8BC2;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
 	border: none;
 }
 
-.PromotionBox .title {
-    color: #272727;
+.BluePromotionBox .title {
+    color: white;
     text-transform: uppercase;
     font-family: 'OpenSansBold';
     font-size: 20px;
     position: relative;
 }
 
-.PromotionBox .titleRays {
+.BluePromotionBox .titleRays {
     height: 48px;
+    line-height: 48px;
     width: 261px;
     position: absolute;
     right: 0; top: 0;
-    background: url('images/GreyBoxTitleRays.png') no-repeat;
+    /*background: url('images/BoxTitleRays.png') no-repeat;*/
 }
 
-.PromotionBox .contentContainer {
-    padding: 10px;
-    height: 305px;
+.BluePromotionBox .contentContainer {
+    padding: 20px;
     border-top: 1px solid white;
     position: relative;
 }
 
-.PromotionBox .contentpane div.Normal img {
-    margin: -10px -10px 5px -10px;
+.BluePromotionBox .contentpane div.Normal img {
+    position: absolute; z-index: -1;
+    top: 0;
+    left: 0;
+    margin-bottom: -20px -20px 0 -20px;
 }
 
-.PromotionBox .contentpane {
+.BluePromotionBox div.contentpane {
     padding: 0;
-    text-align:left;
-    vertical-align:top;
 }
 
-.PromotionBox .contentContainer div.Normal {
-    
+.BluePromotionBox .contentContainer .DNNModuleContent {
+    height: 676px;
+    display:table;
 }
 
-.PromotionBox .contentContainer div.Normal h1 {
+.BluePromotionBox .Normal {
+    vertical-align:bottom;
+    display:table-cell;
+    text-align: right;
+    *clear: expression(
+        style.marginTop = "" + (offsetHeight < parentNode.offsetHeight ? parseInt((parentNode.offsetHeight - offsetHeight)) + "px" : "0"),
+        style.clear = "none", 0
+        );
+}
+
+.BluePromotionBox .contentContainer .DNNModuleContent p {
     font-family: OpenSansRegular;
     font-size: 20px;
-    white-space: nowrap;
-    padding-bottom: 5px;
-    color: #3A8BC2;
+    padding-bottom: 20px;
 }
 
-.PromotionBox .contentContainer div.Normal .button {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
+.BluePromotionBox .contentContainer .DNNModuleContent .button {
     height: 29px;
     line-height: 29px;
     min-width: 65px;
-    background: url('images/GreyBoxButton.png') repeat-x;
+    background: #3A8BC2;
     display: inline-block;
     padding: 0px 10px 0 10px;
     margin-top: 10px;
@@ -86,17 +93,18 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
     font-family: OpenSansSemiBold;
-    color: #3A3B3F;
-    white-space: nowrap;  
+    color: #DBDEE3;
+    white-space: nowrap; 
+    text-align: left;
 }
 
-.PromotionBox .contentContainer div.Normal .button::after {
+.BluePromotionBox .contentContainer div.Normal .button::after {
     font-size: 10px;
     padding-left: 10px;
     content: '\25B6'; /* Add a triangle after the button text */
 }
 
-.PromotionBox .contentContainer div.Normal .button:hover {
+.BluePromotionBox .contentContainer div.Normal .button:hover {
     text-decoration: none;
     color: #ABACAE;
 }

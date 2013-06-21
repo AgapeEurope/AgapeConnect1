@@ -28,7 +28,7 @@
 }
 
 #sitemap .level1, #sitemap .level1 a {
-    color: #0f72b4;
+    color: #3A8BC2;
     text-transform: uppercase;
 }
 
@@ -50,7 +50,7 @@
 }
 
 #footer2 span {
-    color: #0f72b4;
+    color: #3A8BC2;
     text-transform: uppercase;
     font-size: 14px;
     display: inline-block;
@@ -101,8 +101,8 @@
 
 #footer3 #slogan span {
     text-transform: uppercase;
-    font-family: 'OpenSansItalic';
-    color: #0f72b4;
+    font-family: 'OpenSansRegular';
+    color: #3A8BC2;
 }
 
 #footer3 #contactAndSlogan {

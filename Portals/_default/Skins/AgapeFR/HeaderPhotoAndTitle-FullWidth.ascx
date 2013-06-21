@@ -42,7 +42,7 @@
 		    </div>
             <div id="LeftPane" class="LeftPane" runat="server">
 		    </div>
-            <div id="CenterPane" class="CenterPane" runat="server">
+            <div id="ContentPane" class="CenterPane" runat="server">
 		    </div>
             <div id="RightPane" class="RightPane" runat="server">
 		    </div>
