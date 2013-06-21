@@ -1,0 +1,89 @@
+
+.PromotionBox {
+    width: 310px;
+    margin-bottom: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+	border: 1px solid #AAA;
+}
+
+.PromotionBox .titleContainer {
+    position: relative;
+    height: 48px;
+    line-height: 48px;
+    vertical-align: middle;
+    text-align: left;
+    padding: 0px 10px 0 10px;
+    background: url('images/GreyBoxTitle.png') repeat-x;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+	border: none;
+}
+
+.PromotionBox .title {
+    color: black;
+    text-transform: uppercase;
+    font-family: 'OpenSansBold';
+    font-size: 20px;
+    position: relative;
+}
+
+.titleRays {
+    height: 48px;
+    width: 261px;
+    position: absolute;
+    right: 0; top: 0;
+    background: url('images/GreyBoxTitleRays.png') no-repeat;
+}
+
+.PromotionBox .contentContainer {
+    padding: 10px;
+    height: 305px;
+    border-top: 1px solid white;
+}
+
+.PromotionBox .contentpane div.Normal img {
+    margin: -10px -10px 5px -10px;
+}
+
+.PromotionBox .contentpane {
+    padding: 0;
+    text-align:left;
+    vertical-align:top;
+}
+
+.PromotionBox .contentContainer div.Normal h1 {
+    font-family: OpenSansRegular;
+    font-size: 20px;
+    white-space: nowrap;
+    padding-bottom: 5px;
+    color: #0f72b4;
+}
+
+.PromotionBox .contentContainer div.Normal .button {
+    height: 29px;
+    line-height: 29px;
+    min-width: 65px;
+    background: url('images/GreyBoxButton.png') repeat-x;
+    display: inline-block;
+    padding: 0px 10px 0 10px;
+    margin-top: 10px;
+    border: 1px #999 solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: grey;
+    white-space: nowrap;  
+}
+
+.PromotionBox .contentContainer div.Normal .button::after {
+    content: ' \25B6'; /* Add a triangle after the button text */
+}
+
+.PromotionBox .contentContainer div.Normal .button:hover {
+    text-decoration: none;
+    color: #AAA;
+}

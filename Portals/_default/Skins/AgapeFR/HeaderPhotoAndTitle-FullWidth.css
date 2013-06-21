@@ -1,9 +1,21 @@
 ﻿@import url("./HeaderPhotoAndTitle.css");
 
 #ContentContainer .ContentPane {
-    margin: 0;
+    margin: 0; padding: 0;
+    text-align: center;
 }
 
 #ContentContainer #ContentTitle {
     margin: 100px 0 0 30px;
 }
+
+.LeftPane, .CenterPane, .RightPane {
+    display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+    vertical-align: top;
+}
+
+.LeftPane, .CenterPane {
+    margin-right: 15px;
+}
+

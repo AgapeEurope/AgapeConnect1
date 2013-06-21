@@ -3,7 +3,6 @@
 #ContentContainer {
     text-align: left;
     position: relative;
-    padding-bottom: 50px;
 }
 
 
@@ -71,6 +70,7 @@
     position: relative;
     z-index: 300;
     margin: 0 150px 0 150px;
+    padding-bottom: 50px;
     background-color: white;
 }
 

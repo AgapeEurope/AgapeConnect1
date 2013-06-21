@@ -37,7 +37,15 @@
 		</div>
         <div id="ContentTitle">
 		</div>
-        <div id="ContentPane" class="ContentPane" runat="server">
+        <div class="ContentPane">
+            <div id="TopPane" class="TopPane" runat="server">
+		    </div>
+            <div id="LeftPane" class="LeftPane" runat="server">
+		    </div>
+            <div id="CenterPane" class="CenterPane" runat="server">
+		    </div>
+            <div id="RightPane" class="RightPane" runat="server">
+		    </div>
 		</div>
 	</div>
 </div>	
