@@ -531,7 +531,7 @@ Namespace DotNetNuke.Modules.Stories
         Public Function GetCache(ByVal Caches As System.Data.Linq.EntitySet(Of AP_Stories_Module_Channel_Cache)) As IQueryable(Of AP_Stories_Module_Channel_Cache)
 
             Dim q = From c In Caches.AsQueryable Order By (CDbl(c.Precal) * (1.0 + (CDbl(c.Clicks) * CDbl(CDbl(hfPopular.Value) / 100)))) Descending
-            Return q.Take(30).AsQueryable ' limit to 30 stories.
+            Return q.AsQueryable ' limit to 30 stories.
         End Function
 
         Protected Sub btnAddCancel_Click(sender As Object, e As System.EventArgs) Handles btnAddCancel.Click

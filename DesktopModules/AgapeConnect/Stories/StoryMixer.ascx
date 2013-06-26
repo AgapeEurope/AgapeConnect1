@@ -310,7 +310,7 @@
                 <div style="height: 230px; overflow-y: scroll; overflow-x: hidden; " class="scroll-pane">
                     <asp:DataList ID="dlStories" runat="server" DataSource='<%# GetCache(Eval("AP_Stories_Module_Channel_Caches")) %>'>
                         <ItemTemplate>
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1pt solid grey;">
                                 <tr>
                                     <td style="width: 75%">
                                       <asp:HyperLink ID="HyperLink1" runat="server" Target="_blank" NavigateUrl='<%# Eval("Link") %>'>
@@ -319,8 +319,8 @@
                                         <td>
                                             <asp:Image ID="imgStory" runat="server" ImageUrl='<%# Eval("ImageId") %>' Width="40px" />
                                         </td>
-                                        <td align="left" style="padding-left: 3px;">
-                                            <asp:Label ID="Label4" runat="server" Font-Size="X-Small" ForeColor="White" Text='<%# Eval("Headline") %>'></asp:Label>
+                                        <td align="left" style="padding-left: 3px; line-height: 1em;">
+                                            <asp:Label ID="Label4" runat="server" Font-Size="X-Small" ForeColor="White"  Text='<%# Eval("Headline") %>'></asp:Label>
                                         </td>
                                     </tr>
                                 </table>
