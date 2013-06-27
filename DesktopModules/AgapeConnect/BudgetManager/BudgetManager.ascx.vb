@@ -43,7 +43,7 @@ Namespace DotNetNuke.Modules.Budget
                 ddlRCNew.DataSource = RCs
                 ddlRCNew.DataBind()
 
-                Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
+                Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId And c.AccountCodeType > 2 Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
 
                 ddlAC.DataSource = Accs
                 ddlAC.DataBind()
@@ -74,7 +74,7 @@ Namespace DotNetNuke.Modules.Budget
         End Sub
 
         Protected Sub GridView1_DataBound(sender As Object, e As EventArgs) Handles GridView1.DataBound
-            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.AP_StaffBroker_CostCenter.Type <> 1)) And (ddlAC.SelectedValue = "All" Or c.Account = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 4))
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.AP_StaffBroker_AccountCode.AccountCodeType > 2 And c.FiscalYear = CInt(ddlFiscalYear.SelectedValue) And (c.RC = ddlRC.SelectedValue Or ddlRC.SelectedValue = "All" Or (ddlRC.SelectedValue = "AllStaff" And c.AP_StaffBroker_CostCenter.Type = 1) Or (ddlRC.SelectedValue = "AllNonStaff" And c.AP_StaffBroker_CostCenter.Type <> 1)) And (ddlAC.SelectedValue = "All" Or c.Account = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AP_StaffBroker_AccountCode.AccountCodeType = 4))
             If q.Count > 0 Then
                 Dim ACT = {AccountType.Income, AccountType.AccountsPayable}
                 Dim P1 = q.Sum(Function(c) CDbl(IIf(ACT.Contains(c.AP_StaffBroker_AccountCode.AccountCodeType), c.P1, -c.P1)))
@@ -202,23 +202,8 @@ Namespace DotNetNuke.Modules.Budget
                 d.SubmitChanges()
                 GridView1.DataBind()
 
-                ddlRCNew.SelectedIndex = 0
-                ddlAccountNew.SelectedIndex = 0
-                tbP1new.Text = "0"
-                tbP2new.Text = "0"
-                tbP3new.Text = "0"
-                tbP4new.Text = "0"
-                tbP5new.Text = "0"
-                tbP6new.Text = "0"
-                tbP7new.Text = "0"
-                tbP8new.Text = "0"
-                tbP9new.Text = "0"
-                tbP10new.Text = "0"
-                tbP11new.Text = "0"
-                tbP12new.Text = "0"
-                lblTotalNew.Text = "0"
-                WarningRow.Visible = False
-                btnInsertRow.Visible = True
+                btnCancelInsert_Click(Me, Nothing)
+
 
             Else
                 If q.First.P1 = 0 And q.First.P2 = 0 And q.First.P3 = 0 And q.First.P4 = 0 And q.First.P5 = 0 And q.First.P6 = 0 And q.First.P7 = 0 And q.First.P8 = 0 And q.First.P9 = 0 And q.First.P10 = 0 And q.First.P11 = 0 And q.First.P12 = 0 Then
@@ -228,7 +213,7 @@ Namespace DotNetNuke.Modules.Budget
                 'Budget already exists... replace or addto.
                 WarningRow.Visible = True
                 btnInsertRow.Visible = False
-
+                btnInsertAutoSplit.Visible = False
 
             End If
 
@@ -253,8 +238,10 @@ Namespace DotNetNuke.Modules.Budget
             tbP11new.Text = "0"
             tbP12new.Text = "0"
             lblTotalNew.Text = "0"
+            tbTotalNew.Text = "0"
             WarningRow.Visible = False
             btnInsertRow.Visible = True
+            btnInsertAutoSplit.Visible = True
         End Sub
 
 
@@ -342,7 +329,7 @@ Namespace DotNetNuke.Modules.Budget
         End Sub
 
         Protected Sub ddlAC_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlAC.SelectedIndexChanged
-            Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId And (ddlAC.SelectedValue = "All" Or c.AccountCode = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 4))
+            Dim Accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId And c.AccountCodeType > 2 And (ddlAC.SelectedValue = "All" Or c.AccountCode = ddlAC.SelectedValue Or ((ddlAC.SelectedValue = "3" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 3) Or ((ddlAC.SelectedValue = "4" Or ddlAC.SelectedValue = "IE") And c.AccountCodeType = 4))
                   Select c.AccountCode, Name = c.AccountCode & " (" & c.AccountCodeName & ")" Order By AccountCode
 
             ddlAccountNew.DataSource = Accs
@@ -730,6 +717,73 @@ Namespace DotNetNuke.Modules.Budget
                 GridView1.DataBind()
 
             End If
+        End Sub
+
+        Protected Sub btnInsertAutoSplit_Click(sender As Object, e As EventArgs) Handles btnInsertAutoSplit.Click
+            If tbTotalNew.Text = "" Then
+                Return
+            End If
+            Dim q = From c In d.AP_Budget_Summaries Where c.Portalid = PortalId And c.FiscalYear = ddlFiscalYear.SelectedValue And c.Account = ddlAccountNew.SelectedValue And c.RC = ddlRCNew.SelectedValue
+
+
+
+            Dim MonthTotal As Double = CDbl(tbTotalNew.Text) / 12
+
+            If q.Count = 0 Then
+                Dim insert As New AP_Budget_Summary
+                insert.Portalid = PortalId
+                insert.FiscalYear = ddlFiscalYear.SelectedValue
+                insert.Account = ddlAccountNew.SelectedValue
+                insert.RC = ddlRCNew.SelectedValue
+                insert.P1 = MonthTotal
+                insert.P2 = MonthTotal
+                insert.P3 = MonthTotal
+                insert.P4 = MonthTotal
+                insert.P5 = MonthTotal
+                insert.P6 = MonthTotal
+                insert.P7 = MonthTotal
+                insert.P8 = MonthTotal
+                insert.P9 = MonthTotal
+                insert.P10 = MonthTotal
+                insert.P11 = MonthTotal
+                insert.P12 = MonthTotal
+                insert.Changed = True
+                insert.LastUpdated = Now
+                d.AP_Budget_Summaries.InsertOnSubmit(insert)
+                d.SubmitChanges()
+                GridView1.DataBind()
+
+                btnCancelInsert_Click(Me, Nothing)
+
+
+            Else
+                tbP1new.Text = MonthTotal
+                tbP2new.Text = MonthTotal
+                tbP3new.Text = MonthTotal
+                tbP4new.Text = MonthTotal
+                tbP5new.Text = MonthTotal
+                tbP6new.Text = MonthTotal
+                tbP7new.Text = MonthTotal
+                tbP8new.Text = MonthTotal
+                tbP9new.Text = MonthTotal
+                tbP10new.Text = MonthTotal
+                tbP11new.Text = MonthTotal
+                tbP12new.Text = MonthTotal
+                If q.First.P1 = 0 And q.First.P2 = 0 And q.First.P3 = 0 And q.First.P4 = 0 And q.First.P5 = 0 And q.First.P6 = 0 And q.First.P7 = 0 And q.First.P8 = 0 And q.First.P9 = 0 And q.First.P10 = 0 And q.First.P11 = 0 And q.First.P12 = 0 Then
+                    btnAddTo_Click(Me, Nothing)
+
+                End If
+
+
+
+
+                'Budget already exists... replace or addto.
+                WarningRow.Visible = True
+                btnInsertRow.Visible = False
+                btnInsertAutoSplit.Visible = False
+
+            End If
+
         End Sub
     End Class
 End Namespace

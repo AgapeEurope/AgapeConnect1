@@ -349,7 +349,7 @@
                 </asp:GridView>
 
                 <asp:LinqDataSource ID="dsBudgetSummaries" runat="server" EntityTypeName="" ContextTypeName="Budget.BudgetDataContext" TableName="AP_Budget_Summaries" 
-                    Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp;  ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1) || (@RC==&quot;AllNonStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type!=1)) &amp;&amp; (@AC==&quot;All&quot; || @AC == Account || (@AC==&quot;3&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==3) || (@AC==&quot;4&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==4) || (@AC==&quot;IE&quot; &amp;&amp; (AP_StaffBroker_AccountCode.AccountCodeType==3 || AP_StaffBroker_AccountCode.AccountCodeType==4)))  &amp;&amp; (P1!=0 || P2!=0 || P3!=0 || P4!=0 || P5!=0 || P6!=0 || P7!=0 || P8!=0 || P9!=0 || P10!=0 || P11!=0 || P12!=0) " EnableInsert="True" EnableUpdate="True" OrderBy="Account">
+                    Where="Portalid == @Portalid &amp;&amp; FiscalYear == @FiscalYear &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType>2 &amp;&amp; ( (RC == @RC) || (@RC==&quot;All&quot;) || (@RC==&quot;AllStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type==1) || (@RC==&quot;AllNonStaff&quot; &amp;&amp; AP_StaffBroker_CostCenter.Type!=1)) &amp;&amp; (@AC==&quot;All&quot; || @AC == Account || (@AC==&quot;3&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==3) || (@AC==&quot;4&quot; &amp;&amp; AP_StaffBroker_AccountCode.AccountCodeType==4) || (@AC==&quot;IE&quot; &amp;&amp; (AP_StaffBroker_AccountCode.AccountCodeType==3 || AP_StaffBroker_AccountCode.AccountCodeType==4)))  &amp;&amp; (P1!=0 || P2!=0 || P3!=0 || P4!=0 || P5!=0 || P6!=0 || P7!=0 || P8!=0 || P9!=0 || P10!=0 || P11!=0 || P12!=0) " EnableInsert="True" EnableUpdate="True" OrderBy="Account">
                     <WhereParameters>
                         <asp:ControlParameter ControlID="hfPortalId" Name="Portalid" PropertyName="Value" Type="Int32" />
                         <asp:ControlParameter ControlID="ddlRC" Name="RC" PropertyName="SelectedValue" Type="String" />
@@ -429,11 +429,11 @@
 
     <tr>
 
-        <td style="padding: 0; margin:0;">
+        <td rowspan="2" style="padding: 0; margin:0;">
             <asp:DropDownList ID="ddlAccountNew" runat="server" DataTextField="Name" DataValueField="AccountCode" Font-Size="7pt" Width="50px"></asp:DropDownList>
 
         </td>
-        <td style="padding: 0; margin:0;">
+        <td rowspan="2" style="padding: 0; margin:0;">
             <asp:DropDownList ID="ddlRCNew" runat="server" DataTextField="Name" Width="50px" DataValueField="CostCentreCode" Font-Size="7pt"></asp:DropDownList>
         </td>
         <td>
@@ -464,6 +464,16 @@
             <asp:Label ID="lblTotalNew" runat="server" Width="60px" Text="0"></asp:Label></td>
         <td>
             <asp:LinkButton ID="btnInsertRow" runat="server" Width="58px" Font-Size="X-Small">Insert</asp:LinkButton>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="12" align="right" style="font-size: x-small; color: grey;">
+           <i>...or split this year total evenly accross 12 months:</i> 
+        </td>
+        <td>
+         <asp:TextBox ID="tbTotalNew" runat="server" CssClass="insertPeriod numeric">0</asp:TextBox></td>
+        <td>
+            <asp:LinkButton ID="btnInsertAutoSplit" runat="server" Width="58px" Font-Size="X-Small">Insert</asp:LinkButton>
         </td>
     </tr>
 
