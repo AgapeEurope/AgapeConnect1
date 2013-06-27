@@ -65,7 +65,7 @@
                                                         <asp:Label ID="lbcPropName" runat="server" Font-Bold="true" Text='<%# Localization.GetString("ProfileProperties_" & Eval("PropertyName") & ".Text", "/DesktopModules/Admin/Security/App_LocalResources/Profile.ascx.resx", System.Threading.Thread.CurrentThread.CurrentCulture.Name)  %>'
                                                             Width="100px" />
                                                     </td>
-                                                    <td width="100%" align="left">
+                                                    <td  align="left">
                                                         <asp:Label ID="lblPropValue" runat="server" Text='<%# GetProfileValue(Eval("PropertyName"), False,  Eval("DataType") ) %>'></asp:Label>
                                                     </td>
                                                 </tr>
