@@ -653,7 +653,13 @@ Public Class DatatSync
         SetSetting("acDatalink_acDatalink_Error", settings.acDatalink_acDatalink_Error, PS.PortalId)
 
         SetSetting("CurrentFiscalPeriod", settings.currentFiscalPeriod, PS.PortalId)
-        SetSetting("FirstFiscalMonth", settings.FirstFiscalMonth, PS.PortalId)
+        If Not settings.FirstFiscalMonth = Nothing Then
+            If settings.FirstFiscalMonth > 0 Then
+                SetSetting("FirstFiscalMonth", settings.FirstFiscalMonth, PS.PortalId)
+            End If
+        End If
+
+
 
         ' SetSetting("CompanyName", settings.CompanyId, PS.PortalId)
         SyncBudgetsChangedInDynamics(settings.changedBudgets)
