@@ -83,6 +83,13 @@
         Width: 46px;
       
     }
+    .income {
+        color: blue;
+    }
+
+    .expense {
+        color: red;
+    }
 </style>
 
 <table width="100%">
@@ -151,7 +158,7 @@
 
     </tr>
 
-    <tr>
+    <tr> 
         <td colspan="16">
             <div class="scroll-pane" style="margin: 0 -2px;">
                 <asp:GridView ID="GridView1" runat="server" BackColor="White" ShowHeader="false" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" AutoGenerateColumns="False" DataKeyNames="BudgetSummaryId" DataSourceID="dsBudgetSummaries" ShowFooter="False" Width="100%">
@@ -159,10 +166,10 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Account" SortExpression="Account" ItemStyle-Width="50" ItemStyle-Font-Size="9pt" ItemStyle-Font-Bold="true">
                             <EditItemTemplate>
-                                <asp:Label ID="Label2" runat="server" Width="48px" Text='<%# Eval("Account") %>'></asp:Label>
+                                <asp:Label ID="Label2" runat="server" Width="48px" Text='<%# Eval("Account") %>' ></asp:Label>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label14" runat="server" ToolTip='<%# Eval("AP_StaffBroker_AccountCode.AccountCodeName") %>' Text='<%# Bind("Account") %>'></asp:Label>
+                                <asp:Label ID="Label14" runat="server" ToolTip='<%# Eval("AP_StaffBroker_AccountCode.AccountCodeName") %>' Text='<%# Bind("Account")  %>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
 
                         </asp:TemplateField>
@@ -181,7 +188,7 @@
                                 <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("P1", "{0:0.00}")%>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label2" runat="server" Text='<%# FormatCurrency(Eval("P1"))%>'></asp:Label>
+                                <asp:Label ID="Label2" runat="server" Text='<%# FormatCurrency(Eval("P1"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
 
                             <ControlStyle Width="60px" />
@@ -191,7 +198,7 @@
                                 <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("P2", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label3" runat="server" Text='<%# FormatCurrency(Eval("P2"))%>'></asp:Label>
+                                <asp:Label ID="Label3" runat="server" Text='<%# FormatCurrency(Eval("P2"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -201,7 +208,7 @@
                                 <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("P3", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label4" runat="server" Text='<%# FormatCurrency(Eval("P3"))%>'></asp:Label>
+                                <asp:Label ID="Label4" runat="server" Text='<%# FormatCurrency(Eval("P3"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                             
                             <ControlStyle Width="60px" />
@@ -211,7 +218,7 @@
                                 <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("P4", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label5" runat="server" Text='<%# FormatCurrency(Eval("P4"))%>'></asp:Label>
+                                <asp:Label ID="Label5" runat="server" Text='<%# FormatCurrency(Eval("P4"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -221,7 +228,7 @@
                                 <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("P5", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label6" runat="server" Text='<%# FormatCurrency(Eval("P5"))%>'></asp:Label>
+                                <asp:Label ID="Label6" runat="server" Text='<%# FormatCurrency(Eval("P5"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                           
                             <ControlStyle Width="60px" />
@@ -231,7 +238,7 @@
                                 <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("P6", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label7" runat="server" Text='<%# FormatCurrency(Eval("P6"))%>'></asp:Label>
+                                <asp:Label ID="Label7" runat="server" Text='<%# FormatCurrency(Eval("P6"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -241,7 +248,7 @@
                                 <asp:TextBox ID="TextBox7" runat="server" Text='<%# Bind("P7", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label8" runat="server" Text='<%# FormatCurrency(Eval("P7"))%>'></asp:Label>
+                                <asp:Label ID="Label8" runat="server" Text='<%# FormatCurrency(Eval("P7"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                           
                             <ControlStyle Width="60px" />
@@ -251,7 +258,7 @@
                                 <asp:TextBox ID="TextBox8" runat="server" Text='<%# Bind("P8", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label9" runat="server" Text='<%# FormatCurrency(Eval("P8"))%>'></asp:Label>
+                                <asp:Label ID="Label9" runat="server" Text='<%# FormatCurrency(Eval("P8"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                        
                             <ControlStyle Width="60px" />
@@ -261,7 +268,7 @@
                                 <asp:TextBox ID="TextBox9" runat="server" Text='<%# Bind("P9", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label10" runat="server" Text='<%# FormatCurrency(Eval("P9"))%>'></asp:Label>
+                                <asp:Label ID="Label10" runat="server" Text='<%# FormatCurrency(Eval("P9"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                          
                             <ControlStyle Width="60px" />
@@ -271,7 +278,7 @@
                                 <asp:TextBox ID="TextBox10" runat="server" Text='<%# Bind("P10", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label11" runat="server" Text='<%# FormatCurrency(Eval("P10"))%>'></asp:Label>
+                                <asp:Label ID="Label11" runat="server" Text='<%# FormatCurrency(Eval("P10"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                            
                             <ControlStyle Width="60px" />
@@ -281,7 +288,7 @@
                                 <asp:TextBox ID="TextBox11" runat="server" Text='<%# Bind("P11", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label12" runat="server" Text='<%# FormatCurrency(Eval("P11"))%>'></asp:Label>
+                                <asp:Label ID="Label12" runat="server" Text='<%# FormatCurrency(Eval("P11"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                             
                             <ControlStyle Width="60px" />
@@ -291,7 +298,7 @@
                                 <asp:TextBox ID="TextBox12" runat="server" Text='<%# Bind("P12", "{0:0.00}") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="Label13" runat="server" Text='<%# FormatCurrency(Eval("P12"))%>'></asp:Label>
+                                <asp:Label ID="Label13" runat="server" Text='<%# FormatCurrency(Eval("P12"))%>'  CssClass='<%# IIf({AccountType.Income, AccountType.AccountsPayable}.Contains(Eval("AP_StaffBroker_AccountCode.AccountCodeType")), "income", "expense")%>'></asp:Label>
                             </ItemTemplate>
                           
                             <ControlStyle Width="60px" />
