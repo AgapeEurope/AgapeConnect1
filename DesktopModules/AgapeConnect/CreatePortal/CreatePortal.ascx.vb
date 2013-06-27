@@ -32,7 +32,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 SetupTemplates(NewPortalId)
                 SetupStaffProfileProperties(NewPortalId)
                 SetupAgapeConnectSettings(NewPortalId)
-                SetupStaffTypes(NewPortalId)
+
                 SetupIcons(NewPortalId)
                 SetupRmb(NewPortalId)
 
@@ -54,14 +54,14 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Sub
 
 
-        Private Function CreateUser(ByVal thePortalid As Integer, ByVal username As String, ByVal FirstName As String, ByVal LastName As String) As StaffBroker.AP_StaffBroker_Staff
+        Private Function CreateUser(ByVal thePortalid As Integer, ByVal username As String, ByVal FirstName As String, ByVal LastName As String, ByVal StaffType As Integer) As StaffBroker.AP_StaffBroker_Staff
             lblStatus.Text &= "Creating User: " & FirstName & "<br />"
 
             Dim user = StaffBrokerFunctions.CreateUser(thePortalid, username, FirstName, LastName)
 
             Dim NewUser = UserController.GetUserByName(thePortalid, username & thePortalid)
             lblStatus.Text &= "Created UserId: " & NewUser.UserID & "<br />"
-            Dim staff = StaffBrokerFunctions.CreateStaffMember(thePortalid, NewUser, 1)
+            Dim staff = StaffBrokerFunctions.CreateStaffMember(thePortalid, NewUser, StaffType)
             lblStatus.Text &= "Created Staff Member: " & staff.StaffId & "<br />"
             Return staff
         End Function
@@ -188,80 +188,39 @@ Namespace DotNetNuke.Modules.AgapeConnect
             If newPid > 0 Then
                 'Success
                 rtn = newPid
+                Dim defaultStaffType = SetupStaffTypes(newPid)
+
                 'get the Admin User and change his username
                 lblStatus.Text &= "Created Portal: " & newPid & vbNewLine
-                If UserInfo.Username.Contains("@") Then
-                    'I current user is a GCX user, create a new Admin account for him
-
-                    Dim objUserInfo = New UserInfo()
-
-
-                    objUserInfo.FirstName = UserInfo.FirstName
-                    objUserInfo.LastName = UserInfo.LastName
-                    objUserInfo.DisplayName = UserInfo.DisplayName
-                    objUserInfo.Username = StripNumber(UserInfo.Username) & newPid
-                    objUserInfo.PortalID = newPid
-                    objUserInfo.Membership.Password = UserController.GeneratePassword(8)
-                    objUserInfo.Email = UserInfo.Email
-
-
-                    Dim rc As New DotNetNuke.Security.Roles.RoleController
-
-                    Dim ar = rc.GetRoleByName(PortalId, "Accounts Team")
-                    If ar Is Nothing Then
-                        ar = New Security.Roles.RoleInfo()
-                        ar.PortalID = newPid
-                        ar.RoleName = "Accounts Team"
-                        ar.Description = "Members of the accounts team have access to accounts functions in the expenses/accounts modules"
-                        ar.ServiceFee = 0.0
-                        ar.BillingFrequency = "N"
-                        ar.TrialPeriod = -1
-                        ar.TrialFrequency = "N"
-                        ar.TrialFee = 0.0
-                        ar.IsPublic = False
-                        ar.BillingPeriod = -1
-                        ar.AutoAssignment = False
-                        ar.RSVPCode = ""
-                        ar.IconFile = ""
-
-
-                        rc.AddRole(ar)
-                    End If
-                   
-
-                    Dim objUserCreateStatus = UserController.CreateUser(objUserInfo)
-                    If objUserCreateStatus = UserCreateStatus.Success Then
-                        lblStatus.Text &= "Created User" & vbNewLine
-                        'Add user to the Accounts Role Group
-                        rc.AddUserRole(newPid, objUserInfo.UserID, ar.RoleID, Null.NullDate)
+                Dim rc As New DotNetNuke.Security.Roles.RoleController
+              
                         
 
                         Dim AdminRole = rc.GetRoleByName(newPid, "Administrators")
                         If Not AdminRole Is Nothing Then
-                            rc.AddUserRole(newPid, objUserInfo.UserID, AdminRole.RoleID, Null.NullDate)
                             lblStatus.Text &= "Added current user to role" & vbNewLine
 
                             Try
-                                Dim Jon = CreateUser(newPid, "jon@vellacott.co.uk", "Jon", "Vellacott")
-                           
+                                Dim Jon = CreateUser(newPid, "jon@vellacott.co.uk", "Jon", "Vellacott", defaultStaffType)
 
-                            rc.AddUserRole(newPid, Jon.UserId1, AdminRole.RoleID, Null.NullDate)
-                            If (tbAdminEmail.Text <> "" And tbAdminFirstname.Text <> "" And tbAdminLastname.Text <> "") Then
-                                Dim Admin = CreateUser(newPid, tbAdminEmail.Text, tbAdminFirstname.Text, tbAdminLastname.Text)
-                                rc.AddUserRole(newPid, Admin.UserId1, AdminRole.RoleID, Null.NullDate)
-                                Dim d As New StaffBroker.StaffBrokerDataContext
-                                Dim insert As New StaffBroker.AP_StaffBroker_LeaderMeta
-                                insert.UserId = Jon.UserId1
+
+                                rc.AddUserRole(newPid, Jon.UserId1, AdminRole.RoleID, Null.NullDate)
+                                If (tbAdminEmail.Text <> "" And tbAdminFirstname.Text <> "" And tbAdminLastname.Text <> "") Then
+                                    Dim Admin = CreateUser(newPid, tbAdminEmail.Text, tbAdminFirstname.Text, tbAdminLastname.Text, defaultStaffType)
+                                    rc.AddUserRole(newPid, Admin.UserId1, AdminRole.RoleID, Null.NullDate)
+                                    Dim d As New StaffBroker.StaffBrokerDataContext
+                                    Dim insert As New StaffBroker.AP_StaffBroker_LeaderMeta
+                                    insert.UserId = Jon.UserId1
                                     insert.LeaderId = Admin.UserId1
-                                d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert)
+                                    d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert)
 
-                                Dim insert2 As New StaffBroker.AP_StaffBroker_LeaderMeta
-                                insert2.UserId = Admin.UserId1
+                                    Dim insert2 As New StaffBroker.AP_StaffBroker_LeaderMeta
+                                    insert2.UserId = Admin.UserId1
                                     insert.LeaderId = Jon.UserId1
-                                d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert2)
+                                    d.AP_StaffBroker_LeaderMetas.InsertOnSubmit(insert2)
 
-                                d.SubmitChanges()
-                            End If
+                                    d.SubmitChanges()
+                                End If
                             Catch ex As Exception
                                 lblStatus.Text &= "Error Creating Users"
                             End Try
@@ -273,19 +232,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
-                    Else
-                        lblStatus.Text &= "Error creating User" & vbNewLine
-                    End If
 
 
 
-
-
-
-
-
-
-                End If
 
 
 
@@ -346,7 +295,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             d.SubmitChanges()
 
         End Sub
-        Private Sub SetupStaffTypes(ByVal thePortalId As Integer)
+        Private Function SetupStaffTypes(ByVal thePortalId As Integer) As Integer
             Dim d As New StaffBroker.StaffBrokerDataContext
 
             Dim q = From c In d.AP_StaffBroker_StaffTypes Where c.PortalId Is Nothing    ' The Default temlates are stored here!
@@ -363,7 +312,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Next
             d.SubmitChanges()
 
-        End Sub
+            Return d.AP_StaffBroker_StaffTypes.Where(Function(c) c.PortalId = thePortalId).First
+
+
+        End Function
 
 
         Private Sub SetupAgapeConnectSettings(ByVal thePortalId As Integer)
