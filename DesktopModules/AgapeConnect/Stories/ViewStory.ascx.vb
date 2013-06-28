@@ -175,6 +175,13 @@ Namespace DotNetNuke.Modules.FullStory
 
 
 
+                'Generate Related Stories Sections
+                ReplaceField(sv, "[RELATEDSTORIES]", GetRelatedStories(r.AP_Stories_Tag_Metas.Select(Function(c) c.AP_Stories_Tag.StoryTagId).ToList, r.Author))
+
+
+
+
+
                 If Not r.TranslationGroup Is Nothing Then
 
                     'TranslationGroupHF.Value = r.TranslationGroup
@@ -312,7 +319,32 @@ Namespace DotNetNuke.Modules.FullStory
 
 
 
+        Protected Function GetRelatedStories(ByVal Tags As List(Of Integer), ByVal Author As String) As String
+            Dim d As New StoriesDataContext
+            Dim rtn As String = ""
+            'Dim q = From c In d.AP_Stories_Tag_Metas Where (Tags.Contains(c.TagId) Or c.AP_Story.Author.ToLower = Author.ToLower) And Not c.StoryId = Request.QueryString("StoryId") Select c.AP_Story
+            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And (c.Author.ToLower = Author.ToLower Or c.AP_Stories_Tag_Metas.Where(Function(x) Tags.Contains(x.TagId)).Count > 0) And Not c.StoryId = Request.QueryString("StoryId")
 
+
+
+            If q.Count > 0 Then
+
+
+                rtn &= "<h3>Related News Items:</h3><ul class=""nav nav-tabs nav-stacked"">"
+                For Each row In q.Take(5).OrderByDescending(Function(c) c.StoryDate)
+
+                    rtn &= "<li><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """>" & row.Headline & "</a></li>"
+
+                Next
+
+
+                rtn &= "</ul>"
+
+
+            End If
+
+            Return rtn
+        End Function
 
         'Protected Sub btnNew_Click(sender As Object, e As System.EventArgs) Handles btnNew.Click
         '    Response.Redirect(EditUrl("AddEditStory"))
