@@ -22,6 +22,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
             addTitle.Actions.Add(GetNextActionID, "Story Settings", "StorySettings", "", "action_settings.gif", EditUrl("StorySettings"), False, SecurityAccessLevel.Edit, True, False)
             addTitle.Actions.Add(GetNextActionID, "Story Mixer", "StoryMixer", "", "action_settings.gif", EditUrl("Mixer"), False, SecurityAccessLevel.Edit, True, False)
+            addTitle.Actions.Add(GetNextActionID, "Unpublished", "unpublished", "", "action_settings.gif", EditUrl("unpublished"), False, SecurityAccessLevel.Edit, True, False)
 
             addTitle.Actions.Add(GetNextActionID, "New Story", "NewStory", "", "add.gif", EditUrl("AddEditStory"), False, SecurityAccessLevel.Edit, True, False)
             MyBase.Actions.Insert(0, addTitle)

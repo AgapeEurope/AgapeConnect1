@@ -338,7 +338,7 @@ Namespace DotNetNuke.Modules.FullStory
             Dim d As New StoriesDataContext
             Dim rtn As String = ""
             'Dim q = From c In d.AP_Stories_Tag_Metas Where (Tags.Contains(c.TagId) Or c.AP_Story.Author.ToLower = Author.ToLower) And Not c.StoryId = Request.QueryString("StoryId") Select c.AP_Story
-            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And (c.Author.ToLower = Author.ToLower Or c.AP_Stories_Tag_Metas.Where(Function(x) Tags.Contains(x.TagId)).Count > 0) And Not c.StoryId = Request.QueryString("StoryId")
+            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And c.IsVisible And (c.Author.ToLower = Author.ToLower Or c.AP_Stories_Tag_Metas.Where(Function(x) Tags.Contains(x.TagId)).Count > 0) And Not c.StoryId = Request.QueryString("StoryId")
 
 
 

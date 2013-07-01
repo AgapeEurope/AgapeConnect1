@@ -162,20 +162,8 @@ Partial Class DesktopModules_SuperPowers
     End Sub
 
     Protected Sub btnPublish_Click(sender As Object, e As EventArgs) Handles btnPublish.Click
-        Dim d As New Stories.StoriesDataContext
-
-        Dim theStory = From c In d.AP_Stories Where c.StoryId = CInt(Request.QueryString("StoryId"))
-
-        If theStory.Count > 0 Then
-            theStory.First.IsVisible = True
-            d.SubmitChanges()
-
-            'Refresh all stories that are listening to the current channel
-            StoryFunctions.RefreshEverythingListeningToFeedAtTab(theStory.First.TabModuleId)
-
-            SetControls()
-
-            'theStory.First.TabModuleId
-        End If
+        StoryFunctions.PublishStory(Request.QueryString("StoryId"))
+        SetControls()
+       
     End Sub
 End Class

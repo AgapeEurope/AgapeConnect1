@@ -200,6 +200,25 @@ Public Class StoryFunctions
 
     End Sub
 
+    Public Shared Sub PublishStory(ByVal StoryId As Integer)
+        Dim d As New Stories.StoriesDataContext
+
+        Dim theStory = From c In d.AP_Stories Where c.StoryId = StoryId
+
+        If theStory.Count > 0 Then
+            theStory.First.IsVisible = True
+            d.SubmitChanges()
+
+            'Refresh all stories that are listening to the current channel
+            StoryFunctions.RefreshEverythingListeningToFeedAtTab(theStory.First.TabModuleId)
+
+
+
+            'theStory.First.TabModuleId
+        End If
+    End Sub
+
+
    
     Public Shared Sub RefreshFeed(ByVal tabModuleId As Integer, ByVal ChannelId As Integer, Optional ByVal ClearCache As Boolean = False)
 
