@@ -93,11 +93,13 @@
         {
             var boosted = $('.boost').attr("checked") == 'checked' ;
             var blocked = $('.block').attr("checked") == 'checked' ;
-            $('#lblPowerStatus').html(blocked ? 'This story has been blocked, and won\'t appear in the channel feed.' : (boosted ? 'Boosted until <%= today.AddDays(7).ToString("dd MMM yyy") %> ' : '' ));
+            $('.PowerStatus').html(blocked ? 'This story has been blocked, and won\'t appear in the channel feed.' : (boosted ? 'Boosted until <%= Today.AddDays(60).ToString("dd MMM yyy")%> ' : '' ));
+           // alert(blocked ? 'This story has been blocked, and won\'t appear in the channel feed.' : (boosted ? 'Boosted until <%= Today.AddDays(60).ToString("dd MMM yyy")%> ' : '' ));
+            $.post(window.location.href,{ Boosted:  boosted, Blocked: blocked});
 
-            $.ajax({ type: 'POST', url: '<%= NavigateURL() & "?StoryId=" & Request.QueryString("StoryId")  %>',
-                data: ({ Boosted: boosted, Blocked: blocked })
-            });
+            //$.ajax({ type: 'POST', url: '<%= NavigateURL() & "?StoryId=" & Request.QueryString("StoryId")  %>',
+           //     data: ({ Boosted: "'" + boosted +"'", Blocked: "'" + blocked + "'" })
+            //});
 
 
         }
@@ -179,7 +181,10 @@
         height: 400px;
         overflow: hidden;
     }
-
+    [for=block].ui-state-active,  [for=block].ui-widget-content  [for=block].ui-state-active,   [for=block].ui-widget-header   [for=block].ui-state-active {
+        background: red !important;
+        border-color: red !important;
+    }
     </style>
 <asp:HiddenField ID="StoryIdHF" runat="server" />
 <asp:HiddenField ID="ShortTextHF" runat="server" />

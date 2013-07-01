@@ -84,9 +84,31 @@ Public Class StoryModuleType
 End Class
 
 Public Class StoryFunctions
+    Public Shared Sub BlockStoryAccrossSite(ByVal StoryURL As String)
+        Dim d As New Stories.StoriesDataContext
 
-   
+        Dim theCacheItems = From c In d.AP_Stories_Module_Channel_Caches Where c.Link = StoryURL
 
+
+        For Each row In theCacheItems
+            row.Block = True
+
+        Next
+        d.SubmitChanges()
+    End Sub
+    Public Shared Sub UnBlockStoryAccrossSite(ByVal StoryURL As String)
+        Dim d As New Stories.StoriesDataContext
+
+        Dim theCacheItems = From c In d.AP_Stories_Module_Channel_Caches Where c.Link = StoryURL
+
+
+        For Each row In theCacheItems
+            row.Block = False
+
+        Next
+        d.SubmitChanges()
+    End Sub
+    
     Public Shared Function StripTags(ByVal HTML As String) As String
         ' Removes tags from passed HTML
 
