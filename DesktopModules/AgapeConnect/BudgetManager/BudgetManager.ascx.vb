@@ -33,6 +33,7 @@ Namespace DotNetNuke.Modules.Budget
             tmp = StaffBrokerFunctions.GetSetting("CurrentFiscalPeriod", PortalId)
             If Not String.IsNullOrEmpty(tmp) Then
                 currentFiscalYear = Left(tmp, 4)
+
             End If
             If (Not Page.IsPostBack) Then
                 Dim RCs = From c In d.AP_StaffBroker_CostCenters Where c.PortalId = PortalId Select c.CostCentreCode, Name = c.CostCentreCode & " (" & c.CostCentreName & ")" Order By CostCentreCode
@@ -52,11 +53,11 @@ Namespace DotNetNuke.Modules.Budget
                 ddlAccountNew.DataSource = Accs
                 ddlAccountNew.DataBind()
                 If firstFiscalMonth <> 1 Then
-                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 2) & "-" & (currentFiscalYear - 1), currentFiscalYear - 2))
-                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 1) & "-" & (currentFiscalYear), currentFiscalYear - 1))
-                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear) & "-" & (currentFiscalYear + 1), currentFiscalYear))
-                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 1) & "-" & (currentFiscalYear + 2), currentFiscalYear + 1))
-                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 2) & "-" & (currentFiscalYear + 3), currentFiscalYear + 2))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 3) & "-" & (currentFiscalYear - 2), currentFiscalYear - 2))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 2) & "-" & (currentFiscalYear - 1), currentFiscalYear - 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 1) & "-" & (currentFiscalYear), currentFiscalYear))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear) & "-" & (currentFiscalYear + 1), currentFiscalYear + 1))
+                    ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear + 1) & "-" & (currentFiscalYear + 2), currentFiscalYear + 2))
                 Else
                     ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 2), currentFiscalYear - 2))
                     ddlFiscalYear.Items.Add(New ListItem((currentFiscalYear - 1), currentFiscalYear - 1))
