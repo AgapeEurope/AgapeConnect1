@@ -93,8 +93,7 @@
         {
             var boosted = $('.boost').attr("checked") == 'checked' ;
             var blocked = $('.block').attr("checked") == 'checked' ;
-            $('.PowerStatus').html(blocked ? 'This story has been blocked, and won\'t appear in the channel feed.' : (boosted ? 'Boosted until <%= Today.AddDays(60).ToString("dd MMM yyy")%> ' : '' ));
-           // alert(blocked ? 'This story has been blocked, and won\'t appear in the channel feed.' : (boosted ? 'Boosted until <%= Today.AddDays(60).ToString("dd MMM yyy")%> ' : '' ));
+            $('.PowerStatus').html(blocked ? 'This story has been blocked, and won\'t appear in the channel feed.' : (boosted ? 'Boosted until <%= Today.AddDays(StoryFunctions.GetBoostDuration(PortalId)).ToString("dd MMM yyy")%> ' : '' ));
             $.post(window.location.href,{ Boosted:  boosted, Blocked: blocked});
 
             //$.ajax({ type: 'POST', url: '<%= NavigateURL() & "?StoryId=" & Request.QueryString("StoryId")  %>',

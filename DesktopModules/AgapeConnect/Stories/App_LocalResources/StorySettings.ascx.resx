@@ -150,6 +150,12 @@
   <data name="lblAspectMode.Text" xml:space="preserve">
     <value>Aspect Mode</value>
   </data>
+  <data name="lblBoostLength.Help" xml:space="preserve">
+    <value>The length of time (in days) that a story is boosted for, when an Administrator/Editor marks a story as boosted. This setting applied to all channels on this site.</value>
+  </data>
+  <data name="lblBoostLength.Text" xml:space="preserve">
+    <value>Boost Duration</value>
+  </data>
   <data name="lblChannelImage.Help" xml:space="preserve">
     <value>Select the image for this channel. This is used on the RSS Feed, and replaces the story image, if none is available.</value>
   </data>
@@ -167,6 +173,12 @@
   </data>
   <data name="lblLocation.Text" xml:space="preserve">
     <value>Location</value>
+  </data>
+  <data name="lblMode.Help" xml:space="preserve">
+    <value>"Direct Publish": New stories are published immdiately.&lt;br /&gt; "Content Staging": New Stories are initially marked as draft. They will not be seen by the Public until they are published&lt;br /&gt;*Note: This setting applied to all story modules on this site.</value>
+  </data>
+  <data name="lblMode.Text" xml:space="preserve">
+    <value>Publish Mode</value>
   </data>
   <data name="lblPhotoSize.Help" xml:space="preserve">
     <value>Specify a Width (in pixels) for the images in this module. (The height will be determinted by the aspect).</value>
@@ -196,7 +208,7 @@
     <value>Select the tab, where the stories from thi module will be displayed.</value>
   </data>
   <data name="lblStoriesPage.Text" xml:space="preserve">
-    <value>View Story Page (Optoinal)</value>
+    <value>View Story Page (Optional)</value>
   </data>
   <data name="lblTags.Help" xml:space="preserve">
     <value>These story tags are available for all Story Modules on this Portal. Please note: if you delete a tag, this tag is removed from all stories. This cannot be undone. BE CAREFULL!</value>

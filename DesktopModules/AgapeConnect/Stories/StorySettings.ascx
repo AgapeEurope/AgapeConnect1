@@ -308,8 +308,28 @@
             <br />*Warning: Deleting a tag will remove this tag from all stories. This cannot be undone!
         </td>
     </tr>
-   
-    
+    <tr valign="middle" >
+        <td>
+            <dnn:Label ID="Label17" runat="server" ResourceKey="lblMode" />
+        </td>
+        
+        <td align="center" style=" white-space: nowrap;">
+         
+            <asp:DropDownList ID="ddlMode" runat="server">
+                <asp:ListItem Text="Direct Publish" Value="Direct" />
+                <asp:ListItem Text="Content Staging" Value="Staged" />
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr valign="middle" >
+        <td>
+            <dnn:Label ID="Label18" runat="server" ResourceKey="lblBoostLength" />
+        </td>
+        
+        <td align="center" style=" white-space: nowrap;">
+            <asp:TextBox ID="tbBoostLength" runat="server" CssClass="numeric" Width="60px">30</asp:TextBox> Days
+        </td>
+    </tr>
      <tr valign="middle" >
         <td>
             <dnn:Label ID="Label15" runat="server" ResourceKey="lblStoriesPage" />

@@ -453,6 +453,15 @@ Namespace DotNetNuke.Modules.Stories
                 insert.TabId = TabId
                 insert.Language = ddlLanguage.SelectedValue
                 insert.TabModuleId = CInt(ddlChannels.SelectedValue)
+
+
+                Dim mode As String = StaffBrokerFunctions.GetSetting("StoryPublishMode", PortalId)
+                If Not String.IsNullOrEmpty(mode) Then
+                    If mode = "Staged" Then
+                        insert.IsVisible = False
+                    End If
+                End If
+
                 insert.Keywords = tbKeywords.Text
                 If Request.QueryString("tg") <> "" Then
                     insert.TranslationGroup = Request.QueryString("tg")

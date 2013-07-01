@@ -40,10 +40,10 @@ Namespace DotNetNuke.Modules.FullStory
                     If (Not CBool(Request.Form("Blocked"))) And CBool(Request.Form("Boosted")) Then
                         changed = True
                         If Not thecache.First.BoostDate Is Nothing Then
-                            thecache.First.BoostDate = Today.AddDays(60)
+                            thecache.First.BoostDate = Today.AddDays(StoryFunctions.GetBoostDuration(PortalId))
 
                         Else
-                            thecache.First.BoostDate = Today.AddDays(60)
+                            thecache.First.BoostDate = Today.AddDays(StoryFunctions.GetBoostDuration(PortalId))
 
                         End If
                     ElseIf (Not CBool(Request.Form("Blocked"))) And (Not CBool(Request.Form("Boosted"))) Then
@@ -239,12 +239,13 @@ Namespace DotNetNuke.Modules.FullStory
                         If thecache.Count > 0 Then
 
                             SuperPowers.CacheId = thecache.First.CacheId
-                            SuperPowers.SuperEditor = UserInfo.IsSuperUser
-                            SuperPowers.EditUrl = EditUrl("AddEditStory")
-                            SuperPowers.PortalId = PortalId
-                            SuperPowers.SetControls()
+                            
 
-                        End If
+                    End If
+                    SuperPowers.SuperEditor = UserInfo.IsSuperUser
+                    SuperPowers.EditUrl = EditUrl("AddEditStory")
+                    SuperPowers.PortalId = PortalId
+                    SuperPowers.SetControls()
 
                     End If
 

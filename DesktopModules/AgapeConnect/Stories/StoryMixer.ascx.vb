@@ -172,9 +172,9 @@ Namespace DotNetNuke.Modules.Stories
                     If theCache.Count > 0 Then
                         theCache.First.Block = False
                         If theCache.First.BoostDate Is Nothing Then
-                            theCache.First.BoostDate = Today.AddDays(60)
+                            theCache.First.BoostDate = Today.AddDays(StoryFunctions.GetBoostDuration(PortalId))
                         ElseIf theCache.First.BoostDate < Today Then
-                            theCache.First.BoostDate = Today.AddDays(60)
+                            theCache.First.BoostDate = Today.AddDays(StoryFunctions.GetBoostDuration(PortalId))
                         End If
                     End If
                 End If

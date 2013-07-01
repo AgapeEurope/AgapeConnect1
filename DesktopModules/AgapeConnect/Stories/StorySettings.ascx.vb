@@ -166,8 +166,8 @@ Namespace DotNetNuke.Modules.Stories
                     tbAdvanceSettings.Text = TabModuleSettings("AdvancedSettings")
 
                 End If
-
-
+               
+              
                 If CType(TabModuleSettings("ShowFields"), String) <> "" Then
                     Dim s = CStr(TabModuleSettings("ShowFields")).Split(",")
                     For Each row As ListItem In cblShow.Items
@@ -176,6 +176,14 @@ Namespace DotNetNuke.Modules.Stories
                         End If
                     Next
 
+                End If
+                Dim mode As String = StaffBrokerFunctions.GetSetting("StoryPublishMode", PortalId)
+                If Not String.IsNullOrEmpty(mode) Then
+                    ddlMode.SelectedValue = mode
+                End If
+                Dim bl As String = StaffBrokerFunctions.GetSetting("StoryBoostLength", PortalId)
+                If Not String.IsNullOrEmpty(bl) Then
+                    tbBoostLength.Text = bl
                 End If
 
 
@@ -256,7 +264,8 @@ Namespace DotNetNuke.Modules.Stories
 
             objModules.UpdateTabModuleSetting(TabModuleId, "ShowFields", Fields.Trim(","))
 
-
+            StaffBrokerFunctions.SetSetting("StoryPublishMode", ddlMode.SelectedValue, PortalId)
+            StaffBrokerFunctions.SetSetting("StoryBoostLength", CInt(tbBoostLength.Text), PortalId)
 
 
             '====== Need to update some of the channel table properties (for this module)

@@ -75,25 +75,48 @@ Partial Class DesktopModules_SuperPowers
         End Set
     End Property
 
-
-
+    Private _tabModuleId As Integer
+    Public Property TabModuleId() As Integer
+        Get
+            Return _tabModuleId
+        End Get
+        Set(ByVal value As Integer)
+            _tabModuleId = value
+        End Set
+    End Property
     Public Sub SetControls()
         Dim d As New StoriesDataContext
-        Dim theCache = From c In d.AP_Stories_Module_Channel_Caches Where c.CacheId = _cacheId
+     
+        Dim theStory = From c In d.AP_Stories Where c.StoryId = CInt(Request.QueryString("StoryId"))
 
-        If theCache.Count > 0 Then
-            If theCache.First.Block Then
-                lblPowerStatus.Text = "This story has been blocked, and won't appear in the channel feed."
-                IsBlocked = True
-            ElseIf Not theCache.First.BoostDate Is Nothing Then
-                If theCache.First.BoostDate >= Today Then
-                    IsBoosted = True
-                    lblPowerStatus.Text = "Boosted until " & theCache.First.BoostDate.Value.ToString("dd MMM yyyy")
+        If theStory.Count > 0 Then
+            If theStory.First.IsVisible Then
 
+
+                Dim theCache = From c In d.AP_Stories_Module_Channel_Caches Where c.CacheId = _cacheId
+
+                If theCache.Count > 0 Then
+                    If theCache.First.Block Then
+                        lblPowerStatus.Text = "This story has been blocked, and won't appear in the channel feed."
+                        IsBlocked = True
+                    ElseIf Not theCache.First.BoostDate Is Nothing Then
+                        If theCache.First.BoostDate >= Today Then
+                            IsBoosted = True
+                            lblPowerStatus.Text = "Boosted until " & theCache.First.BoostDate.Value.ToString("dd MMM yyyy")
+
+                        End If
+                    End If
                 End If
-            End If
-        End If
+                pnlBoostBlock.Visible = True
+                pnlPublish.Visible = False
 
+            Else
+                lblPowerStatus.Text = "This story not yet been published, and won't appear in any channel feeds."
+                pnlBoostBlock.Visible = False
+                pnlPublish.Visible = True
+            End If
+
+        End If
 
     End Sub
 
@@ -136,5 +159,23 @@ Partial Class DesktopModules_SuperPowers
 
 
         Response.Redirect(_editUrl & "?tg=" & _translationGroupId)
+    End Sub
+
+    Protected Sub btnPublish_Click(sender As Object, e As EventArgs) Handles btnPublish.Click
+        Dim d As New Stories.StoriesDataContext
+
+        Dim theStory = From c In d.AP_Stories Where c.StoryId = CInt(Request.QueryString("StoryId"))
+
+        If theStory.Count > 0 Then
+            theStory.First.IsVisible = True
+            d.SubmitChanges()
+
+            'Refresh all stories that are listening to the current channel
+            StoryFunctions.RefreshEverythingListeningToFeedAtTab(theStory.First.TabModuleId)
+
+            SetControls()
+
+            'theStory.First.TabModuleId
+        End If
     End Sub
 End Class

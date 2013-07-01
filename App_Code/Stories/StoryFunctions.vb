@@ -110,6 +110,14 @@ Public Class StoryFunctions
         Next
         d.SubmitChanges()
     End Sub
+    Public Shared Function GetBoostDuration(ByVal PortalId As Integer) As Integer
+        Dim bl As String = StaffBrokerFunctions.GetSetting("StoryBoostLength", PortalId)
+        If Not String.IsNullOrEmpty(bl) Then
+            Return CInt(bl)
+        Else
+            Return 30
+        End If
+    End Function
     
     Public Shared Function StripTags(ByVal HTML As String) As String
         ' Removes tags from passed HTML
@@ -386,7 +394,7 @@ Public Class StoryFunctions
         If (tm.TabModuleSettings("WeightRecent") <> "") Then
             recentWeight = Double.Parse(tm.TabModuleSettings("WeightRecent"), New CultureInfo(""))
         End If
-        StaffBrokerFunctions.EventLog("RecencyWeight", recentWeight, 1)
+        'StaffBrokerFunctions.EventLog("RecencyWeight", recentWeight, 1)
         Dim d As New Stories.StoriesDataContext
         Dim allStories = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId
         For Each row In allStories
@@ -395,6 +403,20 @@ Public Class StoryFunctions
 
         d.SubmitChanges()
     End Sub
+
+
+    Public Shared Sub RefreshEverythingListeningToFeedAtTab(ByVal TabModuleId As Integer)
+        Dim d As New Stories.StoriesDataContext
+
+        Dim Channels = From c In d.AP_Stories_Module_Channels Where c.URL.EndsWith("channel=" & TabModuleId)
+
+        For Each channel In Channels
+            RefreshFeed(channel.AP_Stories_Module.TabModuleId, channel.ChannelId, False)
+            PrecalAllCaches(channel.AP_Stories_Module.TabModuleId)
+        Next
+        StoryFunctions.RefreshLocalChannel(TabModuleId)
+    End Sub
+
 
     Public Shared Function GetBoost(ByVal boostDate As Date?) As Double
         If boostDate Is Nothing Then
