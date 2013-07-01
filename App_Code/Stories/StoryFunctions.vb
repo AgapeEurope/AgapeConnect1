@@ -92,6 +92,8 @@ Public Class StoryFunctions
 
         For Each row In theCacheItems
             row.Block = True
+            row.BoostDate = Nothing
+
 
         Next
         d.SubmitChanges()

@@ -170,10 +170,11 @@ Namespace DotNetNuke.Modules.Stories
                 If boost <> "" Then
                     Dim theCache = (From c In d.AP_Stories_Module_Channel_Caches Where c.CacheId = CInt(boost))
                     If theCache.Count > 0 Then
+                        theCache.First.Block = False
                         If theCache.First.BoostDate Is Nothing Then
-                            theCache.First.BoostDate = Today.AddDays(7)
+                            theCache.First.BoostDate = Today.AddDays(60)
                         ElseIf theCache.First.BoostDate < Today Then
-                            theCache.First.BoostDate = Today.AddDays(7)
+                            theCache.First.BoostDate = Today.AddDays(60)
                         End If
                     End If
                 End If
@@ -183,7 +184,9 @@ Namespace DotNetNuke.Modules.Stories
                 If block <> "" Then
                     Dim theCache = (From c In d.AP_Stories_Module_Channel_Caches Where c.CacheId = CInt(block))
                     If theCache.Count > 0 Then
-                        theCache.First.Block = True
+
+                        StoryFunctions.BlockStoryAccrossSite(theCache.First.Link)
+
                     End If
                 End If
             Next
@@ -196,7 +199,7 @@ Namespace DotNetNuke.Modules.Stories
             Dim PrevioslyBlocked = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.StoryModuleId = CInt(hfStoryModuleId.Value) And (c.Block = True) And (Not blocks.Contains(c.CacheId))
 
             For Each row In PrevioslyBlocked
-                row.Block = False
+                StoryFunctions.UnBlockStoryAccrossSite(row.Link)
             Next
 
 

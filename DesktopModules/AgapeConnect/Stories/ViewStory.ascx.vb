@@ -36,23 +36,32 @@ Namespace DotNetNuke.Modules.FullStory
                         StoryFunctions.UnBlockStoryAccrossSite(thecache.First.Link)
 
                     End If
-
-                    If CBool(Request.Form("Boosted")) Then
+                    Dim changed As Boolean = False
+                    If (Not CBool(Request.Form("Blocked"))) And CBool(Request.Form("Boosted")) Then
+                        changed = True
                         If Not thecache.First.BoostDate Is Nothing Then
-                                thecache.First.BoostDate = Today.AddDays(60)
+                            thecache.First.BoostDate = Today.AddDays(60)
 
-
-                            Else
-                                thecache.First.BoostDate = Today.AddDays(60)
-
-                            End If
                         Else
-                            thecache.First.BoostDate = Nothing
+                            thecache.First.BoostDate = Today.AddDays(60)
+
                         End If
-
-
-                        d.SubmitChanges()
+                    ElseIf (Not CBool(Request.Form("Blocked"))) And (Not CBool(Request.Form("Boosted"))) Then
+                        thecache.First.BoostDate = Nothing
+                        changed = True
                     End If
+                    If changed Then
+                        d.SubmitChanges()
+                        Dim theMod = StoryFunctions.GetStoryModule(TabModuleId)
+                        StoryFunctions.RefreshFeed(r.TabModuleId, thecache.First.ChannelId, True)
+
+                        StoryFunctions.PrecalAllCaches(r.TabModuleId)
+                           
+                    End If
+                   
+
+
+                End If
                     Return
                 End If
 

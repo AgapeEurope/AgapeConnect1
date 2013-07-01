@@ -16,5 +16,5 @@
                 
                
                </div>
-                 <asp:Label ID="lblPowerStatus" runat="server" Text="" ForeColor="Red" Font-Italic="true" ></asp:Label>
+                 <asp:Label ID="lblPowerStatus" runat="server" CssClass="PowerStatus" Text="" ForeColor="Red" Font-Italic="true" ></asp:Label>
                
