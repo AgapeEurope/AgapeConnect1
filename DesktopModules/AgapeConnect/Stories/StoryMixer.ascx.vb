@@ -24,99 +24,12 @@ Namespace DotNetNuke.Modules.Stories
 
 
                 If (Page.IsPostBack = False) Then
-                    'If DotNetNuke.Framework.AJAX.IsEnabled Then
-                    '    DotNetNuke.Framework.AJAX.GetScriptManager(Me.Page).RegisterAsyncPostBackControl(icImage)
-                    'End If
-
-                    ddlLanguages.DataSource = From c In CultureInfo.GetCultures(CultureTypes.AllCultures) Order By c.EnglishName Select Name = c.Name.ToLower, EnglishName = c.EnglishName
-                    ddlLanguages.DataValueField = "Name"
-                    ddlLanguages.DataTextField = "EnglishName"
-                    ddlLanguages.DataBind()
-                    Dim theModule = StoryFunctions.GetStoryModule(TabModuleId)
-                    Dim objModules As New Entities.Modules.ModuleController
-                    Dim newSettings As Boolean = False
-                   
-
-                    If theModule.AP_Stories_Module_Channels.Where(Function(x) x.Type = 2).Count = 0 Then
-                        'add a local channel!
-                        Dim RssName As String = ""
-                        If CType(TabModuleSettings("RssName"), String) <> "" Then
-                            RssName = TabModuleSettings("RssName")
-
-                        Else
-                            RssName = ModuleConfiguration.ParentTab.TabName
-                            objModules.UpdateTabModuleSetting(TabModuleId, "RssName", RssName)
-                            newSettings = True
-                        End If
-                        Dim l = Location.GetLocation(Request.ServerVariables("remote_addr"))
-                        Dim logoFile = StoryFunctions.SetLogo("http://" & PortalSettings.PortalAlias.HTTPAlias & PortalSettings.HomeDirectory & PortalSettings.LogoFile, PortalId)
-
-
-                        Dim imageId = "http://" & PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logoFile))
-
-
-                        StoryFunctions.AddLocalChannel(TabModuleId, PortalAlias.HTTPAlias, RssName, l.longitude, l.latitude, imageId)
-
-                        theModule = StoryFunctions.GetStoryModule(TabModuleId)
-
-                    End If
-
-
-
-                    hfStoryModuleId.Value = theModule.StoryModuleId
-
-
-                    '  Dim channels = From c In d.AP_Stories_Module_Channels Where c.AP_Stories_Module.TabModuleId = TabModuleId
-
-
-                    Dim volumes = ""
-                    For Each row In theModule.AP_Stories_Module_Channels
-                        volumes &= row.ChannelId & "=" & (row.Weight * 30) & ";"
-                    Next
-
-                    hfLoadVolumes.Value = volumes
-
-                   
-
-                    If CType(TabModuleSettings("NumberOfStories"), String) <> "" Then
-                        lblNumberOfStories.Text = CType(TabModuleSettings("NumberOfStories"), Integer)
-                        hfNumberOfStories.Value = lblNumberOfStories.Text
-                    Else
-                        lblNumberOfStories.Text = 20
-                        hfNumberOfStories.Value = 20
-                        objModules.UpdateTabModuleSetting(TabModuleId, "NumberOfStories", 20)
-                        newSettings = True
-                    End If
-                    If CType(TabModuleSettings("WeightPopular"), String) <> "" Then
-                        hfPopular.Value = Double.Parse(TabModuleSettings("WeightPopular"), New CultureInfo("")) * 100
-                    Else
-                        hfPopular.Value = 75
-                        objModules.UpdateTabModuleSetting(TabModuleId, "WeightPopular", "0.75")
-                        newSettings = True
-                    End If
-
-                    If CType(TabModuleSettings("WeightRegional"), String) <> "" Then
-                        hfRegional.Value = Double.Parse(TabModuleSettings("WeightRegional"), New CultureInfo("")) * 100
-                    Else
-                        hfRegional.Value = 75
-                        objModules.UpdateTabModuleSetting(TabModuleId, "WeightRegional", "0.75")
-                        newSettings = True
-                    End If
-                    If CType(TabModuleSettings("WeightRecent"), String) <> "" Then
-                        hfRecent.Value = Double.Parse(TabModuleSettings("WeightRecent"), New CultureInfo("")) * 100
-                    Else
-                        hfRecent.Value = 75
-                        objModules.UpdateTabModuleSetting(TabModuleId, "WeightRecent", "0.75")
-                        newSettings = True
-                    End If
-                    dlChannelMixer.DataSource = theModule.AP_Stories_Module_Channels.OrderByDescending(Function(x) x.Type = 2).ThenBy(Function(x) x.ChannelId)
-                    dlChannelMixer.DataBind()
-
-                    If newSettings Then
-                        SynchronizeModule()
-                    End If
+                    LoadMixer()
 
                 End If
+
+
+
 
 
 
@@ -127,10 +40,141 @@ Namespace DotNetNuke.Modules.Stories
 
 
         End Sub
+        Protected Sub LoadMixer()
+            ddlLanguages.DataSource = From c In CultureInfo.GetCultures(CultureTypes.AllCultures) Order By c.EnglishName Select Name = c.Name.ToLower, EnglishName = c.EnglishName
+            ddlLanguages.DataValueField = "Name"
+            ddlLanguages.DataTextField = "EnglishName"
+            ddlLanguages.DataBind()
+            Dim theModule = StoryFunctions.GetStoryModule(TabModuleId)
+            Dim objModules As New Entities.Modules.ModuleController
+            Dim newSettings As Boolean = False
+
+
+            If theModule.AP_Stories_Module_Channels.Where(Function(x) x.Type = 2).Count = 0 Then
+                'add a local channel!
+                Dim RssName As String = ""
+                If CType(TabModuleSettings("RssName"), String) <> "" Then
+                    RssName = TabModuleSettings("RssName")
+
+                Else
+                    RssName = ModuleConfiguration.ParentTab.TabName
+                    objModules.UpdateTabModuleSetting(TabModuleId, "RssName", RssName)
+                    newSettings = True
+                End If
+                Dim l = Location.GetLocation(Request.ServerVariables("remote_addr"))
+                Dim logoFile = StoryFunctions.SetLogo("http://" & PortalSettings.PortalAlias.HTTPAlias & PortalSettings.HomeDirectory & PortalSettings.LogoFile, PortalId)
+
+
+                Dim imageId = "http://" & PortalAlias.HTTPAlias & FileManager.Instance.GetUrl(FileManager.Instance.GetFile(logoFile))
+
+
+                StoryFunctions.AddLocalChannel(TabModuleId, PortalAlias.HTTPAlias, RssName, l.longitude, l.latitude, imageId)
+
+                theModule = StoryFunctions.GetStoryModule(TabModuleId)
+
+            End If
+
+
+
+            hfStoryModuleId.Value = theModule.StoryModuleId
+
+
+            '  Dim channels = From c In d.AP_Stories_Module_Channels Where c.AP_Stories_Module.TabModuleId = TabModuleId
+
+
+            Dim volumes = ""
+            For Each row In theModule.AP_Stories_Module_Channels
+                volumes &= row.ChannelId & "=" & (row.Weight * 30) & ";"
+            Next
+
+            hfLoadVolumes.Value = volumes
+
+
+
+            If CType(TabModuleSettings("NumberOfStories"), String) <> "" Then
+                lblNumberOfStories.Text = CType(TabModuleSettings("NumberOfStories"), Integer)
+                hfNumberOfStories.Value = lblNumberOfStories.Text
+            Else
+                lblNumberOfStories.Text = 20
+                hfNumberOfStories.Value = 20
+                objModules.UpdateTabModuleSetting(TabModuleId, "NumberOfStories", 20)
+                newSettings = True
+            End If
+            If CType(TabModuleSettings("WeightPopular"), String) <> "" Then
+                hfPopular.Value = Double.Parse(TabModuleSettings("WeightPopular"), New CultureInfo("")) * 100
+            Else
+                hfPopular.Value = 75
+                objModules.UpdateTabModuleSetting(TabModuleId, "WeightPopular", "0.75")
+                newSettings = True
+            End If
+
+            If CType(TabModuleSettings("WeightRegional"), String) <> "" Then
+                hfRegional.Value = Double.Parse(TabModuleSettings("WeightRegional"), New CultureInfo("")) * 100
+            Else
+                hfRegional.Value = 75
+                objModules.UpdateTabModuleSetting(TabModuleId, "WeightRegional", "0.75")
+                newSettings = True
+            End If
+            If CType(TabModuleSettings("WeightRecent"), String) <> "" Then
+                hfRecent.Value = Double.Parse(TabModuleSettings("WeightRecent"), New CultureInfo("")) * 100
+            Else
+                hfRecent.Value = 75
+                objModules.UpdateTabModuleSetting(TabModuleId, "WeightRecent", "0.75")
+                newSettings = True
+            End If
+            dlChannelMixer.DataSource = theModule.AP_Stories_Module_Channels.OrderByDescending(Function(x) x.Type = 2).ThenBy(Function(x) x.ChannelId)
+            dlChannelMixer.DataBind()
+
+            PreviewResults()
+
+            If newSettings Then
+                SynchronizeModule()
+            End If
+        End Sub
+
 
 
 
 #End Region
+        Private Sub PreviewResults()
+            Dim l As Location = Location.GetLocation(Request.ServerVariables("remote_addr"))
+
+            Dim lg = l.longitude
+            Dim lt = l.latitude
+
+            Dim localFactor As Double = 1
+            Dim deg2Rad As Double = Math.PI / CDbl(180.0)
+            Dim G As Double = hfRegional.Value / 100
+            Dim P As Double = hfPopular.Value / 100
+            Dim N As Integer = hfNumberOfStories.Value
+
+
+            Dim culture = CultureInfo.CurrentCulture.Name.ToLower
+            Dim r = From c In d.AP_Stories_Module_Channel_Caches Select c, c.Clicks, Age = DateDiff(DateInterval.Day, c.StoryDate.Value, Today),
+                  Distance = (0.0 + (1 * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0)))) / CDbl(2.0)),
+                  ViewOrder = CDbl(c.Precal) * (CDbl(1.0 + (Math.Log(c.Clicks) * P / 200))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0)))) / CDbl(2.0))
+
+            If (Request.QueryString("tags") <> "") Then
+
+                Dim tagList = Request.QueryString("tags").Split(",")
+
+                r = From c In r Join b In d.AP_Stories On CInt(c.c.GUID) Equals b.StoryId Where b.AP_Stories_Tag_Metas.Where(Function(x) tagList.Contains(x.AP_Stories_Tag.TagName)).Count > 0 Select c
+
+
+
+
+            End If
+
+            r = r.Where(Function(c) CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower = c.c.Langauge.Substring(0, 2) And c.c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId And Not c.c.Block) _
+                            .OrderByDescending(Function(c) c.ViewOrder) _
+                        .Take(N)
+            Dim storyList = From c In r Select c.c.Headline, c.Clicks, c.Distance, c.Age, c.c.Precal, Score = c.ViewOrder
+
+            gvPreview.DataSource = storyList
+            gvPreview.DataBind()
+        End Sub
+
+
 
 
         Protected Sub SaveBtn_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles SaveBtn.Click
@@ -209,9 +253,11 @@ Namespace DotNetNuke.Modules.Stories
             SynchronizeModule()
 
             StoryFunctions.PrecalAllCaches(TabModuleId)
-
-            Response.Redirect(NavigateURL())
+            LoadMixer()
         End Sub
+
+
+
 
 
         Protected Sub CancelBtn_Click(sender As Object, e As System.EventArgs) Handles CancelBtn.Click
@@ -220,15 +266,12 @@ Namespace DotNetNuke.Modules.Stories
 
         Protected Sub btnCache_Click(sender As Object, e As System.EventArgs) Handles btnCache.Click
             ' StoryFunctions.RefreshFeed(1)
+            SaveBtn_Click(Me, Nothing)
             Dim theMod = StoryFunctions.GetStoryModule(TabModuleId)
             For Each channel In theMod.AP_Stories_Module_Channels
                 StoryFunctions.RefreshFeed(TabModuleId, channel.ChannelId, True)
             Next
-            StoryFunctions.PrecalAllCaches(TabModuleId)
-
-            theMod = StoryFunctions.GetStoryModule(TabModuleId)
-            dlChannelMixer.DataSource = theMod.AP_Stories_Module_Channels.OrderByDescending(Function(x) x.Type = 2).ThenBy(Function(x) x.ChannelId)
-            dlChannelMixer.DataBind()
+            SaveBtn_Click(Me, Nothing)
         End Sub
 
 
@@ -312,7 +355,7 @@ Namespace DotNetNuke.Modules.Stories
             End Try
         End Sub
 
-        
+
 
 
         'Private Function SetImage(ByVal ChannelImage As String) As Integer
@@ -620,7 +663,7 @@ Namespace DotNetNuke.Modules.Stories
                 Dim d2 As New StoriesDataContext
                 Dim channels = From c In d2.AP_Stories_Module_Channels Where c.StoryModuleId = CInt(hfStoryModuleId.Value)
 
-                dlChannelMixer.DataSource = channels.OrderByDescending(Function(x) x.Type = 2).ThenBy(Function(x) x.ChannelId)
+                dlChannelMixer.DataSource = channels.OrderByDescending(Function(c) c.Type = 2).ThenBy(Function(c) c.ChannelId)
                 dlChannelMixer.DataBind()
 
 

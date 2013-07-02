@@ -409,7 +409,7 @@
 <div style="width: 100%; text-align: center">
     <asp:LinkButton ID="SaveBtn" runat="server" class="aButton" ResourceKey="btnSave">Save</asp:LinkButton>
     &nbsp;
-    <asp:LinkButton ID="CancelBtn" runat="server" class="aButton" ResourceKey="btnCancel">Cancel</asp:LinkButton>
+    <asp:LinkButton ID="CancelBtn" runat="server" class="aButton" ResourceKey="btnCancel">Done</asp:LinkButton>
     &nbsp;
     <asp:LinkButton ID="btnCache" runat="server" class="aButton">Refresh Cache</asp:LinkButton>
  &nbsp;
@@ -509,3 +509,37 @@
                 </asp:UpdatePanel>
 </div>
 
+<fieldset>
+    <legend><h4>Preview Results</h4></legend>
+
+
+
+    <asp:GridView ID="gvPreview" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical">
+        <AlternatingRowStyle BackColor="White" />
+        <Columns>
+            <asp:BoundField DataField="Headline" HeaderText="Headline" />
+            <asp:BoundField DataField="Score" DataFormatString="{0:0.000000}" HeaderText="Score">
+            <ItemStyle HorizontalAlign="Right" />
+            </asp:BoundField>
+            <asp:BoundField DataField="Clicks" HeaderText="Clicks" />
+            <asp:BoundField DataField="Age" HeaderText="Age" />
+            <asp:BoundField />
+            <asp:BoundField DataField="Distance" HeaderText="Distance" />
+            <asp:BoundField DataField="Precal" HeaderText="Precal"  DataFormatString="{0:0.000000}" >
+                <ItemStyle HorizontalAlign="Right" />
+                </asp:BoundField>
+
+        </Columns>
+        <FooterStyle BackColor="#CCCC99" />
+        <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+        <RowStyle BackColor="#F7F7DE" />
+        <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+        <SortedAscendingCellStyle BackColor="#FBFBF2" />
+        <SortedAscendingHeaderStyle BackColor="#848384" />
+        <SortedDescendingCellStyle BackColor="#EAEAD3" />
+        <SortedDescendingHeaderStyle BackColor="#575357" />
+    </asp:GridView>
+
+
+</fieldset>

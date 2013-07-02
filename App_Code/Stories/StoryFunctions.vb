@@ -218,8 +218,8 @@ Public Class StoryFunctions
         End If
     End Sub
 
+    
 
-   
     Public Shared Sub RefreshFeed(ByVal tabModuleId As Integer, ByVal ChannelId As Integer, Optional ByVal ClearCache As Boolean = False)
 
         'StaffBrokerFunctions.EventLog("Refreshing Channel: " & ChannelId, "", 1)
@@ -417,7 +417,7 @@ Public Class StoryFunctions
         Dim d As New Stories.StoriesDataContext
         Dim allStories = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId
         For Each row In allStories
-            row.Precal = Math.Sqrt(row.AP_Stories_Module_Channel.Weight) * ((GetRecencyScore(row.StoryDate) * recentWeight) + GetBoost(row.BoostDate) + 0.5) / 2.5
+            row.Precal = Math.Sqrt(row.AP_Stories_Module_Channel.Weight) * ((GetRecencyScore(row.StoryDate) * recentWeight) + GetBoost(row.BoostDate) + 0.5) / 1.5
         Next
 
         d.SubmitChanges()

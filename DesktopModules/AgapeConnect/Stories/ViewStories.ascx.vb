@@ -76,18 +76,20 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
 
         Private Sub LoadStoryControl(ByVal URL As String, Optional IsList As Boolean = False)
-            If String.IsNullOrEmpty(Session("Long")) Or String.IsNullOrEmpty(Session("Lat")) Then
-                Dim ls As New LookupService(Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD)
+            'If String.IsNullOrEmpty(Session("Long")) Or String.IsNullOrEmpty(Session("Lat")) Then
+            '    Dim ls As New LookupService(Server.MapPath("~/App_Data/GeoLiteCity.dat"), LookupService.GEOIP_STANDARD)
 
-                ' Dim l As Location = ls.getRegion(Request.ServerVariables("remote_addr"))
-                Dim l As Location = ls.getLocation("80.193.180.102")   '(Solihill) Hard Coded as LocalHost cannot be resolved to a location. Replace with above line when going live!
+            '    Dim l As Location = ls.getLocation(Request.ServerVariables("remote_addr"))
+            '    'Dim l As Location = ls.getLocation("80.193.180.102")   '(Solihill) Hard Coded as LocalHost cannot be resolved to a location. Replace with above line when going live!
 
-                Session("Long") = l.longitude
-                Session("Lat") = l.latitude
-            End If
+            '    Session("Long") = l.longitude
+            '    Session("Lat") = l.latitude
+            'End If
 
-            Dim lg = Session("Long")
-            Dim lt = Session("Lat")
+            Dim l As Location = Location.GetLocation(Request.ServerVariables("remote_addr"))
+
+            Dim lg = l.longitude
+            Dim lt = l.latitude
 
 
             If Settings("NumberOfStories") = "" Then
@@ -125,7 +127,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             'Dim q = d.AP_Stories_Module_Channel_Caches.Where(Function(c) CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower = c.Langauge.Substring(0, 2) And c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = TabModuleId And Not c.Block) _
             '        .OrderByDescending(Function(c) CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0))))) / CDbl(2.0)) _
             '        .Take(CInt(Settings("NumberOfStories"))).ToList().OrderByDescending(Function(c) CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0))))) / CDbl(2.0))
-            Dim r = From c In d.AP_Stories_Module_Channel_Caches Select c, ViewOrder = CDbl(c.Precal) * (CDbl(1.0 + (c.Clicks * P))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0)))) / CDbl(2.0))
+            Dim r = From c In d.AP_Stories_Module_Channel_Caches Select c, ViewOrder = CDbl(c.Precal) * (CDbl(1.0 + (Math.Log(c.Clicks) * P / 200))) * (1.0 + (G * (CDbl(1.0) - CDbl(CDbl(Math.Min(CDbl(200), ((Math.Acos(CDbl(Math.Sin(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Sin(deg2Rad * CDbl(c.Latitude))) + CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(lt))) * CDbl(Math.Cos(CDbl(deg2Rad) * CDbl(c.Latitude))) * CDbl(Math.Cos(CDbl(deg2Rad) * (CDbl(lg) - CDbl(c.Longitude)))))) / CDbl(Math.PI) * CDbl(180.0)) * CDbl(1.1515) * CDbl(60.0))) / CDbl(200.0)))) / CDbl(2.0))
 
             If (Request.QueryString("tags") <> "") Then
 
