@@ -25,7 +25,7 @@ Namespace DotNetNuke.Modules.Budget
         Dim firstFiscalMonth As Integer
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
             hfPortalId.Value = PortalId
-
+            lblError.Text = ""
             Dim tmp = StaffBrokerFunctions.GetSetting("FirstFiscalMonth", PortalId)
             If Not String.IsNullOrEmpty(tmp) Then
                 firstFiscalMonth = tmp
@@ -171,9 +171,9 @@ Namespace DotNetNuke.Modules.Budget
 
         Protected Function GetCalendarStartForPeriod(ByVal period As Integer, ByVal firstMonth As Integer, ByVal FiscalYear As Integer) As Date
             If period + firstMonth - 1 <= 12 Then
-                Return New Date(FiscalYear, period + firstMonth - 1, 1)
+                Return New Date(FiscalYear - 1, period + firstMonth - 1, 1)
             Else
-                Return New Date(FiscalYear + 1, period + firstMonth - 13, 1)
+                Return New Date(FiscalYear, period + firstMonth - 13, 1)
             End If
         End Function
 
@@ -477,6 +477,8 @@ Namespace DotNetNuke.Modules.Budget
                 MyConnection = New OleDbConnection(connectionString)
 
                 MyConnection.Open()
+                Dim errorCount As Integer = 0
+                Dim ErrorString As String = ""
                 Try
 
                     Dim MyCommand As New OleDbCommand()
@@ -487,6 +489,9 @@ Namespace DotNetNuke.Modules.Budget
                     Dim data = MyCommand.ExecuteReader()
 
                     While data.Read
+                        Try
+
+                       
                         If IsDBNull(data.Item(0)) Or IsDBNull(data.Item(1)) Then
                             Exit While
                         End If
@@ -568,12 +573,19 @@ Namespace DotNetNuke.Modules.Budget
                         insert.Portalid = PortalId
                         insert.LastUpdated = Now
                         BudgetImport.Add(insert)
-
+                        Catch ex As Exception
+                            errorCount += 1
+                            ErrorString &= data.Item(0) & " - " & data.Item(1) & "<br />"
+                        End Try
 
                     End While
-                
 
 
+                    If errorCount > 0 Then
+                        lblError.Text = errorCount & " lines failed to import: " & ErrorString
+                    Else
+                        lblError.Text = ""
+                    End If
 
 
                 Catch ex As Exception
@@ -581,6 +593,9 @@ Namespace DotNetNuke.Modules.Budget
                 Finally
                     MyConnection.Close()
                 End Try
+
+
+
 
                 'Now save these values
                 For Each row In BudgetImport

@@ -496,6 +496,8 @@
 
 
 </table>
+
+<asp:Label ID="lblError" runat="server" ForeColor="Red" Text=""></asp:Label>
 <p>
 <asp:Button ID="btnExport" runat="server" Text="Export"  CssClass="aButton" Font-Size="X-Small"  />&nbsp;&nbsp;
 <input type="button" class="aButton" onclick="$('#divImport').dialog('open'); " style="font-size: x-small"  value="Import"/>&nbsp;&nbsp;
