@@ -157,6 +157,9 @@
       <Column Name="OrigCurrency" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
       <Column Name="OrigCurrencyAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ShortComment" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="ReceiptMode" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="ReceiptImageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReceiptText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="AP_Staff_Rmb_AP_Staff_RmbLine" Member="AP_Staff_Rmb" ThisKey="RmbNo" OtherKey="RMBNo" Type="AP_Staff_Rmb" IsForeignKey="true" />
       <Association Name="AP_Staff_RmbLineType_AP_Staff_RmbLine" Member="AP_Staff_RmbLineType" ThisKey="LineType" OtherKey="LineTypeId" Type="AP_Staff_RmbLineType" IsForeignKey="true" />
     </Type>
