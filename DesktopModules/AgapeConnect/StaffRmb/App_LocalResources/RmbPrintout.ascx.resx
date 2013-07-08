@@ -129,7 +129,7 @@
   <data name="Description.Text" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="Dype.Text" xml:space="preserve">
+  <data name="Type.Text" xml:space="preserve">
     <value>Type</value>
   </data>
   <data name="needReceipts.Text" xml:space="preserve">

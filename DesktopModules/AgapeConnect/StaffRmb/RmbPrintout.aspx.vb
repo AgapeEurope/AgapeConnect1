@@ -124,9 +124,9 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
             Dim lines As String = ""
 
-            Dim theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = False
+            Dim theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = False Or Not (c.ReceiptImageId Is Nothing)
             If theLines.Count > 0 Then
-                output = output.Replace("[RMBHEADER1]", "<tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td></td></tr>")
+                output = output.Replace("[RMBHEADER1]", "<tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td>" & Translate("ReceiptNo") & "</td></tr>")
 
                 For Each row In theLines
                     lines = lines & "<tr><td>" & row.TransDate.ToString("dd/MM/yyyy") & "</td>"
@@ -160,7 +160,11 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                     lines = lines & "<td>" & amount & "</td>"
                     lines = lines & "<td>" & "</td>"   ' row.VATCode & "</td>"
-                    lines = lines & "<td></td><td></td></tr>"
+                    lines = lines & "<td></td><td>"
+                    If Not (row.ReceiptImageId Is Nothing) Then
+                        lines = lines & row.ReceiptNo
+                    End If
+                    lines = lines & "</td></tr>"
 
                 Next
             Else
@@ -175,7 +179,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             lines = ""
 
 
-            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True Order By c.ReceiptNo
+            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And c.ReceiptImageId Is Nothing Order By c.ReceiptNo
             If theLines.Count > 0 Then
                 For Each row In theLines
 
@@ -226,7 +230,23 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
                 output = output.Replace("[RMBLINES2]", lines)
             End If
 
-
+            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And Not c.ReceiptImageId Is Nothing Order By c.ReceiptNo
+            Dim ER As String = ""
+            For Each row In theLines
+                Dim theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(row.ReceiptImageId)
+                ER &= "<div style='align: center; float: left; margin: 5px; ' >"
+                ER &= "<img src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "'/>"
+                ER &= "<div style='font-style: italic; color: #AAA; font-size: small; width: 100%; text-align: center;'>" & Translate("ReceiptNo") & ": " & row.ReceiptNo
+                Dim amount = row.GrossAmount.ToString("0.00")
+                Dim cr = Cur
+                If Not row.OrigCurrency Is Nothing And Not row.OrigCurrencyAmount Is Nothing Then
+                    amount = row.OrigCurrencyAmount.Value.ToString("0.00")
+                    cr = row.OrigCurrency
+                End If
+                ER &= "&nbsp;&nbsp;" & cr & amount & "</div>"
+                ER &= " </div><div style='clear: both;' />"
+            Next
+            output = output.Replace("[ELECTRONIC_RECEIPTS]", ER)
 
             If Not q.First.ApprDate Is Nothing Then
                 output = output.Replace("[APPROVEDON]", q.First.ApprDate.Value.ToString("dd/MM/yyyy"))
