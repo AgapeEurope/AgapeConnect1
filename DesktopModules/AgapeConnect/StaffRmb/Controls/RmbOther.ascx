@@ -36,12 +36,10 @@
     <td><b><dnn:label id="ttlReceipt"  runat="server" controlname="ddlVATReceipt" /></b></td>
     <td>
         <asp:DropDownList ID="ddlVATReceipt" runat="server"  CssClass="ddlReceipt">
-        
             <asp:ListItem Value="0" ResourceKey="VAT">VAT</asp:ListItem>
             <asp:ListItem Value="1" ResourceKey="Standard">Standard</asp:ListItem>
             <asp:ListItem  Value="2" ResourceKey="Electronic">Electronic Receipt</asp:ListItem>
             <asp:ListItem Value="-1" >No Receipt (under [LIMIT])</asp:ListItem>
-              
         </asp:DropDownList>
     </td>
    

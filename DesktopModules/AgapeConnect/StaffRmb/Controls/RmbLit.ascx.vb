@@ -32,32 +32,37 @@ Partial Class controls_RmbLit
         End If
     End Sub
     Public Sub Initialize(ByVal settings As Hashtable)
+
         If settings("NoReceipt") = 0 Then
-            If settings("VatAttrib") = False Then
+            If settings("VatAttrib") = False And settings("ElectonicReceipts") = False Then
                 'receipts are always required (and no VAT issues) so don't ask... Just assume receipts
+
                 ddlVATReceipt.SelectedValue = 1
                 ReceiptLine.Visible = False
-            Else
-                ddlVATReceipt.Items(2).Enabled = False
+
             End If
+            ddlVATReceipt.Items(3).Enabled = False
         Else
             hfNoReceiptLimit.Value = settings("NoReceipt")
             Dim _LIMIT As String = StaffBrokerFunctions.GetSetting("Currency", PortalId) & settings("NoReceipt")
-            ddlVATReceipt.Items(2).Text = DotNetNuke.Services.Localization.Localization.GetString("NoReceipt.Text", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
+            ddlVATReceipt.Items(3).Text = DotNetNuke.Services.Localization.Localization.GetString("NoReceipt.Text", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
             ttlReceipt.Text = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Text", LocalResourceFile)
             ttlReceipt.HelpText = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Help", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
             ReceiptLine.Visible = True
-            ddlVATReceipt.Items(2).Enabled = True
-        End If
-        If settings("VatAttrib") = False Then
-            ddlVATReceipt.Items(0).Enabled = False
-        Else
-            ddlVATReceipt.Items(0).Enabled = True
+            ddlVATReceipt.Items(3).Enabled = True
         End If
 
-
+        ddlVATReceipt.Items(0).Enabled = settings("VatAttrib")
+        ddlVATReceipt.Items(2).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
     End Sub
-
+    Public Property ReceiptType() As Integer
+        Get
+            Return ddlVATReceipt.SelectedValue
+        End Get
+        Set(ByVal value As Integer)
+            ddlVATReceipt.SelectedValue = value
+        End Set
+    End Property
     Public Property Comment() As String
         Get
             Return tbDesc.Text
