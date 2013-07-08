@@ -58,6 +58,9 @@ Namespace DotNetNuke.Modules.StaffRmb
                     If CType(TabModuleSettings("NoReceipt"), String) <> "" Then
                         tbNoReceipt.Text = CType(TabModuleSettings("NoReceipt"), String)
                     End If
+                    If CType(TabModuleSettings("ElectronicReceipts"), String) <> "" Then
+                        cbElectronicReceipts.Checked = CType(TabModuleSettings("ElectronicReceipts"), Boolean)
+                    End If
                     If CType(TabModuleSettings("VatAttrib"), String) <> "" Then
                         cbVAT.Checked = CType(TabModuleSettings("VatAttrib"), Boolean)
                     End If
@@ -345,6 +348,8 @@ Namespace DotNetNuke.Modules.StaffRmb
 
 
             objModules.UpdateTabModuleSetting(TabModuleId, "NoReceipt", tbNoReceipt.Text)
+
+            objModules.UpdateTabModuleSetting(TabModuleId, "ElectronicReceipts", cbElectronicReceipts.Checked)
             objModules.UpdateTabModuleSetting(TabModuleId, "VatAttrib", cbVAT.Checked)
             objModules.UpdateTabModuleSetting(TabModuleId, "Expire", tbExpire.Text)
             objModules.UpdateTabModuleSetting(TabModuleId, "TeamLeaderLimit", tbTeamLeaderLimit.Text)

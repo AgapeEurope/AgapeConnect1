@@ -19,7 +19,19 @@
            
             $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();  $('#<%= hfCurOpen.ClientID %>').val("true");   });
             
-            
+
+            $('.ddlReceipt').change(function() { 
+                
+                if( $('#' + this.id).val() == 2){
+                   
+                    $("#<%= pnlElecReceipts.ClientID%>").slideDown("slow");
+                }
+                else{
+                    $("#<%= pnlElecReceipts.ClientID%>").slideUp("slow");
+                }
+            });
+
+           
             
             $('.currency').keyup(function() { calculateXRate(); checkRecReq;});
           
@@ -171,7 +183,7 @@
 
             $("#divSignin").dialog({
                 autoOpen: false,
-                height: 500,
+                height:700,
                 width: 750,
                 modal: true,
                 title: '<%= Translate("AddEditRmb") %>',
@@ -318,7 +330,9 @@
 
  }
 
-
+    function expandReceipt(){
+        $("#<%= ifReceipt.ClientID %>").show();
+    }
 
 
  function closePopup()  {$("#divSignin").dialog("close");}
@@ -1801,14 +1815,15 @@
                         </table>
                         <asp:PlaceHolder ID="phLineDetail" runat="server"></asp:PlaceHolder>
 
-
+                        <asp:Panel ID="pnlElecReceipts" runat="server" style="display: none;">
                         <table style="font-size: 9pt;">
-                            <tr>
+                            <tr valign="top">
                                 <td width="150px;"><b>
                                     <dnn:Label ID="lblElectronicReceipts" runat="server"  ResourceKey="lblElectronicReceipts" />
                                 </b></td>
                                 <td>
-                                 <iframe src="/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=53&RmbLine=abc">
+                                  
+                                 <iframe id="ifReceipt" runat="server" src="" width="530px" height="330" >
 
                                  </iframe>
                                 </td>
@@ -1816,7 +1831,7 @@
 
 
                         </table>
-
+</asp:Panel>
 
 
                         <br />

@@ -327,4 +327,10 @@
   <data name="lblWarnIfNegative.Text" xml:space="preserve">
     <value>Show Account Balance Warning</value>
   </data>
+  <data name="lblElecRec.Help" xml:space="preserve">
+    <value>Can staff attatch electronic receipts?</value>
+  </data>
+  <data name="lblElecRec.Text" xml:space="preserve">
+    <value>Allow Electronic Receipts</value>
+  </data>
 </root>

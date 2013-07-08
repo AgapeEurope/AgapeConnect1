@@ -16,7 +16,7 @@ Imports DotNetNuke
 Imports DotNetNuke.Security
 Imports StaffRmb
 Imports StaffBroker
-
+Imports DotNetNuke.Services.FileSystem
 Namespace DotNetNuke.Modules.StaffRmbMod
     Partial Class ViewStaffRmb
         Inherits Entities.Modules.PortalModuleBase
@@ -72,7 +72,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Init
 
-            Dim addTitle = MyBase.Actions.Add(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+            Dim addTitle = New DotNetNuke.Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+
+            MyBase.Actions.Insert(0, addTitle)
+
 
             addTitle.Actions.Add(GetNextActionID, "Settings", "RmbSettings", "", "action_settings.gif", EditUrl("RmbSettings"), False, SecurityAccessLevel.Edit, True, False)
 
@@ -1623,7 +1626,20 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     '    Return
                     'End If
                     insert.RmbNo = hfRmbNo.Value
+                    Dim theFile As IFileInfo
+                    Try
+                        Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts\" & UserId)
+                        theFile = FileManager.Instance.GetFile(theFolder, "R" & hfRmbNo.Value & "LNew.jpg")
 
+
+                        If Not theFile Is Nothing Then
+                            'FileManager.Instance.RenameFile(theFile, "R" & hfRmbNo.Value & "L" & line.First.RmbLineNo & ".jpg")
+
+                            insert.ReceiptImageId = theFile.FileId
+                        End If
+                    Catch ex As Exception
+
+                    End Try
 
                     insert.Spare1 = CStr(ucType.GetProperty("Spare1").GetValue(theControl, Nothing))
                     insert.Spare2 = CStr(ucType.GetProperty("Spare2").GetValue(theControl, Nothing))
@@ -1670,6 +1686,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         theRmb.Changed = True
                     End If
                     d.SubmitChanges()
+
+
+                    If Not theFile Is Nothing Then
+                        FileManager.Instance.RenameFile(theFile, "R" & hfRmbNo.Value & "L" & insert.RmbLineNo & ".jpg")
+
+                    End If
 
                     LoadRmb(hfRmbNo.Value)
                     Dim t As Type = Me.GetType()
@@ -1725,6 +1747,20 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         Else
                             line.First.LargeTransaction = False
                         End If
+
+
+                        'look for electronic receipt
+
+                        Try
+                            Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts\" & line.First.AP_Staff_Rmb.UserId)
+                            Dim theFile = FileManager.Instance.GetFile(theFolder, "R" & line.First.RmbNo & "L" & line.First.RmbLineNo & ".jpg")
+                            If Not theFile Is Nothing Then
+                                line.First.ReceiptImageId = theFile.FileId
+                            End If
+                        Catch ex As Exception
+
+                        End Try
+                        
 
 
 
@@ -2258,6 +2294,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             hfOrigCurrency.Value = ""
             hfOrigCurrencyValue.Value = ""
 
+
+            ifReceipt.Attributes("src") = "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & hfRmbNo.Value & "&RmbLine=New"
+            pnlElecReceipts.Attributes("style") = "display: none;"
             Dim jscript As String = ""
             jscript &= " $('#" & hfOrigCurrency.ClientID & "').attr('value', '');"
             jscript &= " $('#" & hfOrigCurrencyValue.ClientID & "').attr('value', '');"
@@ -2629,6 +2668,21 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ucType.GetProperty("Spare3").SetValue(theControl, theLine.First.Spare3, Nothing)
                     ucType.GetProperty("Spare4").SetValue(theControl, theLine.First.Spare4, Nothing)
                     ucType.GetProperty("Spare5").SetValue(theControl, theLine.First.Spare5, Nothing)
+
+                    Dim receiptMode = 2
+                    If theLine.First.VATReceipt Then
+                        receiptMode = 0
+                    ElseIf Not theLine.First.Receipt Then
+                        receiptMode = -1
+                    ElseIf theLine.First.ReceiptImageId Is Nothing Then
+                        receiptMode = 1
+                    ElseIf theLine.First.ReceiptImageId < 0 Then
+                        receiptMode = 1
+
+                    End If
+                    ucType.GetProperty("ReceiptType").SetValue(theControl, receiptMode, Nothing)
+
+
                     ucType.GetMethod("Initialize").Invoke(theControl, New Object() {Settings})
                     cbRecoverVat.Checked = False
                     If theLine.First.ForceTaxOrig Is Nothing Then
@@ -2660,6 +2714,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     ddlCostcenter.SelectedValue = theLine.First.CostCenter
                     ddlAccountCode.SelectedValue = theLine.First.AccountCode
+
+                    ifReceipt.Attributes("src") = "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & theLine.First.RmbNo & "&RmbLine=" & theLine.First.RmbLineNo
+                    If Not theLine.First.ReceiptImageId Is Nothing Then
+                        pnlElecReceipts.Attributes("style") = ""
+                    Else
+                        pnlElecReceipts.Attributes("style") = "display: none;"
+                    End If
 
 
 
