@@ -8,6 +8,10 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
     Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+
+
+        
+
         Dim FileName As String = "RmbPrintout"
 
         'System.IO.Path.GetFileNameWithoutExtension(Me.AppRelativeVirtualPath)
@@ -50,6 +54,43 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
         Dim dt As New StaffBroker.TemplatesDataContext
         Dim q = From c In d.AP_Staff_Rmbs Where c.RMBNo = Request.QueryString("RmbNo") And c.UserId = Request.QueryString("UID")
         If q.Count > 0 Then
+            Dim User = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo
+
+
+
+
+            If User.UserID > 0 Then
+                Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+                lblAccessDenied.Text = Translate("lblAccessDenied")
+                Dim x = mc.GetModuleByDefinition(PS.PortalId, "acStaffRmb")
+                Dim RmbSettings = x.TabModuleSettings
+
+                Dim RmbRel = StaffRmbFunctions.Authenticate(User.UserID, q.First.RMBNo, PS.PortalId)
+                If RmbRel = RmbAccess.Denied And Not User.IsInRole("Administrators") And Not (User.UserID = RmbSettings("AuthUser") Or User.UserID = RmbSettings("AuthAuthUser")) Then
+                    pnlAccessDenied.Visible = True
+                    btnLogin.Visible = False
+                    Return
+                End If
+                Dim isAccounts = False
+                For Each role In CStr(RmbSettings("AccountsRoles")).Split(";")
+                    If (User.Roles().Contains(role)) Then
+                        isAccounts = True
+                    End If
+                Next
+                If Not isAccounts Then
+                    pnlAccessDenied.Visible = True
+                    btnLogin.Visible = False
+                    Return
+                End If
+            Else
+                pnlAccessDenied.Visible = True
+                btnLogin.Visible = True
+                lblAccessDenied.Text = Translate("lblNotLoggedIn")
+
+                Return
+            End If
+
+
             'Dim printout = From c In dt.AP_StaffBroker_Templates Where c.TemplateName = "RmbPrintOut" And c.PortalId = PS.PortalId Select c.TemplateHTML
 
             'If (Request.QueryString("mode") = "test") Then
@@ -335,4 +376,11 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
         End If
 
     End Function
+
+    Protected Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Response.Redirect(NavigateURL(PS.LoginTabId) & "?returnurl=" & Server.UrlEncode(Request.Url.ToString))
+
+
+    End Sub
 End Class

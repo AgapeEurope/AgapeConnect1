@@ -11,6 +11,10 @@
     <div>
         <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
     </div>
+        <asp:Panel ID="pnlAccessDenied" runat="server" Visible="False" Width="100%" HorizontalAlign="Center">
+            <asp:Label ID="lblAccessDenied" runat="server" ></asp:Label>
+            <asp:Button ID="btnLogin" runat="server" Text="Login" Visible="false" />
+        </asp:Panel>
     </form>
 </body>
 </html>

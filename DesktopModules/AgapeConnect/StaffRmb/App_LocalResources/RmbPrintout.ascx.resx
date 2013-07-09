@@ -162,4 +162,10 @@
   <data name="ClearAdvPartial.Text" xml:space="preserve">
     <value>[CLEARADV] of this reimbursement will be used to clear an existing advance. The remaining [PAYABLE] will be payed to the staff member.</value>
   </data>
+  <data name="lblAccessDenied.Text" xml:space="preserve">
+    <value>You are not authorized to view this page. If you believe that this is a mistake, please contact your finance team.</value>
+  </data>
+  <data name="lblNotLoggedIn.Text" xml:space="preserve">
+    <value>You must be logged in to view this page.</value>
+  </data>
 </root>
