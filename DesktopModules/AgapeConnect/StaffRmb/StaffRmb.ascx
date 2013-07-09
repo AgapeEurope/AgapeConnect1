@@ -577,12 +577,21 @@
             
             var limit =  $("#<%= hfNoReceiptLimit.ClientID%>").attr('value');
             var Am=$('.rmbAmount').val() ;
-            console.log(limit, Am);
-           
-            $('.ddlReceipt').val(parseFloat(Am)>parseFloat(limit) ? 1:-1);
+            //console.log(limit, Am);
+            if( $('.ddlReceipt').val()==-1 && parseFloat(Am)>parseFloat(limit))
+                 $('.ddlReceipt').val(1);
 
-            if(parseFloat(Am)>parseFloat(limit)) $('.ddlReceipt').attr("disabled", "disabled");
-            else   $('.ddlReceipt').removeAttr("disabled");
+
+            if(parseFloat(Am)>parseFloat(limit)){
+                $('.ddlReceipt option[value="-1"]').attr("disabled", "disabled");
+               //$('.ddlReceipt').attr("disabled", "disabled");
+            }
+            else 
+            {
+                $('.ddlReceipt option[value="-1"]').removeAttr("disabled");
+            }
+
+           // else   $('.ddlReceipt').removeAttr("disabled");
             
 
         }
