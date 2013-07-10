@@ -1701,7 +1701,9 @@ padding: 5px 5px 5px 5px;
                             </tr>
                             <tr>
                                 <td colspan="3" align="left" style="font-size: small; padding-top: 20px; ">
-                                    <asp:Label ID="lblAdvErr" runat="server" CssClass="AgapeErrror" ></asp:Label>
+                                    <asp:Label ID="lblAdvErr" runat="server" CssClass="AgapeError" ></asp:Label>
+                                      <asp:Label ID="lblAdvDownloadError" runat="server" class="ui-state-error ui-corner-all"
+                Style="padding: 3px; margin-top: 5px; display: block; " Visible="false" ></asp:Label>
                                     <asp:Button ID="btnAdvApprove" runat="server"   ResourceKey="btnApprove" CssClass="aButton" />
                                     <asp:Button ID="btnAdvReject" runat="server"   ResourceKey="btnReject" CssClass="aButton" />
                                     <asp:Button ID="btnAdvSave" runat="server" ResourceKey="btnSave" CssClass="aButton" />

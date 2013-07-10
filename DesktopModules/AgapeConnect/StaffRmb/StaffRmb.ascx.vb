@@ -810,8 +810,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     hfOrigCurrency.Value = ac
                     hfOrigCurrencyValue.Value = q.First.RequestAmount
                     If Not String.IsNullOrEmpty(q.First.OrigCurrency) Then
-                    If q.First.OrigCurrency.ToUpper <> ac.ToUpper Then
-                        lblAdvCur.Text = q.First.OrigCurrencyAmount.Value.ToString("0.00") & " " & q.First.OrigCurrency.ToUpper
+                        If q.First.OrigCurrency.ToUpper <> ac.ToUpper Then
+                            lblAdvCur.Text = q.First.OrigCurrencyAmount.Value.ToString("0.00") & " " & q.First.OrigCurrency.ToUpper
 
                             hfOrigCurrency.Value = q.First.OrigCurrency
                             hfOrigCurrencyValue.Value = q.First.OrigCurrencyAmount.Value.ToString("0.00")
@@ -821,7 +821,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                             hfOrigCurrencyValue.Value = q.First.OrigCurrencyAmount
                             jscript &= " $('.currency').attr('value'," & q.First.OrigCurrencyAmount & ");"
-                      
+
                             hfOrigCurrency.Value = q.First.OrigCurrency
 
                             jscript &= " $('.ddlCur').val('" & q.First.OrigCurrency & "'); checkCur();"
@@ -966,10 +966,18 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             btnAdvProcess.Visible = False
                             btnAdvUnProcess.Visible = False
                     End Select
-
+                    lblAdvDownloadError.Visible = False
                     If IsAccounts() Then
                         pnlAdvPeriodYear.Visible = True
                         SetYear(ddlAdvYear, q.First.Year)
+
+                        If q.First.Error And Not String.IsNullOrEmpty(q.First.ErrorMessage) Then
+                            lblAdvDownloadError.Text = q.First.ErrorMessage
+                            lblAdvDownloadError.Visible = True
+                        ElseIf Not String.IsNullOrEmpty(q.First.ErrorMessage) Then
+                            AdvDate.Text &= "<br /> " & q.First.ErrorMessage
+                        End If
+
 
                         If q.First.Period Is Nothing Then
                             ddlAdvPeriod.SelectedIndex = 0
@@ -1687,13 +1695,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                 line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
 
                             End If
-                            
+
 
                         Else
                             line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
 
                         End If
-                        
+
 
 
 
@@ -1869,7 +1877,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ScriptManager.RegisterClientScriptBlock(Page, t, "", sb.ToString, False)
 
                 End If
-                End If
+            End If
 
 
         End Sub
@@ -2237,7 +2245,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
             ddlLineTypes.DataSource = lineTypes
             ddlLineTypes.DataBind()
-          
+
 
             ResetNewExpensePopup(True)
             cbRecoverVat.Checked = False
@@ -2257,7 +2265,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim t As Type = addLinebtn2.GetType()
             Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
             sb.Append("<script language='javascript'>")
-           
+
             sb.Append(jscript & "showPopup();")
             sb.Append("</script>")
             ScriptManager.RegisterStartupScript(addLinebtn2, t, "popupAdd", sb.ToString, False)
@@ -3586,7 +3594,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     rtn &= GetOrderedString(shortComment,
                                          Debit, Credit)
 
-                    
+
 
 
 
@@ -3657,14 +3665,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                             Dim Adv As Double = theRmb.First.AP_Staff_Rmb.AdvanceRequest
                             If Not Adv = Nothing Then
-                               
+
 
                                 If Adv > 0 Then
                                     rmbAdvance = Math.Min(Math.Min(RmbTotal, Adv), rmbAdvanceBalance)
                                 ElseIf Adv = -1 Then
                                     rmbAdvance = Math.Min(RmbTotal, rmbAdvanceBalance)
                                 End If
-                                
+
                             End If
 
 
@@ -3674,13 +3682,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                         RmbTotal -= rmbAdvance
 
-                        
+
 
 
 
                         If RmbTotal <> 0 Then
 
-                           
+
 
                             rtn &= "=""" & Settings("AccountsPayable") & ""","
                             rtn &= "=""" & theStaff.CostCenter & """" & ","
@@ -3708,7 +3716,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                         End If
                         If rmbAdvance <> 0 Then
-                            
+
                             rtn &= "=""" & Settings("AccountsReceivable") & ""","
 
                             rtn &= "=""" & theStaff.CostCenter & """" & ","

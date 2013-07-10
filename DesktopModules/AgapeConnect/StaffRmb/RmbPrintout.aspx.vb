@@ -11,11 +11,11 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
         Dim FileName As String = "RmbPrintout"
 
         'System.IO.Path.GetFileNameWithoutExtension(Me.AppRelativeVirtualPath)
-        
-            ' this will fix it when its dynamically loaded using LoadControl method 
+
+        ' this will fix it when its dynamically loaded using LoadControl method 
         'Me.LocalResourceFile = Me.LocalResourceFile & FileName & ".ascx.resx"
         LocalResourceFile = "/DesktopModules/AgapeConnect/StaffRmb/App_LocalResources/RmbPrintout.ascx.resx"
-        
+
 
 
         Dim Locale = PS.CultureCode
@@ -269,7 +269,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", "/DesktopModules/AgapeConnect/StaffRmb/App_LocalResources/RmbPrintout.ascx.resx")
 
         End Try
-        
+
         Return rtn
 
     End Function
@@ -292,7 +292,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             Return CostCentre
         End If
 
-       
+
 
 
     End Function

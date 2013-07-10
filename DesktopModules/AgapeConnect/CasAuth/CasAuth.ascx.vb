@@ -33,8 +33,8 @@ Namespace DotNetNuke.Modules.AgapePortal
             
 
 
-            Service = TabController.CurrentPage.FullUrl
-
+            'Service = TabController.CurrentPage.FullUrl
+            Service = NavigateURL(PortalSettings.LoginTabId)
             ' Dim template = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/template.css"
 
             ' First time through there is no ticket=, so redirect to CAS login
