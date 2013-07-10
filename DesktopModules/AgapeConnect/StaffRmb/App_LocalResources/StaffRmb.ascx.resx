@@ -570,4 +570,7 @@
   <data name="lblElectronicReceipts.Text" xml:space="preserve">
     <value>Electronic Receipts</value>
   </data>
+  <data name="OpenNewTab.Text" xml:space="preserve">
+    <value>Click to view in new tab...</value>
+  </data>
 </root>

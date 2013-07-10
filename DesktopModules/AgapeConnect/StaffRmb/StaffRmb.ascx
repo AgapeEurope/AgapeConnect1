@@ -183,7 +183,7 @@
 
             $("#divSignin").dialog({
                 autoOpen: false,
-                height:700,
+                height:550,
                 width: 750,
                 modal: true,
                 title: '<%= Translate("AddEditRmb") %>',
@@ -1832,7 +1832,7 @@
                                 </b></td>
                                 <td>
                                   
-                                 <iframe id="ifReceipt" runat="server" src="" width="530px" height="330" >
+                                 <iframe id="ifReceipt" runat="server" src="" width="530px" height="280" >
 
                                  </iframe>
                                 </td>

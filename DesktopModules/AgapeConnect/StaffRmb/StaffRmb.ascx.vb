@@ -1626,16 +1626,30 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     '    Return
                     'End If
                     insert.RmbNo = hfRmbNo.Value
+
+
                     Dim theFile As IFileInfo
+                    Dim ElectronicReceipt As Boolean = False
                     Try
-                        Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts/" & UserId)
-                        theFile = FileManager.Instance.GetFile(theFolder, "R" & hfRmbNo.Value & "LNew.jpg")
+                        If (CInt(ucType.GetProperty("ReceiptType").GetValue(theControl, Nothing) = 2)) Then
+
+                            ElectronicReceipt = True
 
 
-                        If Not theFile Is Nothing Then
-                            'FileManager.Instance.RenameFile(theFile, "R" & hfRmbNo.Value & "L" & line.First.RmbLineNo & ".jpg")
+                            Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts/" & UserId)
+                            theFile = FileManager.Instance.GetFile(theFolder, "R" & hfRmbNo.Value & "LNew.jpg")
 
-                            insert.ReceiptImageId = theFile.FileId
+
+                            If Not theFile Is Nothing Then
+                                'FileManager.Instance.RenameFile(theFile, "R" & hfRmbNo.Value & "L" & line.First.RmbLineNo & ".jpg")
+
+                                insert.ReceiptImageId = theFile.FileId
+                            Else
+                                theFile = FileManager.Instance.GetFile(theFolder, "R" & hfRmbNo.Value & "LNew.pdf")
+                                If Not theFile Is Nothing Then
+                                    insert.ReceiptImageId = theFile.FileId
+                                End If
+                            End If
                         End If
                     Catch ex As Exception
 
@@ -1688,8 +1702,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     d.SubmitChanges()
 
 
-                    If Not theFile Is Nothing Then
-                        FileManager.Instance.RenameFile(theFile, "R" & hfRmbNo.Value & "L" & insert.RmbLineNo & ".jpg")
+                    If ElectronicReceipt And Not theFile Is Nothing Then
+                        FileManager.Instance.RenameFile(theFile, "R" & hfRmbNo.Value & "L" & insert.RmbLineNo & "." & theFile.Extension)
+
 
                     End If
 
@@ -1751,16 +1766,25 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                         'look for electronic receipt
 
+
                         Try
-                            Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts/" & line.First.AP_Staff_Rmb.UserId)
-                            Dim theFile = FileManager.Instance.GetFile(theFolder, "R" & line.First.RmbNo & "L" & line.First.RmbLineNo & ".jpg")
-                            If Not theFile Is Nothing Then
-                                line.First.ReceiptImageId = theFile.FileId
+                            If (CInt(ucType.GetProperty("ReceiptType").GetValue(theControl, Nothing) = 2)) Then
+
+                                Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts/" & line.First.AP_Staff_Rmb.UserId)
+                                Dim theFile = FileManager.Instance.GetFile(theFolder, "R" & line.First.RmbNo & "L" & line.First.RmbLineNo & ".jpg")
+                                If Not theFile Is Nothing Then
+                                    line.First.ReceiptImageId = theFile.FileId
+                                Else
+                                    theFile = FileManager.Instance.GetFile(theFolder, "R" & line.First.RmbNo & "L" & line.First.RmbLineNo & ".pdf")
+                                    If Not theFile Is Nothing Then
+                                        line.First.ReceiptImageId = theFile.FileId
+                                    End If
+                                End If
                             End If
                         Catch ex As Exception
 
                         End Try
-                        
+
 
 
 

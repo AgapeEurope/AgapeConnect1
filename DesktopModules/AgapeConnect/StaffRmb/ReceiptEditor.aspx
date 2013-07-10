@@ -29,7 +29,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <div style="width: 100%; text-align: center;">
+            <div style="width: 100%; text-align: left;">
                 <span style="background-color: #EEE; padding: 8px 0 10px 5px;">
                     <asp:FileUpload ID="fuReceipt" runat="server" />
 
@@ -40,9 +40,13 @@
                 <div>
 
                    
-                <asp:HyperLink ID="hlimg" runat="server"  BorderStyle="Solid" BorderColor="DarkGray" BorderWidth="1pt" Target="_blank" Visible="False">
+                <asp:HyperLink ID="hlimg" runat="server"  BorderStyle="Solid" BorderColor="DarkGray" BorderWidth="1pt" Target="_blank" Visible="False" style="text-align: center;" >
+
                     <asp:Image ID="imgReceipt" runat="server"  BorderStyle="Solid" BorderColor="DarkGray" BorderWidth="1pt" ToolTip="Click to open fullsize in new tab..."  />
-                    <div><span style="font-style: italic; font-size:small;">Click to enlarge...</span></div>
+                    <div>
+                        
+                        <asp:Label ID="lblOpenNewTab" runat="server"  style="font-style: italic; font-size:small;">Click to view in new tab...</asp:Label>
+                    </div>
                 </asp:HyperLink>
                     </div>
                 <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
