@@ -44,6 +44,7 @@ local.properties
 [Ll]ogs/
 _imageCropper/
 _acDocuments/
+_RmbReceipts/
 
 # Build results
 [Dd]ebug/
@@ -171,3 +172,4 @@ Portals/0/Cache/Pages
 Portals/0/HeaderPhoto
 
 App_Data/ClientDependency/*-map.xml
+Portals\16\_RmbReceipts\41*/
