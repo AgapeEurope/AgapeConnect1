@@ -275,7 +275,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
         btnRotatRight.Visible = True
         If newWidth / newHeight < 500 / 200 Then
             imgReceipt.Height = New Unit(200)
-            imgReceipt.Width = New Unit(20 * newWidth / newHeight)
+            imgReceipt.Width = New Unit(200 * newWidth / newHeight)
         Else
             imgReceipt.Width = New Unit(500)
             imgReceipt.Height = New Unit(500 / (newWidth / newHeight))
