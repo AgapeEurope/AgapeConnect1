@@ -1498,8 +1498,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim ucType As Type = theControl.GetType()
 
             If btnAddLine.CommandName = "Save" Then
-
-                If ucType.GetMethod("ValidateForm").Invoke(theControl, New Object() {UserId}) = True Then
+                Dim theUserId = (From c In d.AP_Staff_Rmbs Where c.RMBNo = hfRmbNo.Value Select c.UserId).First
+                If ucType.GetMethod("ValidateForm").Invoke(theControl, New Object() {theUserId}) = True Then
 
                     Dim q = From c In d.AP_Staff_RmbLines Where c.RmbNo = hfRmbNo.Value And c.Receipt Select c.ReceiptNo
 
@@ -1549,7 +1549,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             Dim msg As String = ""
                             If theCC.Count > 0 Then
 
-                                Dim staffMember = StaffBrokerFunctions.GetStaffMember(UserId)
+                                Dim staffMember = StaffBrokerFunctions.GetStaffMember(theUserId)
 
                                 If Not String.IsNullOrEmpty(staffMember.CostCenter) Then
                                     insert.CostCenter = (staffMember.CostCenter)
@@ -1636,7 +1636,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             ElectronicReceipt = True
 
 
-                            Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts/" & UserId)
+                            Dim theFolder As IFolderInfo = FolderManager.Instance.GetFolder(PortalId, "_RmbReceipts/" & theUserId)
                             theFile = FileManager.Instance.GetFile(theFolder, "R" & hfRmbNo.Value & "LNew.jpg")
 
 
@@ -1652,6 +1652,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             End If
                         End If
                     Catch ex As Exception
+                        StaffBrokerFunctions.EventLog("Rmb" & hfRmbNo.Value, "Failed to Add Electronic Receipt: " & ex.ToString, UserId)
 
                     End Try
 
