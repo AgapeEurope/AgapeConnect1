@@ -276,7 +276,13 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             For Each row In theLines
                 Dim theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(row.ReceiptImageId)
                 ER &= "<div style='align: center; float: left; margin: 5px; ' >"
-                ER &= "<img src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "'/>"
+                If theFile.Extension.ToLower = "pdf" Then
+
+                    ER &= "<iframe style='width: 747px; height: 1000px;' src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' ></iframe>"
+                Else
+                    ER &= "<img src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "'/>"
+                   
+                End If
                 ER &= "<div style='font-style: italic; color: #AAA; font-size: small; width: 100%; text-align: center;'>" & Translate("ReceiptNo") & ": " & row.ReceiptNo
                 Dim amount = row.GrossAmount.ToString("0.00")
                 Dim cr = Cur
@@ -284,7 +290,9 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
                     amount = row.OrigCurrencyAmount.Value.ToString("0.00")
                     cr = row.OrigCurrency
                 End If
-                ER &= "&nbsp;&nbsp;" & cr & amount & "</div>"
+                ER &= "&nbsp;&nbsp;" & cr & amount
+                ER &= "&nbsp;&nbsp;<a href='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' target='_blank'>(Click here to open in new tab/window)</a> "
+                ER &= "</div>"
                 ER &= " </div><div style='clear: both;' />"
             Next
             output = output.Replace("[ELECTRONIC_RECEIPTS]", ER)
