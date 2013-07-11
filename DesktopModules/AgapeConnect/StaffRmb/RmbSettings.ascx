@@ -100,7 +100,7 @@
                         </b>
                     </td>
                     <td>
-                        <asp:CheckBox ID="cbElectronicReceipts" runat="server" Enabled="False" />
+                        <asp:CheckBox ID="cbElectronicReceipts" runat="server" Checked="True" />
                     </td>
                 </tr>
                 <tr style="opacity: 0.4; filter: alpha(opacity=40);">
