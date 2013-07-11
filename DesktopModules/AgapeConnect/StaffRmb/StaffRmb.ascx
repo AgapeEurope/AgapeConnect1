@@ -376,7 +376,7 @@
      
  function showSuggestedPayments() {
       
-         
+     $('#ifSugPay').attr('src','https://www.youtube.com/embed/PEaTnZrpxfs?rel=0&wmode=transparent');
       
      $("#divSuggestedPayments").dialog("open"); 
      return false;
@@ -2161,7 +2161,8 @@
 
             </td>
             <td style="border-left: 1px dashed #AAA;">
-                <iframe width="300" height="169" src="https://www.youtube.com/embed/PEaTnZrpxfs?rel=0&wmode=transparent" frameborder="0" allowfullscreen></iframe>
+                <iframe id="ifSugPay" width="300" height="169" 
+                     frameborder="0" allowfullscreen></iframe>
 
             </td>
         </tr>
