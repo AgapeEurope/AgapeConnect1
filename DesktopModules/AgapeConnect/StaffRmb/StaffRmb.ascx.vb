@@ -400,7 +400,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     Dim AllApproved = (From c In d.AP_Staff_Rmbs
                                        Where (c.Status = RmbStatus.Approved Or c.Status >= RmbStatus.PendingDownload) And c.PortalId = PortalId Order By c.RID Descending
-               Select c.RMBNo, c.RmbDate, c.UserRef, c.RID, c.UserId, c.Status, Receipts = ((c.AP_Staff_RmbLines.Where(Function(x) x.Receipt)).Count > 0)).Take(MenuSize)
+               Select c.RMBNo, c.RmbDate, c.UserRef, c.RID, c.UserId, c.Status, Receipts = ((c.AP_Staff_RmbLines.Where(Function(x) x.Receipt And Not x.ReceiptImageId Is Nothing)).Count > 0)).Take(MenuSize)
 
                     Dim AllApprovedAdv = (From c In d.AP_Staff_AdvanceRequests Where (c.RequestStatus = RmbStatus.Approved Or c.RequestStatus >= RmbStatus.PendingDownload) And c.PortalId = PortalId Order By c.LocalAdvanceId Descending).Take(MenuSize)
 
