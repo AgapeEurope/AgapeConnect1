@@ -139,6 +139,11 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
                     btnRotateLeft.Visible = False
                     btnRotatRight.Visible = False
 
+                    'Look for new image and remove it!
+                    Dim theOtherFile = FileManager.Instance.GetFile(theFolder, "R" & RmbNo & "L" & RmbLine & ".jpg")
+                    If Not theOtherFile Is Nothing Then
+                        FileManager.Instance.DeleteFile(theOtherFile)
+                    End If
 
                 Else
 
@@ -182,6 +187,11 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
 
 
                     Dim _FileId = _theFile.FileId
+                    'Look for new pdf and remove it!
+                    Dim theOtherFile = FileManager.Instance.GetFile(theFolder, "R" & RmbNo & "L" & RmbLine & ".pdf")
+                    If Not theOtherFile Is Nothing Then
+                        FileManager.Instance.DeleteFile(theOtherFile)
+                    End If
 
 
 
