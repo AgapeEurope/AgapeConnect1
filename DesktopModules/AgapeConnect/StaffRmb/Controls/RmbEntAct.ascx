@@ -37,9 +37,11 @@
     <td><b><dnn:label id="Label3"  runat="server" controlname="ddlVATReceipt" ResourceKey="lblReceipt"  /></b></td>
     <td>
         
-         <asp:DropDownList ID="ddlVATReceipt" runat="server" CssClass="ddlReceipt">
+        <asp:DropDownList ID="ddlVATReceipt" runat="server"  CssClass="ddlReceipt">
             <asp:ListItem ResourceKey="VAT" Value="0">VAT</asp:ListItem>
             <asp:ListItem ResourceKey="Standard" Value="1">Standard</asp:ListItem>
+            <asp:ListItem  Value="2" ResourceKey="Electronic">Electronic Receipt</asp:ListItem>
+            
         </asp:DropDownList>
     </td>
     

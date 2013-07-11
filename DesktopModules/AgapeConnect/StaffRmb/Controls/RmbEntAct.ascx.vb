@@ -32,28 +32,34 @@ Partial Class controls_RmbEntAct
         End If
     End Sub
 
+   
     Public Sub Initialize(ByVal settings As Hashtable)
+
         If settings("NoReceipt") = 0 Then
-            If settings("VatAttrib") = False Then
+            If settings("VatAttrib") = False And settings("ElectonicReceipts") = False Then
                 'receipts are always required (and no VAT issues) so don't ask... Just assume receipts
+
                 ddlVATReceipt.SelectedValue = 1
                 ReceiptLine.Visible = False
-            Else
-                ddlVATReceipt.Items(2).Enabled = False
-            End If
-        Else
-            'ddlVATReceipt.Items(2).Text = ddlVATReceipt.Items(2).Text.Replace("[LIMIT]", settings("Currency") & settings("NoReceipt"))
-            hfNoReceiptLimit.Value = settings("NoReceipt")
-            ReceiptLine.Visible = True
-            ' ddlVATReceipt.Items(2).Enabled = True
-        End If
-        If settings("VatAttrib") = False Then
-            ddlVATReceipt.Items(0).Enabled = False
-        Else
-            ddlVATReceipt.Items(0).Enabled = True
-        End If
-    End Sub
 
+            End If
+            ddlVATReceipt.Items(3).Enabled = False
+        Else
+             hfNoReceiptLimit.Value = settings("NoReceipt")
+            ReceiptLine.Visible = True
+        End If
+
+        ddlVATReceipt.Items(0).Enabled = settings("VatAttrib")
+        ddlVATReceipt.Items(2).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
+    End Sub
+    Public Property ReceiptType() As Integer
+        Get
+            Return ddlVATReceipt.SelectedValue
+        End Get
+        Set(ByVal value As Integer)
+            ddlVATReceipt.SelectedValue = value
+        End Set
+    End Property
     Public Property Comment() As String
         Get
             Return tbDesc.Text

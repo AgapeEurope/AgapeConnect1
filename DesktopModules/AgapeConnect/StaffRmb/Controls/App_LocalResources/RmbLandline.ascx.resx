@@ -174,4 +174,7 @@ Taxable unless receipt is included.</value>
     <value>Transaction date must be in the past!</value>
     <comment>Error</comment>
   </data>
+  <data name="Electronic.Text" xml:space="preserve">
+    <value>Electronic Receipt</value>
+  </data>
 </root>

@@ -44,6 +44,7 @@ local.properties
 [Ll]ogs/
 _imageCropper/
 _acDocuments/
+_RmbReceipts/
 
 # Build results
 [Dd]ebug/

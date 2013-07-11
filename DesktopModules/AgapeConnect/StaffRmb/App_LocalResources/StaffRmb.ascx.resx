@@ -564,4 +564,13 @@
   <data name="ShortComment.Text" xml:space="preserve">
     <value>Short Comment</value>
   </data>
+  <data name="lblElectronicReceipts.Help" xml:space="preserve">
+    <value>Upload and image (jpg, png, gif) or a PDF as an Electronic Receipt. If you have an email receipt, you may select "Text Receipt" and copy and past the contents of the email. Please note that receipts are legal documents and should not be edited or altered in any way.</value>
+  </data>
+  <data name="lblElectronicReceipts.Text" xml:space="preserve">
+    <value>Electronic Receipts</value>
+  </data>
+  <data name="OpenNewTab.Text" xml:space="preserve">
+    <value>Click to view in new tab...</value>
+  </data>
 </root>

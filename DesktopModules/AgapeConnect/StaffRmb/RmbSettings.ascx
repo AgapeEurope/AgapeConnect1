@@ -93,6 +93,16 @@
                         <asp:TextBox ID="tbNoReceipt" runat="server" Width="80px"></asp:TextBox>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <b>
+                            <dnn:Label ID="lblElecRec" runat="server" ControlName="cbElectronicReceipts" ResourceKey="lblElecRec" />
+                        </b>
+                    </td>
+                    <td>
+                        <asp:CheckBox ID="cbElectronicReceipts" runat="server" Enabled="True" />
+                    </td>
+                </tr>
                 <tr style="opacity: 0.4; filter: alpha(opacity=40);">
                     <td>
                         <b>

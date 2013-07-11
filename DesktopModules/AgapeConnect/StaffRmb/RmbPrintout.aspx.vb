@@ -8,6 +8,10 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
     Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+
+
+        
+
         Dim FileName As String = "RmbPrintout"
 
         'System.IO.Path.GetFileNameWithoutExtension(Me.AppRelativeVirtualPath)
@@ -50,6 +54,43 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
         Dim dt As New StaffBroker.TemplatesDataContext
         Dim q = From c In d.AP_Staff_Rmbs Where c.RMBNo = Request.QueryString("RmbNo") And c.UserId = Request.QueryString("UID")
         If q.Count > 0 Then
+            Dim User = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo
+
+
+
+
+            If User.UserID > 0 Then
+                Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+                lblAccessDenied.Text = Translate("lblAccessDenied")
+                Dim x = mc.GetModuleByDefinition(PS.PortalId, "acStaffRmb")
+                Dim RmbSettings = x.TabModuleSettings
+
+                Dim RmbRel = StaffRmbFunctions.Authenticate(User.UserID, q.First.RMBNo, PS.PortalId)
+                If RmbRel = RmbAccess.Denied And Not User.IsInRole("Administrators") And Not (User.UserID = RmbSettings("AuthUser") Or User.UserID = RmbSettings("AuthAuthUser")) Then
+                    pnlAccessDenied.Visible = True
+                    btnLogin.Visible = False
+                    Return
+                End If
+                Dim isAccounts = False
+                For Each role In CStr(RmbSettings("AccountsRoles")).Split(";")
+                    If (User.Roles().Contains(role)) Then
+                        isAccounts = True
+                    End If
+                Next
+                If Not isAccounts Then
+                    pnlAccessDenied.Visible = True
+                    btnLogin.Visible = False
+                    Return
+                End If
+            Else
+                pnlAccessDenied.Visible = True
+                btnLogin.Visible = True
+                lblAccessDenied.Text = Translate("lblNotLoggedIn")
+
+                Return
+            End If
+
+
             'Dim printout = From c In dt.AP_StaffBroker_Templates Where c.TemplateName = "RmbPrintOut" And c.PortalId = PS.PortalId Select c.TemplateHTML
 
             'If (Request.QueryString("mode") = "test") Then
@@ -124,9 +165,9 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
             Dim lines As String = ""
 
-            Dim theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = False
+            Dim theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = False Or Not (c.ReceiptImageId Is Nothing)
             If theLines.Count > 0 Then
-                output = output.Replace("[RMBHEADER1]", "<tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td></td></tr>")
+                output = output.Replace("[RMBHEADER1]", "<tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td>" & Translate("ReceiptNo") & "</td></tr>")
 
                 For Each row In theLines
                     lines = lines & "<tr><td>" & row.TransDate.ToString("dd/MM/yyyy") & "</td>"
@@ -160,7 +201,11 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                     lines = lines & "<td>" & amount & "</td>"
                     lines = lines & "<td>" & "</td>"   ' row.VATCode & "</td>"
-                    lines = lines & "<td></td><td></td></tr>"
+                    lines = lines & "<td></td><td>"
+                    If Not (row.ReceiptImageId Is Nothing) Then
+                        lines = lines & row.ReceiptNo
+                    End If
+                    lines = lines & "</td></tr>"
 
                 Next
             Else
@@ -175,7 +220,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             lines = ""
 
 
-            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True Order By c.ReceiptNo
+            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And c.ReceiptImageId Is Nothing Order By c.ReceiptNo
             If theLines.Count > 0 Then
                 For Each row In theLines
 
@@ -226,7 +271,31 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
                 output = output.Replace("[RMBLINES2]", lines)
             End If
 
+            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And Not c.ReceiptImageId Is Nothing Order By c.ReceiptNo
+            Dim ER As String = ""
+            For Each row In theLines
+                Dim theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(row.ReceiptImageId)
+                ER &= "<div style='align: center; float: left; margin: 5px; ' >"
+                If theFile.Extension.ToLower = "pdf" Then
 
+                    ER &= "<iframe style='width: 747px; height: 1000px;' src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' ></iframe>"
+                Else
+                    ER &= "<img src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "'/>"
+                   
+                End If
+                ER &= "<div style='font-style: italic; color: #AAA; font-size: small; width: 100%; text-align: center;'>" & Translate("ReceiptNo") & ": " & row.ReceiptNo
+                Dim amount = row.GrossAmount.ToString("0.00")
+                Dim cr = Cur
+                If Not row.OrigCurrency Is Nothing And Not row.OrigCurrencyAmount Is Nothing Then
+                    amount = row.OrigCurrencyAmount.Value.ToString("0.00")
+                    cr = row.OrigCurrency
+                End If
+                ER &= "&nbsp;&nbsp;" & cr & amount
+                ER &= "&nbsp;&nbsp;<a href='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' target='_blank'>(Click here to open in new tab/window)</a> "
+                ER &= "</div>"
+                ER &= " </div><div style='clear: both;' />"
+            Next
+            output = output.Replace("[ELECTRONIC_RECEIPTS]", ER)
 
             If Not q.First.ApprDate Is Nothing Then
                 output = output.Replace("[APPROVEDON]", q.First.ApprDate.Value.ToString("dd/MM/yyyy"))
@@ -315,4 +384,11 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
         End If
 
     End Function
+
+    Protected Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Response.Redirect(NavigateURL(PS.LoginTabId) & "?returnurl=" & Server.UrlEncode(Request.Url.ToString))
+
+
+    End Sub
 End Class
