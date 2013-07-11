@@ -3501,16 +3501,16 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim SpouseId As Integer = StaffBrokerFunctions.GetSpouseId(theRmb.UserId)
 
             'Generate the attachment
-            Dim input As WebRequest = WebRequest.Create(Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "/DesktopModules/AgapeConnect/StaffRmb/RmbPrintout.aspx?RmbNo=" & theRmb.RMBNo & "&UID=" & theRmb.UserId)
+            'Dim input As WebRequest = WebRequest.Create(Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "/DesktopModules/AgapeConnect/StaffRmb/RmbPrintout.aspx?RmbNo=" & theRmb.RMBNo & "&UID=" & theRmb.UserId)
 
-            Dim webResponse As Stream = input.GetResponse().GetResponseStream
-            Dim oReader As New StreamReader(webResponse, Encoding.ASCII)
-            Dim oWriter As New StreamWriter(Server.MapPath("/Portals/" & PortalId & "/RmbForm" & theRmb.RMBNo & ".htm"))
+            'Dim webResponse As Stream = input.GetResponse().GetResponseStream
+            'Dim oReader As New StreamReader(webResponse, Encoding.ASCII)
+            'Dim oWriter As New StreamWriter(Server.MapPath("/Portals/" & PortalId & "/RmbForm" & theRmb.RMBNo & ".htm"))
 
-            oWriter.Write(oReader.ReadToEnd)
-            oWriter.Close()
-            oReader.Close()
-            webResponse.Close()
+            'oWriter.Write(oReader.ReadToEnd)
+            'oWriter.Close()
+            'oReader.Close()
+            'webResponse.Close()
 
             Dim Auth = UserController.GetUserById(PortalId, Settings("AuthUser"))
             Dim AuthAuth = UserController.GetUserById(PortalId, Settings("AuthAuthUser"))
@@ -3535,7 +3535,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 message = message.Replace("[STAFFACTION]", Translate("NoPostReceipts"))
             End If
 
-            message = message.Replace("[PRINTOUT]", "<a href='" & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/StaffRmb/RmbPrintout.aspx?RmbNo=" & theRmb.RMBNo & "&UID=" & theRmb.UserId & "' target-'_blank'><div style='text-align: center; width: 122px; margin: 10px;'><img src='" _
+            message = message.Replace("[PRINTOUT]", "<a href='" & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/StaffRmb/RmbPrintout.aspx?RmbNo=" & theRmb.RMBNo & "&UID=" & theRmb.UserId & "' target-'_blank' style='width: 134px; display:block;)'><div style='text-align: center; width: 122px; margin: 10px;'><img src='" _
                 & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/StaffRmb/Images/PrintoutIcon.jpg' /><br />Printout</div></a><style> a div:hover{border: solid 1px blue;}</style>")
 
 
@@ -3573,7 +3573,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     message2 = message2.Replace("[COMMENTS]", "")
                 End If
                 'DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", Left(toEmail, toEmail.Length - 1), "donotreply@agape.org.uk", "Reimbursement for " & UserInfo.FirstName & " " & UserInfo.LastName, message2, "", "HTML", "", "", "", "")
-                DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, Server.MapPath("/Portals/" & PortalId & "/RmbForm" & theRmb.RMBNo & ".htm"), "HTML", "", "", "", "")
+                DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
             Else
                 'Personal Reimbursement
 
@@ -3598,7 +3598,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 End If
                 If toEmail.Length > 0 Then
                     ' DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", Left(toEmail, toEmail.Length - 1), "donotreply@agape.org.uk", "Reimbursement for " & UserInfo.FirstName & " " & UserInfo.LastName, message2, "", "HTML", "", "", "", "")
-                    DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, Server.MapPath("/Portals/" & PortalId & "/RmbForm" & theRmb.RMBNo & ".htm"), "HTML", "", "", "", "")
+                    DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
 
                 End If
 
@@ -3610,7 +3610,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
             '  DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", UserInfo.Email, "donotreply@agape.org.uk", "Reimbursement #" & theRmb.RMBNo, message, Server.MapPath("/Portals/0/RmbForm" & theRmb.RMBNo & ".htm"), "HTML", "", "", "", "")
-            DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", UserInfo.Email, "", Translate("EmailSubmittedSubject").Replace("[RMBNO]", theRmb.RID), message, Server.MapPath("/Portals/" & PortalId & "/RmbForm" & theRmb.RMBNo & ".htm"), "HTML", "", "", "", "")
+            DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", UserInfo.Email, "", Translate("EmailSubmittedSubject").Replace("[RMBNO]", theRmb.RID), message, "", "HTML", "", "", "", "")
 
 
 
