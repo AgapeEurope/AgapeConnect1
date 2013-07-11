@@ -227,7 +227,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
 
-                ltSplash.Text = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbSplash", PortalId))
+
 
                 If hfRmbNo.Value <> "" Then
                     If CInt(hfRmbNo.Value) < 0 Then
@@ -235,6 +235,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Else
                         LoadRmb(hfRmbNo.Value)
                     End If
+                Else
+                    ltSplash.Text = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbSplash", PortalId))
                 End If
 
 
@@ -3527,11 +3529,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Else
                 message = message.Replace("[EXTRA]", "")
             End If
-            If (From c In theRmb.AP_Staff_RmbLines Where c.Receipt = True).Count > 0 Then
+            If (From c In theRmb.AP_Staff_RmbLines Where c.Receipt = True And (Not c.ReceiptImageId Is Nothing)).Count > 0 Then
                 message = message.Replace("[STAFFACTION]", Translate("PostReceipts"))
             Else
                 message = message.Replace("[STAFFACTION]", Translate("NoPostReceipts"))
             End If
+
+            message = message.Replace("[PRINTOUT]", "<a href='" & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/StaffRmb/RmbPrintout.aspx?RmbNo=" & theRmb.RMBNo & "&UID=" & theRmb.UserId & "' target-'_blank'><div style='text-align: center; width: 122px; margin: 10px;'><img src='" _
+                & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/StaffRmb/Images/PrintoutIcon.jpg' /><br />Printout</div></a><style> a div:hover{border: solid 1px blue;}</style>")
+
 
             Dim Approvers As String = ""
             ' Dim message2 As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("RmbApproverEmail", PortalId))
