@@ -37,7 +37,8 @@
             $('.sectionTotal').each(function() {
             calculateSectionTotal($(this).parent().parent().parent().parent());
             });
-            $('#<%= cbCompliance.ClientID%>').changed(function () {
+            $('#<%= cbCompliance.ClientID%>').change(function () {
+               
                 if (this.checked)
                     $('#<%= btnSubmit.ClientID%>').removeAttr("disabled");         
                     else
