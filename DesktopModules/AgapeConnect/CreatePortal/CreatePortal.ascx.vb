@@ -112,10 +112,16 @@ Namespace DotNetNuke.Modules.AgapeConnect
             objModules.UpdateTabModuleSetting(TabModuleId, "EntDay", 35)
             objModules.UpdateTabModuleSetting(TabModuleId, "MenuSize", 30)
             objModules.UpdateTabModuleSetting(TabModuleId, "UseDCode", True)
-        
+            objModules.UpdateTabModuleSetting(TabModuleId, "ElectronicReceipts", False)
+            objModules.UpdateTabModuleSetting(TabModuleId, "ShowRemBal", False)
+            objModules.UpdateTabModuleSetting(TabModuleId, "WarnIfNegative", False)
+            StaffBrokerFunctions.SetSetting("RmbDownload", False, thePortalId)
+
+
+
 
             ' objModules.UpdateTabModuleSetting(TabModuleId, "CurConverter", cbCurConverter.Checked)
-            StaffBrokerFunctions.SetSetting("CurConverter", False, PortalId)
+            StaffBrokerFunctions.SetSetting("CurConverter", False, thePortalId)
 
 
             objModules.UpdateTabModuleSetting(TabModuleId, "isLoaded", "Yes")
