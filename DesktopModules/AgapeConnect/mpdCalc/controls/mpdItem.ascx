@@ -1,0 +1,34 @@
+﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="mpdItem.ascx.vb"
+    Inherits="DotNetNuke.Modules.AgapeConnect.mpdItem" %>
+
+
+<div class="control-group">
+    <asp:Label ID="lblItemId" runat="server" class="version-number"></asp:Label>
+
+     <asp:Label ID="lblItemName" runat="server" class="control-label" ></asp:Label>
+    <asp:TextBox ID="tbEventName" runat="server" placeholder="Event Name"  class="control-label conf" Visible="false"></asp:TextBox>
+    <div class="controls">
+         
+
+        <div  class="span2 mpdColumn">
+            <div class="input-prepend">
+                <asp:Label ID="lblCur" runat="server" class="add-on"></asp:Label>
+                <asp:TextBox ID="tbMonthly" runat="server" placeholder="Monthly" class="mpdInput numeric monthly"></asp:TextBox>
+               
+            </div>
+
+        </div>
+
+        <div class="span2 mpdColumn">
+            <div class="input-prepend">
+                <asp:Label ID="lblCur2" runat="server" class="add-on" ></asp:Label>
+                <asp:TextBox ID="tbYearly" runat="server" placeholder="Yearly" class="mpdInput numeric yearly"></asp:TextBox>
+
+            </div>
+        </div>
+
+             <asp:Label ID="lblHelp" runat="server" class="help-inline mpd-help"></asp:Label>
+
+    <asp:LinkButton ID="btnEdit" runat="server" CssClass="mpdEdit" Visible="false">Edit</asp:LinkButton>
+    </div>
+</div>
