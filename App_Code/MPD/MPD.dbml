@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgapeConnect" Class="MPDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AgapeConnect;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AP_mpdCalc_Definition" Member="AP_mpdCalc_Definitions">
+    <Type Name="AP_mpdCalc_Definition">
+      <Column Name="mpdDefId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TabModuleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveFromYear" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="AssessmentRate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ShowComplience" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Complience" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_Section" Member="AP_mpdCalc_Sections" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpdCalc_Section" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_mpdCalc_Section" Member="AP_mpdCalc_Sections">
+    <Type Name="AP_mpdCalc_Section">
+      <Column Name="SectionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalMode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="mpdDefId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AP_mpdCalc_Section_AP_mpdCalc_Question" Member="AP_mpdCalc_Questions" ThisKey="SectionId" OtherKey="SectionId" Type="AP_mpdCalc_Question" />
+      <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_Section" Member="AP_mpdCalc_Definition" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpdCalc_Definition" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_mpdCalc_Question" Member="AP_mpdCalc_Questions">
+    <Type Name="AP_mpdCalc_Question">
+      <Column Name="QuestionId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SectionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Min" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Max" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Formula" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="NetRateType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TaxRate1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TaxRate1Threshold" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TaxRate2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TaxRate2Threshold" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TaxRate3" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TaxRate3Threshold" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="AP_mpdCalc_Section_AP_mpdCalc_Question" Member="AP_mpdCalc_Section" ThisKey="SectionId" OtherKey="SectionId" Type="AP_mpdCalc_Section" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
