@@ -11,7 +11,7 @@ Imports System.Web.UI.WebControls
 Imports System.Web.UI.WebControls.WebParts
 Imports DotNetNuke
 Imports DotNetNuke.Security
-
+Imports MPD
 
 Namespace DotNetNuke.Modules.AgapeConnect
     Partial Class mpdCalc
@@ -20,6 +20,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             hfAssessment.Value = 12.0
             itemCurrent.Monthly = 3000
+            Dim d As New MPDDataContext()
+
+            rpSections.DataSource = (From c In d.AP_mpdCalc_Sections Where c.AP_mpdCalc_Definition.TabModuleId = TabModuleId)
+
+            rpSections.DataBind()
+
+          
 
         End Sub
 
