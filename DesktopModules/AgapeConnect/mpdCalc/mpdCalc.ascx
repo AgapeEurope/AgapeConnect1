@@ -80,6 +80,16 @@
                     $('#<%= btnSubmit.ClientID%>').attr("disabled", "disabled");
             });
 
+
+
+            $('.btn-edit').click(function () {
+                
+                $('.mpd-edit').hide("slow");
+                $(this).parent().siblings('.mpd-edit').show("slow");
+                $('.btn-edit').show();
+                $(this).hide();
+            });
+
             handleFormulas();
 
         });
@@ -165,7 +175,7 @@
         padding-left: 10px;
     }
 
-    .mpdEdit {
+    .btn-edit {
         position: absolute;
         right: 8px;
     }
