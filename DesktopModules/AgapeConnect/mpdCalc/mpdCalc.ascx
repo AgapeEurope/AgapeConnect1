@@ -101,9 +101,16 @@
                 sum += parseFloat($(n).val().replace(/\,/g, ''))
 
         });
+        section.find('.net-tax-year').each(function (i, n) {
+            if ($(n).text().length > 0)
+                sum += parseFloat($(n).text().replace(/\,/g, ''))
+
+        });
 
         section.find('.section-total-yearly').text(sum.toFixed(0));
         section.find('.section-total-monthly').text((sum / 12).toFixed(0));
+        
+
         sum = 0.0;
         $('.sectionTotal').each(function (i, n) {
             if ($(n).text().length > 0)
