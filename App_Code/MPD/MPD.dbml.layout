@@ -14,10 +14,10 @@
         <elementListCompartment Id="ec1c4fb3-dbc0-47c4-b36a-0a7733dd1061" absoluteBounds="3.7650000000000006, 1.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7b167a54-64c2-4d58-9351-bbc8f9f6eb29" absoluteBounds="6.75, 1.125, 2, 3.6939111328124992">
+    <classShape Id="7b167a54-64c2-4d58-9351-bbc8f9f6eb29" absoluteBounds="6.75, 1.125, 2, 2.7324039713541666">
       <DataClassMoniker Name="/MPDDataContext/AP_mpdCalc_Question" />
       <nestedChildShapes>
-        <elementListCompartment Id="36275686-13dd-469d-b60b-d11ea2e503d2" absoluteBounds="6.765, 1.585, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="36275686-13dd-469d-b60b-d11ea2e503d2" absoluteBounds="6.765, 1.585, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(3 : 1.88544840494792); (3.75 : 1.88544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">

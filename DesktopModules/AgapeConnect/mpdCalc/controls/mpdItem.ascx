@@ -13,8 +13,10 @@
         <div  class="span2 mpdColumn">
             <div class="input-prepend">
                 <asp:Label ID="lblCur" runat="server" class="add-on"></asp:Label>
-                <asp:TextBox ID="tbMonthly" runat="server" placeholder="Monthly" class="mpdInput numeric monthly"></asp:TextBox>
-               
+                <asp:TextBox ID="tbMonthly" runat="server" placeholder="Monthly" class="mpdInput numeric monthly" Enabled="false"></asp:TextBox>
+                 <asp:Panel  ID="pnlNetTax" runat="server"  class="net-tax" Visible="False">(+<asp:Label ID="lblNetTax" runat="server" CssClass="net-tax-month">123.4</asp:Label> tax)</asp:Panel>
+
+                <asp:HiddenField ID="hfFormula" runat="server" Value="" />
             </div>
 
         </div>
@@ -22,12 +24,12 @@
         <div class="span2 mpdColumn">
             <div class="input-prepend">
                 <asp:Label ID="lblCur2" runat="server" class="add-on" ></asp:Label>
-                <asp:TextBox ID="tbYearly" runat="server" placeholder="Yearly" class="mpdInput numeric yearly"></asp:TextBox>
-
+                <asp:TextBox ID="tbYearly" runat="server" placeholder="Yearly" class="mpdInput numeric yearly" Enabled="false"></asp:TextBox>
+                <asp:Panel  ID="pnlNetTax2" runat="server"  class="net-tax" Visible="False">(+<asp:Label ID="lblNetTax2" runat="server"  CssClass="net-tax-year">123.4</asp:Label> tax)</asp:Panel>
             </div>
         </div>
 
-             <asp:Label ID="lblHelp" runat="server" class="help-inline mpd-help"></asp:Label>
+             <asp:Label ID="lblHelp" runat="server" class="help-inline mpd-help span5"></asp:Label>
 
     <asp:LinkButton ID="btnEdit" runat="server" CssClass="mpdEdit" Visible="false">Edit</asp:LinkButton>
     </div>

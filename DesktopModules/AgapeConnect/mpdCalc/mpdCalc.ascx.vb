@@ -18,15 +18,25 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Inherits Entities.Modules.PortalModuleBase
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
-            hfAssessment.Value = 12.0
+
             itemCurrent.Monthly = 3000
             Dim d As New MPDDataContext()
+            Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId
+            If theForm.Count > 0 Then
+                rpSections.DataSource = theForm.First.AP_mpdCalc_Sections
+                rpSections.DataBind()
 
-            rpSections.DataSource = (From c In d.AP_mpdCalc_Sections Where c.AP_mpdCalc_Definition.TabModuleId = TabModuleId)
+                hfAssessment.Value = theForm.First.AssessmentRate
+                If theForm.First.ShowComplience Then
+                    cbCompliance.Text = theForm.First.Complience
+                End If
+                cbCompliance.Visible = theForm.First.ShowComplience
 
-            rpSections.DataBind()
 
-          
+            End If
+           
+
+
 
         End Sub
 

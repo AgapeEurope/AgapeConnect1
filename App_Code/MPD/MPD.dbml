@@ -33,13 +33,8 @@
       <Column Name="Min" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
       <Column Name="Max" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
       <Column Name="Formula" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
-      <Column Name="NetRateType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="TaxRate1" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TaxRate1Threshold" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="TaxRate2" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TaxRate2Threshold" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="TaxRate3" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="TaxRate3Threshold" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Help" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AccountCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Association Name="AP_mpdCalc_Section_AP_mpdCalc_Question" Member="AP_mpdCalc_Section" ThisKey="SectionId" OtherKey="SectionId" Type="AP_mpdCalc_Section" IsForeignKey="true" />
     </Type>
   </Table>

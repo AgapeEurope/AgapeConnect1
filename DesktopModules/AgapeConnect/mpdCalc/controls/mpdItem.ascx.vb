@@ -41,13 +41,51 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             End Get
             Set(ByVal value As String)
-                tbYearly.Enabled = False
+
                 If (value <> "") Then
                     tbYearly.Text = (12 * CDbl(value)).ToString("n2", New CultureInfo("en-US"))
                     tbMonthly.Text = CDbl(value).ToString("n2", New CultureInfo("en-US"))
                 End If
 
 
+            End Set
+        End Property
+
+        Private _mode As String
+        Public Property Mode() As String
+            Get
+                Return _mode
+            End Get
+            Set(ByVal value As String)
+                _mode = value
+                If value.Contains("MONTH") Then
+                    tbMonthly.Enabled = True
+                ElseIf value.Contains("YEAR") Then
+                    tbYearly.Enabled = True
+                ElseIf value.Contains("CALCULATED") Then
+                    tbMonthly.Attributes("class") &= " calculated"
+
+                End If
+
+                If value.Contains("NET") Then
+                    pnlNetTax.Visible = True
+                    pnlNetTax2.Visible = True
+                    tbMonthly.Attributes("class") &= " net"
+                    tbYearly.Attributes("class") &= " net"
+                End If
+
+
+            End Set
+        End Property
+
+        Private _formula As String
+        Public Property Formula() As String
+            Get
+                Return _formula
+            End Get
+            Set(ByVal value As String)
+                _formula = value
+                hfFormula.Value = value
             End Set
         End Property
 
@@ -58,7 +96,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 'Return Double.Parse(tbYearly.Text, New CultureInfo("en-US").NumberFormat)
             End Get
             Set(ByVal value As String)
-                tbMonthly.Enabled = False
+
                 If (value <> "") Then
                     tbMonthly.Text = (CDbl(value) / 12).ToString("n2", New CultureInfo("en-US"))
                     tbYearly.Text = CDbl(value).ToString("n2", New CultureInfo("en-US"))
@@ -148,8 +186,15 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
-            lblCur.Text = StaffBrokerFunctions.GetSetting("Currency", PortalId)
-            lblCur2.Text = lblCur.Text
+            If _mode.Contains("NET_MONTH") Then
+                lblCur.Text = "NET"
+                lblCur2.Text = "NET"
+            Else
+                lblCur.Text = StaffBrokerFunctions.GetSetting("Currency", PortalId)
+                lblCur2.Text = lblCur.Text
+
+            End If
+
             btnEdit.Visible = IsEditMode()
 
 
