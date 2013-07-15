@@ -82,7 +82,36 @@
 
 
 
-           
+            $('.mpd-tax-detail input').keyup(function() {
+                var ddl=$(this).parent().parent().parent().parent().find('.mpd-tax-mode');
+                var m = $(ddl).val();
+                var f = '';
+                if (m == 'FIXED_RATE') {
+                    var r = $(ddl).siblings('.mpd-tax-rate').find('.mpd-tax-rate-rate').val();
+                     f = '{NET} / ( ( 100 / ' + r + ' ) -1 )';
+                     $(ddl).parent().find('.tax-formula').val(f);
+                }
+                else if (m == 'FIXED_AMOUNT') {
+                    f = $(ddl).siblings('.mpd-tax-fixed').find('.mpd-tax-fixed-fixed').val();
+                    $(ddl).parent().find('.tax-formula').val(f);
+                }
+                else if (m == 'ALLOWANCE') {
+                    //TODO: Generate Allowance Formula
+                    // $(this).siblings('.mpd-tax-allowance').show();
+                    $(ddl).parent().find('.tax-formula').val(f);
+                }
+                else if (m == 'BANDS') {
+                    //TODO: Generate BANDS formula
+                    // $(this).siblings('.mpd-tax-bands').show();
+                    $(ddl).parent().find('.tax-formula').val(f);
+                }
+                else if (m == 'Custom') {
+                  //Do Validation?
+                }
+
+                
+
+            })
 
             $('.mpd-edit-mode').change(function () {
                 

@@ -151,12 +151,12 @@
 
                     <div  class="mpd-tax-rate mpd-tax-detail"  >
                          <div class="span1" style="width: 100px">Tax Rate:</div>
-                        <input id="tbRate" type="text" placeholder="Tax Rate" class="numeric span1" style="width: 60px"  />%
+                        <input id="tbRate" type="text" placeholder="Tax Rate" class="numeric span1 mpd-tax-rate-rate" style="width: 60px"  />%
 
                     </div>
                      <div  class="mpd-tax-fixed mpd-tax-detail" style="display: none;" >
                          <div class="span1" style="width: 100px">Tax Rate:</div>
-                         <input id="tbAmount" type="text" placeholder="Tax amount" style="width: 80px; " class="numeric span1" />
+                         <input id="tbAmount" type="text" placeholder="Tax amount" style="width: 80px; " class="numeric span1 mpd-tax-fixed-fixed" />
 
                      </div>
                     <div class="mpd-tax-allowance  mpd-tax-detail" style="display:none;">
