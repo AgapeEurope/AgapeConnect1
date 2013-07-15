@@ -74,7 +74,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     tbYearly.Attributes("class") &= " net"
                 End If
 
-
+           
             End Set
         End Property
 
@@ -144,6 +144,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 lblHelp.Text = value
             End Set
         End Property
+
+
         Public Property ItemId() As String
             Get
                 Return lblItemId.Text
@@ -195,8 +197,28 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             End If
 
-            btnEdit.Visible = IsEditMode()
 
+            If IsEditMode() Then
+                btnEdit.Visible = True
+                Dim d As New StaffBrokerDataContext
+                ddlAccount.DataSource = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Order By c.AccountCode Select c.AccountCode, Name = c.AccountCode & "-" & c.AccountCodeName
+
+                ddlAccount.DataTextField = "Name"
+                ddlAccount.DataValueField = "AccountCode"
+                ddlAccount.DataBind()
+
+                ddlMode.SelectedValue = _mode
+                tbFormula.Text = _formula
+                If lblItemId.Text.Contains(".") Then
+                    tbNumber.Text = lblItemId.Text.Substring(lblItemId.Text.IndexOf(".") + 1)
+                    lblIdPrefix.Text = lblItemId.Text.Substring(0, lblItemId.Text.IndexOf(".") + 1)
+                End If
+
+                tbHelp.Text = lblHelp.Text
+                tbName.Text = lblItemName.Text
+
+
+            End If
 
         End Sub
 

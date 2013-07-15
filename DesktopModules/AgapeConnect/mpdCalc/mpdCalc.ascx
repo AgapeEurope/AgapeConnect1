@@ -82,10 +82,65 @@
 
 
 
+           
+
+            $('.mpd-edit-mode').change(function () {
+                
+                
+                var m = $(this).val();
+                $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-mode-detail').hide();
+                if (m == 'CALCULATED') {
+                    $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-formula').show();
+                }
+                else if (m == 'NET_MONTH' || m == 'NET_YEAR') {
+                    $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-net').show();
+                }
+              
+             });
+
+            $('.mpd-tax-mode').change(function () {
+                $(this).parent().find('.tax-formula').attr('disabled', 'disabled');
+
+                var m = $(this).val();
+                
+                $(this).siblings('.mpd-tax-detail').hide();
+                if (m == 'FIXED_RATE') {
+                    $(this).siblings('.mpd-tax-rate').show();
+                }
+                else if (m == 'FIXED_AMOUNT') {
+                    $(this).siblings('.mpd-tax-fixed').show();
+                }
+                else if (m == 'ALLOWANCE') {
+                    $(this).siblings('.mpd-tax-allowance').show();
+                }
+                else if (m == 'BANDS') {
+                    $(this).siblings('.mpd-tax-bands').show();
+                }
+                else if (m == 'Custom') {
+                    $(this).siblings('.tax-custom-help').show();
+                    $(this).parent().find('.tax-formula').removeAttr('disabled');
+                }
+
+
+            });
+
+            $('#edit-cancel').click(function () {
+                $('.mpd-edit').hide("slow");
+                $('.btn-edit').show();
+            });
+
             $('.btn-edit').click(function () {
                 
                 $('.mpd-edit').hide("slow");
+
+              
+
+
                 $(this).parent().siblings('.mpd-edit').show("slow");
+
+
+
+
                 $('.btn-edit').show();
                 $(this).hide();
             });
@@ -229,6 +284,23 @@
         font-size: small;
         color: gray;
         font-style: italic;
+    }
+    .mpd-edit {
+        margin-top: 10px;
+        }
+    .comment {
+         font-size: x-small;
+         font-weight: bold;
+    }
+    .exFormula {
+        width: 100%;
+        text-align: center;
+        font-family: 'Courier New';
+        font-size: small;
+    }
+    .valid, .invalid{
+        margin-top: 5px;
+        float:right;
     }
 </style>
 
