@@ -553,6 +553,24 @@ Namespace MPD
 		
 		Private _AccountCode As String
 		
+		Private _Rate1 As System.Nullable(Of Double)
+		
+		Private _Threshold1 As System.Nullable(Of Decimal)
+		
+		Private _Rate2 As System.Nullable(Of Double)
+		
+		Private _Threshold2 As System.Nullable(Of Decimal)
+		
+		Private _Rate3 As System.Nullable(Of Double)
+		
+		Private _Threshold3 As System.Nullable(Of Decimal)
+		
+		Private _Rate4 As System.Nullable(Of Double)
+		
+		Private _Fixed As System.Nullable(Of Decimal)
+		
+		Private _TaxSystem As String
+		
 		Private _AP_mpdCalc_Section As EntityRef(Of AP_mpdCalc_Section)
 		
     #Region "Extensibility Method Definitions"
@@ -601,6 +619,42 @@ Namespace MPD
     Partial Private Sub OnAccountCodeChanging(value As String)
     End Sub
     Partial Private Sub OnAccountCodeChanged()
+    End Sub
+    Partial Private Sub OnRate1Changing(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnRate1Changed()
+    End Sub
+    Partial Private Sub OnThreshold1Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnThreshold1Changed()
+    End Sub
+    Partial Private Sub OnRate2Changing(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnRate2Changed()
+    End Sub
+    Partial Private Sub OnThreshold2Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnThreshold2Changed()
+    End Sub
+    Partial Private Sub OnRate3Changing(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnRate3Changed()
+    End Sub
+    Partial Private Sub OnThreshold3Changing(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnThreshold3Changed()
+    End Sub
+    Partial Private Sub OnRate4Changing(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnRate4Changed()
+    End Sub
+    Partial Private Sub OnFixedChanging(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnFixedChanged()
+    End Sub
+    Partial Private Sub OnTaxSystemChanging(value As String)
+    End Sub
+    Partial Private Sub OnTaxSystemChanged()
     End Sub
     #End Region
 		
@@ -728,7 +782,7 @@ Namespace MPD
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Formula", DbType:="NVarChar(400)")>  _
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Formula", DbType:="NVarChar(MAX)")>  _
 		Public Property Formula() As String
 			Get
 				Return Me._Formula
@@ -772,6 +826,150 @@ Namespace MPD
 					Me._AccountCode = value
 					Me.SendPropertyChanged("AccountCode")
 					Me.OnAccountCodeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Rate1", DbType:="Float")>  _
+		Public Property Rate1() As System.Nullable(Of Double)
+			Get
+				Return Me._Rate1
+			End Get
+			Set
+				If (Me._Rate1.Equals(value) = false) Then
+					Me.OnRate1Changing(value)
+					Me.SendPropertyChanging
+					Me._Rate1 = value
+					Me.SendPropertyChanged("Rate1")
+					Me.OnRate1Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Threshold1", DbType:="Money")>  _
+		Public Property Threshold1() As System.Nullable(Of Decimal)
+			Get
+				Return Me._Threshold1
+			End Get
+			Set
+				If (Me._Threshold1.Equals(value) = false) Then
+					Me.OnThreshold1Changing(value)
+					Me.SendPropertyChanging
+					Me._Threshold1 = value
+					Me.SendPropertyChanged("Threshold1")
+					Me.OnThreshold1Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Rate2", DbType:="Float")>  _
+		Public Property Rate2() As System.Nullable(Of Double)
+			Get
+				Return Me._Rate2
+			End Get
+			Set
+				If (Me._Rate2.Equals(value) = false) Then
+					Me.OnRate2Changing(value)
+					Me.SendPropertyChanging
+					Me._Rate2 = value
+					Me.SendPropertyChanged("Rate2")
+					Me.OnRate2Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Threshold2", DbType:="Money")>  _
+		Public Property Threshold2() As System.Nullable(Of Decimal)
+			Get
+				Return Me._Threshold2
+			End Get
+			Set
+				If (Me._Threshold2.Equals(value) = false) Then
+					Me.OnThreshold2Changing(value)
+					Me.SendPropertyChanging
+					Me._Threshold2 = value
+					Me.SendPropertyChanged("Threshold2")
+					Me.OnThreshold2Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Rate3", DbType:="Float")>  _
+		Public Property Rate3() As System.Nullable(Of Double)
+			Get
+				Return Me._Rate3
+			End Get
+			Set
+				If (Me._Rate3.Equals(value) = false) Then
+					Me.OnRate3Changing(value)
+					Me.SendPropertyChanging
+					Me._Rate3 = value
+					Me.SendPropertyChanged("Rate3")
+					Me.OnRate3Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Threshold3", DbType:="Money")>  _
+		Public Property Threshold3() As System.Nullable(Of Decimal)
+			Get
+				Return Me._Threshold3
+			End Get
+			Set
+				If (Me._Threshold3.Equals(value) = false) Then
+					Me.OnThreshold3Changing(value)
+					Me.SendPropertyChanging
+					Me._Threshold3 = value
+					Me.SendPropertyChanged("Threshold3")
+					Me.OnThreshold3Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Rate4", DbType:="Float")>  _
+		Public Property Rate4() As System.Nullable(Of Double)
+			Get
+				Return Me._Rate4
+			End Get
+			Set
+				If (Me._Rate4.Equals(value) = false) Then
+					Me.OnRate4Changing(value)
+					Me.SendPropertyChanging
+					Me._Rate4 = value
+					Me.SendPropertyChanged("Rate4")
+					Me.OnRate4Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Fixed", DbType:="Money")>  _
+		Public Property Fixed() As System.Nullable(Of Decimal)
+			Get
+				Return Me._Fixed
+			End Get
+			Set
+				If (Me._Fixed.Equals(value) = false) Then
+					Me.OnFixedChanging(value)
+					Me.SendPropertyChanging
+					Me._Fixed = value
+					Me.SendPropertyChanged("Fixed")
+					Me.OnFixedChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TaxSystem", DbType:="NVarChar(20)")>  _
+		Public Property TaxSystem() As String
+			Get
+				Return Me._TaxSystem
+			End Get
+			Set
+				If (String.Equals(Me._TaxSystem, value) = false) Then
+					Me.OnTaxSystemChanging(value)
+					Me.SendPropertyChanging
+					Me._TaxSystem = value
+					Me.SendPropertyChanged("TaxSystem")
+					Me.OnTaxSystemChanged
 				End If
 			End Set
 		End Property

@@ -32,9 +32,18 @@
       <Column Name="Type" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="Min" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
       <Column Name="Max" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
-      <Column Name="Formula" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Formula" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Help" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="AccountCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Rate1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Threshold1" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Rate2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Threshold2" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Rate3" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Threshold3" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Rate4" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Fixed" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TaxSystem" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Association Name="AP_mpdCalc_Section_AP_mpdCalc_Question" Member="AP_mpdCalc_Section" ThisKey="SectionId" OtherKey="SectionId" Type="AP_mpdCalc_Section" IsForeignKey="true" />
     </Type>
   </Table>

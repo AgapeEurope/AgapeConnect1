@@ -34,6 +34,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
+
         Public Property Monthly() As String
             Get
                 Return tbMonthly.Text
@@ -105,6 +106,28 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End Set
         End Property
 
+        Public Property Min() As String
+            Get
+                Return ""
+
+            End Get
+            Set(ByVal value As String)
+                tbMonthly.Attributes.Add("data-min", value)
+                tbYearly.Attributes.Add("data-min", "(" & value & ") * 12")
+
+            End Set
+        End Property
+        Public Property Max() As String
+            Get
+                Return ""
+
+            End Get
+            Set(ByVal value As String)
+                tbMonthly.Attributes.Add("data-max", value)
+                tbYearly.Attributes.Add("data-max", "(" & value & ") * 12")
+            End Set
+        End Property
+
         Public Property IsCurrentSupport() As Boolean
             Get
                 Return False
@@ -121,6 +144,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             End Set
         End Property
+
+
+
         Public Property ItemName() As String
             Get
                 Return lblItemName.Text
@@ -155,6 +181,111 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End Set
         End Property
 
+
+        Public Property QuestionId() As Integer
+            Get
+                Return hfQuestionId.Value
+            End Get
+            Set(ByVal value As Integer)
+                hfQuestionId.Value = value
+            End Set
+        End Property
+
+
+        Public Property Threshold1() As Nullable(Of Double)
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Nullable(Of Double))
+                If Not value Is Nothing Then
+                    tbThreshold1.Text = value
+                    tbAllowance.Text = value
+                End If
+            End Set
+        End Property
+        Public Property Threshold2() As Nullable(Of Double)
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Nullable(Of Double))
+                If Not value Is Nothing Then
+                    tbThreshold2.Text = value
+                End If
+            End Set
+        End Property
+        Public Property Threshold3() As Nullable(Of Double)
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Nullable(Of Double))
+                If Not value Is Nothing Then
+                    tbThreshold3.Text = value
+                End If
+
+            End Set
+        End Property
+        Public Property Rate1() As Nullable(Of Double)
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Nullable(Of Double))
+                If Not value Is Nothing Then
+                    tbRate1.Text = value
+                    tbRate.Text = value
+                End If
+            End Set
+        End Property
+        Public Property Rate2() As Nullable(Of Double)
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Nullable(Of Double))
+                If Not value Is Nothing Then
+                    tbRate2.Text = value
+                    tbAllowanceRate.Text = value
+                End If
+            End Set
+        End Property
+        Public Property Rate3() As Nullable(Of Double)
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Nullable(Of Double))
+                If Not value Is Nothing Then
+                    tbRate3.Text = value
+                End If
+
+            End Set
+        End Property
+        Public Property Rate4() As Nullable(Of Double)
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Nullable(Of Double))
+                If Not value Is Nothing Then
+                    tbRate4.Text = value
+                End If
+            End Set
+        End Property
+        Public Property Fixed() As Double
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As Double)
+                tbAmount.Text = value
+            End Set
+        End Property
+
+        Public Property TaxSystem() As String
+            Get
+                Return 0
+            End Get
+            Set(ByVal value As String)
+                If Not TaxOptions.Items.FindByValue(value) Is Nothing Then
+                    TaxOptions.SelectedValue = value
+                End If
+            End Set
+        End Property
         Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
             Dim FileName As String = System.IO.Path.GetFileNameWithoutExtension(Me.AppRelativeVirtualPath)
             If Not (Me.ID Is Nothing) Then
@@ -188,38 +319,49 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
-            If _mode.Contains("NET_MONTH") Then
-                lblCur.Text = "NET"
-                lblCur2.Text = "NET"
-            Else
-                lblCur.Text = StaffBrokerFunctions.GetSetting("Currency", PortalId)
-                lblCur2.Text = lblCur.Text
-
-            End If
+            If Not Page.IsPostBack Then
 
 
-            If IsEditMode() Then
-                btnEdit.Visible = True
-                Dim d As New StaffBrokerDataContext
-                ddlAccount.DataSource = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Order By c.AccountCode Select c.AccountCode, Name = c.AccountCode & "-" & c.AccountCodeName
+                If _mode.Contains("NET") Then
+                    lblCur.Text = "NET"
+                    lblCur2.Text = "NET"
 
-                ddlAccount.DataTextField = "Name"
-                ddlAccount.DataValueField = "AccountCode"
-                ddlAccount.DataBind()
+                Else
+                    lblCur.Text = StaffBrokerFunctions.GetSetting("Currency", PortalId)
+                    lblCur2.Text = lblCur.Text
 
-                ddlMode.SelectedValue = _mode
-                tbFormula.Text = _formula
-                If lblItemId.Text.Contains(".") Then
-                    tbNumber.Text = lblItemId.Text.Substring(lblItemId.Text.IndexOf(".") + 1)
-                    lblIdPrefix.Text = lblItemId.Text.Substring(0, lblItemId.Text.IndexOf(".") + 1)
                 End If
 
-                tbHelp.Text = lblHelp.Text
-                tbName.Text = lblItemName.Text
+
+                If IsEditMode() Then
+                    btnEdit.Visible = True
+                    Dim d As New StaffBrokerDataContext
+                    ddlAccount.DataSource = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Order By c.AccountCode Select c.AccountCode, Name = c.AccountCode & "-" & c.AccountCodeName
+
+                    ddlAccount.DataTextField = "Name"
+                    ddlAccount.DataValueField = "AccountCode"
+                    ddlAccount.DataBind()
+
+                    ddlMode.SelectedValue = _mode
+                    If _mode.Contains("NET_MONTH") Then
+                        hfTaxFormula.Value = _formula
+                        tbTaxFormula.Text = _formula
+                    ElseIf _mode = "CALCULATED" Then
+
+                        tbFormula.Text = _formula
+                    End If
+
+                    If lblItemId.Text.Contains(".") Then
+                        tbNumber.Text = lblItemId.Text.Substring(lblItemId.Text.IndexOf(".") + 1)
+                        lblIdPrefix.Text = lblItemId.Text.Substring(0, lblItemId.Text.IndexOf(".") + 1)
+                    End If
+
+                    tbHelp.Text = lblHelp.Text
+                    tbName.Text = lblItemName.Text
 
 
+                End If
             End If
-
         End Sub
 
 
@@ -237,6 +379,88 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
+        Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+            Dim d As New MPD.MPDDataContext
+
+            Dim q = From c In d.AP_mpdCalc_Questions Where c.QuestionId = QuestionId
+
+            If q.Count > 0 Then
+                q.First.Name = tbName.Text
+                q.First.QuestionNumber = tbNumber.Text
+                q.First.Help = tbHelp.Text
+
+                q.First.Type = ddlMode.SelectedValue
+                If q.First.Type = "CALCULATED" Then
+                    q.First.Formula = tbFormula.Text
+                ElseIf ddlMode.SelectedValue.Contains("NET") Then
+                    q.First.TaxSystem = TaxOptions.SelectedValue
+                    q.First.Threshold1 = Nothing
+                    q.First.Threshold2 = Nothing
+                    q.First.Threshold3 = Nothing
+                    q.First.Rate1 = Nothing
+                    q.First.Rate2 = Nothing
+                    q.First.Rate3 = Nothing
+                    q.First.Rate4 = Nothing
+                    q.First.Fixed = Nothing
+
+
+                    Select Case TaxOptions.SelectedValue
+                        Case "FIXED_RATE"
+                            q.First.Rate1 = tbRate.Text
+                            q.First.Formula = hfTaxFormula.Value
+                        Case "FIXED_AMOUNT"
+                            q.First.Fixed = tbAmount.Text
+                            q.First.Formula = hfTaxFormula.Value
+                        Case "ALLOWANCE"
+                            q.First.Threshold1 = tbAllowance.Text
+                            q.First.Rate1 = 0.0
+                            q.First.Rate2 = tbAllowanceRate.Text
+                            q.First.Formula = hfTaxFormula.Value
+                        Case "BANDS"
+                            If tbThreshold1.Text <> "" Then
+                                q.First.Threshold1 = CDbl(tbThreshold1.Text)
+                            End If
+                            If tbThreshold2.Text <> "" Then
+                                q.First.Threshold2 = CDbl(tbThreshold2.Text)
+                            End If
+                            If tbThreshold3.Text <> "" Then
+                                q.First.Threshold3 = CDbl(tbThreshold3.Text)
+                            End If
+                            If tbRate1.Text <> "" Then
+                                q.First.Rate1 = CDbl(tbRate1.Text)
+                            End If
+                            If tbRate2.Text <> "" Then
+                                q.First.Rate2 = CDbl(tbRate2.Text)
+                            End If
+                            If tbRate3.Text <> "" Then
+                                q.First.Rate3 = CDbl(tbRate3.Text)
+                            End If
+                            If tbRate4.Text <> "" Then
+                                q.First.Rate4 = CDbl(tbRate4.Text)
+                            End If
+                         
+                            q.First.Formula = hfTaxFormula.Value
+                        Case Else
+                            q.First.Formula = tbTaxFormula.Text
+
+                    End Select
+
+                  
+
+                Else
+                    q.First.Formula = ""
+                End If
+                If tbMin.Text = "" Then
+                    tbMin.Text = 0
+                End If
+
+                q.First.AccountCode = ddlAccount.SelectedValue
+                q.First.Min = tbMin.Text
+                q.First.Max = tbMax.Text
+            End If
+            d.SubmitChanges()
+            Response.Redirect(NavigateURL())
+        End Sub
     End Class
 End Namespace
 

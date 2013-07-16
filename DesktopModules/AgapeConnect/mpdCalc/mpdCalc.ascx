@@ -8,8 +8,50 @@
 <script src="/Portals/_default/Skins/AgapeBlue/bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+    function replaceTags(f) {
+        //Replace ItemValue Taxs {1.1}
+        $('.version-number').each(function () {
+            var v = $(this).parent().find('.monthly').val();
+            v = v == '' ? 0 : v;
 
 
+            f = f.replace(/'{' + $(this).text() + '}'/g, v);
+
+             
+        });
+      
+        //Replace Age Tag {AGE}
+        var age = <%= Age1%> ;
+     
+        if(age>0) f = f.replace(/{AGE}/g, age);
+        
+        if ('<%= IsCouple() %>' == 'True'){
+            var age2 = <%= Age2%> ;
+            if(age2>0) f = f.replace(/{AGE2}/g, age2);
+        }
+        
+        f = f.replace(/{STAFFTYPE}/g, '<%=StaffType %>');
+        f = f.replace(/{ISCOUPLE}/g, '<%=IsCouple %>');
+        
+        f = f.replace(/{AGE}/g, '');
+        f = f.replace(/{AGE2}/g, '');
+        f = f.replace(/{STAFFTYPE}/g, '');
+        f = f.replace(/{ISCOUPLE}/g, '');
+        return f;
+    }
+    function setMinMax(m){
+        var min = $(m).attr('data-min');
+        var max = $(m).attr('data-max');
+
+        min = replaceTags(min);
+        max = replaceTags(max);
+        if (min=='') $(m).removeAttr('min');
+        else $(m).attr('min',eval(min));
+                
+        if (max=='') $(m).removeAttr('max');
+        else $(m).attr('max',eval(max));
+       
+    }
 
     (function ($, Sys) {
 
@@ -22,9 +64,16 @@
             $('.aButton').button();
 
 
+            $('.monthly').each(function() { setMinMax($(this))});
 
+            $('.yearly').each(function() {setMinMax($(this))});
 
             $('.monthly').keyup(function () {
+                //SetValidation
+                setMinMax($(this));
+
+
+
                 if ($(this).val().length > 0)
                     $(this).parent().parent().siblings().find('.yearly').val((parseFloat($(this).val()) * 12).toFixed(0));
 
@@ -34,8 +83,10 @@
                 if ($(this).hasClass('net')) {
                     var f = $(this).siblings("input['type'='hidden']").val();
 
-                    f = f.replace("{NET}", $(this).val());
-
+                    f = f.replace(/\{NET}/g, $(this).val());
+                    f=replaceTags(f);
+                    console.log(f)
+                   // alert(f);
                     $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
                     $(this).parent().parent().siblings().find('.net-tax-year').text((eval(f) * 12.0).toFixed(0));
@@ -43,6 +94,7 @@
 
                 }
                 calculateSectionTotal($(this).parent().parent().parent().parent().parent());
+                
             });
 
 
@@ -50,6 +102,7 @@
 
 
             $('.yearly').keyup(function () {
+                setMinMax($(this));
                 var monthly = $(this).parent().parent().siblings().find('.monthly');
                 if ($(this).val().length > 0)
                     $(monthly).val((parseFloat($(this).val()) / 12).toFixed(0));
@@ -82,31 +135,82 @@
 
 
 
-            $('.mpd-tax-detail input').keyup(function() {
-                var ddl=$(this).parent().parent().parent().parent().find('.mpd-tax-mode');
+            $('.mpd-tax-detail input').keyup(function () {
+                
+                var ddl = $(this).parent().parent().parent().parent().parent().find('.mpd-tax-mode');
                 var m = $(ddl).val();
+                
                 var f = '';
                 if (m == 'FIXED_RATE') {
-                    var r = $(ddl).siblings('.mpd-tax-rate').find('.mpd-tax-rate-rate').val();
-                     f = '{NET} / ( ( 100 / ' + r + ' ) -1 )';
-                     $(ddl).parent().find('.tax-formula').val(f);
+                    var r = $(ddl).siblings('.mpd-tax-rate').find('.rate').val();
+                     f = '(({NET}*12) / ( ( 100 / ' + r + ' ) -1 ))/12';
+                     $(ddl).parent().find('.tax-formula').text(f);
+                     $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
                 }
                 else if (m == 'FIXED_AMOUNT') {
-                    f = $(ddl).siblings('.mpd-tax-fixed').find('.mpd-tax-fixed-fixed').val();
-                    $(ddl).parent().find('.tax-formula').val(f);
+                    f = $(ddl).siblings('.mpd-tax-fixed').find('.fixed').val();
+                    $(ddl).parent().find('.tax-formula').text(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
                 }
                 else if (m == 'ALLOWANCE') {
                     //TODO: Generate Allowance Formula
                     // $(this).siblings('.mpd-tax-allowance').show();
-                    $(ddl).parent().find('.tax-formula').val(f);
+                    var r = $(ddl).siblings('.mpd-tax-allowance').find('.rate').val();
+                    var th = $(ddl).siblings('.mpd-tax-allowance').find('.threshold').val();
+                    f = 'Math.max((({NET}*12)-' + th + '/ ( ( 100 / ' + r + ' ) -1 ),0)/12';
+                    $(ddl).parent().find('.tax-formula').text(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
+
                 }
                 else if (m == 'BANDS') {
-                    //TODO: Generate BANDS formula
-                    // $(this).siblings('.mpd-tax-bands').show();
-                    $(ddl).parent().find('.tax-formula').val(f);
+                  
+                    var r1 = $(ddl).siblings('.mpd-tax-bands').find('.rate1').val();
+                    
+                    var th1 = $(ddl).siblings('.mpd-tax-bands').find('.threshold1').val();
+                    var r2 = $(ddl).siblings('.mpd-tax-bands').find('.rate2').val();
+                    var th2 = $(ddl).siblings('.mpd-tax-bands').find('.threshold2').val();
+                    var r3 = $(ddl).siblings('.mpd-tax-bands').find('.rate3').val();
+                    var th3 = $(ddl).siblings('.mpd-tax-bands').find('.threshold3').val();
+                    var r4 = $(ddl).siblings('.mpd-tax-bands').find('.rate4').val();
+                    
+
+                    if (r1 != '') {
+                        if (th1 == '')
+                            f = r1!=0 ?  '({NET}*12) / ( ( 100 / ' + r1 + ' ) -1 )' : '0 ';
+                        else {
+                            f = r1!=0 ?  'Math.max(Math.min(({NET}*12) / ( ( 100 / ' + r1 + ' ) -1 ),(' + th1 + ')/( ( 100 / ' + r1 + ' ) -1 )),0) ' : '0';
+                            if (r2 != '') {
+                                if (th2 == '')
+                                    f +=  r2!=0 ? ' + Math.max( (({NET}*12) - ' + th1 + ') / ( ( 100 / ' + r2 + ' ) -1 ),0) ' : '';
+                                else {
+                                    f += r2 != 0 ? ' + Math.max(Math.min((({NET}*12) - ' + th1 + ') / ( ( 100 / ' + r2 + ' ) -1 ),( ' + th2 + ' - ' + th1 + ')/( ( 100 / ' + r2 + ' ) -1 )),0) ' : '';
+                                    if (r3 != '') {
+                                        if (th3 == '')
+                                            f += r3!=0 ? ' + Math.max( (({NET}*12) - ' + th2 + ') / ( ( 100 / ' + r3 + ' ) -1 ),0) ' : '';
+                                        else {
+                                            f += r3 != 0 ? ' + Math.max(Math.min((({NET}*12)- ' + th2 + ') / ( ( 100 / ' + r3 + ' ) -1 ),( ' + th3 + ' - ' + th2 + ')/( ( 100 / ' + r3 + ' ) -1 )),0) ' : '';
+                                            if (r4 != '') {
+                                               
+                                                f += r4!=0 ?  ' + Math.max( (({NET}*12) - ' + th3 + ') / ( ( 100 / ' + r4 + ' ) -1 ),0) ': '';
+                                              
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    f = '(' + f + ')/12';
+
+
+                    $(ddl).parent().find('.tax-formula').text(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
                 }
                 else if (m == 'Custom') {
-                  //Do Validation?
+                    //Do Validation?
+                    $(this).siblings("input['type'='hidden']").val(f);
                 }
 
                 
@@ -118,42 +222,56 @@
                 
                 var m = $(this).val();
                 $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-mode-detail').hide();
+                $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-mode-detail').find('.mpd-tax-mode').change()
                 if (m == 'CALCULATED') {
                     $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-formula').show();
                 }
                 else if (m == 'NET_MONTH' || m == 'NET_YEAR') {
                     $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-net').show();
                 }
-              
+                
              });
 
             $('.mpd-tax-mode').change(function () {
-                $(this).parent().find('.tax-formula').attr('disabled', 'disabled');
-
-                var m = $(this).val();
+                $(this).parent().find('.tax-formula').attr('readonly', 'readonly');
                 
+                var m = $(this).val();
+               
                 $(this).siblings('.mpd-tax-detail').hide();
                 if (m == 'FIXED_RATE') {
                     $(this).siblings('.mpd-tax-rate').show();
+                    $(this).parent().find('.tax-formula').text('');
+                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).siblings('.mpd-tax-rate').find('.rate').keyup();
                 }
                 else if (m == 'FIXED_AMOUNT') {
                     $(this).siblings('.mpd-tax-fixed').show();
+                    $(this).parent().find('.tax-formula').text('')
+                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).siblings('.mpd-tax-fixed').find('.fixed').keyup();
                 }
                 else if (m == 'ALLOWANCE') {
                     $(this).siblings('.mpd-tax-allowance').show();
+                    $(this).parent().find('.tax-formula').text('')
+                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).siblings('.mpd-tax-allowance').find('.rate').keyup();
                 }
                 else if (m == 'BANDS') {
                     $(this).siblings('.mpd-tax-bands').show();
+                    $(this).parent().find('.tax-formula').text('')
+                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).siblings('.mpd-tax-bands').find('.rate1').keyup();
                 }
                 else if (m == 'Custom') {
                     $(this).siblings('.tax-custom-help').show();
-                    $(this).parent().find('.tax-formula').removeAttr('disabled');
+                    $(this).parent().find('.tax-formula').removeAttr('readonly');
+                    
                 }
 
 
             });
 
-            $('#edit-cancel').click(function () {
+            $('.edit-cancel').click(function () {
                 $('.mpd-edit').hide("slow");
                 $('.btn-edit').show();
             });
@@ -162,21 +280,27 @@
                 
                 $('.mpd-edit').hide("slow");
 
-              
+                $(this).parent().siblings('.mpd-edit').find('.mpd-edit-mode').change();
 
 
                 $(this).parent().siblings('.mpd-edit').show("slow");
 
 
-
+               
 
                 $('.btn-edit').show();
                 $(this).hide();
             });
 
             handleFormulas();
+            
 
         });
+        
+       
+
+
+        //alert(replaceTags('Age: {AGE}; Age2: {AGE2}; StaffType: {STAFFTYPE}; IsCouple: {ISCOUPLE};'));
     }(jQuery, window.Sys));
     function calculateSectionTotal(section) {
         var sum = 0.0;
@@ -227,16 +351,8 @@
         $('.calculated').each(function () {
             //Go through each formula and refresh the values
             var f = $(this).siblings("input['type'='hidden']").val();
-
-            $('.version-number').each(function () {
-                var v = $(this).parent().find('.monthly').val();
-                v = v == '' ? 0 : v;
-
-
-                f = f.replace('{' + $(this).text() + '}', v);
-
-
-            });
+            f=replaceTags(f);
+          
             $(this).val(eval(f).toFixed(0));
 
 
@@ -249,7 +365,10 @@
         });
 
 
+
     }
+
+    
 
 
 </script>
@@ -338,9 +457,6 @@
 
 
 
-
-
-
 <div id="formRoot" class="form-horizontal">
 
     <asp:Repeater ID="rpSections" runat="server">
@@ -354,7 +470,7 @@
                 <asp:Repeater ID="rpItems" runat="server" DataSource='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).OrderBy(Function (c) c.QuestionNumber)%>'>
 
                     <ItemTemplate>
-                        <uc1:mpdItem runat="server" ID="mpdItem14" Mode='<%# Eval("Type")%>' Formula='<%# Eval("Formula")%>' ItemName='<%# Eval("Name")%>' Help='<%# Eval("Help")%>' ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' />
+                        <uc1:mpdItem runat="server" ID="mpdItem14" QuestionId='<%# Eval("QuestionId")%>'  Mode='<%# Eval("Type")%>' Formula='<%# Eval("Formula")%>' ItemName='<%# Eval("Name")%>' Help='<%# Eval("Help")%>' ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>'   TaxSystem='<%# Eval("TaxSystem")%>'  Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>'  Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>'  Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>'  Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>'  Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>'  Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>'  Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>'  Fixed='<%# Eval("Fixed")%>'   Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>'  />
                     </ItemTemplate>
                 </asp:Repeater>
 

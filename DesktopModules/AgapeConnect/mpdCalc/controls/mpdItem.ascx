@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="mpdItem.ascx.vb"
     Inherits="DotNetNuke.Modules.AgapeConnect.mpdItem" %>
 
-
+<asp:HiddenField ID="hfQuestionId" runat="server" value="0" />
 <div class="control-group">
     <asp:Label ID="lblItemId" runat="server" class="version-number"></asp:Label>
 
@@ -9,11 +9,12 @@
     <asp:TextBox ID="tbEventName" runat="server" placeholder="Event Name" class="control-label conf" Visible="false"></asp:TextBox>
     <div class="controls">
 
+      
 
         <div class="span2 mpdColumn">
             <div class="input-prepend">
                 <asp:Label ID="lblCur" runat="server" class="add-on"></asp:Label>
-                <asp:TextBox ID="tbMonthly" runat="server" placeholder="Monthly" class="mpdInput numeric monthly" Enabled="false"></asp:TextBox>
+                <asp:TextBox ID="tbMonthly" runat="server" placeholder="Monthly"  type="number" step="any" class="mpdInput numeric monthly" Enabled="false"></asp:TextBox>
                 <asp:Panel ID="pnlNetTax" runat="server" class="net-tax" Visible="False">
                     (+<asp:Label ID="lblNetTax" runat="server" CssClass="net-tax-month">0</asp:Label>
                     tax)
@@ -21,13 +22,13 @@
 
                 <asp:HiddenField ID="hfFormula" runat="server" Value="" />
             </div>
-
+           
         </div>
 
         <div class="span2 mpdColumn">
             <div class="input-prepend">
                 <asp:Label ID="lblCur2" runat="server" class="add-on"></asp:Label>
-                <asp:TextBox ID="tbYearly" runat="server" placeholder="Yearly" class="mpdInput numeric yearly" Enabled="false"></asp:TextBox>
+                <asp:TextBox ID="tbYearly" runat="server" placeholder="Yearly" type="number" step="any"  class="mpdInput numeric yearly" Enabled="false"></asp:TextBox>
                 <asp:Panel ID="pnlNetTax2" runat="server" class="net-tax" Visible="False">
                     (+<asp:Label ID="lblNetTax2" runat="server" CssClass="net-tax-year">0</asp:Label>
                     tax)
@@ -36,10 +37,10 @@
         </div>
 
         <asp:Label ID="lblHelp" runat="server" class="help-inline mpd-help span5"></asp:Label>
+      
 
         <asp:HyperLink ID="btnEdit" runat="server" CssClass="btn-edit" Visible="false">Edit</asp:HyperLink>
-
-
+        
     </div>
     <div style="clear: both;"></div>
     <asp:Panel ID="pnlEditItem" runat="server" class="alert alert-info mpd-edit" Style="display: none;">
@@ -151,66 +152,66 @@
 
                     <div  class="mpd-tax-rate mpd-tax-detail"  >
                          <div class="span1" style="width: 100px">Tax Rate:</div>
-                        <input id="tbRate" type="text" placeholder="Tax Rate" class="numeric span1 mpd-tax-rate-rate" style="width: 60px"  />%
+                        <asp:TextBox runat="server" id="tbRate" type="text" placeholder="Tax Rate" class="numeric span1 rate" style="width: 60px"  />%
 
                     </div>
                      <div  class="mpd-tax-fixed mpd-tax-detail" style="display: none;" >
-                         <div class="span1" style="width: 100px">Tax Rate:</div>
-                         <input id="tbAmount" type="text" placeholder="Tax amount" style="width: 80px; " class="numeric span1 mpd-tax-fixed-fixed" />
+                         <div class="span1" style="width: 100px">Tax Amount:</div>
+                         <asp:TextBox runat="server" id="tbAmount" type="text" placeholder="Tax amount" style="width: 80px; " class="numeric span1 fixed" />
 
                      </div>
-                    <div class="mpd-tax-allowance  mpd-tax-detail" style="display:none;">
+                    <div class="mpd-tax-allowance mpd-tax-detail" style="display:none;">
                         <div>
                          <div class="span1" style="width: 100px">Threshold:</div>
-                        <input id="tbAllowance" type="text" placeholder="Tax Free Allowance" style="width: 130px" class="numeric span1" />
+                        <asp:TextBox runat="server" id="tbAllowance" type="text" placeholder="Tax Free Allowance" style="width: 130px" class="numeric span1 threshold" />
                         </div>
                         <div>
                              <div class="span1" style="width: 100px">Tax Rate:</div>
-                        <input id="tbAllowanceRate" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric span1" />%
+                        <asp:TextBox runat="server" id="tbAllowanceRate" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric span1 rate" />%
                             </div>
                     </div>
 
-                    <table class="mpd-tax-bands  mpd-tax-detail" cellpadding="2px" style="display: none;">
+                    <table class="mpd-tax-bands mpd-tax-detail" cellpadding="2px" style="display: none;">
                         <tr>
                             <td align="right">Up To:</td>
                             <td>
-                                <input id="tbThreshold1" type="text" placeholder="Threshold1" style="width: 80px" class="numeric" /></td>
+                                <asp:TextBox runat="server"  id="tbThreshold1" type="text" placeholder="Threshold1" style="width: 80px" class="numeric threshold1" /></td>
                             <td>
-                                <input id="tbRate1" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric" />%</td>
-                        </tr>
-                        <tr>
-                            <td align="right">Then upto:</t>
-                            <td>
-                                <input id="tbThreshold2" type="text" placeholder="Threshold1" style="width: 80px" class="numeric" /></td>
-                            <td>
-                                <input id="tbRate2" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric" />%</td>
+                                <asp:TextBox runat="server"  id="tbRate1" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric rate1" />%</td>
                         </tr>
                         <tr>
                             <td align="right">Then upto:</td>
                             <td>
-                                <input id="tbThreshold3" type="text" placeholder="Threshold1" style="width: 80px" class="numeric" /></td>
+                                <asp:TextBox runat="server"  id="tbThreshold2" type="text" placeholder="Threshold1" style="width: 80px" class="numeric threshold2" /></td>
                             <td>
-                                <input id="tbRate3" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric" />%</td>
+                                <asp:TextBox runat="server"  id="tbRate2" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric rate2" />%</td>
+                        </tr>
+                        <tr>
+                            <td align="right">Then upto:</td>
+                            <td>
+                                <asp:TextBox runat="server"  id="tbThreshold3" type="text" placeholder="Threshold1" style="width: 80px" class="numeric threshold3" /></td>
+                            <td>
+                                <asp:TextBox runat="server"  id="tbRate3" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric rate3" />%</td>
                         </tr>
                         <tr>
                             <td align="right"   >Then upto:</td>
                             <td>
-                                <input id="tbThreshold4" type="text" placeholder="Threshold1" style="width: 80px" class="numeric" /></td>
+                               <i>unlimited</i></td>
                             <td>
-                                <input id="tbRate4" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric" />%</td>
+                                <asp:TextBox runat="server"  id="tbRate4" type="text" placeholder="Tax Rate" style="width: 60px" class="numeric rate4" />%</td>
                         </tr>
                     </table>
 
                     
-                  <div class="input-prepend" style="width: 100%; margin-top: 5px;">
+                  <div class="input-prepend " style="width: 100%; margin-top: 5px;">
                         <asp:Label ID="Label3" runat="server" class="add-on">formula</asp:Label>
-                        <asp:TextBox ID="tbTaxFormula"  runat="server" CssClass="tax-formula" TextMode="MultiLine" Width="270px" Rows="2" Enabled="false"></asp:TextBox>
-
+                        <asp:TextBox ID="tbTaxFormula"   runat="server" CssClass="tax-formula" TextMode="MultiLine" Width="270px" Rows="2" readonly="True"></asp:TextBox>
+                      <asp:HiddenField ID="hfTaxFormula" runat="server"  />
 
 
                     </div>
                         
-                     <div class="tax-custom-help mpd-tax-detail" style="width: 100%; font-size: small; display: none;">
+                     <div class="tax-custom-help" style="width: 100%; font-size: small; display: none;">
                         Example: <span class="comment">$6000 Tax Free - then 12% </span>
                         <div class="exFormula">Math.max( ( {NET} - 6000) * 0.12), 0) </div>
                     </div>
@@ -226,7 +227,8 @@
         <div style="width: 100%; text-align: center; padding: 5px;">
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" />
             &nbsp;&nbsp;
-            <input type="button" id="edit-cancel" class="btn" value="Cancel" />
+            <input type="button" id="edit-cancel" class="btn edit-cancel" value="Cancel" />    &nbsp;&nbsp;
+            <asp:HyperLink ID="HyperLink1" runat="server">Guide to Advanced Formulas</asp:HyperLink>
         </div>
     </asp:Panel>
 

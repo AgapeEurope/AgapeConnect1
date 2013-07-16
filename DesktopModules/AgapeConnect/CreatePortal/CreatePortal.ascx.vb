@@ -318,7 +318,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Next
             d.SubmitChanges()
 
-            Return d.AP_StaffBroker_StaffTypes.Where(Function(c) c.PortalId = thePortalId).First
+            Return d.AP_StaffBroker_StaffTypes.Where(Function(c) c.PortalId = thePortalId).First.StaffTypeId
+
 
 
         End Function
