@@ -59,10 +59,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
         Private StaffBudId As Integer = -1
+        Public LastSection As Integer = 0
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             If Not Page.IsPostBack Then
 
-
+                pnlInsert.Visible = IsEditMode()
 
                 Dim d As New MPDDataContext()
                 Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId
@@ -71,10 +72,21 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffId = staffId And c.BudgetYearStart = Today.Year
                     If bud.Count > 0 Then
                         StaffBudId = bud.First.StaffBudgetId
-                        itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", CultureInfo.InvariantCulture)
+                        itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
                     End If
-                    rpSections.DataSource = theForm.First.AP_mpdCalc_Sections
+                    If (theForm.First.AP_mpdCalc_Sections.Count > 0) Then
+                        LastSection = theForm.First.AP_mpdCalc_Sections.Max(Function(c) c.Number)
+                    End If
+                    rpSections.DataSource = theForm.First.AP_mpdCalc_Sections.OrderBy(Function(c) c.Number)
                     rpSections.DataBind()
+                  
+
+
+
+
+                    ddlInsertOrder.DataSource = (From c In theForm.First.AP_mpdCalc_Sections Select c.Number + 1)
+                    ddlInsertOrder.DataBind()
+
 
                     hfAssessment.Value = theForm.First.AssessmentRate
                     If theForm.First.ShowComplience Then
@@ -183,6 +195,110 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
+        End Sub
+        Public Function GetMaxQuestionNumber(ByVal questions As System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)) As Integer
+            If questions.Count = 0 Then
+                Return 1
+            Else
+                Return questions.Max(Function(c) c.QuestionNumber) + 1
+            End If
+        End Function
+
+
+
+        Protected Sub btnInsertSection_Click(sender As Object, e As EventArgs) Handles btnInsertSection.Click
+            Dim d As New MPD.MPDDataContext
+
+            Dim def = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId And c.PortalId = PortalId
+            If def.Count > 0 Then
+                Dim i As Integer = 1
+                For Each row In def.First.AP_mpdCalc_Sections.OrderBy(Function(c) c.Number)
+                    If ddlInsertOrder.SelectedValue = i Then
+                        'insert
+                        
+                        i += 1
+                    End If
+                    row.Number = i
+                    i += 1
+                Next
+                Dim insert As New MPD.AP_mpdCalc_Section
+                insert.mpdDefId = def.First.mpdDefId
+                insert.Name = tbInsertSectionName.Text
+                insert.TotalMode = "monthly"
+                insert.Number = ddlInsertOrder.SelectedValue
+                d.AP_mpdCalc_Sections.InsertOnSubmit(insert)
+                d.SubmitChanges()
+                Response.Redirect(NavigateURL())
+            End If
+
+        End Sub
+
+        Protected Sub rpSections_ItemCommand(source As Object, e As RepeaterCommandEventArgs) Handles rpSections.ItemCommand
+            If e.CommandName = "EditSectionTitle" Then
+
+                Dim d As New MPD.MPDDataContext
+                Dim q = From c In d.AP_mpdCalc_Sections Where c.SectionId = CInt(e.CommandArgument) And c.AP_mpdCalc_Definition.PortalId = PortalId
+
+                If q.Count > 0 Then
+                    Dim Title As TextBox = rpSections.Items(e.Item.ItemIndex).FindControl("tbSectionName")
+                    q.First.Name = Title.Text
+                    d.SubmitChanges()
+                    Response.Redirect(NavigateURL())
+                End If
+            ElseIf e.CommandName = "UP" Then
+                Dim d As New MPD.MPDDataContext
+
+                Dim q = From c In d.AP_mpdCalc_Sections Where c.SectionId = CInt(e.CommandArgument) And c.AP_mpdCalc_Definition.PortalId = PortalId
+
+
+                If q.Count > 0 Then
+                    Dim i As Integer = 1
+                    Dim NewViewOrder = Math.Max(q.First.Number - 1, 1)
+
+
+                    For Each row In q.First.AP_mpdCalc_Definition.AP_mpdCalc_Sections.Where(Function(c) c.SectionId <> q.First.SectionId).OrderBy(Function(c) c.Number)
+                        If NewViewOrder = i Then
+                            'skip if current index
+
+                            i += 1
+                        End If
+                        row.Number = i
+                        i += 1
+                    Next
+                    q.First.Number = NewViewOrder
+
+                    d.SubmitChanges()
+                    Response.Redirect(NavigateURL())
+                End If
+
+            ElseIf e.CommandName = "DOWN" Then
+                Dim d As New MPD.MPDDataContext
+
+                Dim q = From c In d.AP_mpdCalc_Sections Where c.SectionId = CInt(e.CommandArgument) And c.AP_mpdCalc_Definition.PortalId = PortalId
+
+
+                If q.Count > 0 Then
+                    Dim i As Integer = 1
+                    Dim NewViewOrder = Math.Min(q.First.Number + 1, q.First.AP_mpdCalc_Definition.AP_mpdCalc_Sections.Max(Function(c) c.Number))
+                  
+
+                    For Each row In q.First.AP_mpdCalc_Definition.AP_mpdCalc_Sections.Where(Function(c) c.SectionId <> q.First.SectionId).OrderBy(Function(c) c.Number)
+                        If NewViewOrder = i Then
+                            'skip if current index
+
+                            i += 1
+                        End If
+                        row.Number = i
+                        i += 1
+                    Next
+                    
+                    q.First.Number = NewViewOrder
+
+
+                    d.SubmitChanges()
+                    Response.Redirect(NavigateURL())
+                End If
+            End If
         End Sub
     End Class
 End Namespace

@@ -53,8 +53,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Set(ByVal value As String)
 
                 If (value <> "") Then
-                    tbYearly.Text = (12 * CDbl(value)).ToString("f0", CultureInfo.InvariantCulture)
-                    tbMonthly.Text = CDbl(value).ToString("f0", CultureInfo.InvariantCulture)
+                    tbYearly.Text = (12 * CDbl(value)).ToString("f0", New CultureInfo("en-US").NumberFormat)
+                    tbMonthly.Text = CDbl(value).ToString("f0", New CultureInfo("en-US").NumberFormat)
                 End If
 
 
@@ -113,8 +113,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Set(ByVal value As String)
 
                 If (value <> "") Then
-                    tbMonthly.Text = (CDbl(value) / 12).ToString("f0", CultureInfo.InvariantCulture)
-                    tbYearly.Text = CDbl(value).ToString("n2", New CultureInfo("en-US"))
+                    tbMonthly.Text = (CDbl(value) / 12).ToString("f0", New CultureInfo("en-US").NumberFormat)
+                    tbYearly.Text = CDbl(value).ToString("n2", New CultureInfo("en-US").NumberFormat)
                 End If
 
             End Set

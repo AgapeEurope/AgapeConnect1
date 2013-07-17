@@ -62,7 +62,7 @@
 
                     f = f.replace(/\{NET}/g, $(this).val());
                     f=replaceTags(f);
-                   // console.log(f)
+                    // console.log(f)
                     // alert(f);
                     $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
@@ -273,9 +273,25 @@
                 $(this).hide();
             });
 
-           
-           
-
+            $('.btn-section-insert').click(function(){
+                $('.mpd-section-insert').show("slow") ;
+                $(this).hide();
+            });
+            $('.insert-cancel').click(function () {
+                $('.mpd-section-insert').hide("slow");
+                $('.btn-section-insert').show();
+               
+            });
+            $('.btn-edit-section').click(function(){
+                $(this).siblings('.mpd-edit-section').show();
+                $(this).siblings('.mpd-section-title').hide();
+                $(this).hide();
+            });
+            $('.btn-edit-section-cancel').click(function(){
+                $(this).parent().siblings('.btn-edit-section').show();
+                $(this).parent().siblings('.mpd-section-title').show();
+                $(this).parent().hide();
+            });
         });
         
       
@@ -335,7 +351,7 @@
             //Go through each formula and refresh the values
             var f = $(this).siblings("input['type'='hidden']").val();
             f=replaceTags(f);
-            
+            console.log(f);
             $(this).val(eval(f).toFixed(0));
 
 
@@ -366,38 +382,40 @@
         //Replace Age Tag {AGE}
         var age = <%= Age1%> ;
      
-            if(age>0) f = f.replace(/{AGE}/g, age);
+        if(age>0) f = f.replace(/{AGE}/g, age);
         
-            if ('<%= IsCouple() %>' == 'True'){
+        if ('<%= IsCouple() %>' == 'True'){
             var age2 = <%= Age2%> ;
             if(age2>0) f = f.replace(/{AGE2}/g, age2);
         }
         
         f = f.replace(/{STAFFTYPE}/g, '<%=StaffType %>');
-            f = f.replace(/{ISCOUPLE}/g, '<%=IsCouple %>');
+        f = f.replace(/{ISCOUPLE}/g, '<%=IsCouple %>');
         
-            f = f.replace(/{AGE}/g, '');
-            f = f.replace(/{AGE2}/g, '');
-            f = f.replace(/{STAFFTYPE}/g, '');
-            f = f.replace(/{ISCOUPLE}/g, '');
-            return f;
+        f = f.replace(/{AGE}/g, '');
+        f = f.replace(/{AGE2}/g, '');
+        f = f.replace(/{STAFFTYPE}/g, '');
+        f = f.replace(/{ISCOUPLE}/g, '');
+        f = f.replace(/\{.*\}/g, '0');
+
+        return f;
     }
 
-        function setMinMax(m){
-            var min = $(m).attr('data-min');
-            var max = $(m).attr('data-max');
+    function setMinMax(m){
+        var min = $(m).attr('data-min');
+        var max = $(m).attr('data-max');
 
-            min = replaceTags(min);
-            max = replaceTags(max);
-            if (min=='') $(m).removeAttr('min');
-            else $(m).attr('min',eval(min));
+        min = replaceTags(min);
+        max = replaceTags(max);
+        if (min=='') $(m).removeAttr('min');
+        else $(m).attr('min',eval(min));
                 
 
            
-            if (max=='') $(m).removeAttr('max');
-            else $(m).attr('max',eval(max));
+        if (max=='') $(m).removeAttr('max');
+        else $(m).attr('max',eval(max));
        
-        }
+    }
 
     
 
@@ -422,18 +440,37 @@
         position: absolute;
         right: 8px;
     }
+
     .btn-insert {
         font-style: italic;
- text-align:center;
-        position: relative;
-top: -0.8em;
-background-color: #F5F5F5;
-    }
-    .mpd-insert {
-        width:100%;
         text-align: center;
-       border-top: 1pt dashed gainsboro;
+        position: relative;
+        top: -0.8em;
+        background-color: #F5F5F5;
     }
+
+    .mpd-insert {
+        width: 100%;
+        text-align: center;
+        border-top: 1pt dashed gainsboro;
+    }
+
+    .btn-insert-section {
+        font-style: italic;
+        text-align: center;
+        position: relative;
+        top: -0.8em;
+        background-color: #F5F5F5;
+    }
+
+    .mpd-insert-section {
+        width: 100%;
+        text-align: center;
+        border-top: 1pt dashed gainsboro;
+        border-bottom: 1pt dashed gainsboro;
+        margin-bottom: 5px;
+    }
+
     .version-number {
         width: 20px;
         float: left;
@@ -498,11 +535,23 @@ background-color: #F5F5F5;
         margin-top: 5px;
         float: right;
     }
+
     .mpd-section-total {
-    border-top: 1pt solid gainsboro;
+        border-top: 1pt solid gainsboro;
     }
+
     .control-group.mpd-insert-mode {
         margin-bottom: 0 !important;
+    }
+
+    .mpd-btn-order {
+        float: right;
+        padding: 12px 4px 12px 4px;
+    }
+
+    .btn-edit-section {
+        margin: 24px 0 0 5px;
+        float: left;
     }
 </style>
 
@@ -516,32 +565,80 @@ background-color: #F5F5F5;
     <asp:Repeater ID="rpSections" runat="server">
 
         <ItemTemplate>
-            <h3>
-                <asp:Label ID="Label1" runat="server" Text='<%# Eval("Name")%>'></asp:Label>
+
+            <asp:ImageButton ID="ImageButton1" runat="server" class="mpd-btn-order" ImageUrl="~/images/action_up.gif" CommandName="UP" CommandArgument='<%# Eval("SectionId")%>'  Visible='<%# Eval("Number") > 1 And IsEditMode()%>' formnovalidate />
+            <asp:ImageButton ID="ImageButton2" runat="server" class="mpd-btn-order" ImageUrl="~/images/action_down.gif" CommandName="DOWN" CommandArgument='<%# Eval("SectionId")%>' Visible='<%# Eval("Number")< LastSection  And IsEditMode()%>' formnovalidate />
+            <div class="mpd-section-title" style="float: left;">
+                <h3>
+                    <asp:Label ID="lblSectionName" runat="server" Text='<%# Eval("Name")%>'></asp:Label></h3>
+            </div>
+
+            <asp:HyperLink ID="btnEditSectionName" runat="server" CssClass="btn-edit-section" Visible='<%# IsEditMode%>'>Edit</asp:HyperLink>
+            <div class="mpd-edit-section" style="display: none">
+                <asp:TextBox ID="tbSectionName" runat="server" Font-Size="X-Large" Font-Bold="true" Width="300px" Text='<%# Eval("Name")%>'></asp:TextBox>
+                <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("SectionId")%>' CommandName="EditSectionTitle" formnovalidate>Save</asp:LinkButton>
+                &nbsp; &nbsp;
+                    <a href="#" class="btn-edit-section-cancel">Cancel</a>
+            </div>
+
+           
+            <div style="clear: both;" />
             </h3>
+             
             <div class="well">
 
                 <asp:Repeater ID="rpItems" runat="server" DataSource='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).OrderBy(Function (c) c.QuestionNumber)%>'>
 
                     <ItemTemplate>
-                        <uc1:mpdItem runat="server" ID="theMpdItem" SectionId='<%# Eval("SectionId")%>' QuestionId='<%# Eval("QuestionId")%>' Mode='<%# Eval("Type")%>' 
-                            Formula='<%# Eval("Formula")%>' ItemName='<%# GetName(Eval("QuestionId"),Eval("Name"))%>' Help='<%# Eval("Help")%>' 
+                        <uc1:mpdItem runat="server" ID="theMpdItem" SectionId='<%# Eval("SectionId")%>' QuestionId='<%# Eval("QuestionId")%>' Mode='<%# Eval("Type")%>'
+                            Formula='<%# Eval("Formula")%>' ItemName='<%# GetName(Eval("QuestionId"),Eval("Name"))%>' Help='<%# Eval("Help")%>'
                             Monthly='<%# GetAnswer(Eval("QuestionId"))%>'
-                            ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>' 
-                            Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>' 
-                            Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>' 
+                            ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>'
+                            Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>'
+                            Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>'
                             Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' />
                     </ItemTemplate>
+
                 </asp:Repeater>
 
-                 <uc1:mpdItem runat="server" ID="mpdItem14" SectionId='<%# Eval("SectionId")%>' QuestionId='-1'  Mode='INSERT' Formula='' ItemName='' Help='' ItemId='<%# Eval("Number") & "." & (CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).Max(Function(c) c.QuestionNumber))+1%>' TaxSystem='FIXED_RATE'  Min='0' />
-                
-                <uc1:mpdTotal runat="server" ID="totSection1" ItemName="Total Salary & Payroll" Bold="True" IsSectionTotal="True"  />
+                <uc1:mpdItem runat="server" ID="mpdItem14" SectionId='<%# Eval("SectionId")%>' QuestionId='-1' Mode='INSERT' Formula='' ItemName='' Help='' ItemId='<%# Eval("Number") & "." & GetMaxQuestionNumber(Eval("AP_mpdCalc_Questions"))%>' TaxSystem='FIXED_RATE' Min='0' />
+
+                <uc1:mpdTotal runat="server" ID="totSection1" ItemName="Total Salary & Payroll" Bold="True" IsSectionTotal="True" />
             </div>
         </ItemTemplate>
 
     </asp:Repeater>
 
+    <asp:Panel ID="pnlInsert" runat="server" Visible="false">
+        <div class="mpd-insert-section">
+            <asp:HyperLink ID="hlInsert" runat="server" CssClass="btn-section-insert">Insert New Section</asp:HyperLink>
+        </div>
+        <asp:Panel ID="Panel1" runat="server" class="mpd-section-insert well" Style="display: none;">
+            <div class="control-group span5">
+                <label class="control-label" style="width: 160px">Section Title</label>
+                <div class="controls">
+                    <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection" required="required"></asp:TextBox>
+
+                </div>
+            </div>
+            <div class="control-group span4">
+                <label class="control-label" style="width: 160px">Display at index:</label>
+                <div class="controls">
+                    <asp:DropDownList ID="ddlInsertOrder" runat="server" Width="110px" AppendDataBoundItems="true">
+                        <asp:ListItem Text="1 - Top" Value="1"></asp:ListItem>
+
+                    </asp:DropDownList>
+                </div>
+            </div>
+            <div class="control-group span3">
+                <asp:Button ID="btnInsertSection" runat="server" Text="Insert" CssClass="btn btn-primary" formnovalidate />
+                &nbsp;&nbsp;
+            <input type="button" id="insert-cancel" class="btn insert-cancel" value="Cancel" />
+            </div>
+        </asp:Panel>
+
+
+    </asp:Panel>
 
     <div class="well">
         <asp:Label ID="lblPercentage" runat="server" class="percentage" Text=""></asp:Label>
