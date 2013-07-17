@@ -136,6 +136,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Set(ByVal value As Boolean)
                 If value = True Then
                     lblTotalSalMonthly.CssClass &= " subtotal"
+
                 Else
 
                 End If
@@ -148,7 +149,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End Get
             Set(ByVal value As Boolean)
                 If value = True Then
-
+                    pnlGroup.Attributes("class") &= " mpd-section-total"
                     lblTotalSalYearly.CssClass &= " sectionTotal"
                 End If
 

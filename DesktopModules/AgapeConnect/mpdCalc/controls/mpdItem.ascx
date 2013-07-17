@@ -2,7 +2,14 @@
     Inherits="DotNetNuke.Modules.AgapeConnect.mpdItem" %>
 
 <asp:HiddenField ID="hfQuestionId" runat="server" value="0" />
-<div class="control-group">
+<asp:HiddenField ID="hfSectionId" runat="server" value="0" />
+<div ID="pnlControlGroup" runat="server" class="control-group">
+     <asp:Panel ID="pnlInsert" runat="server" Visible="false">
+         <div class="mpd-insert">
+            <asp:HyperLink ID="hlInsert" runat="server" CssClass="btn-insert" >Insert New Item</asp:HyperLink>
+         </div>
+             </asp:Panel>
+    <asp:Panel ID="pnlDisplay" runat="server">
     <asp:Label ID="lblItemId" runat="server" class="version-number"></asp:Label>
 
     <asp:Label ID="lblItemName" runat="server" class="control-label mpd-item-name"></asp:Label>
@@ -42,6 +49,7 @@
         <asp:HyperLink ID="btnEdit" runat="server" CssClass="btn-edit" Visible="false">Edit</asp:HyperLink>
         
     </div>
+        </asp:Panel>
     <div style="clear: both;"></div>
     <asp:Panel ID="pnlEditItem" runat="server" class="alert alert-info mpd-edit" Style="display: none;">
         <div style="display: inline-block; padding: 0; width: 100%;">

@@ -33,6 +33,15 @@ Namespace DotNetNuke.Modules.AgapeConnect
         'End Property
 
 
+        Public Property SectionId() As Integer
+            Get
+                Return _hfSectionId.Value
+            End Get
+            Set(ByVal value As Integer)
+                hfSectionId.Value = value
+            End Set
+        End Property
+
 
 
         Public Property Monthly() As String
@@ -65,7 +74,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     tbYearly.Enabled = True
                 ElseIf value.Contains("CALCULATED") Then
                     tbMonthly.Attributes("class") &= " calculated"
-
+                ElseIf (value = "INSERT") Then
+                    tbMonthly.Enabled = True
+                    _mode = "BASIC_MONTH"
+                    pnlDisplay.Visible = False
+                    pnlInsert.Visible = IsEditMode()
+                    pnlControlGroup.Attributes("class") &= " mpd-insert-mode"
                 End If
 
                 If value.Contains("NET") Then
@@ -341,6 +355,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 If IsEditMode() Then
                     btnEdit.Visible = True
+
+
                     Dim d As New StaffBrokerDataContext
                     ddlAccount.DataSource = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Order By c.AccountCode Select c.AccountCode, Name = c.AccountCode & "-" & c.AccountCodeName
 
@@ -388,82 +404,159 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
             Dim d As New MPD.MPDDataContext
 
-            Dim q = From c In d.AP_mpdCalc_Questions Where c.QuestionId = QuestionId
 
-            If q.Count > 0 Then
-                q.First.Name = tbName.Text
-                q.First.QuestionNumber = tbNumber.Text
-                q.First.Help = tbHelp.Text
+            If QuestionId = -1 And SectionId > 0 Then
 
-                q.First.Type = ddlMode.SelectedValue
-                If q.First.Type = "CALCULATED" Then
-                    q.First.Formula = tbFormula.Text
+                Dim insert As New MPD.AP_mpdCalc_Question
+                insert.SectionId = SectionId
+
+                insert.AccountCode = ddlAccount.SelectedValue
+                insert.Name = tbName.Text
+                insert.QuestionNumber = tbNumber.Text
+                insert.Type = ddlMode.SelectedValue
+
+                If insert.Type = "CALCULATED" Then
+                    insert.Formula = tbFormula.Text
                 ElseIf ddlMode.SelectedValue.Contains("NET") Then
-                    q.First.TaxSystem = TaxOptions.SelectedValue
-                    q.First.Threshold1 = Nothing
-                    q.First.Threshold2 = Nothing
-                    q.First.Threshold3 = Nothing
-                    q.First.Rate1 = Nothing
-                    q.First.Rate2 = Nothing
-                    q.First.Rate3 = Nothing
-                    q.First.Rate4 = Nothing
-                    q.First.Fixed = Nothing
+                    insert.TaxSystem = TaxOptions.SelectedValue
+
 
 
                     Select Case TaxOptions.SelectedValue
                         Case "FIXED_RATE"
-                            q.First.Rate1 = tbRate.Text
-                            q.First.Formula = hfTaxFormula.Value
+                            insert.Rate1 = tbRate.Text
+                            insert.Formula = hfTaxFormula.Value
                         Case "FIXED_AMOUNT"
-                            q.First.Fixed = tbAmount.Text
-                            q.First.Formula = hfTaxFormula.Value
+                            insert.Fixed = tbAmount.Text
+                            insert.Formula = hfTaxFormula.Value
                         Case "ALLOWANCE"
-                            q.First.Threshold1 = tbAllowance.Text
-                            q.First.Rate1 = 0.0
-                            q.First.Rate2 = tbAllowanceRate.Text
-                            q.First.Formula = hfTaxFormula.Value
+                            insert.Threshold1 = tbAllowance.Text
+                            insert.Rate1 = 0.0
+                            insert.Rate2 = tbAllowanceRate.Text
+                            insert.Formula = hfTaxFormula.Value
                         Case "BANDS"
                             If tbThreshold1.Text <> "" Then
-                                q.First.Threshold1 = CDbl(tbThreshold1.Text)
+                                insert.Threshold1 = CDbl(tbThreshold1.Text)
                             End If
                             If tbThreshold2.Text <> "" Then
-                                q.First.Threshold2 = CDbl(tbThreshold2.Text)
+                                insert.Threshold2 = CDbl(tbThreshold2.Text)
                             End If
                             If tbThreshold3.Text <> "" Then
-                                q.First.Threshold3 = CDbl(tbThreshold3.Text)
+                                insert.Threshold3 = CDbl(tbThreshold3.Text)
                             End If
                             If tbRate1.Text <> "" Then
-                                q.First.Rate1 = CDbl(tbRate1.Text)
+                                insert.Rate1 = CDbl(tbRate1.Text)
                             End If
                             If tbRate2.Text <> "" Then
-                                q.First.Rate2 = CDbl(tbRate2.Text)
+                                insert.Rate2 = CDbl(tbRate2.Text)
                             End If
                             If tbRate3.Text <> "" Then
-                                q.First.Rate3 = CDbl(tbRate3.Text)
+                                insert.Rate3 = CDbl(tbRate3.Text)
                             End If
                             If tbRate4.Text <> "" Then
-                                q.First.Rate4 = CDbl(tbRate4.Text)
+                                insert.Rate4 = CDbl(tbRate4.Text)
                             End If
-                         
-                            q.First.Formula = hfTaxFormula.Value
+
+                            insert.Formula = hfTaxFormula.Value
                         Case Else
-                            q.First.Formula = tbTaxFormula.Text
+                            insert.Formula = tbTaxFormula.Text
 
                     End Select
 
-                  
+
 
                 Else
-                    q.First.Formula = ""
+                    insert.Formula = ""
                 End If
                 If tbMin.Text = "" Then
                     tbMin.Text = 0
                 End If
 
-                q.First.AccountCode = ddlAccount.SelectedValue
-                q.First.Min = tbMin.Text
-                q.First.Max = tbMax.Text
+
+                insert.Min = tbMin.Text
+                insert.Max = tbMax.Text
+
+                d.AP_mpdCalc_Questions.InsertOnSubmit(insert)
+
+            Else
+                Dim q = From c In d.AP_mpdCalc_Questions Where c.QuestionId = QuestionId
+
+                If q.Count > 0 Then
+                    q.First.Name = tbName.Text
+                    q.First.QuestionNumber = tbNumber.Text
+                    q.First.Help = tbHelp.Text
+
+                    q.First.Type = ddlMode.SelectedValue
+                    If q.First.Type = "CALCULATED" Then
+                        q.First.Formula = tbFormula.Text
+                    ElseIf ddlMode.SelectedValue.Contains("NET") Then
+                        q.First.TaxSystem = TaxOptions.SelectedValue
+                        q.First.Threshold1 = Nothing
+                        q.First.Threshold2 = Nothing
+                        q.First.Threshold3 = Nothing
+                        q.First.Rate1 = Nothing
+                        q.First.Rate2 = Nothing
+                        q.First.Rate3 = Nothing
+                        q.First.Rate4 = Nothing
+                        q.First.Fixed = Nothing
+
+
+                        Select Case TaxOptions.SelectedValue
+                            Case "FIXED_RATE"
+                                q.First.Rate1 = tbRate.Text
+                                q.First.Formula = hfTaxFormula.Value
+                            Case "FIXED_AMOUNT"
+                                q.First.Fixed = tbAmount.Text
+                                q.First.Formula = hfTaxFormula.Value
+                            Case "ALLOWANCE"
+                                q.First.Threshold1 = tbAllowance.Text
+                                q.First.Rate1 = 0.0
+                                q.First.Rate2 = tbAllowanceRate.Text
+                                q.First.Formula = hfTaxFormula.Value
+                            Case "BANDS"
+                                If tbThreshold1.Text <> "" Then
+                                    q.First.Threshold1 = CDbl(tbThreshold1.Text)
+                                End If
+                                If tbThreshold2.Text <> "" Then
+                                    q.First.Threshold2 = CDbl(tbThreshold2.Text)
+                                End If
+                                If tbThreshold3.Text <> "" Then
+                                    q.First.Threshold3 = CDbl(tbThreshold3.Text)
+                                End If
+                                If tbRate1.Text <> "" Then
+                                    q.First.Rate1 = CDbl(tbRate1.Text)
+                                End If
+                                If tbRate2.Text <> "" Then
+                                    q.First.Rate2 = CDbl(tbRate2.Text)
+                                End If
+                                If tbRate3.Text <> "" Then
+                                    q.First.Rate3 = CDbl(tbRate3.Text)
+                                End If
+                                If tbRate4.Text <> "" Then
+                                    q.First.Rate4 = CDbl(tbRate4.Text)
+                                End If
+
+                                q.First.Formula = hfTaxFormula.Value
+                            Case Else
+                                q.First.Formula = tbTaxFormula.Text
+
+                        End Select
+
+
+
+                    Else
+                        q.First.Formula = ""
+                    End If
+                    If tbMin.Text = "" Then
+                        tbMin.Text = 0
+                    End If
+
+                    q.First.AccountCode = ddlAccount.SelectedValue
+                    q.First.Min = tbMin.Text
+                    q.First.Max = tbMax.Text
+                End If
             End If
+            
             d.SubmitChanges()
             Response.Redirect(NavigateURL())
         End Sub

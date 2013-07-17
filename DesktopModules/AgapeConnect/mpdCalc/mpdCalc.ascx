@@ -50,7 +50,7 @@
 
 
                 }
-                calculateSectionTotal($(this).parent().parent().parent().parent().parent());
+                calculateSectionTotal($(this).parent().parent().parent().parent().parent().parent());
                 
             });
 
@@ -76,7 +76,7 @@
 
 
                 }
-                calculateSectionTotal($(this).parent().parent().parent().parent().parent());
+                calculateSectionTotal($(this).parent().parent().parent().parent().parent().parent());
 
             });
 
@@ -234,21 +234,23 @@
             $('.edit-cancel').click(function () {
                 $('.mpd-edit').hide("slow");
                 $('.btn-edit').show();
+                $('.btn-insert').show();
             });
 
-            $('.btn-edit').click(function () {
+            $('.btn-edit,.btn-insert').click(function () {
                 
                 $('.mpd-edit').hide("slow");
 
-                $(this).parent().siblings('.mpd-edit').find('.mpd-edit-mode').change();
+                $(this).parent().parent().siblings('.mpd-edit').find('.mpd-edit-mode').change();
 
 
-                $(this).parent().siblings('.mpd-edit').show("slow");
+                $(this).parent().parent().siblings('.mpd-edit').show("slow");
 
 
                
 
-                $('.btn-edit').show();
+                $('.btn-edit,.btn-insert').show();
+               
                 $(this).hide();
             });
 
@@ -314,7 +316,7 @@
             //Go through each formula and refresh the values
             var f = $(this).siblings("input['type'='hidden']").val();
             f=replaceTags(f);
-            console.log(f);
+            
             $(this).val(eval(f).toFixed(0));
 
 
@@ -372,7 +374,7 @@
             else $(m).attr('min',eval(min));
                 
 
-            console.log(max)
+           
             if (max=='') $(m).removeAttr('max');
             else $(m).attr('max',eval(max));
        
@@ -401,7 +403,18 @@
         position: absolute;
         right: 8px;
     }
-
+    .btn-insert {
+        font-style: italic;
+ text-align:center;
+        position: relative;
+top: -0.8em;
+background-color: #F5F5F5;
+    }
+    .mpd-insert {
+        width:100%;
+        text-align: center;
+       border-top: 1pt dashed gainsboro;
+    }
     .version-number {
         width: 20px;
         float: left;
@@ -466,6 +479,12 @@
         margin-top: 5px;
         float: right;
     }
+    .mpd-section-total {
+    border-top: 1pt solid gainsboro;
+    }
+    .control-group.mpd-insert-mode {
+        margin-bottom: 0 !important;
+    }
 </style>
 
 <asp:HiddenField ID="hfAssessment" runat="server" Value="0.0" />
@@ -486,11 +505,13 @@
                 <asp:Repeater ID="rpItems" runat="server" DataSource='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).OrderBy(Function (c) c.QuestionNumber)%>'>
 
                     <ItemTemplate>
-                        <uc1:mpdItem runat="server" ID="mpdItem14" QuestionId='<%# Eval("QuestionId")%>' Mode='<%# Eval("Type")%>' Formula='<%# Eval("Formula")%>' ItemName='<%# Eval("Name")%>' Help='<%# Eval("Help")%>' ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>' Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>' Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>' Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' />
+                        <uc1:mpdItem runat="server" ID="mpdItem14" SectionId='<%# Eval("SectionId")%>' QuestionId='<%# Eval("QuestionId")%>' Mode='<%# Eval("Type")%>' Formula='<%# Eval("Formula")%>' ItemName='<%# Eval("Name")%>' Help='<%# Eval("Help")%>' ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>' Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>' Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>' Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' />
                     </ItemTemplate>
                 </asp:Repeater>
 
-                <uc1:mpdTotal runat="server" ID="totSection1" ItemName="Total Salary & Payroll" Bold="True" IsSectionTotal="True" />
+                 <uc1:mpdItem runat="server" ID="mpdItem14" SectionId='<%# Eval("SectionId")%>' QuestionId='-1'  Mode='INSERT' Formula='' ItemName='' Help='' ItemId='<%# Eval("Number") & "." & (CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).Max(Function(c) c.QuestionNumber))+1%>' TaxSystem='FIXED_RATE'  Min='0' />
+                
+                <uc1:mpdTotal runat="server" ID="totSection1" ItemName="Total Salary & Payroll" Bold="True" IsSectionTotal="True"  />
             </div>
         </ItemTemplate>
 
