@@ -112,9 +112,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             End Get
             Set(ByVal value As String)
-                tbMonthly.Attributes.Add("data-min", value)
-                tbYearly.Attributes.Add("data-min", "(" & value & ") * 12")
+                If (value <> "") Then
+                    tbMonthly.Attributes.Add("data-min", value)
+                    tbYearly.Attributes.Add("data-min", "(" & value & ") * 12")
 
+                End If
+                tbMin.Text = value
             End Set
         End Property
         Public Property Max() As String
@@ -123,8 +126,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             End Get
             Set(ByVal value As String)
-                tbMonthly.Attributes.Add("data-max", value)
-                tbYearly.Attributes.Add("data-max", "(" & value & ") * 12")
+                If (value <> "") Then
+                    tbMonthly.Attributes.Add("data-max", value)
+                    tbYearly.Attributes.Add("data-max", "(" & value & ") * 12")
+                End If
+                tbMax.Text = value
             End Set
         End Property
 

@@ -8,50 +8,7 @@
 <script src="/Portals/_default/Skins/AgapeBlue/bootstrap/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-    function replaceTags(f) {
-        //Replace ItemValue Taxs {1.1}
-        $('.version-number').each(function () {
-            var v = $(this).parent().find('.monthly').val();
-            v = v == '' ? 0 : v;
-
-
-            f = f.replace(/'{' + $(this).text() + '}'/g, v);
-
-             
-        });
-      
-        //Replace Age Tag {AGE}
-        var age = <%= Age1%> ;
-     
-        if(age>0) f = f.replace(/{AGE}/g, age);
-        
-        if ('<%= IsCouple() %>' == 'True'){
-            var age2 = <%= Age2%> ;
-            if(age2>0) f = f.replace(/{AGE2}/g, age2);
-        }
-        
-        f = f.replace(/{STAFFTYPE}/g, '<%=StaffType %>');
-        f = f.replace(/{ISCOUPLE}/g, '<%=IsCouple %>');
-        
-        f = f.replace(/{AGE}/g, '');
-        f = f.replace(/{AGE2}/g, '');
-        f = f.replace(/{STAFFTYPE}/g, '');
-        f = f.replace(/{ISCOUPLE}/g, '');
-        return f;
-    }
-    function setMinMax(m){
-        var min = $(m).attr('data-min');
-        var max = $(m).attr('data-max');
-
-        min = replaceTags(min);
-        max = replaceTags(max);
-        if (min=='') $(m).removeAttr('min');
-        else $(m).attr('min',eval(min));
-                
-        if (max=='') $(m).removeAttr('max');
-        else $(m).attr('max',eval(max));
-       
-    }
+    
 
     (function ($, Sys) {
 
@@ -86,7 +43,7 @@
                     f = f.replace(/\{NET}/g, $(this).val());
                     f=replaceTags(f);
                     console.log(f)
-                   // alert(f);
+                    // alert(f);
                     $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
                     $(this).parent().parent().siblings().find('.net-tax-year').text((eval(f) * 12.0).toFixed(0));
@@ -122,9 +79,12 @@
                 calculateSectionTotal($(this).parent().parent().parent().parent().parent());
 
             });
+
             $('.sectionTotal').each(function () {
                 calculateSectionTotal($(this).parent().parent().parent().parent());
             });
+
+
             $('#<%= cbCompliance.ClientID%>').change(function () {
 
                 if (this.checked)
@@ -143,9 +103,9 @@
                 var f = '';
                 if (m == 'FIXED_RATE') {
                     var r = $(ddl).siblings('.mpd-tax-rate').find('.rate').val();
-                     f = '(({NET}*12) / ( ( 100 / ' + r + ' ) -1 ))/12';
-                     $(ddl).parent().find('.tax-formula').text(f);
-                     $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
+                    f = '(({NET}*12) / ( ( 100 / ' + r + ' ) -1 ))/12';
+                    $(ddl).parent().find('.tax-formula').text(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
                 }
                 else if (m == 'FIXED_AMOUNT') {
                     f = $(ddl).siblings('.mpd-tax-fixed').find('.fixed').val();
@@ -230,7 +190,7 @@
                     $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-net').show();
                 }
                 
-             });
+            });
 
             $('.mpd-tax-mode').change(function () {
                 $(this).parent().find('.tax-formula').attr('readonly', 'readonly');
@@ -292,16 +252,18 @@
                 $(this).hide();
             });
 
+           
             handleFormulas();
-            
 
         });
         
-       
+      
 
 
         //alert(replaceTags('Age: {AGE}; Age2: {AGE2}; StaffType: {STAFFTYPE}; IsCouple: {ISCOUPLE};'));
     }(jQuery, window.Sys));
+
+
     function calculateSectionTotal(section) {
         var sum = 0.0;
         section.find('.yearly').each(function (i, n) {
@@ -352,7 +314,7 @@
             //Go through each formula and refresh the values
             var f = $(this).siblings("input['type'='hidden']").val();
             f=replaceTags(f);
-          
+            console.log(f);
             $(this).val(eval(f).toFixed(0));
 
 
@@ -363,10 +325,60 @@
             calculateSectionTotal($(this).parent().parent().parent().parent().parent());
 
         });
-
-
-
     }
+    function replaceTags(f) {
+        //Replace ItemValue Taxs {1.1}
+        if(f==undefined)
+            return '';
+        $('.version-number').each(function () {
+            var v = $(this).parent().find('.monthly').val();
+            if( v != undefined && $(this).text() != undefined)
+            {
+                v = v == '' ? 0 : v;
+                
+
+                f = f.replace(new RegExp('{' + $(this).text() + '}','g'), v);
+            }
+             
+        });
+      
+        //Replace Age Tag {AGE}
+        var age = <%= Age1%> ;
+     
+            if(age>0) f = f.replace(/{AGE}/g, age);
+        
+            if ('<%= IsCouple() %>' == 'True'){
+            var age2 = <%= Age2%> ;
+            if(age2>0) f = f.replace(/{AGE2}/g, age2);
+        }
+        
+        f = f.replace(/{STAFFTYPE}/g, '<%=StaffType %>');
+            f = f.replace(/{ISCOUPLE}/g, '<%=IsCouple %>');
+        
+            f = f.replace(/{AGE}/g, '');
+            f = f.replace(/{AGE2}/g, '');
+            f = f.replace(/{STAFFTYPE}/g, '');
+            f = f.replace(/{ISCOUPLE}/g, '');
+            return f;
+    }
+
+        function setMinMax(m){
+            var min = $(m).attr('data-min');
+            var max = $(m).attr('data-max');
+
+            min = replaceTags(min);
+            max = replaceTags(max);
+            if (min=='') $(m).removeAttr('min');
+            else $(m).attr('min',eval(min));
+                
+
+            console.log(max)
+            if (max=='') $(m).removeAttr('max');
+            else $(m).attr('max',eval(max));
+       
+        }
+
+    
 
     
 
@@ -433,22 +445,26 @@
         color: gray;
         font-style: italic;
     }
+
     .mpd-edit {
         margin-top: 10px;
-        }
-    .comment {
-         font-size: x-small;
-         font-weight: bold;
     }
+
+    .comment {
+        font-size: x-small;
+        font-weight: bold;
+    }
+
     .exFormula {
         width: 100%;
         text-align: center;
         font-family: 'Courier New';
         font-size: small;
     }
-    .valid, .invalid{
+
+    .valid, .invalid {
         margin-top: 5px;
-        float:right;
+        float: right;
     }
 </style>
 
@@ -470,7 +486,7 @@
                 <asp:Repeater ID="rpItems" runat="server" DataSource='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).OrderBy(Function (c) c.QuestionNumber)%>'>
 
                     <ItemTemplate>
-                        <uc1:mpdItem runat="server" ID="mpdItem14" QuestionId='<%# Eval("QuestionId")%>'  Mode='<%# Eval("Type")%>' Formula='<%# Eval("Formula")%>' ItemName='<%# Eval("Name")%>' Help='<%# Eval("Help")%>' ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>'   TaxSystem='<%# Eval("TaxSystem")%>'  Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>'  Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>'  Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>'  Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>'  Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>'  Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>'  Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>'  Fixed='<%# Eval("Fixed")%>'   Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>'  />
+                        <uc1:mpdItem runat="server" ID="mpdItem14" QuestionId='<%# Eval("QuestionId")%>' Mode='<%# Eval("Type")%>' Formula='<%# Eval("Formula")%>' ItemName='<%# Eval("Name")%>' Help='<%# Eval("Help")%>' ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>' Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>' Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>' Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' />
                     </ItemTemplate>
                 </asp:Repeater>
 
