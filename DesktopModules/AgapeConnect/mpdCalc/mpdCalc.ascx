@@ -20,11 +20,31 @@
 
             $('.aButton').button();
 
-
-            $('.monthly').each(function() { setMinMax($(this))});
-
+            //Startup Routine
+            $('.monthly').each(function() { setMinMax($(this)); });
             $('.yearly').each(function() {setMinMax($(this))});
+            $('.monthly.net').each(function() {
+                var f = $(this).siblings("input['type'='hidden']").val();
 
+                f = f.replace(/\{NET}/g, $(this).val());
+                f=replaceTags(f);
+               
+                $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
+
+                $(this).parent().parent().siblings().find('.net-tax-year').text((eval(f) * 12.0).toFixed(0));
+                   
+                $(this).siblings('.net-tax').find("input[type=hidden]").val(eval(f).toFixed(0)); 
+            });
+            
+            handleFormulas();
+
+            $('.sectionTotal').each(function () {
+                calculateSectionTotal($(this).parent().parent().parent().parent());
+            });
+
+
+
+            //Event Handlers
             $('.monthly').keyup(function () {
                 //SetValidation
                 setMinMax($(this));
@@ -42,12 +62,13 @@
 
                     f = f.replace(/\{NET}/g, $(this).val());
                     f=replaceTags(f);
-                    console.log(f)
+                   // console.log(f)
                     // alert(f);
                     $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
                     $(this).parent().parent().siblings().find('.net-tax-year').text((eval(f) * 12.0).toFixed(0));
-
+                   
+                    $(this).siblings('.net-tax').find("input[type=hidden]").val(eval(f).toFixed(0));
 
                 }
                 calculateSectionTotal($(this).parent().parent().parent().parent().parent().parent());
@@ -73,16 +94,14 @@
                     $(monthly).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
                     $(this).parent().find(".net-tax-year").text((eval(f) * 12.0).toFixed(0));
-
+                    $(monthly).parent().find(".net-tax-month").siblings("input['type'='hidden']").val(eval(f).toFixed(0));
 
                 }
                 calculateSectionTotal($(this).parent().parent().parent().parent().parent().parent());
 
             });
 
-            $('.sectionTotal').each(function () {
-                calculateSectionTotal($(this).parent().parent().parent().parent());
-            });
+         
 
 
             $('#<%= cbCompliance.ClientID%>').change(function () {
@@ -255,7 +274,7 @@
             });
 
            
-            handleFormulas();
+           
 
         });
         
@@ -505,7 +524,13 @@ background-color: #F5F5F5;
                 <asp:Repeater ID="rpItems" runat="server" DataSource='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).OrderBy(Function (c) c.QuestionNumber)%>'>
 
                     <ItemTemplate>
-                        <uc1:mpdItem runat="server" ID="mpdItem14" SectionId='<%# Eval("SectionId")%>' QuestionId='<%# Eval("QuestionId")%>' Mode='<%# Eval("Type")%>' Formula='<%# Eval("Formula")%>' ItemName='<%# Eval("Name")%>' Help='<%# Eval("Help")%>' ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>' Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>' Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>' Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' />
+                        <uc1:mpdItem runat="server" ID="theMpdItem" SectionId='<%# Eval("SectionId")%>' QuestionId='<%# Eval("QuestionId")%>' Mode='<%# Eval("Type")%>' 
+                            Formula='<%# Eval("Formula")%>' ItemName='<%# GetName(Eval("QuestionId"),Eval("Name"))%>' Help='<%# Eval("Help")%>' 
+                            Monthly='<%# GetAnswer(Eval("QuestionId"))%>'
+                            ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>' 
+                            Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>' 
+                            Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>' 
+                            Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' />
                     </ItemTemplate>
                 </asp:Repeater>
 

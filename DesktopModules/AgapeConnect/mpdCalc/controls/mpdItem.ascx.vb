@@ -46,15 +46,15 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Public Property Monthly() As String
             Get
-                Return tbMonthly.Text
+                Return IIf(tbMonthly.Text = "", 0, tbMonthly.Text)
 
 
             End Get
             Set(ByVal value As String)
 
                 If (value <> "") Then
-                    tbYearly.Text = (12 * CDbl(value)).ToString("n2", New CultureInfo("en-US"))
-                    tbMonthly.Text = CDbl(value).ToString("n2", New CultureInfo("en-US"))
+                    tbYearly.Text = (12 * CDbl(value)).ToString("f0", CultureInfo.InvariantCulture)
+                    tbMonthly.Text = CDbl(value).ToString("f0", CultureInfo.InvariantCulture)
                 End If
 
 
@@ -113,7 +113,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Set(ByVal value As String)
 
                 If (value <> "") Then
-                    tbMonthly.Text = (CDbl(value) / 12).ToString("n2", New CultureInfo("en-US"))
+                    tbMonthly.Text = (CDbl(value) / 12).ToString("f0", CultureInfo.InvariantCulture)
                     tbYearly.Text = CDbl(value).ToString("n2", New CultureInfo("en-US"))
                 End If
 
@@ -166,15 +166,30 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Property
 
 
+        Public Property Tax() As Integer
+            Get
+                Return IIf(hftax.Value = "", 0, hftax.Value)
+            End Get
+            Set(ByVal value As Integer)
+
+            End Set
+        End Property
+
+
 
         Public Property ItemName() As String
             Get
-                Return lblItemName.Text
+                Return IIf(lblItemName.Text = "", tbEventName.Text, lblItemName.Text)
             End Get
             Set(ByVal value As String)
                 If (value = "") Then
                     lblItemName.Visible = False
                     tbEventName.Visible = True
+                ElseIf (value.StartsWith("!!")) Then
+                    lblItemName.Visible = False
+                    tbEventName.Visible = True
+                    tbEventName.Text = value.Substring(2)
+
                 Else
                     lblItemName.Text = value
                 End If
@@ -340,6 +355,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             If Not Page.IsPostBack Then
+
 
 
                 If _mode.Contains("NET") Then

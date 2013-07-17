@@ -50,6 +50,18 @@ Namespace MPD
     End Sub
     Partial Private Sub DeleteAP_mpdCalc_Question(instance As AP_mpdCalc_Question)
     End Sub
+    Partial Private Sub InsertAP_mpdCalc_StaffBudget(instance As AP_mpdCalc_StaffBudget)
+    End Sub
+    Partial Private Sub UpdateAP_mpdCalc_StaffBudget(instance As AP_mpdCalc_StaffBudget)
+    End Sub
+    Partial Private Sub DeleteAP_mpdCalc_StaffBudget(instance As AP_mpdCalc_StaffBudget)
+    End Sub
+    Partial Private Sub InsertAP_mpdCalc_Answer(instance As AP_mpdCalc_Answer)
+    End Sub
+    Partial Private Sub UpdateAP_mpdCalc_Answer(instance As AP_mpdCalc_Answer)
+    End Sub
+    Partial Private Sub DeleteAP_mpdCalc_Answer(instance As AP_mpdCalc_Answer)
+    End Sub
     #End Region
 		
 		Public Sub New()
@@ -94,6 +106,18 @@ Namespace MPD
 				Return Me.GetTable(Of AP_mpdCalc_Question)
 			End Get
 		End Property
+		
+		Public ReadOnly Property AP_mpdCalc_StaffBudgets() As System.Data.Linq.Table(Of AP_mpdCalc_StaffBudget)
+			Get
+				Return Me.GetTable(Of AP_mpdCalc_StaffBudget)
+			End Get
+		End Property
+		
+		Public ReadOnly Property AP_mpdCalc_Answers() As System.Data.Linq.Table(Of AP_mpdCalc_Answer)
+			Get
+				Return Me.GetTable(Of AP_mpdCalc_Answer)
+			End Get
+		End Property
 	End Class
 	
 	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_mpdCalc_Definition")>  _
@@ -117,6 +141,8 @@ Namespace MPD
 		Private _Complience As String
 		
 		Private _AP_mpdCalc_Sections As EntitySet(Of AP_mpdCalc_Section)
+		
+		Private _AP_mpdCalc_StaffBudgets As EntitySet(Of AP_mpdCalc_StaffBudget)
 		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -158,6 +184,7 @@ Namespace MPD
 		Public Sub New()
 			MyBase.New
 			Me._AP_mpdCalc_Sections = New EntitySet(Of AP_mpdCalc_Section)(AddressOf Me.attach_AP_mpdCalc_Sections, AddressOf Me.detach_AP_mpdCalc_Sections)
+			Me._AP_mpdCalc_StaffBudgets = New EntitySet(Of AP_mpdCalc_StaffBudget)(AddressOf Me.attach_AP_mpdCalc_StaffBudgets, AddressOf Me.detach_AP_mpdCalc_StaffBudgets)
 			OnCreated
 		End Sub
 		
@@ -289,6 +316,16 @@ Namespace MPD
 			End Set
 		End Property
 		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget", Storage:="_AP_mpdCalc_StaffBudgets", ThisKey:="mpdDefId", OtherKey:="DefinitionId")>  _
+		Public Property AP_mpdCalc_StaffBudgets() As EntitySet(Of AP_mpdCalc_StaffBudget)
+			Get
+				Return Me._AP_mpdCalc_StaffBudgets
+			End Get
+			Set
+				Me._AP_mpdCalc_StaffBudgets.Assign(value)
+			End Set
+		End Property
+		
 		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
 		
 		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
@@ -313,6 +350,16 @@ Namespace MPD
 		End Sub
 		
 		Private Sub detach_AP_mpdCalc_Sections(ByVal entity As AP_mpdCalc_Section)
+			Me.SendPropertyChanging
+			entity.AP_mpdCalc_Definition = Nothing
+		End Sub
+		
+		Private Sub attach_AP_mpdCalc_StaffBudgets(ByVal entity As AP_mpdCalc_StaffBudget)
+			Me.SendPropertyChanging
+			entity.AP_mpdCalc_Definition = Me
+		End Sub
+		
+		Private Sub detach_AP_mpdCalc_StaffBudgets(ByVal entity As AP_mpdCalc_StaffBudget)
 			Me.SendPropertyChanging
 			entity.AP_mpdCalc_Definition = Nothing
 		End Sub
@@ -571,6 +618,8 @@ Namespace MPD
 		
 		Private _TaxSystem As String
 		
+		Private _AP_mpdCalc_Answers As EntitySet(Of AP_mpdCalc_Answer)
+		
 		Private _AP_mpdCalc_Section As EntityRef(Of AP_mpdCalc_Section)
 		
     #Region "Extensibility Method Definitions"
@@ -660,6 +709,7 @@ Namespace MPD
 		
 		Public Sub New()
 			MyBase.New
+			Me._AP_mpdCalc_Answers = New EntitySet(Of AP_mpdCalc_Answer)(AddressOf Me.attach_AP_mpdCalc_Answers, AddressOf Me.detach_AP_mpdCalc_Answers)
 			Me._AP_mpdCalc_Section = CType(Nothing, EntityRef(Of AP_mpdCalc_Section))
 			OnCreated
 		End Sub
@@ -974,6 +1024,16 @@ Namespace MPD
 			End Set
 		End Property
 		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_Question_AP_mpdCalc_Answer", Storage:="_AP_mpdCalc_Answers", ThisKey:="QuestionId", OtherKey:="QuestionId")>  _
+		Public Property AP_mpdCalc_Answers() As EntitySet(Of AP_mpdCalc_Answer)
+			Get
+				Return Me._AP_mpdCalc_Answers
+			End Get
+			Set
+				Me._AP_mpdCalc_Answers.Assign(value)
+			End Set
+		End Property
+		
 		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_Section_AP_mpdCalc_Question", Storage:="_AP_mpdCalc_Section", ThisKey:="SectionId", OtherKey:="SectionId", IsForeignKey:=true)>  _
 		Public Property AP_mpdCalc_Section() As AP_mpdCalc_Section
 			Get
@@ -998,6 +1058,601 @@ Namespace MPD
 						Me._SectionId = CType(Nothing, Integer)
 					End If
 					Me.SendPropertyChanged("AP_mpdCalc_Section")
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+		
+		Private Sub attach_AP_mpdCalc_Answers(ByVal entity As AP_mpdCalc_Answer)
+			Me.SendPropertyChanging
+			entity.AP_mpdCalc_Question = Me
+		End Sub
+		
+		Private Sub detach_AP_mpdCalc_Answers(ByVal entity As AP_mpdCalc_Answer)
+			Me.SendPropertyChanging
+			entity.AP_mpdCalc_Question = Nothing
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_mpdCalc_StaffBudget")>  _
+	Partial Public Class AP_mpdCalc_StaffBudget
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _StaffBudgetId As Integer
+		
+		Private _StaffId As Integer
+		
+		Private _DefinitionId As Integer
+		
+		Private _BudgetYearStart As Short
+		
+		Private _SubmittedOn As System.Nullable(Of Date)
+		
+		Private _ApprovedBy As System.Nullable(Of Integer)
+		
+		Private _ApprovedOn As System.Nullable(Of Date)
+		
+		Private _ProcessedBy As System.Nullable(Of Integer)
+		
+		Private _ProcessedOn As System.Nullable(Of Date)
+		
+		Private _Status As Short
+		
+		Private _CurrentSupportLevel As System.Nullable(Of Decimal)
+		
+		Private _AP_mpdCalc_Answers As EntitySet(Of AP_mpdCalc_Answer)
+		
+		Private _AP_mpdCalc_Definition As EntityRef(Of AP_mpdCalc_Definition)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnStaffBudgetIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnStaffBudgetIdChanged()
+    End Sub
+    Partial Private Sub OnStaffIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnStaffIdChanged()
+    End Sub
+    Partial Private Sub OnDefinitionIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnDefinitionIdChanged()
+    End Sub
+    Partial Private Sub OnBudgetYearStartChanging(value As Short)
+    End Sub
+    Partial Private Sub OnBudgetYearStartChanged()
+    End Sub
+    Partial Private Sub OnSubmittedOnChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnSubmittedOnChanged()
+    End Sub
+    Partial Private Sub OnApprovedByChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnApprovedByChanged()
+    End Sub
+    Partial Private Sub OnApprovedOnChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnApprovedOnChanged()
+    End Sub
+    Partial Private Sub OnProcessedByChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnProcessedByChanged()
+    End Sub
+    Partial Private Sub OnProcessedOnChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnProcessedOnChanged()
+    End Sub
+    Partial Private Sub OnStatusChanging(value As Short)
+    End Sub
+    Partial Private Sub OnStatusChanged()
+    End Sub
+    Partial Private Sub OnCurrentSupportLevelChanging(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnCurrentSupportLevelChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._AP_mpdCalc_Answers = New EntitySet(Of AP_mpdCalc_Answer)(AddressOf Me.attach_AP_mpdCalc_Answers, AddressOf Me.detach_AP_mpdCalc_Answers)
+			Me._AP_mpdCalc_Definition = CType(Nothing, EntityRef(Of AP_mpdCalc_Definition))
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StaffBudgetId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property StaffBudgetId() As Integer
+			Get
+				Return Me._StaffBudgetId
+			End Get
+			Set
+				If ((Me._StaffBudgetId = value)  _
+							= false) Then
+					Me.OnStaffBudgetIdChanging(value)
+					Me.SendPropertyChanging
+					Me._StaffBudgetId = value
+					Me.SendPropertyChanged("StaffBudgetId")
+					Me.OnStaffBudgetIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StaffId", DbType:="Int NOT NULL")>  _
+		Public Property StaffId() As Integer
+			Get
+				Return Me._StaffId
+			End Get
+			Set
+				If ((Me._StaffId = value)  _
+							= false) Then
+					Me.OnStaffIdChanging(value)
+					Me.SendPropertyChanging
+					Me._StaffId = value
+					Me.SendPropertyChanged("StaffId")
+					Me.OnStaffIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DefinitionId", DbType:="Int NOT NULL")>  _
+		Public Property DefinitionId() As Integer
+			Get
+				Return Me._DefinitionId
+			End Get
+			Set
+				If ((Me._DefinitionId = value)  _
+							= false) Then
+					If Me._AP_mpdCalc_Definition.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnDefinitionIdChanging(value)
+					Me.SendPropertyChanging
+					Me._DefinitionId = value
+					Me.SendPropertyChanged("DefinitionId")
+					Me.OnDefinitionIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BudgetYearStart", DbType:="SmallInt NOT NULL")>  _
+		Public Property BudgetYearStart() As Short
+			Get
+				Return Me._BudgetYearStart
+			End Get
+			Set
+				If ((Me._BudgetYearStart = value)  _
+							= false) Then
+					Me.OnBudgetYearStartChanging(value)
+					Me.SendPropertyChanging
+					Me._BudgetYearStart = value
+					Me.SendPropertyChanged("BudgetYearStart")
+					Me.OnBudgetYearStartChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SubmittedOn", DbType:="DateTime")>  _
+		Public Property SubmittedOn() As System.Nullable(Of Date)
+			Get
+				Return Me._SubmittedOn
+			End Get
+			Set
+				If (Me._SubmittedOn.Equals(value) = false) Then
+					Me.OnSubmittedOnChanging(value)
+					Me.SendPropertyChanging
+					Me._SubmittedOn = value
+					Me.SendPropertyChanged("SubmittedOn")
+					Me.OnSubmittedOnChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ApprovedBy", DbType:="Int")>  _
+		Public Property ApprovedBy() As System.Nullable(Of Integer)
+			Get
+				Return Me._ApprovedBy
+			End Get
+			Set
+				If (Me._ApprovedBy.Equals(value) = false) Then
+					Me.OnApprovedByChanging(value)
+					Me.SendPropertyChanging
+					Me._ApprovedBy = value
+					Me.SendPropertyChanged("ApprovedBy")
+					Me.OnApprovedByChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ApprovedOn", DbType:="DateTime")>  _
+		Public Property ApprovedOn() As System.Nullable(Of Date)
+			Get
+				Return Me._ApprovedOn
+			End Get
+			Set
+				If (Me._ApprovedOn.Equals(value) = false) Then
+					Me.OnApprovedOnChanging(value)
+					Me.SendPropertyChanging
+					Me._ApprovedOn = value
+					Me.SendPropertyChanged("ApprovedOn")
+					Me.OnApprovedOnChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ProcessedBy", DbType:="Int")>  _
+		Public Property ProcessedBy() As System.Nullable(Of Integer)
+			Get
+				Return Me._ProcessedBy
+			End Get
+			Set
+				If (Me._ProcessedBy.Equals(value) = false) Then
+					Me.OnProcessedByChanging(value)
+					Me.SendPropertyChanging
+					Me._ProcessedBy = value
+					Me.SendPropertyChanged("ProcessedBy")
+					Me.OnProcessedByChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ProcessedOn", DbType:="DateTime")>  _
+		Public Property ProcessedOn() As System.Nullable(Of Date)
+			Get
+				Return Me._ProcessedOn
+			End Get
+			Set
+				If (Me._ProcessedOn.Equals(value) = false) Then
+					Me.OnProcessedOnChanging(value)
+					Me.SendPropertyChanging
+					Me._ProcessedOn = value
+					Me.SendPropertyChanged("ProcessedOn")
+					Me.OnProcessedOnChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Status", DbType:="SmallInt NOT NULL")>  _
+		Public Property Status() As Short
+			Get
+				Return Me._Status
+			End Get
+			Set
+				If ((Me._Status = value)  _
+							= false) Then
+					Me.OnStatusChanging(value)
+					Me.SendPropertyChanging
+					Me._Status = value
+					Me.SendPropertyChanged("Status")
+					Me.OnStatusChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_CurrentSupportLevel", DbType:="Money")>  _
+		Public Property CurrentSupportLevel() As System.Nullable(Of Decimal)
+			Get
+				Return Me._CurrentSupportLevel
+			End Get
+			Set
+				If (Me._CurrentSupportLevel.Equals(value) = false) Then
+					Me.OnCurrentSupportLevelChanging(value)
+					Me.SendPropertyChanging
+					Me._CurrentSupportLevel = value
+					Me.SendPropertyChanged("CurrentSupportLevel")
+					Me.OnCurrentSupportLevelChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_StaffBudget_AP_mpdCalc_Answer", Storage:="_AP_mpdCalc_Answers", ThisKey:="StaffBudgetId", OtherKey:="StaffBudgetId")>  _
+		Public Property AP_mpdCalc_Answers() As EntitySet(Of AP_mpdCalc_Answer)
+			Get
+				Return Me._AP_mpdCalc_Answers
+			End Get
+			Set
+				Me._AP_mpdCalc_Answers.Assign(value)
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget", Storage:="_AP_mpdCalc_Definition", ThisKey:="DefinitionId", OtherKey:="mpdDefId", IsForeignKey:=true)>  _
+		Public Property AP_mpdCalc_Definition() As AP_mpdCalc_Definition
+			Get
+				Return Me._AP_mpdCalc_Definition.Entity
+			End Get
+			Set
+				Dim previousValue As AP_mpdCalc_Definition = Me._AP_mpdCalc_Definition.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AP_mpdCalc_Definition.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AP_mpdCalc_Definition.Entity = Nothing
+						previousValue.AP_mpdCalc_StaffBudgets.Remove(Me)
+					End If
+					Me._AP_mpdCalc_Definition.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.AP_mpdCalc_StaffBudgets.Add(Me)
+						Me._DefinitionId = value.mpdDefId
+					Else
+						Me._DefinitionId = CType(Nothing, Integer)
+					End If
+					Me.SendPropertyChanged("AP_mpdCalc_Definition")
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+		
+		Private Sub attach_AP_mpdCalc_Answers(ByVal entity As AP_mpdCalc_Answer)
+			Me.SendPropertyChanging
+			entity.AP_mpdCalc_StaffBudget = Me
+		End Sub
+		
+		Private Sub detach_AP_mpdCalc_Answers(ByVal entity As AP_mpdCalc_Answer)
+			Me.SendPropertyChanging
+			entity.AP_mpdCalc_StaffBudget = Nothing
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_mpdCalc_Answer")>  _
+	Partial Public Class AP_mpdCalc_Answer
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _AnswerId As Long
+		
+		Private _QuestionId As Long
+		
+		Private _StaffBudgetId As Integer
+		
+		Private _Value As System.Nullable(Of Decimal)
+		
+        Private _Name As String
+
+        Private _Tax As System.Nullable(Of Decimal)
+
+        Private _AP_mpdCalc_Question As EntityRef(Of AP_mpdCalc_Question)
+
+        Private _AP_mpdCalc_StaffBudget As EntityRef(Of AP_mpdCalc_StaffBudget)
+
+#Region "Extensibility Method Definitions"
+        Partial Private Sub OnLoaded()
+        End Sub
+        Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+        End Sub
+        Partial Private Sub OnCreated()
+        End Sub
+        Partial Private Sub OnAnswerIdChanging(value As Long)
+        End Sub
+        Partial Private Sub OnAnswerIdChanged()
+        End Sub
+        Partial Private Sub OnQuestionIdChanging(value As Long)
+        End Sub
+        Partial Private Sub OnQuestionIdChanged()
+        End Sub
+        Partial Private Sub OnStaffBudgetIdChanging(value As Integer)
+        End Sub
+        Partial Private Sub OnStaffBudgetIdChanged()
+        End Sub
+        Partial Private Sub OnValueChanging(value As System.Nullable(Of Decimal))
+        End Sub
+        Partial Private Sub OnValueChanged()
+        End Sub
+        Partial Private Sub OnNameChanging(value As String)
+        End Sub
+        Partial Private Sub OnNameChanged()
+        End Sub
+        Partial Private Sub OnTaxChanging(value As System.Nullable(Of Decimal))
+        End Sub
+        Partial Private Sub OnTaxChanged()
+        End Sub
+#End Region
+
+        Public Sub New()
+            MyBase.New()
+            Me._AP_mpdCalc_Question = CType(Nothing, EntityRef(Of AP_mpdCalc_Question))
+            Me._AP_mpdCalc_StaffBudget = CType(Nothing, EntityRef(Of AP_mpdCalc_StaffBudget))
+            OnCreated()
+        End Sub
+
+        <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AnswerId", AutoSync:=AutoSync.OnInsert, DbType:="BigInt NOT NULL IDENTITY", IsPrimaryKey:=True, IsDbGenerated:=True)> _
+        Public Property AnswerId() As Long
+            Get
+                Return Me._AnswerId
+            End Get
+            Set(value As Long)
+                If ((Me._AnswerId = value) _
+                            = False) Then
+                    Me.OnAnswerIdChanging(value)
+                    Me.SendPropertyChanging()
+                    Me._AnswerId = value
+                    Me.SendPropertyChanged("AnswerId")
+                    Me.OnAnswerIdChanged()
+                End If
+            End Set
+        End Property
+
+        <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_QuestionId", DbType:="BigInt NOT NULL")> _
+        Public Property QuestionId() As Long
+            Get
+                Return Me._QuestionId
+            End Get
+            Set(value As Long)
+                If ((Me._QuestionId = value) _
+                            = False) Then
+                    If Me._AP_mpdCalc_Question.HasLoadedOrAssignedValue Then
+                        Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+                    End If
+                    Me.OnQuestionIdChanging(value)
+                    Me.SendPropertyChanging()
+                    Me._QuestionId = value
+                    Me.SendPropertyChanged("QuestionId")
+                    Me.OnQuestionIdChanged()
+                End If
+            End Set
+        End Property
+
+        <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StaffBudgetId", DbType:="Int NOT NULL")> _
+        Public Property StaffBudgetId() As Integer
+            Get
+                Return Me._StaffBudgetId
+            End Get
+            Set(value As Integer)
+                If ((Me._StaffBudgetId = value) _
+                            = False) Then
+                    If Me._AP_mpdCalc_StaffBudget.HasLoadedOrAssignedValue Then
+                        Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+                    End If
+                    Me.OnStaffBudgetIdChanging(value)
+                    Me.SendPropertyChanging()
+                    Me._StaffBudgetId = value
+                    Me.SendPropertyChanged("StaffBudgetId")
+                    Me.OnStaffBudgetIdChanged()
+                End If
+            End Set
+        End Property
+
+        <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Value", DbType:="Money")> _
+        Public Property Value() As System.Nullable(Of Decimal)
+            Get
+                Return Me._Value
+            End Get
+            Set(value As System.Nullable(Of Decimal))
+                If (Me._Value.Equals(value) = False) Then
+                    Me.OnValueChanging(value)
+                    Me.SendPropertyChanging()
+                    Me._Value = value
+                    Me.SendPropertyChanged("Value")
+                    Me.OnValueChanged()
+                End If
+            End Set
+        End Property
+
+        <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Name", DbType:="NVarChar(120)")> _
+        Public Property Name() As String
+            Get
+                Return Me._Name
+            End Get
+            Set(value As String)
+                If (String.Equals(Me._Name, value) = False) Then
+                    Me.OnNameChanging(value)
+                    Me.SendPropertyChanging()
+                    Me._Name = value
+                    Me.SendPropertyChanged("Name")
+                    Me.OnNameChanged()
+                End If
+            End Set
+        End Property
+
+        <Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Tax", DbType:="Money")> _
+        Public Property Tax() As System.Nullable(Of Decimal)
+            Get
+                Return Me._Tax
+            End Get
+            Set(value As System.Nullable(Of Decimal))
+                If (Me._Tax.Equals(value) = False) Then
+                    Me.OnTaxChanging(value)
+                    Me.SendPropertyChanging()
+                    Me._Tax = value
+                    Me.SendPropertyChanged("Tax")
+                    Me.OnTaxChanged()
+                End If
+            End Set
+        End Property
+
+        <Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_Question_AP_mpdCalc_Answer", Storage:="_AP_mpdCalc_Question", ThisKey:="QuestionId", OtherKey:="QuestionId", IsForeignKey:=True)> _
+        Public Property AP_mpdCalc_Question() As AP_mpdCalc_Question
+            Get
+                Return Me._AP_mpdCalc_Question.Entity
+            End Get
+            Set(value As AP_mpdCalc_Question)
+                Dim previousValue As AP_mpdCalc_Question = Me._AP_mpdCalc_Question.Entity
+                If ((Object.Equals(previousValue, Value) = False) _
+                            OrElse (Me._AP_mpdCalc_Question.HasLoadedOrAssignedValue = False)) Then
+                    Me.SendPropertyChanging()
+                    If ((previousValue Is Nothing) _
+                                = False) Then
+                        Me._AP_mpdCalc_Question.Entity = Nothing
+                        previousValue.AP_mpdCalc_Answers.Remove(Me)
+                    End If
+                    Me._AP_mpdCalc_Question.Entity = Value
+                    If ((Value Is Nothing) _
+                                = False) Then
+                        Value.AP_mpdCalc_Answers.Add(Me)
+                        Me._QuestionId = Value.QuestionId
+                    Else
+                        Me._QuestionId = CType(Nothing, Long)
+                    End If
+                    Me.SendPropertyChanged("AP_mpdCalc_Question")
+                End If
+            End Set
+        End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_StaffBudget_AP_mpdCalc_Answer", Storage:="_AP_mpdCalc_StaffBudget", ThisKey:="StaffBudgetId", OtherKey:="StaffBudgetId", IsForeignKey:=true)>  _
+		Public Property AP_mpdCalc_StaffBudget() As AP_mpdCalc_StaffBudget
+			Get
+				Return Me._AP_mpdCalc_StaffBudget.Entity
+			End Get
+			Set
+				Dim previousValue As AP_mpdCalc_StaffBudget = Me._AP_mpdCalc_StaffBudget.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AP_mpdCalc_StaffBudget.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AP_mpdCalc_StaffBudget.Entity = Nothing
+						previousValue.AP_mpdCalc_Answers.Remove(Me)
+					End If
+					Me._AP_mpdCalc_StaffBudget.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.AP_mpdCalc_Answers.Add(Me)
+						Me._StaffBudgetId = value.StaffBudgetId
+					Else
+						Me._StaffBudgetId = CType(Nothing, Integer)
+					End If
+					Me.SendPropertyChanged("AP_mpdCalc_StaffBudget")
 				End If
 			End Set
 		End Property

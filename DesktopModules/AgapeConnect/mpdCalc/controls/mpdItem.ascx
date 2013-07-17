@@ -25,6 +25,7 @@
                 <asp:Panel ID="pnlNetTax" runat="server" class="net-tax" Visible="False">
                     (+<asp:Label ID="lblNetTax" runat="server" CssClass="net-tax-month">0</asp:Label>
                     tax)
+                      <asp:HiddenField ID="hftax" runat="server" Value="0"  />
                 </asp:Panel>
 
                 <asp:HiddenField ID="hfFormula" runat="server" Value="" />
