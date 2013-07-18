@@ -67,6 +67,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
             If Not Page.IsPostBack Then
 
+
+
+
+
+
                 pnlInsert.Visible = IsEditMode()
 
 
@@ -113,7 +118,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                     lblStaffName.Text = staff.DisplayName
-
+                    IsCouple = Staff.UserId2 > 0
+                    StaffType = Staff.AP_StaffBroker_StaffType.Name
 
                     If (theForm.First.AP_mpdCalc_Sections.Count > 0) Then
                         LastSection = theForm.First.AP_mpdCalc_Sections.Max(Function(c) c.Number)
@@ -137,8 +143,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     cbCompliance.Visible = theForm.First.ShowComplience
                     Age1 = 20
                     Age2 = 22
-                    IsCouple = True
-                    StaffType = "COOL"
+
+
 
 
 
@@ -229,6 +235,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                         Dim insert As New MPD.AP_mpdCalc_Answer
                         insert.QuestionId = m.QuestionId
                         If m.Monthly = 0 Then
+
                             insert.Value = m.Yearly / 12
                         Else
                             insert.Value = m.Monthly

@@ -43,7 +43,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Property
         
 
-        Private _status As Integer
+        Private _status As Integer = -1
         Public Property Status() As Integer
             Get
                 Return _status
@@ -88,7 +88,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
-            If Status > 0 Then
+            If Status >= 0 Then
 
 
                 Dim ds As New StaffBrokerDataContext
@@ -119,7 +119,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     node.SelectAction = TreeNodeSelectAction.Expand
                     For Each row In allBudgets.Where(Function(x) x.StaffId = s.StaffId)
                         Dim node2 As New TreeNode()
-                        node2.Text = "(" & row.BudgetYearStart & ") - (" & row.BudgetYearStart + 1 & ")"
+                        node2.Text = "<span class='mpd-menu-tvtitle'>" & row.BudgetYearStart & " - " & row.BudgetYearStart + 1 & "</span>"
                         node2.NavigateUrl = URL & "?sb=" & row.StaffBudgetId
 
                         node.ChildNodes.Add(node2)

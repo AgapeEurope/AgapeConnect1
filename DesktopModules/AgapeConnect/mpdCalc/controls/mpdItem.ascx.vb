@@ -108,7 +108,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Public Property Yearly() As String
             Get
-                Return tbYearly.Text
+
+                Return IIf(tbYearly.Text = "", 0, tbYearly.Text)
                 'Return Double.Parse(tbYearly.Text, New CultureInfo("en-US").NumberFormat)
             End Get
             Set(ByVal value As String)
@@ -149,15 +150,17 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End Set
         End Property
 
+        Private _isCurrentSupport As Boolean = False
         Public Property IsCurrentSupport() As Boolean
             Get
                 Return False
             End Get
             Set(ByVal value As Boolean)
+                _isCurrentSupport = value
                 If value = True Then
 
                     tbMonthly.Attributes("class") &= " currentSupport"
-                   
+
                     tbYearly.Attributes("style") = "display: none"
                     lblCur2.Visible = False
 
@@ -372,7 +375,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 If IsEditMode() Then
-                    btnEdit.Visible = True
+                    btnEdit.Visible = Not _isCurrentSupport
 
 
                     Dim d As New StaffBrokerDataContext

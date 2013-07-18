@@ -38,27 +38,28 @@
 
 </script>
 <style type="text/css">
-    accordion-heading {
-        background-color: blue;
-    }
-
-    .accordion {
-    }
 
     .AcPane {
         height: 280px;
     }
+
     .mpd-year {
         margin-top: 10px;
+    }
+    .mpd-menu-tvtitle {
+        font-size: large;
+        font-weight: bold;
+        font-style: italic;
     }
 </style>
 
 
 <div class="row-fluid">
     <div class="span4">
-        
-       <b>New Budget:</b> <asp:DropDownList ID="ddlNewYear" runat="server" Width="120px" CssClass="mpd-year"></asp:DropDownList>
-        <asp:Button ID="btnCreateNewBudget" runat="server" Text="Create"  CssClass="btn" />
+
+        <b>New Budget:</b>
+        <asp:DropDownList ID="ddlNewYear" runat="server" Width="120px" CssClass="mpd-year"></asp:DropDownList>
+        <asp:Button ID="btnCreateNewBudget" runat="server" Text="Create" CssClass="btn" />
         <div id="accordion">
 
             <div>
@@ -84,7 +85,7 @@
                         </ItemTemplate>
                     </asp:DataList>
 
-                    <uc1:staffTreeview runat="server" ID="stDraft" Mode="AllStaff" />
+                    <uc1:staffTreeview runat="server" ID="stDraft" Mode="AllStaff"  />
                 </div>
             </div>
             <div>
@@ -222,6 +223,28 @@
                     <uc1:staffTreeview runat="server" ID="stCancelled" Mode="AllStaff" />
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="span8">
+        <div class="well">
+            This section will contain useful information on:
+            <ul>
+                <li><b>YouTube video walkthough</b> - how to submit a budget</li>
+                <li><b>Why Budget?</b> (video or short motivational text)</li>
+                <li><b>MPD tips</b> - links to several of the best MPD resources</li>
+                <li>Possibly an <b>MPD dashboard</b>, showing actual verses budget graphs for your personal R/C (or on members of your team)</li>
+            </ul>
+
+        </div>
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Heads up!</strong> <asp:Label ID="lblEditMode" runat="server" Text="Label"> You are currently in Edit Mode. This allows you to edit/process other peoples budget and customise the MPD budget Form.
+                To return to normal mode, select "View Mode" (top right).
+                                       </asp:Label>
+             <asp:Label ID="lblViewMode" runat="server" Text="Label"> You are currently in View Mode - what you see is exaclty what your users will see. 
+                 If you want to edit/process other peoplese budgets or edit the MPD form, you will need to be in "Edit Mode" top right.
+                                       </asp:Label>
+
         </div>
     </div>
 </div>

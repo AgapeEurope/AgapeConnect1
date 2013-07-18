@@ -49,11 +49,12 @@
                 //SetValidation
                 setMinMax($(this));
 
-
+              
+                
 
                 if ($(this).val().length > 0)
                     $(this).parent().parent().siblings().find('.yearly').val((parseFloat($(this).val()) * 12).toFixed(0));
-
+                else $(this).parent().parent().siblings().find('.yearly').val('');
 
 
                 handleFormulas();
@@ -84,7 +85,8 @@
                 var monthly = $(this).parent().parent().siblings().find('.monthly');
                 if ($(this).val().length > 0)
                     $(monthly).val((parseFloat($(this).val()) / 12).toFixed(0));
-
+                else  $(monthly).val('');
+                
 
                 if ($(this).hasClass('net')) {
                     var f = $(monthly).siblings("input['type'='hidden']").val();
@@ -351,7 +353,7 @@
             //Go through each formula and refresh the values
             var f = $(this).siblings("input['type'='hidden']").val();
             f=replaceTags(f);
-            console.log(f);
+           // console.log(f);
             $(this).val(eval(f).toFixed(0));
 
 
