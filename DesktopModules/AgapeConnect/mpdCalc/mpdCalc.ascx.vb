@@ -60,26 +60,49 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Private StaffBudId As Integer = -1
         Public LastSection As Integer = 0
+
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+            If (Not String.IsNullOrEmpty(Request.QueryString("sb"))) Then
+                StaffBudId = Request.QueryString("sb")
+            End If
             If Not Page.IsPostBack Then
 
                 pnlInsert.Visible = IsEditMode()
 
+
+
+
                 Dim d As New MPDDataContext()
                 Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId
+                Dim staff = StaffBrokerFunctions.GetStaffMember(UserId)
+                lblBudYear.Text = Today.Year & "-" & Today.Year + 1
                 If theForm.Count > 0 Then
-                    Dim staffId = StaffBrokerFunctions.GetStaffMember(UserId).StaffId
-                    Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffId = staffId And c.BudgetYearStart = Today.Year
+
+                    Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
                     If bud.Count > 0 Then
-                        StaffBudId = bud.First.StaffBudgetId
+
                         itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
+                        lblStatus.Text = StaffRmb.RmbStatus.StatusName(bud.First.Status)
+                        lblBudYear.Text = bud.First.BudgetYearStart & "-" & (bud.First.BudgetYearStart + 1)
+                        If bud.First.Status <> StaffRmb.RmbStatus.Draft And bud.First.Status <> StaffRmb.RmbStatus.Cancelled Then
+                            cbCompliance.Enabled = False
+                            cbCompliance.Checked = True
+                            btnSubmit.Enabled = True
+                        End If
+                        staff = StaffBrokerFunctions.GetStaffbyStaffId(bud.First.StaffId)
+
                     End If
+
+
+                    lblStaffName.Text = staff.DisplayName
+
+
                     If (theForm.First.AP_mpdCalc_Sections.Count > 0) Then
                         LastSection = theForm.First.AP_mpdCalc_Sections.Max(Function(c) c.Number)
                     End If
                     rpSections.DataSource = theForm.First.AP_mpdCalc_Sections.OrderBy(Function(c) c.Number)
                     rpSections.DataBind()
-                  
+
 
 
 
@@ -91,6 +114,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     hfAssessment.Value = theForm.First.AssessmentRate
                     If theForm.First.ShowComplience Then
                         cbCompliance.Text = theForm.First.Complience
+
                     End If
                     cbCompliance.Visible = theForm.First.ShowComplience
                     Age1 = 20
@@ -137,7 +161,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Return ""
         End Function
 
-        Protected Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+        Private Sub SaveBudget()
             Dim d As New MPD.MPDDataContext
 
             Dim def = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId And c.PortalId = PortalId
@@ -193,7 +217,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
 
 
+        End Sub
 
+        Protected Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+            SaveBudget()
 
         End Sub
         Public Function GetMaxQuestionNumber(ByVal questions As System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)) As Integer
@@ -228,9 +255,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 insert.Number = ddlInsertOrder.SelectedValue
                 d.AP_mpdCalc_Sections.InsertOnSubmit(insert)
                 d.SubmitChanges()
-                Response.Redirect(NavigateURL())
+                ReloadPage()
             End If
 
+        End Sub
+        Private Sub ReloadPage()
+            Response.Redirect(EditUrl("mpdCalc") & "?sb=" & StaffBudId)
         End Sub
 
         Protected Sub rpSections_ItemCommand(source As Object, e As RepeaterCommandEventArgs) Handles rpSections.ItemCommand
@@ -296,9 +326,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                     d.SubmitChanges()
-                    Response.Redirect(NavigateURL())
+                    ReloadPage()
                 End If
             End If
+        End Sub
+
+        Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+            SaveBudget()
         End Sub
     End Class
 End Namespace

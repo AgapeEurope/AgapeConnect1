@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <asp:Label ID="lblHelp" runat="server" class="help-inline mpd-help span5"></asp:Label>
+        <asp:Label ID="lblHelp" runat="server" class="help-inline mpd-help span5" ></asp:Label>
       
 
         <asp:HyperLink ID="btnEdit" runat="server" CssClass="btn-edit" Visible="false">Edit</asp:HyperLink>

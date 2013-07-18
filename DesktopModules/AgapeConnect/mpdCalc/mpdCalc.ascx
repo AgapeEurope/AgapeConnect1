@@ -19,7 +19,7 @@
 
 
             $('.aButton').button();
-
+           
             //Startup Routine
             $('.monthly').each(function() { setMinMax($(this)); });
             $('.yearly').each(function() {setMinMax($(this))});
@@ -553,6 +553,11 @@
         margin: 24px 0 0 5px;
         float: left;
     }
+
+    .mpd-status {
+        float: right;
+        margin-top: -50px;
+    }
 </style>
 
 <asp:HiddenField ID="hfAssessment" runat="server" Value="0.0" />
@@ -560,30 +565,37 @@
 
 
 
-<div id="formRoot" class="form-horizontal">
 
-    <asp:Repeater ID="rpSections" runat="server">
 
-        <ItemTemplate>
+<fieldset>
+    <legend>Support Budget for
+        <asp:Label ID="lblStaffName" runat="server" Font-Bold="true"></asp:Label>&nbsp; &nbsp; <i>(<asp:Label ID="lblBudYear" runat="server" Text=""></asp:Label>)</i></legend>
+    <asp:Label ID="lblStatus" runat="server" class="label label-info mpd-status">Draft</asp:Label>
+    <div class="clearfix" />
+    <div id="formRoot" class="form-horizontal">
 
-            <asp:ImageButton ID="ImageButton1" runat="server" class="mpd-btn-order" ImageUrl="~/images/action_up.gif" CommandName="UP" CommandArgument='<%# Eval("SectionId")%>'  Visible='<%# Eval("Number") > 1 And IsEditMode()%>' formnovalidate />
-            <asp:ImageButton ID="ImageButton2" runat="server" class="mpd-btn-order" ImageUrl="~/images/action_down.gif" CommandName="DOWN" CommandArgument='<%# Eval("SectionId")%>' Visible='<%# Eval("Number")< LastSection  And IsEditMode()%>' formnovalidate />
-            <div class="mpd-section-title" style="float: left;">
-                <h3>
-                    <asp:Label ID="lblSectionName" runat="server" Text='<%# Eval("Name")%>'></asp:Label></h3>
-            </div>
+        <asp:Repeater ID="rpSections" runat="server">
 
-            <asp:HyperLink ID="btnEditSectionName" runat="server" CssClass="btn-edit-section" Visible='<%# IsEditMode%>'>Edit</asp:HyperLink>
-            <div class="mpd-edit-section" style="display: none">
-                <asp:TextBox ID="tbSectionName" runat="server" Font-Size="X-Large" Font-Bold="true" Width="300px" Text='<%# Eval("Name")%>'></asp:TextBox>
-                <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("SectionId")%>' CommandName="EditSectionTitle" formnovalidate>Save</asp:LinkButton>
-                &nbsp; &nbsp;
+            <ItemTemplate>
+
+                <asp:ImageButton ID="ImageButton1" runat="server" class="mpd-btn-order" ImageUrl="~/images/action_up.gif" CommandName="UP" CommandArgument='<%# Eval("SectionId")%>' Visible='<%# Eval("Number") > 1 And IsEditMode()%>' formnovalidate />
+                <asp:ImageButton ID="ImageButton2" runat="server" class="mpd-btn-order" ImageUrl="~/images/action_down.gif" CommandName="DOWN" CommandArgument='<%# Eval("SectionId")%>' Visible='<%# Eval("Number")< LastSection  And IsEditMode()%>' formnovalidate />
+                <div class="mpd-section-title" style="float: left;">
+                    <h3>
+                        <asp:Label ID="lblSectionName" runat="server" Text='<%# Eval("Name")%>'></asp:Label></h3>
+                </div>
+
+                <asp:HyperLink ID="btnEditSectionName" runat="server" CssClass="btn-edit-section" Visible='<%# IsEditMode%>'>Edit</asp:HyperLink>
+                <div class="mpd-edit-section" style="display: none">
+                    <asp:TextBox ID="tbSectionName" runat="server" Font-Size="X-Large" Font-Bold="true" Width="300px" Text='<%# Eval("Name")%>'></asp:TextBox>
+                    <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("SectionId")%>' CommandName="EditSectionTitle" formnovalidate>Save</asp:LinkButton>
+                    &nbsp; &nbsp;
                     <a href="#" class="btn-edit-section-cancel">Cancel</a>
-            </div>
+                </div>
 
-           
-            <div style="clear: both;" />
-            </h3>
+
+                <div style="clear: both;" />
+                </h3>
              
             <div class="well">
 
@@ -605,59 +617,60 @@
 
                 <uc1:mpdTotal runat="server" ID="totSection1" ItemName="Total Salary & Payroll" Bold="True" IsSectionTotal="True" />
             </div>
-        </ItemTemplate>
+            </ItemTemplate>
 
-    </asp:Repeater>
+        </asp:Repeater>
 
-    <asp:Panel ID="pnlInsert" runat="server" Visible="false">
-        <div class="mpd-insert-section">
-            <asp:HyperLink ID="hlInsert" runat="server" CssClass="btn-section-insert">Insert New Section</asp:HyperLink>
-        </div>
-        <asp:Panel ID="Panel1" runat="server" class="mpd-section-insert well" Style="display: none;">
-            <div class="control-group span5">
-                <label class="control-label" style="width: 160px">Section Title</label>
-                <div class="controls">
-                    <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection" required="required"></asp:TextBox>
-
-                </div>
+        <asp:Panel ID="pnlInsert" runat="server" Visible="false">
+            <div class="mpd-insert-section">
+                <asp:HyperLink ID="hlInsert" runat="server" CssClass="btn-section-insert">Insert New Section</asp:HyperLink>
             </div>
-            <div class="control-group span4">
-                <label class="control-label" style="width: 160px">Display at index:</label>
-                <div class="controls">
-                    <asp:DropDownList ID="ddlInsertOrder" runat="server" Width="110px" AppendDataBoundItems="true">
-                        <asp:ListItem Text="1 - Top" Value="1"></asp:ListItem>
+            <asp:Panel ID="Panel1" runat="server" class="mpd-section-insert well" Style="display: none;">
+                <div class="control-group span5">
+                    <label class="control-label" style="width: 160px">Section Title</label>
+                    <div class="controls">
+                        <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection" required="required"></asp:TextBox>
 
-                    </asp:DropDownList>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group span3">
-                <asp:Button ID="btnInsertSection" runat="server" Text="Insert" CssClass="btn btn-primary" formnovalidate />
-                &nbsp;&nbsp;
+                <div class="control-group span4">
+                    <label class="control-label" style="width: 160px">Display at index:</label>
+                    <div class="controls">
+                        <asp:DropDownList ID="ddlInsertOrder" runat="server" Width="110px" AppendDataBoundItems="true">
+                            <asp:ListItem Text="1 - Top" Value="1"></asp:ListItem>
+
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <asp:Button ID="btnInsertSection" runat="server" Text="Insert" CssClass="btn btn-primary" formnovalidate />
+                    &nbsp;&nbsp;
             <input type="button" id="insert-cancel" class="btn insert-cancel" value="Cancel" />
-            </div>
+                </div>
+            </asp:Panel>
+
+
         </asp:Panel>
 
+        <div class="well">
+            <asp:Label ID="lblPercentage" runat="server" class="percentage" Text=""></asp:Label>
+            <uc1:mpdTotal runat="server" ID="totSubTotal" ItemName="SubTotal" Bold="false" Mode="monthly" IsSubtotal="True" />
+            <uc1:mpdTotal runat="server" ID="totAssessment" ItemName="Assessment (12%)" Bold="false" Mode="monthly" IsAssessment="True" />
+            <uc1:mpdTotal runat="server" ID="totGoal" ItemName="MPD Goal" Bold="True" Mode="monthly" IsMPDGoal="True" />
+            <uc1:mpdItem runat="server" ID="itemCurrent" ItemName="Current Support Level" ItemId="" Help="" Mode="BASIC_MONTH" IsCurrentSupport="True" />
 
-    </asp:Panel>
+            <uc1:mpdTotal runat="server" ID="totRemaining" ItemName="Amount to discover" Bold="false" Mode="monthly" IsRemaining="True" />
+            <div style="clear: both" />
+            <div class="checkboxOuter">
 
-    <div class="well">
-        <asp:Label ID="lblPercentage" runat="server" class="percentage" Text=""></asp:Label>
-        <uc1:mpdTotal runat="server" ID="totSubTotal" ItemName="SubTotal" Bold="false" Mode="monthly" IsSubtotal="True" />
-        <uc1:mpdTotal runat="server" ID="totAssessment" ItemName="Assessment (12%)" Bold="false" Mode="monthly" IsAssessment="True" />
-        <uc1:mpdTotal runat="server" ID="totGoal" ItemName="MPD Goal" Bold="True" Mode="monthly" IsMPDGoal="True" />
-        <uc1:mpdItem runat="server" ID="itemCurrent" ItemName="Current Support Level" ItemId="" Help="" Mode="BASIC_MONTH" IsCurrentSupport="True" />
-
-        <uc1:mpdTotal runat="server" ID="totRemaining" ItemName="Amount to discover" Bold="false" Mode="monthly" IsRemaining="True" />
-        <div style="clear: both" />
-        <div class="checkboxOuter">
-
-            <asp:CheckBox ID="cbCompliance" runat="server" CssClass="checkbox" Text="Optional Complience Statement  - e.g. All donaitons that I have received have been forwarded to the National Office." />
-        </div>
-        <div style="width: 100%; text-align: center;">
-            <asp:Button ID="btnSave" runat="server" Text="Save" Font-Size="X-Large" CssClass="btn" />
-            &nbsp;&nbsp;
+                <asp:CheckBox ID="cbCompliance" runat="server" CssClass="checkbox" Text="Optional Complience Statement  - e.g. All donaitons that I have received have been forwarded to the National Office." />
+            </div>
+            <div style="width: 100%; text-align: center;">
+                <asp:Button ID="btnSave" runat="server" Text="Save" Font-Size="X-Large" CssClass="btn" formnovalidate />
+                &nbsp;&nbsp;
      <asp:Button ID="btnSubmit" runat="server" Text="Submit" Font-Size="X-Large" CssClass="btn btn-primary" Enabled="false" />
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
+</fieldset>
