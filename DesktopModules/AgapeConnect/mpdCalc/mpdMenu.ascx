@@ -232,17 +232,17 @@
                 <li><b>YouTube video walkthough</b> - how to submit a budget</li>
                 <li><b>Why Budget?</b> (video or short motivational text)</li>
                 <li><b>MPD tips</b> - links to several of the best MPD resources</li>
-                <li>Possibly an <b>MPD dashboard</b>, showing actual verses budget graphs for your personal R/C (or on members of your team)</li>
+                <li>Possibly an <b>MPD dashboard</b>, showing actual verses budget graphs for your personal R/C (or for members of your team)</li>
             </ul>
 
         </div>
         <div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Heads up!</strong> <asp:Label ID="lblEditMode" runat="server" Text="Label"> You are currently in Edit Mode. This allows you to edit/process other peoples budget and customise the MPD budget Form.
+            <strong>Heads up!</strong> <asp:Label ID="lblEditMode" runat="server" Text="Label"> You are currently in Edit Mode. This allows you to edit/process other people's budgets and customise the MPD budget Form.
                 To return to normal mode, select "View Mode" (top right).
                                        </asp:Label>
              <asp:Label ID="lblViewMode" runat="server" Text="Label"> You are currently in View Mode - what you see is exaclty what your users will see. 
-                 If you want to edit/process other peoplese budgets or edit the MPD form, you will need to be in "Edit Mode" top right.
+                 If you want to edit/process other people's budgets or edit the MPD form, you will need to be in "Edit Mode" top right.
                                        </asp:Label>
 
         </div>
