@@ -232,7 +232,7 @@
                 <li><b>YouTube video walkthough</b> - how to submit a budget</li>
                 <li><b>Why Budget?</b> (video or short motivational text)</li>
                 <li><b>MPD tips</b> - links to several of the best MPD resources</li>
-                <li>Possibly an <b>MPD dashboard</b>, showing actual verses budget graphs for your personal R/C (or for members of your team)</li>
+                <li>Possibly an <b>MPD dashboard</b>, showing actual versus budget graphs for your personal R/C (or for members of your team)</li>
             </ul>
 
         </div>
