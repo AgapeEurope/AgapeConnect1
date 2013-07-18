@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgapeConnect" Class="MPDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=AgapeConnect;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SiteSqlServer" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AP_mpdCalc_Definition" Member="AP_mpdCalc_Definitions">
+    <Type Name="AP_mpdCalc_Definition">
+      <Column Name="mpdDefId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TabModuleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveFromYear" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="AssessmentRate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ShowComplience" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Complience" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_Section" Member="AP_mpdCalc_Sections" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpdCalc_Section" />
+      <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget" Member="AP_mpdCalc_StaffBudgets" ThisKey="mpdDefId" OtherKey="DefinitionId" Type="AP_mpdCalc_StaffBudget" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_mpdCalc_Section" Member="AP_mpdCalc_Sections">
+    <Type Name="AP_mpdCalc_Section">
+      <Column Name="SectionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalMode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="mpdDefId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AP_mpdCalc_Section_AP_mpdCalc_Question" Member="AP_mpdCalc_Questions" ThisKey="SectionId" OtherKey="SectionId" Type="AP_mpdCalc_Question" />
+      <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_Section" Member="AP_mpdCalc_Definition" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpdCalc_Definition" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_mpdCalc_Question" Member="AP_mpdCalc_Questions">
+    <Type Name="AP_mpdCalc_Question">
+      <Column Name="QuestionId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SectionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuestionNumber" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Min" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Max" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Formula" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Help" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AccountCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Rate1" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Threshold1" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Rate2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Threshold2" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Rate3" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Threshold3" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Rate4" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Fixed" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TaxSystem" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="AP_mpdCalc_Question_AP_mpdCalc_Answer" Member="AP_mpdCalc_Answers" ThisKey="QuestionId" OtherKey="QuestionId" Type="AP_mpdCalc_Answer" />
+      <Association Name="AP_mpdCalc_Section_AP_mpdCalc_Question" Member="AP_mpdCalc_Section" ThisKey="SectionId" OtherKey="SectionId" Type="AP_mpdCalc_Section" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_mpdCalc_StaffBudget" Member="AP_mpdCalc_StaffBudgets">
+    <Type Name="AP_mpdCalc_StaffBudget">
+      <Column Name="StaffBudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StaffId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DefinitionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BudgetYearStart" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProcessedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProcessedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentSupportLevel" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="AP_mpdCalc_StaffBudget_AP_mpdCalc_Answer" Member="AP_mpdCalc_Answers" ThisKey="StaffBudgetId" OtherKey="StaffBudgetId" Type="AP_mpdCalc_Answer" />
+      <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget" Member="AP_mpdCalc_Definition" ThisKey="DefinitionId" OtherKey="mpdDefId" Type="AP_mpdCalc_Definition" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AP_mpdCalc_Answer" Member="AP_mpdCalc_Answers">
+    <Type Name="AP_mpdCalc_Answer">
+      <Column Name="AnswerId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuestionId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="StaffBudgetId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(120)" CanBeNull="true" />
+      <Column Name="Tax" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="AP_mpdCalc_Question_AP_mpdCalc_Answer" Member="AP_mpdCalc_Question" ThisKey="QuestionId" OtherKey="QuestionId" Type="AP_mpdCalc_Question" IsForeignKey="true" />
+      <Association Name="AP_mpdCalc_StaffBudget_AP_mpdCalc_Answer" Member="AP_mpdCalc_StaffBudget" ThisKey="StaffBudgetId" OtherKey="StaffBudgetId" Type="AP_mpdCalc_StaffBudget" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
