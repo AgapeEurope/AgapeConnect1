@@ -19,7 +19,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
        
 
-        Private d As New MPDDataContext
+
      
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             'HyperLink1.NavigateUrl = EditUrl("mpdCalc") & "?sb=1"
@@ -28,6 +28,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Sub
 
         Public Sub LoadMenu()
+            Dim d As New MPDDataContext
+            ddlNewYear.Items.Add(New ListItem((Today.Year - 1) & " - " & (Today.Year), Today.Year - 1))
+            ddlNewYear.Items.Add(New ListItem((Today.Year) & " - " & (Today.Year + 1), Today.Year))
+            ddlNewYear.Items.Add(New ListItem((Today.Year + 1) & " - " & (Today.Year + 2), Today.Year + 1))
+
 
             If Not Page.IsPostBack Then
 
@@ -90,5 +95,22 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
+        Protected Sub btnCreateNewBudget_Click(sender As Object, e As EventArgs) Handles btnCreateNewBudget.Click
+            Dim d As New MPDDataContext
+            Dim def = From c In d.AP_mpdCalc_Definitions Where c.PortalId = PortalId And c.TabModuleId = TabModuleId
+            If def.Count > 0 Then
+                Dim insert As New MPD.AP_mpdCalc_StaffBudget
+                insert.StaffId = StaffBrokerFunctions.GetStaffMember(UserId).StaffId
+                insert.DefinitionId = def.First.mpdDefId
+                insert.BudgetYearStart = ddlNewYear.SelectedValue
+                insert.Status = StaffRmb.RmbStatus.Draft
+                d.AP_mpdCalc_StaffBudgets.InsertOnSubmit(insert)
+                d.SubmitChanges()
+                Response.Redirect(EditUrl("mpdCalc") & "?sb=" & insert.StaffBudgetId)
+
+
+            End If
+
+        End Sub
     End Class
 End Namespace

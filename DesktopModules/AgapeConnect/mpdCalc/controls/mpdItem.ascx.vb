@@ -321,6 +321,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 End If
             End Set
         End Property
+
         Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
             Dim FileName As String = System.IO.Path.GetFileNameWithoutExtension(Me.AppRelativeVirtualPath)
             If Not (Me.ID Is Nothing) Then
@@ -574,7 +575,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
             
             d.SubmitChanges()
-            Response.Redirect(NavigateURL())
+            Response.Redirect(Request.Url.ToString)
         End Sub
     End Class
 End Namespace

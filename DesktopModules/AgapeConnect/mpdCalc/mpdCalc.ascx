@@ -26,9 +26,9 @@
             $('.monthly.net').each(function() {
                 var f = $(this).siblings("input['type'='hidden']").val();
 
-                f = f.replace(/\{NET}/g, $(this).val());
+                f = f.replace(/\{NET}/g, $(this).val()=='' ? '0' : $(this).val());
                 f=replaceTags(f);
-               
+                
                 $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
                 $(this).parent().parent().siblings().find('.net-tax-year').text((eval(f) * 12.0).toFixed(0));
@@ -60,9 +60,9 @@
                 if ($(this).hasClass('net')) {
                     var f = $(this).siblings("input['type'='hidden']").val();
 
-                    f = f.replace(/\{NET}/g, $(this).val());
+                    f = f.replace(/\{NET}/g, $(this).val()=='' ? '0' : $(this).val());
                     f=replaceTags(f);
-                    // console.log(f)
+                   
                     // alert(f);
                     $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
@@ -629,7 +629,7 @@
                 <div class="control-group span5">
                     <label class="control-label" style="width: 160px">Section Title</label>
                     <div class="controls">
-                        <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection" required="required"></asp:TextBox>
+                        <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection" ></asp:TextBox>
 
                     </div>
                 </div>
@@ -668,7 +668,13 @@
             <div style="width: 100%; text-align: center;">
                 <asp:Button ID="btnSave" runat="server" Text="Save" Font-Size="X-Large" CssClass="btn" formnovalidate />
                 &nbsp;&nbsp;
-     <asp:Button ID="btnSubmit" runat="server" Text="Submit" Font-Size="X-Large" CssClass="btn btn-primary" Enabled="false" />
+                <asp:Button ID="btnSubmit" runat="server" Text="Submit" Font-Size="X-Large" CssClass="btn btn-primary" Enabled="false" Visible="false" />
+                 <asp:Button ID="btnApprove" runat="server" Text="Approve" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
+                 <asp:Button ID="btnProcess" runat="server" Text="Process" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
+                  &nbsp;&nbsp;
+                 <asp:Button ID="btnCancel" runat="server" Text="Cancel/Reject" Font-Size="X-Large" CssClass="btn" />
+                 &nbsp;&nbsp;
+                <asp:Button ID="btnBack" runat="server" Text="Back" Font-Size="X-Large" CssClass="btn" />
             </div>
         </div>
 

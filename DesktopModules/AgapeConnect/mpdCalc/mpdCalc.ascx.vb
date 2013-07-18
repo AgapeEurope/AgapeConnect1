@@ -74,14 +74,32 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 Dim d As New MPDDataContext()
                 Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId
-                Dim staff = StaffBrokerFunctions.GetStaffMember(UserId)
+                Dim Staff = StaffBrokerFunctions.GetStaffMember(UserId)
                 lblBudYear.Text = Today.Year & "-" & Today.Year + 1
                 If theForm.Count > 0 Then
 
                     Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
                     If bud.Count > 0 Then
+                        If Not bud.First.CurrentSupportLevel Is Nothing Then
+                            itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
+                        End If
 
-                        itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
+                        Select Case bud.First.Status
+                            Case StaffRmb.RmbStatus.Draft
+                                btnSubmit.Visible = True
+
+                            Case StaffRmb.RmbStatus.Submitted
+                                btnApprove.Visible = Staff.StaffId <> bud.First.StaffId
+                            Case StaffRmb.RmbStatus.Approved
+                                btnProcess.Visible = IsEditMode()
+                            Case StaffRmb.RmbStatus.Processed
+                                btnCancel.Visible = False
+                            Case StaffRmb.RmbStatus.Cancelled
+                                btnSubmit.Visible = True
+                                btnCancel.Visible = False
+                        End Select
+
+
                         lblStatus.Text = StaffRmb.RmbStatus.StatusName(bud.First.Status)
                         lblBudYear.Text = bud.First.BudgetYearStart & "-" & (bud.First.BudgetYearStart + 1)
                         If bud.First.Status <> StaffRmb.RmbStatus.Draft And bud.First.Status <> StaffRmb.RmbStatus.Cancelled Then
@@ -133,6 +151,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Sub
 
 
+        Private Sub set_if(ByRef prop As Object, ByVal value As Object)
+            If Not value Is Nothing Then
+                prop = value
+            End If
+        End Sub
+
+
         Public Function GetAnswer(ByVal QuestionId As Integer) As String
             If (StaffBudId > 0) Then
                 Dim d As New MPDDataContext
@@ -161,29 +186,34 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Return ""
         End Function
 
-        Private Sub SaveBudget()
+        Private Sub SaveBudget(Optional ByVal ToStatus As Integer = -1)
             Dim d As New MPD.MPDDataContext
 
             Dim def = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId And c.PortalId = PortalId
             If def.Count > 0 Then
-                Dim staffId = StaffBrokerFunctions.GetStaffMember(UserId).StaffId
-                Dim bud = From c In d.AP_mpdCalc_StaffBudgets Where c.StaffId = staffId And c.DefinitionId = def.First.mpdDefId And c.BudgetYearStart = Today.Year
-                Dim budId As Integer = -1
-                If bud.Count = 0 Then
-                    'insert new Staff Budget
-                    Dim insert = New MPD.AP_mpdCalc_StaffBudget
-                    insert.DefinitionId = def.First.mpdDefId
-                    insert.StaffId = staffId
-                    insert.BudgetYearStart = Today.Year
-                    insert.CurrentSupportLevel = itemCurrent.Monthly
-                    insert.SubmittedOn = Now
-                    insert.Status = StaffRmb.RmbStatus.Submitted
-                    d.AP_mpdCalc_StaffBudgets.InsertOnSubmit(insert)
-                    d.SubmitChanges()
-                    budId = insert.StaffBudgetId
-                Else
-                    bud.First.CurrentSupportLevel = itemCurrent.Monthly
 
+                Dim bud = From c In d.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = CInt(Request.QueryString("sb")) And c.DefinitionId = def.First.mpdDefId And c.BudgetYearStart = Today.Year
+                Dim budId As Integer = -1
+                If bud.Count > 0 Then
+                   
+                    bud.First.CurrentSupportLevel = itemCurrent.Monthly
+                    If ToStatus >= 0 Then
+                        bud.First.Status = ToStatus
+                        Select Case (ToStatus)
+                            Case StaffRmb.RmbStatus.Submitted
+                                bud.First.SubmittedOn = Now
+                            Case StaffRmb.RmbStatus.Approved
+                                bud.First.ApprovedOn = Now
+                                bud.First.ApprovedBy = UserId
+
+                            Case StaffRmb.RmbStatus.Processed
+                                bud.First.ProcessedOn = Now
+                                bud.First.ProcessedBy = UserId
+                        End Select
+
+
+
+                    End If
                     budId = bud.First.StaffBudgetId
 
                 End If
@@ -198,7 +228,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                         Dim insert As New MPD.AP_mpdCalc_Answer
                         insert.QuestionId = m.QuestionId
-                        insert.Value = m.Monthly
+                        If m.Monthly = 0 Then
+                            insert.Value = m.Yearly / 12
+                        Else
+                            insert.Value = m.Monthly
+                        End If
+
+
                         insert.Name = m.ItemName
                         insert.Tax = m.Tax
                         insert.StaffBudgetId = budId
@@ -212,7 +248,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 d.SubmitChanges()
-
+                Response.Redirect(Request.Url.ToString)
 
             End If
 
@@ -220,7 +256,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Sub
 
         Protected Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
-            SaveBudget()
+            SaveBudget(StaffRmb.RmbStatus.Submitted)
 
         End Sub
         Public Function GetMaxQuestionNumber(ByVal questions As System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)) As Integer
@@ -242,7 +278,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 For Each row In def.First.AP_mpdCalc_Sections.OrderBy(Function(c) c.Number)
                     If ddlInsertOrder.SelectedValue = i Then
                         'insert
-                        
+
                         i += 1
                     End If
                     row.Number = i
@@ -310,7 +346,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 If q.Count > 0 Then
                     Dim i As Integer = 1
                     Dim NewViewOrder = Math.Min(q.First.Number + 1, q.First.AP_mpdCalc_Definition.AP_mpdCalc_Sections.Max(Function(c) c.Number))
-                  
+
 
                     For Each row In q.First.AP_mpdCalc_Definition.AP_mpdCalc_Sections.Where(Function(c) c.SectionId <> q.First.SectionId).OrderBy(Function(c) c.Number)
                         If NewViewOrder = i Then
@@ -321,7 +357,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                         row.Number = i
                         i += 1
                     Next
-                    
+
                     q.First.Number = NewViewOrder
 
 
@@ -333,6 +369,22 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
             SaveBudget()
+        End Sub
+
+        Protected Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
+            SaveBudget(StaffRmb.RmbStatus.Approved)
+        End Sub
+      
+        Protected Sub btnProcess_Click(sender As Object, e As EventArgs) Handles btnProcess.Click
+            SaveBudget(StaffRmb.RmbStatus.Processed)
+        End Sub
+
+        Protected Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+            SaveBudget(StaffRmb.RmbStatus.Cancelled)
+        End Sub
+
+        Protected Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+            Response.Redirect(NavigateURL())
         End Sub
     End Class
 End Namespace
