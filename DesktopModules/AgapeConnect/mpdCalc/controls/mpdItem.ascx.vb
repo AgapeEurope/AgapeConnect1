@@ -80,6 +80,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     pnlDisplay.Visible = False
                     pnlInsert.Visible = IsEditMode()
                     pnlControlGroup.Attributes("class") &= " mpd-insert-mode"
+                    btnDelete.Visible = False
                 End If
 
                 If value.Contains("NET") Then
@@ -574,6 +575,17 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 End If
             End If
             
+            d.SubmitChanges()
+            Response.Redirect(Request.Url.ToString)
+        End Sub
+
+        Protected Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+            Dim d As New MPD.MPDDataContext
+            Dim q = From c In d.AP_mpdCalc_Questions Where c.QuestionId = QuestionId
+
+
+            d.AP_mpdCalc_Questions.DeleteAllOnSubmit(q)
+
             d.SubmitChanges()
             Response.Redirect(Request.Url.ToString)
         End Sub

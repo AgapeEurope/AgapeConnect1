@@ -236,6 +236,8 @@
         <div style="width: 100%; text-align: center; padding: 5px;">
             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" formnovalidate />
             &nbsp;&nbsp;
+             <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn" formnovalidate />
+            &nbsp;&nbsp;
             <input type="button" id="edit-cancel" class="btn edit-cancel" value="Cancel"  />    &nbsp;&nbsp;
             <asp:HyperLink ID="HyperLink1" runat="server">Guide to Advanced Formulas</asp:HyperLink>
         </div>

@@ -441,7 +441,7 @@
         right: 8px;
     }
 
-    .btn-insert {
+    .btn-insert, .btn-delete-section {
         font-style: italic;
         text-align: center;
         position: relative;
@@ -614,11 +614,13 @@
                 </asp:Repeater>
 
                 <uc1:mpdItem runat="server" ID="mpdItem14" SectionId='<%# Eval("SectionId")%>' QuestionId='-1' Mode='INSERT' Formula='' ItemName='' Help='' ItemId='<%# Eval("Number") & "." & GetMaxQuestionNumber(Eval("AP_mpdCalc_Questions"))%>' TaxSystem='FIXED_RATE' Min='0' />
-
+                 <asp:Panel ID="ptnDeleteSection" runat="server"  class="mpd-insert" Visible='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).Count =0%>' >
+                     <asp:LinkButton ID="btnDeleteSection" runat="server" CssClass="btn-delete-section" CommandArgument='<%# Eval("SectionId")%>' CommandName="DeleteSection" >Delete Section</asp:LinkButton>
+                  </asp:Panel>
                 <uc1:mpdTotal runat="server" ID="totSection1" ItemName="Total Salary & Payroll" Bold="True" IsSectionTotal="True" />
             </div>
             </ItemTemplate>
-
+           
         </asp:Repeater>
 
         <asp:Panel ID="pnlInsert" runat="server" Visible="false">

@@ -363,7 +363,35 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                     d.SubmitChanges()
                     ReloadPage()
+
+
+
                 End If
+            ElseIf e.CommandName = "DeleteSection" Then
+                Dim d As New MPD.MPDDataContext
+
+                Dim q = From c In d.AP_mpdCalc_Sections Where c.SectionId = CInt(e.CommandArgument) And c.AP_mpdCalc_Definition.PortalId = PortalId
+
+
+                Dim defid = q.First.mpdDefId
+
+                d.AP_mpdCalc_Sections.DeleteAllOnSubmit(q)
+                d.SubmitChanges()
+                
+                Dim i As Integer = 1
+               
+
+                For Each row In d.AP_mpdCalc_Sections.Where(Function(c) c.mpdDefId = defid).OrderBy(Function(c) c.Number)
+
+                    row.Number = i
+                    i += 1
+                Next
+
+               
+
+                d.SubmitChanges()
+
+                ReloadPage()
             End If
         End Sub
 
