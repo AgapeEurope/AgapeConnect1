@@ -619,7 +619,7 @@
                  <asp:Panel ID="ptnDeleteSection" runat="server"  class="mpd-insert" Visible='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).Count =0%>' >
                      <asp:LinkButton ID="btnDeleteSection" runat="server" CssClass="btn-delete-section" CommandArgument='<%# Eval("SectionId")%>' CommandName="DeleteSection" >Delete Section</asp:LinkButton>
                   </asp:Panel>
-                <uc1:mpdTotal runat="server" ID="totSection1" ItemName="Total Salary & Payroll" Bold="True" IsSectionTotal="True" />
+                <uc1:mpdTotal runat="server" ID="totSection1" ItemName='<%# Eval("Name")%>' Bold="True" IsSectionTotal="True" />
             </div>
             </ItemTemplate>
            

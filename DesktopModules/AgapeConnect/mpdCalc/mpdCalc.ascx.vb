@@ -92,7 +92,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                         Select Case bud.First.Status
                             Case StaffRmb.RmbStatus.Draft
                                 btnSubmit.Visible = True
-
+                                btnCancel.Visible = False
                             Case StaffRmb.RmbStatus.Submitted
                                 btnApprove.Visible = Staff.StaffId <> bud.First.StaffId
                             Case StaffRmb.RmbStatus.Approved
@@ -316,7 +316,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     Dim Title As TextBox = rpSections.Items(e.Item.ItemIndex).FindControl("tbSectionName")
                     q.First.Name = Title.Text
                     d.SubmitChanges()
-                    Response.Redirect(NavigateURL())
+                    ReloadPage()
                 End If
             ElseIf e.CommandName = "UP" Then
                 Dim d As New MPD.MPDDataContext
@@ -341,7 +341,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     q.First.Number = NewViewOrder
 
                     d.SubmitChanges()
-                    Response.Redirect(NavigateURL())
+                    ReloadPage()
                 End If
 
             ElseIf e.CommandName = "DOWN" Then
