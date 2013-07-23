@@ -87,7 +87,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <uc1:labelcontrol ID="labelcontrol2" runat="server" Text="Manger" HelpText="Please select a manager for this cost centre. He will approve reimbursements and be notified of financial transactions." />
+                                <uc1:labelcontrol ID="labelcontrol2" runat="server" Text="Manager" HelpText="Please select a manager for this cost centre. He will approve reimbursements and be notified of financial transactions." />
                             </td>
                             <td> 
                                 <asp:DropDownList ID="ddlDelegate" runat="server" Font-Size="X-Small"  DataSource='<%#  getStaffAdd(Eval("CostCentreManager")) %>'

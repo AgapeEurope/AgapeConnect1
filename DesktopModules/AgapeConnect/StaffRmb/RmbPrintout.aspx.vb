@@ -67,21 +67,20 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                 Dim RmbRel = StaffRmbFunctions.Authenticate(User.UserID, q.First.RMBNo, PS.PortalId)
                 If RmbRel = RmbAccess.Denied And Not User.IsInRole("Administrators") And Not (User.UserID = RmbSettings("AuthUser") Or User.UserID = RmbSettings("AuthAuthUser")) Then
-                    pnlAccessDenied.Visible = True
-                    btnLogin.Visible = False
-                    Return
-                End If
-                Dim isAccounts = False
-                For Each role In CStr(RmbSettings("AccountsRoles")).Split(";")
-                    If (User.Roles().Contains(role)) Then
-                        isAccounts = True
+                    
+                    Dim isAccounts = False
+                    For Each role In CStr(RmbSettings("AccountsRoles")).Split(";")
+                        If (User.Roles().Contains(role)) Then
+                            isAccounts = True
+                        End If
+                    Next
+                    If Not isAccounts Then
+                        pnlAccessDenied.Visible = True
+                        btnLogin.Visible = False
+                        Return
                     End If
-                Next
-                If Not isAccounts Then
-                    pnlAccessDenied.Visible = True
-                    btnLogin.Visible = False
-                    Return
                 End If
+               
             Else
                 pnlAccessDenied.Visible = True
                 btnLogin.Visible = True
