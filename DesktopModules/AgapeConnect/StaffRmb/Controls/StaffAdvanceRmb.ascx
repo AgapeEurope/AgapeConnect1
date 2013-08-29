@@ -50,7 +50,7 @@ background-color:#fafafa;
 </style>
 
 
-<asp:Label ID="lblTitle" runat="server" Text="Advance Request Form" CssClass="AgapeH3"></asp:Label>
+<asp:Label ID="lblTitle" runat="server" Text="Advance Request Form" CssClass="AgapeH3" ResourceKey="lblAdvRequestForm"></asp:Label>
 <asp:HiddenField ID="hfCurrentRequest" runat="server" />
 <asp:HiddenField ID="hfOverAuth" runat="server" />
 

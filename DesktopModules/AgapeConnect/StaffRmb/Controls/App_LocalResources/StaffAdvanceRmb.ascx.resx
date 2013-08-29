@@ -153,4 +153,7 @@
   <data name="tbAdvReason.ToolTip" xml:space="preserve">
     <value>Enter your advance request here</value>
   </data>
+  <data name="lblAdvRequestForm.Text" xml:space="preserve">
+    <value>Advance Request Form</value>
+  </data>
 </root>

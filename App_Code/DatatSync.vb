@@ -850,9 +850,7 @@ Public Class DatatSync
         Dim d As New StaffRmb.StaffRmbDataContext
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
 
-        If GetSetting("RmbSinglePump", PS.PortalId) = "True" Then
-            SetSetting("RmbSinglePump", False, PS.PortalId)
-        End If
+   
 
 
 
@@ -896,7 +894,9 @@ Public Class DatatSync
         If Not ((GetSetting("RmbDownload", PS.PortalId) <> "False" Or GetSetting("RmbSinglePump", PS.PortalId) = "True")) Then
             Return
         End If
-
+        If GetSetting("RmbSinglePump", PS.PortalId) = "True" Then
+            SetSetting("RmbSinglePump", False, PS.PortalId)
+        End If
 
         Dim q = From c In d.AP_Staff_Rmbs Where (c.Status >= StaffRmb.RmbStatus.PendingDownload) And c.PortalId = PS.PortalId
 
