@@ -66,7 +66,7 @@
                     <dnn:LANGUAGE runat="server" ID="dnnLANGUAGE" ShowMenu="False" ShowLinks="True" />
                 </div>
                 <dnn:LOGIN runat="server" ID="dnnLOGIN" CssClass="login" />
-                &nbsp;&nbsp;|&nbsp;&nbsp;<dnn:USER runat="server" ID="dnnUSER" CssClass="user" />
+                &nbsp;&nbsp;&nbsp;&nbsp;<dnn:USER runat="server" ID="dnnUSER" CssClass="user" />
             </div>
 
 

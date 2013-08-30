@@ -3,6 +3,10 @@
 @import url(http://fonts.googleapis.com/css?family=Oswald);
 @import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
 
+#dnn_dnnUSER_registerLink {
+    display: none;
+}
+
 h1, h2, h3, h4, h5, h6, .title1, .title2, .title3, .title4, .title5, .title6, .title7, .title8 {
     font-family: 'Oswald',"Trebuchet MS", "Myriad Web Pro", arial, serif;
     letter-spacing: 1px;
