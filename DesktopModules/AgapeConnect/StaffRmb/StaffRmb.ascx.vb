@@ -1522,7 +1522,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         insert.OrigCurrency = hfOrigCurrency.Value
                         insert.OrigCurrencyAmount = hfOrigCurrencyValue.Value
                     End If
-                    insert.ShortComment = GetLineComment(insert.Comment, insert.OrigCurrency, insert.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
+                    Dim LineTypeName = d.AP_Staff_RmbLineTypes.Where(Function(c) c.LineTypeId = CInt(ddlLineTypes.SelectedValue)).First.TypeName.ToString()
+
+
+                    insert.ShortComment = GetLineComment(insert.Comment, insert.OrigCurrency, insert.OrigCurrencyAmount, tbShortComment.Text, False, Nothing, IIf(LineTypeName = "Mileage", CStr(ucType.GetProperty("Spare2").GetValue(theControl, Nothing)), ""))
 
 
                     If insert.GrossAmount >= Settings("TeamLeaderLimit") Then
@@ -1724,24 +1727,18 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 If ucType.GetMethod("ValidateForm").Invoke(theControl, New Object() {UserId}) = True Then
 
                     Dim line = From c In d.AP_Staff_RmbLines Where c.RmbLineNo = CInt(btnAddLine.CommandArgument)
+
+
+
                     If line.Count > 0 Then
 
-                        Dim comment As String = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
-                        If line.First.Comment <> comment Then
-                            line.First.Comment = comment
-                            If line.First.ShortComment = tbShortComment.Text Then
-                                line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, "", False, Nothing)
-                            Else
-                                line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
-
-                            End If
+                        Dim LineTypeName = d.AP_Staff_RmbLineTypes.Where(Function(c) c.LineTypeId = CInt(ddlLineTypes.SelectedValue)).First.TypeName.ToString()
 
 
-                        Else
-                            line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing)
+                    
 
-                        End If
 
+                      
 
 
 
@@ -1755,6 +1752,28 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             line.First.OrigCurrencyAmount = hfOrigCurrencyValue.Value
                         End If
 
+                        Dim comment As String = CStr(ucType.GetProperty("Comment").GetValue(theControl, Nothing))
+                        Dim sc = tbShortComment.Text
+                        If (sc <> line.First.ShortComment) Then
+                            'the short comment was manully changed, so this should take precidence over anything else.
+                            line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing, IIf(LineTypeName = "Mileage", CStr(ucType.GetProperty("Spare2").GetValue(theControl, Nothing)), ""))
+                        Else
+                            line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, "", False, Nothing, IIf(LineTypeName = "Mileage", CStr(ucType.GetProperty("Spare2").GetValue(theControl, Nothing)), ""))
+                        End If
+                        'If line.First.ShortComment <> comment Then
+                        '    line.First.Comment = comment
+                        '    If line.First.ShortComment = tbShortComment.Text Then
+                        '        line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, "", False, Nothing, IIf(LineTypeName = "Mileage", CStr(ucType.GetProperty("Spare2").GetValue(theControl, Nothing)), ""))
+                        '    Else
+                        '        line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing, IIf(LineTypeName = "Mileage", CStr(ucType.GetProperty("Spare2").GetValue(theControl, Nothing)), ""))
+
+                        '    End If
+
+
+                        'Else
+                        '    line.First.ShortComment = GetLineComment(comment, line.First.OrigCurrency, line.First.OrigCurrencyAmount, tbShortComment.Text, False, Nothing, IIf(LineTypeName = "Mileage", CStr(ucType.GetProperty("Spare2").GetValue(theControl, Nothing)), ""))
+
+                        'End If
 
 
 
@@ -2707,8 +2726,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         receiptMode = 1
 
                     End If
-                    ucType.GetProperty("ReceiptType").SetValue(theControl, receiptMode, Nothing)
+                    Try
 
+                  
+                    ucType.GetProperty("ReceiptType").SetValue(theControl, receiptMode, Nothing)
+                    Catch ex As Exception
+
+                    End Try
 
                     ucType.GetMethod("Initialize").Invoke(theControl, New Object() {Settings})
                     cbRecoverVat.Checked = False
@@ -2726,7 +2750,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
                     End If
 
-                    tbShortComment.Text = GetLineComment(theLine.First.Comment, theLine.First.OrigCurrency, theLine.First.OrigCurrencyAmount, theLine.First.ShortComment, False, Nothing)
+                    tbShortComment.Text = GetLineComment(theLine.First.Comment, theLine.First.OrigCurrency, theLine.First.OrigCurrencyAmount, theLine.First.ShortComment, False, Nothing, IIf(theLine.First.AP_Staff_RmbLineType.TypeName = "Mileage", theLine.First.Spare2, ""))
 
 
 
@@ -2922,7 +2946,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Function
-        Public Function GetLineComment(ByVal comment As String, ByVal Currency As String, ByVal CurrencyValue As Double, ByVal ShortComment As String, Optional ByVal includeInitials As Boolean = True, Optional ByVal explicitStaffInitals As String = Nothing) As String
+        Public Function GetLineComment(ByVal comment As String, ByVal Currency As String, ByVal CurrencyValue As Double, ByVal ShortComment As String, Optional ByVal includeInitials As Boolean = True, Optional ByVal explicitStaffInitals As String = Nothing, Optional ByVal Mileage As String = "") As String
+
+
+
+
             'Prefix initials  // suffix Currency   // Trim to 30 char
 
             Dim initials As String = ""
@@ -2940,13 +2968,21 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
             Dim CurString = ""
-            If Not String.IsNullOrEmpty(Currency) Then
-                If Currency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
-                    CurString = Currency & CurrencyValue.ToString("f2")
-                    CurString = CurString.Replace(".00", "")
+            If Mileage <> "" Then
+                'this is a mileage expense item, so don't show currency - show milage instead.
+                CurString = "-" & Mileage & Left(Settings("DistanceUnit").ToString(), 2)
 
+
+            Else
+                If Not String.IsNullOrEmpty(Currency) Then
+                    If Currency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
+                        CurString = Currency & CurrencyValue.ToString("f2")
+                        CurString = CurString.Replace(".00", "")
+
+                    End If
                 End If
             End If
+
             Dim c = UnidecodeSharpFork.Unidecoder.Unidecode(comment)
             Return initials & c.Substring(0, Math.Min(c.Length, 27 - CurString.Length)) & CurString
 
@@ -3682,7 +3718,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Else
                         Credit = -line.GrossAmount.ToString("0.00")
                     End If
-                    Dim shortComment = GetLineComment(line.Comment, line.OrigCurrency, line.OrigCurrencyAmount, line.ShortComment, True, Left(theUser.FirstName, 1) & Left(theUser.LastName, 1))
+                    Dim shortComment = GetLineComment(line.Comment, line.OrigCurrency, line.OrigCurrencyAmount, line.ShortComment, True, Left(theUser.FirstName, 1) & Left(theUser.LastName, 1), IIf(line.AP_Staff_RmbLineType.TypeName = "Mileage", line.Spare2, ""))
                     rtn &= GetOrderedString(shortComment,
                                          Debit, Credit)
 
