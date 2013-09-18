@@ -71,12 +71,12 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 '  Label5.Text = m & " : " & hlEditProfile.NavigateUrl
 
 
-                Dim StaffList = (From c In d.AP_StaffBroker_Staffs Where c.Active And c.PortalId = PortalId And (Not c.User Is Nothing) Order By c.User.LastName Select DisplayName = c.User.LastName & ", " & c.User.FirstName, c.StaffId, c.UserId2, c.User2)
+                Dim StaffList = (From c In d.AP_StaffBroker_Staffs Where c.Active And c.PortalId = PortalId Order By c.User.LastName Select DisplayName = c.User.LastName & ", " & c.User.FirstName, c.StaffId, c.UserId2, c.User2)
                 Dim Staff As New Dictionary(Of String, Integer)
                 For Each row In StaffList
                   
 
-                    If row.UserId2 > 0 And Not (row.User2 Is Nothing) Then
+                    If row.UserId2 > 0 Then
                         If Not (Staff.ContainsKey(row.DisplayName & " & " & row.User2.FirstName)) Then
                             Staff.Add(row.DisplayName & " & " & row.User2.FirstName, row.StaffId)
                         End If

@@ -39,9 +39,6 @@ Namespace DotNetNuke.Modules.StaffRmb
                     ddlAuthUser.Items.Clear()
                     ddlAuthAuthUser.Items.Clear()
                     For Each row In (From c In stafflist Order By c.DisplayName)
-                        Try
-
-                        
                         Dim user = UserController.GetUserById(PortalId, row.UID).LastName & ", " & UserController.GetUserById(PortalId, row.UID).FirstName
                         ddlAuthUser.Items.Add(New ListItem(user, row.UID))
                         If CType(TabModuleSettings("AuthUser"), String) <> "" Then
@@ -50,10 +47,7 @@ Namespace DotNetNuke.Modules.StaffRmb
                         ddlAuthAuthUser.Items.Add(New ListItem(user, row.UID))
                         If CType(TabModuleSettings("AuthAuthUser"), String) <> "" Then
                             ddlAuthAuthUser.SelectedValue = CType(TabModuleSettings("AuthAuthUser"), Integer)
-                            End If
-                        Catch ex As Exception
-
-                        End Try
+                        End If
                     Next
 
 
