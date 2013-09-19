@@ -198,11 +198,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Dim def = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId And c.PortalId = PortalId
             If def.Count > 0 Then
 
-                Dim bud = From c In d.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = CInt(Request.QueryString("sb")) And c.DefinitionId = def.First.mpdDefId And c.BudgetYearStart = Today.Year
+                Dim bud = From c In d.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = CInt(Request.QueryString("sb")) ' And c.BudgetYearStart = Today.Year
                 Dim budId As Integer = -1
                 If bud.Count > 0 Then
                    
                     bud.First.CurrentSupportLevel = itemCurrent.Monthly
+                    bud.First.TotalBudget = hfMpdGoal.Value
                     If ToStatus >= 0 Then
                         bud.First.Status = ToStatus
                         Select Case (ToStatus)
