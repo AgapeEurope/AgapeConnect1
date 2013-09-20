@@ -106,13 +106,15 @@
         <div class="well listDetail" id="d_lessthan50">
 
 
-            <asp:Repeater ID="rpLessThan50" runat="server">
+            <asp:Repeater ID="rpLessThan50" runat="server" >
                 <HeaderTemplate>
-                    <h5>Less than 50% Raised:</h5>
+                    <h4>Less than 50% Raised:</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
+                    <div>
                     <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'></asp:Label>
+                        </div>
                 </ItemTemplate>
 
             </asp:Repeater>
@@ -120,11 +122,13 @@
         <div class="well listDetail" id="d_low">
             <asp:Repeater ID="rpLow" runat="server">
                 <HeaderTemplate>
-                    <h5>50-75% Raised</h5>
+                    <h4>50-75% Raised</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                    <div>
+                        <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'></asp:Label>
+                    </div>
                 </ItemTemplate>
 
             </asp:Repeater>
@@ -132,11 +136,13 @@
         <div class="well listDetail" id="d_medium">
             <asp:Repeater ID="rpMedium" runat="server">
                 <HeaderTemplate>
-                    <h5>75-90% Raised</h5>
+                    <h4>75-90% Raised</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                    <div>
+                        <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'></asp:Label>
+                    </div>
                 </ItemTemplate>
 
             </asp:Repeater>
@@ -144,11 +150,13 @@
         <div class="well listDetail" id="d_high">
             <asp:Repeater ID="rpHigh" runat="server">
                 <HeaderTemplate>
-                    <h5>90-100% Raised</h5>
+                    <h4>90-100% Raised</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                    <div>
+                        <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'></asp:Label>
+                    </div>
                 </ItemTemplate>
 
             </asp:Repeater>
@@ -156,11 +164,13 @@
         <div class="well listDetail" id="d_full">
             <asp:Repeater ID="rpFull" runat="server">
                 <HeaderTemplate>
-                    <h5>>100% Raised</h5>
+                    <h4>>100% Raised</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                    <div>
+                        <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                        <asp:Label ID="Label2" runat="server" Text='<%#  (CDbl(Eval("SupLev")) * 100).ToString("0.00")& "%"%>'></asp:Label>
+                    </div>
                 </ItemTemplate>
 
             </asp:Repeater>
@@ -168,10 +178,11 @@
         <div class="well listDetail" id="d_none">
             <asp:Repeater ID="rpNone" runat="server">
                 <HeaderTemplate>
-                    <h5>No Budget</h5>
+                    <h4>No Budget</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Value")%>'></asp:Label>
+                    <div>
+                        <asp:Label ID="Label1" runat="server" Text='<%# Eval("Value")%>'></asp:Label></div>
 
                 </ItemTemplate>
 
