@@ -40,7 +40,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                
                 Dim avgSupport = (From c In incomeData Where c.Budget > 0 Select 100 * c.income / c.Budget).Average
 
-                jsonMap &= "[' " & thisCountry.isoCode & "', " & avgSupport.Value.ToString("0.0") & "],"
+                jsonMap &= "['" & thisCountry.isoCode & "', " & avgSupport.Value.ToString("0.0") & "],"
 
             Next
 
