@@ -20,11 +20,30 @@
         var options2 = {
             title: 'Staff MPD Health',
             pieHole: 0.4, reverseCategories: true,
-            chartArea: { left: 20, top: 20, width: "120%", height: "100%" }, 
+            chartArea: { left: 40, top: 20, width: "120%", height: "100%" },
             slices: [{ color: 'green' }, { color: '#7e870d' }, { color: '#ff9b00' }, { color: '#ff5f08' }, { color: 'red' }, { color: 'grey', offset: 0.1 }]
         };
 
         var chart2 = new google.visualization.PieChart(document.getElementById('donutchart'));
+
+
+        function selectHandler() {
+            var selectedItem = chart2.getSelection()[0];
+            if (selectedItem) {
+                var section = data2.getValue(selectedItem.row, 0);
+                $('.listDetail').hide();
+                if (section.indexOf('<50%') > -1) $('#d_lessthan50').show();
+
+                if (section.indexOf('50-75%') > -1) $('#d_low').show();
+                if (section.indexOf('75-90%') > -1) $('#d_medium').show();
+                if (section.indexOf('90-100%') > -1) $('#d_high').show();
+                if (section.indexOf('>100%') > -1) $('#d_full').show();
+                if (section.indexOf('No Budget') > -1) $('#d_none').show();
+
+            }
+        }
+        google.visualization.events.addListener(chart2, 'select', selectHandler);
+
         chart2.draw(data2, options2);
 
 
@@ -49,28 +68,115 @@
 
     }
 </script>
+
+<style type="text/css">
+    .listDetail {
+        display: none;
+    }
+</style>
+
+<h1>
+    <asp:Label ID="lblCountryTitle" runat="server" Text="Label"></asp:Label>
+</h1>
+
+
 <div class="row-fluid">
     <div class="span7">
         <div id="donutchart" style="width: 100%; height: 600px;"></div>
         <div id="chart_div" style="width: 100%; height: 300px;"></div>
     </div>
-    <div class="span5 well">
+    <div class="span5">
 
-        <table cellpadding="7">
-            <tr  style="vertical-align: top;">
-                <td style="font-weight: bold; white-space: nowrap;  ">Average Support</td>
+        <table cellpadding="7" class="well">
+            <tr style="vertical-align: top;">
+                <td style="font-weight: bold; white-space: nowrap;">Average Support</td>
                 <td>
                     <asp:Label ID="lblAvgSupport" runat="server" Text="Label" Font-Size="X-Large" Font-Bold="true"></asp:Label>
                 </td>
             </tr>
             <tr style="vertical-align: top;">
-                <td style="font-weight: bold; white-space: nowrap; font-size: small; ">Actual vs Budget</td>
-                <td> <asp:Label ID="lblBdgVsAct" runat="server" Text="Label"></asp:Label>
-                    <asp:Label ID="lblBdgVsActLabel" runat="server" style="font-size: x-small; color: gray;" Text="Label"></asp:Label>
-                  </td>
+                <td style="font-weight: bold; white-space: nowrap; font-size: small;">Actual vs Budget</td>
+                <td>
+                    <asp:Label ID="lblBdgVsAct" runat="server" Text="Label"></asp:Label>
+                    <asp:Label ID="lblBdgVsActLabel" runat="server" Style="font-size: x-small; color: gray;" Text="Label"></asp:Label>
+                </td>
             </tr>
         </table>
-        
+
+        <div class="well listDetail" id="d_lessthan50">
+
+
+            <asp:Repeater ID="rpLessThan50" runat="server">
+                <HeaderTemplate>
+                    <h5>Less than 50% Raised:</h5>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                </ItemTemplate>
+
+            </asp:Repeater>
+        </div>
+        <div class="well listDetail" id="d_low">
+            <asp:Repeater ID="rpLow" runat="server">
+                <HeaderTemplate>
+                    <h5>50-75% Raised</h5>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                </ItemTemplate>
+
+            </asp:Repeater>
+        </div>
+        <div class="well listDetail" id="d_medium">
+            <asp:Repeater ID="rpMedium" runat="server">
+                <HeaderTemplate>
+                    <h5>75-90% Raised</h5>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                </ItemTemplate>
+
+            </asp:Repeater>
+        </div>
+        <div class="well listDetail" id="d_high">
+            <asp:Repeater ID="rpHigh" runat="server">
+                <HeaderTemplate>
+                    <h5>90-100% Raised</h5>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                </ItemTemplate>
+
+            </asp:Repeater>
+        </div>
+        <div class="well listDetail" id="d_full">
+            <asp:Repeater ID="rpFull" runat="server">
+                <HeaderTemplate>
+                    <h5>>100% Raised</h5>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
+                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("SupLev") & "%"%>'></asp:Label>
+                </ItemTemplate>
+
+            </asp:Repeater>
+        </div>
+        <div class="well listDetail" id="d_none">
+            <asp:Repeater ID="rpNone" runat="server">
+                <HeaderTemplate>
+                    <h5>No Budget</h5>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Value")%>'></asp:Label>
+
+                </ItemTemplate>
+
+            </asp:Repeater>
+        </div>
     </div>
 </div>
 

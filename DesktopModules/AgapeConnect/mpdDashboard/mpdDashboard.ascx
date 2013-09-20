@@ -16,7 +16,7 @@
 
 
             var data3 = google.visualization.arrayToDataTable([
-         ['Country', 'Popularity'],
+         ['Country', 'MPD Level'],
          ['Germany', 120],
          ['United States', 96],
          ['Brazil', 25],
