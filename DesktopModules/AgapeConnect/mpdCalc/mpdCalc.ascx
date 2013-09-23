@@ -335,6 +335,9 @@
         $('.assessment').text(a1.toFixed(0));
         var g = st + a1
         $('.mpdGoal').text(g.toFixed(0));
+
+        $('#<%= hfMpdGoal.ClientId %>').val(g.toFixed(0));
+
         var current = parseFloat($('.currentSupport').val().replace(/\,/g, ''));
 
         var rem = g - current
@@ -563,6 +566,8 @@
 </style>
 
 <asp:HiddenField ID="hfAssessment" runat="server" Value="0.0" />
+
+<asp:HiddenField ID="hfMpdGoal" runat="server" Value="0.0" />
 
 
 
