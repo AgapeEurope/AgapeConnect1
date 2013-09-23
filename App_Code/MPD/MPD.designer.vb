@@ -2057,9 +2057,9 @@ Namespace MPD
 		
 		Private _mpdDefId As Integer
 		
-		Private _AP_mpd_UserAccountInfos As EntitySet(Of AP_mpd_UserAccountInfo)
-		
 		Private _AP_mpdCalc_Definitions As EntityRef(Of AP_mpdCalc_Definition)
+		
+		Private _AP_mpd_UserAccountInfos As EntitySet(Of AP_mpd_UserAccountInfo)
 		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -2104,8 +2104,8 @@ Namespace MPD
 		
 		Public Sub New()
 			MyBase.New
-			Me._AP_mpd_UserAccountInfos = New EntitySet(Of AP_mpd_UserAccountInfo)(AddressOf Me.attach_AP_mpd_UserAccountInfos, AddressOf Me.detach_AP_mpd_UserAccountInfos)
 			Me._AP_mpdCalc_Definitions = CType(Nothing, EntityRef(Of AP_mpdCalc_Definition))
+			Me._AP_mpd_UserAccountInfos = New EntitySet(Of AP_mpd_UserAccountInfo)(AddressOf Me.attach_AP_mpd_UserAccountInfos, AddressOf Me.detach_AP_mpd_UserAccountInfos)
 			OnCreated
 		End Sub
 		
@@ -2240,16 +2240,6 @@ Namespace MPD
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpd_Country_AP_mpd_UserAccountInfo", Storage:="_AP_mpd_UserAccountInfos", ThisKey:="mpdCountryId", OtherKey:="mpdCountryId")>  _
-		Public Property AP_mpd_UserAccountInfos() As EntitySet(Of AP_mpd_UserAccountInfo)
-			Get
-				Return Me._AP_mpd_UserAccountInfos
-			End Get
-			Set
-				Me._AP_mpd_UserAccountInfos.Assign(value)
-			End Set
-		End Property
-		
 		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpd_Country_AP_mpdCalc_Definition", Storage:="_AP_mpdCalc_Definitions", ThisKey:="mpdDefId", OtherKey:="mpdDefId", IsUnique:=true, IsForeignKey:=false)>  _
 		Public Property AP_mpdCalc_Definitions() As AP_mpdCalc_Definition
 			Get
@@ -2271,6 +2261,16 @@ Namespace MPD
 					End If
 					Me.SendPropertyChanged("AP_mpdCalc_Definitions")
 				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpd_Country_AP_mpd_UserAccountInfo", Storage:="_AP_mpd_UserAccountInfos", ThisKey:="mpdCountryId", OtherKey:="mpdCountryId")>  _
+		Public Property AP_mpd_UserAccountInfos() As EntitySet(Of AP_mpd_UserAccountInfo)
+			Get
+				Return Me._AP_mpd_UserAccountInfos
+			End Get
+			Set
+				Me._AP_mpd_UserAccountInfos.Assign(value)
 			End Set
 		End Property
 		

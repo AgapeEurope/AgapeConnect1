@@ -104,8 +104,8 @@
       <Column Name="compensationAccounts" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="foreighIncomeAccounts" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="mpdDefId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="AP_mpd_Country_AP_mpd_UserAccountInfo" Member="AP_mpd_UserAccountInfos" ThisKey="mpdCountryId" OtherKey="mpdCountryId" Type="AP_mpd_UserAccountInfo" />
       <Association Name="AP_mpd_Country_AP_mpdCalc_Definition" Member="AP_mpdCalc_Definitions" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpdCalc_Definition" Cardinality="One" />
+      <Association Name="AP_mpd_Country_AP_mpd_UserAccountInfo" Member="AP_mpd_UserAccountInfos" ThisKey="mpdCountryId" OtherKey="mpdCountryId" Type="AP_mpd_UserAccountInfo" />
     </Type>
   </Table>
 </Database>
