@@ -72,7 +72,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 For i As Integer = -12 To -1
                     Dim count As Integer = i
-                    Dim AvgSupport = (From c In incomeData Where c.Period = Today.AddMonths(count).ToString("yyyyMM") Select c.income / c.Budget)
+                    Dim AvgSupport = (From c In incomeData Where c.Period = Today.AddMonths(count).ToString("yyyyMM") And c.Budget > 0 Select c.income / c.Budget)
                     Dim ag = 0.0
                     Dim full = 0.0
                     If AvgSupport.Count > 0 Then
