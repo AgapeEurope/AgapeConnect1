@@ -113,7 +113,8 @@
                 <ItemTemplate>
                     <div>
                     <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
-                    <asp:Label ID="Label2" runat="server" Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'></asp:Label>
+                        
+                        <asp:Hyperlink runat="server"  ID="Label2"  NavigateUrl='<%# EditUrl("staffDashboard") & "?staffId=" & Eval("staffId") & "&country=" & Request.QueryString("country")%>'   Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'  ></asp:Hyperlink>
                         </div>
                 </ItemTemplate>
 
@@ -168,8 +169,9 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <div>
-                        <asp:Label ID="Label1" runat="server" Text='<%# GetStaffName(Eval("staffId"))%>'></asp:Label>
-                        <asp:Label ID="Label2" runat="server" Text='<%#  (CDbl(Eval("SupLev")) * 100).ToString("0.00")& "%"%>'></asp:Label>
+                      
+                          <asp:Hyperlink runat="server"  ID="Hyperlink1"  NavigateUrl='<%# EditUrl("staffDashboard") & "?staffId=" & Eval("staffId") & "&country=" & Request.QueryString("country")%>'    Text='<%# GetStaffName(Eval("staffId"))%>' ></asp:Hyperlink>
+                         <asp:Hyperlink runat="server"  ID="Label2"  NavigateUrl='<%# EditUrl("staffDashboard") & "?staffId=" & Eval("staffId") & "&country=" & Request.QueryString("country")%>'   Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'  ></asp:Hyperlink>
                     </div>
                 </ItemTemplate>
 
