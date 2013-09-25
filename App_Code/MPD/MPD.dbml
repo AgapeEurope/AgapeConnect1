@@ -64,6 +64,7 @@
       <Column Name="Status" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
       <Column Name="CurrentSupportLevel" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="TotalBudget" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BudgetPeriodStart" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
       <Association Name="AP_mpdCalc_StaffBudget_AP_mpdCalc_Answer" Member="AP_mpdCalc_Answers" ThisKey="StaffBudgetId" OtherKey="StaffBudgetId" Type="AP_mpdCalc_Answer" />
       <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget" Member="AP_mpdCalc_Definition" ThisKey="DefinitionId" OtherKey="mpdDefId" Type="AP_mpdCalc_Definition" IsForeignKey="true" />
     </Type>

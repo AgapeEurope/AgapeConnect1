@@ -1179,6 +1179,8 @@ Namespace MPD
 		
 		Private _TotalBudget As System.Nullable(Of Decimal)
 		
+		Private _BudgetPeriodStart As String
+		
 		Private _AP_mpdCalc_Answers As EntitySet(Of AP_mpdCalc_Answer)
 		
 		Private _AP_mpdCalc_Definition As EntityRef(Of AP_mpdCalc_Definition)
@@ -1237,6 +1239,10 @@ Namespace MPD
     Partial Private Sub OnTotalBudgetChanging(value As System.Nullable(Of Decimal))
     End Sub
     Partial Private Sub OnTotalBudgetChanged()
+    End Sub
+    Partial Private Sub OnBudgetPeriodStartChanging(value As String)
+    End Sub
+    Partial Private Sub OnBudgetPeriodStartChanged()
     End Sub
     #End Region
 		
@@ -1443,6 +1449,22 @@ Namespace MPD
 					Me._TotalBudget = value
 					Me.SendPropertyChanged("TotalBudget")
 					Me.OnTotalBudgetChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BudgetPeriodStart", DbType:="VarChar(6)")>  _
+		Public Property BudgetPeriodStart() As String
+			Get
+				Return Me._BudgetPeriodStart
+			End Get
+			Set
+				If (String.Equals(Me._BudgetPeriodStart, value) = false) Then
+					Me.OnBudgetPeriodStartChanging(value)
+					Me.SendPropertyChanging
+					Me._BudgetPeriodStart = value
+					Me.SendPropertyChanged("BudgetPeriodStart")
+					Me.OnBudgetPeriodStartChanged
 				End If
 			End Set
 		End Property
