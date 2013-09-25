@@ -42,7 +42,12 @@
                 calculateSectionTotal($(this).parent().parent().parent().parent());
             });
 
-
+            $('#<%= ddlStartPeriod.ClientID%>').change(function (e){
+                if($(this).val()=="")
+                    $('#customDate').show();
+                else
+                    $('#customDate').hide();
+            });
 
             //Event Handlers
             $('.monthly').keyup(function () {
@@ -563,6 +568,13 @@
         float: right;
         margin-top: -50px;
     }
+    .subTitle {
+        font-style: italic;
+        color: lightgray;
+        top: -14px;
+        position: relative;
+        font-size: large;
+    }
 </style>
 
 <asp:HiddenField ID="hfAssessment" runat="server" Value="0.0" />
@@ -576,9 +588,34 @@
 
 <fieldset>
     <legend>Support Budget for
-        <asp:Label ID="lblStaffName" runat="server" Font-Bold="true"></asp:Label>&nbsp; &nbsp; <i>(<asp:Label ID="lblBudYear" runat="server" Text=""></asp:Label>)</i></legend>
+        <asp:Label ID="lblStaffName" runat="server" Font-Bold="true"></asp:Label></legend>
     <asp:Label ID="lblStatus" runat="server" class="label label-info mpd-status">Draft</asp:Label>
+    <div class="subTitle"><span>Start Date: </span>
+        <asp:DropDownList ID="ddlStartPeriod" runat="server" ></asp:DropDownList>
+            <span id="customDate"  style="display: none;" >
+            <asp:DropDownList ID="ddlPeriod" runat="server" Width="100px">
+                <asp:ListItem Text="January" Value="1"></asp:ListItem>
+                <asp:ListItem Text="February" Value="2"></asp:ListItem>
+<asp:ListItem Text="March" Value="3"></asp:ListItem>
+<asp:ListItem Text="April" Value="4"></asp:ListItem>
+<asp:ListItem Text="May" Value="5"></asp:ListItem>
+<asp:ListItem Text="June" Value="6"></asp:ListItem>
+<asp:ListItem Text="July" Value="7"></asp:ListItem>
+<asp:ListItem Text="August" Value="8"></asp:ListItem>
+<asp:ListItem Text="September" Value="9"></asp:ListItem>
+<asp:ListItem Text="October" Value="10"></asp:ListItem>
+<asp:ListItem Text="November" Value="11"></asp:ListItem>
+<asp:ListItem Text="December" Value="12"></asp:ListItem>
+
+            </asp:DropDownList>
+            <asp:DropDownList ID="ddlYear" runat="server" Width="160px"  >
+
+            </asp:DropDownList>
+                </span>
+
+    </div>
     <div class="clearfix" />
+    
     <div id="formRoot" class="form-horizontal">
 
         <asp:Repeater ID="rpSections" runat="server">
@@ -674,6 +711,8 @@
 
                 <asp:CheckBox ID="cbCompliance" runat="server" CssClass="checkbox" Text="Optional Complience Statement  - e.g. All donaitons that I have received have been forwarded to the National Office." />
             </div>
+
+            
             <div style="width: 100%; text-align: center;">
                 <asp:Button ID="btnSave" runat="server" Text="Save" Font-Size="X-Large" CssClass="btn" formnovalidate />
                 &nbsp;&nbsp;

@@ -164,6 +164,8 @@ Namespace MPD
 		
 		Private _Complience As String
 		
+		Private _FirstBudgetPeriod As System.Nullable(Of Byte)
+		
 		Private _AP_mpdCalc_Sections As EntitySet(Of AP_mpdCalc_Section)
 		
 		Private _AP_mpdCalc_StaffBudgets As EntitySet(Of AP_mpdCalc_StaffBudget)
@@ -204,6 +206,10 @@ Namespace MPD
     Partial Private Sub OnComplienceChanging(value As String)
     End Sub
     Partial Private Sub OnComplienceChanged()
+    End Sub
+    Partial Private Sub OnFirstBudgetPeriodChanging(value As System.Nullable(Of Byte))
+    End Sub
+    Partial Private Sub OnFirstBudgetPeriodChanged()
     End Sub
     #End Region
 		
@@ -332,6 +338,22 @@ Namespace MPD
 					Me._Complience = value
 					Me.SendPropertyChanged("Complience")
 					Me.OnComplienceChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_FirstBudgetPeriod", DbType:="TinyInt")>  _
+		Public Property FirstBudgetPeriod() As System.Nullable(Of Byte)
+			Get
+				Return Me._FirstBudgetPeriod
+			End Get
+			Set
+				If (Me._FirstBudgetPeriod.Equals(value) = false) Then
+					Me.OnFirstBudgetPeriodChanging(value)
+					Me.SendPropertyChanging
+					Me._FirstBudgetPeriod = value
+					Me.SendPropertyChanged("FirstBudgetPeriod")
+					Me.OnFirstBudgetPeriodChanged
 				End If
 			End Set
 		End Property
