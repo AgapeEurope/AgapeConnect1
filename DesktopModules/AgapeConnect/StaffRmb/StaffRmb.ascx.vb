@@ -2503,72 +2503,74 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             HttpContext.Current.Response.ContentType = "text/csv"
             HttpContext.Current.Response.AddHeader("Pragma", "public")
             HttpContext.Current.Response.Write(export)
-            HttpContext.Current.Response.End()
+
 
 
         End Sub
 
         Protected Sub btnMarkProcessed_Click(sender As Object, e As System.EventArgs) Handles btnMarkProcessed.Click
-            DownloadBatch()
-            Dim RmbList As List(Of Integer) = Session("RmbList")
-            If Not RmbList Is Nothing Then
-                Dim q = From c In d.AP_Staff_Rmbs Where RmbList.Contains(c.RMBNo) And c.PortalId = PortalId
+            DownloadBatch(True)
 
-                For Each row In q
-                    row.Status = RmbStatus.Processed
-                    row.ProcDate = Now
-                    Log(row.RMBNo, "Marked as Processed - after a manual download")
-                Next
-            End If
-            Dim AdvList As List(Of Integer) = Session("AdvList")
-            If Not AdvList Is Nothing Then
+            'Dim RmbList As List(Of Integer) = Session("RmbList")
+            'If Not RmbList Is Nothing Then
+            '    Dim q = From c In d.AP_Staff_Rmbs Where RmbList.Contains(c.RMBNo) And c.PortalId = PortalId
 
-                Dim r = From c In d.AP_Staff_AdvanceRequests Where AdvList.Contains(c.AdvanceId) And c.PortalId = PortalId
+            '    For Each row In q
+            '        row.Status = RmbStatus.Processed
+            '        row.ProcDate = Now
+            '        Log(row.RMBNo, "Marked as Processed - after a manual download")
+            '    Next
+            'End If
+            'Dim AdvList As List(Of Integer) = Session("AdvList")
+            'If Not AdvList Is Nothing Then
 
-                For Each row In r
-                    row.RequestStatus = RmbStatus.Processed
-                    row.ProcessedDate = Now
-                    Log(row.AdvanceId, "Advance Marked as Processed - after a manual download")
-                Next
+            '    Dim r = From c In d.AP_Staff_AdvanceRequests Where AdvList.Contains(c.AdvanceId) And c.PortalId = PortalId
 
-            End If
+            '    For Each row In r
+            '        row.RequestStatus = RmbStatus.Processed
+            '        row.ProcessedDate = Now
+            '        Log(row.AdvanceId, "Advance Marked as Processed - after a manual download")
+            '    Next
 
-            d.SubmitChanges()
+            'End If
 
-
-
-
-            If hfRmbNo.Value <> "" Then
-                If hfRmbNo.Value > 0 Then
-                    LoadRmb(CInt(hfRmbNo.Value))
-                Else
-                    LoadAdv(-CInt(hfRmbNo.Value))
-                End If
+            'd.SubmitChanges()
 
 
-            End If
-
-            ResetMenu()
 
 
-            Dim t As Type = Me.GetType()
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            sb.Append("<script language='javascript'>")
-            sb.Append("closePopupDownload();")
-            sb.Append("</script>")
-            ScriptManager.RegisterClientScriptBlock(Page, t, "popupDownload", sb.ToString, False)
+            'If hfRmbNo.Value <> "" Then
+            '    If hfRmbNo.Value > 0 Then
+            '        LoadRmb(CInt(hfRmbNo.Value))
+            '    Else
+            '        LoadAdv(-CInt(hfRmbNo.Value))
+            '    End If
 
+
+            'End If
+
+            'ResetMenu()
+
+
+            'Dim t As Type = Me.GetType()
+            'Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            'sb.Append("<script language='javascript'>")
+            'sb.Append("closePopupDownload();")
+            'sb.Append("</script>")
+            'ScriptManager.RegisterClientScriptBlock(Page, t, "popupDownload", sb.ToString, False)
+            'HttpContext.Current.Response.End()
         End Sub
 
         Protected Sub btnDontMarkProcessed_Click(sender As Object, e As System.EventArgs) Handles btnDontMarkProcessed.Click
             DownloadBatch()
 
-            Dim t As Type = Me.GetType()
-            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            sb.Append("<script language='javascript'>")
-            sb.Append("closePopupDownload();")
-            sb.Append("</script>")
-            ScriptManager.RegisterClientScriptBlock(Page, t, "popupDownload", sb.ToString, False)
+            'Dim t As Type = Me.GetType()
+            'Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            'sb.Append("<script language='javascript'>")
+            'sb.Append("closePopupDownload();")
+            'sb.Append("</script>")
+            'ScriptManager.RegisterClientScriptBlock(Page, t, "popupDownload", sb.ToString, False)
+            'HttpContext.Current.Response.End()
         End Sub
 
         'Protected Sub btnDownloadBatch_Click(sender As Object, e As System.EventArgs) Handles btnDownloadBatch.Click
@@ -3976,7 +3978,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         End Function
 
 
-        Protected Sub DownloadBatch()
+        Protected Sub DownloadBatch(Optional ByVal MarkAsProcessed As Boolean = False)
             Dim downloadStatuses() As Integer = {RmbStatus.PendingDownload, RmbStatus.DownloadFailed}
             Log(0, "Downloading Batched Transactions")
 
@@ -4001,6 +4003,61 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 AdvList.Add(adv.AdvanceId)
 
             Next
+
+
+
+            If (MarkAsProcessed) Then
+
+                If Not RmbList Is Nothing Then
+                    Dim q = From c In d.AP_Staff_Rmbs Where RmbList.Contains(c.RMBNo) And c.PortalId = PortalId
+
+                    For Each row In q
+                        row.Status = RmbStatus.Processed
+                        row.ProcDate = Now
+                        Log(row.RMBNo, "Marked as Processed - after a manual download")
+                    Next
+                End If
+
+                If Not AdvList Is Nothing Then
+
+                    Dim r = From c In d.AP_Staff_AdvanceRequests Where AdvList.Contains(c.AdvanceId) And c.PortalId = PortalId
+
+                    For Each row In r
+                        row.RequestStatus = RmbStatus.Processed
+                        row.ProcessedDate = Now
+                        Log(row.AdvanceId, "Advance Marked as Processed - after a manual download")
+                    Next
+
+                End If
+
+                d.SubmitChanges()
+
+
+
+
+                If hfRmbNo.Value <> "" Then
+                    If hfRmbNo.Value > 0 Then
+                        LoadRmb(CInt(hfRmbNo.Value))
+                    Else
+                        LoadAdv(-CInt(hfRmbNo.Value))
+                    End If
+
+
+                End If
+
+                ResetMenu()
+
+
+                
+            End If
+
+
+            Dim t As Type = Me.GetType()
+            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            sb.Append("<script language='javascript'>")
+            sb.Append("closePopupDownload();")
+            sb.Append("</script>")
+            ScriptManager.RegisterClientScriptBlock(Page, t, "popupDownload", sb.ToString, False)
 
 
             Session("RmbList") = RmbList
