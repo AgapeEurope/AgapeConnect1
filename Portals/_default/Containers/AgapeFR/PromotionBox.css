@@ -62,14 +62,6 @@
     
 }
 
-.PromotionBox .contentContainer div.Normal h1 {
-    font-family: OpenSansRegular;
-    font-size: 20px;
-    white-space: nowrap;
-    padding-bottom: 5px;
-    color: #3A8BC2;
-}
-
 .PromotionBox .contentContainer div.Normal .button {
     position: absolute;
     bottom: 10px;

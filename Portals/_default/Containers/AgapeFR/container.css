@@ -1,7 +1,7 @@
 /*========== Default for all containers ==========*/
 
 .c_contentpane {
-    padding: 10px;
+    padding: 20px;
     margin: 0px;
     text-align:left;
 }
@@ -11,16 +11,43 @@
 }
 
 .Normal p {
-    margin-top:0px;
+    margin-bottom: 15px;
 }
 
 .Normal {
-    text-align:justify;
-    font-size: 14px;
+    text-align: justify;
+    font-size: 16px;
 }
 
+.Normal a:link, .Normal a:active, .Normal a:visited, .Normal a:hover {
+    font-size: 16px;
+    color: #3A8BC2;
+}
 
+.Normal .dnnActionMenu a:link, .Normal dnnActionMenu a:active, .Normal dnnActionMenu a:visited, .Normal dnnActionMenu a:hover {
+    font-size: 12px;
+}
 
+.Normal h1 {
+    font-size: 20px;
+    white-space: nowrap;
+    padding-bottom: 15px;
+    color: #3A8BC2;
+}
+
+.Normal h2 {
+    font-size: 18px;
+    white-space: nowrap;
+    padding-bottom: 15px;
+    color: #3A8BC2;
+}
+
+.Normal h3 {
+    font-size: 16px;
+    white-space: nowrap;
+    padding-bottom: 15px;
+    color: #3A8BC2;
+}
 
 
 

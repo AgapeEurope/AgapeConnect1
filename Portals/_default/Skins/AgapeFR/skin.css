@@ -45,3 +45,7 @@ body, .Normal, a:link, a:active, a:visited, a:hover {
     border: solid 1px red;
     background-color: yellow;
 }
+
+.bleu {
+    color: #3A8BC2;
+}
