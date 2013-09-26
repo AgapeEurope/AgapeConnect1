@@ -26,7 +26,7 @@
          <%= jsonMap %>
             ]);
 
-            var options3 = { colors: ['#FF0000', '#ff9b00', '#00FF00'], colorAxis: { minValue:50, maxValue: 110 } };
+            var options3 = {enableScrollWheel: true, colors: ['#FF0000', '#ff9b00', '#00FF00'], colorAxis: { minValue:50, maxValue: 110 } };
 
             var chart3 = new google.visualization.GeoChart(document.getElementById('mapchart'));
 
@@ -45,7 +45,7 @@
 
         }
     </script>
-<div id="mapchart" style="width: 900px; height: 500px;"></div>
+<div id="mapchart" style="width: 100%; height: 500px;"></div>
 
 
     

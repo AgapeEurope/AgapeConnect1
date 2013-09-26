@@ -35,12 +35,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 Dim incomeData = From c In thisCountry.AP_mpd_UserAccountInfos Where c.period > Today.AddMonths(-12).ToString("yyyyMM") And allLocalStaff.Contains(c.staffId) And c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).Count > 0 _
-                    Select Period = c.period, staffId = c.staffId, income = c.income, expense = c.expense, Budget = (c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).First.TotalBudget)
+                    Select Period = c.period, staffId = c.staffId, income = c.income, expense = c.expense, Budget = mpdFunctions.getBudgetForStaffPeriod(c.staffId, c.period)
+
 
                
                 Dim avgSupport = (From c In incomeData Where c.Budget > 0 Select 100 * c.income / c.Budget).Average
 
-                jsonMap &= "['" & thisCountry.isoCode & "', " & avgSupport.Value.ToString("0.0") & "],"
+                jsonMap &= "['" & thisCountry.isoCode & "', " & avgSupport.ToString("0.0") & "],"
 
             Next
 

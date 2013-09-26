@@ -41,7 +41,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 Dim incomeData = (From c In thisCountry.First.AP_mpd_UserAccountInfos Where c.period > Today.AddMonths(-12).ToString("yyyyMM") And allLocalStaff.Contains(c.staffId) And c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).Count > 0 _
-                    Select Period = c.period, staffId = c.staffId, income = c.income, expense = c.expense, Budget = (c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).First.TotalBudget)).ToList
+                    Select Period = c.period, staffId = c.staffId, income = c.income, expense = c.expense, Budget = mpdFunctions.getBudgetForStaffPeriod(c.staffId, c.period)).ToList ' c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).First.TotalBudget)).ToList
 
 
                 Dim groupedData = From c In incomeData Where c.Budget > 0 Group By c.staffId Into Group Select SupLev = Group.Average(Function(x) x.income / x.Budget), staffId
@@ -89,8 +89,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 Next
 
-                lblAvgSupport.Text = (groupedData.Average(Function(c) c.SupLev) * 100.0).Value.ToString("0.0") & "%"
-                Dim bva = ((From c In incomeData Select c.expense / c.Budget).Average() * 100).Value
+                lblAvgSupport.Text = (groupedData.Average(Function(c) c.SupLev) * 100.0).ToString("0.0") & "%"
+
+                'lblAvgSupport.Text = mpdFunctions.getBudgetForStaffPeriod(20, "201301")
+
+                Dim bva = ((From c In incomeData Select c.expense / c.Budget).Average() * 100)
                 lblBdgVsAct.Text = bva.ToString("0.0") & "%"
                 lblBdgVsActLabel.Text = IIf(bva > 1, "(budgets under-estimated expenses)", "(budgets over-estimated expenses)")
 

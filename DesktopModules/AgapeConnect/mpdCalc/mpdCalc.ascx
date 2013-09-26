@@ -44,9 +44,9 @@
 
             $('#<%= ddlStartPeriod.ClientID%>').change(function (e){
                 if($(this).val()=="")
-                    $('#customDate').show();
+                    $('#<%= customDate.ClientID%>').show();
                 else
-                    $('#customDate').hide();
+                    $('#<%= customDate.ClientID%>').hide();
             });
 
             //Event Handlers
@@ -592,8 +592,8 @@
     <asp:Label ID="lblStatus" runat="server" class="label label-info mpd-status">Draft</asp:Label>
     <div class="subTitle"><span>Start Date: </span>
         <asp:DropDownList ID="ddlStartPeriod" runat="server" ></asp:DropDownList>
-            <span id="customDate"  style="display: none;" >
-            <asp:DropDownList ID="ddlPeriod" runat="server" Width="100px">
+            <span id="customDate" runat="server"  style="display: none;" >
+            <asp:DropDownList ID="ddlPeriod" runat="server" Width="120px" Font-Bold="true">
                 <asp:ListItem Text="January" Value="1"></asp:ListItem>
                 <asp:ListItem Text="February" Value="2"></asp:ListItem>
 <asp:ListItem Text="March" Value="3"></asp:ListItem>
@@ -608,7 +608,7 @@
 <asp:ListItem Text="December" Value="12"></asp:ListItem>
 
             </asp:DropDownList>
-            <asp:DropDownList ID="ddlYear" runat="server" Width="160px"  >
+            <asp:DropDownList ID="ddlYear" runat="server" Width="100px" Font-Bold="true"  >
 
             </asp:DropDownList>
                 </span>

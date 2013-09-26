@@ -112,11 +112,14 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                         ddlStartPeriod.SelectedIndex = 1
 
-                        ddlPeriod.SelectedIndex = FirstBudgetMonth - 1
+
                         ddlYear.Items.Clear()
-                        ddlYear.Items.Add(New ListItem("Last Year: " & fpStartDate.AddYears(-1).ToString("yyyy"), fpStartDate.AddYears(-1).ToString("yyyy")))
-                        ddlYear.Items.Add(New ListItem("This Year: " & fpStartDate.AddYears(0).ToString("yyyy"), fpStartDate.AddYears(0).ToString("yyyy")))
-                        ddlYear.Items.Add(New ListItem("Next Year: " & fpStartDate.AddYears(1).ToString("yyyy"), fpStartDate.AddYears(1).ToString("yyyy")))
+                        ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(-1).ToString("yyyy"), fpStartDate.AddYears(-1).ToString("yyyy")))
+                        ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(0).ToString("yyyy"), fpStartDate.AddYears(0).ToString("yyyy")))
+                        ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(1).ToString("yyyy"), fpStartDate.AddYears(1).ToString("yyyy")))
+
+
+
 
                         Select Case bud.First.Status
                             Case StaffRmb.RmbStatus.Draft
@@ -137,7 +140,16 @@ Namespace DotNetNuke.Modules.AgapeConnect
                         lblStatus.Text = StaffRmb.RmbStatus.StatusName(bud.First.Status)
                         Dim dt = New Date(CInt(Left(bud.First.BudgetPeriodStart, 4)), CInt(Right(bud.First.BudgetPeriodStart, 2)), 1)
 
+                        If ddlStartPeriod.Items.FindByValue(bud.First.BudgetPeriodStart) Is Nothing Then
+                            ddlStartPeriod.SelectedValue = ""
+                            ddlPeriod.SelectedValue = dt.Month
 
+                            ddlYear.SelectedValue = dt.Year
+                            customDate.Attributes.CssStyle.Remove("display")
+                        Else
+                            ddlPeriod.SelectedValue = bud.First.BudgetPeriodStart
+
+                        End If
 
                         If bud.First.Status <> StaffRmb.RmbStatus.Draft And bud.First.Status <> StaffRmb.RmbStatus.Cancelled Then
                             cbCompliance.Enabled = False
@@ -236,6 +248,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
                    
                     bud.First.CurrentSupportLevel = itemCurrent.Monthly
                     bud.First.TotalBudget = hfMpdGoal.Value
+                    bud.First.BudgetPeriodStart = IIf(ddlStartPeriod.SelectedValue = "", New Date(ddlYear.SelectedValue, ddlPeriod.SelectedValue, 1).ToString("yyyyMM"), ddlStartPeriod.SelectedValue)
+                    bud.First.BudgetYearStart = Left(bud.First.BudgetPeriodStart, 4)
                     If ToStatus >= 0 Then
                         bud.First.Status = ToStatus
                         Select Case (ToStatus)

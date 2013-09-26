@@ -38,13 +38,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 jsonLi = ""
                 For Each row In incomeData
                     Dim start = New Date(CInt(Left(row.period, 4)), CInt(Right(row.period, 2)), 1)
-                    Dim bud As Double = 0.0
-                    If BudgetData.Count > 0 Then
-                        If Not BudgetData.First.TotalBudget Is Nothing Then
-                            bud = BudgetData.First.TotalBudget
-                        End If
+                    Dim bud = mpdFunctions.getBudgetForStaffPeriod(row.staffId, row.period)
 
-                    End If
+
                     jsonLi &= "['" & start.ToString("MMM yy") & "', " & row.balance.ToString("0.00") & ", " & row.income.ToString("0.00") & ", " & bud.ToString("0.00") & ", " & (-row.expense).ToString("0.00") & "],"
                 Next
 
