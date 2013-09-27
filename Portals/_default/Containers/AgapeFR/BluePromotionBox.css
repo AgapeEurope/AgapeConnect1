@@ -30,6 +30,7 @@
     text-transform: uppercase;
     font-family: 'OpenSansBold';
     font-size: 20px;
+    letter-spacing : -1px;
     position: relative;
 }
 

@@ -30,6 +30,7 @@
     text-transform: uppercase;
     font-family: 'OpenSansBold';
     font-size: 20px;
+    letter-spacing : -1px;
     position: relative;
 }
 
@@ -60,6 +61,16 @@
 
 .PromotionBox .contentContainer div.Normal {
     
+}
+
+.PromotionBox .contentContainer div.Normal p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.PromotionBox .contentContainer div.Normal h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .PromotionBox .contentContainer div.Normal .button {
