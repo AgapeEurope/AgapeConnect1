@@ -94,7 +94,7 @@
 }
 
 .PromotionBox .contentContainer div.Normal .button::after {
-    font-size: 10px;
+    font-size: 16px;
     padding-left: 10px;
     content: '\25B6'; /* Add a triangle after the button text */
 }
