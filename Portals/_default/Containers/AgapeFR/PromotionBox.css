@@ -39,7 +39,7 @@
     width: 261px;
     position: absolute;
     right: 0; top: 0;
-    background: url('images/GreyBoxTitleRays.png') no-repeat;
+    background: url('images/BoxTitleRays.png') no-repeat;
 }
 
 .PromotionBox .contentContainer {
