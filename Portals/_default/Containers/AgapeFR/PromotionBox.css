@@ -30,6 +30,7 @@
     text-transform: uppercase;
     font-family: 'OpenSansBold';
     font-size: 20px;
+    letter-spacing : -1px;
     position: relative;
 }
 
@@ -38,7 +39,7 @@
     width: 261px;
     position: absolute;
     right: 0; top: 0;
-    background: url('images/GreyBoxTitleRays.png') no-repeat;
+    background: url('images/BoxTitleRays.png') no-repeat;
 }
 
 .PromotionBox .contentContainer {
@@ -59,15 +60,17 @@
 }
 
 .PromotionBox .contentContainer div.Normal {
-    
+    text-align: left;
+}
+
+.PromotionBox .contentContainer div.Normal p {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .PromotionBox .contentContainer div.Normal h1 {
-    font-family: OpenSansRegular;
-    font-size: 20px;
-    white-space: nowrap;
-    padding-bottom: 5px;
-    color: #3A8BC2;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .PromotionBox .contentContainer div.Normal .button {
@@ -91,7 +94,7 @@
 }
 
 .PromotionBox .contentContainer div.Normal .button::after {
-    font-size: 10px;
+    font-size: 16px;
     padding-left: 10px;
     content: '\25B6'; /* Add a triangle after the button text */
 }
