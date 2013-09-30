@@ -2341,7 +2341,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             hfOrigCurrencyValue.Value = ""
 
 
-            ifReceipt.Attributes("src") = "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & hfRmbNo.Value & "&RmbLine=New"
+            ifReceipt.Attributes("src") = "https://" & PortalSettings.PortalAlias.HTTPAlias & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & hfRmbNo.Value & "&RmbLine=New"
             pnlElecReceipts.Attributes("style") = "display: none;"
             Dim jscript As String = ""
             jscript &= " $('#" & hfOrigCurrency.ClientID & "').attr('value', '');"
@@ -2768,7 +2768,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ddlCostcenter.SelectedValue = theLine.First.CostCenter
                     ddlAccountCode.SelectedValue = theLine.First.AccountCode
 
-                    ifReceipt.Attributes("src") = "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & theLine.First.RmbNo & "&RmbLine=" & theLine.First.RmbLineNo
+                    ifReceipt.Attributes("src") = PortalSettings.PortalAlias.HTTPAlias & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & theLine.First.RmbNo & "&RmbLine=" & theLine.First.RmbLineNo
                     If Not theLine.First.ReceiptImageId Is Nothing Then
                         pnlElecReceipts.Attributes("style") = ""
                     Else
