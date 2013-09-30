@@ -30,6 +30,7 @@
     text-transform: uppercase;
     font-family: 'OpenSansBold';
     font-size: 20px;
+    letter-spacing : -1px;
     position: relative;
 }
 
@@ -39,7 +40,7 @@
     width: 261px;
     position: absolute;
     right: 0; top: 0;
-    /*background: url('images/BoxTitleRays.png') no-repeat;*/
+    background: url('images/BoxTitleRays.png') no-repeat;
 }
 
 .BluePromotionBox .contentContainer {
@@ -99,7 +100,7 @@
 }
 
 .BluePromotionBox .contentContainer div.Normal .button::after {
-    font-size: 10px;
+    font-size: 16px;
     padding-left: 10px;
     content: '\25B6'; /* Add a triangle after the button text */
 }

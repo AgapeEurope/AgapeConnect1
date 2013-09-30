@@ -25,7 +25,7 @@
   </property>
   <property name="DocumentsFilters">*.*</property>
   <property name="DocumentsPath">/</property>
-  <property name="MaxDocumentSize">1024000</property>
+  <property name="MaxDocumentSize">3145728</property>
   <property name="ImagesPath">/</property>
   <property name="MaxImageSize">1024000</property>
   <property name="ImagesFilters">
