@@ -8,7 +8,7 @@ Imports DotNetNuke.UI.Utilities
 Imports DotNetNuke.Security.Membership
 Imports DotNetNuke.Services.Authentication
 Imports System.Linq
-
+Imports GCX
 'Imports Resources
 
 
@@ -27,10 +27,26 @@ Namespace DotNetNuke.Modules.AgapePortal
                 ' Response.Write(Service)
                 Return
             End If
+            If Request.QueryString("pgtId") <> "" Then
+                Dim d As New GCXDataContext
 
-            
+                Dim insert As New Agape_GCX_Proxy
+                insert.PGTID = Request.QueryString("pgtId")
+                insert.PGTIOU = Request.QueryString("pgtIou")
+                insert.Created = Now
+                d.Agape_GCX_Proxies.InsertOnSubmit(insert)
+
+                d.SubmitChanges()
+                Dim old = From c In d.Agape_GCX_Proxies Where c.Created < Now.AddHours(-6)
+
+                d.Agape_GCX_Proxies.DeleteAllOnSubmit(old)
+                d.SubmitChanges()
+                Return
+            End If
+
+
             Dim tkt As String = Request.QueryString("ticket")
-            
+
 
 
             'Service = TabController.CurrentPage.FullUrl
@@ -95,7 +111,9 @@ Namespace DotNetNuke.Modules.AgapePortal
             '  CASHOST = "https://173.45.237.49/cas"
 
             ' Second time (back from CAS) there is a ticket= to validate
-            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://myagape.org.uk/pgtCallback.aspx"
+            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://agapeconnect.me/CasLogin.aspx"
+            'Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://myagape.org.uk/PgtCallback.aspx"
+
             Dim Reader1 As StreamReader = New StreamReader(New WebClient().OpenRead(validateurl))
             Dim doc As New XmlDocument()
             doc.Load(Reader1)
