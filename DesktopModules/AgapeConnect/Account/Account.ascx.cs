@@ -69,7 +69,7 @@ namespace DotNetNuke.Modules.Account
 
             _startDate = FirstDayOfMonthFromDateTime(DateTime.Today.AddMonths(-12));
             _endDate = LastDayOfMonthFromDateTime(DateTime.Today);
-            // string test = MPD_Service.getDonations("jon@vellacott.co.uk", "Iowa2001", "TntBalance", _startDate, _endDate);
+           
 
             if (!Page.IsPostBack)
             {
