@@ -1,0 +1,55 @@
+﻿
+/*========================== MODULE CONTAINER =======================*/
+#ContentContainer {
+    text-align: left;
+    padding-bottom: 100px;
+}
+
+
+/*========================== BANNER =======================*/
+
+#ContentContainer .BannerPane {
+    background-color: #d7edf6;
+    text-align: center;
+    height: 200px;
+}
+
+/*========================== LEFT MENU =======================*/
+
+#ContentContainer .LeftMenuPane {
+    display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+    vertical-align: top;
+    margin-right: 15px;
+    width: 200px;
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+#ContentContainer .LeftMenuPane h1 {
+    font-size: 12px;
+}
+
+/*========================== MAIN CENTER PANE =======================*/
+
+#ContentContainer .CenterPane {
+    display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+    width: 700px;
+}
+
+/*========================== BOTTOM PANE =======================*/
+
+#ContentContainer .BottomPane {
+    background-color: #f2f2f2;
+    text-align: left;
+    margin-top: 20px;
+}
+
+#ContentContainer .BottomPane .c_contentpane p {
+    background-color: #f2f2f2;
+}
+
+#ContentContainer .BottomPane iframe.centerframe {
+    padding: 0 10px 0 10px;
+}
