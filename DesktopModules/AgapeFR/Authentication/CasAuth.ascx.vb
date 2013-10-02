@@ -43,7 +43,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
             Dim tkt As String = Request.QueryString("ticket")
 
             ' Second time (back from CAS) there is a ticket= to validate
-            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & service & "&pgtUrl=https://myagape.org.uk/pgtCallback.aspx"
+            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & service & "&pgtUrl=https://agapeconnect.me/CasLogin.aspx"
             Dim Reader1 As StreamReader = New StreamReader(New WebClient().OpenRead(validateurl))
             Dim doc As New XmlDocument()
             doc.Load(Reader1)
