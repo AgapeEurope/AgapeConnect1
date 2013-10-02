@@ -171,7 +171,9 @@ Namespace DotNetNuke.Modules.AgapeFR.OnlineForm
 
             If Not String.IsNullOrEmpty(q.EmailTo) Then
                 Try
-                    message = message & LocalizeString("SentMsgFrom") & " " & Me.UserInfo.DisplayName & "<br />"
+                    If Not String.IsNullOrEmpty(Me.UserInfo.DisplayName) Then
+                        message = message & LocalizeString("SentMsgFrom") & " " & Me.UserInfo.DisplayName & "<br />"
+                    End If
                     If Not String.IsNullOrEmpty(Email.Text) Then
                         message = message & LocalizeString("SentMsgEmailAddress") & " " & Email.Text & "<br />"
                     End If
@@ -193,7 +195,7 @@ Namespace DotNetNuke.Modules.AgapeFR.OnlineForm
 
                     message = message & "</table>"
 
-                    sendResult = DotNetNuke.Services.Mail.Mail.SendMail("noreply@agapefrance.org", q.EmailTo, "", LocalizeString("SentMsgSubjectPart1") & " - " & ModuleConfiguration.ModuleTitle, message, "", "HTML", "", "", "", "")
+                    sendResult = DotNetNuke.Services.Mail.Mail.SendMail("Site Web Agapé France <noreply@agapefrance.org>", q.EmailTo, "", LocalizeString("SentMsgSubjectPart1") & " - " & ModuleConfiguration.ModuleTitle, message, "", "HTML", "", "", "", "")
                     If String.IsNullOrEmpty(sendResult) Then
                         'Display Success message
                         UI.Skins.Skin.AddModuleMessage(Me, LocalizeString("LblMsgSent"), ModuleMessageType.GreenSuccess)
