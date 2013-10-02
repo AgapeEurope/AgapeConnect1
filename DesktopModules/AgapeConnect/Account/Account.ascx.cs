@@ -75,9 +75,17 @@ namespace DotNetNuke.Modules.Account
             {
                 //First Load Countries From Thads Search
 
-                DSPortalsService.DSPortalsSoapClient dsw = new DSPortalsService.DSPortalsSoapClient();
+               DSPU.DSPortalUsers dspus = new DSPU.DSPortalUsers();
                 ssoGUID = UserInfo.Profile.GetPropertyValue("ssoGUID");
-                var resp = dsw.GetPortalsForUserJson(ssoGUID).Distinct();
+                var resp =  dspus.GetPortalsForUser("CASAUTH", "thecatsaysmeow3", ssoGUID);
+
+
+                
+
+
+                //DSPortalsService.DSPortalsSoapClient dsw = new DSPortalsService.DSPortalsSoapClient();
+               
+                //var resp = dsw.GetPortalsForUserJson(ssoGUID).Distinct();
                 var thisInstance = StaffBrokerFunctions.GetSetting("DataserverURL", PortalId);
                 if (String.IsNullOrEmpty(thisInstance)) thisInstance = "-unknownLocation";
 
@@ -86,9 +94,9 @@ namespace DotNetNuke.Modules.Account
 
                 ////MyCountries.Items.Add(new ListItem("Bulgaria Test", "https://tntdataserver.eu/dataserver/bgr/dataquery/dataqueryservice.asmx"));
 
-                foreach (DSPortalsService.DataserverPortal p in resp.OrderByDescending(x => x.InstanceUri.Contains(thisInstance)).ThenBy(y => y.InstanceName))
+                foreach (var p in resp.OrderByDescending(x => x.PortalUri.Contains(thisInstance)).ThenBy(y => y.PortalName))
                 {
-                    MyCountries.Items.Add(new ListItem(p.InstanceName, p.InstanceUri));
+                    MyCountries.Items.Add(new ListItem(p.PortalName, p.PortalUri));
 
                 }
 
