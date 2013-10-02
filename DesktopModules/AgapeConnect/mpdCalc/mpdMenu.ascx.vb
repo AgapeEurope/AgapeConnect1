@@ -18,7 +18,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Inherits Entities.Modules.PortalModuleBase
 
        
-
+        Dim myBudgets As IQueryable(Of AP_mpdCalc_StaffBudget)
 
      
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -87,10 +87,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Public Sub LoadMenu()
             Dim d As New MPDDataContext
-            ddlNewYear.Items.Add(New ListItem((Today.Year - 1) & " - " & (Today.Year), Today.Year - 1))
-            ddlNewYear.Items.Add(New ListItem((Today.Year) & " - " & (Today.Year + 1), Today.Year))
-            ddlNewYear.Items.Add(New ListItem((Today.Year + 1) & " - " & (Today.Year + 2), Today.Year + 1))
-            ddlNewYear.SelectedIndex = 1
+            'ddlNewYear.Items.Add(New ListItem((Today.Year - 1) & " - " & (Today.Year), Today.Year - 1))
+            'ddlNewYear.Items.Add(New ListItem((Today.Year) & " - " & (Today.Year + 1), Today.Year))
+            'ddlNewYear.Items.Add(New ListItem((Today.Year + 1) & " - " & (Today.Year + 2), Today.Year + 1))
+            'ddlNewYear.SelectedIndex = 1
 
             If Not Page.IsPostBack Then
 
@@ -114,9 +114,43 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     Dim Staff = StaffBrokerFunctions.GetStaffMember(UserId)
 
 
-                    Dim myBudgets = From c In d.AP_mpdCalc_StaffBudgets
+                    myBudgets = From c In d.AP_mpdCalc_StaffBudgets
                                   Where c.AP_mpdCalc_Definition.PortalId = PortalId And c.StaffId = Staff.StaffId
-                                 Select c.StaffBudgetId, c.BudgetYearStart, Name = Staff.DisplayName, c.StaffId, c.Status
+                                  Order By c.Status, c.BudgetPeriodStart Descending
+
+
+
+
+                    rpMyBudgets.DataSource = myBudgets
+                    rpMyBudgets.DataBind()
+
+                    Dim team = StaffBrokerFunctions.GetTeam(UserId).Select(Function(c) c.AP_StaffBroker_Staffs.StaffId)
+
+                    Dim toApprove = (From c In d.AP_mpdCalc_StaffBudgets
+                             Where team.Contains(c.StaffId) And c.AP_mpdCalc_Definition.PortalId = PortalId And (c.Status = StaffRmb.RmbStatus.Submitted Or c.Status = StaffRmb.RmbStatus.Approved)
+                           Order By c.Status, c.BudgetPeriodStart Descending).ToList
+
+
+
+
+                    rpTeamBudgets.DataSource = toApprove
+                    rpTeamBudgets.DataBind()
+
+
+                    Dim activeBudgets As New ArrayList()
+                    For Each row In team
+                        Dim ActiveBudget = From c In d.AP_mpdCalc_StaffBudgets
+                              Where c.AP_mpdCalc_Definition.PortalId = PortalId And c.StaffId = row And c.Status = StaffRmb.RmbStatus.Processed
+                                Order By c.BudgetPeriodStart Descending
+
+                        If ActiveBudget.Count > 0 Then
+                            activeBudgets.Add(ActiveBudget.First)
+                        End If
+                    Next
+                    rpActiveBudgets.DataSource = activeBudgets
+                    rpActiveBudgets.DataBind()
+
+
                     dlPending.DataSource = myBudgets.Where(Function(c) c.Status = StaffRmb.RmbStatus.Draft)
                     dlPending.DataBind()
 
@@ -129,7 +163,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     dlMyCancelled.DataSource = myBudgets.Where(Function(c) c.Status = StaffRmb.RmbStatus.Cancelled)
                     dlMyCancelled.DataBind()
 
-                    Dim team = StaffBrokerFunctions.GetTeam(UserId).Select(Function(c) c.AP_StaffBroker_Staffs.StaffId)
+                    'Dim team = StaffBrokerFunctions.GetTeam(UserId).Select(Function(c) c.AP_StaffBroker_Staffs.StaffId)
 
                     Dim teamBudgets = From c In d.AP_mpdCalc_StaffBudgets
                          Where team.Contains(c.StaffId) And c.AP_mpdCalc_Definition.PortalId = PortalId
@@ -151,7 +185,32 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         End Sub
 
+        Public Function getExpired(ByVal Status As Integer, ByVal staffBudgetId As Integer) As String
+            If Status <> StaffRmb.RmbStatus.Processed Then
+                Return ""
+            Else
+                Dim mycompleted = From c In myBudgets Where c.Status = StaffRmb.RmbStatus.Processed Order By c.BudgetYearStart Descending
 
+                Dim getNext As Boolean = False
+
+                For Each row In mycompleted
+                    If getNext = True Then
+                        Dim dt = New Date(CInt(Left(row.BudgetPeriodStart, 4)), CInt(Right(row.BudgetPeriodStart, 2)), 1).AddMonths(-1)
+
+                        Return dt.ToString("MMM yyyy")
+                    End If
+                    If row.StaffBudgetId = staffBudgetId Then
+                        getNext = True
+
+                    End If
+
+                Next
+
+
+                Return "current"
+
+            End If
+        End Function
 
         Protected Sub btnCreateNewBudget_Click(sender As Object, e As EventArgs) Handles btnCreateNewBudget.Click
             Dim d As New MPDDataContext
@@ -160,7 +219,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Dim insert As New MPD.AP_mpdCalc_StaffBudget
                 insert.StaffId = StaffBrokerFunctions.GetStaffMember(UserId).StaffId
                 insert.DefinitionId = def.First.mpdDefId
-                insert.BudgetYearStart = ddlNewYear.SelectedValue
+                insert.BudgetYearStart = 2013 'ddlNewYear.SelectedValue
                 insert.Status = StaffRmb.RmbStatus.Draft
                 d.AP_mpdCalc_StaffBudgets.InsertOnSubmit(insert)
                 d.SubmitChanges()

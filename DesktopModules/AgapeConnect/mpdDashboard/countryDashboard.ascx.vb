@@ -36,12 +36,22 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Dim localStaffTypes = {"National Staff", "National Staff, Overseas"}
                 Dim allLocalStaff = From c In ds.AP_StaffBroker_Staffs Where c.PortalId = thisCountry.First.portalId And localStaffTypes.Contains(c.AP_StaffBroker_StaffType.Name) Select c.StaffId
 
+                Dim lastPeriod As String = thisCountry.First.AP_mpd_UserAccountInfos.Where(Function(c) c.income > 0).Max(Function(c) c.period)
+                If String.IsNullOrEmpty(lastPeriod) Then
+                    lastPeriod = Today.ToString("yyyyMM")
+                End If
+                Dim LastPeriodDate = New Date(CInt(Left(lastPeriod, 4)), CInt(Right(lastPeriod, 2)), 1)
+
+                Dim firstPeriod As String = LastPeriodDate.AddMonths(-12).ToString("yyyyMM")
+                Dim quateerPeriod As String = LastPeriodDate.AddMonths(-3).ToString("yyyyMM")
+                Dim monthPeriod As String = LastPeriodDate.AddMonths(-1).ToString("yyyyMM")
+
+                Label3.Text = lastPeriod
 
 
 
-
-                Dim incomeData = (From c In thisCountry.First.AP_mpd_UserAccountInfos Where c.period > Today.AddMonths(-12).ToString("yyyyMM") And allLocalStaff.Contains(c.staffId) And c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).Count > 0 _
-                    Select Period = c.period, staffId = c.staffId, income = c.income, expense = c.expense, Budget = (c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).First.TotalBudget)).ToList
+                Dim incomeData = (From c In thisCountry.First.AP_mpd_UserAccountInfos Where c.period >= firstPeriod And c.period <= lastPeriod And allLocalStaff.Contains(c.staffId) And c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).Count > 0 _
+                    Select Period = c.period, staffId = c.staffId, income = c.income, expense = c.expense, Budget = mpdFunctions.getBudgetForStaffPeriod(c.staffId, c.period)).ToList ' c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).First.TotalBudget)).ToList
 
 
                 Dim groupedData = From c In incomeData Where c.Budget > 0 Group By c.staffId Into Group Select SupLev = Group.Average(Function(x) x.income / x.Budget), staffId
@@ -70,9 +80,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 jsonLi = ""
 
-                For i As Integer = -12 To -1
+                For i As Integer = -12 To 0
+
                     Dim count As Integer = i
-                    Dim AvgSupport = (From c In incomeData Where c.Period = Today.AddMonths(count).ToString("yyyyMM") And c.Budget > 0 Select c.income / c.Budget)
+                    Dim AvgSupport = (From c In incomeData Where c.Period = LastPeriodDate.AddMonths(count).ToString("yyyyMM") And c.Budget > 0 Select c.income / c.Budget)
                     Dim ag = 0.0
                     Dim full = 0.0
                     If AvgSupport.Count > 0 Then
@@ -83,15 +94,18 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
-                    jsonLi &= "['" & Today.AddMonths(count).ToString("MMM yy") & "', " & ag.ToString("0.00") & ", " & full.ToString("0.00") & " ], "
+                    jsonLi &= "['" & LastPeriodDate.AddMonths(count).ToString("MMM yy") & "', " & ag.ToString("0.00") & ", " & full.ToString("0.00") & " ], "
 
 
 
                 Next
 
-                lblAvgSupport.Text = (groupedData.Average(Function(c) c.SupLev) * 100.0).Value.ToString("0.0") & "%"
-                Dim bva = ((From c In incomeData Select c.expense / c.Budget).Average() * 100).Value
-                lblBdgVsAct.Text = bva.ToString("0.0") & "%"
+                lblAvgSupport.Text = (groupedData.Average(Function(c) c.SupLev) * 100.0).ToString("0.0") & "%"
+
+                'lblAvgSupport.Text = mpdFunctions.getBudgetForStaffPeriod(20, "201301")
+
+                Dim bva = ((From c In incomeData Where c.expense < 0 And c.Budget > 0 Select -c.expense / c.Budget).Average())
+                lblBdgVsAct.Text = bva.ToString("0.0%")
                 lblBdgVsActLabel.Text = IIf(bva > 1, "(budgets under-estimated expenses)", "(budgets over-estimated expenses)")
 
 
