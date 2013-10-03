@@ -49,7 +49,7 @@
     color: #3A8BC2;
 }
 
-.button, a.dnnPrimaryAction, a.dnnPrimaryAction:link, a.dnnPrimaryAction:visited, a.dnnPrimaryAction:hover, a.dnnPrimaryAction:visited:hover, ul.dnnActions a.dnnPrimaryAction:hover, ul.dnnActions a.dnnPrimaryAction:visited:hover {
+.DNNModuleContent .button, .DNNModuleContent a.dnnPrimaryAction, .DNNModuleContent a.dnnPrimaryAction:link, .DNNModuleContent a.dnnPrimaryAction:visited, .DNNModuleContent a.dnnPrimaryAction:hover, .DNNModuleContent a.dnnPrimaryAction:visited:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:visited:hover {
     height: 42px;
     line-height: 42px;
     background: url('images/BlueButton.png') repeat-x #3784cd;
@@ -66,7 +66,7 @@
     text-shadow: none;
 }
 
-.button:hover, a.dnnPrimaryAction:hover, a.dnnPrimaryAction:visited:hover, ul.dnnActions a.dnnPrimaryAction:hover, ul.dnnActions a.dnnPrimaryAction:visited:hover {
+.DNNModuleContent .button:hover, .DNNModuleContent a.dnnPrimaryAction:hover, .DNNModuleContent a.dnnPrimaryAction:visited:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:visited:hover {
     text-decoration: none;
     color: #DBDEE3;
 }
