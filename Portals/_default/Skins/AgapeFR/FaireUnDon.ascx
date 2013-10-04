@@ -10,7 +10,13 @@
 		</div>
         <div id="TopPane" class="TopPane" runat="server">
 		</div>
-        <div id="LeftMenuPane" class="LeftMenuPane" runat="server">
+        <div class="LeftMenu">
+            <div id="TopImg">
+		    </div>
+            <div id="LeftMenuPane" class="LeftMenuPane" runat="server">
+		    </div>
+            <div id="BottomImg">
+		    </div>
 		</div>
         <div id="ContentPane" class="CenterPane" runat="server">
 		</div>

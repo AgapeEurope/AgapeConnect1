@@ -8,7 +8,7 @@
 
 /*========================== BANNER =======================*/
 
-#ContentContainer .BannerPane {
+.BannerPane {
     background-color: #d7edf6;
     text-align: center;
     height: 200px;
@@ -16,40 +16,116 @@
 
 /*========================== LEFT MENU =======================*/
 
-#ContentContainer .LeftMenuPane {
+.LeftMenu {
     display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
     vertical-align: top;
     margin-right: 15px;
-    width: 200px;
-    background-color: #f2f2f2;
+    width: 233px;
     text-align: left;
 }
 
-#ContentContainer .LeftMenuPane h1 {
-    font-size: 12px;
+.LeftMenuPane {
+
 }
+
+.LeftMenu #TopImg {
+    height: 32px;
+    line-height: 32px;
+    background: url('images/Dons-LeftMenu-Top.png') no-repeat;
+}
+
+.LeftMenuPane .c_contentpane {
+    padding: 0px;
+    margin: 0px;
+}
+
+.LeftMenuPane .DNNModuleContent a, .LeftMenuPane .DNNModuleContent div.selected {
+    height: 102px;
+    line-height: 102px;
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px white solid;
+}
+
+.LeftMenuPane .DNNModuleContent div.selected div, .LeftMenuPane .DNNModuleContent a div {
+    vertical-align: middle;
+    display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+    padding: 0 30px 0 15px;
+}
+
+.LeftMenuPane .DNNModuleContent h1, .LeftMenuPane .DNNModuleContent h2 {
+    line-height: normal;
+    margin: 0;
+}
+
+.LeftMenuPane .DNNModuleContent h1 {
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    padding-bottom: 5px;
+    color: #3a8bc1;
+}
+
+.LeftMenuPane .DNNModuleContent h2 {
+    font-size: 14px;
+    font-weight: normal;
+    white-space: normal;
+    color: #727272;
+}
+
+.LeftMenuPane .DNNModuleContent a:hover {
+    text-decoration: none;
+}
+
+ .LeftMenuPane .DNNModuleContent div.selected {
+    background: url('images/Dons-LeftMenu-Selected.png') no-repeat;
+}
+
+.LeftMenuPane .DNNModuleContent a {
+    background: url('images/Dons-LeftMenu-NotSelected.png') no-repeat blue;
+}
+
+ .LeftMenuPane .DNNModuleContent div.selected h1 {
+    color: white;
+}
+
+.LeftMenuPane .DNNModuleContent div.selected h2 {
+    color: #90cef8;
+}
+
 
 /*========================== MAIN CENTER PANE =======================*/
 
-#ContentContainer .CenterPane {
+.CenterPane {
     display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
     width: 700px;
 }
 
+.ongletsdon {
+    border-bottom: 1px #c7c7c7 solid;
+    background-color: #f2f2f2;
+}
+
+.ongletsdon span.selected {
+    color: white;
+    background: url('images/BlueTab.png') repeat-x #3784cd;
+}
+
 /*========================== BOTTOM PANE =======================*/
 
-#ContentContainer .BottomPane {
+.BottomPane {
     background-color: #f2f2f2;
     text-align: left;
     margin-top: 20px;
 }
 
-#ContentContainer .BottomPane .c_contentpane p {
+.BottomPane .Normal  p {
     background-color: #f2f2f2;
 }
 
-#ContentContainer .BottomPane iframe.centerframe {
+.BottomPane iframe.centerframe {
     padding: 0 10px 0 10px;
 }
