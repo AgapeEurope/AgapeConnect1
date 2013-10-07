@@ -166,6 +166,12 @@ Namespace MPD
 		
 		Private _FirstBudgetPeriod As System.Nullable(Of Byte)
 		
+		Private _StaffTypes As String
+		
+		Private _Compensation As String
+		
+		Private _Assessment As String
+		
 		Private _AP_mpdCalc_Sections As EntitySet(Of AP_mpdCalc_Section)
 		
 		Private _AP_mpdCalc_StaffBudgets As EntitySet(Of AP_mpdCalc_StaffBudget)
@@ -210,6 +216,18 @@ Namespace MPD
     Partial Private Sub OnFirstBudgetPeriodChanging(value As System.Nullable(Of Byte))
     End Sub
     Partial Private Sub OnFirstBudgetPeriodChanged()
+    End Sub
+    Partial Private Sub OnStaffTypesChanging(value As String)
+    End Sub
+    Partial Private Sub OnStaffTypesChanged()
+    End Sub
+    Partial Private Sub OnCompensationChanging(value As String)
+    End Sub
+    Partial Private Sub OnCompensationChanged()
+    End Sub
+    Partial Private Sub OnAssessmentChanging(value As String)
+    End Sub
+    Partial Private Sub OnAssessmentChanged()
     End Sub
     #End Region
 		
@@ -354,6 +372,54 @@ Namespace MPD
 					Me._FirstBudgetPeriod = value
 					Me.SendPropertyChanged("FirstBudgetPeriod")
 					Me.OnFirstBudgetPeriodChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StaffTypes", DbType:="VarChar(100)")>  _
+		Public Property StaffTypes() As String
+			Get
+				Return Me._StaffTypes
+			End Get
+			Set
+				If (String.Equals(Me._StaffTypes, value) = false) Then
+					Me.OnStaffTypesChanging(value)
+					Me.SendPropertyChanging
+					Me._StaffTypes = value
+					Me.SendPropertyChanged("StaffTypes")
+					Me.OnStaffTypesChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Compensation", DbType:="NVarChar(MAX)")>  _
+		Public Property Compensation() As String
+			Get
+				Return Me._Compensation
+			End Get
+			Set
+				If (String.Equals(Me._Compensation, value) = false) Then
+					Me.OnCompensationChanging(value)
+					Me.SendPropertyChanging
+					Me._Compensation = value
+					Me.SendPropertyChanged("Compensation")
+					Me.OnCompensationChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Assessment", DbType:="NVarChar(MAX)")>  _
+		Public Property Assessment() As String
+			Get
+				Return Me._Assessment
+			End Get
+			Set
+				If (String.Equals(Me._Assessment, value) = false) Then
+					Me.OnAssessmentChanging(value)
+					Me.SendPropertyChanging
+					Me._Assessment = value
+					Me.SendPropertyChanged("Assessment")
+					Me.OnAssessmentChanged
 				End If
 			End Set
 		End Property

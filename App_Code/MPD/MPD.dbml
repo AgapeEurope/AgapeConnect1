@@ -10,6 +10,9 @@
       <Column Name="ShowComplience" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Complience" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="FirstBudgetPeriod" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="StaffTypes" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Compensation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Assessment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_Section" Member="AP_mpdCalc_Sections" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpdCalc_Section" />
       <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget" Member="AP_mpdCalc_StaffBudgets" ThisKey="mpdDefId" OtherKey="DefinitionId" Type="AP_mpdCalc_StaffBudget" />
       <Association Name="AP_mpd_Country_AP_mpdCalc_Definition" Member="AP_mpd_Country" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpd_Country" IsForeignKey="true" />
