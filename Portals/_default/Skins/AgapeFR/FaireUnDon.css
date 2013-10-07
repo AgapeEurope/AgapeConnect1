@@ -1,17 +1,55 @@
-﻿
-/*========================== MODULE CONTAINER =======================*/
-#ContentContainer {
-    text-align: left;
-    padding-bottom: 100px;
+﻿/*========================== BANNER =======================*/
+
+#bannerbar {
+    background: url('images/Dons-Banner-Shadow.png') repeat-x bottom #d7edf6;
 }
 
-
-/*========================== BANNER =======================*/
-
 .BannerPane {
-    background-color: #d7edf6;
+    
+}
+
+.BannerPane .c_contentpane {
+    padding: 0;
+}
+
+.BannerPane .DNNModuleContent {
+    height: 290px;
+    line-height: 290px;
+}
+
+.BannerPane .Normal {
     text-align: center;
-    height: 200px;
+}
+
+.BannerPane img {
+    display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+    vertical-align: middle;
+}
+
+/*========================== CONTENT CONTAINER =======================*/
+#ContentContainer {
+    text-align: left;
+}
+
+#ContentContainer .DNNModuleContent .Normal, #ContentContainer .DNNModuleContent .Normal a:link, #ContentContainer .DNNModuleContent .Normal a:active, #ContentContainer .DNNModuleContent .Normal a:visited, #ContentContainer .DNNModuleContent .Normal a:hover {
+    text-align: left;
+    font-size: 14px;
+}
+
+/*========================== TOP PANE =======================*/
+
+.TopPane .c_contentpane {
+    padding: 20px 0 0 0;
+}
+
+.TopPane .Normal p {
+    margin: 0;
+}
+
+.TopPane .Normal h1 {
+    margin-bottom: 5px;
+    font-size: 28px;
 }
 
 /*========================== LEFT MENU =======================*/
@@ -35,14 +73,20 @@
     background: url('images/Dons-LeftMenu-Top.png') no-repeat;
 }
 
+.LeftMenu #BottomImg {
+    height: 48px;
+    line-height: 48px;
+    background: url('images/Dons-LeftMenu-Bottom.png') no-repeat;
+}
+
 .LeftMenuPane .c_contentpane {
     padding: 0px;
     margin: 0px;
 }
 
 .LeftMenuPane .DNNModuleContent a, .LeftMenuPane .DNNModuleContent div.selected {
-    height: 102px;
-    line-height: 102px;
+    height: 101px;
+    line-height: 101px;
     display: block;
     overflow: hidden;
     border-bottom: 1px white solid;
@@ -69,7 +113,7 @@
 }
 
 .LeftMenuPane .DNNModuleContent h2 {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: normal;
     white-space: normal;
     color: #727272;
@@ -79,12 +123,16 @@
     text-decoration: none;
 }
 
+.LeftMenuPane .DNNModuleContent a:hover h1 {
+    text-decoration: underline;
+}
+
  .LeftMenuPane .DNNModuleContent div.selected {
     background: url('images/Dons-LeftMenu-Selected.png') no-repeat;
 }
 
 .LeftMenuPane .DNNModuleContent a {
-    background: url('images/Dons-LeftMenu-NotSelected.png') no-repeat blue;
+    background: url('images/Dons-LeftMenu-NotSelected.png') no-repeat #c9c9c9;
 }
 
  .LeftMenuPane .DNNModuleContent div.selected h1 {
@@ -101,17 +149,41 @@
 .CenterPane {
     display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
-    width: 700px;
+    width: 724px;
+    background-color: #f2f2f2;
+    margin-top: 32px;
+}
+
+.CenterPane .c_contentpane {
+    padding: 15px;
+}
+
+.ongletsdon span, .ongletsdon a {
+    display: inline-block;
+	zoom: 1; *display: inline; /* IE fix for inline-block display */
+    padding: 8px;
+}
+
+.ongletsdon a, .ongletsdon a:active, .ongletsdon a:visited, .ongletsdon a:hover {
+    color: #3A8BC2;
 }
 
 .ongletsdon {
     border-bottom: 1px #c7c7c7 solid;
-    background-color: #f2f2f2;
 }
 
 .ongletsdon span.selected {
     color: white;
     background: url('images/BlueTab.png') repeat-x #3784cd;
+}
+
+.CenterPane .Normal h1 {
+    font-size: 18px;
+    margin: 0 0 15px 0;
+}
+
+.CenterPane .Normal p {
+    margin: 0;
 }
 
 /*========================== BOTTOM PANE =======================*/
@@ -122,10 +194,22 @@
     margin-top: 20px;
 }
 
-.BottomPane .Normal  p {
-    background-color: #f2f2f2;
+.BottomPane .Normal h1 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
 }
 
-.BottomPane iframe.centerframe {
+.BottomPane .Normal p {
+    background-color: #f2f2f2;
+    margin: 0;
+}
+
+.BottomPane .Normal p.videos {
+    margin: 20px 0 0 0;
+    text-align: center;
+}
+
+.BottomPane .videos iframe.centerframe {
     padding: 0 10px 0 10px;
 }
+
