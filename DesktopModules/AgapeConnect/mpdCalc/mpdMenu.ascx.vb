@@ -124,7 +124,19 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     rpMyBudgets.DataSource = myBudgets
                     rpMyBudgets.DataBind()
 
+                   
+
                     Dim team = StaffBrokerFunctions.GetTeam(UserId).Select(Function(c) c.AP_StaffBroker_Staffs.StaffId)
+
+
+                    Dim myTeam = From c In StaffBrokerFunctions.GetTeam(UserId) Select c.AP_StaffBroker_Staffs.DisplayName, c.AP_StaffBroker_Staffs.StaffId
+
+                    rpTeam.DataSource = myTeam
+                    rpTeam.DataBind()
+                    rpMenuDetail.DataSource = myTeam
+                    rpMenuDetail.DataBind()
+
+
 
                     Dim toApprove = (From c In d.AP_mpdCalc_StaffBudgets
                              Where team.Contains(c.StaffId) And c.AP_mpdCalc_Definition.PortalId = PortalId And (c.Status = StaffRmb.RmbStatus.Submitted Or c.Status = StaffRmb.RmbStatus.Approved)
@@ -135,6 +147,14 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                     rpTeamBudgets.DataSource = toApprove
                     rpTeamBudgets.DataBind()
+
+
+                    myMenuDetail.PortalId = PortalId
+                    myMenuDetail.EditURL = EditUrl("mpdCalc")
+                    myMenuDetail.DisplayName = Staff.DisplayName
+                    myMenuDetail.StaffId = Staff.StaffId
+                    myMenuDetail.ShowCreate = True
+
 
 
                     Dim activeBudgets As New ArrayList()

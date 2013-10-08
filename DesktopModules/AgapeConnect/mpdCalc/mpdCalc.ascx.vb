@@ -81,9 +81,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 If theForm.Count > 0 Then
-
+                    pnlAdmin.Visible = IsEditMode()
                     If IsEditMode() Then
-                        pnlAdmin.Visible = True
+
 
                         tbComplience.Text = theForm.First.Complience
                         If Not String.IsNullOrEmpty(theForm.First.Compensation) Then

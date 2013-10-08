@@ -7,7 +7,7 @@
 
 </style>
 <asp:HyperLink ID="hlTile" runat="server" Target="_self">
-<asp:Panel ID="pnlTile" runat="server" class="alert tile span3">
+<asp:Panel ID="pnlTile" runat="server" class="alert tile">
 <h4>
     <asp:Label ID="lblStaffName" runat="server" Font-Size="Medium" Text=""></asp:Label>
 
@@ -35,3 +35,4 @@
 </asp:HyperLink>
 
 
+        
