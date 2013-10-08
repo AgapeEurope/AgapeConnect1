@@ -395,7 +395,7 @@
         var rem = myPortion - current
         $('.remaining').text(rem.toFixed(0));
 
-        var p = current * 100 / g;
+        var p = current * 100 / myPortion;
         if (p < 5000)
             $('.percentage').text(p.toFixed(1) + '%');
         else
@@ -643,8 +643,10 @@ top: 3px;
     }
 
     .cell .control-label {
-        padding-right: 10px;
+        margin-right: 10px;
+       
     }
+   
 </style>
 
 <asp:HiddenField ID="hfAssessment" runat="server" Value="" />
@@ -784,7 +786,7 @@ top: 3px;
             <uc1:mpdTotal runat="server" ID="totSubTotal" ItemName="SubTotal" Bold="false" Mode="monthly" IsSubtotal="True" />
             <uc1:mpdTotal runat="server" ID="totAssessment" ItemName="Assessment" Bold="false" Mode="monthly" IsAssessment="True" />
             <uc1:mpdTotal runat="server" ID="totGoal" ItemName="MPD Goal" Bold="True" Mode="monthly" IsMPDGoal="True" />
-             <uc1:mpdTotal runat="server" ID="totMyPortion" ItemName="I am responsible to raise" Bold="false" Mode="monthly"  IsMyPortion="True" />
+             <uc1:mpdTotal runat="server" ID="totMyPortion" ItemName="I am responsible to raise" Bold="True" Mode="monthly"  IsMyPortion="True" />
             <uc1:mpdItem runat="server" ID="itemCurrent" ItemName="Current Support Level" ItemId="" Help="" Mode="BASIC_MONTH" IsCurrentSupport="True" />
 
             <uc1:mpdTotal runat="server" ID="totRemaining" ItemName="Amount to discover" Bold="false" Mode="monthly" IsRemaining="True" />

@@ -132,7 +132,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     End If
 
 
-
+                    itemCurrent.Monthly = mpdFunctions.getAverageMonthlyIncomeOver12Periods(Staff.StaffId)
 
 
                     Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
