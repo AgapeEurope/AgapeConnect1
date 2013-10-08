@@ -334,18 +334,65 @@
         var st = (sum / 12)
         $('.subtotal').text(st.toFixed(0));
 
-        var a = parseFloat($('#<%= hfAssessment.ClientId %>').val()) / 100;
-        var a1 = (st * a / (1 - a));
+
+        var assess = $('#<%= hfAssessment.ClientId %>').val();
+        var a =0.0 ;
+        var a1=0.0;
+        if(assess.indexOf("%")==0){
+            a = parseFloat(assess.substring(1)) / 100;
+            a1 = (st * a / (1 - a));
+        }
+        else{
+            a1 = eval( replacePercTags(assess, st, st));
+
+        }
+
+        
+       
+
+
 
         $('.assessment').text(a1.toFixed(0));
+         if(a1==0.0)  $('.assessmentRow').hide();
+         else  $('.assessmentRow').show();
+
+       
+       
+
         var g = st + a1
         $('.mpdGoal').text(g.toFixed(0));
 
+
+     
         $('#<%= hfMpdGoal.ClientId %>').val(g.toFixed(0));
+
+        
+
+        var comp = $('#<%= hfCompentation.ClientID%>').val();
+       
+        var c =0.0 ;
+        var c1=0.0;
+        if(comp.indexOf("%")==0){
+            c = parseFloat(comp.substring(1)) / 100;
+            c1 = (g * c );
+        }
+        else if(comp!=""){
+           
+            c1 = eval( replacePercTags(comp, st, g));
+        }
+        
+        
+        if(c1==0.0)  $('.myPortionRow').hide();
+        else  $('.myPortionRow').show();
+
+        var myPortion = g - c1;
+       
+        $('.myPortion').text(myPortion.toFixed(0));
+
 
         var current = parseFloat($('.currentSupport').val().replace(/\,/g, ''));
 
-        var rem = g - current
+        var rem = myPortion - current
         $('.remaining').text(rem.toFixed(0));
 
         var p = current * 100 / g;
@@ -410,6 +457,15 @@
 
         return f;
     }
+        function replacePercTags(f, subTotal, mpdGoal)
+        {
+            
+            var temp= f.replace(/{SUBTOTAL}/g, subTotal);
+            temp= temp.replace(/{MPDGOAL}/g, mpdGoal);
+            return replaceTags(temp)
+        }
+
+
 
     function setMinMax(m){
         var min = $(m).attr('data-min');
@@ -585,9 +641,14 @@ position: relative;
 margin-left: 5px;
 top: 3px;
     }
+
+    .cell .control-label {
+        padding-right: 10px;
+    }
 </style>
 
-<asp:HiddenField ID="hfAssessment" runat="server" Value="0.0" />
+<asp:HiddenField ID="hfAssessment" runat="server" Value="" />
+<asp:HiddenField ID="hfCompentation" runat="server" Value="" />
 
 <asp:HiddenField ID="hfMpdGoal" runat="server" Value="0.0" />
 
@@ -721,8 +782,9 @@ top: 3px;
         <div class="well">
             <asp:Label ID="lblPercentage" runat="server" class="percentage" Text=""></asp:Label>
             <uc1:mpdTotal runat="server" ID="totSubTotal" ItemName="SubTotal" Bold="false" Mode="monthly" IsSubtotal="True" />
-            <uc1:mpdTotal runat="server" ID="totAssessment" ItemName="Assessment (12%)" Bold="false" Mode="monthly" IsAssessment="True" />
+            <uc1:mpdTotal runat="server" ID="totAssessment" ItemName="Assessment" Bold="false" Mode="monthly" IsAssessment="True" />
             <uc1:mpdTotal runat="server" ID="totGoal" ItemName="MPD Goal" Bold="True" Mode="monthly" IsMPDGoal="True" />
+             <uc1:mpdTotal runat="server" ID="totMyPortion" ItemName="I am responsible to raise" Bold="false" Mode="monthly"  IsMyPortion="True" />
             <uc1:mpdItem runat="server" ID="itemCurrent" ItemName="Current Support Level" ItemId="" Help="" Mode="BASIC_MONTH" IsCurrentSupport="True" />
 
             <uc1:mpdTotal runat="server" ID="totRemaining" ItemName="Amount to discover" Bold="false" Mode="monthly" IsRemaining="True" />
@@ -750,7 +812,7 @@ top: 3px;
 </fieldset>
 
 
-<asp:Panel ID="pnlAdmin" runat="server" CssClass="well" >
+<asp:Panel ID="pnlAdmin" runat="server" CssClass="alert alert-info" >
     <fieldset>
         <legend><h3>Configuration & Settings</h3></legend>
 
@@ -796,8 +858,12 @@ top: 3px;
                 <label for="tbDataserverURL" class="span4 control-label">TnT Dataserver URL:</label>
                 <div class="span8">
                     
-                    <asp:TextBox ID="tbDataserverURL" class="form-control"  runat="server" Width="80%"></asp:TextBox>
+                    <asp:TextBox ID="tbDataserverURL" class="form-control"  runat="server" Width="80%" ></asp:TextBox>
                     <asp:LinkButton ID="btnTestDataserver" runat="server">Test</asp:LinkButton>
+                    <asp:Image ID="imgOK" runat="server" ImageUrl="~/images/grant.gif"  Visible="false" />
+                     <asp:Image ID="imgWarning" runat="server" ImageUrl="~/images/warning-icn.png"  Visible="false" />
+                    <asp:Panel ID="pnlWarning" runat="server" Visible="false" CssClass="alert">
+                    <asp:Label ID="lblWarning" runat="server"   ></asp:Label></asp:Panel>
                 </div>
                 
             </div>

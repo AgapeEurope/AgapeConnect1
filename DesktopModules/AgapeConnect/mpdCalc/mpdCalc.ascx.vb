@@ -96,7 +96,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                             End If
                         End If
                         If Not String.IsNullOrEmpty(theForm.First.Assessment) Then
-                            If theForm.First.Compensation.StartsWith("%") Then
+                            If theForm.First.Assessment.StartsWith("%") Then
                                 tbAssessment.Text = theForm.First.Assessment.Trim("%")
                                 ddlAssessmentType.SelectedValue = "Percentage"
 
@@ -232,7 +232,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     ddlInsertOrder.DataBind()
 
 
-                    hfAssessment.Value = theForm.First.AssessmentRate
+                    hfAssessment.Value = theForm.First.Assessment
+                    hfCompentation.Value = theForm.First.Compensation
+
+
                     If theForm.First.ShowComplience Then
                         cbCompliance.Text = theForm.First.Complience
 
@@ -556,6 +559,27 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 d.SubmitChanges()
                 StaffBrokerFunctions.SetSetting("DataserverURL", tbDataserverURL.Text, PortalId)
+
+                Response.Redirect(Request.Url.ToString())
+            End If
+        End Sub
+
+        Protected Sub btnTestDataserver_Click(sender As Object, e As EventArgs) Handles btnTestDataserver.Click
+            Dim resp = tntWebUsers.TestDataserverConnection(tbDataserverURL.Text)
+            imgOK.Visible = False
+            imgWarning.Visible = False
+            pnlWarning.Visible = False
+
+            If resp.connectionSuccess And resp.hasTrustedUser Then
+                imgOK.Visible = True
+            Else
+                imgWarning.Visible = True
+                pnlWarning.Visible = True
+                If resp.connectionSuccess Then
+                    lblWarning.Text = "The URL appears to be correct. However the trusted user, allowing this site to access your dataserver, has not been setup. You will need to setup ""trusteduser@agapeconnect.me"" in tntDataserver. For help, please contact ThadHoskins@agapeeurope.org. "
+                Else
+                    lblWarning.Text = resp.ErrorMessage
+                End If
             End If
         End Sub
     End Class

@@ -1,4 +1,7 @@
 ﻿Imports Microsoft.VisualBasic
+Imports System.Net
+Imports System.Text
+Imports System.IO
 Imports StaffBrokerFunctions
 Public Class tntWebUsers
 
@@ -21,6 +24,99 @@ Public Class tntWebUsers
     End Property
 
 
+
+    Structure connectionResponse
+        Dim connectionSuccess As Boolean
+        Dim hasTrustedUser As Boolean
+        Dim ErrorMessage As String
+    End Structure
+
+
+    Public Shared Function TestDataserverConnection(ByVal URL As String) As connectionResponse
+        Dim rtn As New connectionResponse
+
+        rtn.connectionSuccess = False
+        rtn.hasTrustedUser = False
+        Try
+
+
+
+
+
+            Dim ds As New StaffBroker.StaffBrokerDataContext
+
+
+            Dim tuPass = (From c In ds.AP_StaffBroker_Settings Where c.PortalId = 0 And c.SettingName = "TrustedUserPassword" Select c.SettingValue).First
+
+
+
+
+            Dim service = "https://agapeconnect.me"
+            Dim restServer As String = "https://thekey.me/cas/v1/tickets/"
+            Dim postData = "service=" & service & "&username=trusteduser@agapeconnect.me&password=" & tuPass
+
+            Dim request As WebRequest = WebRequest.Create(restServer)
+            Dim byteArray As Byte() = Encoding.UTF8.GetBytes(postData)
+            request.ContentLength = byteArray.Length
+            request.Method = "POST"
+            request.ContentType = "application/x-www-form-urlencoded"
+
+            Dim datastream As Stream = request.GetRequestStream
+            datastream.Write(byteArray, 0, byteArray.Length)
+            datastream.Close()
+            Dim response As WebResponse = request.GetResponse
+            restServer = response.Headers.GetValues("Location").ToArray()(0)
+
+
+            Dim tntURL = URL.Replace("http://", "https://")
+            If Right(tntURL, 1) <> "/" Then
+                tntURL &= "/"
+            End If
+
+
+
+            Dim t As New dynamicTnT2.TntMPDDataServerWebService2()
+            t.Url = tntURL & "dataquery/dataqueryservice2.asmx"
+            t.Discover()
+
+
+            rtn.connectionSuccess = True
+            postData = "service=" & tntURL
+            request = WebRequest.Create(restServer)
+            byteArray = Encoding.UTF8.GetBytes(postData)
+            request.ContentLength = byteArray.Length
+            request.Method = "POST"
+            request.ContentType = "application/x-www-form-urlencoded"
+
+            datastream = request.GetRequestStream
+            datastream.Write(byteArray, 0, byteArray.Length)
+            datastream.Close()
+
+            response = request.GetResponse
+
+            response.Headers.GetValues("location")
+            datastream = response.GetResponseStream
+            Dim reader As New StreamReader(datastream)
+            Dim ST = reader.ReadToEnd()
+
+            Dim sessionId = t.Auth_Login(tntURL, ST, False).SessionID
+
+            If Not String.IsNullOrEmpty(sessionId) Then
+                rtn.hasTrustedUser = True
+            End If
+
+
+        Catch ex As Exception
+
+            rtn.ErrorMessage = ex.ToString
+        End Try
+
+
+
+
+
+        Return rtn
+    End Function
 
 
     Public Sub New()
@@ -55,7 +151,7 @@ Public Class tntWebUsers
         'objEventLog.AddLog("URL:", dt.Url, PS, 1, Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT)
         'objEventLog.AddLog("AllWebUsers:", AllWebUsers.Count.ToString, PS, 1, Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT)
         'objEventLog.AddLog("Setup", "PortalId: " & PortalId, PS, 1, Log.EventLog.EventLogController.EventLogType.ADMIN_ALERT)
-        
+
     End Sub
 
     Public Sub CreateUsersFromTnt()
@@ -65,7 +161,7 @@ Public Class tntWebUsers
         For Each row In AllWebUsers
 
             Dim casGUID As String = row.SsoCode
-            
+
             'Lookup Vlaues from Russ' list!
 
 
@@ -249,7 +345,7 @@ Public Class tntWebUsers
 
     End Sub
 
-   
+
 
 
     Public Sub CheckOrCreateWebUser(ByVal UserId As String)
