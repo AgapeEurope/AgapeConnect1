@@ -30,13 +30,13 @@
             <tr style="font-weight: bold;">
                 <td align="right">Support Level:</td>
                 <td>
-                    <asp:Label ID="lblSupportLevel" runat="server" Font-Size="X-Large" ></asp:Label>
+                    <asp:Label ID="lblSupportLevel" runat="server" Font-Size="X-Large" CssClass="sLevel"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td align="right">Current MPD Goal:</td>
                 <td>
-                    <asp:Label ID="lblMPDGoal" runat="server" ></asp:Label>
+                    <asp:Label ID="lblMPDGoal" runat="server"  ></asp:Label>
                 </td>
             </tr>
              <tr>

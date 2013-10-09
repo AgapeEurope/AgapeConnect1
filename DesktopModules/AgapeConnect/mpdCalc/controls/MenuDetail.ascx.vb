@@ -74,7 +74,7 @@ Partial Class DesktopModules_AgapeConnect_mpdCalc_controls_MenuDetail
                 lblMPDGoal.Text = StaffBrokerFunctions.GetFormattedCurrency(PortalId, CInt(currentBudget.First.TotalBudget.Value).ToString("N0"))
                 Dim AveIncome = mpdFunctions.getAverageMonthlyIncomeOver12Periods(value)
                 lblSupportLevel.Text = (AveIncome / currentBudget.First.TotalBudget).Value.ToString("0.0%")
-
+                lblSupportLevel.Attributes("data-value") = "sl" & value
             End If
 
 

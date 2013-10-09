@@ -29,6 +29,11 @@
                 navigate: false
             });
 
+            $('.sLevel').each(function (c) {
+                console.log($(this).attr("data-value"));
+                $('.' + $(this).attr("data-value")).text(' (' + $(this).text() + ')');
+            });
+
         });
 
     }(jQuery, window.Sys));
@@ -89,7 +94,10 @@
     <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="#Tab20" data-toggle="tab">Your MPD Budgets</a>
+                <a href="#Tab20"  data-toggle="tab" >
+                    Your MPD Budgets
+
+                </a>
             </li>
             <asp:Repeater ID="rpTeam" runat="server">
                 <ItemTemplate>
@@ -97,8 +105,8 @@
 
                         <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl='<%# "#Tab" & Eval("StaffId")%>' data-toggle="tab">
 
-                            <asp:Label ID="lblDisplayName" runat="server" Text='<%# Eval("DisplayName")%>'></asp:Label>
-                            (<asp:Label ID="lblSupportlevel" runat="server" Text="87"></asp:Label>%)
+                            <asp:Label ID="lblDisplayName" runat="server" Text='<%# Eval("DisplayName")%>'  ></asp:Label>
+                            <asp:Label ID="lblSupportlevel" runat="server"  CssClass='<%# "sl" & Eval("StaffId")%>'></asp:Label>
                         <asp:HiddenField ID="hfStaffId" runat="server" Value='<%# Eval("StaffId")%>' />
                         </asp:HyperLink>
                     </li>
