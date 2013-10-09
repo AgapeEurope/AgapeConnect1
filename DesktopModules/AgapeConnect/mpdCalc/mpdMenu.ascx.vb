@@ -20,7 +20,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
        
         Dim myBudgets As IQueryable(Of AP_mpdCalc_StaffBudget)
 
-     
+        Public mpdDefId As Integer
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             'Verify that there is a tabmoduleid - otherwise create it from the null portalid template
             Dim d As New MPDDataContext
@@ -110,6 +110,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 Else
 
+                    mpdDefId = (From c In d.AP_mpdCalc_Definitions Where c.PortalId = PortalId And c.TabModuleId = TabModuleId Select c.mpdDefId).First
 
                     Dim Staff = StaffBrokerFunctions.GetStaffMember(UserId)
 
@@ -130,6 +131,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                     Dim myTeam = From c In StaffBrokerFunctions.GetTeam(UserId) Select c.AP_StaffBroker_Staffs.DisplayName, c.AP_StaffBroker_Staffs.StaffId
+
 
                     rpTeam.DataSource = myTeam
                     rpTeam.DataBind()
@@ -154,8 +156,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     myMenuDetail.DisplayName = Staff.DisplayName
                     myMenuDetail.StaffId = Staff.StaffId
                     myMenuDetail.ShowCreate = True
-
-
+                    myMenuDetail.MpdDefId = mpdDefId
 
                     Dim activeBudgets As New ArrayList()
                     For Each row In team
@@ -209,7 +210,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             If Status <> StaffRmb.RmbStatus.Processed Then
                 Return ""
             Else
-                Dim mycompleted = From c In myBudgets Where c.Status = StaffRmb.RmbStatus.Processed Order By c.BudgetYearStart Descending
+                Dim mycompleted = From c In myBudgets Where (c.Status = StaffRmb.RmbStatus.Processed Or c.Status = StaffRmb.RmbStatus.Approved) And c.BudgetPeriodStart < Today.ToString("yyyyMM") Order By c.BudgetYearStart Descending
 
                 Dim getNext As Boolean = False
 
@@ -217,7 +218,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     If getNext = True Then
                         Dim dt = New Date(CInt(Left(row.BudgetPeriodStart, 4)), CInt(Right(row.BudgetPeriodStart, 2)), 1).AddMonths(-1)
 
-                        Return dt.ToString("MMM yyyy")
+                        Return dt.ToString("yyyyMM")
                     End If
                     If row.StaffBudgetId = staffBudgetId Then
                         getNext = True

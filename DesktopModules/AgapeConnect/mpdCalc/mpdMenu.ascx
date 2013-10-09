@@ -78,6 +78,11 @@
     .nav li {
         list-style: none;
     }
+    .tile {
+        width:83%;
+       
+    }
+       
 </style>
 <div class="container-fluid">
 
@@ -111,7 +116,7 @@
                    
                         
                 
-                    <uc1:MenuDetail runat="server" ID="MenuDetail" PortalId='<%#PortalId %>' EditUrl='<%#EditUrl("mpdCalc") %>'   DisplayName='<%# Eval("DisplayName")%>'   StaffId='<%# Eval("StaffId")%>' />
+                    <uc1:MenuDetail runat="server" ID="MenuDetail" MpdDefId='<%# mpdDefId%>' PortalId='<%#PortalId %>' EditUrl='<%#EditUrl("mpdCalc") %>'   DisplayName='<%# Eval("DisplayName")%>'   StaffId='<%# Eval("StaffId")%>' />
                     
                     
                     

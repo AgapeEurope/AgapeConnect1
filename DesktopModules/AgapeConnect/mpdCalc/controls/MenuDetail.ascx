@@ -5,8 +5,11 @@
   
 
 </style>
-
-
+<asp:HiddenField ID="hfStaffId" runat="server" />
+<asp:HiddenField ID="hfMpdDefId" runat="server" />
+<asp:HiddenField ID="hfEditUrl" runat="server" />
+<asp:HiddenField ID="hfPortalId" runat="server" />
+<asp:HiddenField ID="hfCurrentBudgetId" runat="server"  Value ="-1"/>
 <h2>
     <asp:Label ID="lblDisplayName" runat="server" Text="Label"></asp:Label></h2>
 
@@ -16,7 +19,7 @@
         <asp:Repeater ID="rpMyBudgets" runat="server">
             <ItemTemplate>
         
-                <uc1:budgettile runat="server" id="BudgetTile" staffid='<%#Eval("StaffId")%>' from='<%#Eval("BudgetPeriodStart")%>' status='<%#Eval("Status")%>' navigateurl='<%# EditURL & "?sb=" & Eval("StaffBudgetId")%>' expired='<%# getExpired(Eval("Status"), Eval("StaffBudgetId"))%>'  />
+                <uc1:budgettile runat="server" id="BudgetTile" MpdGoal='<%#Eval("TotalBudget")%>' staffid='<%#Eval("StaffId")%>' from='<%#Eval("BudgetPeriodStart")%>' status='<%#Eval("Status")%>' navigateurl='<%# EditURL & "?sb=" & Eval("StaffBudgetId")%>' expired='<%# getExpired(Eval("Status"), Eval("StaffBudgetId"))%>'  />
             </ItemTemplate>
 
         </asp:Repeater>
@@ -38,7 +41,7 @@
             </tr>
         </table>
         <div style="width:90%; padding: 10px;">
-        <asp:Button ID="btnViewCurrentBudget" runat="server" width="100%" class="btn detail-button" Text="View Current Budget" />
+        <asp:Button ID="btnViewCurrentBudget" runat="server" width="100%" class="btn detail-button" Text="View Current Budget" Visible="False" />
         <asp:Button ID="btnViewReport" runat="server" width="100%" class="btn  detail-button" Text="View Report" />
         <asp:Button ID="btnCreateNewBudget" runat="server" width="100%" class="btn btn-primary detail-button" Text="Start New Budget" Visible="false" /></div>
     </div>
