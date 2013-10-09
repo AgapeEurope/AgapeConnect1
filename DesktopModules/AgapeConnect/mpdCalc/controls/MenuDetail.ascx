@@ -26,23 +26,29 @@
 
     </div>
     <div class="span5"   >   
-        <table style="font-size: large;">
+        <table style="font-size: large;" cellpadding="5px">
+            <tr style="font-weight: bold;">
+                <td align="right">Support Level:</td>
+                <td>
+                    <asp:Label ID="lblSupportLevel" runat="server" Font-Size="X-Large" ></asp:Label>
+                </td>
+            </tr>
             <tr>
-                <td>Current MPD Goal:</td>
+                <td align="right">Current MPD Goal:</td>
                 <td>
                     <asp:Label ID="lblMPDGoal" runat="server" ></asp:Label>
                 </td>
             </tr>
              <tr>
-                <td>Support Level:</td>
+                <td align="right">Account Balance:</td>
                 <td>
-                    <asp:Label ID="lblSupportGoal" runat="server" ></asp:Label>
+                    <asp:Label ID="lblAccountBalance" runat="server" ></asp:Label>
                 </td>
             </tr>
         </table>
         <div style="width:90%; padding: 10px;">
         <asp:Button ID="btnViewCurrentBudget" runat="server" width="100%" class="btn detail-button" Text="View Current Budget" Visible="False" />
-        <asp:Button ID="btnViewReport" runat="server" width="100%" class="btn  detail-button" Text="View Report" />
+        <asp:Button ID="btnViewReport" runat="server" width="100%" class="btn  detail-button" Text="View Detailed Report" />
         <asp:Button ID="btnCreateNewBudget" runat="server" width="100%" class="btn btn-primary detail-button" Text="Start New Budget" Visible="false" /></div>
     </div>
 </div>

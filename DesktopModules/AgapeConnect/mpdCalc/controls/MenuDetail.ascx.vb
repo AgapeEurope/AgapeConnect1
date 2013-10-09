@@ -57,11 +57,27 @@ Partial Class DesktopModules_AgapeConnect_mpdCalc_controls_MenuDetail
 
             hfStaffId.Value = value
 
+
+            Dim acInfo = From c In d.AP_mpd_UserAccountInfos Where c.staffId = value Order By c.period Descending
+
+            If acInfo.Count > 0 Then
+                lblAccountBalance.Text = StaffBrokerFunctions.GetFormattedCurrency(PortalId, CInt(acInfo.First.balance).ToString("N0"))
+
+            End If
+
+
+
             Dim currentBudget = From c In myBudgets Where (c.Status = StaffRmb.RmbStatus.Processed Or c.Status = StaffRmb.RmbStatus.Approved) And c.BudgetPeriodStart < Today.ToString("yyyyMM")
             If currentBudget.Count > 0 Then
                 hfCurrentBudgetId.Value = currentBudget.First.StaffBudgetId
                 btnViewCurrentBudget.Visible = True
+                lblMPDGoal.Text = StaffBrokerFunctions.GetFormattedCurrency(PortalId, CInt(currentBudget.First.TotalBudget.Value).ToString("N0"))
+                Dim AveIncome = mpdFunctions.getAverageMonthlyIncomeOver12Periods(value)
+                lblSupportLevel.Text = (AveIncome / currentBudget.First.TotalBudget).Value.ToString("0.0%")
+
             End If
+
+
 
         End Set
     End Property
