@@ -31,7 +31,7 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
             Get
                 Dim value As String = Request.QueryString.Get("givetype")
                 If String.IsNullOrEmpty(value) Then 'Staff list per default if no param in request
-                    value = "Staff"
+                    value = GiveType.Staff
                 End If
                 Return value
             End Get
@@ -42,8 +42,27 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
             Dim d As New StaffBrokerDataContext
 
             Select Case ListType
-                Case "Staff"
+                Case GiveType.Dept
+                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
+                                    Where s.CanGiveTo = "True" And (Not (s.GivingShortcut.Trim = Nothing Or s.GivingShortcut = "")) _
+                                    And s.PortalId = PortalId And Not s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
 
+                    dlGiveListDept.DataSource = ListItems
+                    dlGiveListDept.DataBind()
+
+                Case GiveType.Project
+                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
+                                    Where s.CanGiveTo = "True" And (Not (s.GivingShortcut.Trim = Nothing Or s.GivingShortcut = "")) _
+                                    And s.PortalId = PortalId And s.IsProject _
+                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
+                                    Order By Name
+
+                    dlGiveListDept.DataSource = ListItems
+                    dlGiveListDept.DataBind()
+
+                Case Else 'Staff per default
                     Dim ListItems = From c In d.AP_StaffBroker_Staffs Where c.PortalId = PortalId And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "CanReceiveDonations" And x.PropertyValue = "True").Count > 0 _
                     And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "UnNamedStaff" And x.PropertyValue = "True").Count = 0 _
                     And c.AP_StaffBroker_StaffProfiles.Where(Function(x) x.AP_StaffBroker_StaffPropertyDefinition.PropertyName = "givingshortcut" And Not (x.PropertyValue Is Nothing Or x.PropertyValue.Trim().Equals(""))).Count > 0 _
@@ -56,30 +75,6 @@ Namespace DotNetNuke.Modules.AgapeFR.GiveList
 
                     dlGiveListStaff.DataSource = ListItems
                     dlGiveListStaff.DataBind()
-
-                Case "Dept"
-                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
-                                    Where s.CanGiveTo = "True" And (Not (s.GivingShortcut.Trim = Nothing Or s.GivingShortcut = "")) _
-                                    And s.PortalId = PortalId And Not s.IsProject _
-                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
-                                    Order By Name
-
-                    dlGiveListDept.DataSource = ListItems
-                    dlGiveListDept.DataBind()
-
-
-                Case "Project"
-                    Dim ListItems = From s In d.AP_StaffBroker_Departments _
-                                    Where s.CanGiveTo = "True" And (Not (s.GivingShortcut.Trim = Nothing Or s.GivingShortcut = "")) _
-                                    And s.PortalId = PortalId And s.IsProject _
-                                    Select s.CostCenterId, s.Name, s.GivingShortcut, s.PhotoId
-                                    Order By Name
-
-                    dlGiveListDept.DataSource = ListItems
-                    dlGiveListDept.DataBind()
-
-                Case Else
-
 
             End Select
         End Sub

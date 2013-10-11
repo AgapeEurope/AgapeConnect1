@@ -53,11 +53,20 @@
 
 </script>
 <style type="text/css">
+    .LoginPanel {
+	    width: 100%;
+        text-align: center;
+	    padding: 20px;
+	    float: none;
+    }
     .loginContainer {
+        text-align: left;
+        display: inline-block;
+	    zoom: 1; *display: inline; /* IE fix for inline-block display */
         background-color: #F5F5F5;
         border: 1px solid #CACFD5;
         border-radius: 10px;
-        padding: 10px;
+        padding: 20px;
         width: 500px;
         overflow: auto;
     }
@@ -120,4 +129,3 @@
             <cas:CasAuth ID="CasAuth1" runat="server" />
     </div>
 </div>
-

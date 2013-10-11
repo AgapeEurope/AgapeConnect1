@@ -6,10 +6,6 @@
     text-align:left;
 }
 
-.c_contentpane p {
-    background-color: white; /* To disable auto-fit on Android */
-}
-
 .Normal p {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -20,7 +16,7 @@
     font-size: 16px;
 }
 
-.Normal a:link, .Normal a:active, .Normal a:visited, .Normal a:hover {
+.Normal a:link, .Normal a:active, .Normal a:visited, .Normal a:hover, ul.dnnActions a.dnnSecondaryAction:hover, ul.dnnActions a.dnnSecondaryAction:visited:hover {
     font-size: 16px;
     color: #3A8BC2;
 }
@@ -53,7 +49,28 @@
     color: #3A8BC2;
 }
 
+.DNNModuleContent .button, .DNNModuleContent a.dnnPrimaryAction, .DNNModuleContent a.dnnPrimaryAction:link, .DNNModuleContent a.dnnPrimaryAction:visited, .DNNModuleContent a.dnnPrimaryAction:hover, .DNNModuleContent a.dnnPrimaryAction:visited:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:visited:hover {
+    height: 42px;
+    line-height: 42px;
+    background: url('images/BlueButton.png') repeat-x #3784cd;
+    display: inline-block;
+    padding: 0px 20px 0 20px;
+    border: 1px #3784cd solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-family: OpenSansSemiBold;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    white-space: nowrap;  
+    text-shadow: none;
+}
 
+.DNNModuleContent .button:hover, .DNNModuleContent a.dnnPrimaryAction:hover, .DNNModuleContent a.dnnPrimaryAction:visited:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:visited:hover {
+    text-decoration: none;
+    color: #DBDEE3;
+}
 
 
 

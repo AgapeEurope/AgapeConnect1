@@ -1,3 +1,6 @@
+/*===================== RESET CSS ===================== */
+@import url("./css/reset.css");
+
 /*===================== FONTS ===================== */
 @import url("./css/font.css");
 
@@ -48,26 +51,4 @@ body, .Normal, a:link, a:active, a:visited, a:hover {
 
 .bleu {
     color: #3A8BC2;
-}
-
-.button {
-    height: 42px;
-    line-height: 42px;
-    background: url('images/BlueButton.png') repeat-x #3784cd;
-    display: inline-block;
-    padding: 0px 20px 0 20px;
-    margin-top: 15px;
-    border: 1px #3784cd solid;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    font-family: OpenSansSemiBold;
-    color: white;
-    white-space: nowrap;  
-    text-transform: uppercase;
-}
-
-.button:hover {
-    text-decoration: none;
-    color: #DBDEE3;
 }

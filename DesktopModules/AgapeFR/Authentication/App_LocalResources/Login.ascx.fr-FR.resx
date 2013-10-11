@@ -156,4 +156,7 @@
   <data name="TheKeyLogin.Text" xml:space="preserve">
     <value>J'ai un compte équipier avec Agapé France.</value>
   </data>
+  <data name="Password.Text" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
 </root>
