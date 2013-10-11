@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.375, 10.25" name="MPD">
   <DataContextMoniker Name="/MPDDataContext" />
   <nestedChildShapes>
-    <classShape Id="29dcd08c-497e-4a45-9557-b56f1b11d064" absoluteBounds="1, 1, 2, 2.3478011067708335">
+    <classShape Id="29dcd08c-497e-4a45-9557-b56f1b11d064" absoluteBounds="1, 1, 2, 2.9247054036458331">
       <DataClassMoniker Name="/MPDDataContext/AP_mpdCalc_Definition" />
       <nestedChildShapes>
-        <elementListCompartment Id="a30ea1b0-d391-47b2-bf1d-5dfddbb291ee" absoluteBounds="1.0149999999999997, 1.46, 1.9700000000000002, 1.7878011067708333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a30ea1b0-d391-47b2-bf1d-5dfddbb291ee" absoluteBounds="1.0149999999999997, 1.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="861f0200-6197-4df6-914d-40e0d1b8161e" absoluteBounds="3.75, 1, 2, 1.7708968098958331">
@@ -40,7 +40,7 @@
         <elementListCompartment Id="2f7d4757-89b5-47e1-bb89-e74bc7bb5197" absoluteBounds="2.7649999999999997, 4.585, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.078123125 : 3.34780110677083); (2.078123125 : 5.77965413411458); (2.75 : 5.77965413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.10937275 : 3.92470540364583); (2.10937275 : 5.77965413411458); (2.75 : 5.77965413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MPDDataContext/AP_mpdCalc_Definition/AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget" />
       <nodes>
         <classShapeMoniker Id="29dcd08c-497e-4a45-9557-b56f1b11d064" />
@@ -60,7 +60,7 @@
         <classShapeMoniker Id="964f2d3e-185e-49f9-aff4-0c5510fba12e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.75 : 5.49440755208333); (11.125 : 5.49440755208333)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.75 : 5.49440755208333); (11.125 : 5.49440755208333)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MPDDataContext/AP_mpdCalc_StaffBudget/AP_mpdCalc_StaffBudget_AP_mpdCalc_Answer" />
       <nodes>
         <classShapeMoniker Id="09b7bed4-4e0b-4917-a636-61e68640c587" />
@@ -86,7 +86,7 @@
         <classShapeMoniker Id="f53ca38f-dee3-4b22-aef1-ccc1c7af24a2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.75 : 8.79890055338542); (1.5078090625 : 8.79890055338542); (1.5078090625 : 3.34780110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.75 : 8.79890055338542); (1.523433875 : 8.79890055338542); (1.523433875 : 3.92470540364583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MPDDataContext/AP_mpd_Country/AP_mpd_Country_AP_mpdCalc_Definition" />
       <nodes>
         <classShapeMoniker Id="4297dbe0-ffcf-495e-9845-648610e2da9c" />

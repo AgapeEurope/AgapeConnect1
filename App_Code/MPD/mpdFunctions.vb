@@ -23,4 +23,20 @@ Public Class mpdFunctions
         Return 0
     End Function
 
+    Public Shared Function getAverageMonthlyIncomeOver12Periods(ByVal StaffId As Integer) As Double
+        Try
+
+
+            Dim d As New MPD.MPDDataContext
+
+            Dim q = (From c In d.AP_mpd_UserAccountInfos Where c.staffId = StaffId Order By c.period Descending).Take(12).Average(Function(c) c.income - c.compensation)
+            Return q
+        Catch ex As Exception
+
+        End Try
+
+        Return 0.0
+
+    End Function
+
 End Class
