@@ -34,7 +34,7 @@
                 $('.' + $(this).attr("data-value")).text(' (' + $(this).text() + ')');
             });
 
-            <%= IIf(EditMode(), " $('.myTab').hide();", "")%>
+            <%= IIf(IsEditable, " $('.myTab').hide();", "")%>
            
 
            
