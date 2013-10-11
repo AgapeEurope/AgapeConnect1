@@ -163,6 +163,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 If value = True Then
 
                     lblTotalSalMonthly.CssClass &= " assessment"
+                    pnlGroup.Attributes("class") &= " assessmentRow"
                 End If
 
             End Set
@@ -199,6 +200,21 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 If value = True Then
 
                     lblTotalSalMonthly.CssClass &= " currentSupport"
+                End If
+
+            End Set
+        End Property
+
+        Public Property IsMyPortion() As Boolean
+            Get
+                Return False
+            End Get
+            Set(ByVal value As Boolean)
+                If value = True Then
+
+                    lblTotalSalMonthly.CssClass &= " myPortion"
+                    pnlGroup.Attributes("class") &= " myPortionRow"
+                    pnlGroup.Attributes("style") = "font-weight: bold; font-size: small; color: blue;"
                 End If
 
             End Set

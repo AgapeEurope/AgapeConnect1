@@ -2,7 +2,7 @@
 <%@ Register Src="~/controls/labelcontrol.ascx" TagName="labelcontrol" TagPrefix="uc1" %>
 <%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/mpdItem.ascx" TagPrefix="uc1" TagName="mpdItem" %>
 <%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/mpdTotal.ascx" TagPrefix="uc1" TagName="mpdTotal" %>
-
+<%@ Register Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls" TagPrefix="cc1" %>
 <script src="/js/jquery.numeric.js" type="text/javascript"></script>
 <link href="/Portals/_default/Skins/AgapeBlue/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <script src="/Portals/_default/Skins/AgapeBlue/bootstrap/js/bootstrap.min.js"></script>
@@ -334,21 +334,68 @@
         var st = (sum / 12)
         $('.subtotal').text(st.toFixed(0));
 
-        var a = parseFloat($('#<%= hfAssessment.ClientId %>').val()) / 100;
-        var a1 = (st * a / (1 - a));
+
+        var assess = $('#<%= hfAssessment.ClientId %>').val();
+        var a =0.0 ;
+        var a1=0.0;
+        if(assess.indexOf("%")==0){
+            a = parseFloat(assess.substring(1)) / 100;
+            a1 = (st * a / (1 - a));
+        }
+        else{
+            a1 = eval( replacePercTags(assess, st, st));
+
+        }
+
+        
+       
+
+
 
         $('.assessment').text(a1.toFixed(0));
+         if(a1==0.0)  $('.assessmentRow').hide();
+         else  $('.assessmentRow').show();
+
+       
+       
+
         var g = st + a1
         $('.mpdGoal').text(g.toFixed(0));
 
+
+     
         $('#<%= hfMpdGoal.ClientId %>').val(g.toFixed(0));
+
+        
+
+        var comp = $('#<%= hfCompentation.ClientID%>').val();
+       
+        var c =0.0 ;
+        var c1=0.0;
+        if(comp.indexOf("%")==0){
+            c = parseFloat(comp.substring(1)) / 100;
+            c1 = (g * c );
+        }
+        else if(comp!=""){
+           
+            c1 = eval( replacePercTags(comp, st, g));
+        }
+        
+        
+        if(c1==0.0)  $('.myPortionRow').hide();
+        else  $('.myPortionRow').show();
+
+        var myPortion = g - c1;
+       
+        $('.myPortion').text(myPortion.toFixed(0));
+
 
         var current = parseFloat($('.currentSupport').val().replace(/\,/g, ''));
 
-        var rem = g - current
+        var rem = myPortion - current
         $('.remaining').text(rem.toFixed(0));
 
-        var p = current * 100 / g;
+        var p = current * 100 / myPortion;
         if (p < 5000)
             $('.percentage').text(p.toFixed(1) + '%');
         else
@@ -361,7 +408,7 @@
             //Go through each formula and refresh the values
             var f = $(this).siblings("input['type'='hidden']").val();
             f=replaceTags(f);
-           // console.log(f);
+            // console.log(f);
             $(this).val(eval(f).toFixed(0));
 
 
@@ -410,6 +457,15 @@
 
         return f;
     }
+        function replacePercTags(f, subTotal, mpdGoal)
+        {
+            
+            var temp= f.replace(/{SUBTOTAL}/g, subTotal);
+            temp= temp.replace(/{MPDGOAL}/g, mpdGoal);
+            return replaceTags(temp)
+        }
+
+
 
     function setMinMax(m){
         var min = $(m).attr('data-min');
@@ -568,6 +624,7 @@
         float: right;
         margin-top: -50px;
     }
+
     .subTitle {
         font-style: italic;
         color: lightgray;
@@ -575,11 +632,37 @@
         position: relative;
         font-size: large;
     }
+   .form-horizontal .cell div {
+        margin: 5px !important;
+    }
+    .cell .span8 label {
+       display: inline;
+position: relative;
+margin-left: 5px;
+top: 3px;
+    }
+
+    .cell .control-label {
+        margin-right: 10px;
+       
+    }
+   
 </style>
 
-<asp:HiddenField ID="hfAssessment" runat="server" Value="0.0" />
+<asp:HiddenField ID="hfAssessment" runat="server" Value="" />
+<asp:HiddenField ID="hfCompentation" runat="server" Value="" />
 
 <asp:HiddenField ID="hfMpdGoal" runat="server" Value="0.0" />
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -590,32 +673,32 @@
     <legend>Support Budget for
         <asp:Label ID="lblStaffName" runat="server" Font-Bold="true"></asp:Label></legend>
     <asp:Label ID="lblStatus" runat="server" class="label label-info mpd-status">Draft</asp:Label>
-    <div class="subTitle"><span>Start Date: </span>
-        <asp:DropDownList ID="ddlStartPeriod" runat="server" ></asp:DropDownList>
-            <span id="customDate" runat="server"  style="display: none;" >
+    <div class="subTitle">
+        <span>Start Date: </span>
+        <asp:DropDownList ID="ddlStartPeriod" runat="server"></asp:DropDownList>
+        <span id="customDate" runat="server" style="display: none;">
             <asp:DropDownList ID="ddlPeriod" runat="server" Width="120px" Font-Bold="true">
                 <asp:ListItem Text="January" Value="1"></asp:ListItem>
                 <asp:ListItem Text="February" Value="2"></asp:ListItem>
-<asp:ListItem Text="March" Value="3"></asp:ListItem>
-<asp:ListItem Text="April" Value="4"></asp:ListItem>
-<asp:ListItem Text="May" Value="5"></asp:ListItem>
-<asp:ListItem Text="June" Value="6"></asp:ListItem>
-<asp:ListItem Text="July" Value="7"></asp:ListItem>
-<asp:ListItem Text="August" Value="8"></asp:ListItem>
-<asp:ListItem Text="September" Value="9"></asp:ListItem>
-<asp:ListItem Text="October" Value="10"></asp:ListItem>
-<asp:ListItem Text="November" Value="11"></asp:ListItem>
-<asp:ListItem Text="December" Value="12"></asp:ListItem>
+                <asp:ListItem Text="March" Value="3"></asp:ListItem>
+                <asp:ListItem Text="April" Value="4"></asp:ListItem>
+                <asp:ListItem Text="May" Value="5"></asp:ListItem>
+                <asp:ListItem Text="June" Value="6"></asp:ListItem>
+                <asp:ListItem Text="July" Value="7"></asp:ListItem>
+                <asp:ListItem Text="August" Value="8"></asp:ListItem>
+                <asp:ListItem Text="September" Value="9"></asp:ListItem>
+                <asp:ListItem Text="October" Value="10"></asp:ListItem>
+                <asp:ListItem Text="November" Value="11"></asp:ListItem>
+                <asp:ListItem Text="December" Value="12"></asp:ListItem>
 
             </asp:DropDownList>
-            <asp:DropDownList ID="ddlYear" runat="server" Width="100px" Font-Bold="true"  >
-
+            <asp:DropDownList ID="ddlYear" runat="server" Width="100px" Font-Bold="true">
             </asp:DropDownList>
-                </span>
+        </span>
 
     </div>
     <div class="clearfix" />
-    
+
     <div id="formRoot" class="form-horizontal">
 
         <asp:Repeater ID="rpSections" runat="server">
@@ -658,13 +741,13 @@
                 </asp:Repeater>
 
                 <uc1:mpdItem runat="server" ID="mpdItem14" SectionId='<%# Eval("SectionId")%>' QuestionId='-1' Mode='INSERT' Formula='' ItemName='' Help='' ItemId='<%# Eval("Number") & "." & GetMaxQuestionNumber(Eval("AP_mpdCalc_Questions"))%>' TaxSystem='FIXED_RATE' Min='0' />
-                 <asp:Panel ID="ptnDeleteSection" runat="server"  class="mpd-insert" Visible='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).Count =0%>' >
-                     <asp:LinkButton ID="btnDeleteSection" runat="server" CssClass="btn-delete-section" CommandArgument='<%# Eval("SectionId")%>' CommandName="DeleteSection" >Delete Section</asp:LinkButton>
-                  </asp:Panel>
+                <asp:Panel ID="ptnDeleteSection" runat="server" class="mpd-insert" Visible='<%# CType(Eval("AP_mpdCalc_Questions"), System.Data.Linq.EntitySet(Of MPD.AP_mpdCalc_Question)).Count =0%>'>
+                    <asp:LinkButton ID="btnDeleteSection" runat="server" CssClass="btn-delete-section" CommandArgument='<%# Eval("SectionId")%>' CommandName="DeleteSection">Delete Section</asp:LinkButton>
+                </asp:Panel>
                 <uc1:mpdTotal runat="server" ID="totSection1" ItemName='<%# Eval("Name")%>' Bold="True" IsSectionTotal="True" />
             </div>
             </ItemTemplate>
-           
+
         </asp:Repeater>
 
         <asp:Panel ID="pnlInsert" runat="server" Visible="false">
@@ -675,7 +758,7 @@
                 <div class="control-group span5">
                     <label class="control-label" style="width: 160px">Section Title</label>
                     <div class="controls">
-                        <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection" ></asp:TextBox>
+                        <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection"></asp:TextBox>
 
                     </div>
                 </div>
@@ -701,8 +784,9 @@
         <div class="well">
             <asp:Label ID="lblPercentage" runat="server" class="percentage" Text=""></asp:Label>
             <uc1:mpdTotal runat="server" ID="totSubTotal" ItemName="SubTotal" Bold="false" Mode="monthly" IsSubtotal="True" />
-            <uc1:mpdTotal runat="server" ID="totAssessment" ItemName="Assessment (12%)" Bold="false" Mode="monthly" IsAssessment="True" />
+            <uc1:mpdTotal runat="server" ID="totAssessment" ItemName="Assessment" Bold="false" Mode="monthly" IsAssessment="True" />
             <uc1:mpdTotal runat="server" ID="totGoal" ItemName="MPD Goal" Bold="True" Mode="monthly" IsMPDGoal="True" />
+             <uc1:mpdTotal runat="server" ID="totMyPortion" ItemName="I am responsible to raise" Bold="True" Mode="monthly"  IsMyPortion="True" />
             <uc1:mpdItem runat="server" ID="itemCurrent" ItemName="Current Support Level" ItemId="" Help="" Mode="BASIC_MONTH" IsCurrentSupport="True" />
 
             <uc1:mpdTotal runat="server" ID="totRemaining" ItemName="Amount to discover" Bold="false" Mode="monthly" IsRemaining="True" />
@@ -712,19 +796,93 @@
                 <asp:CheckBox ID="cbCompliance" runat="server" CssClass="checkbox" Text="Optional Complience Statement  - e.g. All donaitons that I have received have been forwarded to the National Office." />
             </div>
 
-            
+
             <div style="width: 100%; text-align: center;">
                 <asp:Button ID="btnSave" runat="server" Text="Save" Font-Size="X-Large" CssClass="btn" formnovalidate />
                 &nbsp;&nbsp;
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" Font-Size="X-Large" CssClass="btn btn-primary" Enabled="false" Visible="false" />
-                 <asp:Button ID="btnApprove" runat="server" Text="Approve" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
-                 <asp:Button ID="btnProcess" runat="server" Text="Process" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
-                  &nbsp;&nbsp;
+                <asp:Button ID="btnApprove" runat="server" Text="Approve" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
+                <asp:Button ID="btnProcess" runat="server" Text="Process" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
+                &nbsp;&nbsp;
                  <asp:Button ID="btnCancel" runat="server" Text="Cancel/Reject" Font-Size="X-Large" CssClass="btn" />
-                 &nbsp;&nbsp;
+                &nbsp;&nbsp;
                 <asp:Button ID="btnBack" runat="server" Text="Back" Font-Size="X-Large" CssClass="btn" />
             </div>
         </div>
 
     </div>
 </fieldset>
+
+
+<asp:Panel ID="pnlAdmin" runat="server" CssClass="alert alert-info" >
+    <fieldset>
+        <legend><h3>Configuration & Settings</h3></legend>
+
+        <div class="form-horizontal" Width="100%" >
+            <div class="form-group cell"  >
+                <label for="rsgAccountsRoles" class="span4 control-label">Staff Who Budget:</label>
+                <div class="span8" >
+                     
+                    <asp:CheckBoxList ID="cblStaffTypes" runat="server" RepeatLayout="Flow"></asp:CheckBoxList>
+                </div>
+            </div>
+            <div class="form-group cell">
+                <label for="tbAssessment" class="span4 control-label">Assessment:</label>
+                <div class="span8">
+                    <asp:DropDownList ID="ddlAssessmentType" runat="server" class="form-control" Width="25%" >
+                        <asp:ListItem Value="Percentage">Percentage</asp:ListItem>
+                        <asp:ListItem Value="Formula">Formula</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:TextBox ID="tbAssessment" class="form-control"  runat="server" Width="70%"></asp:TextBox>
+                </div>
+                
+            </div>
+            <div class="form-group cell">
+                <label for="tbCompensation" class="span4 control-label">Compensation</label>
+                <div class="span8">
+                    <asp:DropDownList ID="ddlCompensationType" runat="server" class="form-control"  Width="25%">
+                        <asp:ListItem Value="Percentage">Percentage</asp:ListItem>
+                        <asp:ListItem Value="Formula">Formula</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:TextBox ID="tbCompensation" class="form-control"  runat="server" Width="70%"></asp:TextBox>
+                </div>
+                
+            </div>
+            <div class="form-group cell">
+                <label for="tbCompensation" class="span4 control-label">Complience Statment:</label>
+                <div class="span8">
+                    
+                    <asp:TextBox ID="tbComplience" class="form-control"  runat="server" Width="96%"></asp:TextBox>
+                </div>
+                
+            </div>
+            <div class="form-group cell">
+                <label for="tbDataserverURL" class="span4 control-label">TnT Dataserver URL:</label>
+                <div class="span8">
+                    
+                    <asp:TextBox ID="tbDataserverURL" class="form-control"  runat="server" Width="80%" ></asp:TextBox>
+                    <asp:LinkButton ID="btnTestDataserver" runat="server">Test</asp:LinkButton>
+                    <asp:Image ID="imgOK" runat="server" ImageUrl="~/images/grant.gif"  Visible="false" />
+                     <asp:Image ID="imgWarning" runat="server" ImageUrl="~/images/warning-icn.png"  Visible="false" />
+                    <asp:Panel ID="pnlWarning" runat="server" Visible="false" CssClass="alert">
+                    <asp:Label ID="lblWarning" runat="server"   ></asp:Label></asp:Panel>
+                </div>
+                
+            </div>
+            <div class="form-group cell">
+                <div class="span12">
+                    
+                    
+                </div>
+            </div>
+              <div class="form-group cell span12" style="text-align: center;">
+              
+                <asp:Button ID="btnUpdateConfig" runat="server" Text="Update" Font-Size="X-Large" CssClass="btn btn-primary" formnovalidate/>
+            </div>
+        </div>
+
+          
+
+    </fieldset>
+
+</asp:Panel>

@@ -67,7 +67,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
             If Not Page.IsPostBack Then
                 
-
+                Dim ds As New StaffBroker.StaffBrokerDataContext
 
 
                 pnlInsert.Visible = IsEditMode()
@@ -81,6 +81,59 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 If theForm.Count > 0 Then
+                    pnlAdmin.Visible = IsEditMode()
+                    If IsEditMode() Then
+
+
+                        tbComplience.Text = theForm.First.Complience
+                        If Not String.IsNullOrEmpty(theForm.First.Compensation) Then
+                            If theForm.First.Compensation.StartsWith("%") Then
+                                tbCompensation.Text = theForm.First.Compensation.Trim("%")
+                                ddlCompensationType.SelectedValue = "Percentage"
+                            Else
+                                tbCompensation.Text = theForm.First.Compensation
+                                ddlCompensationType.SelectedValue = "Formula"
+                            End If
+                        End If
+                        If Not String.IsNullOrEmpty(theForm.First.Assessment) Then
+                            If theForm.First.Assessment.StartsWith("%") Then
+                                tbAssessment.Text = theForm.First.Assessment.Trim("%")
+                                ddlAssessmentType.SelectedValue = "Percentage"
+
+                            Else
+                                tbAssessment.Text = theForm.First.Assessment
+                                ddlAssessmentType.SelectedValue = "Formula"
+                            End If
+                        End If
+                        tbDataserverURL.Text = StaffBrokerFunctions.GetSetting("DataserverURL", PortalId)
+
+
+
+                        Dim staffTypes = From c In ds.AP_StaffBroker_StaffTypes Where c.PortalId = PortalId Select c.Name, Value = c.StaffTypeId
+
+                        cblStaffTypes.Items.Clear()
+                        cblStaffTypes.DataSource = staffTypes
+                        cblStaffTypes.DataTextField = "Name"
+                        cblStaffTypes.DataValueField = "Value"
+
+                        cblStaffTypes.DataBind()
+                        If Not String.IsNullOrEmpty(theForm.First.StaffTypes) Then
+
+
+                            Dim selectedTypes = theForm.First.StaffTypes.Split(";")
+
+                            For Each row As ListItem In cblStaffTypes.Items
+                                If selectedTypes.Contains(row.Value) Then
+                                    row.Selected = True
+
+                                End If
+                            Next
+                        End If
+                    End If
+
+
+                    itemCurrent.Monthly = mpdFunctions.getAverageMonthlyIncomeOver12Periods(Staff.StaffId)
+
 
                     Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
                     If bud.Count > 0 Then
@@ -161,7 +214,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     End If
 
 
-                    lblStaffName.Text = staff.DisplayName
+                    lblStaffName.Text = Staff.DisplayName
                     IsCouple = Staff.UserId2 > 0
                     StaffType = Staff.AP_StaffBroker_StaffType.Name
 
@@ -179,7 +232,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     ddlInsertOrder.DataBind()
 
 
-                    hfAssessment.Value = theForm.First.AssessmentRate
+                    hfAssessment.Value = theForm.First.Assessment
+                    hfCompentation.Value = theForm.First.Compensation
+
+
                     If theForm.First.ShowComplience Then
                         cbCompliance.Text = theForm.First.Complience
 
@@ -467,6 +523,64 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Protected Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
             Response.Redirect(NavigateURL())
+        End Sub
+
+        Protected Sub btnUpdateConfig_Click(sender As Object, e As EventArgs) Handles btnUpdateConfig.Click
+            Dim d As New MPDDataContext()
+            Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId
+
+            If theForm.Count > 0 Then
+                Dim st = ""
+                For Each row As ListItem In cblStaffTypes.Items
+                    If row.Selected Then
+                        st &= row.Value & ";"
+                    End If
+
+
+                Next
+                theForm.First.StaffTypes = st
+
+                If ddlAssessmentType.SelectedValue = "Percentage" Then
+                    theForm.First.Assessment = "%" & tbAssessment.Text.Trim("%")
+                Else
+                    theForm.First.Assessment = tbAssessment.Text
+                End If
+                If ddlCompensationType.SelectedValue = "Percentage" Then
+                    theForm.First.Compensation = "%" & tbCompensation.Text.Trim("%")
+                Else
+                    theForm.First.Compensation = tbCompensation.Text
+                End If
+
+                theForm.First.Complience = tbComplience.Text
+                theForm.First.ShowComplience = tbComplience.Text.Trim(" ").Length > 0
+
+
+
+
+                d.SubmitChanges()
+                StaffBrokerFunctions.SetSetting("DataserverURL", tbDataserverURL.Text, PortalId)
+
+                Response.Redirect(Request.Url.ToString())
+            End If
+        End Sub
+
+        Protected Sub btnTestDataserver_Click(sender As Object, e As EventArgs) Handles btnTestDataserver.Click
+            Dim resp = tntWebUsers.TestDataserverConnection(tbDataserverURL.Text)
+            imgOK.Visible = False
+            imgWarning.Visible = False
+            pnlWarning.Visible = False
+
+            If resp.connectionSuccess And resp.hasTrustedUser Then
+                imgOK.Visible = True
+            Else
+                imgWarning.Visible = True
+                pnlWarning.Visible = True
+                If resp.connectionSuccess Then
+                    lblWarning.Text = "The URL appears to be correct. However the trusted user, allowing this site to access your dataserver, has not been setup. You will need to setup ""trusteduser@agapeconnect.me"" in tntDataserver. For help, please contact ThadHoskins@agapeeurope.org. "
+                Else
+                    lblWarning.Text = resp.ErrorMessage
+                End If
+            End If
         End Sub
     End Class
 End Namespace

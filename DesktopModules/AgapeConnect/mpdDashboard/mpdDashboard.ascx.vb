@@ -23,6 +23,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
 
+
+            If Request.QueryString("StaffId") <> "" Then
+                Response.Redirect(EditUrl("staffDashboard") & "?staffId=" & Request.QueryString("StaffId"))
+            End If
+
             Dim d As New MPDDataContext
             jsonMap = ""
             Dim tableData As New ArrayList

@@ -32,6 +32,8 @@ Namespace DotNetNuke.Modules.StaffAdmin
             addTitle.Actions.Add(GetNextActionID, "Staff Profiles", "StaffProfileFields", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="StaffProfileFields"), ModuleContext.EditUrl(controlKey:="StaffProfileFields").Substring(11), True, SecurityAccessLevel.Edit, True, False)
             addTitle.Actions.Add(GetNextActionID, "Departments", "Departments", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Departments"), ModuleContext.EditUrl(controlKey:="Departments").Substring(11), True, SecurityAccessLevel.Edit, True, False)
             addTitle.Actions.Add(GetNextActionID, "Templates", "Templates", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Templates"), ModuleContext.EditUrl(controlKey:="Templates").Substring(11), True, SecurityAccessLevel.Edit, True, True)
+         
+
             AddStaff1.PortalId = PortalId
         End Sub
 
@@ -570,5 +572,96 @@ Namespace DotNetNuke.Modules.StaffAdmin
         Protected Sub btnChangeUsername_Click(sender As Object, e As EventArgs) Handles btnChangeUsername.Click
             Response.Redirect(EditUrl("ChangeUsername"))
         End Sub
+
+
+
+
+
+        Protected Sub btnRCReport_Click(sender As Object, e As EventArgs) Handles btnRCReport.Click
+            Dim csvOut As String = "R/C Code, RC Name, Type, Staff/Dept, Leader" & vbNewLine
+            Try
+                d = New StaffBrokerDataContext
+
+
+                Dim ccs = From c In d.AP_StaffBroker_CostCenters Where c.PortalId = PortalId
+
+                Dim Staff = From c In d.AP_StaffBroker_Staffs Where c.PortalId = PortalId And c.Active = True
+
+                For Each row In ccs
+                    Dim Depts = From c In d.AP_StaffBroker_Departments Where row.CostCentreCode = c.CostCentre
+
+                    Dim s = From c In Staff Where c.CostCenter = row.CostCentreCode
+
+                    For Each dept In Depts
+                        If Not dept.CostCentreManager Is Nothing Then
+
+
+                            Dim Man = UserController.GetUserById(PortalId, dept.CostCentreManager)
+                            If Not Man Is Nothing Then
+                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """, Manager of ,""" & dept.Name & ""","
+                                csvOut &= Man.DisplayName & vbNewLine
+                            End If
+                        End If
+                        If Not dept.CostCentreDelegate Is Nothing Then
+
+
+                            Dim del = UserController.GetUserById(PortalId, dept.CostCentreDelegate)
+                            If Not del Is Nothing Then
+                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """, Manager of ,""" & dept.Name & ""","
+                                csvOut &= """" & del.DisplayName & """" & vbNewLine
+                            End If
+                        End If
+                    Next
+
+
+                    For Each sm In s
+                        Dim u1 = UserController.GetUserById(PortalId, sm.UserId1)
+
+                        Dim leaders1 = StaffBrokerFunctions.GetLeadersDetailed(sm.UserId1, PortalId)
+
+                        For Each l In leaders1
+                            csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """,""" & IIf(l.isDelegate, "Delegate ", "") & "Leader of"",""" & u1.DisplayName & """,""" & l.DisplayName & """" & vbNewLine
+
+                        Next
+
+
+
+                        If sm.UserId2 > 0 Then
+                            Dim u2 = UserController.GetUserById(PortalId, sm.UserId2)
+                            Dim leaders2 = StaffBrokerFunctions.GetLeadersDetailed(sm.UserId2, PortalId)
+
+                            For Each l In leaders1
+                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """,""" & IIf(l.isDelegate, "Delegate ", "") & "Leader of"",""" & u2.DisplayName & """,""" & l.DisplayName & """" & vbNewLine
+
+                            Next
+                        End If
+
+
+                    Next
+
+
+                Next
+
+          
+            Dim attachment As String = "attachment; filename=RCReport.csv"
+
+            HttpContext.Current.Response.Clear()
+
+            HttpContext.Current.Response.ClearContent()
+            HttpContext.Current.Response.AppendHeader("content-disposition", attachment)
+            HttpContext.Current.Response.ContentType = "text/csv"
+            HttpContext.Current.Response.AddHeader("Pragma", "public")
+            HttpContext.Current.Response.Write(csvOut)
+
+            Catch ex As Exception
+                StaffBrokerFunctions.EventLog("RCReport error", ex.ToString, UserId)
+
+            End Try
+
+            HttpContext.Current.Response.End()
+
+        End Sub
     End Class
+
+
 End Namespace
