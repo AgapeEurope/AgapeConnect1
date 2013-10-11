@@ -63,10 +63,6 @@
     text-align: left;
 }
 
-.LeftMenuPane {
-
-}
-
 .LeftMenu #TopImg {
     height: 32px;
     line-height: 32px;
@@ -79,12 +75,12 @@
     background: url('images/Dons-LeftMenu-Bottom.png') no-repeat;
 }
 
-.LeftMenuPane .c_contentpane {
+.LeftMenuPane div {
     padding: 0px;
     margin: 0px;
 }
 
-.LeftMenuPane .DNNModuleContent a, .LeftMenuPane .DNNModuleContent div.selected {
+.LeftMenuPane a {
     height: 101px;
     line-height: 101px;
     display: block;
@@ -92,54 +88,64 @@
     border-bottom: 1px white solid;
 }
 
-.LeftMenuPane .DNNModuleContent div.selected div, .LeftMenuPane .DNNModuleContent a div {
+.LeftMenuPane a div {
     vertical-align: middle;
     display: inline-block;
-	zoom: 1; *display: inline; /* IE fix for inline-block display */
     padding: 0 30px 0 15px;
+    *clear: expression(
+    style.marginTop = "" + (offsetHeight < parentNode.offsetHeight ? parseInt((parentNode.offsetHeight - offsetHeight) / 2) + "px" : "0"),
+    style.clear = "none", 0
+    ); /* IE7 fix to align vertically */
 }
 
-.LeftMenuPane .DNNModuleContent h1, .LeftMenuPane .DNNModuleContent h2 {
+.LeftMenuPane h1, .LeftMenuPane h2 {
     line-height: normal;
     margin: 0;
 }
 
-.LeftMenuPane .DNNModuleContent h1 {
+.LeftMenuPane h1 {
     font-size: 18px;
     font-weight: normal;
     letter-spacing: -1px;
     padding-bottom: 5px;
     color: #3a8bc1;
+    white-space: nowrap;
 }
 
-.LeftMenuPane .DNNModuleContent h2 {
+.LeftMenuPane h2 {
     font-size: 12px;
     font-weight: normal;
     white-space: normal;
     color: #727272;
 }
 
-.LeftMenuPane .DNNModuleContent a:hover {
+.LeftMenuPane a:hover {
     text-decoration: none;
 }
 
-.LeftMenuPane .DNNModuleContent a:hover h1 {
+.LeftMenuPane a:hover h1 {
     text-decoration: underline;
 }
 
- .LeftMenuPane .DNNModuleContent div.selected {
-    background: url('images/Dons-LeftMenu-Selected.png') no-repeat;
-}
-
-.LeftMenuPane .DNNModuleContent a {
+.LeftMenuPane a {
     background: url('images/Dons-LeftMenu-NotSelected.png') no-repeat #c9c9c9;
 }
 
- .LeftMenuPane .DNNModuleContent div.selected h1 {
+ .LeftMenuPane a.selected {
+    background: url('images/Dons-LeftMenu-Selected.png') no-repeat;
+    pointer-events: none;
+    cursor: text;
+}
+
+ .LeftMenuPane a.selected:hover h1 {
+    text-decoration: none;
+}
+
+ .LeftMenuPane a.selected h1 {
     color: white;
 }
 
-.LeftMenuPane .DNNModuleContent div.selected h2 {
+.LeftMenuPane a.selected h2 {
     color: #90cef8;
 }
 
@@ -149,42 +155,95 @@
 .CenterPane {
     display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
-    width: 724px;
+    width: 723px; /* wider breaks display in IE10 */
     background-color: #f2f2f2;
     margin-top: 32px;
+    /* cross-browser min-height */
+    min-height: 386px;
+    height:auto !important; 
+    height: 386px; /* for IE */
 }
 
 .CenterPane .c_contentpane {
-    padding: 15px;
+    padding: 30px 0 0 0;
 }
 
-.ongletsdon span, .ongletsdon a {
-    display: inline-block;
-	zoom: 1; *display: inline; /* IE fix for inline-block display */
-    padding: 8px;
-}
-
-.ongletsdon a, .ongletsdon a:active, .ongletsdon a:visited, .ongletsdon a:hover {
-    color: #3A8BC2;
-}
-
-.ongletsdon {
-    border-bottom: 1px #c7c7c7 solid;
-}
-
-.ongletsdon span.selected {
-    color: white;
-    background: url('images/BlueTab.png') repeat-x #3784cd;
-}
-
-.CenterPane .Normal h1 {
+.ListPane .Normal h1 {
     font-size: 18px;
     margin: 0 0 15px 0;
 }
 
-.CenterPane .Normal p {
+.ListPane .Normal p {
     margin: 0;
 }
+
+/*========================== MAIN CENTER PANE - TABS =======================*/
+
+.dnnForm .ui-tabs {
+    margin: 15px;
+    position: relative;
+    padding: 0;
+    zoom: 1;
+} /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.dnnForm .ui-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px #c7c7c7 solid;
+}
+.dnnForm .ui-tabs .ui-tabs-nav li {
+    list-style: none;
+    float: left;
+    position: relative;
+    top: 0;
+    margin: 0;
+    border-bottom: 0 !important;
+    padding: 0;
+    white-space: nowrap;
+}
+.dnnForm .ui-tabs .ui-tabs-nav li a {
+    float: left;
+    padding: 8px;
+    color: #3A8BC2;
+    text-decoration: none;
+    display: block;
+    margin: 0;
+    letter-spacing: inherit;
+    background: none;
+    filter: none;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    text-shadow: none;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+}
+.dnnForm .ui-tabs .ui-tabs-nav li a:hover {
+    text-decoration: underline;
+}
+.dnnForm .ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.dnnForm .ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.dnnForm .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text }
+.dnnForm .ui-tabs .ui-tabs-nav li a,
+.dnnForm .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.dnnForm .ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+    color: white;
+    text-decoration: none;
+}
+.dnnForm .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+    background: url('images/BlueTab.png') repeat-x #3784cd;
+    border: none;
+    border-radius: 0;
+    filter: none;
+}
+.dnnForm .ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0;
+    padding: 0;
+    background: none;
+}
+.dnnForm .ui-tabs-panel { position: relative }
+.dnnForm .ui-tabs-hide { display: none !important } 
 
 /*========================== BOTTOM PANE =======================*/
 
@@ -192,6 +251,7 @@
     background-color: #f2f2f2;
     text-align: left;
     margin-top: 20px;
+    position: relative; /* Fix for IE7 */
 }
 
 .BottomPane .Normal h1 {
