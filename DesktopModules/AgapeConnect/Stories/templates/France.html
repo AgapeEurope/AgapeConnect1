@@ -1,71 +1,66 @@
-﻿<table style="width: 100%;">
-    <colgroup><col /><col /></colgroup>
+﻿<style type="text/css">
+    img.Agape_Story_picturebox {
+        width: 100% !important;
+    }
+    .typeFont {
+        color: #AAA;
+    }
+     .typeFont span {
+      position: relative;
+      top: -7px;
+    }
+     .storyTitle {
+        font-weight: bold;
+        font-size: x-large;
+        color: #068cd3;
+    }
+</style>
+
+<table style="width: 100%;">
+    <colgroup>
+        <col />
+        <col />
+    </colgroup>
     <tbody>
         <tr valign="top">
+            <td style="vertical-align: top;">
+                <div style="width: 200px;">
+                    [LANGUAGES]
+                    [AGENDA]
+                    [RELATEDARTICLES]
+                    [SUPERPOWERS]
+                </div>
+            </td>
             <td width="100%">
-            <div style="margin-right: 0px; margin-left: 0px; padding-left: 0px;">
-            <div class="Agape_Story_storymain" style="width: 100%;">
-            <div class="AgapeH2">
-            [HEADLINE]
-            </div>
-            <div class="Agape_Story_subtitle">
-            <table style="width: 100%;">
-                <colgroup><col /><col /></colgroup>
-                <tbody>
-                    <tr>
-                        <td class="Agape_Story_subtitle" align="left">By
-                        [AUTHOR]
-                        </td>
-                        <td class="Agape_Story_subtitle" align="right" style="padding-right: 25px;">[DATE]
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-            <div class="Agape_FullStory_bodytext" style="padding-right: 12px; margin-bottom: 10px;">
-            <img src="[IMAGEURL]" alt="Story Image" class="Agape_Story_picturebox" style="border: 1pt solid black;" />
-            <span style="font-size: small;">[STORYTEXT] </span>
-            <br />
-            </div>
-            <div id="more">
-            <h3>Click here for more...</h3>
-            </div>
-            </div>
-            <div style="clear: both;"></div>
-            <div id="fbComments" runat="server" class="fb-comments" data-href="www.agape.org.uk" data-num-posts="3" data-width="400" style="width: 50%;" align="left">
-            </div>
-            <div style="padding-right: 15px;" align="right">
-            <a href="http://localhost:37879/en-us/admin/agapeconnect/[RSSURL]" target="_blank">
-            <img src="http://localhost:37879/images/action_rss.gif" alt="RSS" />
-            </a>
-            </div>
-            <div style="clear: both;">
-            </div>
-            </div>
+                <div style="margin-right: 0px; margin-left: 0px; padding-left: 0px;">
+
+
+                    <div class="Agape_Story_storymain" style="width: 100%;">
+                        <img src="[IMAGEURL]" alt="Story Image" class="Agape_Story_picturebox" />
+                        <div class="typeFont">
+                            <img src="[TYPEICON]" alt="Story Image" class="TypeIcon" />&nbsp;&nbsp;
+                            <span>[TYPENAME]&nbsp; &nbsp;
+                            [DATE]</span>
+
+                        </div>
+                        <div class="storyTitle">
+                            [HEADLINE]
+                        </div>
+
+                        <div class="Agape_FullStory_bodytext" style="padding-right: 12px; margin-bottom: 10px;">
+
+                            <span style="font-size: small;">[STORYTEXT] </span>
+                            <br />
+                        </div>
+
+                    </div>
+                    <div style="clear: both;"></div>
+
+
+
+                </div>
             </td>
-            <td>
-            <div style="width: 200px;">
-            <!-- AddThis Button BEGIN -->
-            <div class="addthis_toolbox addthis_default_style ">
-            <a class="addthis_button_preferred_1"></a>
-            <a class="addthis_button_preferred_2"></a>
-            <a class="addthis_button_preferred_3"></a>
-            <a class="addthis_button_preferred_4"></a>
-            <a class="addthis_button_compact"></a>
-            <a class="addthis_counter addthis_bubble_style"></a>
-            </div>
-            <!-- AddThis Button END -->
-            </div>
-            <div>
-            <div id="fb-root" align="left">
-            </div>
-            <br />
-            </div>
-            <div style="clear: both;"></div>
-            [LANGUAGES]
-            [MAP]
-            [SUPERPOWERS]
-            </td>
+
         </tr>
     </tbody>
 </table>
