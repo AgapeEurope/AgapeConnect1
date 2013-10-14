@@ -294,8 +294,8 @@ Public Class StoryFunctions
 
                         'Story Location
                         If row.ElementExtensions.Where(Function(x) x.OuterName = "lat").Count > 0 And row.ElementExtensions.Where(Function(x) x.OuterName = "long").Count > 0 Then
-                            insert.Latitude = row.ElementExtensions.Where(Function(x) x.OuterName = "lat").First.GetObject(Of XElement).Value
-                            insert.Longitude = row.ElementExtensions.Where(Function(x) x.OuterName = "long").First.GetObject(Of XElement).Value
+                            insert.Latitude = Double.Parse(row.ElementExtensions.Where(Function(x) x.OuterName = "lat").First.GetObject(Of XElement).Value, New CultureInfo(""))
+                            insert.Longitude = Double.Parse(row.ElementExtensions.Where(Function(x) x.OuterName = "long").First.GetObject(Of XElement).Value, New CultureInfo(""))
                         Else
                             insert.Latitude = theChannel.Latitude
                             insert.Longitude = theChannel.Longitude

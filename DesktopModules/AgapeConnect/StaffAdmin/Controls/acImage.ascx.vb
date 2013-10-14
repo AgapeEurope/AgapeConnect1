@@ -55,7 +55,7 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
         End Get
         Set(ByVal value As String)
             '  _Aspect = value
-            hfAspect.Value = value
+            hfAspect.Value = value.Replace(",", ".")
         End Set
     End Property
     'Public ReadOnly Property CheckAspect() As Boolean
@@ -339,7 +339,7 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_acImage
             hfFileId.Value = _theFile.FileId
 
             theImage.ImageUrl = FileManager.Instance.GetUrl(_theFile)
-            If Aspect <> 0 Then
+            If Double.Parse(Aspect, New CultureInfo("")) <> 0 Then
                 theImage.Height = theImage.Width.Value / Double.Parse(Aspect, New CultureInfo(""))
             End If
             RaiseEvent Updated()

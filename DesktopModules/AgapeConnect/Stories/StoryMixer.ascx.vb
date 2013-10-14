@@ -597,7 +597,7 @@ Namespace DotNetNuke.Modules.Stories
 
 
             If CType(TabModuleSettings("Aspect"), String) <> "" Then
-                icImage.Aspect = CDbl(TabModuleSettings("Aspect")).ToString(New CultureInfo(""))
+                icImage.Aspect = TabModuleSettings("Aspect")
 
             Else
                 icImage.Aspect = "1.0"
