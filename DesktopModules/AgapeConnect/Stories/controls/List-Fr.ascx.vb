@@ -11,7 +11,7 @@ Imports StaffBrokerFunctions
 Imports Stories
 'Imports DotNetNuke.Services.FileSystem
 Namespace DotNetNuke.Modules.AgapeConnect.Stories
-    Partial Class List1_Fr
+    Partial Class List_Fr
         Inherits Entities.Modules.PortalModuleBase
         'Adding Stories Translation
         Dim d As New StoriesDataContext
@@ -19,7 +19,8 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
         Public divWidth As Integer = 150
         Public divHeight As Integer = 150
         Public selectedTags As String() = {""}
-
+        Public eventIcon As String = "~/DesktopModules/AgapeConnect/Stories/images/eventIcon.png"
+        Public articleIcon As String = "~/DesktopModules/AgapeConnect/Stories/images/articleIcon.png"
         Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
             'Allowing dynamically loaded controls to be translated using the DNN translation system is complex...
             'However this code does the trick. Just copy this Sub (Page_Init) ,as is, to make it work
@@ -104,7 +105,14 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             dlStories.DataSource = Stories.Skip(Skip).Take(CInt(settings("NumberOfStories")))
             dlStories.DataBind()
 
+
+
+
             If Stories.Count > CInt(settings("NumberOfStories")) Then
+
+
+
+
                 Dim urlStub = NavigateURL()
                 If String.IsNullOrEmpty(Request.QueryString("tags")) Then
                     urlStub &= "?p="
@@ -113,32 +121,12 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                 End If
 
 
-                Dim p As String = "<div class=""pagination pagination-centered""><ul>"
-                If pg = 0 Then
-                    p &= "<li class=""disabled""><a>Prev</a></li>"
-                Else
-                    p &= "<li><a href='" & urlStub & (pg - 1) & "'>Prev</a></li>"
-                End If
-
-                For i As Integer = 0 To CInt(Stories.Count / CInt(settings("NumberOfStories"))) - 1
-                    If i = pg Then
-                        p &= "<li class=""active""><a>" & (i + 1) & "</a></li>"
-                    Else
-                        p &= "<li><a href='" & urlStub & (i) & "'>" & (i + 1) & "</a></li>"
-                    End If
-
-
-                Next
-
-
-                If pg = CInt(Stories.Count / CInt(settings("NumberOfStories"))) - 1 Then
-                    p &= "<li class=""disabled""><a>Next</a></li>"
-                Else
-                    p &= "<li><a href='" & urlStub & (pg + 1) & "'>Next</a></li>"
-                End If
-
-                p &= "</ul></div>"
-                ltPagination.Text = p
+               
+                btnPrev.Visible = Not (pg = 0)
+                btnPrev.NavigateUrl = urlStub & (pg - 1)
+                btnNext.NavigateUrl = urlStub & (pg + 1)
+                btnNext.Visible = (CInt(Stories.Count / CInt(settings("NumberOfStories"))) > pg)
+         
             End If
 
 
@@ -153,6 +141,28 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
             dlFilter.DataBind()
 
         End Sub
+
+
+        Public Function GetTypeImage(ByVal StoryId As String) As String
+            Dim d As New StoriesDataContext
+            Dim q = From c In d.AP_Stories Where c.StoryId.ToString = StoryId And c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count > 0
+
+            Return IIf(q.Count > 0, eventIcon, articleIcon)
+
+
+
+        End Function
+
+
+        Public Function GetTypeText(ByVal StoryId As String) As String
+            Dim d As New StoriesDataContext
+            Dim q = From c In d.AP_Stories Where c.StoryId.ToString = StoryId And c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count > 0
+
+            Return IIf(q.Count > 0, "Evénement", "Article")
+
+
+
+        End Function
 
         Public Function GetStoryDateString(ByVal StoryDate As Date, ByVal GUID As String, ByVal Link As String) As String
             Return StoryDate.ToString("dd MMM yyyy")
@@ -177,8 +187,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
         End Function
 
-
-
+     
 
     End Class
 End Namespace
