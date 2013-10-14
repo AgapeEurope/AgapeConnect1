@@ -2,8 +2,8 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="SectionHead" Src="~/controls/SectionHeadControl.ascx" %>
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls"%>
+<%@ Register TagPrefix="dnn" Assembly="DotNetNuke.Web" Namespace="DotNetNuke.Web.UI.WebControls"%>
 <div class="dnnForm dnnPortalSignup dnnClear" id="dnnPortalSignup">
-	<div class="dnnFormItem dnnFormHelp dnnClear"><p class="dnnFormRequired"><span><%=LocalizeString("RequiredFields")%></span></p></div>
     <fieldset>
         <asp:label id="lblInstructions" runat="server" Visible="false" />
         <div id="validationPanel" runat="Server" Visible="false" class="dnnFormItem">
@@ -21,8 +21,8 @@
 			</asp:radiobuttonlist>
         </div>
         <div class="dnnFormItem">
-            <dnn:label id="plPortalAlias" runat="server" controlname="txtPortalAlias" />
-            <asp:textbox id="txtPortalAlias" CssClass="dnnFormRequired" runat="server" maxlength="128" />
+            <dnn:label id="plPortalAlias" runat="server" controlname="txtPortalAlias" CssClass="dnnFormRequired" />
+            <asp:textbox id="txtPortalAlias" runat="server" maxlength="128" />
 			<asp:requiredfieldvalidator id="valPortalAlias" resourcekey="valPortalAlias.ErrorMessage" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtPortalAlias" display="Dynamic" />
         </div>
         <div class="dnnFormItem">
@@ -31,8 +31,8 @@
 			<asp:LinkButton CausesValidation="False" ID="btnCustomizeHomeDir" Runat="server" resourcekey="Customize" CssClass="dnnSecondaryAction" />
         </div>
         <div class="dnnFormItem">
-            <dnn:label id="plTitle" runat="server" controlname="txtPortalName" />
-            <asp:textbox id="txtPortalName" CssClass="dnnFormRequired" runat="server" maxlength="128" />
+            <dnn:label id="plTitle" runat="server" controlname="txtPortalName" CssClass="dnnFormRequired" />
+            <asp:textbox id="txtPortalName" runat="server" maxlength="128" />
 			<asp:requiredfieldvalidator id="valPortalName" resourcekey="valPortalName.ErrorMessage" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtPortalName" display="Dynamic" />
         </div>
         <div class="dnnFormItem">
@@ -45,9 +45,12 @@
         </div>
         <div class="dnnFormItem">
             <dnn:label id="plTemplate" runat="server" controlname="cboTemplate" />
-            <asp:dropdownlist id="cboTemplate" CssClass="dnnFormRequired" runat="server" AutoPostBack="True" />
-			<asp:RequiredFieldValidator id="valTemplate" runat="server" Display="Dynamic" ControlToValidate="cboTemplate" CssClass="dnnFormMessage dnnFormError" InitialValue="-1" resourcekey="valTemplate.ErrorMessage" />
-			<asp:Label id="lblTemplateDescription" runat="server" />
+            <dnn:DnnComboBox id="cboTemplate"  runat="server" AutoPostBack="true" CausesValidation="False" />
+        </div>
+        <div id="rowTemplateDescription" class="dnnFormItem" runat="server" Visible="False">
+            <div class="dnnLabel">&nbsp;</div>
+            <div class="dnnFormMessage dnnFormInfo suTemplateInfo">
+			<asp:Label id="lblTemplateDescription" runat="server" /></div>
         </div>
         <div id="useCurrentPanel" runat="server" class="dnnFormItem">
             <dnn:label id="useCurrentLabel" runat="server" controlname="useCurrent" />
@@ -56,34 +59,34 @@
         <asp:Panel ID="adminUserPanel" runat="server">
             <div class="dnnFormMessage dnnFormWarning"><asp:label id="lblNote" resourcekey="Note" runat="server" /></div>
             <div class="dnnFormItem">
-                <dnn:label id="plUsername" runat="server" controlname="txtUsername" />
-                <asp:textbox id="txtUsername" CssClass="dnnFormRequired" runat="server" maxlength="100" />
+                <dnn:label id="plUsername" runat="server" controlname="txtUsername" CssClass="dnnFormRequired" />
+                <asp:textbox id="txtUsername" runat="server" maxlength="100" />
 			    <asp:requiredfieldvalidator id="valUsername" resourcekey="valUsername.ErrorMessage" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtUsername" display="Dynamic" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plFirstName" runat="server" controlname="txtFirstName" />
-                <asp:textbox id="txtFirstName" CssClass="dnnFormRequired" runat="server" maxlength="100" />
+                <dnn:label id="plFirstName" runat="server" controlname="txtFirstName" CssClass="dnnFormRequired" />
+                <asp:textbox id="txtFirstName" runat="server" maxlength="100" />
 	            <asp:requiredfieldvalidator id="valFirstName" resourcekey="valFirstName.ErrorMessage" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtFirstName" display="Dynamic" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plLastName" runat="server" controlname="txtLastName" />
-                <asp:textbox id="txtLastName" CssClass="dnnFormRequired" runat="server" maxlength="100" />
+                <dnn:label id="plLastName" runat="server" controlname="txtLastName" CssClass="dnnFormRequired" />
+                <asp:textbox id="txtLastName" runat="server" maxlength="100" />
 		        <asp:requiredfieldvalidator id="valLastName" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtLastName" resourcekey="valLastName.ErrorMessage" display="Dynamic" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plEmail" runat="server" controlname="txtEmail"></dnn:label>
-                <asp:textbox id="txtEmail" CssClass="dnnFormRequired" runat="server" maxlength="100" />
+                <dnn:label id="plEmail" runat="server" controlname="txtEmail" CssClass="dnnFormRequired"></dnn:label>
+                <asp:textbox id="txtEmail" runat="server" maxlength="100" />
 			    <asp:requiredfieldvalidator id="valEmail" resourcekey="valEmail.ErrorMessage" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtEmail" display="Dynamic" />
 			    <asp:RegularExpressionValidator ID="valEmail2" runat="server" resourcekey="valEmail2.ErrorMessage" CssClass="dnnFormMessage dnnFormError" ControlToValidate="txtEmail" Display="Dynamic" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plPassword" runat="server" controlname="txtPassword" />
-                <asp:textbox id="txtPassword" CssClass="dnnFormRequired" runat="server" maxlength="20" textmode="password" />
+                <dnn:label id="plPassword" runat="server" controlname="txtPassword" CssClass="dnnFormRequired" />
+                <asp:textbox id="txtPassword" runat="server" maxlength="20" textmode="password" />
 		        <asp:requiredfieldvalidator id="valPassword" resourcekey="valPassword.ErrorMessage" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtPassword" display="Dynamic" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plConfirm" runat="server" controlname="txtConfirm" />
-                <asp:textbox id="txtConfirm" CssClass="dnnFormRequired" runat="server" maxlength="20" textmode="password" />
+                <dnn:label id="plConfirm" runat="server" controlname="txtConfirm" CssClass="dnnFormRequired" />
+                <asp:textbox id="txtConfirm" runat="server" maxlength="20" textmode="password" />
 	            <asp:requiredfieldvalidator id="valConfirm" resourcekey="valConfirm.ErrorMessage" CssClass="dnnFormMessage dnnFormError" runat="server" controltovalidate="txtConfirm" display="Dynamic" />
             </div>
             <div id="questionRow" runat="server" CssClass="dnnFormItem" visible="false">

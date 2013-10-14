@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -34,6 +34,7 @@ namespace DotNetNuke.Modules.Dashboard.Controls
 {
     public partial class Database : PortalModuleBase
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Database));
         protected string NoBackups
         {
             get
@@ -48,7 +49,7 @@ namespace DotNetNuke.Modules.Dashboard.Controls
             DbInfo database = DatabaseController.GetDbInfo();
             ctlDbInfo.DataSource = database;
             ctlDbInfo.DataBind();
-            Localization.LocalizeGridView(ref grdBackups, LocalResourceFile);
+            //Localization.LocalizeGridView(ref grdBackups, LocalResourceFile);
             try
             {
                 grdBackups.DataSource = database.Backups;
@@ -56,12 +57,12 @@ namespace DotNetNuke.Modules.Dashboard.Controls
             }
             catch (Exception exc)
             {
-                DnnLog.Error(exc);
+                Logger.Error(exc);
 
                 grdBackups.Visible = false;
                 UI.Skins.Skin.AddModuleMessage(Parent, Localization.GetString("Backup.Error.Text", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
             }
-            Localization.LocalizeGridView(ref grdFiles, LocalResourceFile);
+            //Localization.LocalizeGridView(ref grdFiles, LocalResourceFile);
             grdFiles.DataSource = database.Files;
             grdFiles.DataBind();
         }

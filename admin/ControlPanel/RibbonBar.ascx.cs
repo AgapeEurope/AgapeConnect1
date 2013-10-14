@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,6 +21,7 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -84,29 +85,38 @@ namespace DotNetNuke.UI.ControlPanels
 
             if (!TabPermissionController.CanAddContentToPage())
             {
-                ddlMode.Items.Remove(ddlMode.Items.FindByValue("LAYOUT"));
+                RemoveModeDropDownItem("LAYOUT");
             }
 
-			if(!(new PreviewProfileController().GetProfilesByPortal(this.PortalSettings.PortalId).Count > 0))
-			{
-				ddlMode.Items.Remove(ddlMode.Items.FindByValue("PREVIEW"));
-			}
+            if (!(new PreviewProfileController().GetProfilesByPortal(this.PortalSettings.PortalId).Count > 0))
+            {
+                RemoveModeDropDownItem("PREVIEW");
+            }
 
             switch (UserMode)
             {
                 case PortalSettings.Mode.View:
-                    ddlMode.Items.FindByValue("VIEW").Selected = true;
+                    ddlMode.FindItemByValue("VIEW").Selected = true;
                     break;
                 case PortalSettings.Mode.Edit:
-                    ddlMode.Items.FindByValue("EDIT").Selected = true;
+                    ddlMode.FindItemByValue("EDIT").Selected = true;
                     break;
                 case PortalSettings.Mode.Layout:
-                    ddlMode.Items.FindByValue("LAYOUT").Selected = true;
+                    ddlMode.FindItemByValue("LAYOUT").Selected = true;
                     break;
             }
         }
 
-		private void SetLanguage(bool update)
+        private void RemoveModeDropDownItem(string value)
+        {
+            var item = ddlMode.FindItemByValue(value);
+            if (item != null)
+            {
+                ddlMode.Items.Remove(item);
+            }
+        }
+
+        private void SetLanguage(bool update)
 		{
 			if (update)
 			{
@@ -189,7 +199,7 @@ namespace DotNetNuke.UI.ControlPanels
                 AdminPanel.Visible = false;
                 AdvancedToolsPanel.Visible = false;
 
-                if (ControlPanel.Visible)
+                if (ControlPanel.Visible && IncludeInControlHierarchy)
                 {
                     ClientResourceManager.RegisterStyleSheet(this.Page, "~/admin/ControlPanel/module.css");
                     jQuery.RequestHoverIntentRegistration();
@@ -278,7 +288,19 @@ namespace DotNetNuke.UI.ControlPanels
 									Localization l = new Localization();
 									currentCulture = l.CurrentUICulture;
 								}
-								Localization.LoadCultureDropDownList(ddlUICulture, CultureDropDownTypes.NativeName, currentCulture);
+								//Localization.LoadCultureDropDownList(ddlUICulture, CultureDropDownTypes.NativeName, currentCulture);
+                                IEnumerable<ListItem> cultureListItems = Localization.LoadCultureInListItems(CultureDropDownTypes.NativeName, currentCulture, "", false);
+                                foreach (var cultureItem in cultureListItems)
+                                {
+                                    ddlUICulture.AddItem(cultureItem.Text, cultureItem.Value);
+                                }
+
+                                var selectedCultureItem = ddlUICulture.FindItemByValue(currentCulture);
+                                if (selectedCultureItem != null)
+                                {
+                                    selectedCultureItem.Selected = true;
+                                }
+
 								//only show language selector if more than one language
 								if (ddlUICulture.Items.Count > 1)
 								{
@@ -316,11 +338,6 @@ namespace DotNetNuke.UI.ControlPanels
 			}
 		}
 
-		protected override void OnPreRender(EventArgs e)
-		{
-			base.OnPreRender(e);
-		}
-
 		protected void ddlMode_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (Page.IsCallback)
@@ -347,7 +364,7 @@ namespace DotNetNuke.UI.ControlPanels
 
 		protected string PreviewPopup()
 		{
-			var previewUrl = string.Format("{0}/Default.aspx?ctl={1}&previewTab={2}", 
+			var previewUrl = string.Format("{0}/Default.aspx?ctl={1}&previewTab={2}&TabID={2}", 
 										Globals.AddHTTP(PortalSettings.PortalAlias.HTTPAlias), 
 										"MobilePreview",
 										PortalSettings.ActiveTab.TabID);

@@ -2,7 +2,8 @@
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls"%>
 <%@ Control Language="C#" Inherits="DotNetNuke.Modules.Admin.Security.SendPassword" AutoEventWireup="false" CodeFile="SendPassword.ascx.cs" %>
 <div class="dnnForm dnnSendPassword dnnClear">
-	<div class="dnnFormMessage dnnFormInfo"><asp:Label ID="lblHelp" runat="Server" /></div>
+	<asp:panel id="pnlRecover" runat="server" >
+    <div class="dnnFormMessage dnnFormInfo"><asp:Label ID="lblHelp" runat="Server" /></div>
 	<div id="divPassword" runat="server" class="dnnSendPasswordContent">
 		<div class="dnnFormItem">
 			<dnn:label id="plUsername" controlname="txtUsername" runat="server" />
@@ -31,4 +32,5 @@
 			<li id="liLogin" runat="server"><asp:HyperLink ID="hlLogin" CssClass="dnnSecondaryAction" runat="server" resourcekey="cmdCancel" /></li>
 		</ul>
 	</div>
+        </asp:panel>
 </div>

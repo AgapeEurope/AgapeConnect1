@@ -4,6 +4,7 @@
 <asp:literal id="skinDocType" runat="server"></asp:literal>
 <html <asp:literal id="attributeList" runat="server"></asp:literal>>
 <head id="Head" runat="server">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title />
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
     <meta content="text/javascript" http-equiv="Content-Script-Type" />
@@ -43,20 +44,5 @@
             <dnncrm:ClientResourcePath Name="SharedScripts" Path="~/Resources/Shared/Scripts/" />
         </Paths>
     </dnncrm:ClientResourceLoader>
-    <script type="text/javascript">
-        //<![CDATA[
-        
-        //This code is to force a refresh of browser cache
-        //in case an old version of dnn.js is loaded
-        //It should be removed as soon as .js versioning is added
-        jQuery(document).ready(function () {
-            if (navigator.userAgent.indexOf(" Chrome/") == -1) {
-                if ((typeof dnnJscriptVersion === 'undefined' || dnnJscriptVersion !== "6.0.0") && typeof dnn !== 'undefined') {
-                    window.location.reload(true);
-                }
-            }
-        });
-         //]]>
-    </script>
 </body>
 </html>

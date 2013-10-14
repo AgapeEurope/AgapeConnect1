@@ -16,7 +16,11 @@
                 <dnn:DnnGridBoundColumn DataField="Name" HeaderText="Name" />
                 <dnn:DnnGridBoundColumn DataField="Description" HeaderText="Description" />
                 <dnn:DnnGridBoundColumn DataField="Type" HeaderText="Type" />
-                <dnn:DnnGridBoundColumn DataField="ScopeType" HeaderText="Scope" />
+				<dnn:DnnGridTemplateColumn HeaderText="Scope">
+                    <ItemTemplate>
+                        <%#LocalizeString(Eval("ScopeType").ToString()) %>
+                    </ItemTemplate>
+                </dnn:DnnGridTemplateColumn>
             </Columns>
         </MasterTableView>
     </dnn:DnnGrid>

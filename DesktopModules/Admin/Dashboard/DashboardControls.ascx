@@ -10,9 +10,9 @@
 	    <footerstyle cssclass="dnnGridFooter" />
 	    <pagerstyle cssclass="dnnGridPager" />
 	    <columns>
-		    <dnn:imagecommandcolumn CommandName="Delete" Text="Delete" IconKey="Delete" HeaderText="Del" KeyField="DashboardControlID" />
-		    <dnn:imagecommandcolumn commandname="MoveDown" IconKey="Dn" headertext="Dn" keyfield="DashboardControlID" />
-		    <dnn:imagecommandcolumn commandname="MoveUp" IconKey="Up" headertext="Up" keyfield="DashboardControlID" />
+		    <dnn:imagecommandcolumn CommandName="Delete" Text="Delete" IconKey="Delete" HeaderText="" KeyField="DashboardControlID" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder" />
+		    <dnn:imagecommandcolumn commandname="MoveDown" IconKey="Dn" headertext="" keyfield="DashboardControlID" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder" />
+		    <dnn:imagecommandcolumn commandname="MoveUp" IconKey="Up" headertext="" keyfield="DashboardControlID"  />
 		    <dnn:textcolumn DataField="DashboardControlKey" HeaderText="DashboardControlKey" Width="100px" />
 		    <dnn:textcolumn DataField="DashboardControlSrc" HeaderText="DashboardControlSrc" Width="500px" />
 		    <dnn:checkboxcolumn DataField="IsEnabled" HeaderText="IsEnabled" AutoPostBack="True" />

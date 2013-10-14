@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="plListParent.Text" xml:space="preserve">
     <value>Parent:</value>
@@ -215,5 +215,11 @@
   </data>
   <data name="valEntryName.ErrorMessage" xml:space="preserve">
     <value>&lt;br&gt;Name Is Required</value>
+  </data>
+  <data name="Text.Header" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Value.Header" xml:space="preserve">
+    <value>Value</value>
   </data>
 </root>

@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -63,6 +63,7 @@ namespace DotNetNuke.Modules.Admin.Security
     /// -----------------------------------------------------------------------------
     public partial class SecurityRoles : PortalModuleBase, IActionable
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (SecurityRoles));
 		#region "Private Members"
 
         private int RoleId = Null.NullInteger;
@@ -277,7 +278,8 @@ namespace DotNetNuke.Modules.Admin.Security
                 {
                     if (Role != null)
                     {
-                        cboRoles.Items.Add(new ListItem(Role.RoleName, Role.RoleID.ToString()));
+                        //cboRoles.Items.Add(new ListItem(Role.RoleName, Role.RoleID.ToString()));
+                        cboRoles.AddItem(Role.RoleName, Role.RoleID.ToString());
                         cboRoles.Items[0].Selected = true;
                         lblTitle.Text = string.Format(Localization.GetString("RoleTitle.Text", LocalResourceFile), Role.RoleName, Role.RoleID);
                     }
@@ -304,7 +306,8 @@ namespace DotNetNuke.Modules.Admin.Security
                     {
                         foreach (UserInfo objUser in UserController.GetUsers(PortalId))
                         {
-                            cboUsers.Items.Add(new ListItem(objUser.DisplayName + " (" + objUser.Username + ")", objUser.UserID.ToString()));
+                            //cboUsers.Items.Add(new ListItem(objUser.DisplayName + " (" + objUser.Username + ")", objUser.UserID.ToString()));
+                            cboUsers.AddItem(objUser.DisplayName + " (" + objUser.Username + ")", objUser.UserID.ToString());
                         }
                     }
                     txtUsers.Visible = false;
@@ -372,6 +375,8 @@ namespace DotNetNuke.Modules.Admin.Security
                                                                         Where(s => s.StartsWith("ctl") 
                                                                             || s.StartsWith("mid")
                                                                             || s.StartsWith("RoleId")
+                                                                            || s.StartsWith("UserId")
+                                                                            || s.StartsWith("filter")
                                                                             || s.StartsWith("popUp")).ToArray()));
         }
 
@@ -570,6 +575,8 @@ namespace DotNetNuke.Modules.Admin.Security
             if (Request.QueryString["CurrentPage"] != null)
             {
                 CurrentPage = Convert.ToInt32(Request.QueryString["CurrentPage"]);
+                if (CurrentPage <= 0)
+                    CurrentPage = 1;
             }
 
             cboRoles.SelectedIndexChanged += cboRoles_SelectedIndexChanged;
@@ -603,10 +610,16 @@ namespace DotNetNuke.Modules.Admin.Security
                 {
                     DataBind();
                 }
+
+                if (Role == null)
+                    return;
+
+                placeIsOwner.Visible = ((Role.SecurityMode == SecurityMode.SocialGroup) || (Role.SecurityMode == SecurityMode.Both));
+                placeIsOwnerHeader.Visible = ((Role.SecurityMode == SecurityMode.SocialGroup) || (Role.SecurityMode == SecurityMode.Both));
             }
             catch (ThreadAbortException exc) //Do nothing if ThreadAbort as this is caused by a redirect
             {
-                DnnLog.Debug(exc);
+                Logger.Debug(exc);
 
             }
             catch (Exception exc) //Module failed to load
@@ -739,7 +752,13 @@ namespace DotNetNuke.Modules.Admin.Security
                         }
 						
                         //Add User to Role
-                        RoleController.AddUserRole(User, Role, PortalSettings, datEffectiveDate, datExpiryDate, UserId, chkNotify.Checked);
+                        var isOwner = false;
+                        
+                        if(((Role.SecurityMode == SecurityMode.SocialGroup) || (Role.SecurityMode == SecurityMode.Both)))
+                            isOwner = chkIsOwner.Checked;
+
+                        RoleController.AddUserRole(User, Role, PortalSettings, RoleStatus.Approved, datEffectiveDate, datExpiryDate, chkNotify.Checked, isOwner);
+                        chkIsOwner.Checked = false; //reset the checkbox
                     }
                 }
                 BindGrid();
@@ -810,6 +829,9 @@ namespace DotNetNuke.Modules.Admin.Security
                     cmdDeleteUserRole.Attributes.Add("roleId", role.RoleID.ToString());
                     cmdDeleteUserRole.Attributes.Add("userId", role.UserID.ToString());
                 }
+
+                item.Cells[5].Visible = ((Role.SecurityMode == SecurityMode.SocialGroup) || (Role.SecurityMode == SecurityMode.Both));
+
             }
             catch (Exception exc) //Module failed to load
             {

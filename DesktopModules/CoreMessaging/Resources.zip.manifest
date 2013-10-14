@@ -57,6 +57,10 @@
       <name>paperClip.png</name>
     </file>
     <file>
+      <path>Images/</path>
+      <name>progress.gif</name>
+    </file>
+    <file>
       <path>scripts/</path>
       <name>CoreMessaging.js</name>
     </file>

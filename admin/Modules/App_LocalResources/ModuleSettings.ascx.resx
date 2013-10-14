@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ModuleSettings.Text" xml:space="preserve">
     <value>Module Settings</value>
@@ -226,13 +226,13 @@
     <value>Set As Default Settings? </value>
   </data>
   <data name="plDefault.Help" xml:space="preserve">
-    <value>Select this option if you would like the Page Settings for this module to be used as the default settings when adding new modules. Option only available to Website Admins and Superusers.</value>
+    <value>Select this option if you would like the Page Settings for this module to be used as the default settings when adding new modules. Option only available to Website Admins and SuperUsers.</value>
   </data>
   <data name="plAllModules.Text" xml:space="preserve">
     <value>Apply To All Modules?</value>
   </data>
   <data name="plAllModules.Help" xml:space="preserve">
-    <value>Select this option if you would like the Page Settings for this module to be applied to all existing modules in the site. Option only available to Website Admins and Superusers.</value>
+    <value>Select this option if you would like the Page Settings for this module to be applied to all existing modules in the site. Option only available to Website Admins and SuperUsers.</value>
   </data>
   <data name="GeneralDetails.Text" xml:space="preserve">
     <value>Basic Settings</value>
@@ -286,7 +286,7 @@
     <value>End Date must be after Start Date</value>
   </data>
   <data name="plNewTabs.Help" xml:space="preserve">
-    <value>Check this box to add the module to new pages only. Option only available to Website Admins and Superusers.</value>
+    <value>Check this box to add the module to new pages only. Option only available to Website Admins and SuperUsers.</value>
   </data>
   <data name="plNewTabs.Text" xml:space="preserve">
     <value>Add to new pages only?</value>
@@ -438,10 +438,22 @@
   <data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>{0} Settings</value>
   </data>
-  <data name="plSearchOnce.Help" xml:space="preserve">
-    <value>Select whether to show all pages in search result which include this module.</value>
+  <data name="AllowIndexLabel.Help" xml:space="preserve">
+    <value>This setting controls whether a module should be indexed by search crawlers.</value>
   </data>
-  <data name="plSearchOnce.Text" xml:space="preserve">
-    <value>Only Display Search Results Once</value>
+  <data name="AllowIndexLabel.Text" xml:space="preserve">
+    <value>Allow Indexing?</value>
+  </data>
+  <data name="isShareableLabel.Help" xml:space="preserve">
+    <value>Check this box to allow the module to be shared across sites.</value>
+  </data>
+  <data name="isShareableLabel.Text" xml:space="preserve">
+    <value>Is Shareable?</value>
+  </data>
+  <data name="isShareableViewOnlyLabel.Help" xml:space="preserve">
+    <value>Check this box to restrict the module to be shared as View Only.</value>
+  </data>
+  <data name="isShareableViewOnlyLabel.Text" xml:space="preserve">
+    <value>View Only?</value>
   </data>
 </root>

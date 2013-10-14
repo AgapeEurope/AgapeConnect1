@@ -139,7 +139,7 @@
     <value>Help URL:</value>
   </data>
   <data name="IconFile.Help" xml:space="preserve">
-    <value>Enter the url of an icon for this Control.</value>
+    <value>Enter the URL of an icon for this Control.</value>
   </data>
   <data name="IconFile.Text" xml:space="preserve">
     <value>Icon File:</value>

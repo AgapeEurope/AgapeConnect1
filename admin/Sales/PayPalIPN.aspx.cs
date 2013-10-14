@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -133,7 +133,7 @@ namespace DotNetNuke.Modules.Admin.Sales
                     string strPayPalURL;
 
                     // Sandbox mode
-                    if (settings.ContainsKey("paypalsandbox") && !String.IsNullOrEmpty(settings["paypalsandbox"]) && settings["paypalsandbox"] == "true")
+                    if (settings.ContainsKey("paypalsandbox") && !String.IsNullOrEmpty(settings["paypalsandbox"]) && settings["paypalsandbox"].Equals("true", StringComparison.InvariantCultureIgnoreCase))
                     {
                         strPayPalURL = "https://www.sandbox.paypal.com/cgi-bin/webscr?";
                     }
@@ -141,7 +141,7 @@ namespace DotNetNuke.Modules.Admin.Sales
                     {
                         strPayPalURL = "https://www.paypal.com/cgi-bin/webscr?";
                     }
-                    var objRequest = (HttpWebRequest) WebRequest.Create(strPayPalURL);
+                    var objRequest = Globals.GetExternalRequest(strPayPalURL);
                     objRequest.Method = "POST";
                     objRequest.ContentLength = strPost.Length;
                     objRequest.ContentType = "application/x-www-form-urlencoded";

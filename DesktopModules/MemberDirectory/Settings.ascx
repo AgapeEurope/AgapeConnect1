@@ -36,7 +36,7 @@
                 </asp:RadioButtonList>
                 <div class="mdFilterLists">
                     <asp:DropDownList runat="server" ID="groupList" DataTextField="RoleName" DataValueField="RoleID"/>
-                    <asp:DropDownList runat="server" ID="relationShipList" DataTextField="Name" DataValueField="RelationshipId"/>
+                    <asp:DropDownList runat="server" ID="relationShipList" DataTextField="Name" DataValueField="RelationshipTypeId"/>
                     <asp:DropDownList runat="server" ID="propertyList" DataTextField="Text" DataValueField="Value"/>
                     <asp:TextBox runat="server" ID="propertyValue" />
                 </div>
@@ -48,7 +48,7 @@
                 <asp:ListItem Value="UserId" resourcekey="UserId"/>
                 <asp:ListItem Value="LastName" resourcekey="LastName"/>
                 <asp:ListItem Value="DisplayName" resourcekey="DisplayName"/>
-                <asp:ListItem Value="CreateDate" resourcekey="DateCreated"/>
+                <asp:ListItem Value="CreatedOnDate" resourcekey="DateCreated"/>
             </asp:DropDownList>
         </div>        
          <div class="dnnFormItem">
@@ -63,7 +63,13 @@
     <fieldset>
         <div class="dnnFormItem">
             <dnn:label id="displaySearchLabel" runat="server" controlname="displaySearch" />
-            <asp:CheckBox ID="displaySearch" runat="server" />
+            <asp:DropDownList runat="server" ID="displaySearchList">
+	            <Items>
+		            <asp:ListItem Value="None" resourcekey="DisplaySearch_None"></asp:ListItem>
+					<asp:ListItem Value="Simple" resourcekey="DisplaySearch_Simple"></asp:ListItem>
+					<asp:ListItem Value="Both" resourcekey="DisplaySearch_Both"></asp:ListItem>
+	            </Items>
+			</asp:DropDownList>
         </div>        
         <div class="dnnFormItem">
             <dnn:label id="searchField1Label" runat="server" controlname="searchField1List" />
@@ -100,7 +106,7 @@
     (function ($, Sys) {
         function setUpSettings() {
             toggleFilter();
-            $('#<%= filterBySelector.ClientID %>').click(function () {
+            $('#<%= filterBySelector.ClientID %>').change(function () {
                 toggleFilter();
             });
         }

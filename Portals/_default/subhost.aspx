@@ -18,17 +18,15 @@
 	{
 		base.OnLoad(e);
 
-		string DomainName = DotNetNuke.Common.Utilities.Null.NullString;
-		string ServerPath = null;
-		string[] URL = null;
-		int intURL = 0;
+	    var domainName = "";
+	    int urlIndex;
 
 		// parse the Request URL into a Domain Name token 
-		URL = Request.Url.ToString().Split('/');
-		for (intURL = 2; intURL <= URL.GetUpperBound(0); intURL++)
+		string[] url = Request.Url.ToString().Split('/');
+		for (urlIndex = 2; urlIndex <= url.GetUpperBound(0); urlIndex++)
 		{
 			bool willExit = false;
-			switch (URL[intURL].ToLower())
+			switch (url[urlIndex].ToLower())
 			{
 				case "admin":
 				case "desktopmodules":
@@ -38,9 +36,9 @@
 					break;
 				default:
 					// check if filename
-					if (URL[intURL].IndexOf(".aspx") == -1)
+					if (url[urlIndex].IndexOf(".aspx", StringComparison.Ordinal) == -1)
 					{
-						DomainName = DomainName + (!string.IsNullOrEmpty(DomainName) ? "/" : "") + URL[intURL];
+						domainName = domainName + (!string.IsNullOrEmpty(domainName) ? "/" : "") + url[urlIndex];
 					}
 					else
 					{
@@ -54,25 +52,25 @@
 		}
 
 		// format the Request.ApplicationPath
-		ServerPath = Request.ApplicationPath;
-		if (ServerPath.Substring(ServerPath.Length - 1, 1) != "/")
+		string serverPath = Request.ApplicationPath;
+		if (serverPath != null && serverPath.Substring(serverPath.Length - 1, 1) != "/")
 		{
-			ServerPath = ServerPath + "/";
+			serverPath = serverPath + "/";
 		}
 
         PortalSettings portal = PortalController.GetCurrentPortalSettings();
 
 		var queryString = Request.Url.Query.TrimStart('?');
 
-        if (portal.HomeTabId > Null.NullInteger)
+        if (Request.Url.Query.Length == 0 && portal.HomeTabId > Null.NullInteger)
         {
 			Response.Redirect(DotNetNuke.Common.Globals.NavigateURL(portal.HomeTabId, portal, string.Empty, queryString), true);
         }
         else
         {
-			DomainName = string.Format("{0}Default.aspx?alias={1}&{2}", ServerPath, DomainName, queryString);
+			domainName = string.Format("{0}Default.aspx?alias={1}&{2}", serverPath, domainName, queryString);
 
-            Response.Redirect(DomainName, true);
+            Response.Redirect(domainName, true);
         }
 
 	}

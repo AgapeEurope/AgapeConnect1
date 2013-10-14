@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -42,55 +42,18 @@ using Reflection = DotNetNuke.Framework.Reflection;
 
 namespace DotNetNuke.Modules.Admin.Dashboard
 {
-    public partial class Dashboard : PortalModuleBase, IActionable
+    public partial class Dashboard : PortalModuleBase
     {
-        #region IActionable Members
-
-        public ModuleActionCollection ModuleActions
-        {
-            get
-            {
-                var actions = new ModuleActionCollection();
-                actions.Add(GetNextActionID(),
-                            Localization.GetString("Install.Action", LocalResourceFile),
-                            ModuleActionType.AddContent,
-                            "",
-                            "add.gif",
-                            Util.InstallURL(TabId, "DashboardControl"),
-                            false,
-                            SecurityAccessLevel.Host,
-                            true,
-                            false);
-                actions.Add(GetNextActionID(),
-                            Localization.GetString("Manage.Action", LocalResourceFile),
-                            ModuleActionType.AddContent,
-                            "",
-                            "icon_profile_16px.gif",
-                            EditUrl("DashboardControls"),
-                            false,
-                            SecurityAccessLevel.Host,
-                            true,
-                            false);
-                actions.Add(GetNextActionID(),
-                            Localization.GetString("Export.Action", LocalResourceFile),
-                            ModuleActionType.AddContent,
-                            "",
-                            "lt.gif",
-                            EditUrl("Export"),
-                            false,
-                            SecurityAccessLevel.Host,
-                            true,
-                            false);
-                return actions;
-            }
-        }
-
-        #endregion
 
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
             jQuery.RequestDnnPluginsRegistration();
+
+            cmdInstall.NavigateUrl = Util.InstallURL(TabId, "DashboardControl");
+            cmdManage.NavigateUrl = EditUrl("DashboardControls");
+            cmdExport.NavigateUrl = EditUrl("Export");
+
 
             //string dashboardJs = ResolveUrl("~/resources/dashboard/jquery.dashboard.js");
             //Page.ClientScript.RegisterClientScriptInclude("DashboardJS", dashboardJs);

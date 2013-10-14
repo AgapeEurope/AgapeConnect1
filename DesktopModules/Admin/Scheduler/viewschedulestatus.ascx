@@ -2,26 +2,32 @@
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls"%>
 <%@ Register TagPrefix="dnnweb" Assembly="DotNetNuke.Web" Namespace="DotNetNuke.Web.UI.WebControls" %>
 <%@ Register TagPrefix="dnn" Namespace="Telerik.Web.UI" %>
+<%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <div class="dnnForm dnnScheduleStatus dnnClear" id="dnnScheduleStatus">
     <div class="dnnFormItem">
-        <asp:Label ID="lblStatusLabel" resourcekey="lblStatusLabel" runat="server" CssClass="dnnFormLabel" />
+        <%--<asp:Label ID="lblStatusLabel" resourcekey="lblStatusLabel" runat="server" CssClass="dnnFormLabel" />--%>
+        <dnn:Label ID="lblStatusLabel" resourcekey="lblStatusLabel" runat="server"/>
         <asp:Label ID="lblStatus" runat="server" />
     </div>
     <div class="dnnFormItem">
-        <asp:Label ID="lblMaxThreadsLabel" resourcekey="lblMaxThreadsLabel" runat="server" CssClass="dnnFormLabel" />
+        <%--<asp:Label ID="lblMaxThreadsLabel" resourcekey="lblMaxThreadsLabel" runat="server" CssClass="dnnFormLabel" />--%>
+        <dnn:Label ID="lblMaxThreadsLabel" resourcekey="lblMaxThreadsLabel" runat="server" />
         <asp:Label ID="lblMaxThreads" runat="server" />
     </div>
      <div class="dnnFormItem">
-        <asp:Label ID="lblActiveThreadsLabel" resourcekey="lblActiveThreadsLabel" runat="server" CssClass="dnnFormLabel" />
+            <%--<asp:Label ID="lblActiveThreadsLabel" resourcekey="lblActiveThreadsLabel" runat="server" CssClass="dnnFormLabel" />--%>
+         <dnn:Label ID="lblActiveThreadsLabel" resourcekey="lblActiveThreadsLabel" runat="server" />
          <asp:Label ID="lblActiveThreads" runat="server" />
     </div>
      <div class="dnnFormItem">
-        <asp:Label ID="lblFreeThreadsLabel" resourcekey="lblFreeThreadsLabel" runat="server" CssClass="dnnFormLabel" />
+        <%--<asp:Label ID="lblFreeThreadsLabel" resourcekey="lblFreeThreadsLabel" runat="server" CssClass="dnnFormLabel" />--%>
+        <dnn:Label ID="lblFreeThreadsLabel" resourcekey="lblFreeThreadsLabel" runat="server"/>
         <asp:Label ID="lblFreeThreads" runat="server" />
     </div>
     <asp:PlaceHolder ID="placeCommands" runat="server">
         <div class="dnnFormItem">
-            <asp:Label ID="lblCommand" resourcekey="lblCommand" runat="server" CssClass="dnnFormLabel" />
+            <%--<asp:Label ID="lblCommand" resourcekey="lblCommand" runat="server" CssClass="dnnFormLabel" />--%>
+            <dnn:label ID="lblCommand" resourcekey="lblCommand" runat="server" />
             <asp:LinkButton ID="cmdStart" resourcekey="cmdStart" CssClass="dnnSecondaryAction" runat="server" />
             <asp:LinkButton ID="cmdStop" resourcekey="cmdStop" CssClass="dnnSecondaryAction" runat="server" />
         </div>

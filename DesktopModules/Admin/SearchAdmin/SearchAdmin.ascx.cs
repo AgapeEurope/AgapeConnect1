@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,17 +21,19 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web.UI.WebControls;
 
-using DotNetNuke.Common;
-using DotNetNuke.Common.Utilities;
-using DotNetNuke.Entities.Controllers;
-using DotNetNuke.Entities.Host;
 using DotNetNuke.Entities.Portals;
-using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Framework;
 using DotNetNuke.Services.Localization;
-using DotNetNuke.Services.Search;
+using DotNetNuke.Services.Search.Entities;
+using DotNetNuke.Services.Search.Internals;
 using DotNetNuke.UI.Modules;
-using DotNetNuke.UI.Skins.Controls;
+using DotNetNuke.Web.Client.ClientResourceManagement;
+using DotNetNuke.Web.UI.WebControls;
 
 #endregion
 
@@ -40,126 +42,125 @@ namespace DotNetNuke.Modules.Admin.Search
 
     public partial class SearchAdmin : ModuleUserControlBase
     {
+        protected IEnumerable<SynonymsGroup> CurrentPortalSynonymsGroups { get; set; }
+        protected int SynonymsSelectedPortalId { get; set; }
+        protected string SynonymsSeletedCulture { get; set; }
+
+        protected IEnumerable<string> CurrentCultureCodeList { get; set; } 
+        protected SearchStopWords CurrentSearchStopWords { get; set; }
+        protected int StopWordsSeletedPortalId { get; set; }
+        protected string StopWordsSeletedCulture { get; set; }
+
+        protected const string MyFileName = "SearchAdmin.ascx";
 
 		#region "Event Handlers"
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_Load runs when the control is loaded
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	11/16/2004 created
-        ///     [cnurse]    01/10/2005 added UrlReferrer code so Cancel returns to previous page
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            ServicesFramework.Instance.RequestAjaxAntiForgerySupport();
+            ClientResourceManager.RegisterScript(Page, "~/desktopmodules/admin/searchAdmin/dnn.SearchAdmin.js");
+            rptStopWordsCultureList.ItemDataBound += RptLanguagesItemDataBound;
+            rptStopWordsCultureList.ItemCommand += RptStopWordsLanguagesItemOnCommand;
 
-            cmdReIndex.Click += OnReIndexClick;
-            cmdUpdate.Click += OnUpdateClick;
-
-            if (!Page.IsPostBack)
-            {
-				if (Globals.IsHostTab(ModuleContext.PortalSettings.ActiveTab.TabID))
-                {
-                    txtMaxWordLength.Text = Host.SearchMaxWordlLength.ToString();
-                    txtMinWordLength.Text = Host.SearchMinWordlLength.ToString();
-                    chkIncludeCommon.Checked = Host.SearchIncludeCommon;
-                    chkIncludeNumeric.Checked = Host.SearchIncludeNumeric;
-                }
-                else
-                {
-                    txtMaxWordLength.Text = ModuleContext.PortalSettings.SearchMaxWordlLength.ToString();
-                    txtMinWordLength.Text = ModuleContext.PortalSettings.SearchMinWordlLength.ToString();
-                    chkIncludeCommon.Checked = ModuleContext.PortalSettings.SearchIncludeCommon;
-                    chkIncludeNumeric.Checked = ModuleContext.PortalSettings.SearchIncludeNumeric;
-                }
-            }
+            rptSynonymsCultureList.ItemDataBound += RptLanguagesItemDataBound;
+            rptSynonymsCultureList.ItemCommand += RptSynonymsLanguagesItemOnCommand;
+            
+            //set init value
+            SynonymsSelectedPortalId = PortalSettings.Current.PortalId;
+            StopWordsSeletedPortalId = PortalSettings.Current.PortalId;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// cmdReIndex_Click runs when the ReIndex LinkButton is clicked.  It re-indexes the
-        /// site (or application if run on Host page)
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	11/16/2004 created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void OnReIndexClick(object sender, EventArgs e)
+        protected override void OnPreRender(EventArgs e)
         {
-            try
-            {
-                Page.Validate();
-                if (Page.IsValid)
-                {
-                    var se = new SearchEngine();
-					if (Globals.IsHostTab(ModuleContext.PortalSettings.ActiveTab.TabID))
-                    {
-                        se.IndexContent();
-                    }
-                    else
-                    {
-                        se.IndexContent(ModuleContext.PortalId);
-                    }
-                    UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("Indexed", LocalResourceFile), ModuleMessage.ModuleMessageType.GreenSuccess);
-                }
-            }
-            catch (Exception exc) //Module failed to load
-            {
-                Exceptions.ProcessModuleLoadException(this, exc);
-            }
-        }
+            base.OnPreRender(e);
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// cmdUpdate_Click runs when the Update LinkButton is clicked.
-        /// It saves the current Search Settings
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/9/2004	Modified
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void OnUpdateClick(object sender, EventArgs e)
-        {
-            try
-            {
-                Page.Validate();
-                if(Page.IsValid)
-                {
-					if (Globals.IsHostTab(ModuleContext.PortalSettings.ActiveTab.TabID))
-                    {
-                        HostController.Instance.Update("MaxSearchWordLength", txtMaxWordLength.Text);
-                        HostController.Instance.Update("MinSearchWordLength", txtMinWordLength.Text);
-                        HostController.Instance.Update("SearchIncludeCommon", chkIncludeCommon.Checked ? "Y" : "N");
-                        HostController.Instance.Update("SearchIncludeNumeric", chkIncludeNumeric.Checked ? "Y" : "N");
+            CurrentCultureCodeList = LoadCultureCodeList(StopWordsSeletedPortalId);
 
-						//clear host settings cache
-                        DataCache.ClearHostCache(false);
-                    }
-                    else
-                    {
-                        PortalController.UpdatePortalSetting(ModuleContext.PortalId, "MaxSearchWordLength", txtMaxWordLength.Text);
-                        PortalController.UpdatePortalSetting(ModuleContext.PortalId, "MinSearchWordLength", txtMinWordLength.Text);
-                        PortalController.UpdatePortalSetting(ModuleContext.PortalId, "SearchIncludeCommon", chkIncludeCommon.Checked ? "Y" : "N");
-                        PortalController.UpdatePortalSetting(ModuleContext.PortalId, "SearchIncludeNumeric", chkIncludeNumeric.Checked ? "Y" : "N");
-                    }
-                }
-            }
-            catch (Exception exc) //Module failed to load
-            {
-                Exceptions.ProcessModuleLoadException(this, exc);
-            }
+            var currentCultureCodeList = CurrentCultureCodeList as IList<string> ?? CurrentCultureCodeList.ToList();
+            if (string.IsNullOrEmpty(StopWordsSeletedCulture)) 
+                StopWordsSeletedCulture = currentCultureCodeList.FirstOrDefault();
+
+            if (string.IsNullOrEmpty(StopWordsSeletedCulture)) StopWordsSeletedCulture = "en-US";
+
+            if (string.IsNullOrEmpty(SynonymsSeletedCulture)) 
+                SynonymsSeletedCulture= currentCultureCodeList.FirstOrDefault();
+
+            if (string.IsNullOrEmpty(SynonymsSeletedCulture)) SynonymsSeletedCulture = "en-US";
+
+	        if (CurrentCultureCodeList.Count() > 1)
+	        {
+		        rptStopWordsCultureList.DataSource = CurrentCultureCodeList;
+		        rptStopWordsCultureList.DataBind();
+
+		        rptSynonymsCultureList.DataSource = CurrentCultureCodeList;
+		        rptSynonymsCultureList.DataBind();
+	        }
+	        else
+	        {
+				plCultureList.Visible = rptStopWordsCultureList.Visible = plSynonymsCultureList.Visible = rptSynonymsCultureList.Visible = false;
+	        }
+
+	        CurrentSearchStopWords = LoadSearchStopWords(StopWordsSeletedPortalId, StopWordsSeletedCulture);
+            CurrentPortalSynonymsGroups = LoadSynonymsGroup(SynonymsSelectedPortalId, SynonymsSeletedCulture);
+            
+            hdnSynonymsSelectedPortalID.Value = SynonymsSelectedPortalId.ToString(CultureInfo.InvariantCulture);
+            hdnStopWordsSelectedPortalID.Value = StopWordsSeletedPortalId.ToString(CultureInfo.InvariantCulture);
+            hdnSynonymsSelectedCultureCode.Value = SynonymsSeletedCulture.ToString(CultureInfo.InvariantCulture);
+            hdnStopWordsSelectedCultureCode.Value = StopWordsSeletedCulture.ToString(CultureInfo.InvariantCulture);
         }
 		
 		#endregion
 
+        protected void RptStopWordsLanguagesItemOnCommand(object sender, RepeaterCommandEventArgs e)
+        {
+            StopWordsSeletedPortalId = PortalSettings.Current.PortalId;
+            StopWordsSeletedCulture = e.CommandArgument.ToString();
+        }
+
+        protected void RptSynonymsLanguagesItemOnCommand(object sender, RepeaterCommandEventArgs e)
+        {
+            SynonymsSelectedPortalId = PortalSettings.Current.PortalId;
+            SynonymsSeletedCulture = e.CommandArgument.ToString();
+        }
+
+        protected IEnumerable<string> LoadCultureCodeList(int portalId)
+        {
+            var locals = LocaleController.Instance.GetLocales(portalId).Values;
+            return locals.Select(local => local.Code).ToList();
+        } 
+
+        protected IEnumerable<SynonymsGroup> LoadSynonymsGroup(int portalId, string cultureCode)
+        {
+            return SearchHelper.Instance.GetSynonymsGroups(portalId, cultureCode);
+        }
+
+        protected SearchStopWords LoadSearchStopWords(int portalId, string cultureCode)
+        {
+            return SearchHelper.Instance.GetSearchStopWords(portalId, cultureCode);
+        } 
+
+        protected void RptLanguagesItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            var imgBtn = e.Item.FindControl("imgBtnStopWordsCulture") as ImageButton;
+            if (imgBtn == null) return;
+            if (e.Item.DataItem != null)
+            {
+                var locale = e.Item.DataItem as String;
+                imgBtn.ImageUrl = "~/images/flags/" + locale + ".gif";
+                imgBtn.CommandArgument = locale;
+
+				if ((sender == rptStopWordsCultureList && locale == StopWordsSeletedCulture)
+						|| (sender == rptSynonymsCultureList && locale == SynonymsSeletedCulture))
+				{
+					imgBtn.CssClass = "stopwordsCultureSelected";
+				}
+            }
+        }
+
+        protected void ReIndex(object sender, EventArgs e)
+        {
+            SearchHelper.Instance.SetSearchReindexRequestTime(PortalSettings.Current.PortalId);
+        }
     }
 }

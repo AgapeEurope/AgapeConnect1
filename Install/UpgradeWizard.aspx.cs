@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,36 +21,26 @@
 #region Usings
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
+using System.Linq;
+using System;
 using System.Globalization;
 using System.IO;
-using System.Net;
-using System.Net.Mail;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Xml;
 using System.Xml.XPath;
 
-using DotNetNuke.Application;
-using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
-using DotNetNuke.Entities.Controllers;
-using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Framework;
-using DotNetNuke.Security;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Security.Membership;
 using DotNetNuke.Services.Authentication;
-using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Localization.Internal;
-using DotNetNuke.UI.Utilities;
+using DotNetNuke.Application;
+using DotNetNuke.Services.Upgrade.InternalController.Steps;
+using DotNetNuke.Services.Upgrade.Internals.Steps;
 
-using DataCache = DotNetNuke.Common.Utilities.DataCache;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
@@ -65,20 +55,28 @@ namespace DotNetNuke.Services.Install
     /// </remarks>
     /// <history>
     /// 	[cnurse]	01/23/2007 Created
+    ///     [vnguyen]   07/09/2012 Modified
     /// </history>
     /// -----------------------------------------------------------------------------
-    public partial class UpgradeWizard : Page
+    public partial class UpgradeWizard : PageBase
     {
         #region Private Members
-
-        protected string LocalResourceFile = "~/Install/App_LocalResources/UpgradeWizard.aspx.resx";
-        private Version _dataBaseVersion;
+        
         private const string LocalesFile = "/Install/App_LocalResources/Locales.xml";
+        protected static readonly string StatusFilename = "upgradestat.log.resources.txt";
+        protected static new string LocalResourceFile = "~/Install/App_LocalResources/UpgradeWizard.aspx.resx";
+        private Version _dataBaseVersion;        
+        private static string _culture;
+        private static string[] _supportedLanguages;
+
+        private static IInstallationStep _currentStep;
+        private static bool _upgradeRunning;
+        private static int _upgradeProgress;
+        private static bool _isAuthenticated = false;
 
         #endregion
 
         #region Protected Members
-
         protected Version ApplicationVersion
         {
             get
@@ -86,7 +84,6 @@ namespace DotNetNuke.Services.Install
                 return DotNetNukeContext.Current.Application.Version;
             }
         }
-
         protected Version DatabaseVersion
         {
             get
@@ -94,168 +91,229 @@ namespace DotNetNuke.Services.Install
                 return _dataBaseVersion ?? (_dataBaseVersion = DataProvider.Instance().GetVersion());
             }
         }
-
         #endregion
 
-        #region Private Methods
-
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// EnableButton enables/Disables a Navigation Button
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/28/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private static void EnableButton(LinkButton button, bool enabled)
+        #region Private Properties
+        private static string StatusFile
         {
-            if (button != null)
+            get
             {
-                button.OnClientClick = "return !checkDisabled(this);";
-                button.CssClass = enabled
-                                    ? ((button.CommandName == "MoveNext") ? "dnnPrimaryAction" : "dnnSecondaryAction")
-                                    : "dnnPrimaryAction dnnDisabledAction";
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Install", StatusFilename);
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// GetInstallerLocales gets an ArrayList of the Locales
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private static ArrayList GetInstallerLocales()
+        private static bool IsAuthenticated
         {
-            ArrayList supportedLocales = new ArrayList();
-            string filePath = Globals.ApplicationMapPath + LocalesFile.Replace("/", "\\");
+            get
+            {
+                return _isAuthenticated;
+            }
+            set
+            {
+                _isAuthenticated = value;
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        private void LocalizePage()
+        {
+            SetBrowserLanguage();
+            versionLabel.Text = string.Format(LocalizeString("Version"), Globals.FormatVersion(ApplicationVersion));
+            currentVersionLabel.Text = string.Format(LocalizeString("CurrentVersion"), Globals.FormatVersion(DatabaseVersion));
+        }
+
+        private static void GetInstallerLocales()
+        {
+            var filePath = Globals.ApplicationMapPath + LocalesFile.Replace("/", "\\");
 
             if (File.Exists(filePath))
             {
-                XPathDocument doc = new XPathDocument(filePath);
-                foreach (XPathNavigator nav in doc.CreateNavigator().Select("root/language"))
-                {
-                    if (nav.NodeType != XPathNodeType.Comment)
-                    {
-                        Locale objLocale = new Locale();
-                        objLocale.Text = nav.GetAttribute("name", "");
-                        objLocale.Code = nav.GetAttribute("key", "");
-                        objLocale.Fallback = nav.GetAttribute("fallback", "");
+                var doc = new XPathDocument(filePath);
+                var languages = doc.CreateNavigator().Select("root/language");
 
-                        supportedLocales.Add(objLocale);
+                if (languages.Count > 0)
+                {
+                    _supportedLanguages = new string[languages.Count];
+                    var i = 0;
+                    foreach (XPathNavigator nav in languages)
+                    {
+                        if (nav.NodeType != XPathNodeType.Comment)
+                        {
+                            _supportedLanguages.SetValue(nav.GetAttribute("key", ""), i);
+                        }
+                        i++;
                     }
+                }
+                else
+                {
+                    _supportedLanguages = new string[1];
+                    _supportedLanguages.SetValue("en-US", 0);
                 }
             }
             else
             {
-                Locale objLocale = new Locale();
-                objLocale.Text = "English";
-                objLocale.Code = "en-US";
-                objLocale.Fallback = "";
-                supportedLocales.Add(objLocale);
+                _supportedLanguages = new string[1];
+                _supportedLanguages.SetValue("en-US",0);
             }
-            return supportedLocales;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// GetWizardButton gets a wizard button from the template
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/28/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private LinkButton GetWizardButton(string containerID, string buttonID)
+        private void SetBrowserLanguage()
         {
-            Control navContainer = wizInstall.FindControl(containerID);
-            LinkButton button = null;
-            if (navContainer != null)
+            string cultureCode;
+            if (string.IsNullOrEmpty(PageLocale.Value) && string.IsNullOrEmpty(_culture))
             {
-                button = navContainer.FindControl(buttonID) as LinkButton;
+                cultureCode = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(_supportedLanguages);
             }
-            return button;
+            else if (string.IsNullOrEmpty(PageLocale.Value) && !string.IsNullOrEmpty(_culture))
+            {
+                cultureCode = _culture;
+            }
+            else
+            {
+                cultureCode = PageLocale.Value;
+            }
+
+            PageLocale.Value = cultureCode;
+            _culture = cultureCode;
+
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureCode);
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// LocalizePage sets up the Localized Text
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/09/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void LocalizePage()
+        private static string LocalizeStringStatic(string key)
         {
-            //Main Title
-            Title = LocalizeString("Title");
+            return Localization.Localization.GetString(key, LocalResourceFile, _culture);
+        }
+        
+        private static void LaunchUpgrade()
+        {
+            //Get current Script time-out
+            var scriptTimeOut = HttpContext.Current.Server.ScriptTimeout;
 
-            //Page Titles
-            for (int i = 0; i <= wizInstall.WizardSteps.Count - 1; i++)
+            //Set Script timeout to MAX value
+            HttpContext.Current.Server.ScriptTimeout = int.MaxValue;
+
+            if (_culture != null) Thread.CurrentThread.CurrentUICulture = new CultureInfo(_culture);
+
+            //bail out early if upgrade is in progress
+            if (_upgradeRunning)
+                return;
+
+            var percentForEachStep = 100 / _steps.Count;
+            var useGenericPercent = false;
+            var totalPercent = _steps.Sum(step => step.Value);
+            if (totalPercent != 100) useGenericPercent = true;
+
+            _upgradeRunning = true;
+            _upgradeProgress = 0;
+
+            foreach (var step in _steps)
             {
-                wizInstall.WizardSteps[i].Title = LocalizeString("Page" + i + ".Title");
+                _currentStep = step.Key;
+
+                try
+                {
+                    _currentStep.Activity += CurrentStepActivity;
+                    _currentStep.Execute();
+                }
+                catch (Exception ex)
+                {
+                    CurrentStepActivity(Localization.Localization.GetString("ErrorInStep", LocalResourceFile) + ": " + ex.Message);
+                    _upgradeRunning = false;
+                    return;
+                }
+                switch (_currentStep.Status)
+                {
+                    case StepStatus.AppRestart:
+                        _upgradeRunning = false;
+                        HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl, true);
+                        break;
+                    default:
+                        if (_currentStep.Status != StepStatus.Done)
+                        {
+                            CurrentStepActivity(string.Format(Localization.Localization.GetString("ErrorInStep", LocalResourceFile)
+                                                                                                  , _currentStep.Errors.Count > 0 ? string.Join(",", _currentStep.Errors.ToArray()) : _currentStep.Details));
+                            _upgradeRunning = false;
+                            return;
+                        }
+                        break;
+                }
+                if (useGenericPercent)
+                    _upgradeProgress += percentForEachStep;
+                else
+                    _upgradeProgress += step.Value;
             }
 
-            //Wizard Buttons
-            LinkButton nextButton = GetWizardButton("StepNavigationTemplateContainerID", "StepNextButton");
-            nextButton.Text = LocalizeString("Next");
+            _currentStep = null;
+            _upgradeProgress = 100;
+            CurrentStepActivity(Localization.Localization.GetString("UpgradeDone", LocalResourceFile));
 
-            nextButton = GetWizardButton("StartNavigationTemplateContainerID", "StartNextButton");
-            nextButton.Text = LocalizeString("Next");
+            //indicate we are done
+            _upgradeRunning = false;
 
-            LinkButton previousButton = GetWizardButton("StepNavigationTemplateContainerID", "StepPreviousButton");
-            previousButton.Text = LocalizeString("Previous");
+            //restore Script timeout
+            HttpContext.Current.Server.ScriptTimeout = scriptTimeOut;
 
-            switch (wizInstall.ActiveStepIndex)
+        }
+
+        private static void CurrentStepActivity(string status)
+        {
+            var percentage = (_currentStep == null) ? _upgradeProgress : _upgradeProgress + (_currentStep.Percentage / _steps.Count);
+            var obj = new
             {
-                case 0: //Page 0 - Welcome
-                    versionLabel.Text = string.Format(LocalizeString("Version"), Globals.FormatVersion(ApplicationVersion));
-                    currentVersionLabel.Text = string.Format(LocalizeString("CurrentVersion"), Globals.FormatVersion(DatabaseVersion));
-                    introDetailLabel.Text = LocalizeString("IntroDetail");
-                    bestPracticesLabel.Text = LocalizeString("BestPractices");
-                    
-                    break;
+                progress = percentage,
+                details = status,
+                check0 = upgradeDatabase.Status.ToString() + (upgradeDatabase.Errors.Count == 0 ? "" : " Errors " + upgradeDatabase.Errors.Count),
+                check1 = upgradeExtensions.Status.ToString() + (upgradeExtensions.Errors.Count == 0 ? "" : " Errors " + upgradeExtensions.Errors.Count)
+            };
+
+            try
+            {
+                if (!File.Exists(StatusFile)) File.CreateText(StatusFile);
+                var sw = new StreamWriter(StatusFile, true);
+                sw.WriteLine(obj.ToJson());
+                sw.Close();
+            }
+            catch (Exception)
+            {
+                //TODO - do something                
             }
         }
 
+		private void CompleteUpgrade()
+        {
+            //Delete the status file.
+            try
+            {
+                File.Delete(StatusFile);
+            }
+            catch (Exception)
+            {
+                //Do nothing
+            }
+
+            //remove installwizard files added back by upgrade package
+            Upgrade.Upgrade.DeleteInstallerFiles();
+
+            Config.Touch();
+            Response.Redirect("../Default.aspx", true);
+        }
         #endregion
 
         #region Protected Methods
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// LocalizeString is a helper function for localizing strings
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected string LocalizeString(string key)
         {
-            return Localization.Localization.GetString(key, LocalResourceFile, cboLanguages.SelectedValue.ToLower());
+            return Localization.Localization.GetString(key, LocalResourceFile, _culture);
         }
-
+        
         protected override void OnError(EventArgs e)
         {
             HttpContext.Current.Response.Clear();
             HttpContext.Current.Server.Transfer("~/ErrorPage.aspx");
         }
-
         #endregion
 
         #region Event Handlers
-
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Page_Init runs when the Page is initialised
@@ -269,9 +327,7 @@ namespace DotNetNuke.Services.Install
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
-
-            cboLanguages.SelectedIndexChanged += cboLanguages_SelectedIndexChanged;
-            wizInstall.NextButtonClick += wizInstall_NextButtonClick;
+            GetInstallerLocales();
         }
 
         /// -----------------------------------------------------------------------------
@@ -287,81 +343,110 @@ namespace DotNetNuke.Services.Install
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            LocalizePage();
 
-
+			if (Request.RawUrl.EndsWith("?complete"))
+			{
+				CompleteUpgrade();
+			}
+            
+            //Create Status Files
             if (!Page.IsPostBack)
             {
-                cboLanguages.DataSource = GetInstallerLocales();
-                cboLanguages.DataBind();
-                SelectBrowserLanguage(); 
-                wizInstall.ActiveStepIndex = 0;
-
-                LocalizePage();
-
+                if (!File.Exists(StatusFile)) File.CreateText(StatusFile).Close();
             }
         }
+        #endregion
+        
+        #region "Web Methods"
+        //steps shown in UI
+        static IInstallationStep upgradeDatabase = new InstallDatabaseStep();
+        static IInstallationStep upgradeExtensions = new InstallExtensionsStep();
 
-        private void SelectBrowserLanguage()
+        //Ordered List of Steps (and weight in percentage) to be executed
+        private static IDictionary<IInstallationStep, int> _steps = new Dictionary<IInstallationStep, int>
+                                        { {upgradeDatabase, 50}, {upgradeExtensions, 49}, {new InstallVersionStep(), 1} };
+
+        [System.Web.Services.WebMethod()]
+        public static Tuple<bool, string> ValidateInput(Dictionary<string, string> accountInfo)
         {
-            IList<string> codes = new List<string>();
-            foreach(ListItem item in cboLanguages.Items)
+            string errorMsg;
+            var result = VerifyHostUser(accountInfo, out errorMsg);
+
+            return new Tuple<bool, string>(result, errorMsg);
+        }
+
+        private static bool VerifyHostUser(Dictionary<string, string> accountInfo, out string errorMsg)
+        {
+            var result = true;
+            errorMsg = string.Empty;
+
+            UserLoginStatus loginStatus = UserLoginStatus.LOGIN_FAILURE;
+            UserInfo hostUser = UserController.ValidateUser(-1, accountInfo["username"], accountInfo["password"], "DNN", "", "", AuthenticationLoginBase.GetIPAddress(), ref loginStatus);
+
+            if (loginStatus == UserLoginStatus.LOGIN_FAILURE || !hostUser.IsSuperUser)
             {
-                codes.Add(item.Value);
+                result = false;
+                errorMsg = LocalizeStringStatic("InvalidCredentials");
             }
-            string cultureCode = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(codes);
-
-            cboLanguages.Items.FindByValue(cultureCode).Selected = true;
-        }
-
-        // ReSharper disable InconsistentNaming
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Selected Language is changed
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/09/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void cboLanguages_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LocalizePage();
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Wizard's Next button is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/20/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void wizInstall_NextButtonClick(object sender, WizardNavigationEventArgs e)
-        {
-            switch (e.CurrentStepIndex)
+            else
             {
-                case 0:
-                    //validate user
-                    UserLoginStatus loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                    UserInfo hostUser = UserController.ValidateUser(-1, userNameTextBox.Text, passwordTextBox.Text, "DNN", "", "", AuthenticationLoginBase.GetIPAddress(), ref loginStatus);
-
-                    if (loginStatus != UserLoginStatus.LOGIN_FAILURE && hostUser.IsSuperUser)
-                    {
-                        Response.Redirect("~/Install/Install.aspx?mode=upgrade");
-                    }
-                    else
-                    {
-                        Response.Redirect("~/Install/UpgradeWizard.aspx");
-                    }
-                    break;
+                IsAuthenticated = true;
             }
+            return result;
         }
 
-        // ReSharper restore InconsistentNaming
+        [System.Web.Services.WebMethod()]
+        public static void RunUpgrade(Dictionary<string, string> accountInfo)
+        {
+            string errorMsg;
+            var result = VerifyHostUser(accountInfo, out errorMsg);
+
+           if (result==true)
+           {
+            _upgradeRunning = false;
+            LaunchUpgrade();
+           }
+        }
+
+        [System.Web.Services.WebMethod()]
+        public static object GetInstallationLog(int startRow)
+        {
+            if (IsAuthenticated == false) return string.Empty;
+
+            var data = string.Empty;
+            string logFile = "InstallerLog" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + ".resources";
+            try
+            {
+                var lines = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Portals", "_default", "logs", logFile));
+                var errorLogged = false;
+                if (lines.Length > startRow)
+                {
+                    var count = lines.Length - startRow > 500 ? 500 : lines.Length - startRow;
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    for (var i = startRow; i < startRow + count; i++)
+                    {
+                        if (lines[i].Contains("[ERROR]"))
+                        {
+                            sb.Append(lines[i]);
+                            sb.Append("<br/>");
+                            errorLogged = true;
+                        }
+                    }
+
+                    data = sb.ToString();
+                }
+                if (errorLogged == false)
+                {
+                    Localization.Localization.GetString("NoErrorsLogged", "~/Install/App_LocalResources/InstallWizard.aspx.resx");
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            return data;
+        }
 
         #endregion
     }

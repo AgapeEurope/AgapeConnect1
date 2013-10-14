@@ -7,18 +7,19 @@
 	<fieldset>
 		<div class="dnnFormItem">
 			<dnn:Label ID="lblProfile" runat="server" ControlName="ddlProfileList" />
-			<asp:DropDownList ID="ddlProfileList" runat="server" Width="300" AutoPostBack="true" />
+			<%--<asp:DropDownList ID="ddlProfileList" runat="server" Width="300" AutoPostBack="true" />--%>
+            <dnn:DnnComboBox ID="ddlProfileList" runat="server" OnClientSelectedIndexChanged="ddlProfileListIndexChanged" />
 		</div>
 		<div class="dnnFormItem">
 			<dnn:Label ID="lblOrientation" runat="server" ControlName="rblOrientation" />
-			<asp:RadioButtonList ID="rblOrientation" runat="server" RepeatColumns="2" RepeatDirection="Horizontal" AutoPostBack="true">
+			<asp:RadioButtonList ID="rblOrientation" runat="server" RepeatColumns="2" RepeatDirection="Horizontal">
 				<asp:ListItem Value="vertical" resourcekey="Vertical" Selected="true"></asp:ListItem>
 				<asp:ListItem Value="horizontal" resourcekey="Horizontal"></asp:ListItem>			
 			</asp:RadioButtonList>
 		</div>
 		<div class="dnnFormItem">
 			<dnn:Label ID="lblSendAgent" runat="server" ControlName="cbSendAgent" />
-			<asp:CheckBox ID="cbSendAgent" runat="server" Checked="true" AutoPostBack="true"/>
+			<asp:CheckBox ID="cbSendAgent" runat="server" Checked="true" />
 		</div>
 		<div class="dnnFormItem">
 			<dnn:Label ID="lblDimensions" runat="server" ControlName="ddlProfileList" />
@@ -40,52 +41,65 @@
 	</fieldset>
 </div>
 <script type="text/javascript">
+
+    var ddlProfileListIndexChanged = function (sender, e) {       
+        changeView();
+    };
+
+    var changeView = function () {
+        var emulator = $("#emulator").previewEmulator();
+        var showDimensionId = "#<%=cbShowDimensions.ClientID %>";
+        var previewWithAgentId = "#<%=cbSendAgent.ClientID %>";
+        var orientationFilter = "input[type=radio][name$=rblOrientation]";
+
+        var combo = $find("<%= ddlProfileList.ClientID %>");
+        var device = combo.get_value();
+        var sizeValue = eval("({" + device + "})");
+        var orientation = $(orientationFilter + ":checked").val();
+        emulator.previewWithAgent($(previewWithAgentId)[0].checked);
+        if (orientation == "vertical") {
+            if (!($(previewWithAgentId)[0].checked)) {
+                emulator.setPreview(sizeValue.width, sizeValue.height);
+            }
+            else {
+                emulator.setPreview(sizeValue.width, sizeValue.height, sizeValue.userAgent);
+            }
+        }
+        else {
+            if (!($(previewWithAgentId)[0].checked)) {
+                emulator.setPreview(sizeValue.height, sizeValue.width);
+            }
+            else {
+                emulator.setPreview(sizeValue.height, sizeValue.width, sizeValue.userAgent);
+            }
+        }
+    };
+    
 (function ($) {
-	$(document).ready(function () {
-		var emulator = $("#emulator").previewEmulator();
-		var deviceListId = "#<%=ddlProfileList.ClientID %>";
-		var showDimensionId = "#<%=cbShowDimensions.ClientID %>";
-		var previewWithAgentId = "#<%=cbSendAgent.ClientID %>";
-		var orientationFilter = "input[type=radio][name$=rblOrientation]";
-		$(deviceListId).change(function () {		    
-			changeView();
-		});
+    $(document).ready(function () {
 
-		var changeView = function () {
-			var sizeValue = eval("({" + $(deviceListId).val() + "})");
-			var orientation = $(orientationFilter + ":checked").val();
-			if (orientation == "vertical") {
-			    if (!($(previewWithAgentId)[0].checked)) {
-			        emulator.setPreview(sizeValue.width, sizeValue.height);
-			    } 
-			    else {
-			        emulator.setPreview(sizeValue.width, sizeValue.height, sizeValue.userAgent);
-			    }
-			}
-			else {
-			    if (!($(previewWithAgentId)[0].checked)) {
-			        emulator.setPreview(sizeValue.height, sizeValue.width);
-			    } 
-			    else {
-			        emulator.setPreview(sizeValue.height, sizeValue.width, sizeValue.userAgent);
-			    }
-			}
-		};
+        var emulator = $("#emulator").previewEmulator();        
+        var showDimensionId = "#<%=cbShowDimensions.ClientID %>";
+        var previewWithAgentId = "#<%=cbSendAgent.ClientID %>";
+        var orientationFilter = "input[type=radio][name$=rblOrientation]";
 
-		$(orientationFilter).click(function () {
-			changeView();
-		});
+        $(orientationFilter).change(function () {
+            changeView();
+        });
 
-		$(showDimensionId).click(function () {
-			emulator.showDimension(this.checked);
-		});
+        $(showDimensionId).change(function () {
+            emulator.showDimension(this.checked);
+        });
 
-		$(previewWithAgentId).click(function () {
-			emulator.previewWithAgent(this.checked);
-			changeView();
-		});
+        $(previewWithAgentId).change(function () {
+            changeView();
+        });
 
-		changeView();
-	});
+        setTimeout(changeView, 100);
+    });
 })(jQuery);
+
+
+
+
 </script>

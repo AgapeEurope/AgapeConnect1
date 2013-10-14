@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -122,6 +122,30 @@ namespace DotNetNuke.UI.Skins.Controls
                 _siteIconURL = value;
             }
         }
+                
+        public string SeeMoreText
+        {
+            get
+            {
+                return Localization.GetSafeJSString("SeeMoreResults", Localization.GetResourceFile(this, MyFileName));
+            }
+        }
+
+        public string NoResultText
+        {
+            get
+            {
+                return Localization.GetSafeJSString("NoResult", Localization.GetResourceFile(this, MyFileName));
+            }
+        }
+
+        public string PlaceHolderText
+        {
+            get
+            {
+                return Localization.GetSafeJSString("Placeholder", Localization.GetResourceFile(this, MyFileName));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the text for the "site" radio button or option list item.
@@ -166,7 +190,7 @@ namespace DotNetNuke.UI.Skins.Controls
                 _siteToolTip = value;
             }
         }
-
+        
         /// <summary>
         /// Gets or sets the URL for doing web based site searches.
         /// </summary>
@@ -306,6 +330,28 @@ namespace DotNetNuke.UI.Skins.Controls
             }
         }
 
+        /// <summary>
+        /// minium chars required to trigger auto search
+        /// </summary>
+        public int MinCharRequired { get; set; }
+
+        /// <summary>
+        /// The millisecond to delay trigger auto search
+        /// </summary>
+        public int AutoSearchDelayInMilliSecond { get; set; }
+
+        private bool _enableWildSearch = true;
+        /// <summary>
+        /// Disable the wild search
+        /// </summary>
+        public bool EnableWildSearch { get { return _enableWildSearch; } set { _enableWildSearch = value; } }
+
+        protected int PortalId { get; set; }
+
+        protected string SearchType { get; set; }
+
+        protected string CultureCode { get; set; }
+
         #endregion
 
         #region Private Methods
@@ -411,27 +457,32 @@ namespace DotNetNuke.UI.Skins.Controls
 
         #region Event Handlers
 
-
         /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+                        
+            Framework.jQuery.RegisterDnnJQueryPlugins(this.Page);
+            Framework.ServicesFramework.Instance.RequestAjaxAntiForgerySupport();
+            ClientResourceManager.RegisterStyleSheet(Page, "~/Resources/Search/SearchSkinObjectPreview.css");
+            ClientResourceManager.RegisterScript(Page, "~/Resources/Search/SearchSkinObjectPreview.js");
+            
 
-            cmdSearch.Click += cmdSearch_Click;
-            cmdSearchNew.Click += cmdSearchNew_Click;
+            cmdSearch.Click += CmdSearchClick;
+            cmdSearchNew.Click += CmdSearchNewClick;
 
             if (!Page.IsPostBack)
             {
-                ClientAPI.RegisterKeyCapture(txtSearch, cmdSearch, 13);
-                ClientAPI.RegisterKeyCapture(txtSearchNew, cmdSearchNew, 13);
+                if (MinCharRequired == 0) MinCharRequired = 2;
+                if (AutoSearchDelayInMilliSecond == 0) AutoSearchDelayInMilliSecond = 400;
+                PortalId = PortalSettings.ActiveTab.IsSuperTab ? PortalSettings.PortalId : -1;
 
                 if (!String.IsNullOrEmpty(Submit))
                 {
-                    if (Submit.IndexOf("src=") != -1)
+                    if (Submit.IndexOf("src=", StringComparison.Ordinal) != -1)
                     {
                         Submit = Submit.Replace("src=\"", "src=\"" + PortalSettings.ActiveTab.SkinPath);
                         Submit = Submit.Replace("src='", "src='" + PortalSettings.ActiveTab.SkinPath);
@@ -450,12 +501,6 @@ namespace DotNetNuke.UI.Skins.Controls
                     cmdSearch.CssClass = CssClass;
                     cmdSearchNew.CssClass = CssClass;
                 }
-
-                if (Request.QueryString["Search"] != null)
-                {
-                    txtSearch.Text = Request.QueryString["Search"];
-                    txtSearchNew.Text = Request.QueryString["Search"];
-                }
             }
         }
 
@@ -465,9 +510,9 @@ namespace DotNetNuke.UI.Skins.Controls
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         /// <remarks>This event is only used when <see cref="UseDropDownList">UseDropDownList</see> is false.</remarks>
-        private void cmdSearch_Click(object sender, EventArgs e)
+        private void CmdSearchClick(object sender, EventArgs e)
         {
-            string SearchType = "S";
+            SearchType = "S";
             if (WebRadioButton.Visible)
             {
                 if (WebRadioButton.Checked)
@@ -484,9 +529,10 @@ namespace DotNetNuke.UI.Skins.Controls
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         /// <remarks>This event is only used when <see cref="UseDropDownList">UseDropDownList</see> is true.</remarks>
-        protected void cmdSearchNew_Click(object sender, EventArgs e)
+        protected void CmdSearchNewClick(object sender, EventArgs e)
         {
-            ExecuteSearch(txtSearchNew.Text.Trim(), ClientAPI.GetClientVariable(Page, "SearchIconSelected"));
+            SearchType = ClientAPI.GetClientVariable(Page, "SearchIconSelected");
+            ExecuteSearch(txtSearchNew.Text.Trim(), SearchType);
         }
 
         /// <summary>
@@ -500,7 +546,8 @@ namespace DotNetNuke.UI.Skins.Controls
 
             ClassicSearch.Visible = !UseDropDownList;
             DropDownSearch.Visible = UseDropDownList;
-
+            CultureCode = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+            
             if (UseDropDownList)
             {
                 //Client Variables will survive a postback so there is no reason to register them.
@@ -515,17 +562,19 @@ namespace DotNetNuke.UI.Skins.Controls
 
                     //We are going to use a dnn client variable to store which search option (web/site) is selected.
                     ClientAPI.RegisterClientVariable(Page, "SearchIconSelected", "S", true);
+                    SearchType = "S";
                 }
 
                 ClientAPI.RegisterClientReference(this.Page, ClientAPI.ClientNamespaceReferences.dnn);
                 ClientResourceManager.RegisterScript(Page, "~/Resources/Search/Search.js", FileOrder.Js.DefaultPriority, "DnnFormBottomProvider");
+
+                txtSearchNew.Attributes.Add("autocomplete", "off");
+                txtSearchNew.Attributes.Add("placeholder", PlaceHolderText);
             }
             else
             {
-
                 if (!Page.IsPostBack)
                 {
-
                     WebRadioButton.Visible = ShowWeb;
                     SiteRadioButton.Visible = ShowSite;
 
@@ -542,10 +591,10 @@ namespace DotNetNuke.UI.Skins.Controls
                         SiteRadioButton.ToolTip = SiteToolTip;
                     }
 
-
+                    SearchType = "S";
+                    txtSearch.Attributes.Add("autocomplete", "off");
+                    txtSearch.Attributes.Add("placeholder", PlaceHolderText);
                 }
-
-
             }
         }
 

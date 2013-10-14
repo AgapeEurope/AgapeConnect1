@@ -1,44 +1,66 @@
-<%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.Admin.Extensions.MoreExtensions" CodeFile="MoreExtensions.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.Admin.Extensions.MoreExtensions"
+    CodeFile="MoreExtensions.ascx.cs" %>
 <%@ Import Namespace="DotNetNuke.Entities.Icons" %>
-<%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>  
+<%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div id="dnnCatalog" class="dnnForm dnnCatalog dnnClear">
     <span id="loading" class="dnnCatalogLoading">Loading...</span>
+    <div class="dnnCatalogSearch">
+        <div class="dnnFormItem">            
+            <dnn:Label ID="dnnlblType" runat="server" ResourceKey="CatalogSearchTitle" ControlName="typeDDL" />
+            <input type="text" id="searchText" title="<%=LocalizeString("SearchLabel.Help")%>" />
+            <dnn:DnnComboBox ID="typeDDL" runat="server" OnClientSelectedIndexChanged="typeDDLchanged">
+                <Items>
+                    <dnn:DnnComboBoxItem Value="all" Text="All" />
+                    <dnn:DnnComboBoxItem Value="module" Text="Module" ResourceKey="CatalogModule" />
+                    <dnn:DnnComboBoxItem Value="skin" Text="Skin" ResourceKey="CatalogSkin" />
+                </Items>
+            </dnn:DnnComboBox>
+
+            <div class="dnnSearchActionBar">
+            <a href="javascript:void(0);" id="search-go" class="dnnPrimaryAction">
+                <%=LocalizeString("Search")%></a> <a href="javascript:void(0);" id="search-reset"
+                    class="dnnSecondaryAction">
+                    <%=LocalizeString("ClearSearch")%></a>
+            </div>
+        </div>
+    </div>
+    <div class="dnnClear"></div>
     <div class="dnnCatalogTags">
-        <div class="dnnCatalogSearch">
-            <h2 class="dnnGallerySubHeading"><%=LocalizeString("CatalogSearchTitle") %></h2>
-            <div class="dnnFormItem">
-                <dnn:Label ID="dnnlblType" runat="server" ResourceKey="TypeLabel" ControlName="typeDDL" />
-                <select id="typeDDL">
-                    <option value="all">All</option>
-                    <option selected="selected" value="module"><%=LocalizeString("CatalogModule") %></option>
-                    <option value="skin"><%=LocalizeString("CatalogSkin") %></option>
-                </select>        
-            </div>
-            <div class="dnnFormItem">
-                <dnn:Label ID="dnnlblSearch" runat="server" ResourceKey="SearchLabel" ControlName="searchText" />
-                <input type="text" id="searchText" title="<%=LocalizeString("SearchLabel.Help")%>" />        
-            </div>
-            <div class="dnnClear">
-               <a href="javascript:void(0);" id="search-go" class="dnnPrimaryAction"><%=LocalizeString("Search")%></a>
-               <a href="javascript:void(0);" id="search-reset" class="dnnSecondaryAction"><%=LocalizeString("ClearSearch")%></a>
-            </div>
-        </div>      
-        <h2 class="dnnGallerySubHeading"><%=LocalizeString("TagCloud")%></h2>
-        <div class="dnnCatalogTagList dnnClear" id="tag-list"></div>
+        <h2 class="dnnGallerySubHeading">
+            <%=LocalizeString("TagCloud")%></h2>
+        <div class="dnnCatalogTagList dnnClear" id="tag-list">
+        </div>
         <div class="dnnFormMessage dnnFormInfo">
             <% =LocalizeString("ListExtensions") %>
         </div>
     </div>
     <div class="dnnCatalogListing">
-        <div id="extensionDetail"><div id="extensionDetailInner"></div></div>
-        <h2 class="dnnGallerySubHeading"><%=LocalizeString("Extensions")%></h2>
+        <div id="extensionDetail">
+            <div id="extensionDetailInner">
+            </div>
+        </div>
+      <%--  <h2 class="dnnGallerySubHeading">
+            <%=LocalizeString("Extensions")%></h2>--%>
         <fieldset id="extensionsSummary">
             <div class="sort-options fullWidth-Center">
-               <span class="sort-button-off"><a href="javascript:void(0);" id="NameSorter"><%=LocalizeString("NameZA") %></a></span> 
-               <span class="sort-button-off"><a href="javascript:void(0);" id="PriceSorter"><%=LocalizeString("PriceHighLow")%></a></span>
+                <ul class="dnnButtonGroup">
+                    <li class="dnnButtonGroup-first"></li>
+                    <li>
+                        <span class="sort-button-off"><a href="javascript:void(0);" id="NameSorter">
+                    <%=LocalizeString("NameZA") %></a></span>
+                    </li>
+                    <li>
+                        <span class="sort-button-off"><a href="javascript:void(0);"
+                        id="PriceSorter">
+                        <%=LocalizeString("PriceHighLow")%></a></span>
+                    </li>
+                </ul>
             </div>
-            <div id="searchFilters" class="dnnSearchFilters dnnClear"></div>
-            <div id="extensionList" class="extensionList"></div>
+            <div id="searchFilters" class="dnnSearchFilters dnnClear">
+            </div>
+            <div id="extensionList" class="extensionList">
+            </div>
         </fieldset>
     </div>
     <script id="tag-tmpl" type="text/html">
@@ -100,8 +122,8 @@
                         </div>
             
 
-                        {{if CatalogID !== 1 && DownloadURL }}<a class="dnnPrimaryAction" href="${_gallery.getDownloadUrl(ExtensionID)}">Deploy ${Title}</a>{{/if}}
-                        {{if CatalogID === 1}}<a class="dnnPrimaryAction" href="${DetailURL}&PackageOptionID=0&action=Add" target="_cart">Buy ${Title}</a>{{/if}}
+                        {{if CatalogID !== 1 && DownloadURL }}<a class="dnnSecondaryAction" href="${_gallery.getDownloadUrl(ExtensionID)}">Deploy ${Title}</a>{{/if}}
+                        {{if CatalogID === 1}}<a class="dnnSecondaryAction" href="${DetailURL}&PackageOptionID=0&action=Add" target="_cart">Buy ${Title}</a>{{/if}}
             
  
                         
@@ -110,7 +132,6 @@
              {{/if}}
          {{/if}}
     </script>
-    
     <script type="text/javascript">
 		var _gallery; //global scope!
 		(function($){
@@ -145,5 +166,12 @@
 				}, 0);
 			});
 		}(jQuery));
+
+        function typeDDLchanged(sender, e){
+            var v = sender.get_value();
+            if(v){
+                _gallery.FilterGallery2(v);
+            }
+        }
     </script>
 </div>

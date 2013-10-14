@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.CoreMessaging.View" CodeBehind="View.ascx.cs" %>
+<%@ Import Namespace="DotNetNuke.Common.Utilities" %>
 <%@ Import Namespace="DotNetNuke.Services.Localization" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
@@ -12,12 +13,13 @@
 <dnn:DnnJsInclude ID="DnnJsInclude4" runat="server" FilePath="~/Resources/Shared/Components/Tokeninput/jquery.tokeninput.js" Priority="103" />
 <dnn:DnnCssInclude ID="DnnCssInclude3" runat="server" FilePath="~/Resources/Shared/Components/Tokeninput/Themes/token-input-facebook.css" />
 <dnn:DnnJsInclude ID="DnnJsInclude5" runat="server" FilePath="~/Resources/Shared/Scripts/jquery.history.js" Priority="104" />
+<dnn:DnnJsInclude ID="DnnJsInclude6" runat="server" FilePath="~/Resources/Shared/Components/UserFileManager/jquery.dnnUserFileUpload.js" Priority="106" />
 
 <div id="coreMessaging" runat="server">
     <div id="smMainContent" class="dnnForm DnnModule-Messaging-Notifications">
         <ul class="dnnAdminTabNav">
-            <li><a href="#dnnCoreMessaging" data-bind="click: loadMessagesTab, attr: { title: TotalNewThreads() + '<%=LocalizeString("NewUnreadMessages") %>'}"><span data-bind="text: TotalNewThreads, visible: TotalNewThreads() > 0"></span><%=LocalizeString("Messages") %></a></li>
-            <li><a href="#dnnCoreNotification" data-bind="click: loadNotificationsTab, attr: {title: TotalNotifications() + '<%=LocalizeString("TotalNotifications") %>'}"><span data-bind="text: TotalNotifications, visible: TotalNotifications() > 0"></span><%=LocalizeString("Notifications") %></a></li>
+            <li><a href="#dnnCoreMessaging" data-bind="click: loadMessagesTab, attr: { title: TotalNewThreads() + '<%=LocalizeString("NewUnreadMessages") %>    '}"><span data-bind="    text: TotalNewThreads, visible: TotalNewThreads() > 0"></span><%=LocalizeString("Messages") %></a></li>
+            <li><a href="#dnnCoreNotification" data-bind="click: loadNotificationsTab, attr: {title: TotalNotifications() + '<%=LocalizeString("TotalNotifications") %>    '}"><span data-bind="    text: TotalNotifications, visible: TotalNotifications() > 0"></span><%=LocalizeString("Notifications") %></a></li>
         </ul>
         <!-- start core messaging -->
         <div class="coreMessaging" id="dnnCoreMessaging">
@@ -27,24 +29,26 @@
                 <div class="messageControls dnnClear">
                     <!-- GROUP ACTIONS: ARRANGE | ORDER | FILTER -->
                     <div class="messageFolders">
-                        <p><strong data-bind="text: getPageNumbers()"></strong><%=LocalizeString("Of")%><strong data-bind="text: TotalConversations"></strong></p>
-                        <ul class="buttonGroup">
+                        <p><strong data-bind="text: getPageNumbers()"></strong><%=LocalizeString("Of")%><strong data-bind="    text: TotalConversations"></strong></p>
+                        <ul class="dnnButtonGroup">
+							<li class="dnnButtonGroup-first"></li>
                             <li class="alpha">
-                                <a href="#" class="dnnTertiaryAction" title='<%=LocalizeString("Conversations")%>' data-bind="click: $root.myinbox, css: {'active': showInbox}"><span><%=LocalizeString("Conversations") %></span></a>
+                                <a href="#" title='<%=LocalizeString("Conversations")%>' data-bind="click: $root.myinbox, css: {'active': showInbox}"><span><%=LocalizeString("Conversations") %></span></a>
                             </li>
                             <li>
-                                <a href="#" class="dnnTertiaryAction" title='<%=LocalizeString("SentMessages")%>' data-bind="click: $root.mysentbox, css: {'active': showSentbox}"><span><%=LocalizeString("Sent")%></span></a>
+                                <a href="#" title='<%=LocalizeString("SentMessages")%>' data-bind="click: $root.mysentbox, css: {'active': showSentbox}"><span><%=LocalizeString("Sent")%></span></a>
                             </li>
                             <li class="omega">
-                                <a href="#" class="dnnTertiaryAction" title='<%=LocalizeString("ArchivedMessages")%>' data-bind="click: $root.myarchivebox, css: {'active': showArchivebox}"><span><%=LocalizeString("Archived")%></span></a>
+                                <a href="#" title='<%=LocalizeString("ArchivedMessages")%>' data-bind="click: $root.myarchivebox, css: {'active': showArchivebox}"><span><%=LocalizeString("Archived")%></span></a>
                             </li>
                         </ul>
                     </div>
                     <!-- MESSAGE SELECT: SELECT | ACTIONS | ARCHIVE -->
                     <div class="messageSelect">
-                        <ul class="buttonGroup">
+                        <ul class="dnnButtonGroup">
+							<li class="dnnButtonGroup-first"></li>
                             <li id="SelectMenu" class="alpha selectDrop" data-bind="css: { 'active': selectMenuOn }, click: toogleSelectMenu, event: { blur: toogleSelectMenu }, visible: showInbox()">
-                                <a href="#" title='<%=LocalizeString("SelectMessages")%>' class="dnnTertiaryAction"><span><%=LocalizeString("Select")%></span></a>
+                                <a href="#" title='<%=LocalizeString("SelectMessages")%>'><span><%=LocalizeString("Select")%></span></a>
                                 <ul>
                                     <li><a href="#" data-bind="click: $root.selectAll"><%=LocalizeString("All")%></a></li>
                                     <li><a href="#" data-bind="click: $root.selectNone"><%=LocalizeString("None")%></a></li>
@@ -52,16 +56,19 @@
                                     <li><a href="#" data-bind="click: $root.selectUnread"><%=LocalizeString("Unread")%></a></li>
                                 </ul>
                             </li>
-                            <li id="ActionsMenu" class="omega selectDrop" data-bind="css: { 'active': actionsMenuOn }, click: toogleActionsMenu, event: { blur: toogleActionsMenu }, visible: showInbox()">
-                                <a href="#" title='<%=LocalizeString("ApplyActionToMessages")%>' class="dnnTertiaryAction" data-bind="css: { 'disabled': !hasElementsSelected() }"><span><%=LocalizeString("Actions")%></span></a>
+                            <li id="ActionsMenu" class="selectDrop" data-bind="css: { 'active': actionsMenuOn }, click: toogleActionsMenu, event: { blur: toogleActionsMenu }, visible: showInbox()">
+                                <a href="#" title='<%=LocalizeString("ApplyActionToMessages")%>' data-bind="css: { 'disabled': !hasElementsSelected() }"><span><%=LocalizeString("Actions")%></span></a>
                                 <ul>
                                     <li><a href="#" data-bind="click: moveSelectedToRead"><%=LocalizeString("MarkRead")%></a></li>
                                     <li><a href="#" data-bind="click: moveSelectedToUnread"><%=LocalizeString("MarkUnread")%></a></li>
                                     <li><a href="#" data-bind="click: moveSelectedToArchive"><%=LocalizeString("MarkArchive")%></a></li>
                                 </ul>
                             </li>
+							<li id="ArchiveButton" class="omega" data-bind="visible: showInbox()">
+								<a href="#" title='<%=LocalizeString("ArchiveMessages")%>' class="ArchiveItems" data-bind="click: moveSelectedToArchive"><span><%=LocalizeString("MarkArchive")%></span></a>
+							</li>
                         </ul>
-                        <a href="#" title='<%=LocalizeString("ArchiveMessages")%>' class="dnnTertiaryAction ArchiveItems" data-bind="click: moveSelectedToArchive, visible: showInbox()"><span><%=LocalizeString("MarkArchive")%></span></a>
+                        
                     </div>
                     <!-- MESSAGE ACTIONS: ARRANGE | ORDER | FILTER -->
                     <div class="messageActions" style="display:none">
@@ -99,22 +106,22 @@
                             <ul>
                                 <li class="ListCol-1">
                                     <label data-bind="for: MessageIDName"></label>
-                                    <input type="checkbox" data-bind="checked: messageSelected, id: MessageIDName, visible: $root.showInbox()" />
+                                    <input type="checkbox" data-bind="checked: messageSelected, id: MessageIDName, visible: $root.showInbox()" class="normalCheckBox" />
                                 </li>
-                                <li class="ListCol-2"><a class="profileImg" data-bind="attr: { href: SenderProfileUrl }"><span>
-                                    <img alt="" data-bind="attr: { src: SenderAvatar, alt: From, title: From }" /></span></a>
+                                <li class="ListCol-2"><a class="profileImg" data-bind="attr: { href: SenderProfileUrl }"><span><em>
+                                    <img alt="" data-bind="attr: { src: SenderAvatar, alt: From, title: From }" /></em></span></a>
                                 </li>
                                 <li class="ListCol-3">
                                     <dl>
                                         <dt class="subject"><a href="#" data-bind="text: Subject, click: $root.getReplies"></a></dt>
-                                        <dd class="meta"><em><%=LocalizeString("From")%>: <a data-bind="text: From, attr: { href: SenderProfileUrl }"></a></em><br/><em><%=LocalizeString("SentTo")%>: <span data-bind="text: To"></span></em></dd>
+                                        <dd class="meta"><em><%=LocalizeString("From")%>: <a data-bind="text: From, attr: { href: SenderProfileUrl }"></a></em><br/><em><%=LocalizeString("SentTo")%>: <span data-bind="    text: To"></span></em></dd>
                                         <dd class="message" data-bind="text: MessageAbstract"></dd>
                                     </dl>
                                 </li>
                                 <li class="ListCol-4">
                                     <ul class="msgActionItems">
-                                        <li><span data-bind="text: CreatedOnDate" class="smTimeStamped"></span><a href="#" class="ActiveToggle" data-bind="click: $root.toggleState, visible: $root.showInbox(), attr: { title: (Read() === true ? '<%=LocalizeString("MarkUnread")%>' : '<%=LocalizeString("MarkRead")%>') }"><span><%=LocalizeString("ReadStatusToggle")%></span></a></li>
-                                        <li class="hoverControls"><div><a href="#" data-bind="click: $root.moveToArchive, visible: $root.showInbox()"><%=LocalizeString("MarkArchive")%></a> | <a href="#" data-bind="click: $root.getRepliesAndReply"><%=LocalizeString("Reply")%></a></div></li>
+                                        <li><span data-bind="text: CreatedOnDate" class="smTimeStamped"></span><a href="#" class="ActiveToggle" data-bind="    click: $root.toggleState, visible: $root.showInbox(), attr: { title: (Read() === true ? '<%=LocalizeString("MarkUnread")%>    ' : '<%=LocalizeString("MarkRead")%>    ') }"><span><%=LocalizeString("ReadStatusToggle")%></span></a></li>
+                                        <li class="hoverControls"><div><a href="#" data-bind="click: $root.moveToArchive, visible: $root.showInbox()"><%=LocalizeString("MarkArchive")%></a> | <a href="#" data-bind="    click: $root.getRepliesAndReply"><%=LocalizeString("Reply")%></a></div></li>
                                         <li><span class="attachmentsIcon" data-bind="if: AttachmentCount"><img src='<%= ResolveUrl("images/paperClip.png") %>' alt="" /></span></li>
                                     </ul>
                                 </li>
@@ -123,7 +130,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="dnnCoreMessagingFooter"><a href="#" class="dnnPrimaryAction ComposeMessage dnnRight"><%=LocalizeString("ComposeNewMessage")%></a> <a href="#" class="dnnTertiaryAction" data-bind="click: loadMore, visible: loadMoreVisible"><%=LocalizeString("LoadMore")%></a></div>
+            <div class="dnnCoreMessagingFooter"><a href="#" class="dnnPrimaryAction ComposeMessage dnnRight"><%=LocalizeString("ComposeNewMessage")%></a> <a href="#" class="dnnTertiaryAction" data-bind="click: loadMore, visible: loadMoreVisible"><%=LocalizeString("LoadMore")%></a><div class="dnnClear"></div></div>
             <!-- /ko -->
             <!-- ko if: showReplies -->
             <div class="dnnForm DnnModule-Messaging-Details dnnClear">
@@ -131,10 +138,10 @@
                     <div class="previousMessages">
                         <div class="dnnFormMessage dnnFormSuccess successMsg" style="display: none"></div>
                         <div class="messageHeader">
-                            <p><strong><%=LocalizeString("Subject")%>:</strong> <span data-bind="text: threadSubject"></span><br/><strong><%=LocalizeString("SentTo")%>:</strong> <span data-bind="text: threadTo"></span></p>
+                            <p><strong><%=LocalizeString("Subject")%>:</strong> <span data-bind="text: threadSubject"></span><br/><strong><%=LocalizeString("SentTo")%>:</strong> <span data-bind="    text: threadTo"></span></p>
                             <div class="returnLink">
-                                <a href="#" data-bind="click: toggleArchiveConversation, text: (TotalArchivedThreads() === 0 ? '<%=LocalizeString("MarkArchive")%>' : '<%=LocalizeString("MarkUnarchive")%>')"></a> | 
-                                <a href="#" data-bind="click: toggleConversationState, text: (conversationRead() === true ? '<%=LocalizeString("MarkUnread")%>' : '<%=LocalizeString("MarkRead")%>'), visible: TotalArchivedThreads() === 0"></a> | 
+                                <a href="#" data-bind="click: toggleArchiveConversation, text: (TotalArchivedThreads() === 0 ? '<%=Localization.GetSafeJSString(LocalizeString("MarkArchive"))%>    ' : '<%=Localization.GetSafeJSString(LocalizeString("MarkUnarchive"))%>    ')"></a> | 
+                                <a href="#" data-bind="click: toggleConversationState, text: (conversationRead() === true ? '<%=Localization.GetSafeJSString(LocalizeString("MarkUnread"))%>    ' : '<%=Localization.GetSafeJSString(LocalizeString("MarkRead"))%>    '), visible: TotalArchivedThreads() === 0"></a> | 
                                 <a href="#" data-bind="click: backToMessages"><%=LocalizeString("BackToMessages")%></a>
                             </div>
                             <div class="dnnClear"></div>
@@ -148,7 +155,7 @@
                                     <ul>
                                         <li class="ListCol-1">
 										    <a class="profileImg" data-bind="attr: { href: SenderProfileUrl }">
-											    <span><img alt="" data-bind="attr: { src: SenderAvatar, alt: From, title: From }" /></span>
+											    <span><em><img alt="" data-bind="attr: { src: SenderAvatar, alt: From, title: From }" /></em></span>
 										    </a>
                                         </li>
                                         <li class="ListCol-2">
@@ -160,7 +167,7 @@
                                                 <dd class="attachements" data-bind="if: AttachmentCount > 0">
                                                     <strong><%=LocalizeString("Attachments")%>:</strong>
                                                     <ul data-bind="foreach: Attachments">
-                                                        <li><a href="#" target="_blank" data-bind="attr: { href: Url }"><span data-bind="text: Name"></span> (<span data-bind="text: Size"></span>)</a></li>
+                                                        <li><a href="#" target="_blank" data-bind="attr: { href: Url }"><span data-bind="    text: Name"></span> (<span data-bind="    text: Size"></span>)</a></li>
                                                     </ul>
                                                 </dd>
                                             </dl>
@@ -193,7 +200,7 @@
             <div class="dnnCoreMessagingContent dnnClear">
                 <div class="messageControls dnnClear">
                     <div class="messageFolders">
-                        <p><strong data-bind="text: getNotificationPageNumbers()"></strong><%=LocalizeString("Of")%><strong data-bind="text: TotalNotifications"></strong></p>
+                        <p><strong data-bind="text: getNotificationPageNumbers()"></strong><%=LocalizeString("Of")%><strong data-bind="    text: TotalNotifications"></strong></p>
                     </div>
                 </div>
                 <div id="loadingNotifications" data-bind="visible: loadingData"><img src='<%= ResolveUrl("images/ajax-loader.gif") %>' alt="" /> <%=LocalizeString("LoadingContent") %></div>
@@ -203,7 +210,7 @@
                             <ul>
                                 <li class="ListCol-1"></li>
                                 <li class="ListCol-2">
-                                    <a class="profileImg" data-bind="attr: { href: SenderProfileUrl }"><span><img alt="" data-bind="attr: { src: SenderAvatar, alt: From, title: From }" /></span></a>
+                                    <a class="profileImg" data-bind="attr: { href: SenderProfileUrl }"><span><em><img alt="" data-bind="    attr: { src: SenderAvatar, alt: From, title: From }" /></em></span></a>
                                 </li>
                                 <li class="ListCol-3">
                                     <dl>
@@ -211,7 +218,7 @@
                                         <dd class="meta"><em><a data-bind="text: From, attr: { href: SenderProfileUrl }"></a></em></dd>
                                         <dd class="message" data-bind="html: Body"></dd>
                                         <dd class="notificationControls" data-bind="foreach: Actions">
-                                            <a href="#" data-bind="text: Name, click: $root.performNotificationAction, attr: { title: Description }"></a><span data-bind="visible: !$root.isLastNotificationAction($parent, $data)"> | </span>
+                                            <a href="#" data-bind="text: Name, click: $root.performNotificationAction, attr: { title: Description }"></a><span data-bind="    visible: !$root.isLastNotificationAction($parent, $data)"> | </span>
                                         </dd>
                                     </dl>
                                 </li>
@@ -259,6 +266,8 @@
             cancelText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Cancel")) %>',
             attachmentsText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Attachments")) %>',
             browseText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Browse")) %>',
+            uploadText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Upload")) %>',
+            maxFileSize: <%=Config.GetMaxUploadSize()%>,
             removeText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Remove")) %>',
             messageSentTitle: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("MessageSentTitle")) %>',
             messageSentText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("MessageSent")) %>',
@@ -278,7 +287,7 @@
                 title: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("UserFileManagerTitle")) %>',
                 cancelText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Cancel")) %>',
                 attachText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Attach")) %>',
-                getItemsServiceUrl: $.ServicesFramework(<%=ModuleId %>).getServiceRoot('InternalServices') + 'UserFile.ashx/GetItems',
+                getItemsServiceUrl: $.ServicesFramework(<%=ModuleId %>).getServiceRoot('InternalServices') + 'UserFile/GetItems',
                 templatePath: '<%=Page.ResolveUrl("~/Resources/Shared/Components/UserFileManager/Templates/") %>',
                 templateName: 'Default',
                 templateExtension: '.html',

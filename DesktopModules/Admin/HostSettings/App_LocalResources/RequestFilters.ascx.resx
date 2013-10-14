@@ -12,7 +12,7 @@
     
     Example:
     
-    ... ado.net/XML headers && schema ...
+    ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cmdAdd.Text" xml:space="preserve">
     <value>Add New Rule</value>
@@ -166,7 +166,7 @@
     <value>Defines the value of the servervar that triggers the rule.  For a regex rule, the value should be a regular expression that used as a matching expression. If this is not a regex operation, then value can be a semicolon delimited list of values.</value>
   </data>
   <data name="lblServerVarLink.Text" xml:space="preserve">
-    <value>Goto &lt;a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/iissdk/html/21b3be8f-d4ed-4059-8e21-6cba2c253006.asp" class="CommandButton" target="_blank" &gt;MSDN&lt;/a&gt; for a list of variables.</value>
+    <value>Goto &lt;a href="http://msdn.microsoft.com/en-us/library/ms524602(v=vs.90).aspx" target="_blank" &gt;MSDN&lt;/a&gt; for a list of variables.</value>
   </data>
   <data name="lblWarning.Text" xml:space="preserve">
     <value>WARNING:  Adding an incorrect request filter rule may prevent you or your customers from being able to access your DotNetNuke website, and may require you to manually edit the DotNetNuke.config file to remove the incorrectly configured rule.</value>

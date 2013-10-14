@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -38,6 +38,7 @@ using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Utilities;
 using DotNetNuke.UI.WebControls;
+using DotNetNuke.Web.UI.WebControls;
 
 using DataCache = DotNetNuke.Common.Utilities.DataCache;
 using Globals = DotNetNuke.Common.Globals;
@@ -141,6 +142,9 @@ namespace DotNetNuke.Modules.Admin.Extensions
                 pnlDefinition.Visible = true;
                 pnlControls.Visible = false;
             	definitionSelectRow.Visible = false;
+
+                definitionName.Visible = true;
+                definitionNameLiteral.Visible = false;
             }
             else
             {
@@ -162,6 +166,9 @@ namespace DotNetNuke.Modules.Admin.Extensions
                     pnlDefinition.Visible = true;
                     pnlControls.Visible = true;
                 	definitionSelectRow.Visible = true;
+
+                    definitionName.Visible = false;
+                    definitionNameLiteral.Visible = true;
 
                     cmdAddControl.NavigateUrl = ModuleContext.EditUrl("ModuleControlID", "-1", "EditControl", "packageId=" + PackageID, "moduledefid=" + ModuleDefinition.ModuleDefID);
                 }
@@ -187,6 +194,10 @@ namespace DotNetNuke.Modules.Admin.Extensions
                 ITermController termController = Util.GetTermController();
                 category.ListSource = termController.GetTermsByVocabulary("Module_Categories").OrderBy(t => t.Weight).ToList();
 
+                Shareable.ListSource =
+                    Enum.GetNames(typeof (ModuleSharing)).Select(
+                        x => new {Name = x}).ToList();
+
                 desktopModuleForm.DataSource = DesktopModule;
                 desktopModuleForm.DataBind();
 
@@ -211,10 +222,16 @@ namespace DotNetNuke.Modules.Admin.Extensions
                     if (ModuleDefinitionID != Null.NullInteger)
                     {
 						//Set the Combos selected value
-                        ListItem selectedDefinition = cboDefinitions.Items.FindByValue(ModuleDefinitionID.ToString());
+                        //ListItem selectedDefinition = cboDefinitions.Items.FindByValue(ModuleDefinitionID.ToString());
+                        //if (selectedDefinition != null)
+                        //{
+                        //    cboDefinitions.SelectedIndex = -1;
+                        //    selectedDefinition.Selected = true;
+                        //}
+
+                        var selectedDefinition = cboDefinitions.FindItemByValue(ModuleDefinitionID.ToString());
                         if (selectedDefinition != null)
                         {
-                            cboDefinitions.SelectedIndex = -1;
                             selectedDefinition.Selected = true;
                         }
                     }
@@ -385,24 +402,23 @@ namespace DotNetNuke.Modules.Admin.Extensions
                 var desktopModule = desktopModuleForm.DataSource as DesktopModuleInfo;
                 if (desktopModule != null && _Package != null)
                 {
+                    desktopModule.Shareable = (ModuleSharing) Enum.Parse(typeof (ModuleSharing), Shareable.ComboBox.SelectedValue.ToString());
                     desktopModule.FriendlyName = _Package.FriendlyName;
                     desktopModule.Version = Globals.FormatVersion(_Package.Version);
                     if (string.IsNullOrEmpty(desktopModule.BusinessControllerClass))
                     {
                         desktopModule.SupportedFeatures = 0;
+                        //If there is no BusinessControllerClass, then there is no any implementation
+                        
                     }
                     else
                     {
-                        bUpdateSupportedFeatures = true;
+                        DesktopModuleController controller = new DesktopModuleController();
+                        controller.UpdateModuleInterfaces(ref desktopModule);
                     }
                     DesktopModuleController.SaveDesktopModule(desktopModule, false, true);
                 }
 
-                if (bUpdateSupportedFeatures)
-                {
-                    DesktopModuleController controller = new DesktopModuleController();
-                    controller.UpdateModuleInterfaces(ref desktopModule);
-                }
             }
         }
 
@@ -578,7 +594,7 @@ namespace DotNetNuke.Modules.Admin.Extensions
             DataGridItem item = e.Item;
             if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem || item.ItemType == ListItemType.SelectedItem)
             {
-                var editHyperlink = item.Controls[0].Controls[0] as HyperLink;
+                var editHyperlink = item.Controls[3].Controls[0] as HyperLink;
                 if (editHyperlink != null)
                 {
                     editHyperlink.NavigateUrl = ModuleContext.EditUrl("ModuleControlID",

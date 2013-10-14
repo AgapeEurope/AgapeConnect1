@@ -19,6 +19,7 @@
             <dnn:DnnFormLiteralItem ID="isPortable" runat="server" DataField="IsPortable" />
             <dnn:DnnFormLiteralItem ID="isSearchable" runat="server" DataField="IsSearchable" />
             <dnn:DnnFormLiteralItem ID="isUpgradable" runat="server" DataField="IsUpgradeable" />
+            <dnn:DnnFormComboBoxItem ID="Shareable" runat="server" DataField="Shareable" ListTextField="Name" ListValueField="Name" />
             <dnn:DnnFormToggleButtonItem ID="IsPremiumm" runat="server" DataField="IsPremium" />
             <dnn:DnnFormTemplateItem ID="PremiumModules" runat="server">
                 <ItemTemplate>
@@ -44,27 +45,29 @@
     <fieldset>
         <div id="definitionSelectRow" class="dnnFormItem" runat="server">
             <dnn:label id="plSelectDefinition" controlname="cboDefinitions" runat="server" />
-            <asp:dropdownlist id="cboDefinitions" runat="server" datatextfield="FriendlyName" datavaluefield="ModuleDefId" autopostback="True" />
-            <asp:LinkButton id="cmdAddDefinition" resourcekey="cmdAddDefinition" runat="server" CssClass="SecondaryAction" CausesValidation="false" />
+            <dnn:DnnComboBox id="cboDefinitions" runat="server" datatextfield="DefinitionName" datavaluefield="ModuleDefId" autopostback="True" CssClass="dnnFixedSizeComboBox" />
+            <asp:LinkButton id="cmdAddDefinition" resourcekey="cmdAddDefinition" runat="server" CssClass="dnnSecondaryAction" CausesValidation="false" />
         </div>
         <asp:Panel ID="pnlDefinition" runat="server" Visible="false">
             <dnn:DnnFormEditor id="definitionsEditor" runat="Server" FormMode="Short">
                 <Items>
+                    <dnn:DnnFormLiteralItem ID="definitionNameLiteral" runat="server" DataField = "DefinitionName" />
+                    <dnn:DnnFormTextBoxItem ID="definitionName" runat="server" DataField="DefinitionName" Required="True" />
                     <dnn:DnnFormTextBoxItem ID="friendlyName" runat="server" DataField = "FriendlyName" Required="true" />
                     <dnn:DnnFormTextBoxItem ID="cacheTime" runat="server" DataField = "DefaultCacheTime" />
                 </Items>
             </dnn:DnnFormEditor>
             <asp:Panel ID="pnlControls" CssClass="dnnFormItem" runat="server" Visible="false">
                 <dnn:label ID="lblControls" runat="server" ResourceKey="Controls" controlname="grdControls" />
-		        <asp:datagrid id="grdControls" runat="server" cellspacing="0" autogeneratecolumns="false" enableviewstate="true" GridLines="None" CssClass="dnnGrid">
+		        <asp:datagrid id="grdControls" runat="server" cellspacing="0" autogeneratecolumns="false" enableviewstate="true" GridLines="None" CssClass="dnnASPGrid">
                     <HeaderStyle CssClass="dnnGridHeader" />
                     <ItemStyle CssClass="dnnGridItem" />
-                    <Columns>
-                        <dnn:imagecommandcolumn headerStyle-width="20px" CommandName="Edit" IconKey="Edit" EditMode="URL" KeyField="ModuleControlID" />
-                        <dnn:imagecommandcolumn headerStyle-width="20px" commandname="Delete" IconKey="Delete" keyfield="ModuleControlID" />
+                    <Columns>                        
                         <dnn:textcolumn  DataField="ControlKey" HeaderText="Control" />
                         <dnn:textcolumn  DataField="ControlTitle" HeaderText="Title" />
                         <dnn:textcolumn  DataField="ControlSrc" HeaderText="Source" />
+                        <dnn:imagecommandcolumn headerStyle-width="18px" CommandName="Edit" IconKey="Edit" EditMode="URL" KeyField="ModuleControlID" />
+                        <dnn:imagecommandcolumn headerStyle-width="18px" commandname="Delete" IconKey="Delete" keyfield="ModuleControlID" />
                     </Columns>
                 </asp:datagrid>
                 <asp:Hyperlink id="cmdAddControl" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdAddControl" />

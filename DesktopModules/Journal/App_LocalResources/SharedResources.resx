@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="comment.Text" xml:space="preserve">
     <value>Comment</value>
@@ -177,8 +177,8 @@
 	&lt;p&gt;
 		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;[JournalItem:Summary]
 		&lt;div class="jlink dnnClear"&gt;
-			&lt;img src="[journaldata:ImageUrl]" /&gt;
-			&lt;div&gt;&lt;a href="[journaldata:Url]"&gt;[journaldata:Title]&lt;/a&gt;&lt;br /&gt;[journaldata:Description]&lt;/div&gt;
+			&lt;a href="[journaldata:Url]" target="_blank"&gt;&lt;img src="[journaldata:ImageUrl]" /&gt;&lt;/a&gt;
+			&lt;div&gt;&lt;a href="[journaldata:Url]" target="_blank"&gt;[journaldata:Title]&lt;/a&gt;&lt;br /&gt;[journaldata:Description]&lt;/div&gt;
 			
 		&lt;/div&gt;
 	&lt;/p&gt;
@@ -198,7 +198,7 @@
 	&lt;p&gt;
 		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt;[JournalItem:Summary]
 		&lt;div class="jphoto dnnClear"&gt;
-			&lt;img src="[journaldata:ImageUrl]" style="width:250px;" /&gt;
+			&lt;a href="[journaldata:ImageUrl]" target="_blank"&gt;&lt;img src="[journaldata:ImageUrl]" style="width:250px;" /&gt;&lt;/a&gt;
 		&lt;/div&gt;
 	&lt;/p&gt;
 
@@ -476,5 +476,76 @@
   </data>
   <data name="wikiupdate.Text" xml:space="preserve">
     <value>Updated Wiki</value>
+  </data>
+  <data name="badge.Action" xml:space="preserve">
+    <value>received the badge</value>
+  </data>
+  <data name="badge.Text" xml:space="preserve">
+    <value>badge</value>
+  </data>
+  <data name="journal_badge.Text" xml:space="preserve">
+    <value>&lt;div class="author"&gt;&lt;img src="[BaseUrl]/profilepic.ashx?userId=[JournalAuthor:Id]&amp;h=32&amp;w=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt; [journalitem:action] &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+&lt;/div&gt;</value>
+  </data>
+  <data name="journal_comment.Text" xml:space="preserve">
+    <value>&lt;div class="author"&gt;&lt;img src="[BaseUrl]/profilepic.ashx?userId=[JournalAuthor:Id]&amp;h=32&amp;w=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt; [journalitem:action] &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+&lt;/div&gt;</value>
+  </data>
+  <data name="journal_ideaadd.Text" xml:space="preserve">
+    <value>&lt;div class="author"&gt;&lt;img src="[BaseUrl]/profilepic.ashx?userId=[JournalAuthor:Id]&amp;h=32&amp;w=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt; [journalitem:action] &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+&lt;/div&gt;</value>
+  </data>
+  <data name="journal_ideaupdate.Text" xml:space="preserve">
+    <value>&lt;div class="author"&gt;&lt;img src="[BaseUrl]/profilepic.ashx?userId=[JournalAuthor:Id]&amp;h=32&amp;w=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt; [journalitem:action] &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+&lt;/div&gt;</value>
+  </data>
+  <data name="journal_vote.Text" xml:space="preserve">
+    <value>&lt;div class="author"&gt;&lt;img src="[BaseUrl]/profilepic.ashx?userId=[JournalAuthor:Id]&amp;h=32&amp;w=32" /&gt;&lt;/div&gt;
+&lt;div class="journalitem"&gt;
+	&lt;p&gt;
+		&lt;span class="authorname"&gt;[JournalControl:AUTHORNAMELINK]&lt;/span&gt; [journalitem:action] &lt;a href="[journaldata:Url]"&gt;[journalitem:Title]&lt;/a&gt;
+&lt;div class="dnnClear"&gt;&lt;i&gt;[journalitem:Summary]&lt;/i&gt;&lt;/div&gt;
+&lt;/p&gt;
+		&lt;p class="journalfooter"&gt;
+		&lt;abbr title="[journalItem:DateCreated]"&gt;[journalitem:TimeFrame]&lt;/abbr&gt; {CanComment}&lt;span&gt;&amp;#149;&lt;/span&gt; [JOURNALCONTROL:LIKELINK] &lt;span&gt;&amp;#149;&lt;/span&gt; &lt;a href="[journaldata:Url]"&gt;Read More&lt;/a&gt;{/CanComment}
+	&lt;/p&gt;
+	[JOURNALCONTROL:LIKELIST]
+&lt;/div&gt;</value>
   </data>
 </root>

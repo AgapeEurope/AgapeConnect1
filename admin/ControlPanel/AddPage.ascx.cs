@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -211,7 +211,8 @@ namespace DotNetNuke.UI.ControlPanel
             ArrayList templateFiles = Globals.GetFileList(PortalSettings.PortalId, "page.template", false, "Templates/");
             foreach (FileItem dnnFile in templateFiles)
             {
-                var item = new ListItem(dnnFile.Text.Replace(".page.template", ""), dnnFile.Text);
+                var item = new DnnComboBoxItem(dnnFile.Text.Replace(".page.template", ""), dnnFile.Text);
+                //TemplateLst.Items.Add(item);
                 TemplateLst.Items.Add(item);
                 if (item.Text == "Default")
                 {
@@ -219,7 +220,8 @@ namespace DotNetNuke.UI.ControlPanel
                 }
             }
 
-            TemplateLst.Items.Insert(0, new ListItem(GetString("NoTemplate"), ""));
+            //TemplateLst.Items.Insert(0, new ListItem(GetString("NoTemplate"), ""));
+            TemplateLst.InsertItem(0, GetString("NoTemplate"), "");
         }
 
         private void LoadLocationList()
@@ -227,9 +229,13 @@ namespace DotNetNuke.UI.ControlPanel
             LocationLst.ClearSelection();
             LocationLst.Items.Clear();
 
-            LocationLst.Items.Add(new ListItem(GetString("Before"), "BEFORE"));
-            LocationLst.Items.Add(new ListItem(GetString("After"), "AFTER"));
-            LocationLst.Items.Add(new ListItem(GetString("Child"), "CHILD"));
+            //LocationLst.Items.Add(new ListItem(GetString("Before"), "BEFORE"));
+            //LocationLst.Items.Add(new ListItem(GetString("After"), "AFTER"));
+            //LocationLst.Items.Add(new ListItem(GetString("Child"), "CHILD"));
+
+            LocationLst.AddItem(GetString("Before"), "BEFORE");
+            LocationLst.AddItem(GetString("After"), "AFTER");
+            LocationLst.AddItem(GetString("Child"), "CHILD");
 
             LocationLst.SelectedIndex = (!PortalSecurity.IsInRole("Administrators")) ? 2 : 1;
         }
@@ -244,7 +250,7 @@ namespace DotNetNuke.UI.ControlPanel
             PageLst.DataSource = RibbonBarManager.GetPagesList();
             PageLst.DataBind();
 
-            ListItem item = PageLst.Items.FindByValue(PortalSettings.ActiveTab.TabID.ToString());
+            var item = PageLst.FindItemByValue(PortalSettings.ActiveTab.TabID.ToString());
             if (((item != null)))
             {
                 item.Selected = true;

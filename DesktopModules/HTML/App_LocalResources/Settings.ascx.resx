@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,102 +59,118 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="plReplaceTokens.Text" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="plReplaceTokens.Text" xml:space="preserve">
     <value>Replace Tokens:</value>
   </data>
-	<data name="plReplaceTokens.Help" xml:space="preserve">
+  <data name="plReplaceTokens.Help" xml:space="preserve">
     <value>Enable &lt;strong&gt;Enhanced Replace&lt;/strong&gt; to replace tokens like "[object:property|format]" for objects Tab, Module, PortalSettings or User with the appropriate environment values.&lt;br /&gt;
         Note: inline editing and module caching will be disabled, if Token replacement is used.</value>
   </data>
-	<data name="cmdWorkflow.Text" xml:space="preserve">
+  <data name="cmdWorkflow.Text" xml:space="preserve">
     <value>Manage Workflows</value>
   </data>
-	<data name="plWorkflow.Text" xml:space="preserve">
+  <data name="plWorkflow.Text" xml:space="preserve">
     <value>Workflow</value>
   </data>
-	<data name="plWorkflow.Help" xml:space="preserve">
+  <data name="plWorkflow.Help" xml:space="preserve">
     <value>Select a content publishing workflow</value>
   </data>
-	<data name="chkReplace.Text" xml:space="preserve">
+  <data name="chkReplace.Text" xml:space="preserve">
     <value>Replace Existing Settings?</value>
   </data>
-	<data name="ModuleHelp.Text" xml:space="preserve">
+  <data name="ModuleHelp.Text" xml:space="preserve">
     <value>Settings Help</value>
   </data>
-	<data name="ControlTitle_settings.Text" xml:space="preserve">
+  <data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>HTML Module Settings</value>
   </data>
-	<data name="Module.Text" xml:space="preserve">
+  <data name="Module.Text" xml:space="preserve">
     <value>Module</value>
   </data>
-	<data name="Page.Text" xml:space="preserve">
+  <data name="Page.Text" xml:space="preserve">
     <value>Page</value>
   </data>
-	<data name="plApplyTo.Help" xml:space="preserve">
+  <data name="plApplyTo.Help" xml:space="preserve">
     <value>Select which object this workflow applies to.</value>
   </data>
-	<data name="plApplyTo.Text" xml:space="preserve">
+  <data name="plApplyTo.Text" xml:space="preserve">
     <value>Apply Workflow To:</value>
   </data>
-	<data name="Site.Text" xml:space="preserve">
+  <data name="Site.Text" xml:space="preserve">
     <value>Site</value>
   </data>
+  <data name="plDecorate.Help" xml:space="preserve">
+    <value>Whether decorate the html controls in content to keep same view in the whole site.</value>
+  </data>
+  <data name="plDecorate.Text" xml:space="preserve">
+    <value>Use Form Decoration:</value>
+  </data>
+  <data name="plSearchDescLength.Help" xml:space="preserve">
+    <value>Define the max length  of Description used in core search.</value>
+  </data>
+	<data name="plSearchDescLength.Text" xml:space="preserve">
+    <value>Max length of Description in search:</value>
+  </data>
+	<data name="valSearchDescLength.ErrorMessage" xml:space="preserve">
+    <value>You need input a number of max description length.</value>
+  </data>
+
 </root>

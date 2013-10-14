@@ -1,21 +1,23 @@
 DotNetNuke
 
-For more details please see the DotNetNuke Installation Guide (downloadable from dotnetnuke.com)
+For more details please see the DotNetNuke Installation Guide (downloadable from dotnetnuke.com) and http://www.dotnetnuke.com/Resources/Blogs/EntryId/3418/Announcing-DotNetNuke-7.aspx for an explanantion of minimum requirements.
 
-Prerequisites
+Minimum Requirements
 -------------
-DotNetNuke requires .net 3.5 SP1 (or higher) to be installed.
+Windows 2008
+SQL Server 2008
+ASP.NET 4.0 (or higher) to be installed.
+IIS 7.0 (Integrated Pipeline Only)
+
 
 Clean Installation
 ------------------
-- .NET Framework 2.0 must be installed (.net 3.5 SP1 is recommended as a future version of DotNetNuke will require this)
+- ASP.NET Framework 4.0 must be installed
 
 - unzip package into C:\DotNetNuke (note: the install package is the most commonly used, the source package is intended for those who wish to make core changes or debug through the source)
 
 - the website user account must have Read, Write, and Change Control of the root website directory and subdirectories ( this allows the application to create files/folders and update it¡¯s config files), This account is different depending on the version of the OS/webserver, please see the list below for the correct account
- - If using Windows XP Professional - IIS5.1 this is the  {Server}\ASPNET User Account. Note: Windows XP can be configured to run using simple security. By default it is turned off in Windows XP Professional when it joins a domain, but if running standalone you will need to disable it to access the more detailed file sharing dialog. See http://duxcw.com/faq/win/xp/simpshare.htm for more details.
- - If using Windows 2003 (IIS6), Windows Vista (IIS7) or Windows 2008 (IIS7) this is the NT AUTHORITY\NETWORK SERVICE User Account.
- - If using Windows 2008 R2 (IIS 7.5) or Windows 7 (IIS7.5) this is the IIS AppPool\DefaultAppPool User Account.
+ - If using Windows 2008 R2 (IIS 7.5) or Windows 7 or Windows Server 2012 8 (IIS7.5, IIS8.0) this is the IIS AppPool\DefaultAppPool User Account.
 
 - create Virtual Directory in IIS called DotNetNuke which points to the directory where the DotNetNuke.webproj file exists )
 
@@ -23,7 +25,7 @@ Clean Installation
 
 - The install version needs no other changes, but if you use the source version rename release.config -> web.config
 
-- Note: SQL Server 2005, 2008 / SQL Express 2005, 2008 all supported.
+- Note: SQL Server 2008, 2012 / SQL Express 2008, 2012 all supported.
   - manually create SQL Server database named "DotNetNuke" ( using Enterprise Manager or your tool of choice )
   - make sure you grant sufficient database permissions (db_owner is commonly used)
   - set the connection string in web.config in TWO places ( ie. <add key="SiteSqlServer" value="Server=(local);Database=DotNetNuke;uid=;pwd=;" /> )

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>Group Module Settings</value>
@@ -129,6 +129,30 @@
   <data name="GroupCreatePage.Help" xml:space="preserve">
     <value>Select the page where users will go to create new groups.</value>
   </data>
+  <data name="GroupListEnableSearch.Help" xml:space="preserve">
+    <value>Check this box to allow a user to filter the groups displayed.</value>
+  </data>
+  <data name="GroupListEnableSearch.Text" xml:space="preserve">
+    <value>Enable Group Search</value>
+  </data>
+  <data name="GroupListPageSize.Help" xml:space="preserve">
+    <value>Specify the number of groups returned for each page.</value>
+  </data>
+  <data name="GroupListPageSize.Text" xml:space="preserve">
+    <value>Group List Page Size</value>
+  </data>
+  <data name="GroupListSortDirField.Help" xml:space="preserve">
+    <value>Choose the sort direction for the list of groups.</value>
+  </data>
+  <data name="GroupListSortDirField.Text" xml:space="preserve">
+    <value>Sort Direction</value>
+  </data>
+  <data name="GroupListSortField.Help" xml:space="preserve">
+    <value>Choose the field that will be used to sort the list of groups.</value>
+  </data>
+  <data name="GroupListSortField.Text" xml:space="preserve">
+    <value>Sort List By</value>
+  </data>
   <data name="GroupListTemplateText.Help" xml:space="preserve">
     <value>You can modify the default template in order to customize the group list display.  Common tokens are: &lt;br /&gt;
 [groupitem:GroupName]&lt;br /&gt;
@@ -138,6 +162,12 @@
   </data>
   <data name="GroupListTemplateText.Text" xml:space="preserve">
     <value>Group List Template</value>
+  </data>
+  <data name="GroupListUserGroups.Help" xml:space="preserve">
+    <value>Check this box to display only the groups that the current user belongs to.</value>
+  </data>
+  <data name="GroupListUserGroups.Text" xml:space="preserve">
+    <value>Display User's Groups Only</value>
   </data>
   <data name="GroupModeration.Help" xml:space="preserve">
     <value>Check this box to require the creation of new groups to require approval by a Group Moderator.</value>
@@ -154,6 +184,9 @@
 [groupitem:GroupDescription]&lt;br /&gt;
 [groupitem:PhotoURL]&lt;br /&gt;
 [groupviewurl]&lt;br /&gt;</value>
+  </data>
+  <data name="PageSizeValidation.Text" xml:space="preserve">
+    <value>Invalid page size specified. (1-9999)</value>
   </data>
   <data name="ViewMode.Help" xml:space="preserve">
     <value>Select the mode in which the module should display.</value>

@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,6 +21,7 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -55,6 +56,7 @@ namespace DotNetNuke.Modules.Admin.Users
     /// -----------------------------------------------------------------------------
     public partial class EditProfileDefinition : PortalModuleBase
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (EditProfileDefinition));
 		#region Private Members
 
         private string ResourceFile = "~/DesktopModules/Admin/Security/App_LocalResources/Profile.ascx";
@@ -247,6 +249,78 @@ namespace DotNetNuke.Modules.Admin.Users
             return isValid;
         }
 
+        private void SaveLocalizedKeys()
+        {
+            var portalResources = new XmlDocument();
+            var defaultResources = new XmlDocument();
+            XmlNode parent;
+            string filename;
+            try
+            {
+                defaultResources.Load(GetResourceFile("", Localization.SystemLocale));
+                if (IsHostMenu)
+                {
+                    filename = GetResourceFile("Host", cboLocales.SelectedValue);
+                }
+                else
+                {
+                    filename = GetResourceFile("Portal", cboLocales.SelectedValue);
+                }
+                if (File.Exists(filename))
+                {
+                    portalResources.Load(filename);
+                }
+                else
+                {
+                    portalResources.Load(GetResourceFile("", Localization.SystemLocale));
+                }
+                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Text", txtPropertyName.Text);
+                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Help", txtPropertyHelp.Text);
+                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Required", txtPropertyRequired.Text);
+                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Validation", txtPropertyValidation.Text);
+                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyCategory + ".Header", txtCategoryName.Text);
+
+                //remove unmodified keys
+                foreach (XmlNode node in portalResources.SelectNodes("//root/data"))
+                {
+                    XmlNode defaultNode = defaultResources.SelectSingleNode("//root/data[@name='" + node.Attributes["name"].Value + "']");
+                    if (defaultNode != null && defaultNode.InnerXml == node.InnerXml)
+                    {
+                        parent = node.ParentNode;
+                        parent.RemoveChild(node);
+                    }
+                }
+
+                //remove duplicate keys
+                foreach (XmlNode node in portalResources.SelectNodes("//root/data"))
+                {
+                    if (portalResources.SelectNodes("//root/data[@name='" + node.Attributes["name"].Value + "']").Count > 1)
+                    {
+                        parent = node.ParentNode;
+                        parent.RemoveChild(node);
+                    }
+                }
+                if (portalResources.SelectNodes("//root/data").Count > 0)
+                {
+                    //there's something to save
+                    portalResources.Save(filename);
+                }
+                else
+                {
+                    //nothing to be saved, if file exists delete
+                    if (File.Exists(filename))
+                    {
+                        File.Delete(filename);
+                    }
+                }
+            }
+            catch (Exception exc) //Module failed to load
+            {
+                Logger.Error(exc);
+                UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("Save.ErrorMessage", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
+            }
+        }
+
 		#endregion
 
 		#region Public Methods
@@ -329,7 +403,6 @@ namespace DotNetNuke.Modules.Admin.Users
             base.OnLoad(e);
 
             cboLocales.SelectedIndexChanged += cboLocales_SelectedIndexChanged;
-            cmdSaveKeys.Click += cmdSaveKeys_Click;
             Wizard.ActiveStepChanged += Wizard_ActiveStepChanged;
             Wizard.CancelButtonClick += Wizard_CancelButtonClick;
             Wizard.FinishButtonClick += Wizard_FinishButtonClick;
@@ -339,11 +412,31 @@ namespace DotNetNuke.Modules.Admin.Users
             {
                 if (!Page.IsPostBack)
                 {
-                    Localization.LoadCultureDropDownList(cboLocales, CultureDropDownTypes.NativeName, ((PageBase) Page).PageCulture.Name);
+                    //Localization.LoadCultureDropDownList(cboLocales, CultureDropDownTypes.NativeName, ((PageBase) Page).PageCulture.Name);
+                    IEnumerable<ListItem> cultureList = Localization.LoadCultureInListItems(CultureDropDownTypes.NativeName, ((PageBase)Page).PageCulture.Name, "", false);
+                    //If the drop down list already has items, clear the list
+                    if (cboLocales.Items.Count > 0)
+                    {
+                        cboLocales.Items.Clear();
+                    }
+
+                    foreach (var listItem in cultureList)
+                    {
+                        cboLocales.AddItem(listItem.Text, listItem.Value);
+                    }
+
+                    var selectedItem = cboLocales.FindItemByValue(((PageBase)Page).PageCulture.Name);
+                    if (selectedItem != null)
+                    {
+                        selectedItem.Selected = true;
+                    }
+                    
+
                     if (cboLocales.SelectedItem != null)
                     {
                         lblLocales.Text = cboLocales.SelectedItem.Text;
                     }
+
                     cboLocales.Visible = cboLocales.Items.Count != 1;
                     lblLocales.Visible = cboLocales.Items.Count == 1;
                 }
@@ -370,86 +463,6 @@ namespace DotNetNuke.Modules.Admin.Users
         protected void cboLocales_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindLanguages();
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// cmdSaveKeys_Click runs when the Save Keys button is clciked
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	02/22/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void cmdSaveKeys_Click(object sender, EventArgs e)
-        {
-            var portalResources = new XmlDocument();
-            var defaultResources = new XmlDocument();
-            XmlNode parent;
-            string filename;
-            try
-            {
-                defaultResources.Load(GetResourceFile("", Localization.SystemLocale));
-                if (IsHostMenu)
-                {
-                    filename = GetResourceFile("Host", cboLocales.SelectedValue);
-                }
-                else
-                {
-                    filename = GetResourceFile("Portal", cboLocales.SelectedValue);
-                }
-                if (File.Exists(filename))
-                {
-                    portalResources.Load(filename);
-                }
-                else
-                {
-                    portalResources.Load(GetResourceFile("", Localization.SystemLocale));
-                }
-                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Text", txtPropertyName.Text);
-                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Help", txtPropertyHelp.Text);
-                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Required", txtPropertyRequired.Text);
-                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyName + ".Validation", txtPropertyValidation.Text);
-                UpdateResourceFileNode(portalResources, "ProfileProperties_" + PropertyDefinition.PropertyCategory + ".Header", txtCategoryName.Text);
-
-                //remove unmodified keys
-                foreach (XmlNode node in portalResources.SelectNodes("//root/data"))
-                {
-                    XmlNode defaultNode = defaultResources.SelectSingleNode("//root/data[@name='" + node.Attributes["name"].Value + "']");
-                    if (defaultNode != null && defaultNode.InnerXml == node.InnerXml)
-                    {
-                        parent = node.ParentNode;
-                        parent.RemoveChild(node);
-                    }
-                }
-				
-                //remove duplicate keys
-                foreach (XmlNode node in portalResources.SelectNodes("//root/data"))
-                {
-                    if (portalResources.SelectNodes("//root/data[@name='" + node.Attributes["name"].Value + "']").Count > 1)
-                    {
-                        parent = node.ParentNode;
-                        parent.RemoveChild(node);
-                    }
-                }
-                if (portalResources.SelectNodes("//root/data").Count > 0)
-                {
-					//there's something to save
-                    portalResources.Save(filename);
-                }
-                else
-                {
-					//nothing to be saved, if file exists delete
-                    if (File.Exists(filename))
-                    {
-                        File.Delete(filename);
-                    }
-                }
-            }
-            catch (Exception exc) //Module failed to load
-            {
-                DnnLog.Error(exc);
-                UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("Save.ErrorMessage", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
-            }
         }
 
         /// -----------------------------------------------------------------------------
@@ -520,6 +533,12 @@ namespace DotNetNuke.Modules.Admin.Users
         {
             try
             {
+                if(!Page.IsValid)
+                {
+                    return;
+                }
+
+                SaveLocalizedKeys();
 				//Redirect to Definitions page
                 Response.Redirect(Globals.NavigateURL(TabId), true);
             }
@@ -542,6 +561,11 @@ namespace DotNetNuke.Modules.Admin.Users
         /// -----------------------------------------------------------------------------
         protected void Wizard_NextButtonClick(object sender, WizardNavigationEventArgs e)
         {
+            if(!Page.IsValid)
+            {
+                return;
+            }
+
             switch (e.CurrentStepIndex)
             {
                 case 0: //Property Details
@@ -593,5 +617,3 @@ namespace DotNetNuke.Modules.Admin.Users
 		#endregion
     }
 }
-
-

@@ -1,13 +1,16 @@
 <%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.UI.UserControls.LabelControl" %>
-<div class="dnnTooltip">
-    <label id="label" runat="server">
-        <asp:LinkButton ID="cmdHelp" TabIndex="-1" runat="server" CausesValidation="False" EnableViewState="False" CssClass="dnnFormHelp">
-            <asp:Label ID="lblLabel" runat="server" EnableViewState="False" />
-        </asp:LinkButton>
-        <asp:Label ID="lblNoHelpLabel" runat="server" EnableViewState="False" Visible="false" />
+<div class="dnnLabel">    
+    <label>
+        <asp:Label ID="lblLabel" runat="server" EnableViewState="False"/>   
     </label>
-    <asp:Panel ID="pnlHelp" runat="server" CssClass="dnnFormHelpContent dnnClear" EnableViewState="False" style="display:none;">
-        <asp:Label ID="lblHelp" runat="server" EnableViewState="False" class="dnnHelpText" />
-        <a href="#" class="pinHelp"></a>
+    <asp:LinkButton ID="cmdHelp" TabIndex="-1" runat="server" CausesValidation="False"
+        EnableViewState="False" CssClass="dnnFormHelp">        
+    </asp:LinkButton>
+    <asp:Panel ID="pnlHelp" runat="server" CssClass="dnnTooltip">
+        <div class="dnnFormHelpContent dnnClear">
+            <asp:Label ID="lblHelp" runat="server" EnableViewState="False" class="dnnHelpText" />
+            <a href="#" class="pinHelp"></a>
+       </div>   
     </asp:Panel>
 </div>
+

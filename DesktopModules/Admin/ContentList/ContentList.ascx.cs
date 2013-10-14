@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,9 +22,9 @@
 
 using System;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Content;
@@ -33,6 +33,7 @@ using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Security;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
+using Telerik.Web.UI;
 
 #endregion
 
@@ -41,50 +42,7 @@ namespace DotNetNuke.Modules.ContentList
 
     public partial class ContentList : PortalModuleBase
     {
-
-        #region Private Members
-
-        private int _currentPage = 1;
         private string _tagQuery = Null.NullString;
-
-        #endregion
-
-        #region Properties
-
-        protected int CurrentPage
-        {
-            get
-            {
-                return _currentPage;
-            }
-            set
-            {
-                _currentPage = value;
-            }
-        }
-
-        /// <summary>
-        ///   Gets the Page Size for the Grid
-        /// </summary>
-        /// <history>
-        ///   [cnurse]	03/12/2008  Created
-        /// </history>
-        protected int PageSize
-        {
-            get
-            {
-                var itemsPage = 10;
-                if (!string.IsNullOrEmpty(Convert.ToString(Settings["perpage"])))
-                {
-                    itemsPage = int.Parse(Convert.ToString(Settings["perpage"]));
-                }
-                return itemsPage;
-            }
-        }
-
-        #endregion
-
-        #region Private Methods
 
         private void BindData()
         {
@@ -108,10 +66,16 @@ namespace DotNetNuke.Modules.ContentList
                         dr["ContentKey"] = item.ContentKey;
                         dr["Title"] = item.Content;
 
-                        //get tab info and use the tab description
+                        //get tab info and use the tab description, if tab is deleted then ignore the item.
                         var tab = tabController.GetTab(item.TabID, PortalId, false);
                         if(tab != null)
                         {
+							if (tab.IsDeleted)
+							{
+								continue;
+							}
+
+							dr["Title"] = string.IsNullOrEmpty(tab.Title) ? tab.TabName : tab.Title;
                             dr["Description"] = tab.Description;
                         }
                         else
@@ -126,9 +90,9 @@ namespace DotNetNuke.Modules.ContentList
 
                 //Bind Search Results Grid
                 var dv = new DataView(dt);
-                dgResults.PageSize = PageSize;
                 dgResults.DataSource = dv;
                 dgResults.DataBind();
+              
                 if (results.Count == 0)
                 {
                     dgResults.Visible = false;
@@ -138,27 +102,12 @@ namespace DotNetNuke.Modules.ContentList
                 {
                     lblMessage.Text = string.Format(Localization.GetString("Results", LocalResourceFile), _tagQuery);
                 }
-                if (results.Count <= dgResults.PageSize)
-                {
-                    ctlPagingControl.Visible = false;
-                }
-                else
-                {
-                    ctlPagingControl.Visible = true;
-                }
-                ctlPagingControl.TotalRecords = results.Count;
             }
-            ctlPagingControl.PageSize = dgResults.PageSize;
-            ctlPagingControl.CurrentPage = CurrentPage;
         }
-
-        #endregion
-
-        #region Protected Methods
 
         protected string FormatDate(DateTime pubDate)
         {
-            return pubDate.ToString();
+            return pubDate.ToString(CultureInfo.InvariantCulture);
         }
 
         protected string FormatURL(int tabID, string link)
@@ -170,23 +119,9 @@ namespace DotNetNuke.Modules.ContentList
 
         protected bool ShowDescription()
         {
-            bool show;
-
-            show = string.IsNullOrEmpty(Convert.ToString(Settings["showdescription"])) || Convert.ToString(Settings["showdescription"]) == "Y";
+            bool show = string.IsNullOrEmpty(Convert.ToString(Settings["showdescription"])) || Convert.ToString(Settings["showdescription"]) == "Y";
 
             return show;
-        }
-
-        #endregion
-
-        #region Event Handlers
-
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-
-            ctlPagingControl.PageChanged += OnPagerIndexChanged;
-            dgResults.PageIndexChanged += OnGridPageIndexChanged;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -201,10 +136,10 @@ namespace DotNetNuke.Modules.ContentList
 
             if (_tagQuery.Length > 0)
             {
-                if (!Page.IsPostBack)
-                {
+//                if (!Page.IsPostBack)
+//                {
                     BindData();
-                }
+//                }
             }
             else
             {
@@ -218,22 +153,5 @@ namespace DotNetNuke.Modules.ContentList
                 }
             }
         }
-
-        protected void OnGridPageIndexChanged(object source, DataGridPageChangedEventArgs e)
-        {
-            dgResults.CurrentPageIndex = e.NewPageIndex;
-            BindData();
-        }
-
-        protected void OnPagerIndexChanged(object sender, EventArgs e)
-        {
-            CurrentPage = ctlPagingControl.CurrentPage;
-
-            dgResults.CurrentPageIndex = CurrentPage - 1;
-            BindData();
-        }
-
-        #endregion
-
     }
 }

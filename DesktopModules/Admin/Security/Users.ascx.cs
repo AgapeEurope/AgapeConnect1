@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,8 +22,9 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common.Lists;
@@ -34,64 +35,41 @@ using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Profile;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security;
-using DotNetNuke.Security.Profile;
+using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 using DotNetNuke.UI.Utilities;
-using DotNetNuke.UI.WebControls;
-
+using DotNetNuke.Web.UI.WebControls;
+using Telerik.Web.UI;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
 
 namespace DotNetNuke.Modules.Admin.Users
 {
-    /// -----------------------------------------------------------------------------
     /// <summary>
     /// The Users PortalModuleBase is used to manage the Registered Users of a portal
     /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <history>
-    /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-    ///                       and localisation
-    ///     [cnurse]    02/16/2006  Updated to reflect custom profile definitions
-    /// </history>
-    /// -----------------------------------------------------------------------------
-    public partial class UserAccounts : PortalModuleBase, IActionable
+    public partial class UserAccounts : PortalModuleBase
     {
 		#region "Private Members"
-
-        protected int TotalPages = -1;
-        protected int TotalRecords;
 
         public UserAccounts()
         {
             Users = new ArrayList();
             FilterProperty = "";
             Filter = "";
-            CurrentPage = 1;
         }
 
         #endregion
 
 		#region "Protected Members"
 
-        protected int CurrentPage { get; set; }
-
         protected string Filter { get; set; }
 
         protected string FilterProperty { get; set; }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Gets whether we are dealing with SuperUsers
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	03/02/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected bool IsSuperUser
         {
             get
@@ -100,48 +78,6 @@ namespace DotNetNuke.Modules.Admin.Users
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Gets the Page Size for the Grid
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	03/02/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected int PageSize
-        {
-            get
-            {
-                var setting = UserModuleBase.GetSetting(UsersPortalId, "Records_PerPage");
-                return Convert.ToInt32(setting);
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Gets a flag that determines whether to suppress the Pager (when not required)
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	08/10/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected bool SuppressPager
-        {
-            get
-            {
-                var setting = UserModuleBase.GetSetting(UsersPortalId, "Display_SuppressPager");
-                return Convert.ToBoolean(setting);
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Gets the Portal Id whose Users we are managing
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	03/02/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected int UsersPortalId
         {
             get
@@ -159,72 +95,11 @@ namespace DotNetNuke.Modules.Admin.Users
 
         #endregion
 
-        #region IActionable Members
-
-        public ModuleActionCollection ModuleActions
-        {
-            get
-            {
-                var Actions = new ModuleActionCollection();
-                var FilterParams = new string[String.IsNullOrEmpty(txtSearch.Text.Trim()) ? 2 : 3];
-                if (String.IsNullOrEmpty(txtSearch.Text.Trim()))
-                {
-                    FilterParams.SetValue("filter=" + Filter, 0);
-                    FilterParams.SetValue("currentpage=" + CurrentPage, 1);
-                }
-                else
-                {
-                    FilterParams.SetValue("filter=" + txtSearch.Text, 0);
-                    FilterParams.SetValue("filterproperty=" + ((ddlSearchType == null) ? "" : ddlSearchType.SelectedValue), 1);
-                    FilterParams.SetValue("currentpage=" + CurrentPage, 2);
-                }
-                Actions.Add(GetNextActionID(),
-                            Localization.GetString(ModuleActionType.AddContent, LocalResourceFile),
-                            ModuleActionType.AddContent,
-                            "",
-                            "add.gif",
-                            EditUrl(),
-                            false,
-                            SecurityAccessLevel.Edit,
-                            true,
-                            false);
-                Actions.Add(GetNextActionID(),
-                            Localization.GetString("RemoveDeleted.Action", LocalResourceFile),
-                            ModuleActionType.AddContent,
-                            "Remove",
-                            "delete.gif",
-                            "",
-                            "confirm('" + ClientAPI.GetSafeJSString(Localization.GetString("RemoveItems.Confirm")) + "')",
-                            true,
-                            SecurityAccessLevel.Edit,
-                            true,
-                            false);
-                if (!IsSuperUser)
-                {
-
-                    Actions.Add(GetNextActionID(),
-                                Localization.GetString("DeleteUnAuthorized.Action", LocalResourceFile),
-                                ModuleActionType.AddContent,
-                                "Delete",
-                                "action_delete.gif",
-                                "",
-                                "confirm('" + ClientAPI.GetSafeJSString(Localization.GetString("DeleteItems.Confirm")) + "')",
-                                true,
-                                SecurityAccessLevel.Edit,
-                                true,
-                                false);
-                }
-                return Actions;
-            }
-        }
-
-        #endregion
-		
 		#region "Private Methods"
 
         protected string UserFilter(bool newFilter)
         {
-            var page = !string.IsNullOrEmpty(CurrentPage.ToString()) ? "currentpage=" + CurrentPage : "";
+            var page = "currentpage=" + grdUsers.CurrentPageIndex;
             string filterString;
             string filterPropertyString;
             if (!newFilter)
@@ -252,7 +127,7 @@ namespace DotNetNuke.Modules.Admin.Users
             return filterString;
         }
 
-        private ListItem AddSearchItem(string name)
+        private DnnComboBoxItem AddSearchItem(string name)
         {
             var propertyName = Null.NullString;
             if (Request.QueryString["filterProperty"] != null)
@@ -264,97 +139,65 @@ namespace DotNetNuke.Modules.Admin.Users
             {
                 text = name;
             }
-            var li = new ListItem(text, name);
+            var item = new DnnComboBoxItem(text, name);
             if (name == propertyName)
             {
-                li.Selected = true;
+                item.Selected = true;
             }
-            return li;
+            return item;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindData gets the users from the Database and binds them to the DataGrid
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <param name="SearchText">Text to Search</param>
-        /// <param name="SearchField">Field to Search</param>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindData(string searchText, string searchField)
+        private void SetGridDataSource()
         {
+            var searchText = Filter;
+            var searchField = ddlSearchType.SelectedValue;
+
             CreateLetterSearch();
 
-            var strQuerystring = Null.NullString;
-            if (!String.IsNullOrEmpty(searchText))
-            {
-                strQuerystring += "filter=" + searchText;
-            }
+            int totalRecords = 0;
 
             if (searchText == Localization.GetString("Unauthorized"))
             {
                 Users = UserController.GetUnAuthorizedUsers(UsersPortalId, true, IsSuperUser);
-                ctlPagingControl.Visible = false;
+				totalRecords = Users.Count;
             }
-            else if (searchText == Localization .GetString("Deleted"))
+            else if (searchText == Localization.GetString("Deleted"))
             {
                 Users = UserController.GetDeletedUsers(UsersPortalId);
-                ctlPagingControl.Visible = false;
+				totalRecords = Users.Count;
             }
             else if (searchText == Localization.GetString("OnLine"))
             {
                 Users = UserController.GetOnlineUsers(UsersPortalId);
-                ctlPagingControl.Visible = false;
+	            totalRecords = Users.Count;
             }
             else if (searchText == Localization.GetString("All"))
             {
-                Users = UserController.GetUsers(UsersPortalId, CurrentPage - 1, PageSize, ref TotalRecords, true, IsSuperUser);
-                
+                Users = UserController.GetUsers(UsersPortalId, grdUsers.CurrentPageIndex, grdUsers.PageSize, ref totalRecords, true, IsSuperUser);                
             }
             else if (searchText != "None")
             {
                 switch (searchField)
                 {
                     case "Email":
-                        Users = UserController.GetUsersByEmail(UsersPortalId, searchText + "%", CurrentPage - 1, PageSize, ref TotalRecords, true, IsSuperUser);
+                        Users = UserController.GetUsersByEmail(UsersPortalId, searchText + "%", grdUsers.CurrentPageIndex, grdUsers.PageSize, ref totalRecords, true, IsSuperUser);
                         break;
                     case "Username":
-                        Users = UserController.GetUsersByUserName(UsersPortalId, searchText + "%", CurrentPage - 1, PageSize, ref TotalRecords, true, IsSuperUser);
+                        Users = UserController.GetUsersByUserName(UsersPortalId, searchText + "%", grdUsers.CurrentPageIndex, grdUsers.PageSize, ref totalRecords, true, IsSuperUser);
+                        break;
+					case "DisplayName":
+						Users = UserController.GetUsersByDisplayName(UsersPortalId, searchText + "%", grdUsers.CurrentPageIndex, grdUsers.PageSize, ref totalRecords, true, IsSuperUser);
                         break;
                     default:
-                        Users = UserController.GetUsersByProfileProperty(UsersPortalId, searchField, searchText + "%", CurrentPage - 1, PageSize, ref TotalRecords, true, IsSuperUser);
-                        strQuerystring += "&filterProperty=" + searchField;
+                        Users = UserController.GetUsersByProfileProperty(UsersPortalId, searchField, searchText + "%", grdUsers.CurrentPageIndex, grdUsers.PageSize, ref totalRecords, true, IsSuperUser);
                         break;
                 }
             }
-            if (SuppressPager && ctlPagingControl.Visible)
-            {
-                ctlPagingControl.Visible = (PageSize < TotalRecords);
-            }
+
             grdUsers.DataSource = Users;
-            grdUsers.DataBind();
-            ctlPagingControl.TotalRecords = TotalRecords;
-            ctlPagingControl.PageSize = PageSize;
-            ctlPagingControl.CurrentPage = CurrentPage;
-            ctlPagingControl.QuerystringParams = strQuerystring;
-            ctlPagingControl.TabID = TabId;
+            grdUsers.VirtualItemCount = totalRecords;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Builds the letter filter
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         private void CreateLetterSearch()
         {
             var filters = Localization.GetString("Filter.Text", LocalResourceFile);
@@ -368,20 +211,12 @@ namespace DotNetNuke.Modules.Admin.Users
             rptLetterSearch.DataBind();
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Deletes all unauthorized users
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	03/02/2006	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         private void DeleteUnAuthorizedUsers()
         {
             try
             {
                 UserController.DeleteUnauthorizedUsers(PortalId);
-                BindData(Filter, ddlSearchType.SelectedItem.Value);
+                RebindGrid();
             }
             catch (Exception exc)
             {
@@ -389,12 +224,18 @@ namespace DotNetNuke.Modules.Admin.Users
             }
         }
 
+        private void RebindGrid()
+        {
+            SetGridDataSource();
+            grdUsers.Rebind();
+        }
+
         private void RemoveDeletedUsers()
         {
             try
             {
                 UserController.RemoveDeletedUsers(UsersPortalId);
-                BindData(Filter, ddlSearchType.SelectedItem.Value);
+                RebindGrid();
             }
             catch (Exception exc)   //Module failed to load
             {
@@ -449,17 +290,6 @@ namespace DotNetNuke.Modules.Admin.Users
 
 		#region "Public Methods"
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// DisplayAddress correctly formats an Address
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string DisplayAddress(object unit, object street, object city, object region, object country, object postalCode)
         {
             var address = Null.NullString;
@@ -474,51 +304,29 @@ namespace DotNetNuke.Modules.Admin.Users
             return address;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// DisplayEmail correctly formats an Email Address
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string DisplayEmail(string email)
         {
-            var _Email = Null.NullString;
+            var displayEmail = Null.NullString;
             try
             {
                 if (email != null)
                 {
-                    _Email = HtmlUtils.FormatEmail(email, false);
+                    displayEmail = HtmlUtils.FormatEmail(email, false);
                 }
             }
             catch (Exception exc) //Module failed to load
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
-            return _Email;
+            return displayEmail;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// DisplayDate correctly formats the Date
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string DisplayDate(DateTime userDate)
         {
             var date = Null.NullString;
             try
             {
-                date = !Null.IsNull(userDate) ? userDate.ToString() : "";
+                date = !Null.IsNull(userDate) ? userDate.ToString(CultureInfo.InvariantCulture) : "";
             }
             catch (Exception exc) //Module failed to load
             {
@@ -527,17 +335,6 @@ namespace DotNetNuke.Modules.Admin.Users
             return date;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// FormatURL correctly formats the Url for the Edit User Link
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected string FormatURL(string strKeyName, string strKeyValue)
         {
             var url = Null.NullString;
@@ -552,54 +349,38 @@ namespace DotNetNuke.Modules.Admin.Users
             return url;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// FilterURL correctly formats the Url for filter by first letter and paging
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected string FilterURL(string filter, string currentPage)
+        protected string FilterURL(string filter)
         {
-            string url;
+            var parameters = new List<string> {string.Format("pagesize=" + grdUsers.PageSize)};
+
             if (!String.IsNullOrEmpty(Filter))
             {
-                url = !String.IsNullOrEmpty(currentPage) ? Globals.NavigateURL(TabId, "", "filter=" + filter, "currentpage=" + currentPage) : Globals.NavigateURL(TabId, "", "filter=" + filter);
+                parameters.Add("filter=" + filter);
             }
-            else
-            {
-                url = !String.IsNullOrEmpty(currentPage) ? Globals.NavigateURL(TabId, "", "currentpage=" + currentPage) : Globals.NavigateURL(TabId, "");
-            }
-            return url;
+                
+            return Globals.NavigateURL(TabId, "", parameters.ToArray());
         }
 
 		#endregion
 
 		#region "Event Handlers"
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_Init runs when the control is initialised
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
 
-            if (Request.QueryString["CurrentPage"] != null)
+            cmdSearch.Click += OnSearchClick;
+            cmdDeleteUnAuthorized.Click += cmdDeleteUnAuthorized_Click;
+            cmdRemoveDeleted.Click += cmdRemoveDeleted_Click;
+            grdUsers.ItemDataBound += GrdUsersOnItemDataBound;
+            grdUsers.ItemCommand += GrdUsersOnItemCommand;
+            grdUsers.PreRender += GrdUsersOnPreRender;
+
+            if (!IsPostBack)
             {
-                CurrentPage = Convert.ToInt32(Request.QueryString["CurrentPage"]);
+                SetInitialPageSize();
             }
+
             if (Request.QueryString["filter"] != null)
             {
                 Filter = Request.QueryString["filter"];
@@ -626,7 +407,7 @@ namespace DotNetNuke.Modules.Admin.Users
                         break;
                 }
             }
-            foreach (DataGridColumn column in grdUsers.Columns)
+            foreach (GridColumn column in grdUsers.Columns)
             {
                 bool isVisible;
                 var header = column.HeaderText;
@@ -640,21 +421,11 @@ namespace DotNetNuke.Modules.Admin.Users
                     var setting = UserModuleBase.GetSetting(UsersPortalId, settingKey);
                     isVisible = Convert.ToBoolean(setting);
                 }
-                if (ReferenceEquals(column.GetType(), typeof (ImageCommandColumn)))
+                if (ReferenceEquals(column.GetType(), typeof (DnnGridImageCommandColumn)))
                 {
-                    isVisible = IsEditable;
+                    isVisible = ModulePermissionController.HasModulePermission(ModuleConfiguration.ModulePermissions, "EDIT");
 
-                    //Manage Delete Confirm JS
-                    var imageColumn = (ImageCommandColumn) column;
-                    switch (imageColumn.CommandName)
-                    {
-                        case "Delete":
-                            imageColumn.OnClickJS = Localization.GetString("DeleteItem");
-                            break;
-                        case "Remove":
-                            imageColumn.OnClickJS = Localization.GetString("RemoveItem");
-                            break;
-                    }
+                    var imageColumn = (DnnGridImageCommandColumn)column;
 					
                 	//Manage Edit Column NavigateURLFormatString
                 	if (imageColumn.CommandName == "Edit")
@@ -694,50 +465,42 @@ namespace DotNetNuke.Modules.Admin.Users
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_Load runs when the control is loaded
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
+        private void SetInitialPageSize()
+        {
+            if (Request.QueryString["pagesize"] != null)
+            {
+                grdUsers.PageSize = Convert.ToInt32(Request.QueryString["pagesize"]);
+            }
+            else
+            {
+                var setting = UserModuleBase.GetSetting(UsersPortalId, "Records_PerPage");
+                grdUsers.PageSize = Convert.ToInt32(setting);
+            }
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            cmdSearch.Click += OnSearchClick;            
-            grdUsers.ItemDataBound += grdUsers_ItemDataBound;
-            grdUsers.ItemCommand += grdUsers_ItemCommand;
-
             try
             {
-                //Add an Action Event Handler to the Skin
-                AddActionHandler(ModuleAction_Click);
-
                 if (!Page.IsPostBack)
                 {
 					ClientAPI.RegisterKeyCapture(txtSearch, cmdSearch, 13);
 					//Load the Search Combo
                     ddlSearchType.Items.Add(AddSearchItem("Username"));
                     ddlSearchType.Items.Add(AddSearchItem("Email"));
+					ddlSearchType.Items.Add(AddSearchItem("DisplayName"));
+					var controller = new ListController();
+					ListEntryInfo imageDataType = controller.GetListEntryInfo("DataType", "Image");
                     ProfilePropertyDefinitionCollection profileProperties = ProfileController.GetPropertyDefinitionsByPortal(PortalId, false, false);
                     foreach (ProfilePropertyDefinition definition in profileProperties)
                     {
-                        var controller = new ListController();
-                        ListEntryInfo imageDataType = controller.GetListEntryInfo("DataType", "Image");
-                        if (imageDataType == null || definition.DataType == imageDataType.EntryID)
+                        if (imageDataType != null && definition.DataType != imageDataType.EntryID)
                         {
-                            break;
+							ddlSearchType.Items.Add(AddSearchItem(definition.PropertyName));
                         }
-                        ddlSearchType.Items.Add(AddSearchItem(definition.PropertyName));
                     }
-                    //Localize the Headers
-                    Localization.LocalizeDataGrid(ref grdUsers, LocalResourceFile);
-                    BindData(Filter, ddlSearchType.SelectedItem.Value);
                     
 					//Sent controls to current Filter
 					if ((!String.IsNullOrEmpty(Filter) && Filter.ToUpper() != "NONE") && !String.IsNullOrEmpty(FilterProperty))
@@ -753,79 +516,47 @@ namespace DotNetNuke.Modules.Admin.Users
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// ModuleAction_Click handles all ModuleAction events raised from the skin
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <param name="sender"> The object that triggers the event</param>
-        /// <param name="e">An ActionEventArgs object</param>
-        /// <history>
-        /// 	[cnurse]	03/02/2006	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void ModuleAction_Click(object sender, ActionEventArgs e)
+        void cmdRemoveDeleted_Click(object sender, EventArgs e)
         {
-            switch (e.Action.CommandArgument)
-            {
-                case "Delete":
-                    DeleteUnAuthorizedUsers();
-                    break;
-                case "Remove":
-                    RemoveDeletedUsers();
-                    break;
-            }
+            RemoveDeletedUsers();
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// btnSearch_Click runs when the user searches for accounts by username or email
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[dancaron]	10/28/2004	Intial Version
-        /// </history>
-        /// -----------------------------------------------------------------------------
+        void cmdDeleteUnAuthorized_Click(object sender, EventArgs e)
+        {
+            DeleteUnAuthorizedUsers();
+        }
+
         private void OnSearchClick(Object sender, EventArgs e)
         {
-            CurrentPage = 1;
             txtSearch.Text = txtSearch.Text.Trim();
             Response.Redirect(Globals.NavigateURL(TabId, "", UserFilter(true)));
         }
 
-        private void grdUsers_ItemCommand(object source, DataGridCommandEventArgs e)
+        private void GrdUsersOnItemCommand(object source, GridCommandEventArgs e)
         {
             switch (e.CommandName)
             {
                 case "Delete":
-                    grdUsers_DeleteCommand(source, e);
+                    DeleteUser(GetUserId(e));
                     break;
                 case "Remove":
-                    grdUsers_RemoveCommand(source, e);
+                    RemoveUser(GetUserId(e));
                     break;
                 case "Restore":
-                    grdUsers_RestoreCommand(source, e);
+                    RestoreUser(GetUserId(e));
                     break;
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// grdUsers_DeleteCommand runs when the icon in the delete column is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/05/2007	Intial documentation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void grdUsers_DeleteCommand(object source, DataGridCommandEventArgs e)
+        private int GetUserId(GridCommandEventArgs e)
+        {
+            return Convert.ToInt32(e.CommandArgument);
+        }
+
+        private void DeleteUser(int userId)
         {            
             try
             {
-                var userId = Int32.Parse(e.CommandArgument.ToString());
                 var user = UserController.GetUserById(UsersPortalId, userId);
                 if (user != null)
                 {
@@ -842,7 +573,7 @@ namespace DotNetNuke.Modules.Admin.Users
                 {
                     Filter = txtSearch.Text;
                 }
-                BindData(Filter, ddlSearchType.SelectedItem.Value);
+                RebindGrid();
             }
             catch (Exception exc)
             {
@@ -850,22 +581,21 @@ namespace DotNetNuke.Modules.Admin.Users
             }
         }
 
-        private void grdUsers_RemoveCommand(object source, DataGridCommandEventArgs e)
+        private void RemoveUser(int userId)
         {            
             try
             {
-                var userId = Int32.Parse(e.CommandArgument.ToString());
                 UserInfo user = UserController.GetUserById(UsersPortalId, userId);
 
                 if ((user != null))
                 {
                     if (UserController.RemoveUser(user))
                     {
-                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRemoved", this.LocalResourceFile), ModuleMessage.ModuleMessageType.GreenSuccess);
+                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRemoved", LocalResourceFile), ModuleMessage.ModuleMessageType.GreenSuccess);
                     }
                     else
                     {
-                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRemoveError", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRemoveError", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                     }
                 }
 
@@ -873,7 +603,7 @@ namespace DotNetNuke.Modules.Admin.Users
                 {
                     Filter = txtSearch.Text;
                 }
-                BindData(Filter, ddlSearchType.SelectedItem.Value);
+                RebindGrid();
 
             }
             catch (Exception exc)   //Module failed to load
@@ -882,22 +612,21 @@ namespace DotNetNuke.Modules.Admin.Users
             }
         }
 
-        private void grdUsers_RestoreCommand(object source, DataGridCommandEventArgs e)
+        private void RestoreUser(int userId)
         {            
             try
             {
-                var userId = Int32.Parse(e.CommandArgument.ToString());
                 var user = UserController.GetUserById(UsersPortalId, userId);
 
                 if ((user != null))
                 {
                     if (UserController.RestoreUser(ref user))
                     {
-                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRestored", this.LocalResourceFile), ModuleMessage.ModuleMessageType.GreenSuccess);
+                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRestored", LocalResourceFile), ModuleMessage.ModuleMessageType.GreenSuccess);
                     }
                     else
                     {
-                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRestoreError", this.LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("UserRestoreError", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                     }
                 }
 
@@ -905,7 +634,7 @@ namespace DotNetNuke.Modules.Admin.Users
                 {
                     Filter = txtSearch.Text;
                 }
-                BindData(Filter, ddlSearchType.SelectedItem.Value);
+                RebindGrid();
 
                 //Module failed to load
             }
@@ -915,63 +644,61 @@ namespace DotNetNuke.Modules.Admin.Users
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// grdUsers_ItemDataBound runs when a row in the grid is bound
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/05/2007	Intial documentation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void grdUsers_ItemDataBound(object sender, DataGridItemEventArgs e)
+        void GrdUsersOnPreRender(object sender, EventArgs e)
+        {
+            grdUsers.Columns.FindByUniqueName("UsersOnline").Visible = Entities.Host.Host.EnableUsersOnline;
+        }
+
+        private void GrdUsersOnItemDataBound(object sender, GridItemEventArgs e)
         {
             var item = e.Item;
-            if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem || item.ItemType == ListItemType.SelectedItem)
+            if (item.ItemType == GridItemType.Item || item.ItemType == GridItemType.AlternatingItem || item.ItemType == GridItemType.SelectedItem)
             {
                 var imgApprovedDeleted = item.FindControl("imgApprovedDeleted");
                 var imgNotApprovedDeleted = item.FindControl("imgNotApprovedDeleted");
                 var imgApproved = item.FindControl("imgApproved");
                 var imgNotApproved = item.FindControl("imgNotApproved");
 
-                var user = (UserInfo) item.DataItem;
-                if (user != null)
+                var user = (UserInfo)item.DataItem;
+
+                if (user == null)
                 {
-                    if (user.IsDeleted)
+                    return;
+                }
+
+                if (user.IsDeleted)
+                {
+                    foreach (WebControl control in item.Controls)
                     {
-                        foreach (WebControl control in item.Controls)
-                        {
-                            control.Attributes.Remove("class");
-                            control.Attributes.Add("class", "NormalDeleted");
-                        }
-                        if (imgApprovedDeleted != null && user.Membership.Approved)
-                        {
-                            imgApprovedDeleted.Visible = true;
-                        }
-                        else if (imgNotApprovedDeleted != null && !user.Membership.Approved)
-                        {
-                            imgNotApprovedDeleted.Visible = true;
-                        }
+                        control.Attributes.Remove("class");
+                        control.Attributes.Add("class", "NormalDeleted");
                     }
-                    else
+                    if (imgApprovedDeleted != null && user.Membership.Approved)
                     {
-                        if (imgApproved != null && user.Membership.Approved)
-                        {
-                            imgApproved.Visible = true;
-                        }
-                        else if (imgNotApproved != null && !user.Membership.Approved)
-                        {
-                            imgNotApproved.Visible = true;
-                        }
+                        imgApprovedDeleted.Visible = true;
+                    }
+                    else if (imgNotApprovedDeleted != null && !user.Membership.Approved)
+                    {
+                        imgNotApprovedDeleted.Visible = true;
+                    }
+                }
+                else
+                {
+                    if (imgApproved != null && user.Membership.Approved)
+                    {
+                        imgApproved.Visible = true;
+                    }
+                    else if (imgNotApproved != null && !user.Membership.Approved)
+                    {
+                        imgNotApproved.Visible = true;
                     }
                 }
 
-                var imgColumnControl = item.Controls[0].Controls[0];
-                if (imgColumnControl is HyperLink)
-                {
-                    var editLink = (HyperLink)imgColumnControl;
+                var gridDataItem = (GridDataItem)item;
 
+                var editLink = gridDataItem["EditButton"].Controls[0] as HyperLink;
+                if (editLink != null)
+                {
                     editLink.Visible = (!user.IsInRole(PortalSettings.AdministratorRoleName) || (PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName)));
                     if (editLink.Visible)
                     {
@@ -982,47 +709,52 @@ namespace DotNetNuke.Modules.Admin.Users
                     }
                 }
 
-                imgColumnControl = item.Controls[1].Controls[0];
-                if (imgColumnControl is ImageButton)
+                var delete = (DnnImageButton)item.FindControl("Delete");
+                delete.Visible = IsCommandAllowed(user, "Delete");
+                delete.CommandArgument = user.UserID.ToString(CultureInfo.InvariantCulture);
+                delete.ToolTip = Localization.GetString("Delete.Text", LocalResourceFile);
+
+                var restore = (DnnImageButton)item.FindControl("Restore");
+                restore.Visible = IsCommandAllowed(user, "Restore");
+                restore.CommandArgument = user.UserID.ToString(CultureInfo.InvariantCulture);
+                restore.ToolTip = Localization.GetString("Restore.Text", LocalResourceFile);
+
+                var remove = (DnnImageButton)item.FindControl("Remove");
+                remove.Visible = IsCommandAllowed(user, "Remove");
+                remove.CommandArgument = user.UserID.ToString(CultureInfo.InvariantCulture);
+                remove.ToolTip = Localization.GetString("Remove.Text", LocalResourceFile);
+
+                var rolesColumn = gridDataItem["RolesButton"].Controls[0];
+                rolesColumn.Visible = !user.IsSuperUser && (!user.IsInRole(PortalSettings.AdministratorRoleName) 
+                                                              || (PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName)));
+
+                var onlineControl = (DnnImage)item.FindControl("imgOnline");
+                if (onlineControl != null)
                 {
-                    var delImage = (ImageButton)imgColumnControl;                    
-                    delImage.Visible = IsCommandAllowed(user, "Delete");
-                }
-
-
-                imgColumnControl = item.Controls[2].Controls[0];
-                if (imgColumnControl is HyperLink)
-                {
-                    var rolesLink = (HyperLink) imgColumnControl;
-
-                    rolesLink.Visible = !user.IsSuperUser && (!user.IsInRole(PortalSettings.AdministratorRoleName) 
-                                        || (PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName)));
-                }
-
-                imgColumnControl = item.Controls[3].FindControl("imgOnline");
-                if (imgColumnControl is Image)
-                {
-                    var userOnlineImage = (System.Web.UI.WebControls.Image)imgColumnControl;
-                    userOnlineImage.Visible = user.Membership.IsOnLine;
-                }
-
-                imgColumnControl = item.Controls[3].Controls[0];
-                if (imgColumnControl is ImageButton)
-                {
-                    var restoreImage = (ImageButton)imgColumnControl;
-                    restoreImage.Visible = IsCommandAllowed(user, "Restore");
-                }
-
-                imgColumnControl = item.Controls[4].Controls[0];
-                if (imgColumnControl is ImageButton)
-                {
-                    ImageButton removeImage = (ImageButton)imgColumnControl;
-                    removeImage.Visible = IsCommandAllowed(user, "Remove");
+                    onlineControl.Visible = user.Membership.IsOnLine;
+                    onlineControl.ToolTip = Localization.GetString("Online.Text", LocalResourceFile);
                 }
             }
         }
-		
-		#endregion
 
+        protected void SetupAddUserLink(object sender, EventArgs e)
+        {
+            if(IsEditable)
+            {
+                AddUserLink.Text = Localization.GetString(ModuleActionType.AddContent, LocalResourceFile);
+                AddUserLink.NavigateUrl = EditUrl();
+            }
+            else
+            {
+                AddUserLink.Visible = false;
+            }
+        }
+
+        protected void NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            SetGridDataSource();
+        }
+
+        #endregion
     }
 }

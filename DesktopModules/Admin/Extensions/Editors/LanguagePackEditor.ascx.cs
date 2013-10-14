@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -89,9 +89,9 @@ namespace DotNetNuke.Modules.Admin.Extensions
         {
             cboLanguage.DataSource = LocaleController.Instance.GetLocales(Null.NullInteger).Values;
             cboLanguage.DataBind();
-            if (cboLanguage.Items.FindByValue(LanguagePack.LanguageID.ToString()) != null)
+            if (cboLanguage.FindItemByValue(LanguagePack.LanguageID.ToString()) != null)
             {
-                cboLanguage.Items.FindByValue(LanguagePack.LanguageID.ToString()).Selected = true;
+                cboLanguage.FindItemByValue(LanguagePack.LanguageID.ToString()).Selected = true;
             }
             if (LanguagePack != null)
             {
@@ -108,9 +108,9 @@ namespace DotNetNuke.Modules.Admin.Extensions
                     }
                     cboPackage.DataSource = packages;
                     cboPackage.DataBind();
-                    if (cboPackage.Items.FindByValue(LanguagePack.DependentPackageID.ToString()) != null)
+                    if (cboPackage.FindItemByValue(LanguagePack.DependentPackageID.ToString()) != null)
                     {
-                        cboPackage.Items.FindByValue(LanguagePack.DependentPackageID.ToString()).Selected = true;
+                        cboPackage.FindItemByValue(LanguagePack.DependentPackageID.ToString()).Selected = true;
                     }
                     packageRow.Visible = true;
                 }

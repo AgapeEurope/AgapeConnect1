@@ -4,16 +4,19 @@
 <div class="cbcpPageSettingsContent dnnFormItem">
     <div class="dnnClear">
         <asp:Label id="NameLbl" runat="server" Text="Name" AssociatedControlID="Name" ResourceKey="Name" />
-        <asp:TextBox ID="Name" runat="server" />
+        <asp:TextBox ID="Name" runat="server" MaxLength="200" />
     </div>
     <div class="dnnClear">
         <asp:Label runat="server" ResourceKey="Template" AssociatedControlID="TemplateLst" />
-        <asp:DropDownList ID="TemplateLst" runat="server" />
+        <%--<asp:DropDownList ID="TemplateLst" runat="server" />--%>
+        <dnn:DnnComboBox ID="TemplateLst" runat="server" />
     </div>
     <div class="dnnClear">
         <asp:Label runat="server" ResourceKey="Location" AssociatedControlID="LocationLst" />
-        <asp:DropDownList ID="LocationLst" runat="server" />
-        <asp:DropDownList ID="PageLst" runat="server" MaxHeight="300px" CssClass="dnnCPPageList" />
+        <%--<asp:DropDownList ID="LocationLst" runat="server" />--%>
+        <dnn:DnnComboBox ID="LocationLst" runat="server" />
+       <%-- <asp:DropDownList ID="PageLst" runat="server" MaxHeight="300px" CssClass="dnnCPPageList" />--%>
+       <dnn:DnnComboBox ID="PageLst" runat="server" CssClass="dnnCPPageList" />
     </div>
     <div class="dnnFormCheckbox dnnClear">
         <asp:CheckBox ID="IncludeInMenu" runat="server" Checked="true" />

@@ -139,7 +139,7 @@
     <value>Minimum Priority for pages:</value>
   </data>
   <data name="SectionCoreSettings.Text" xml:space="preserve">
-    <value>Base Page Urls Settings</value>
+    <value>Base Page URLs Settings</value>
   </data>
   <data name="cmdSaveAll.Text" xml:space="preserve">
     <value>Save Sitemap Configuration</value>
@@ -148,7 +148,7 @@
     <value>This option can be used to remove certain pages from the Sitemap. For example you can setup a priority of -1 for a page and enter -1 here to cause the page to not being included in the generated Sitemap.</value>
   </data>
   <data name="lblExcludePriority.Text" xml:space="preserve">
-    <value>Exclude urls with a priority lower than:</value>
+    <value>Exclude URLs with a priority lower than:</value>
   </data>
   <data name="lblIncludeHidden.Help" xml:space="preserve">
     <value>When checked hidden pages (not visible in the menu) will also be included in the Sitemap. The default is not to include hidden pages.</value>
@@ -175,7 +175,7 @@
     <value>Refresh Page Priorities</value>
   </data>
   <data name="SectionProviderSettings.Help" xml:space="preserve">
-    <value>In this section you can view and configure available Sitemap providers for the current website. Check the "Enabled" checkbox if you want to include urls generated for that provider in the final sitemap file. You can also override the priority for all urls of any given provider by checking the appropriate checkbox and giving a value for the new priority</value>
+    <value>In this section you can view and configure available Sitemap providers for the current website. Check the "Enabled" checkbox if you want to include URLs generated for that provider in the final sitemap file. You can also override the priority for all URLs of any given provider by checking the appropriate checkbox and giving a value for the new priority</value>
   </data>
   <data name="SectionProviderSettings.Text" xml:space="preserve">
     <value>Installed Sitemap Providers</value>
@@ -193,7 +193,7 @@
     <value>Override priorities?</value>
   </data>
   <data name="lblCache.Help" xml:space="preserve">
-    <value>Enable this option if you want to cache the Sitemap so it is not generated every time it is requested. This is specially necessary for big sites. If your site has more than 50.000 urls the Sitemap will be cached with a default value of 1 day. Set this value to 0 to disable the caching.</value>
+    <value>Enable this option if you want to cache the Sitemap so it is not generated every time it is requested. This is specially necessary for big sites. If your site has more than 50.000 URLs the Sitemap will be cached with a default value of 1 day. Set this value to 0 to disable the caching.</value>
   </data>
   <data name="lblCache.Text" xml:space="preserve">
     <value>Days to cache Sitemap for</value>

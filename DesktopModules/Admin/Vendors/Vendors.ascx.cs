@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,18 +21,16 @@
 #region Usings
 
 using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Security;
+using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Vendors;
 using DotNetNuke.UI.Utilities;
-
+using Telerik.Web.UI;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
@@ -50,132 +48,58 @@ namespace DotNetNuke.Modules.Admin.Vendors
 	///                       and localisation
 	/// </history>
 	/// -----------------------------------------------------------------------------
-    public partial class Vendors : PortalModuleBase, IActionable
+    public partial class Vendors : PortalModuleBase
     {
         protected int CurrentPage = -1;
         protected int TotalPages = -1;
-        protected Label lblMessage;
-        private string strFilter;
+        private string _searchFilter;
+	    private string _searchField;
 
-        #region IActionable Members
+		#region Private Methods
 
-        public ModuleActionCollection ModuleActions
+	    protected bool CanEdit()
         {
-            get
-            {
-                var actions = new ModuleActionCollection();
-                actions.Add(GetNextActionID(),
-                            Localization.GetString(ModuleActionType.AddContent, LocalResourceFile),
-                            ModuleActionType.AddContent,
-                            "",
-                            "",
-                            EditUrl(),
-                            false,
-                            SecurityAccessLevel.Edit,
-                            true,
-                            false);
-                if(IsEditable)
-                {
-                    actions.Add(GetNextActionID(),
-                                Localization.GetString("cmdDelete", LocalResourceFile),
-                                ModuleActionType.AddContent,
-                                "Delete",
-                                "delete.gif",
-                                "",
-                                "confirm('" + ClientAPI.GetSafeJSString(Localization.GetString("DeleteItems.Confirm")) + "')",
-                                true,
-                                SecurityAccessLevel.Admin,
-                                true,
-                                false);
-                }
-                return actions;
-            }
+            return PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName);
         }
 
-        #endregion
-
-		#region "Private Methods"
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindData gets the vendors from the Database and binds them to the DataGrid
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/17/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindData()
-        {
-            BindData(null, null);
-        }
-
-        private void BindData(string searchText, string searchField)
+        private void SetDataSource()
         {
             CreateLetterSearch();
 
-            //Localize the Headers
-            Localization.LocalizeDataGrid(ref grdVendors, LocalResourceFile);
-
-            if (searchText == Localization.GetString("All"))
+            bool isUnauthorized = false;
+            if (_searchFilter == Localization.GetString("All"))
             {
-                strFilter = "";
+                _searchFilter = "";
             }
-            else if (searchText == Localization.GetString("Unauthorized"))
+            else if (_searchFilter == Localization.GetString("Unauthorized"))
             {
-                strFilter = "";
-            }
-            else
-            {
-                strFilter = searchText;
+                _searchFilter = "";
+                isUnauthorized = true;
             }
 			
             //Get the list of vendors from the database
-            var PageSize = Convert.ToInt32(ddlRecordsPerPage.SelectedItem.Value);
-            var TotalRecords = 0;
-            var objVendors = new VendorController();
-            int Portal = Globals.IsHostTab(PortalSettings.ActiveTab.TabID) ? Null.NullInteger : PortalId;
+            var totalRecords = 0;
+            var vendorController = new VendorController();
+            int portal = Globals.IsHostTab(PortalSettings.ActiveTab.TabID) ? Null.NullInteger : PortalId;
             
-			if (String.IsNullOrEmpty(strFilter))
-            {
-                if (searchText == Localization.GetString("Unauthorized"))
-                {
-                    grdVendors.DataSource = objVendors.GetVendors(Portal, true, CurrentPage - 1, PageSize, ref TotalRecords);
-                }
-                else
-                {
-                    grdVendors.DataSource = objVendors.GetVendors(Portal, false, CurrentPage - 1, PageSize, ref TotalRecords);
-                }
-            }
+			if (String.IsNullOrEmpty(_searchFilter))
+			{
+			    grdVendors.DataSource = vendorController.GetVendors(portal, isUnauthorized, grdVendors.CurrentPageIndex, grdVendors.PageSize, ref totalRecords);
+			    grdVendors.VirtualItemCount = totalRecords;
+			}
             else
             {
-                if (searchField == "email")
+                if (_searchField == "email")
                 {
-                    grdVendors.DataSource = objVendors.GetVendorsByEmail(strFilter, Portal, CurrentPage - 1, PageSize, ref TotalRecords);
+                    grdVendors.DataSource = vendorController.GetVendorsByEmail(_searchFilter, portal, grdVendors.CurrentPageIndex, grdVendors.PageSize, ref totalRecords);
+                    grdVendors.VirtualItemCount = totalRecords;
                 }
                 else
                 {
-                    grdVendors.DataSource = objVendors.GetVendorsByName(strFilter, Portal, CurrentPage - 1, PageSize, ref TotalRecords);
+                    grdVendors.DataSource = vendorController.GetVendorsByName(_searchFilter, portal, grdVendors.CurrentPageIndex, grdVendors.PageSize, ref totalRecords);
+                    grdVendors.VirtualItemCount = totalRecords;
                 }
             }
-            grdVendors.DataBind();
-
-            ctlPagingControl.TotalRecords = TotalRecords;
-            ctlPagingControl.PageSize = PageSize;
-            ctlPagingControl.CurrentPage = CurrentPage;
-            string strQuerystring = "";
-            if (ddlRecordsPerPage.SelectedIndex != 0)
-            {
-                strQuerystring = "PageRecords=" + ddlRecordsPerPage.SelectedValue;
-            }
-            if (!String.IsNullOrEmpty(strFilter))
-            {
-                strQuerystring += "&filter=" + strFilter;
-            }
-            ctlPagingControl.QuerystringParams = strQuerystring;
-            ctlPagingControl.TabID = TabId;
         }
 
         private void CreateLetterSearch()
@@ -190,115 +114,84 @@ namespace DotNetNuke.Modules.Admin.Vendors
 
 		#endregion
 
-		#region "Public Methods"
+		#region Public Methods
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// DisplayAddress correctly formats an Address
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/17/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string DisplayAddress(object Unit, object Street, object City, object Region, object Country, object PostalCode)
         {
             return Globals.FormatAddress(Unit, Street, City, Region, Country, PostalCode);
         }
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// FormatURL correctly formats the Url for the Edit Vendor Link
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/17/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string FormatURL(string strKeyName, string strKeyValue)
         {
-            return !String.IsNullOrEmpty(strFilter) ? EditUrl(strKeyName, strKeyValue, "", "filter=" + strFilter) : EditUrl(strKeyName, strKeyValue);
+            return !String.IsNullOrEmpty(_searchFilter) ? EditUrl(strKeyName, strKeyValue, "", "filter=" + _searchFilter) : EditUrl(strKeyName, strKeyValue);
         }
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// FilterURL correctly formats the Url for filter by first letter and paging
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected string FilterURL(string Filter, string CurrentPage)
         {
             if (!String.IsNullOrEmpty(Filter))
             {
                 if (!String.IsNullOrEmpty(CurrentPage))
                 {
-                    return Globals.NavigateURL(TabId, "", "filter=" + Filter, "currentpage=" + CurrentPage, "PageRecords=" + ddlRecordsPerPage.SelectedValue);
+                    return Globals.NavigateURL(TabId, "", "filter=" + Filter, "currentpage=" + CurrentPage, "PageRecords=" + grdVendors.PageSize);
                 }
                 else
                 {
-                    return Globals.NavigateURL(TabId, "", "filter=" + Filter, "PageRecords=" + ddlRecordsPerPage.SelectedValue);
+                    return Globals.NavigateURL(TabId, "", "filter=" + Filter, "PageRecords=" + grdVendors.PageSize);
                 }
             }
             else
             {
                 if (!String.IsNullOrEmpty(CurrentPage))
                 {
-                    return Globals.NavigateURL(TabId, "", "currentpage=" + CurrentPage, "PageRecords=" + ddlRecordsPerPage.SelectedValue);
+                    return Globals.NavigateURL(TabId, "", "currentpage=" + CurrentPage, "PageRecords=" + grdVendors.PageSize);
                 }
                 else
                 {
-                    return Globals.NavigateURL(TabId, "", "PageRecords=" + ddlRecordsPerPage.SelectedValue);
+                    return Globals.NavigateURL(TabId, "", "PageRecords=" + grdVendors.PageSize);
                 }
             }
         }
 
 		#endregion
 
-		#region "Event Handlers"
+		#region Event Handlers
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_Load runs when the control is loaded
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/17/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            grdVendors.ItemCommand += grdVendors_ItemCommand;
-            ddlRecordsPerPage.SelectedIndexChanged += OnRecordsPerPageIndexChanged;
             btnSearch.Click += OnSearchClick;
+            cmdAddVendor.Click += cmdAddVendor_Click;
+            cmdDeleteUnAuthorized.Click += cmdDeleteUnAuthorized_Click;
+            cmdAddVendor.Visible = CanEdit();
+            cmdDeleteUnAuthorized.Visible = CanEdit();
 
 			ClientAPI.RegisterKeyCapture(txtSearch, btnSearch, 13);
 
             try
             {
-            	AddActionHandler(OnModuleActionClick);
-
                 CurrentPage = Request.QueryString["CurrentPage"] != null ? Convert.ToInt32(Request.QueryString["CurrentPage"]) : 1;
-                strFilter = Request.QueryString["filter"] ?? "";
+                _searchFilter = Request.QueryString["filter"] ?? "";
                 if (!Page.IsPostBack)
                 {
                     if (Request.QueryString["PageRecords"] != null)
                     {
-                        ddlRecordsPerPage.SelectedValue = Request.QueryString["PageRecords"];
+                        int pageSize = Convert.ToInt32(Request.QueryString["PageRecords"]);
+                        if (pageSize >= 1 && pageSize <= 250)
+                        {
+                            grdVendors.PageSize = pageSize;
+                        }
                     }
-                    BindData(strFilter, "username");
+                    _searchField = "name";
                 }
             }
             catch (Exception exc)
@@ -307,54 +200,20 @@ namespace DotNetNuke.Modules.Admin.Vendors
             }
         }
 
-        protected void OnModuleActionClick(object sender, ActionEventArgs e)
-        {
-            switch (e.Action.CommandArgument)
-            {
-                case "Delete":
-                    try
-                    {
-                        var objVendors = new VendorController();
-						if (Globals.IsHostTab(PortalSettings.ActiveTab.TabID))
-                        {
-                            objVendors.DeleteVendors();
-                        }
-                        else
-                        {
-                            objVendors.DeleteVendors(PortalId);
-                        }
-                        Response.Redirect(Globals.NavigateURL(), true);
-                    }
-                    catch (Exception exc) //Module failed to load
-                    {
-                        Exceptions.ProcessModuleLoadException(this, exc);
-                    }                    
-                    break;
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// grdVendors_ItemCommand runs when a command button in the grid is clicked.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/17/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void grdVendors_ItemCommand(object source, DataGridCommandEventArgs e)
+        void cmdDeleteUnAuthorized_Click(object sender, EventArgs e)
         {
             try
             {
-                if (e.CommandName == "filter")
+                var objVendors = new VendorController();
+                if (Globals.IsHostTab(PortalSettings.ActiveTab.TabID))
                 {
-                    strFilter = e.CommandArgument.ToString();
-                    CurrentPage = 1;
-                    txtSearch.Text = "";
-                    BindData(strFilter, "username");
+                    objVendors.DeleteVendors();
                 }
+                else
+                {
+                    objVendors.DeleteVendors(PortalId);
+                }
+                Response.Redirect(Globals.NavigateURL(), true);
             }
             catch (Exception exc) //Module failed to load
             {
@@ -362,30 +221,25 @@ namespace DotNetNuke.Modules.Admin.Vendors
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// ddlRecordsPerPage_SelectedIndexChanged runs when the user selects a new
-        /// Records Per Page value from the dropdown.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[dancaron]	10/28/2004	Intial Version
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void OnRecordsPerPageIndexChanged(Object sender, EventArgs e)
+        void cmdAddVendor_Click(object sender, EventArgs e)
         {
-            CurrentPage = 1;
-            BindData();
+            Response.Redirect(EditUrl(), true);
         }
 
         protected void OnSearchClick(Object sender, EventArgs e)
         {
-            CurrentPage = 1;
-            BindData(txtSearch.Text, ddlSearchType.SelectedItem.Value);
+            grdVendors.CurrentPageIndex = 0;
+            _searchField = ddlSearchType.SelectedValue;
+            _searchFilter = txtSearch.Text;
+            SetDataSource();
+            grdVendors.DataBind();
         }
 		
 		#endregion
 
+	    protected void NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+	    {
+	        SetDataSource();
+	    }
     }
 }

@@ -112,24 +112,36 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountInfo.Text" xml:space="preserve">
+    <value>Account Info</value>
+  </data>
   <data name="BestPractices.Text" xml:space="preserve">
-    <value>You are about to upgrade your website to a more recent version of the DotNetNuke application. Applying upgrades on a consistent basis is the best way to ensure that you are protecting the integrity of your investment and the security of your users and assets. Before proceeding with the automated upgrade process please ensure that:
+    <value>You are about to upgrade your website to a more recent version of the application. Applying upgrades on a consistent basis is the best way to ensure that you are protecting the integrity of your investment and the security of your users and assets. Before proceeding with the automated upgrade process please ensure that:
 &lt;ul&gt;
 &lt;li&gt;you have made plans to first attempt this process in a staging environment
 &lt;li&gt;you have documented your current installation characteristics including doing research on the compatibility of any third party modules which you may be using
 &lt;li&gt;you have created the necessary backups of your environment so that you will be able to restore your website in the event of an unexpected upgrade failure.
 &lt;/ul&gt;</value>
   </data>
-  <data name="ChooseLanguage.Text" xml:space="preserve">
-    <value>Choose Language:</value>
-  </data>
   <data name="CurrentVersion.Text" xml:space="preserve">
     <value>Current Version - {0}</value>
+  </data>
+  <data name="DatabaseUpgrade.Text" xml:space="preserve">
+    <value>Updating Database</value>
+  </data>
+  <data name="Error.Text" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorInStep.Text" xml:space="preserve">
+    <value>ERROR occured - {0}</value>
+  </data>
+  <data name="ExtensionsUpgrade.Text" xml:space="preserve">
+    <value>Updating Extensions</value>
   </data>
   <data name="IntroDetail.Text" xml:space="preserve">
     <value>&lt;p&gt;Welcome to the DotNetNuke Upgrade Page.&lt;/p&gt;
@@ -138,19 +150,55 @@
 
 </value>
   </data>
+  <data name="InvalidCredentials.Text" xml:space="preserve">
+    <value>Username and Password not recognized.</value>
+  </data>
   <data name="Next.Text" xml:space="preserve">
     <value>Upgrade Now</value>
+  </data>
+  <data name="NoInstallationLog.Text" xml:space="preserve">
+    <value>No Installation Log</value>
+  </data>
+  <data name="Password.Help" xml:space="preserve">
+    <value>The password for the super user account.</value>
   </data>
   <data name="Password.Text" xml:space="preserve">
     <value>Password:</value>
   </data>
+  <data name="Retry.Text" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="SeeLogs.Text" xml:space="preserve">
+    <value>View Logs</value>
+  </data>
+  <data name="TimerMinutes.Text" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
   <data name="Title.Text" xml:space="preserve">
-    <value>DotNetNuke Upgrade</value>
+    <value>Upgrade</value>
+  </data>
+  <data name="Upgrade.Text" xml:space="preserve">
+    <value>Upgrade</value>
+  </data>
+  <data name="UpgradeDone.Text" xml:space="preserve">
+    <value>Upgrade Complete</value>
+  </data>
+  <data name="UpgradingDatabase.Text" xml:space="preserve">
+    <value>Upgrading Database</value>
+  </data>
+  <data name="Username.Help" xml:space="preserve">
+    <value>The username for the super user account.</value>
   </data>
   <data name="Username.Text" xml:space="preserve">
     <value>Host (SuperUser) Username:</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
-    <value>DotNetNuke Upgrade - Version {0}</value>
+    <value>Upgrade - Version {0}</value>
+  </data>
+  <data name="ViewWebsite.Text" xml:space="preserve">
+    <value>View Website</value>
+  </data>
+  <data name="VisitWebsite.Text" xml:space="preserve">
+    <value>Visit Website</value>
   </data>
 </root>

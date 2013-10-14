@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,7 +22,6 @@
 
 using System;
 using System.Collections;
-using System.Data;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common.Utilities;
@@ -34,8 +33,6 @@ using DotNetNuke.Services.Vendors;
 using DotNetNuke.UI.Skins.Controls;
 using DotNetNuke.UI.Utilities;
 using DotNetNuke.UI.WebControls;
-
-using Calendar = DotNetNuke.Common.Utilities.Calendar;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
@@ -125,14 +122,9 @@ namespace DotNetNuke.Modules.Admin.Vendors
                     BannerId = Int32.Parse(Request.QueryString["BannerId"]);
                 }
 				
-                //this needs to execute always to the client script code is registred in InvokePopupCal
-                cmdStartCalendar.NavigateUrl = Calendar.InvokePopupCal(txtStartDate);
-                cmdEndCalendar.NavigateUrl = Calendar.InvokePopupCal(txtEndDate);
-
                 if (Page.IsPostBack == false)
                 {
                     ctlImage.FileFilter = Globals.glbImageFileTypes;
-                    ClientAPI.AddButtonConfirm(cmdDelete, Localization.GetString("DeleteItem"));
 
                     var objBannerTypes = new BannerTypeController();
                     //Get the banner types from the database
@@ -143,44 +135,40 @@ namespace DotNetNuke.Modules.Admin.Vendors
                     if (BannerId != Null.NullInteger)
                     {
                         //Obtain a single row of banner information
-                        BannerInfo objBanner = objBanners.GetBanner(BannerId);
-                        if (objBanner != null)
+                        BannerInfo banner = objBanners.GetBanner(BannerId);
+                        if (banner != null)
                         {
-                            txtBannerName.Text = objBanner.BannerName;
-                            cboBannerType.Items.FindByValue(objBanner.BannerTypeId.ToString()).Selected = true;
-                            DNNTxtBannerGroup.Text = objBanner.GroupName;
-                            ctlImage.Url = objBanner.ImageFile;
-                            if (objBanner.Width != 0)
+                            txtBannerName.Text = banner.BannerName;
+                            cboBannerType.Items.FindByValue(banner.BannerTypeId.ToString()).Selected = true;
+                            DNNTxtBannerGroup.Text = banner.GroupName;
+                            ctlImage.Url = banner.ImageFile;
+                            if (banner.Width != 0)
                             {
-                                txtWidth.Text = objBanner.Width.ToString();
+                                txtWidth.Text = banner.Width.ToString();
                             }
-                            if (objBanner.Height != 0)
+                            if (banner.Height != 0)
                             {
-                                txtHeight.Text = objBanner.Height.ToString();
+                                txtHeight.Text = banner.Height.ToString();
                             }
-                            txtDescription.Text = objBanner.Description;
-                            if (!String.IsNullOrEmpty(objBanner.URL))
+                            txtDescription.Text = banner.Description;
+                            if (!String.IsNullOrEmpty(banner.URL))
                             {
-                                ctlURL.Url = objBanner.URL;
+                                ctlURL.Url = banner.URL;
                             }
-                            txtImpressions.Text = objBanner.Impressions.ToString();
-                            txtCPM.Text = objBanner.CPM.ToString();
-                            if (!Null.IsNull(objBanner.StartDate))
-                            {
-                                txtStartDate.Text = objBanner.StartDate.ToShortDateString();
-                            }
-                            if (!Null.IsNull(objBanner.EndDate))
-                            {
-                                txtEndDate.Text = objBanner.EndDate.ToShortDateString();
-                            }
-                            optCriteria.Items.FindByValue(objBanner.Criteria.ToString()).Selected = true;
+                            txtImpressions.Text = banner.Impressions.ToString();
+                            txtCPM.Text = banner.CPM.ToString();
+                            
+                            StartDatePicker.SelectedDate = Null.IsNull(banner.StartDate) ? (DateTime?) null : banner.StartDate;
+                            EndDatePicker.SelectedDate = Null.IsNull(banner.EndDate) ? (DateTime?)null : banner.EndDate;
+                            
+                            optCriteria.Items.FindByValue(banner.Criteria.ToString()).Selected = true;
 
-                            ctlAudit.CreatedByUser = objBanner.CreatedByUser;
-                            ctlAudit.CreatedDate = objBanner.CreatedDate.ToString();
+                            ctlAudit.CreatedByUser = banner.CreatedByUser;
+                            ctlAudit.CreatedDate = banner.CreatedDate.ToString();
 
                             var arrBanners = new ArrayList();
 
-                            arrBanners.Add(objBanner);
+                            arrBanners.Add(banner);
                             bannersRow.Visible = true;
                             lstBanners.DataSource = arrBanners;
                             lstBanners.DataBind();       
@@ -284,15 +272,15 @@ namespace DotNetNuke.Modules.Admin.Vendors
                     {
                         BannerId = -1;
                     }
-                    DateTime StartDate = Null.NullDate;
-                    if (!String.IsNullOrEmpty(txtStartDate.Text))
+                    DateTime startDate = Null.NullDate;
+                    if (StartDatePicker.SelectedDate.HasValue)
                     {
-                        StartDate = Convert.ToDateTime(txtStartDate.Text);
+                        startDate = StartDatePicker.SelectedDate.Value;
                     }
-                    DateTime EndDate = Null.NullDate;
-                    if (!String.IsNullOrEmpty(txtEndDate.Text))
+                    DateTime endDate = Null.NullDate;
+                    if (EndDatePicker.SelectedDate.HasValue)
                     {
-                        EndDate = Convert.ToDateTime(txtEndDate.Text);
+                        endDate = EndDatePicker.SelectedDate.Value;
                     }
 					
                     //Create an instance of the Banner DB component
@@ -323,8 +311,8 @@ namespace DotNetNuke.Modules.Admin.Vendors
                     objBanner.URL = ctlURL.Url;
                     objBanner.Impressions = int.Parse(txtImpressions.Text);
                     objBanner.CPM = double.Parse(txtCPM.Text);
-                    objBanner.StartDate = StartDate;
-                    objBanner.EndDate = EndDate;
+                    objBanner.StartDate = startDate;
+                    objBanner.EndDate = endDate;
                     objBanner.Criteria = int.Parse(optCriteria.SelectedItem.Value);
                     objBanner.CreatedByUser = UserInfo.UserID.ToString();
 
@@ -354,8 +342,8 @@ namespace DotNetNuke.Modules.Admin.Vendors
         {
             try
             {
-                txtStartDate.Text = "";
-                txtEndDate.Text = "";
+                StartDatePicker.SelectedDate = null;
+                EndDatePicker.SelectedDate = null;
                 cmdDelete.Visible = false;
                 cmdCopy.Visible = false;
                 cmdEmail.Visible = false;

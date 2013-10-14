@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ProfileProperties_FirstName.Text" xml:space="preserve">
     <value>First Name:</value>
@@ -136,7 +136,7 @@
     <value>Enter a Last Name</value>
   </data>
   <data name="ProfileProperties_MiddleName.Help" xml:space="preserve">
-    <value>Middle Name:</value>
+    <value>Enter a middle name</value>
   </data>
   <data name="ProfileProperties_Prefix.Help" xml:space="preserve">
     <value>Enter a prefix (eg Mr. Dr.)</value>
@@ -205,13 +205,13 @@
     <value>Website:</value>
   </data>
   <data name="ProfileProperties_Website.Help" xml:space="preserve">
-    <value>Enter a web site url.</value>
+    <value>Enter a web site URL.</value>
   </data>
   <data name="ProfileProperties_IM.Text" xml:space="preserve">
     <value>IM:</value>
   </data>
   <data name="ProfileProperties_IM.Help" xml:space="preserve">
-    <value>Enter an instant messenger id (AOL, MSN, Yahoo etc)</value>
+    <value>Enter an instant messenger id (Skype, Yahoo, Google, etc)</value>
   </data>
   <data name="ProfileProperties_TimeZone.Text" xml:space="preserve">
     <value>Time Zone:</value>
@@ -335,5 +335,53 @@
   </data>
   <data name="ProfileProperties_DisplayName.Text" xml:space="preserve">
     <value>Display Name:</value>
+  </data>
+  <data name="Address.Text" xml:space="preserve">
+    <value>Address Details</value>
+  </data>
+  <data name="Contact Info.Text" xml:space="preserve">
+    <value>Contact Information</value>
+  </data>
+  <data name="Name.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Preferences.Text" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="ProfileProperties_Facebook.Help" xml:space="preserve">
+    <value>A link to your Facebook profile with a format beginning with facebook.com/</value>
+  </data>
+  <data name="ProfileProperties_Facebook.Required" xml:space="preserve">
+    <value>Facebook is required</value>
+  </data>
+  <data name="ProfileProperties_Facebook.Text" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ProfileProperties_GooglePlus.Help" xml:space="preserve">
+    <value>A link to your Google+ profile with a format beginning with plus.google.com/</value>
+  </data>
+  <data name="ProfileProperties_GooglePlus.Required" xml:space="preserve">
+    <value>Google+ is required</value>
+  </data>
+  <data name="ProfileProperties_GooglePlus.Text" xml:space="preserve">
+    <value>Google+</value>
+  </data>
+  <data name="ProfileProperties_LinkedIn.Help" xml:space="preserve">
+    <value>A link to your LinkedIn profile with a format beginning with www.linkedin.com/ or [country].linkedin.com/</value>
+  </data>
+  <data name="ProfileProperties_LinkedIn.Required" xml:space="preserve">
+    <value>LinkedIn is required</value>
+  </data>
+  <data name="ProfileProperties_LinkedIn.Text" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ProfileProperties_Twitter.Help" xml:space="preserve">
+    <value>A link to your Twitter profile with a format beginning with twitter.com/</value>
+  </data>
+  <data name="ProfileProperties_Twitter.Required" xml:space="preserve">
+    <value>Twitter is required</value>
+  </data>
+  <data name="ProfileProperties_Twitter.Text" xml:space="preserve">
+    <value>Twitter</value>
   </data>
 </root>

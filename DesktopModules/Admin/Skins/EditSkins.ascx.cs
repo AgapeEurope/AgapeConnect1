@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -55,6 +55,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 	/// -----------------------------------------------------------------------------
 	public partial class EditSkins : PortalModuleBase
 	{
+		private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (EditSkins));
 
 		#region Private Members
 
@@ -98,7 +99,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 			}
 		}
 
-		private static void AddSkinstoCombo(DropDownList combo, string strRoot)
+		private static void AddSkinstoCombo(DotNetNuke.Web.UI.WebControls.DnnComboBox combo, string strRoot)
 		{
 			if (Directory.Exists(strRoot))
 			{
@@ -107,7 +108,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 					var strName = strFolder.Substring(strFolder.LastIndexOf("\\") + 1);
 					if (strName != "_default")
 					{
-						combo.Items.Add(new ListItem(strName, strFolder.Replace(Globals.ApplicationMapPath, "").ToLower()));
+						combo.AddItem(strName, strFolder.Replace(Globals.ApplicationMapPath, "").ToLower());
 					}
 				}
 			}
@@ -176,7 +177,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 				}
 				catch (Exception ex) //problem creating thumbnail
 				{
-					DnnLog.Error(ex);
+					Logger.Error(ex);
 				}
 			}
 
@@ -226,7 +227,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 		{
 			cboSkins.Items.Clear();
 			CurrentSkin = _notSpecified;
-			cboSkins.Items.Add(CurrentSkin);
+            cboSkins.AddItem(CurrentSkin, CurrentSkin);
 
 			//load host skins
 			if (chkHost.Checked)
@@ -239,9 +240,10 @@ namespace DotNetNuke.Modules.Admin.Skins
 			{
 				AddSkinstoCombo(cboSkins, PortalSettings.HomeDirectoryMapPath + SkinController.RootSkin);
 			}
+
 			cboContainers.Items.Clear();
 			CurrentContainer = _notSpecified;
-			cboContainers.Items.Add(CurrentContainer);
+            cboContainers.AddItem(CurrentContainer,CurrentContainer);
 
 			//load host containers
 			if (chkHost.Checked)
@@ -307,9 +309,12 @@ namespace DotNetNuke.Modules.Admin.Skins
 
 		private void ProcessSkins(string strFolderPath, string type)
 		{
+		    const int kColSpan = 5;
+
 			HtmlTable tbl;
 			HtmlTableRow row = null;
 			HtmlTableCell cell;
+		    Panel pnlMsg;
 
 			string[] arrFiles;
 			string strURL;
@@ -324,65 +329,57 @@ namespace DotNetNuke.Modules.Admin.Skins
 					tbl = tblSkins;
 					strRootSkin = SkinController.RootSkin.ToLower();
 					fallbackSkin = IsFallbackSkin(strFolderPath);
+				    pnlMsg = pnlMsgSkins;
 				}
 				else
 				{
 					tbl = tblContainers;
 					strRootSkin = SkinController.RootContainer.ToLower();
 					fallbackSkin = IsFallbackContainer(strFolderPath);
+				    pnlMsg = pnlMsgContainers;
 				}
 				var strSkinType = strFolderPath.ToLower().IndexOf(Globals.HostMapPath.ToLower()) != -1 ? "G" : "L";
 
 				var canDeleteSkin = SkinController.CanDeleteSkin(strFolderPath, PortalSettings.HomeDirectoryMapPath);
-
+                arrFiles = Directory.GetFiles(strFolderPath, "*.ascx");
+                int colSpan = arrFiles.Length ==0 ? 1: arrFiles.Length;
+			    tbl.Width = "auto";
 				if (fallbackSkin || !canDeleteSkin)
-				{
-					row = new HtmlTableRow();
-					cell = new HtmlTableCell {ColSpan = 3};
+                {                
 					var pnl = new Panel {CssClass = "dnnFormMessage dnnFormWarning"};
 				    var lbl = new Label {Text = Localization.GetString(type == "Skin" ? "CannotDeleteSkin.ErrorMessage" : "CannotDeleteContainer.ErrorMessage", LocalResourceFile)};
 				    pnl.Controls.Add(lbl);
-					cell.Controls.Add(pnl);
-					row.Cells.Add(cell);
-					tbl.Rows.Add(row);
-
+                    pnlMsg.Controls.Add(pnl);
+                 
 					cmdDelete.Visible = false;
 				}
-				arrFiles = Directory.GetFiles(strFolderPath, "*.ascx");
 				if (arrFiles.Length == 0)
 				{
-					row = new HtmlTableRow();
-					cell = new HtmlTableCell {ColSpan = 3};
-					var pnl = new Panel {CssClass = "dnnFormMessage dnnFormWarning"};
+                 	var pnl = new Panel {CssClass = "dnnFormMessage dnnFormWarning"};
 				    var lbl = new Label {Text = Localization.GetString(type == "Skin" ? "NoSkin.ErrorMessage" : "NoContainer.ErrorMessage", LocalResourceFile)};
 				    pnl.Controls.Add(lbl);
-					cell.Controls.Add(pnl);
-					row.Cells.Add(cell);
-					tbl.Rows.Add(row);
+                    pnlMsg.Controls.Add(pnl);                 
 				}
+                
 				var strFolder = strFolderPath.Substring(strFolderPath.LastIndexOf("\\") + 1);
 				foreach (var strFile in arrFiles)
 				{
 					var file = strFile.ToLower();
-					intIndex += 1;
-					if (intIndex == 4)
-					{
-						intIndex = 1;
-					}
-					if (intIndex == 1)
-					{
-						//Create new row
-						row = new HtmlTableRow();
-						tbl.Rows.Add(row);
-					}
+                    intIndex += 1;
+                    if (intIndex == kColSpan+ 1)
+                    {
+                        intIndex = 1;
+                    }
+                    if (intIndex == 1)
+                    {
+                        //Create new row
+                        row = new HtmlTableRow();
+                        tbl.Rows.Add(row);
+                    }
 					cell = new HtmlTableCell {Align = "center", VAlign = "bottom"};
 					cell.Attributes["class"] = "NormalBold";
 
-					//name
-					var label = new Label {Text = Path.GetFileNameWithoutExtension(file)};
-					cell.Controls.Add(label);
-					cell.Controls.Add(new LiteralControl("<br />"));
-
+					
 					//thumbnail
 					if (File.Exists(file.Replace(".ascx", ".jpg")))
 					{
@@ -399,7 +396,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 					}
 					else
 					{
-						var img = new System.Web.UI.WebControls.Image {ImageUrl = ResolveUrl("~/images/thumbnail.jpg"), BorderWidth = new Unit(1)};
+						var img = new System.Web.UI.WebControls.Image {ImageUrl = ResolveUrl("~/images/thumbnail_black.png"), BorderWidth = new Unit(1)};
 						cell.Controls.Add(img);
 					}
 					cell.Controls.Add(new LiteralControl("<br />"));
@@ -407,6 +404,12 @@ namespace DotNetNuke.Modules.Admin.Skins
 					strURL = file.Substring(strFile.IndexOf("\\" + strRootSkin + "\\"));
 					strURL.Replace(".ascx", "");
 
+                    //name
+                    var label = new Label { Text = getReducedFileName(Path.GetFileNameWithoutExtension(file)), ToolTip = Path.GetFileNameWithoutExtension(file) ,CssClass = "skinTitle"};
+                    cell.Controls.Add(label);
+                    cell.Controls.Add(new LiteralControl("<br />"));
+
+                    //Actions
 					var previewLink = new HyperLink();
 					
 					if (type == "Skin")
@@ -421,26 +424,27 @@ namespace DotNetNuke.Modules.Admin.Skins
 																	  Null.NullString,
 																	  "ContainerSrc=" + "[" + strSkinType + "]" + Globals.QueryStringEncode(strURL.Replace(".ascx", "").Replace("\\", "/")));
 					}
-					previewLink.CssClass = "dnnSecondaryAction";
+
+				    previewLink.CssClass = "dnnSecondaryAction";
 					previewLink.Target = "_new";
 					previewLink.Text = Localization.GetString("cmdPreview", LocalResourceFile);
 					cell.Controls.Add(previewLink);
 
-					cell.Controls.Add(new LiteralControl("|"));
+					cell.Controls.Add(new LiteralControl("&nbsp;"));
 
 					var applyButton = new LinkButton
 										  {
 											  Text = Localization.GetString("cmdApply", LocalResourceFile),
 											  CommandName = "Apply" + type,
 											  CommandArgument = "[" + strSkinType + "]" + strRootSkin + "/" + strFolder + "/" + Path.GetFileName(strFile),
-											  CssClass = "dnnSecondaryAction"
+											  CssClass = "dnnSecondaryAction applyAction"
 										  };
 					applyButton.Command += OnCommand;
 					cell.Controls.Add(applyButton);
 
 					if ((UserInfo.IsSuperUser || strSkinType == "L") && (!fallbackSkin && canDeleteSkin))
 					{
-						cell.Controls.Add(new LiteralControl(";|"));
+						cell.Controls.Add(new LiteralControl("&nbsp;"));
 
 						var deleteButton = new LinkButton
 											   {
@@ -457,7 +461,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 				if (File.Exists(strFolderPath + "/" + Globals.glbAboutPage))
 				{
 					row = new HtmlTableRow();
-					cell = new HtmlTableCell {ColSpan = 3, Align = "center"};
+					cell = new HtmlTableCell {ColSpan = colSpan, Align = "center"};
 					var strFile = strFolderPath + "/" + Globals.glbAboutPage;
 					strURL = strFile.Substring(strFile.IndexOf("\\portals\\"));
 
@@ -476,15 +480,26 @@ namespace DotNetNuke.Modules.Admin.Skins
 			}
 		}
 
+        private string getReducedFileName(string fileName   )
+        {
+            const int kMaxLength = 13;
+            string result = fileName;
+            if(fileName.Length > kMaxLength)
+            {
+                result = fileName.Substring(0, kMaxLength - 2) + "...";
+            }
+            return result;
+        }
+
 		private void SetContainer(string strContainer)
 		{
-			if (cboContainers.Items.FindByValue(CurrentContainer) != null)
+			if (cboContainers.FindItemByValue(CurrentContainer) != null)
 			{
-				cboContainers.Items.FindByValue(CurrentContainer).Selected = false;
+				cboContainers.FindItemByValue(CurrentContainer).Selected = false;
 			}
-			if (cboContainers.Items.FindByValue(strContainer) != null)
+			if (cboContainers.FindItemByValue(strContainer) != null)
 			{
-				cboContainers.Items.FindByValue(strContainer).Selected = true;
+				cboContainers.FindItemByValue(strContainer).Selected = true;
 				CurrentContainer = strContainer;
 			}
 			else
@@ -495,13 +510,13 @@ namespace DotNetNuke.Modules.Admin.Skins
 
 		private void SetSkin(string strSkin)
 		{
-			if (cboSkins.Items.FindByValue(CurrentSkin) != null)
+			if (cboSkins.FindItemByValue(CurrentSkin) != null)
 			{
-				cboSkins.Items.FindByValue(CurrentSkin).Selected = false;
+				cboSkins.FindItemByValue(CurrentSkin).Selected = false;
 			}
-			if (cboSkins.Items.FindByValue(strSkin) != null)
+			if (cboSkins.FindItemByValue(strSkin) != null)
 			{
-				cboSkins.Items.FindByValue(strSkin).Selected = true;
+				cboSkins.FindItemByValue(strSkin).Selected = true;
 				CurrentSkin = strSkin;
 			}
 			else
@@ -597,6 +612,7 @@ namespace DotNetNuke.Modules.Admin.Skins
 			cmdDelete.Click += OnDeleteClick;
 			cmdParse.Click += OnParseClick;
 			cmdRestore.Click += OnRestoreClick;
+		    lblLegacy.Visible = false;
 
 			string strSkin;
 			var strContainer = Null.NullString;
@@ -844,5 +860,5 @@ namespace DotNetNuke.Modules.Admin.Skins
 
 		#endregion
 
-	}
+    }
 }

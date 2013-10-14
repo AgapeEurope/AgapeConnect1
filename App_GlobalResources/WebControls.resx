@@ -153,4 +153,40 @@
   <data name="UploadError.Text" xml:space="preserve">
     <value>File type {1} is not valid in this context. Valid File Types Include: {0}</value>
   </data>
+  <data name="PasswordStrengthFair.Text" xml:space="preserve">
+    <value>fair</value>
+  </data>
+  <data name="PasswordStrengthMinLength.Text" xml:space="preserve">
+    <value>-character minimum</value>
+  </data>
+  <data name="PasswordStrengthStrong.Text" xml:space="preserve">
+    <value>strong</value>
+  </data>
+  <data name="PasswordStrengthWeak.Text" xml:space="preserve">
+    <value>weak</value>
+  </data>
+  <data name="CriteriaOneUpperCaseLetter.Text" xml:space="preserve">
+    <value>One upper-case letter</value>
+  </data>
+  <data name="CriteriaOneLowerCaseLetter.Text" xml:space="preserve">
+    <value>One lower-case letter</value>
+  </data>
+  <data name="CriteriaSpecialChar.Text" xml:space="preserve">
+    <value>Special character (!,@,#,%)</value>
+  </data>
+  <data name="CriteriaAtLeastNSpecialChars.Text" xml:space="preserve">
+    <value>At least {0} special characters (!,@,#,%)</value>
+  </data>
+  <data name="CriteriaOneNumber.Text" xml:space="preserve">
+    <value>One number</value>
+  </data>
+  <data name="CriteriaAtLeastNChars.Text" xml:space="preserve">
+    <value>At least {0} characters</value>
+  </data>
+  <data name="ConfirmPasswordUnmatched.Text" xml:space="preserve">
+    <value>Password does not match</value>
+  </data>
+  <data name="ConfirmPasswordMatched.Text" xml:space="preserve">
+    <value>Password is matched</value>
+  </data>
 </root>

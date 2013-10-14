@@ -27,12 +27,12 @@
                         </ul>
                     </fieldset>
                 <% } else { %>
-                    <h2><%= LocalizeString("Premium.Header") %></h2>
+                    <h2><%= GetLicenseFormatString("Premium.Header") %></h2>
                     <fieldset>
-                        <p><%= LocalizeString("PremiumIntro.Text") %></p>
+                        <p><%= GetLicenseFormatString("PremiumIntro.Text") %></p>
                         <fiftyOne:Stats runat="server" ID="PremiumStats" />
-                        <p id="PremiumUploadError" runat="server" class="dnnFormMessage dnnFormValidationSummary"><%=LocalizeString("PremiumUploadError.Text")%></p>
-                        <p id="PremiumUploadSuccess" runat="server" class="dnnFormMessage dnnFormSuccess"><%=LocalizeString("PremiumUploadSuccess.Text")%></p>
+                        <p id="PremiumUploadError" runat="server" class="dnnFormMessage dnnFormValidationSummary"><%=GetLicenseFormatString("PremiumUploadError.Text")%></p>
+                        <p id="PremiumUploadSuccess" runat="server" class="dnnFormMessage dnnFormSuccess"><%=GetLicenseFormatString("PremiumUploadSuccess.Text")%></p>
                         <fiftyOne:Upload runat="server" ID="PremiumUpload" FooterEnabled="False" LogoEnabled="False" />
                     </fieldset>
                 <% } %>
@@ -43,13 +43,15 @@
                     <h4><%= LocalizeString("SearchPremium.Header") %></h4>
                     <p><%= LocalizeString("SearchPremium.Text")%></p>
                     <p id="NoResultsMessage" runat="server" class="dnnFormMessage dnnFormWarning"><%=LocalizeString("NoResultsFound.Text")%></p>
-                    <p>
+                    <div class="dnnFormItem">
                         <asp:TextBox runat="server" ID="SearchTextBox" MaxLength="800" ValidationGroup="DeviceSearch" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="SearchTextBox" ValidationGroup="DeviceSearch" ResourceKey="DeviceSearchRequired" CssClass="dnnFormMessage dnnFormError" Display="Dynamic"></asp:RequiredFieldValidator>
-                    </p>
-                    <p><asp:LinkButton runat="server" ID="SearchButton" ResourceKey="SearchButton" CssClass="dnnPrimaryAction" CausesValidation="True" ValidationGroup="DeviceSearch" /></p>
+                        <asp:LinkButton runat="server" ID="SearchButton" ResourceKey="SearchButton" CssClass="dnnPrimaryAction" CausesValidation="True" ValidationGroup="DeviceSearch" />
+                    </div>
+                    <p></p>
                 </div>
-                <div class="deviceCol-right">
+                <div class="deviceCol-right dnnScroll">
+                   
                     <div class="glossary" style="display:none;">
                         <div class="contents-header">
                             <h4><%= LocalizeString("Introduction.Header") %></h4>
@@ -155,7 +157,7 @@
                     </div>
                     <div class="explorer">
                         <div class="contents-header">
-                        <% if (this.IsPremium) { %>
+                        <% if (FiftyOne.Foundation.UI.DataProvider.IsPremium) { %>
                             <h4><%=LocalizeString("DeviceExplorer.Header") %></h4>
                         <% } else {%>
                             <h4><%=LocalizeString("LiteSearchResults.Header") %></h4>
@@ -163,8 +165,9 @@
                         <% } %>
                         </div>
                         <a href="#" class="contents-help"><strong><%=LocalizeString("Help.Text") %></strong></a>
-                        <dnn:DnnDeviceExplorer runat="server" ID="DeviceExplorer" FooterEnabled="False" LogoEnabled="False" BackButtonCssClass="dnnTertiaryAction"/>
+                        <dnn:DnnDeviceExplorer runat="server" ID="DeviceExplorer" FooterEnabled="False" LogoEnabled="False" BackButtonCssClass="dnnTertiaryAction" ImagesEnabled="True"/>
                     </div>
+                  
                 </div>
             </div>
             <% } %>
@@ -174,13 +177,13 @@
 </div>
 
 <script type="text/javascript">
-    $('.dnnTooltip').dnnTooltip();
-    
+    //$('.dnnTooltip').dnnTooltip();
+
     $('.contents-help').click(function (e) {
         e.preventDefault();
         $('.explorer').slideToggle(function () {
-            $('.glossary').slideToggle();    
-        }); 
+            $('.glossary').slideToggle();
+        });
     });
 
     $('.contents-back').click(function (e) {
@@ -194,6 +197,6 @@
         if (event.keyCode == 13) {
             $("<%= SearchButton.ClientID %>").click();
         }
-    });
+    }); 
 
 </script>

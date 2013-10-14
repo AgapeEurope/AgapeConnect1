@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -30,6 +30,7 @@ using DotNetNuke.HttpModules.RequestFilter;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Utilities;
+using DotNetNuke.Web.UI.WebControls;
 
 #endregion
 
@@ -46,6 +47,7 @@ namespace DotNetNuke.Modules.Admin.Host
     /// </history>
     public partial class RequestFilters : PortalModuleBase
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (RequestFilters));
 		#region "Private Fields"
         private List<RequestFilterRule> _Rules;
 		
@@ -143,12 +145,12 @@ namespace DotNetNuke.Modules.Admin.Host
         {
             var rule = (RequestFilterRule) e.Item.DataItem;
 
-            var ddlOperator = (DropDownList) e.Item.FindControl("ddlOperator");
+            var ddlOperator = (DnnComboBox) e.Item.FindControl("ddlOperator");
             if (ddlOperator != null && rule != null)
             {
                 ddlOperator.SelectedValue = rule.Operator.ToString();
             }
-            var ddlAction = (DropDownList) e.Item.FindControl("ddlAction");
+			var ddlAction = (DnnComboBox)e.Item.FindControl("ddlAction");
             if (ddlAction != null && rule != null)
             {
                 ddlAction.SelectedValue = rule.Action.ToString();
@@ -299,7 +301,7 @@ namespace DotNetNuke.Modules.Admin.Host
             }
             catch (UnauthorizedAccessException exc)
             {
-                DnnLog.Debug(exc);
+                Logger.Debug(exc);
 
                 lblErr.InnerText = Localization.GetString("unauthorized", LocalResourceFile);
                 lblErr.Visible = true;
@@ -356,8 +358,8 @@ namespace DotNetNuke.Modules.Admin.Host
             var txtServerVar = (TextBox) e.Item.FindControl("txtServerVar");
             var txtValue = (TextBox) e.Item.FindControl("txtValue");
             var txtLocation = (TextBox) e.Item.FindControl("txtLocation");
-            var ddlOperator = (DropDownList) e.Item.FindControl("ddlOperator");
-            var ddlAction = (DropDownList) e.Item.FindControl("ddlAction");
+			var ddlOperator = (DnnComboBox)e.Item.FindControl("ddlOperator");
+			var ddlAction = (DnnComboBox)e.Item.FindControl("ddlAction");
             if (!String.IsNullOrEmpty(txtServerVar.Text) && !String.IsNullOrEmpty(txtValue.Text))
             {
                 rule.ServerVariable = txtServerVar.Text;
@@ -456,7 +458,7 @@ namespace DotNetNuke.Modules.Admin.Host
             base.OnPreRender(e);
 
             //If the user is editing a rule, then disable the "Add Rule" button
-            cmdAddRule.Enabled = rptRules.EditItemIndex == -1;
+            cmdAddRule.Visible = rptRules.EditItemIndex == -1 || !AddMode;
         }
 		
 		#endregion

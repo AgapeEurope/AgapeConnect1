@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web.UI.WebControls;
 using System.Xml;
 
 using DotNetNuke.Application;
@@ -37,8 +36,6 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
 using DotNetNuke.UI.Utilities;
 
-using Telerik.Web.UI;
-
 using Globals = DotNetNuke.Common.Globals;
 
 
@@ -48,6 +45,20 @@ namespace DotNetNuke.Modules.XmlMerge
 {
     public partial class XmlMerge : PortalModuleBase
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (XmlMerge));
+
+	    protected string ConfirmText
+	    {
+		    get
+		    {
+				if (ddlConfig.SelectedValue.ToLowerInvariant() == "web.config")
+				{
+					return Localization.GetSafeJSString("SaveWarning", LocalResourceFile);
+				}
+
+				return Localization.GetSafeJSString("SaveConfirm", LocalResourceFile);
+		    }
+	    }
 
         #region Private Functions
 
@@ -79,8 +90,7 @@ namespace DotNetNuke.Modules.XmlMerge
             IEnumerable<string> fileList = (from file in files select Path.GetFileName(file));
             ddlConfig.DataSource = fileList;
             ddlConfig.DataBind();
-            var selectItem = new ListItem(Localization.GetString("SelectConfig", LocalResourceFile), "-1");
-            ddlConfig.Items.Insert(0, selectItem);
+            ddlConfig.InsertItem(0, Localization.GetString("SelectConfig", LocalResourceFile), "-1");
             ddlConfig.SelectedIndex = 0;
         }
 
@@ -193,7 +203,7 @@ namespace DotNetNuke.Modules.XmlMerge
             }
             catch (Exception ex)
             {
-                DnnLog.Error(ex);
+                Logger.Error(ex);
                 UI.Skins.Skin.AddModuleMessage(this, string.Format(Localization.GetString("ERROR_ConfigurationFormat", LocalResourceFile), ex.Message), ModuleMessage.ModuleMessageType.RedError);
                 return;
             }
@@ -227,26 +237,14 @@ namespace DotNetNuke.Modules.XmlMerge
 
             if (ddlConfig.SelectedIndex <= 0)
             {
-                cmdSave.Attributes.Remove("onClick");
-                cmdExecute.Attributes.Remove("onClick");
                 cmdSave.Enabled = false;
                 cmdExecute.Enabled = false;
             }
             else
             {
                 cmdSave.Enabled = true;
-                if (ddlConfig.SelectedValue.ToLowerInvariant() == "web.config")
-                {
-                    ClientAPI.AddButtonConfirm(cmdSave, Localization.GetString("SaveWarning", LocalResourceFile));
-                    ClientAPI.AddButtonConfirm(cmdExecute, Localization.GetString("SaveWarning", LocalResourceFile));
-                }
-                else
-                {
-                    ClientAPI.AddButtonConfirm(cmdSave, Localization.GetString("SaveConfirm", LocalResourceFile));
-                    ClientAPI.AddButtonConfirm(cmdExecute, Localization.GetString("MergeConfirm", LocalResourceFile));
-                }
 
-                if (!String.IsNullOrEmpty( txtScript.Text.Trim()))
+                if (!String.IsNullOrEmpty(txtScript.Text.Trim()))
                 {
                     cmdExecute.Enabled = true;
                 }
@@ -259,6 +257,5 @@ namespace DotNetNuke.Modules.XmlMerge
         }
 
         #endregion
-
     }
 }

@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="dnn" TagName="SectionHead" Src="~/controls/SectionHeadControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Url" Src="~/controls/UrlControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.UI.WebControls" Assembly="DotNetNuke" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div class="dnnForm dnnEditRole dnnClear" id="dnnEditRole">
     <ul class="dnnAdminTabNav dnnClear">
 		<li><a href="#erBasicSettings"><%=LocalizeString("BasicSettings")%></a></li>
@@ -12,8 +13,8 @@
         <div class="erbsContent dnnClear">
             <fieldset>
                 <div class="dnnFormItem">
-                    <dnn:Label ID="plRoleName" runat="server" ResourceKey="RoleName" ControlName="txtRoleName" />
-                    <asp:TextBox ID="txtRoleName" runat="server" CssClass="dnnFormRequired" MaxLength="50" />
+                    <dnn:Label ID="plRoleName" runat="server" ResourceKey="RoleName" ControlName="txtRoleName" CssClass="dnnFormRequired" />
+                    <asp:TextBox ID="txtRoleName" runat="server" MaxLength="50" />
                     <asp:Label ID="lblRoleName" Visible="False" runat="server" />
                     <asp:RequiredFieldValidator ID="valRoleName" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valRoleName" ControlToValidate="txtRoleName" Display="Dynamic" />
                     <asp:RegularExpressionValidator ID="valRoleName2" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valRoleName2" ControlToValidate="txtRoleName" Display="Dynamic" ValidationExpression="[A-Za-z0-9\.\s_-]*" />
@@ -24,7 +25,8 @@
                 </div>
                 <div class="dnnFormItem">
                     <dnn:Label ID="plRoleGroups" runat="server" Suffix="" ControlName="cboRoleGroups" />
-                    <asp:DropDownList ID="cboRoleGroups" runat="server" />
+                   <%-- <asp:DropDownList ID="cboRoleGroups" runat="server" />--%>
+                    <dnn:DnnComboBox ID="cboRoleGroups" runat="server" />
                 </div>
                 <div class="dnnFormItem">
                     <dnn:Label ID="plIsPublic" runat="server" ResourceKey="PublicRole" ControlName="chkIsPublic" />
@@ -34,13 +36,19 @@
                     <dnn:Label ID="plAutoAssignment" runat="server" ResourceKey="AutoAssignment" ControlName="chkAutoAssignment" />
                     <asp:CheckBox ID="chkAutoAssignment" runat="server" />
                 </div>
+				<div class="dnnFormItem" id="assignToExistUsers">
+                    <dnn:Label ID="plAssignToExistUsers" runat="server" ResourceKey="AssignToExistUsers" ControlName="chkAssignToExistUsers" />
+                    <asp:CheckBox ID="chkAssignToExistUsers" runat="server" />
+                </div>
                 <div class="dnnFormItem">
                     <dnn:Label ID="securityModeListLabel" runat="server" Suffix="" ControlName="securityModeList" />
-                    <asp:DropDownList ID="securityModeList" runat="server"/>
+                    <%--<asp:DropDownList ID="securityModeList" runat="server"/>--%>
+                    <dnn:DnnComboBox ID="securityModeList" runat="server"/>
                 </div>
                 <div class="dnnFormItem">
                     <dnn:Label ID="statusListLabel" runat="server" Suffix="" ControlName="statusList" />
-                    <asp:DropDownList ID="statusList" runat="server"/>
+                   <%-- <asp:DropDownList ID="statusList" runat="server"/>--%>
+                   <dnn:DnnComboBox ID="statusList" runat="server"/>
                 </div>
             </fieldset>
         </div>
@@ -58,7 +66,10 @@
                 <div class="dnnFormItem" id="divBillingPeriod" runat="server">
                     <dnn:Label ID="plBillingPeriod" runat="server" ResourceKey="BillingPeriod" Suffix=":" ControlName="txtBillingPeriod" />
                     <asp:TextBox ID="txtBillingPeriod" runat="server" MaxLength="50" Columns="30" />
-                    <asp:DropDownList ID="cboBillingFrequency" runat="server" DataValueField="value" DataTextField="text" AutoPostBack="true" />
+                    <div class="dnnLabel">                    
+                    </div>
+                    <%--<asp:DropDownList ID="cboBillingFrequency" runat="server" DataValueField="value" DataTextField="text" AutoPostBack="true" />--%>
+                    <dnn:DnnComboBox ID="cboBillingFrequency" runat="server" DataValueField="value" DataTextField="text" AutoPostBack="true" />
                     <asp:CompareValidator ID="valBillingPeriod1" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valBillingPeriod1" ControlToValidate="txtBillingPeriod" Display="Dynamic" Type="Integer" Operator="DataTypeCheck" />
                     <asp:CompareValidator ID="valBillingPeriod2" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valBillingPeriod2" ControlToValidate="txtBillingPeriod" Display="Dynamic" Operator="GreaterThan" ValueToCompare="0" />
                 </div>
@@ -70,8 +81,9 @@
                 </div>
                 <div class="dnnFormItem" id="divTrialPeriod" runat="server">
                     <dnn:Label ID="plTrialPeriod" runat="server" ResourceKey="TrialPeriod" Suffix=":" ControlName="txtTrialPeriod" />
-                    <asp:TextBox ID="txtTrialPeriod" runat="server" MaxLength="50" Columns="30" />
-                    <asp:DropDownList ID="cboTrialFrequency" runat="server" Width="100px" DataValueField="value" DataTextField="text" AutoPostBack="true" />
+                    <asp:TextBox ID="txtTrialPeriod" runat="server" MaxLength="50" Columns="30" CssClass="dnnFixedSizeComboBox" />
+                    <%--<asp:DropDownList ID="cboTrialFrequency" runat="server" Width="100px" DataValueField="value" DataTextField="text" AutoPostBack="true" />--%>
+                    <dnn:DnnComboBox ID="cboTrialFrequency" runat="server" DataValueField="value" DataTextField="text" AutoPostBack="true" CssClass="dnnFixedSizeComboBox" />
                     <asp:CompareValidator ID="valTrialPeriod1" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valTrialPeriod1" ControlToValidate="txtTrialPeriod" Display="Dynamic" Type="Integer" Operator="DataTypeCheck" />
                     <asp:CompareValidator ID="valTrialPeriod2" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valTrialPeriod2" ControlToValidate="txtTrialPeriod" Display="Dynamic" Operator="GreaterThan" ValueToCompare="0" />
                 </div>
@@ -112,6 +124,51 @@
             noText: noText,
             title: titleText
         });
+
+	    var updateAssignRow = function(show) {
+			if (show) {
+				$("#assignToExistUsers").show();
+			} else {
+				$("#assignToExistUsers").hide().find("input[type=checkbox]").attr("checked", false);
+				$("#assignToExistUsers").find("input[type=checkbox]").attr("checked", false);
+			}
+	    };
+        
+         var updateView = function(e) {
+            var txtBillingPeriod = $("#<%=txtBillingPeriod.ClientID %>");
+            var cboBillingFrequency = $find("<%=cboBillingFrequency.ClientID %>");
+            var txtTrialPeriod = $("#<%=txtTrialPeriod.ClientID %>");
+            var cboTrialFrequency = $find("<%=cboTrialFrequency.ClientID %>");
+            
+            if ($("#<%=txtServiceFee.ClientID %>").val() == "") {
+                txtBillingPeriod.attr("disabled", "disabled").val("");
+                cboBillingFrequency.disable();
+                cboBillingFrequency.clearSelection();
+            } else {
+                txtBillingPeriod.removeAttr("disabled");
+                cboBillingFrequency.enable();
+            }
+
+            if ($("#<%=txtTrialFee.ClientID %>").val() == "") {
+                txtTrialPeriod.attr("disabled", "disabled").val("");
+                cboTrialFrequency.disable();
+                cboTrialFrequency.clearSelection();
+            } else {
+                txtTrialPeriod.removeAttr("disabled");
+                cboTrialFrequency.enable();
+            }
+
+         	updateAssignRow($("#<%=chkAutoAssignment.ClientID%>").attr("checked"));
+         };
+
+        $("#<%=txtServiceFee.ClientID %>").keyup(updateView);
+    	$("#<%=txtTrialFee.ClientID %>").keyup(updateView);
+
+	    $("#<%=chkAutoAssignment.ClientID%>").click(function() {
+		    updateAssignRow(this.checked);
+	    });
+        
+        setTimeout(updateView, 0);
     }
     $(document).ready(function () {
         setUpDnnEditRoles();

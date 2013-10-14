@@ -17,14 +17,12 @@
                     <HeaderStyle Wrap="False" CssClass="dnnGridHeader" />
                     <ItemStyle CssClass="dnnGridItem" VerticalAlign="Top" />
                     <AlternatingItemStyle CssClass="dnnGridAltItem" />
-                    <Columns>
-                        <dnn:imagecommandcolumn headerStyle-width="18px" CommandName="Edit" IconKey="Edit" EditMode="URL" KeyField="PackageID" />
-                        <dnn:imagecommandcolumn headerStyle-width="18px" commandname="Delete" IconKey="Delete" EditMode="URL" keyfield="PackageID" />
+                    <Columns>                      
 					    <asp:TemplateColumn>
                             <ItemStyle HorizontalAlign="Center" Width="32px" Height="32px"/>
                             <ItemTemplate><asp:Image ID="imgIcon" runat="server" Width="32px" Height="32px" ImageUrl='<%# GetPackageIcon(Container.DataItem) %>' ToolTip='<%# GetPackageDescription(Container.DataItem) %>' /></ItemTemplate>
                         </asp:TemplateColumn>
-                        <dnn:textcolumn headerStyle-width="150px" DataField="FriendlyName" HeaderText="Name">
+                        <dnn:textcolumn headerStyle-width="150px" DataField="FriendlyName" HeaderText="Name" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder">
                             <itemstyle Font-Bold="true" />
                         </dnn:textcolumn>
                         <asp:TemplateColumn FooterText="Portal">
@@ -34,7 +32,7 @@
 							    <dnn:DnnImage ID="imgAbout" runat="server" ToolTip='<%# GetAboutTooltip(Container.DataItem) %>' IconKey="About" Visible='<%# ((String)(DataBinder.Eval(Container.DataItem, "PackageType")) == "Skin" || ((String)DataBinder.Eval(Container.DataItem, "PackageType")) == "Container") %>' />
                             </ItemTemplate>
                         </asp:TemplateColumn>
-                        <dnn:textcolumn headerStyle-width="275px" ItemStyle-HorizontalAlign="Left" DataField="Description" HeaderText="Description" />
+                        <dnn:textcolumn headerStyle-width="275px" ItemStyle-HorizontalAlign="Left" DataField="Description" HeaderText="Description"  ItemStyle-CssClass="dnnGridHeaderTD-Border" />
                         <asp:TemplateColumn HeaderText="Version">
                             <HeaderStyle HorizontalAlign="Left" Wrap="False" />
                             <ItemStyle HorizontalAlign="Left" />
@@ -52,6 +50,8 @@
                             <ItemStyle HorizontalAlign="Left" />
                             <ItemTemplate><asp:Label ID="lblUpgrade" runat="server" Text='<%# UpgradeService((Version)DataBinder.Eval(Container.DataItem,"Version"),DataBinder.Eval(Container.DataItem,"PackageType").ToString(),DataBinder.Eval(Container.DataItem,"Name").ToString()) %>' ></asp:Label></ItemTemplate>
                         </asp:TemplateColumn>
+                        <dnn:imagecommandcolumn headerStyle-width="18px" CommandName="Edit" IconKey="Edit" EditMode="URL" KeyField="PackageID" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder" />
+                        <dnn:imagecommandcolumn headerStyle-width="18px" commandname="Delete" IconKey="Delete" EditMode="URL" keyfield="PackageID" />
                     </Columns>
                 </asp:DataGrid>
                 <asp:Label ID="noResultsLabel" runat="server" resourcekey="NoResults" Visible="false" />

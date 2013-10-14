@@ -18,7 +18,7 @@
 		<asp:checkbox ID="chkCity" Runat="server" Visible="False" AutoPostBack="True" />
 		<asp:requiredfieldvalidator id="valCity" runat="server" CssClass="dnnFormMessage dnnFormError" ControlToValidate="txtCity" Display="Dynamic" />
 	</div>
-	<div id="divCountry" runat="server" class="dnnFormItem">
+	<div id="divCountry" runat="server" class="dnnFormItem dnnAddressCountry">
 		<dnn:label id="plCountry" runat="server" controlname="cboCountry" />
 		<div class="dnnLeft">
 			<wc:CountryListBox TestIP="" LocalhostCountryCode="US" id="cboCountry" DataValueField="Value" DataTextField="Text" AutoPostBack="True" runat="server" />

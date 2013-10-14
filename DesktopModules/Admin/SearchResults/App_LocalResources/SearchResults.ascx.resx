@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,80 +59,230 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="Relevance.Text" xml:space="preserve">
-    <value> - Relevance: </value>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Advanced.Text" xml:space="preserve">
+    <value>Advanced</value>
   </data>
-	<data name="ModuleHelp.Text" xml:space="preserve">
-    <value>&lt;h1&gt;About the Search Results Module&lt;/h1&gt;&lt;p&gt;The Search Results module provides the ability to display search results.&lt;/p&gt;</value>
+  <data name="Date.Text" xml:space="preserve">
+    <value>Date</value>
   </data>
-	<data name="NoResults.Text" xml:space="preserve">
-    <value>Sorry, no results were found for &lt;b&gt;&lt;i&gt;{0}&lt;/i&gt;&lt;/b&gt;</value>
+  <data name="lblAdvancedDates.Help" xml:space="preserve">
+    <value>Limit the search results modified within the specified time </value>
   </data>
-	<data name="Results.Text" xml:space="preserve">
-    <value>Search results for &lt;b&gt;&lt;i&gt;{0}&lt;/i&gt;&lt;/b&gt;</value>
+  <data name="lblAdvancedDates.Text" xml:space="preserve">
+    <value>Last modified:</value>
   </data>
-	<data name="NoSearch.Text" xml:space="preserve">
-    <value>No search term entered.</value>
+  <data name="lblAdvancedScope.Help" xml:space="preserve">
+    <value>Limit the search results from the specified source</value>
   </data>
-	<data name="ModuleHidden.Text" xml:space="preserve">
-    <value>This module is hidden to regular users if there is no Search=xxx querystring parameter. </value>
+  <data name="lblAdvancedScope.Text" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="lblAdvancedTags.Help" xml:space="preserve">
+    <value>Limit the search results with the specified tags</value>
+  </data>
+  <data name="lblAdvancedTags.Text" xml:space="preserve">
+    <value>Filter by tags:</value>
+  </data>
+  <data name="NoResults.Text" xml:space="preserve">
+    <value>No Results Found</value>
+  </data>
+  <data name="optionAll.Text" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="optionDay.Text" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="optionMonth.Text" xml:space="preserve">
+    <value>30 days</value>
+  </data>
+  <data name="optionQuarter.Text" xml:space="preserve">
+    <value>90 days</value>
+  </data>
+  <data name="optionWeek.Text" xml:space="preserve">
+    <value>7 days</value>
+  </data>
+  <data name="optionYear.Text" xml:space="preserve">
+    <value>1 year</value>
+  </data>
+  <data name="Relevance.Text" xml:space="preserve">
+    <value>Relevance</value>
+  </data>
+  <data name="ResultPerPage.Text" xml:space="preserve">
+    <value>Results Per Page:</value>
+  </data>
+  <data name="Source.Text" xml:space="preserve">
+    <value>Source:</value>
+  </data>
+  <data name="Tags.Text" xml:space="preserve">
+    <value>Tags:</value>
+  </data>
+  <data name="btnClear.Text" xml:space="preserve">
+    <value>Clear Advanced</value>
+  </data>
+  <data name="btnSearch.Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="lblAdvancedExactSearch.Help" xml:space="preserve">
+    <value>Search results must exactly contain the keywords</value>
+  </data>
+  <data name="lblAdvancedExactSearch.Text" xml:space="preserve">
+    <value>Exact Search:</value>
+  </data>
+  <data name="linkAdvancedTip.Text" xml:space="preserve">
+    <value>Advanced Tips</value>
+  </data>
+  <data name="AdvancedSearchHint.Text" xml:space="preserve">
+    <value>&lt;table class="dnnSearchResult-hint-tbl dnnTableDisplay"&gt;
+
+                
+				&lt;tr&gt;
+                    &lt;th style="width: 150px"&gt;&lt;span&gt;Type&lt;/span&gt;
+                    &lt;/th&gt;
+                    &lt;th style="width: 250px"&gt;&lt;span&gt;Example&lt;/span&gt;
+                    &lt;/th&gt;
+                    &lt;th&gt;&lt;span&gt;Notes&lt;/span&gt;
+                    &lt;/th&gt;
+				&lt;/tr&gt;
+         
+
+                &lt;tr&gt;
+                    &lt;td&gt;Fuzzy&lt;/td&gt;
+                    &lt;td&gt;kettle&lt;b&gt;~&lt;/b&gt;&lt;/td&gt;
+                    &lt;td&gt;Contain terms that are close to the word &lt;i&gt;kettle&lt;/i&gt;, such as &lt;i&gt;cattle&lt;/i&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;Wild&lt;/td&gt;
+                    &lt;td&gt;cat*&lt;/td&gt;
+                    &lt;td&gt;Contain terms that begin with &lt;i&gt;cat&lt;/i&gt;, such as &lt;i&gt;category&lt;/i&gt; and the extact term &lt;i&gt;cat&lt;/i&gt; itself&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;Exact-Single&lt;/td&gt;
+                    &lt;td&gt;orange&lt;/td&gt;
+                    &lt;td&gt;Contain the term &lt;i&gt;orange&lt;/i&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;Exact-Phrase&lt;/td&gt;
+                    &lt;td&gt;"dnn is awesome"&lt;/td&gt;
+                    &lt;td&gt;Contain the exact phase &lt;i&gt;dnn is awesome&lt;/i&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;OR&lt;/td&gt;
+                    &lt;td&gt;orange bike&lt;/td&gt;
+                    &lt;td&gt;Contain the term &lt;i&gt;orange&lt;/i&gt; or &lt;i&gt;bike&lt;/i&gt;, or both. &lt;B&gt;OR must be in uppercase&lt;/B&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;orange &lt;b&gt;OR&lt;/b&gt; bike&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;AND&lt;/td&gt;
+                    &lt;td&gt;+orange +bike&lt;/td&gt;
+                    &lt;td&gt;Contain both &lt;i&gt;orange&lt;/i&gt; and &lt;i&gt;bike&lt;/i&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                    &lt;td&gt;orange &lt;b&gt;AND&lt;/b&gt; bike&lt;/td&gt;
+                    &lt;td&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+
+                &lt;tr&gt;
+                    &lt;td&gt;Combo&lt;/td&gt;
+                    &lt;td&gt;(agile &lt;b&gt;OR&lt;/b&gt; extreme) &lt;b&gt;AND&lt;/b&gt; methodology&lt;/td&gt;
+                    &lt;td&gt;Contain &lt;i&gt;methodology&lt;/i&gt; and must also contain &lt;i&gt;agile&lt;/i&gt; and/or &lt;i&gt;extreme&lt;/i&gt;.&lt;B&gt;AND must be in uppercase&lt;/B&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;</value>
+  </data>
+  <data name="LastModified.Text" xml:space="preserve">
+    <value>Updated:</value>
+  </data>
+  <data name="AddTag.Text" xml:space="preserve">
+    <value>Add a tag</value>
+  </data>
+  <data name="AllFeaturesSelected.Text" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Author.Text" xml:space="preserve">
+    <value>Author:</value>
+  </data>
+  <data name="Comments.Text" xml:space="preserve">
+    <value>Comments:</value>
+  </data>
+  <data name="Likes.Text" xml:space="preserve">
+    <value>Likes:</value>
+  </data>
+  <data name="Views.Text" xml:space="preserve">
+    <value>Views:</value>
+  </data>
+  <data name="CurrentPageIndex.Text" xml:space="preserve">
+    <value>Page:</value>
+  </data>
+  <data name="ResultsCount.Text" xml:space="preserve">
+    <value>About {0} Results</value>
   </data>
 </root>

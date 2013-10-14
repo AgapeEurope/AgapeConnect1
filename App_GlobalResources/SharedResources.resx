@@ -241,7 +241,7 @@
     <value>New</value>
   </data>
   <data name="DeleteModule.Confirm" xml:space="preserve">
-    <value>Are You Sure You Wish To Delete This Module ?</value>
+    <value>Are You Sure You Wish To Delete This Module?</value>
   </data>
   <data name="EXCEPTION.Log" xml:space="preserve">
     <value>EXCEPTION: {0}</value>
@@ -286,7 +286,10 @@
     <value>The email address specified is invalid.  Please specify a valid email address.</value>
   </data>
   <data name="InvalidPassword.Text" xml:space="preserve">
-    <value>The password specified is invalid.  Please specify a valid password.  Passwords must be at least [PasswordLength] characters in length and contain at least [NoneAlphabet] non-alphanumeric characters.</value>
+    <value>The password specified is invalid.  Please specify a valid password.  Passwords must be at least [PasswordLength] characters in length and contain at least [NoneAlphabet] non-alphanumeric characters, and must not match the username.</value>
+  </data>
+  <data name="BannedPasswordUsed.Text" xml:space="preserve">
+    <value>The requested password is invalid as it is either the same as the username or uses a term that is on the banned list of passwords.</value>
   </data>
   <data name="InvalidQuestion.Text" xml:space="preserve">
     <value>The question specified is invalid.  Please specify a valid question.</value>
@@ -781,7 +784,7 @@
     <value>All Users</value>
   </data>
   <data name="Superuser.Text" xml:space="preserve">
-    <value>Superuser</value>
+    <value>SuperUser</value>
   </data>
   <data name="UnauthenticatedUsers.Text" xml:space="preserve">
     <value>Unauthenticated Users</value>
@@ -802,7 +805,7 @@
     <value>Install aborted - The module being installed is older than the version which is already installed in your host application</value>
   </data>
   <data name="INSTALL_Compatibility.Text" xml:space="preserve">
-    <value>Install aborted - The module being installed is not compatible with your host application version ( an upgrade is required )</value>
+    <value>Install aborted - The module being installed is not compatible with this version of DotNetNuke. An upgrade to version {0} is required.</value>
   </data>
   <data name="INSTALL_Dependencies.Text" xml:space="preserve">
     <value>Install aborted - The module being installed requires additional components which are not available in your environment.</value>
@@ -856,7 +859,7 @@
     <value>Are You Sure You Wish To Remove These Items?</value>
   </data>
   <data name="PasswordMismatch.Text" xml:space="preserve">
-    <value>The Password and Confirmation Passwords do not match</value>
+    <value>The Passwords do not match</value>
   </data>
   <data name="OnLine.Text" xml:space="preserve">
     <value>Online</value>
@@ -1006,7 +1009,7 @@
     <value>User Registration</value>
   </data>
   <data name="Required.Text" xml:space="preserve">
-    <value> All fields marked with a red arrow are required.</value>
+    <value> All fields marked with a red asterisk are required.</value>
   </data>
   <data name="VerifiedMembership.Text" xml:space="preserve">
     <value>&lt;strong&gt;*Note:&lt;/strong&gt; Membership to this website is Verified. Once your account information has been submitted, you will receive an email containing a link that you can use to verify your account.</value>
@@ -1033,7 +1036,7 @@
     <value>CAPTCHA image</value>
   </data>
   <data name="PrivateConfirmationMessage.Text" xml:space="preserve">
-    <value>&lt;strong&gt;An e-mail with your details has been sent to the website administrator for verification. Once your registration has been approved an e-mail will be sent to your e-mail address: {0}.&lt;/strong&gt;</value>
+    <value>&lt;strong&gt;An e-mail with your details has been sent to the website administrator for verification. Once your registration has been approved an e-mail will be sent to your e-mail address: {0}. In the meantime you can continue to browse this site by closing the popup.&lt;/strong&gt;  </value>
   </data>
   <data name="DNN_ReadingComponent.Text" xml:space="preserve">
     <value>Reading Component Manifest</value>
@@ -1548,7 +1551,211 @@
   <data name="COMPONENT_Skipped.Text" xml:space="preserve">
     <value>Component Skipped</value>
   </data>
-  <data name="And.Text" xml:space="preserve">
-    <value>et</value>
+  <data name="DeleteSharedModule.Confirm" xml:space="preserve">
+    <value>This module is being shared by other sites in the site group.  Deleting this instance will remove all the shared instances in other sites.&amp;nbsp;&amp;nbsp;To see which sites are sharing the module, check Settings &gt; Module Settings &gt; Added To Page.&amp;nbsp;&amp;nbsp;Are you sure you wish to continue and delete this module and all shared instances?</value>
+  </data>
+  <data name="CopyPermissionsToChildren.Text" xml:space="preserve">
+    <value>Permissions will be replaced for all children of this page.&lt;br /&gt;&lt;br /&gt;Are you sure you want to continue?</value>
+  </data>
+  <data name="MyFolderName.Text" xml:space="preserve">
+    <value>My Folder</value>
+  </data>
+  <data name="Basic.Text" xml:space="preserve">
+    <value>Profile Basic Settings</value>
+  </data>
+  <data name="Contact.Text" xml:space="preserve">
+    <value>Contact Information</value>
+  </data>
+  <data name="Location.Text" xml:space="preserve">
+    <value>Location Information</value>
+  </data>
+  <data name="ProfileUrlCleaned.Text" xml:space="preserve">
+    <value>The submitted URL contains illegal characters, which have been removed.  You can click update again to accept the modified URL.</value>
+  </data>
+  <data name="CleanWarningTitle.Text" xml:space="preserve">
+    <value>URL Cleaned</value>
+  </data>
+  <data name="DuplicateUrlWarningTitle.Text" xml:space="preserve">
+    <value>Duplicate URL</value>
+  </data>
+  <data name="ProfileUrlNotUnique.Text" xml:space="preserve">
+    <value>The requested URL is not available.  If you wish to accept the suggested alternative, please click Update.</value>
+  </data>
+  <data name="DraftCompleted.Action" xml:space="preserve">
+    <value>Draft Completed</value>
+  </data>
+  <data name="DraftCompleted.Comment" xml:space="preserve">
+    <value>The Draft State has been completed. The content is ready to be published</value>
+  </data>
+  <data name="StateCompleted.Action" xml:space="preserve">
+    <value>State Completed</value>
+  </data>
+  <data name="StateCompleted.Comment" xml:space="preserve">
+    <value>The State '[STATE]' has been approved</value>
+  </data>
+  <data name="StateDiscarded.Action" xml:space="preserve">
+    <value>State Discarded</value>
+  </data>
+  <data name="StateDiscarded.Comment" xml:space="preserve">
+    <value>The State '[STATE]' has been discarded</value>
+  </data>
+  <data name="StateInitiated.Action" xml:space="preserve">
+    <value>State Initiated</value>
+  </data>
+  <data name="StateInitiated.Comment" xml:space="preserve">
+    <value>The Workflow is in state '[STATE]' </value>
+  </data>
+  <data name="WorkflowApproved.Action" xml:space="preserve">
+    <value>Workflow Completed</value>
+  </data>
+  <data name="WorkflowApproved.Comment" xml:space="preserve">
+    <value>The Workflow '[WORKFLOW]' has been completed. The Content has been approved</value>
+  </data>
+  <data name="WorkflowError.Action" xml:space="preserve">
+    <value>Workflow Error</value>
+  </data>
+  <data name="WorkflowError.Comment" xml:space="preserve">
+    <value>The Workflow '[WORKFLOW]' has thrown an error</value>
+  </data>
+  <data name="WorkflowStarted.Action" xml:space="preserve">
+    <value>Workflow Started</value>
+  </data>
+  <data name="WorkflowStarted.Comment" xml:space="preserve">
+    <value>The Workflow '[WORKFLOW]' has started</value>
+  </data>
+  <data name="URLPROVIDER_NameMissing.Text" xml:space="preserve">
+    <value>UrlProvider Name Missing</value>
+  </data>
+  <data name="URLPROVIDER_Registered.Text" xml:space="preserve">
+    <value>UrlProvider Registered</value>
+  </data>
+  <data name="URLPROVIDER_TypeMissing.Text" xml:space="preserve">
+    <value>UrlProvider Type Missing</value>
+  </data>
+  <data name="URLPROVIDER_UnRegistered.Text" xml:space="preserve">
+    <value>UrlProvider UnRegistered</value>
+  </data>
+  <data name="URLPROVIDER_ReadSuccess.Text" xml:space="preserve">
+    <value>UrlProvider Manifest read successfully</value>
+  </data>
+  <data name="DefaultWorkflowDescription.Text" xml:space="preserve">
+    <value>Allows an author to manage content and then have it reviewed by other users before it is published</value>
+  </data>
+  <data name="DefaultWorkflowName.Text" xml:space="preserve">
+    <value>Content Approval</value>
+  </data>
+  <data name="DefaultWorkflowState1.OnCompleteMessageBody" xml:space="preserve">
+    <value>[DATE]: The file [FILE] is ready for review by [USER]</value>
+  </data>
+  <data name="DefaultWorkflowState1.OnCompleteMessageSubject" xml:space="preserve">
+    <value>File ready for review</value>
+  </data>
+  <data name="DefaultWorkflowState1.OnDiscardMessageBody" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWorkflowState1.OnDiscardMessageSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWorkflowState1.StateName" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="DefaultWorkflowState2.OnCompleteMessageBody" xml:space="preserve">
+    <value>[DATE]: The file [FILE] has been approved by [USER]</value>
+  </data>
+  <data name="DefaultWorkflowState2.OnCompleteMessageSubject" xml:space="preserve">
+    <value>File approved</value>
+  </data>
+  <data name="DefaultWorkflowState2.OnDiscardMessageBody" xml:space="preserve">
+    <value>[DATE]: The file [FILE] has been discarded by [USER]</value>
+  </data>
+  <data name="DefaultWorkflowState2.OnDiscardMessageSubject" xml:space="preserve">
+    <value>File discarded</value>
+  </data>
+  <data name="DefaultWorkflowState2.StateName" xml:space="preserve">
+    <value>Ready For Review</value>
+  </data>
+  <data name="DefaultWorkflowState3.OnCompleteMessageBody" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWorkflowState3.OnCompleteMessageSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWorkflowState3.OnDiscardMessageBody" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWorkflowState3.OnDiscardMessageSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWorkflowState3.StateName" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="Save.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Cancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CommentProvided.Action" xml:space="preserve">
+    <value>Comment Provided</value>
+  </data>
+  <data name="CommentProvided.Comment" xml:space="preserve">
+    <value>State '[STATE]' comment: [COMMENT]</value>
+  </data>
+  <data name="WorkflowDiscarded.Action" xml:space="preserve">
+    <value>Workflow Discarded</value>
+  </data>
+  <data name="WorkflowDiscarded.Comment" xml:space="preserve">
+    <value>The Workflow '[WORKFLOW]' has been discarded on state '[STATE]'</value>
+  </data>
+  <data name="DropDownList.SearchInputPlaceHolder" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="DropDownList.SearchButtonTooltip" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="DropDownList.ClearButtonTooltip" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="DropDownList.SortAscendingButtonTitle" xml:space="preserve">
+    <value>A-Z</value>
+  </data>
+  <data name="DropDownList.SortAscendingButtonTooltip" xml:space="preserve">
+    <value>Sort in ascending order</value>
+  </data>
+  <data name="DropDownList.SortDescendingButtonTooltip" xml:space="preserve">
+    <value>Sort in descending order</value>
+  </data>
+  <data name="DropDownList.UnsortedOrderButtonTooltip" xml:space="preserve">
+    <value>Remove sorting</value>
+  </data>
+  <data name="DropDownList.Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="DropDownList.SelectedItemExpandTooltip" xml:space="preserve">
+    <value>Click to expand</value>
+  </data>
+  <data name="DropDownList.SelectedItemCollapseTooltip" xml:space="preserve">
+    <value>Click to collapse</value>
+  </data>
+  <data name="DropDownList.LoadingResultText" xml:space="preserve">
+    <value>...Loading Results</value>
+  </data>
+  <data name="DropDownList.SelectWebPageDefaultText" xml:space="preserve">
+    <value>Select A Web Page</value>
+  </data>
+  <data name="DropDownList.SelectUserDefaultText" xml:space="preserve">
+    <value>Select A User</value>
+  </data>
+  <data name="DropDownList.SelectFolderDefaultText" xml:space="preserve">
+    <value>Select A Folder</value>
+  </data>
+  <data name="SEARCH_NoLink.Text" xml:space="preserve">
+    <value>[no link available]</value>
+  </data>
+  <data name="VerificationSuccess.Text" xml:space="preserve">
+    <value>Your account has been successfully verified</value>
+  </data>
+  <data name="RootFolder.Name" xml:space="preserve">
+    <value>Site Root</value>
   </data>
 </root>

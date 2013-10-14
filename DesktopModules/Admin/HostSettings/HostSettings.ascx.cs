@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -42,6 +42,7 @@ using DotNetNuke.Data;
 using DotNetNuke.Entities.Controllers;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
+using DotNetNuke.Entities.Urls;
 using DotNetNuke.Framework;
 using DotNetNuke.Framework.Providers;
 using DotNetNuke.Security;
@@ -57,6 +58,7 @@ using DotNetNuke.Services.Scheduling;
 using DotNetNuke.Services.Upgrade;
 using DotNetNuke.UI.Skins;
 using DotNetNuke.UI.Skins.Controls;
+using DotNetNuke.Web.Client.ClientResourceManagement;
 using DotNetNuke.Web.UI.WebControls.Extensions;
 
 #endregion
@@ -66,6 +68,7 @@ namespace DotNetNuke.Modules.Admin.Host
     using System.Globalization;
     using System.Web;
     using Web.Client;
+    using DotNetNuke.Services.Search.Internals;
 
     /// -----------------------------------------------------------------------------
     /// <summary>
@@ -74,10 +77,6 @@ namespace DotNetNuke.Modules.Admin.Host
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <history>
-    /// 	[cnurse]	9/27/2004	Updated to reflect design changes for Help, 508 support
-    ///                       and localisation
-    /// </history>
     /// -----------------------------------------------------------------------------
     public partial class HostSettings : PortalModuleBase
     {
@@ -113,10 +112,6 @@ namespace DotNetNuke.Modules.Admin.Host
             lblDataProvider.Text = ProviderConfiguration.GetProviderConfiguration("data").DefaultProvider;
             lblFramework.Text = Globals.NETFrameworkVersion.ToString(2);
 
-            if (!Upgrade.IsNETFrameworkCurrent("3.5"))
-            {
-                UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("FrameworkDownLevel", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
-            }
             if (WindowsIdentity.GetCurrent() != null)
             {
                 // ReSharper disable PossibleNullReferenceException
@@ -139,7 +134,7 @@ namespace DotNetNuke.Modules.Admin.Host
 
         private void BindFriendlyUrlsRequestFilters()
         {
-            chkUseFriendlyUrls.Checked = Entities.Host.Host.UseFriendlyUrls;
+            FriendlyUrlsExtensionControl.BindAction(-1, -1, -1);
             chkEnableRequestFilters.Checked = Entities.Host.Host.EnableRequestFilters;
         }
 
@@ -157,10 +152,10 @@ namespace DotNetNuke.Modules.Admin.Host
             //Load DocTypes
             var docTypes = new Dictionary<string, string>
                                {
-                                   { LocalizeString("LegacyDoctype"), "0" }, 
-                                   { LocalizeString("TransDoctype"), "1" }, 
-                                   { LocalizeString("StrictDoctype"), "2" },
-                                   { LocalizeString("Html5Doctype"), "3" }
+                                   { "0", string.IsNullOrEmpty(LocalizeString("LegacyDoctype")) ? "Legacy" : LocalizeString("LegacyDoctype") }, 
+                                   { "1", string.IsNullOrEmpty(LocalizeString("TransDoctype")) ? "Trans" : LocalizeString("TransDoctype") }, 
+                                   { "2", string.IsNullOrEmpty(LocalizeString("StrictDoctype")) ? "Strict" : LocalizeString("StrictDoctype") },
+                                   { "3", string.IsNullOrEmpty(LocalizeString("Html5Doctype")) ? "Html5" : LocalizeString("Html5Doctype") }
                                };
 
             docTypeCombo.DataSource = docTypes;
@@ -187,23 +182,32 @@ namespace DotNetNuke.Modules.Admin.Host
             chkJQueryDebugVersion.Checked = jQuery.UseDebugScript;
             chkJQueryUseHosted.Checked = jQuery.UseHostedScript;
             txtJQueryHostedUrl.Text = jQuery.HostedUrl;
+	        txtJQueryMigrateHostedUrl.Text = jQuery.HostedMigrateUrl;
             txtJQueryUIHostedUrl.Text = jQuery.HostedUIUrl;
         }
 
+		private void BindCdnSettings()
+		{
+			chkMsAjaxCdn.Checked = Entities.Host.Host.EnableMsAjaxCdn;
+			chkTelerikCdn.Checked = Entities.Host.Host.EnableTelerikCdn;
+			txtTelerikBasicUrl.Text = Entities.Host.Host.TelerikCdnBasicUrl;
+			txtTelerikSecureUrl.Text = Entities.Host.Host.TelerikCdnSecureUrl;
+		}
+
         private void BindPerformance()
         {
-            cboPageState.Items.FindByValue(Entities.Host.Host.PageStatePersister).Selected = true;
+            cboPageState.Items.FindByValue(Entities.Host.Host.PageStatePersister).Selected = true; 
             BindModuleCacheProviderList();
             BindPageCacheProviderList();
-            if (cboPerformance.Items.FindByValue(((int)Entities.Host.Host.PerformanceSetting).ToString()) != null)
+            if (cboPerformance.FindItemByValue(((int)Entities.Host.Host.PerformanceSetting).ToString()) != null)
             {
-                cboPerformance.Items.FindByValue(((int)Entities.Host.Host.PerformanceSetting).ToString()).Selected = true;
+                cboPerformance.FindItemByValue(((int)Entities.Host.Host.PerformanceSetting).ToString()).Selected = true;
             }
             else
             {
-                cboPerformance.Items.FindByValue("3").Selected = true;
+                cboPerformance.FindItemByValue("3").Selected = true;
             }
-            cboCacheability.Items.FindByValue(Entities.Host.Host.AuthenticatedCacheability).Selected = true;
+            cboCacheability.FindItemByValue(Entities.Host.Host.AuthenticatedCacheability).Selected = true;
         }
 
         private void BindPaymentProcessor()
@@ -316,28 +320,31 @@ namespace DotNetNuke.Modules.Admin.Host
             BindSmtpServer();
             BindPerformance();
             BindJQuery();
+	        BindCdnSettings();
             BindClientResourceManagement();
+            BindLogList();
+            BindIpFilters();
             ManageMinificationUi();
 
             foreach (KeyValuePair<string, ModuleControlInfo> kvp in ModuleControlController.GetModuleControlsByModuleDefinitionID(Null.NullInteger))
             {
                 if (kvp.Value.ControlType == SecurityAccessLevel.ControlPanel)
                 {
-                    cboControlPanel.Items.Add(new ListItem(kvp.Value.ControlKey.Replace("CONTROLPANEL:", ""), kvp.Value.ControlSrc));
+                    cboControlPanel.AddItem(kvp.Value.ControlKey.Replace("CONTROLPANEL:", ""), kvp.Value.ControlSrc);
                 }
             }
             if (string.IsNullOrEmpty(Entities.Host.Host.ControlPanel))
             {
-                if (cboControlPanel.Items.FindByValue(Globals.glbDefaultControlPanel) != null)
+                if (cboControlPanel.FindItemByValue(Globals.glbDefaultControlPanel) != null)
                 {
-                    cboControlPanel.Items.FindByValue(Globals.glbDefaultControlPanel).Selected = true;
+                    cboControlPanel.FindItemByValue(Globals.glbDefaultControlPanel).Selected = true;
                 }
             }
             else
             {
-                if (cboControlPanel.Items.FindByValue(Entities.Host.Host.ControlPanel) != null)
+                if (cboControlPanel.FindItemByValue(Entities.Host.Host.ControlPanel) != null)
                 {
-                    cboControlPanel.Items.FindByValue(Entities.Host.Host.ControlPanel).Selected = true;
+                    cboControlPanel.FindItemByValue(Entities.Host.Host.ControlPanel).Selected = true;
                 }
             }
 
@@ -358,13 +365,13 @@ namespace DotNetNuke.Modules.Admin.Host
 
             txtFileExtensions.Text = Entities.Host.Host.AllowedExtensionWhitelist.ToStorageString();
 
-            if (cboSchedulerMode.Items.FindByValue(((int)Entities.Host.Host.SchedulerMode).ToString()) != null)
+            if (cboSchedulerMode.FindItemByValue(((int)Entities.Host.Host.SchedulerMode).ToString()) != null)
             {
-                cboSchedulerMode.Items.FindByValue(((int)Entities.Host.Host.SchedulerMode).ToString()).Selected = true;
+                cboSchedulerMode.FindItemByValue(((int)Entities.Host.Host.SchedulerMode).ToString()).Selected = true;
             }
             else
             {
-                cboSchedulerMode.Items.FindByValue("1").Selected = true;
+                cboSchedulerMode.FindItemByValue("1").Selected = true;
             }
 
             chkLogBuffer.Checked = Entities.Host.Host.EventLogBuffer;
@@ -373,12 +380,32 @@ namespace DotNetNuke.Modules.Admin.Host
             chkAutoSync.Checked = Entities.Host.Host.EnableFileAutoSync;
             chkEnableContentLocalization.Checked = Entities.Host.Host.EnableContentLocalization;
             txtBatch.Text = Entities.Host.Host.MessageSchedulerBatchSize.ToString();
+			txtAsyncTimeout.Text = Entities.Host.Host.AsyncTimeout.ToString();
+
+            chkBannedList.Checked = Entities.Host.Host.EnableBannedList;
+            chkStrengthMeter.Checked = Entities.Host.Host.EnableStrengthMeter;
+            chkIPChecking.Checked = Entities.Host.Host.EnableIPChecking;
+            chkEnablePasswordHistory.Checked = Entities.Host.Host.EnablePasswordHistory;
+            txtResetLinkValidity.Text = Entities.Host.Host.MembershipResetLinkValidity.ToString();
+            txtNumberPasswords.Text = Entities.Host.Host.MembershipNumberPasswords.ToString();
+
 
             ViewState["SelectedSchedulerMode"] = cboSchedulerMode.SelectedItem.Value;
             ViewState["SelectedLogBufferEnabled"] = chkLogBuffer.Checked;
             ViewState["SelectedUsersOnlineEnabled"] = chkUsersOnline.Checked;
 
             BindUpgradeLogs();
+        }
+
+        private void BindLogList()
+        {
+            var files = Directory.GetFiles(Globals.ApplicationMapPath + @"\portals\_default\logs", "*.resources");
+            IEnumerable<string> fileList = (from file in files select Path.GetFileName(file));
+            ddlLogs.DataSource = fileList;
+            ddlLogs.DataBind();
+            var selectItem = new ListItem(Localization.GetString("SelectLog", LocalResourceFile), "-1");
+            ddlLogs.InsertItem(0, selectItem.Text, selectItem.Value);
+            ddlLogs.SelectedIndex = 0;
         }
 
         private void BindClientResourceManagement()
@@ -388,6 +415,11 @@ namespace DotNetNuke.Modules.Admin.Host
             chkCrmEnableCompositeFiles.Checked = Entities.Host.Host.CrmEnableCompositeFiles;
             chkCrmMinifyCss.Checked = Entities.Host.Host.CrmMinifyCss;
             chkCrmMinifyJs.Checked = Entities.Host.Host.CrmMinifyJs;
+        }
+
+        private void BindIpFilters()
+        {
+            divFiltersDisabled.Visible = !Entities.Host.Host.EnableIPChecking;
         }
 
         private void BindModuleCacheProviderList()
@@ -400,18 +432,18 @@ namespace DotNetNuke.Modules.Admin.Host
                 string providerKey = (from provider in ModuleCachingProvider.GetProviderList() where provider.Value.Equals(defaultModuleCache) select provider.Key).SingleOrDefault();
                 if (!string.IsNullOrEmpty(Entities.Host.Host.ModuleCachingMethod))
                 {
-                    if (cboModuleCacheProvider.Items.FindByValue(Entities.Host.Host.ModuleCachingMethod) != null)
+                    if (cboModuleCacheProvider.FindItemByValue(Entities.Host.Host.ModuleCachingMethod) != null)
                     {
-                        cboModuleCacheProvider.Items.FindByValue(Entities.Host.Host.ModuleCachingMethod).Selected = true;
+                        cboModuleCacheProvider.FindItemByValue(Entities.Host.Host.ModuleCachingMethod).Selected = true;
                     }
                     else
                     {
-                        cboModuleCacheProvider.Items.FindByValue(providerKey).Selected = true;
+                        cboModuleCacheProvider.FindItemByValue(providerKey).Selected = true;
                     }
                 }
                 else
                 {
-                    cboModuleCacheProvider.Items.FindByValue(providerKey).Selected = true;
+                    cboModuleCacheProvider.FindItemByValue(providerKey).Selected = true;
                 }
             }
         }
@@ -429,18 +461,18 @@ namespace DotNetNuke.Modules.Admin.Host
                     PageCacheRow.Visible = true;
                     if (!string.IsNullOrEmpty(Entities.Host.Host.PageCachingMethod))
                     {
-                        if (cboPageCacheProvider.Items.FindByValue(Entities.Host.Host.PageCachingMethod) != null)
+                        if (cboPageCacheProvider.FindItemByValue(Entities.Host.Host.PageCachingMethod) != null)
                         {
-                            cboPageCacheProvider.Items.FindByValue(Entities.Host.Host.PageCachingMethod).Selected = true;
+                            cboPageCacheProvider.FindItemByValue(Entities.Host.Host.PageCachingMethod).Selected = true;
                         }
                         else
                         {
-                            cboPageCacheProvider.Items.FindByValue(providerKey).Selected = true;
+                            cboPageCacheProvider.FindItemByValue(providerKey).Selected = true;
                         }
                     }
                     else
                     {
-                        cboPageCacheProvider.Items.FindByValue(providerKey).Selected = true;
+                        cboPageCacheProvider.FindItemByValue(providerKey).Selected = true;
                     }
                 }
             }
@@ -466,6 +498,25 @@ namespace DotNetNuke.Modules.Admin.Host
             return providers;
         }
 
+        private void OnLogFileIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlLogs.SelectedItem.Value == "-1")
+            {
+                txtLogContents.Text = string.Empty;
+                txtLogContents.Visible = false;
+                return;
+            }
+
+            var objStreamReader = File.OpenText(Globals.ApplicationMapPath + @"\portals\_default\logs\" + ddlLogs.SelectedItem.Text);
+            var logText = objStreamReader.ReadToEnd();
+            if (String.IsNullOrEmpty(logText.Trim()))
+            {
+                logText = Localization.GetString("LogEmpty", LocalResourceFile);
+            }
+            txtLogContents.Text = logText;
+            txtLogContents.Visible = true;
+            objStreamReader.Close();
+        }
         #endregion
 
         #region Protected Methods
@@ -474,6 +525,7 @@ namespace DotNetNuke.Modules.Admin.Host
         {
             base.OnInit(e);
             jQuery.RequestDnnPluginsRegistration();
+            ddlLogs.SelectedIndexChanged += OnLogFileIndexChanged;
         }
 
         /// -----------------------------------------------------------------------------
@@ -504,15 +556,33 @@ namespace DotNetNuke.Modules.Admin.Host
                 CheckSecurity();
 
                 //If this is the first visit to the page, populate the site data
-                if (Page.IsPostBack == false)
+                if (!Page.IsPostBack)
                 {
                     BindData();
+                    BindSearchIndex();
+
+                    if(Request.QueryString["smtpwarning"] != null)
+                    {
+                        Skin.AddModuleMessage(this, Localization.GetString("SmtpServerWarning", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
+                    }
                 }
             }
             catch (Exception exc)
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
+        }
+
+        private void BindSearchIndex()
+        {
+            var folder = HostController.Instance.GetString("SearchFolder", @"App_Data\Search");
+            var indexFolder = Path.Combine(Globals.ApplicationMapPath, folder);
+            lblSearchIndexPath.Text = indexFolder;
+
+            var minWordLength = HostController.Instance.GetInteger("Search_MinKeyWordLength", 3);
+            var maxWordLength = HostController.Instance.GetInteger("Search_MaxKeyWordLength", 255);
+            txtIndexWordMinLength.Text = minWordLength.ToString(CultureInfo.InvariantCulture);
+            txtIndexWordMaxLength.Text = maxWordLength.ToString(CultureInfo.InvariantCulture);
         }
 
         private void EnableCompositeFilesChanged(object sender, EventArgs e)
@@ -583,6 +653,7 @@ namespace DotNetNuke.Modules.Admin.Host
         protected void ClearCache(object sender, EventArgs e)
         {
             DataCache.ClearCache();
+			ClientResourceManager.ClearCache();
             Response.Redirect(Request.RawUrl, true);
         }
 
@@ -720,15 +791,16 @@ namespace DotNetNuke.Modules.Admin.Host
             {
                 try
                 {
+                    // TODO: Remove after refactor: this code/functionality has been copied to ..\AdvancedSettings\SmtpServerSettings.aspx) 
+                    //show warning message when set custom smtp port and app running under medium trust, but still can
+                    //save the settings because maybe some host providers use a modified medium trusy config and allow
+                    //this permission.
                     var smtpServer = txtSMTPServer.Text;
-                    if (!string.IsNullOrEmpty(smtpServer) 
-                        && smtpServer.Contains(":") 
-                        && smtpServer.Split(':')[1] != "25"
-                        && !SecurityPolicy.HasAspNetHostingPermission())
-                    {
-                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SmtpServerInvalid", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
-                        return;
-                    }
+                    var smtpWarning = !string.IsNullOrEmpty(smtpServer)
+                                        && smtpServer != DotNetNuke.Entities.Host.Host.SMTPServer
+                                        && smtpServer.Contains(":") 
+                                        && smtpServer.Split(':')[1] != "25" 
+                                        && !SecurityPolicy.HasAspNetHostingPermission();
 
                     HostController.Instance.Update("CheckUpgrade", chkUpgrade.Checked ? "Y" : "N", false);
                     HostController.Instance.Update("DisplayBetaNotice", chkBetaNotice.Checked ? "Y" : "N", false);
@@ -761,20 +833,21 @@ namespace DotNetNuke.Modules.Admin.Host
                     HostController.Instance.Update("ProxyUsername", txtProxyUsername.Text, false);
                     HostController.Instance.Update("ProxyPassword", txtProxyPassword.Text, false);
                     HostController.Instance.Update("WebRequestTimeout", txtWebRequestTimeout.Text, false);
+                    // TODO: Refactor: call smtpServerSettings.Update(); This code/functionality has been copied to ..\AdvancedSettings\SmtpServerSettings.aspx) 
                     HostController.Instance.Update("SMTPServer", txtSMTPServer.Text, false);
                     HostController.Instance.Update("SMTPAuthentication", optSMTPAuthentication.SelectedItem.Value, false);
                     HostController.Instance.Update("SMTPUsername", txtSMTPUsername.Text, false);
                     HostController.Instance.Update("SMTPPassword", txtSMTPPassword.Text, false);
                     HostController.Instance.Update("SMTPEnableSSL", chkSMTPEnableSSL.Checked ? "Y" : "N", false);
+                    // end of code copied to smtpServerSettings.Update()
                     HostController.Instance.Update("FileExtensions", txtFileExtensions.Text, false);
                     HostController.Instance.Update("UseCustomErrorMessages", chkUseCustomErrorMessages.Checked ? "Y" : "N", false);
-                    HostController.Instance.Update("UseFriendlyUrls", chkUseFriendlyUrls.Checked ? "Y" : "N", false);
                     HostController.Instance.Update("EnableRequestFilters", chkEnableRequestFilters.Checked ? "Y" : "N", false);
                     HostController.Instance.Update("ControlPanel", cboControlPanel.SelectedItem.Value, false);
                     HostController.Instance.Update("SchedulerMode", cboSchedulerMode.SelectedItem.Value, false);
                     HostController.Instance.Update("PerformanceSetting", cboPerformance.SelectedItem.Value, false);
                     HostController.Instance.Update("AuthenticatedCacheability", cboCacheability.SelectedItem.Value, false);
-                    HostController.Instance.Update("PageStatePersister", cboPageState.SelectedItem.Value);
+                    HostController.Instance.Update("PageStatePersister", cboPageState.SelectedItem.Value); 
                     HostController.Instance.Update("ModuleCaching", cboModuleCacheProvider.SelectedItem.Value, false);
                     if (PageCacheRow.Visible)
                     {
@@ -793,15 +866,36 @@ namespace DotNetNuke.Modules.Admin.Host
                     HostController.Instance.Update("DefaultAdminContainer", editContainerCombo.SelectedValue, false);
                     HostController.Instance.Update("jQueryDebug", chkJQueryDebugVersion.Checked ? "Y" : "N", false);
                     HostController.Instance.Update("jQueryHosted", chkJQueryUseHosted.Checked ? "Y" : "N", false);
-                    HostController.Instance.Update("jQueryUrl", txtJQueryHostedUrl.Text, false);
-                    HostController.Instance.Update("jQueryUIUrl", txtJQueryUIHostedUrl.Text, false);
+                    HostController.Instance.Update("jQueryUrl", txtJQueryHostedUrl.Text.Trim(), false);
+                    HostController.Instance.Update("jQueryMigrateUrl", txtJQueryMigrateHostedUrl.Text.Trim(), false);
+                    HostController.Instance.Update("jQueryUIUrl", txtJQueryUIHostedUrl.Text.Trim(), false);
+					HostController.Instance.Update("EnableMsAjaxCDN", chkMsAjaxCdn.Checked ? "Y" : "N", false);
+					HostController.Instance.Update("EnableTelerikCDN", chkTelerikCdn.Checked ? "Y" : "N", false);
+					HostController.Instance.Update("TelerikCDNBasicUrl", txtTelerikBasicUrl.Text, false);
+					HostController.Instance.Update("TelerikCDNSecureUrl", txtTelerikSecureUrl.Text, false);
+					HostController.Instance.Update("AsyncTimeout", txtAsyncTimeout.Text, false);
                     HostController.Instance.Update(ClientResourceSettings.EnableCompositeFilesKey, chkCrmEnableCompositeFiles.Checked.ToString(CultureInfo.InvariantCulture));
                     HostController.Instance.Update(ClientResourceSettings.MinifyCssKey, chkCrmMinifyCss.Checked.ToString(CultureInfo.InvariantCulture));
                     HostController.Instance.Update(ClientResourceSettings.MinifyJsKey, chkCrmMinifyJs.Checked.ToString(CultureInfo.InvariantCulture));
 
-                    UpdateSchedule();
+                    HostController.Instance.Update("EnableBannedList", chkBannedList.Checked ? "Y" : "N", false);
+                    HostController.Instance.Update("EnableStrengthMeter", chkStrengthMeter.Checked ? "Y" : "N", false);
+                    HostController.Instance.Update("EnableIPChecking", chkIPChecking.Checked ? "Y" : "N", false);
+                    HostController.Instance.Update("EnablePasswordHistory", chkEnablePasswordHistory.Checked ? "Y" : "N", false);
+                    HostController.Instance.Update("MembershipResetLinkValidity", txtResetLinkValidity.Text, false);
+                    HostController.Instance.Update("MembershipNumberPasswords", txtNumberPasswords.Text, false);
 
-                    Response.Redirect(Request.RawUrl, true);
+                    FriendlyUrlsExtensionControl.SaveAction(-1, -1, -1);
+                    UpdateSchedule();
+                    UpdateSearchIndexConfiguration();
+
+                    // TODO: Remove after refactor: this code/functionality has been copied to ..\AdvancedSettings\SmtpServerSettings.aspx) 
+                    var redirectUrl = Request.RawUrl;
+                    if (smtpWarning && redirectUrl.IndexOf("smtpwarning=true", StringComparison.InvariantCultureIgnoreCase) == -1)
+                    {
+                        redirectUrl = string.Format("{0}{1}smtpwarning=true", redirectUrl, redirectUrl.Contains("?") ? "&" : "?");
+                    }
+                    Response.Redirect(redirectUrl, true);
                 }
                 catch (Exception exc)
                 {
@@ -809,12 +903,58 @@ namespace DotNetNuke.Modules.Admin.Host
                 }
                 finally
                 {
-                    DataCache.ClearHostCache(false);
+                    //TODO: this is temporary until the AUM Caching is moved into the core.
+                    //DataCache.ClearHostCache(false);
+                    DataCache.ClearCache();
                 }
             }
         }
 
         #endregion
 
+        protected void CompactSearchIndex(object sender, EventArgs e)
+        {
+            SearchHelper.Instance.SetSearchReindexRequestTime(true);
+        }
+
+        protected void HostSearchReindex(object sender, EventArgs e)
+        {
+            SearchHelper.Instance.SetSearchReindexRequestTime(-1);
+        }
+
+        protected void GetSearchIndexStatistics(object sender, EventArgs e)
+        {
+            var searchStatistics = InternalSearchController.Instance.GetSearchStatistics();
+            pnlSearchGetMoreButton.Visible = false;
+            pnlSearchStatistics.Visible = true;
+            lblSearchIndexDbSize.Text = ((searchStatistics.IndexDbSize/1024f)/1024f).ToString("N") + " MB";
+            lblSearchIndexLastModifedOn.Text = DateUtils.CalculateDateForDisplay(searchStatistics.LastModifiedOn);
+            lblSearchIndexTotalActiveDocuments.Text = searchStatistics.TotalActiveDocuments.ToString(CultureInfo.InvariantCulture);
+            lblSearchIndexTotalDeletedDocuments.Text = searchStatistics.TotalDeletedDocuments.ToString(CultureInfo.InvariantCulture);
+        }
+
+        protected void UpdateSearchIndexConfiguration()
+        {
+            int newMinLength;
+            if (int.TryParse(txtIndexWordMinLength.Text, out newMinLength))
+            {
+                var oldMinLength = HostController.Instance.GetInteger("Search_MinKeyWordLength", 3);
+                if (newMinLength != oldMinLength)
+                {
+                    HostController.Instance.Update("Search_MinKeyWordLength", txtIndexWordMinLength.Text);
+                }
+            }
+
+            int newMaxLength;
+            if (int.TryParse(txtIndexWordMaxLength.Text, out newMaxLength))
+            {
+                var oldMaxLength = HostController.Instance.GetInteger("Search_MaxKeyWordLength", 255);
+                if (newMaxLength != oldMaxLength)
+                {
+                    HostController.Instance.Update("Search_MaxKeyWordLength", txtIndexWordMaxLength.Text);
+                }
+            }
+
+        }
     }
 }

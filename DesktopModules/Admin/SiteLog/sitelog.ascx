@@ -7,7 +7,8 @@
             <div class="dnnFormItem dnnClear"><asp:Label ID="lblMessage" runat="server" Visible="false" resourcekey="NoRecords" CssClass="dnnFormMessage dnnFormWarning" /></div>
             <div class="dnnFormItem">
                 <dnn:label id="plReportType" runat="server" controlname="cboReportType" suffix=":" />
-                <asp:DropDownList ID="cboReportType" Runat="server" DataValueField="value" DataTextField="text" />
+                <%--<asp:DropDownList ID="cboReportType" Runat="server" DataValueField="value" DataTextField="text" />--%>
+                <dnn:DnnComboBox ID="cboReportType" Runat="server" DataValueField="value" DataTextField="text" />
             </div>
             <div class="dnnFormItem">
                 <dnn:label id="plStartDate" runat="server" controlname="txtStartDate" suffix=":" />
@@ -28,10 +29,12 @@
                 <li><asp:LinkButton id="cmdDisplay" resourcekey="cmdDisplay" cssclass="dnnPrimaryAction" Text="Display" runat="server"  /></li>
             </ul>
         </fieldset>        
-        <asp:datagrid id="grdLog" Runat="server" cellpadding="4" Border="0" AutoGenerateColumns="true" BorderStyle="None" GridLines="None">
+       <%-- <asp:datagrid id="grdLog" Runat="server" cellpadding="4" Border="0" AutoGenerateColumns="true" BorderStyle="None" GridLines="None">
         	    <headerstyle cssclass="dnnGridHeader" verticalalign="Top"/>
 	            <footerstyle cssclass="dnnGridFooter" />
 	            <pagerstyle cssclass="dnnGridPager" />
-        </asp:datagrid>
+        </asp:datagrid>--%>
+        <dnn:DnnGrid ID="grdLog" runat="server">
+        </dnn:DnnGrid>
     </div>
 </div>

@@ -1,6 +1,11 @@
 ﻿(function ($) {
     $.fn.previewEmulator = function (options) {
-        var handler = this;
+    	var handler = this;
+	    
+    	if (handler.data("previewEmulator")) {
+    		return handler.data("previewEmulator");
+    	}
+	    
         var hDimension = this.find(".dimension_h");
         var vDimension = this.find(".dimension_v");
         var viewContainer = this.find(".emulator_c");
@@ -81,6 +86,8 @@
 
         hDimension.html("<span class=\"left\"></span><span class=\"center\"></span><span class=\"right\"></span>");
         vDimension.html("<span class=\"top\"></span><span class=\"middle\"></span><span class=\"bottom\"></span>");
+	    
+        handler.data("previewEmulator", this);
 
         return this;
     };

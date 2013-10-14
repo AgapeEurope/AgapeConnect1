@@ -153,4 +153,7 @@
   <data name="TotalPages.Text" xml:space="preserve">
     <value>Total Pages</value>
   </data>
+  <data name="PagesToLocalizeLabel.Text" xml:space="preserve">
+    <value>Number of pages to localize</value>
+  </data>
 </root>

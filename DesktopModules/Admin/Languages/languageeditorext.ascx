@@ -18,6 +18,8 @@
 	<div class="dnnLTextEditor dnnClear"><dnn:texteditor id="teContent" runat="server" height="400" width="600" /></div>
 </div>
 <ul class="dnnActions dnnClear">
-    <li><dnn:CommandButton ID="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" IconKey="Save" /></li>
-    <li><dnn:CommandButton ID="cmdCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" IconKey="Lt" CausesValidation="false" /></li>
+    <li><asp:LinkButton id="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" /></li>
+    <li><asp:LinkButton id="cmdCancel" runat="server" CssClass="dnnSecondaryAction" ResourceKey="cmdCancel" CausesValidation="false" /></li>
+   <%-- <li><dnn:CommandButton ID="cmdUpdate" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdUpdate" IconKey="Save" /></li>
+    <li><dnn:CommandButton ID="cmdCancel" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdCancel" IconKey="Lt" CausesValidation="false" /></li>--%>
 </ul>

@@ -22,32 +22,27 @@
     	    <li><asp:LinkButton id="cmdDeleteList" runat="server" CssClass="dnnSecondaryAction" resourcekey="cmdDeleteList" /></li>
         </ul>   
     </div>
-    <div  id="rowEntryGrid" runat="server">
-		<asp:DataGrid ID="grdEntries" runat="server" DataKeyField="EntryID" AutoGenerateColumns="false" Width="100%" GridLines="None">
-            <headerstyle cssclass="dnnGridHeader" verticalalign="Top" />
-	        <itemstyle cssclass="dnnGridItem" horizontalalign="Left" />
-	        <alternatingitemstyle cssclass="dnnGridAltItem" />
-	        <edititemstyle cssclass="dnnFormInput" />
-	        <selecteditemstyle cssclass="dnnFormError" />
-	        <footerstyle cssclass="dnnGridFooter" />
-	        <pagerstyle cssclass="dnnGridPager" />
-			<Columns>
-				<dnn:ImageCommandColumn CommandName="Edit" IconKey="Edit" EditMode="Command" KeyField="EntryID" />
-				<dnn:ImageCommandColumn CommandName="Delete" IconKey="Delete" EditMode="Command" KeyField="EntryID" />
-				<asp:BoundColumn DataField="Text" HeaderText="Text" />
-				<asp:BoundColumn DataField="Value" HeaderText="Value" />
-				<asp:TemplateColumn>
-					<ItemTemplate>
-						<dnn:DnnImageButton ID="btnUp" Visible="<%# EnableSortOrder %>" IconKey="Up" runat="server" AlternateText="Move entry up" resourcekey="btnUp.AlternateText" 	CommandName="up" />
-					</ItemTemplate>
-				</asp:TemplateColumn>
-				<asp:TemplateColumn>
-					<ItemTemplate>
-						<dnn:DnnImageButton ID="btnDown" Visible="<%# EnableSortOrder %>" IconKey="Dn" runat="server" AlternateText="Move entry down" resourcekey="btnDown.AlternateText" CommandName="down" />
-					</ItemTemplate>
-				</asp:TemplateColumn>
-			</Columns>
-		</asp:DataGrid>
+    <div  id="rowEntryGrid" runat="server">       
+		<dnn:DnnGrid ID="grdEntries" runat="server" AutoGenerateColumns="false" CssClass="dnnASPGrid">
+		    <MasterTableView DataKeyNames="EntryID">
+			    <Columns>			
+				    <dnn:DnnGridBoundColumn DataField="Text" HeaderText="Text" />
+				    <dnn:DnnGridBoundColumn DataField="Value" HeaderText="Value" />
+				    <dnn:DnnGridTemplateColumn>
+					    <ItemTemplate>
+						    <dnn:DnnImageButton ID="btnUp" IconKey="Up" runat="server" AlternateText="Move entry up" resourcekey="btnUp.AlternateText" 	CommandName="up" />
+					    </ItemTemplate>
+				    </dnn:DnnGridTemplateColumn>
+				    <dnn:DnnGridTemplateColumn>
+					    <ItemTemplate>
+						    <dnn:DnnImageButton ID="btnDown" IconKey="Dn" runat="server" AlternateText="Move entry down" resourcekey="btnDown.AlternateText" CommandName="down" />
+					    </ItemTemplate>
+				    </dnn:DnnGridTemplateColumn>
+                    <dnn:DnnGridImageCommandColumn CommandName="Edit" IconKey="Edit" EditMode="Command" KeyField="EntryID" />
+				    <dnn:DnnGridImageCommandColumn CommandName="Delete" IconKey="Delete" EditMode="Command" KeyField="EntryID" />
+			    </Columns>
+            </MasterTableView>
+		</dnn:DnnGrid>
     </div>
     <div  id="rowEntryEdit" runat="server">
         <div id="rowParentKey" runat="server" class="dnnFormItem">
@@ -55,27 +50,27 @@
             <asp:TextBox ID="txtParentKey" runat="server" MaxLength="100" ReadOnly="true" />
         </div>
         <div id="rowListName" runat="server" class="dnnFormItem">
-            <dnn:Label ID="plEntryName" Text="Entry Name:" runat="server" ControlName="txtEntryName" />
-			<asp:TextBox ID="txtEntryName" CssClass="dnnFormRequired" runat="server" MaxLength="100" />
+            <dnn:Label ID="plEntryName" Text="Entry Name:" runat="server" ControlName="txtEntryName" CssClass="dnnFormRequired" />
+			<asp:TextBox ID="txtEntryName" runat="server" MaxLength="100" />
             <asp:RequiredFieldValidator ID="valEntryName" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valEntryName.ErrorMessage" Display="Dynamic" ControlToValidate="txtEntryName" />
 			<asp:TextBox ID="txtEntryID" runat="server" Visible="false" />
         </div>
         <div  id="rowSelectList" runat="server" class="dnnFormItem">
             <dnn:Label ID="plSelectList" runat="server" ControlName="ddlSelectList "/>
-			<asp:DropDownList ID="ddlSelectList" AutoPostBack="true" runat="server" Enabled="False" />
+            <dnn:DnnComboBox ID="ddlSelectList" AutoPostBack="true" runat="Server" Enabled="false" />
         </div>
         <div  id="rowSelectParent" runat="server" class="dnnFormItem">
             <dnn:Label ID="plSelectParent" runat="server" ControlName="ddlSelectParent" />
-			<asp:DropDownList ID="ddlSelectParent" runat="server" Enabled="False" />
+            <dnn:DnnComboBox ID="ddlSelectParent" AutoPostBack="true" runat="Server" Enabled="false" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label ID="plEntryText" runat="server" ControlName="txtEntryText" />
-			<asp:TextBox ID="txtEntryText" CssClass="dnnFormRequired" runat="server" MaxLength="100" />
+            <dnn:Label ID="plEntryText" runat="server" ControlName="txtEntryText" CssClass="dnnFormRequired" />
+			<asp:TextBox ID="txtEntryText" runat="server" MaxLength="100" />
 			<asp:RequiredFieldValidator ID="valEntryText" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valEntryText.ErrorMessage" Display="Dynamic" ControlToValidate="txtEntryText" />
         </div>
         <div class="dnnFormItem">
-            <dnn:Label ID="plEntryValue" runat="server" ControlName="txtEntryValue"/>
-			<asp:TextBox ID="txtEntryValue" CssClass="dnnFormRequired" runat="server" MaxLength="100" />
+            <dnn:Label ID="plEntryValue" runat="server" ControlName="txtEntryValue" CssClass="dnnFormRequired"/>
+			<asp:TextBox ID="txtEntryValue" runat="server" MaxLength="100" />
 			<asp:RequiredFieldValidator ID="valEntryValue" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="valEntryValue.ErrorMessage" Display="Dynamic" ControlToValidate="txtEntryValue" />
         </div>
         <div id="rowEnableSortOrder" runat="server" class="dnnFormItem">

@@ -1,7 +1,8 @@
 #region Copyright
+
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -17,7 +18,9 @@
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
 // DEALINGS IN THE SOFTWARE.
+
 #endregion
+
 #region Usings
 
 using System;
@@ -62,65 +65,55 @@ namespace DotNetNuke.Modules.Admin.Modules
 
         #region Private Methods
 
-        private string ImportModule(int ModuleId, string FileName, string Folder)
+        private string ImportModule()
         {
             var strMessage = "";
             if (Module != null)
             {
-                if (FileName.IndexOf("." + Globals.CleanName(Module.DesktopModule.ModuleName) + ".") != -1 || FileName.IndexOf("." + Globals.CleanName(Module.DesktopModule.FriendlyName) + ".") != -1)
+                if (!String.IsNullOrEmpty(Module.DesktopModule.BusinessControllerClass) && Module.DesktopModule.IsPortable)
                 {
-                    if (!String.IsNullOrEmpty(Module.DesktopModule.BusinessControllerClass) && Module.DesktopModule.IsPortable)
+                    try
                     {
-                        try
+                        var objObject = Reflection.CreateObject(Module.DesktopModule.BusinessControllerClass, Module.DesktopModule.BusinessControllerClass);
+                        if (objObject is IPortable)
                         {
-                            var objObject = Reflection.CreateObject(Module.DesktopModule.BusinessControllerClass, Module.DesktopModule.BusinessControllerClass);
-                            if (objObject is IPortable)
+                            var xmlDoc = new XmlDocument();
+                            try
                             {
-                                var objStreamReader = File.OpenText(PortalSettings.HomeDirectoryMapPath + Folder + FileName);
-                                var content = objStreamReader.ReadToEnd();
-                                objStreamReader.Close();
-                                var xmlDoc = new XmlDocument();
-                                try
-                                {
-                                    xmlDoc.LoadXml(content);
-                                }
-                                catch
-                                {
-                                    strMessage = Localization.GetString("NotValidXml", LocalResourceFile);
-                                }
-                                if (String.IsNullOrEmpty(strMessage))
-                                {
-                                    var strType = xmlDoc.DocumentElement.GetAttribute("type");
-                                    if (strType == Globals.CleanName(Module.DesktopModule.ModuleName) || strType == Globals.CleanName(Module.DesktopModule.FriendlyName))
-                                    {
-                                        var strVersion = xmlDoc.DocumentElement.GetAttribute("version");
-                                        ((IPortable)objObject).ImportModule(ModuleId, xmlDoc.DocumentElement.InnerXml, strVersion, UserInfo.UserID);
-                                        Response.Redirect(Globals.NavigateURL(), true);
-                                    }
-                                    else
-                                    {
-                                        strMessage = Localization.GetString("NotCorrectType", LocalResourceFile);
-                                    }
-                                }
+                                xmlDoc.LoadXml(txtContent.Text);
                             }
-                            else
+                            catch
                             {
-                                strMessage = Localization.GetString("ImportNotSupported", LocalResourceFile);
+                                strMessage = Localization.GetString("NotValidXml", LocalResourceFile);
+                            }
+                            if (String.IsNullOrEmpty(strMessage))
+                            {
+                                var strType = xmlDoc.DocumentElement.GetAttribute("type");
+                                if (strType == Globals.CleanName(Module.DesktopModule.ModuleName) || strType == Globals.CleanName(Module.DesktopModule.FriendlyName))
+                                {
+                                    var strVersion = xmlDoc.DocumentElement.GetAttribute("version");
+                                    ((IPortable)objObject).ImportModule(ModuleId, xmlDoc.DocumentElement.InnerXml, strVersion, UserInfo.UserID);
+                                    Response.Redirect(Globals.NavigateURL(), true);
+                                }
+                                else
+                                {
+                                    strMessage = Localization.GetString("NotCorrectType", LocalResourceFile);
+                                }
                             }
                         }
-                        catch
+                        else
                         {
-                            strMessage = Localization.GetString("Error", LocalResourceFile);
+                            strMessage = Localization.GetString("ImportNotSupported", LocalResourceFile);
                         }
                     }
-                    else
+                    catch
                     {
-                        strMessage = Localization.GetString("ImportNotSupported", LocalResourceFile);
+                        strMessage = Localization.GetString("Error", LocalResourceFile);
                     }
                 }
                 else
                 {
-                    strMessage = Localization.GetString("NotCorrectType", LocalResourceFile);
+                    strMessage = Localization.GetString("ImportNotSupported", LocalResourceFile);
                 }
             }
             return strMessage;
@@ -139,7 +132,7 @@ namespace DotNetNuke.Modules.Admin.Modules
                 Int32.TryParse(Request.QueryString["moduleid"], out ModuleId);
             }
 
-			//Verify that the current user has access to edit this module
+            //Verify that the current user has access to edit this module
             if (!ModulePermissionController.HasModuleAccess(SecurityAccessLevel.Edit, "IMPORT", Module))
             {
                 Response.Redirect(Globals.AccessDeniedURL(), true);
@@ -150,7 +143,8 @@ namespace DotNetNuke.Modules.Admin.Modules
         {
             base.OnLoad(e);
 
-            cboFolders.SelectedIndexChanged += OnFoldersIndexChanged;
+            cboFolders.SelectionChanged += OnFoldersIndexChanged;
+            cboFiles.SelectedIndexChanged += OnFilesIndexChanged;
             cmdImport.Click += OnImportClick;
 
             try
@@ -158,14 +152,8 @@ namespace DotNetNuke.Modules.Admin.Modules
                 if (!Page.IsPostBack)
                 {
                     cmdCancel.NavigateUrl = Globals.NavigateURL();
-                    cboFolders.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", "-"));
-                    var user = UserController.GetCurrentUserInfo();
-                    var folders = FolderManager.Instance.GetFileSystemFolders(user, "BROWSE, ADD");
-                    foreach (FolderInfo folder in folders)
-                    {
-                        var folderItem = new ListItem {Text = folder.FolderPath == Null.NullString ? Localization.GetString("Root", LocalResourceFile) : folder.DisplayPath, Value = folder.FolderPath};
-                        cboFolders.Items.Add(folderItem);
-                    }
+                    cboFolders.UndefinedItem = new ListItem("<" + Localization.GetString("None_Specified") + ">", string.Empty);
+                    cboFolders.Services.Parameters.Add("permission", "ADD");
                 }
             }
             catch (Exception exc)
@@ -177,7 +165,8 @@ namespace DotNetNuke.Modules.Admin.Modules
         protected void OnFoldersIndexChanged(object sender, EventArgs e)
         {
             cboFiles.Items.Clear();
-            if (cboFolders.SelectedIndex == 0)
+            cboFiles.InsertItem(0, "<" + Localization.GetString("None_Specified") + ">", "-");
+            if (cboFolders.SelectedItem == null)
             {
                 return;
             }
@@ -185,48 +174,58 @@ namespace DotNetNuke.Modules.Admin.Modules
             {
                 return;
             }
-            var arrFiles = Globals.GetFileList(PortalId, "xml", false, cboFolders.SelectedItem.Value);
+
+            var folder = FolderManager.Instance.GetFolder(cboFolders.SelectedItemValueAsInt);
+            if (folder == null) return;
+
+            var arrFiles = Globals.GetFileList(PortalId, "xml", false, folder.FolderPath);
             foreach (FileItem objFile in arrFiles)
             {
-                if (objFile.Text.IndexOf("content." + Globals.CleanName(Module.DesktopModule.ModuleName) + ".") != -1)
+                if (objFile.Text.IndexOf("content." + Globals.CleanName(Module.DesktopModule.ModuleName) + ".", System.StringComparison.Ordinal) != -1)
                 {
-                    cboFiles.Items.Add(new ListItem(objFile.Text.Replace("content." + Globals.CleanName(Module.DesktopModule.ModuleName) + ".", ""), objFile.Text));
+                    cboFiles.AddItem(objFile.Text.Replace("content." + Globals.CleanName(Module.DesktopModule.ModuleName) + ".", ""), objFile.Text);
                 }
-				
+
                 //legacy support for files which used the FriendlyName
                 if (Globals.CleanName(Module.DesktopModule.ModuleName) == Globals.CleanName(Module.DesktopModule.FriendlyName))
                 {
                     continue;
                 }
-                if (objFile.Text.IndexOf("content." + Globals.CleanName(Module.DesktopModule.FriendlyName) + ".") != -1)
+
+                if (objFile.Text.IndexOf("content." + Globals.CleanName(Module.DesktopModule.FriendlyName) + ".", System.StringComparison.Ordinal) != -1)
                 {
-                    cboFiles.Items.Add(new ListItem(objFile.Text.Replace("content." + Globals.CleanName(Module.DesktopModule.FriendlyName) + ".", ""), objFile.Text));
+                    cboFiles.AddItem(objFile.Text.Replace("content." + Globals.CleanName(Module.DesktopModule.FriendlyName) + ".", ""), objFile.Text);
                 }
             }
+        }
+
+        protected void OnFilesIndexChanged(object sender, EventArgs e)
+        {
+            if (cboFolders.SelectedItem == null) return;
+            var folder = FolderManager.Instance.GetFolder(cboFolders.SelectedItemValueAsInt);
+            if (folder == null) return;
+
+            var objStreamReader = File.OpenText(PortalSettings.HomeDirectoryMapPath + folder.FolderPath + cboFiles.SelectedItem.Value);
+            var content = objStreamReader.ReadToEnd();
+            objStreamReader.Close();
+            txtContent.Text = content.Replace("><", ">\r\n<");
         }
 
         protected void OnImportClick(object sender, EventArgs e)
         {
             try
             {
-                if (cboFiles.SelectedItem != null)
+                if (Module != null)
                 {
-                    if (Module != null)
+                    var strMessage = ImportModule();
+                    if (String.IsNullOrEmpty(strMessage))
                     {
-                        var strMessage = ImportModule(ModuleId, cboFiles.SelectedItem.Value, cboFolders.SelectedItem.Value);
-                        if (String.IsNullOrEmpty(strMessage))
-                        {
-                            Response.Redirect(Globals.NavigateURL(), true);
-                        }
-                        else
-                        {
-                            UI.Skins.Skin.AddModuleMessage(this, strMessage, ModuleMessage.ModuleMessageType.RedError);
-                        }
+                        Response.Redirect(Globals.NavigateURL(), true);
                     }
-                }
-                else
-                {
-                    UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("Validation", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
+                    else
+                    {
+                        UI.Skins.Skin.AddModuleMessage(this, strMessage, ModuleMessage.ModuleMessageType.RedError);
+                    }
                 }
             }
             catch (Exception exc)

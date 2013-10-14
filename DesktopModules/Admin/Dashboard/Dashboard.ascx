@@ -39,3 +39,8 @@
         </ItemTemplate>
     </asp:Repeater>
 </div>
+<ul class="dnnActions dnnClear">
+	<li><asp:Hyperlink id="cmdInstall" runat="server" CssClass="dnnPrimaryAction" resourcekey="Install.Action"  /></li>
+	<li><asp:Hyperlink id="cmdManage" runat="server" CssClass="dnnSecondaryAction" resourcekey="Manage.Action" /></li>
+	<li><asp:Hyperlink id="cmdExport" runat="server" CssClass="dnnSecondaryAction" resourcekey="Export.Action" /></li>
+</ul>

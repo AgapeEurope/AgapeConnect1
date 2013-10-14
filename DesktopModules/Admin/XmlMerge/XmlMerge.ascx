@@ -1,13 +1,13 @@
 <%@ Control language="C#" Inherits="DotNetNuke.Modules.XmlMerge.XmlMerge" CodeFile="XmlMerge.ascx.cs" AutoEventWireup="false" Explicit="True" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-<%@ Register TagPrefix="dnn" TagName="SectionHead" Src="~/controls/SectionHeadControl.ascx" %>
+<%@ Import Namespace="DotNetNuke.Services.Localization" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div class="dnnForm dnnConfigManager dnnClear" id="dnnConfigManager">
     <h2 class="dnnFormSectionHead"><%=LocalizeString("Configuration")%></h2>
     <fieldset>
         <div class="dnnFormItem">
             <dnn:Label ID="plConfig" runat="server" ControlName="ddlConfig" />
-            <asp:DropDownList ID="ddlConfig" runat="server" AutoPostBack="true"  />                
+            <dnn:DnnComboBox runat="server" ID="ddlConfig" AutoPostBack="True" />
         </div>
         <div class="dnnFormItem">
             <dnn:Label ID="fileLabel" runat="server" ControlName="txtConfiguration" />
@@ -34,3 +34,13 @@
      </fieldset>       
 </div>
 <asp:Label ID="lblMessage" runat="server" CssClass="NormalRed" EnableViewState="False" />
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#<%=cmdSave.ClientID%>, #<%= cmdExecute.ClientID %>').dnnConfirm({
+					text: '<%= ConfirmText %>',
+					yesText: '<%= Localization.GetSafeJSString("Yes.Text", Localization.SharedResourceFile) %>',
+					noText: '<%= Localization.GetSafeJSString("No.Text", Localization.SharedResourceFile) %>',
+					title: '<%= Localization.GetSafeJSString("Confirm.Text", Localization.SharedResourceFile) %>'
+				});
+	});
+</script>

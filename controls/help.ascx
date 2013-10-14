@@ -1,13 +1,17 @@
 <%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.UI.UserControls.Help" %>
+<asp:Label ID="lblHelp" runat="server" Width="100%" EnableViewState="False" />
 <div class="dnnForm dnnHelpControl">
-	<fieldset>
+    <fieldset>
         <div class="dnnFormItem dnnClear">
-            <asp:Label ID="lblHelp" Runat="server" Width="100%" enableviewstate="False" />
+            <asp:Literal ID="helpFrame" runat="server"></asp:Literal>
         </div>
         <ul class="dnnActions dnnClear">
-            <li><asp:HyperLink id="cmdHelp" Runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdHelp" Target="_new" enableviewstate="False" /></li>
-            <li><asp:linkbutton id="cmdCancel" runat="server" class="dnnSecondaryAction" resourcekey="cmdCancel" causesvalidation="False" enableviewstate="False" /></li>
+            <li>
+                <asp:HyperLink ID="cmdHelp" runat="server" CssClass="dnnPrimaryAction" resourcekey="cmdHelp" Target="_new" EnableViewState="False" /></li>
+            <li>
+                <asp:LinkButton ID="cmdCancel" runat="server" class="dnnSecondaryAction" resourcekey="cmdCancel" CausesValidation="False" EnableViewState="False" /></li>
         </ul>
-        <div class="dnnFormItem"><asp:Label ID="lblInfo" Runat="server" Width="100%" enableviewstate="False" /></div>
+        <div class="dnnFormItem">
+            <asp:Label ID="lblInfo" runat="server" Width="100%" EnableViewState="False" /></div>
     </fieldset>
 </div>

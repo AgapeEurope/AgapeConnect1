@@ -1,28 +1,34 @@
 <%@ Control Language="C#" AutoEventWireup="false" Explicit="true" Inherits="DotNetNuke.Modules.SearchResults.ResultsSettings" CodeFile="ResultsSettings.ascx.cs" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-<div class="dnnForm dnnResultsSettings dnnClear">
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
+<div class="dnnForm dnnClear">
     <div class="dnnFormItem">
-        <dnn:label id="plResults" runat="server" controlname="txtresults" />
-        <asp:textbox id="txtresults" runat="server" MaxLength="5" />
-        <asp:CompareValidator ID="CompareValidator5" runat="server" CssClass="NormalRed" resourcekey="Validation.ErrorMessage" Display="Dynamic" ControlToValidate="txtresults" Operator="GreaterThan" Type="Integer" ValueToCompare="0" />
+        <dnn:Label ID="plTitleLinkTarget" runat="server" ControlName="comboBoxLinkTarget" />
+        <dnn:DnnComboBox ID="comboBoxLinkTarget" runat="server" Width="437px">
+            <Items>
+                <dnn:DnnComboBoxItem ResourceKey="linkTargetOnSamePage.Text" Value="0" />
+                <dnn:DnnComboBoxItem ResourceKey="linkTargetOpenNewPage.Text" Value="1" />
+            </Items>
+        </dnn:DnnComboBox>
     </div>
-    <div class="dnnFormItem">
-        <dnn:label id="plPage" runat="server" controlname="txtPage" />
-        <asp:textbox id="txtPage" runat="server" MaxLength="5" />
-        <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtPage" CssClass="NormalRed" Display="Dynamic" Operator="GreaterThan" resourcekey="Validation.ErrorMessage" />
+    <div class="dnnFormItem" id="divPortalGroup" runat="server">
+        <dnn:Label ID="plResultsScopeForPortals" runat="server" ControlName="comboBoxPortals" />
+        <dnn:DnnComboBox ID="comboBoxPortals" runat="server" CheckBoxes="true" Width="437px">
+        </dnn:DnnComboBox>
+        <asp:RequiredFieldValidator runat="server" ID="portalsRequiedValidator" CssClass="dnnFormMessage dnnFormError" Display="Dynamic"
+            resourceKey="portalsRequired" ControlToValidate="comboBoxPortals"></asp:RequiredFieldValidator>
     </div>
+
     <div class="dnnFormItem">
-        <dnn:label id="plTitle" runat="server" controlname="txtTitle" />
-        <asp:textbox id="txtTitle" runat="server" MaxLength="5" />
-        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="txtTitle" CssClass="NormalRed" Display="Dynamic" Operator="GreaterThan" resourcekey="Validation.ErrorMessage" Type="Integer" ValueToCompare="0" />
+        <dnn:Label ID="plResultsScopeForFilters" runat="server" ControlName="comboBoxFilters" />
+        <dnn:DnnComboBox ID="comboBoxFilters" runat="server" CheckBoxes="true" Width="437px">
+        </dnn:DnnComboBox>
+        <asp:RequiredFieldValidator runat="server" ID="filtersRequiredFieldValidator" CssClass="dnnFormMessage dnnFormError" Display="Dynamic"
+            resourceKey="filtersRequired" ControlToValidate="comboBoxFilters"></asp:RequiredFieldValidator>
     </div>
-    <div class="dnnFormItem">
-        <dnn:label id="plDescription" runat="server" controlname="txtdescription" />
-        <asp:textbox id="txtdescription" runat="server" MaxLength="5" />
-        <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="txtdescription" CssClass="NormalRed" Display="Dynamic" Operator="GreaterThan" resourcekey="Validation.ErrorMessage" Type="Integer" ValueToCompare="0" />
-    </div>
-    <div class="dnnFormItem">
-        <dnn:label id="plShowDescription" runat="server" controlname="chkDescription" />
-        <asp:checkbox id="chkDescription" runat="server" />
+    
+      <div class="dnnFormItem">
+        <dnn:Label ID="plEnableWildSearch" runat="server" ControlName="chkEnableWildSearch" />
+        <asp:CheckBox runat="server" ID="chkEnableWildSearch" />
     </div>
 </div>

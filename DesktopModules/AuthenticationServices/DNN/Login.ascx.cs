@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -56,6 +56,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 	/// </history>
 	public partial class Login : AuthenticationLoginBase
 	{
+		private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Login));
 
 		#region Protected Properties
 
@@ -115,7 +116,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
             string url;
             if (PortalSettings.UserRegistration != (int)Globals.PortalRegistrationType.NoRegistration)
             {
-                if (!string.IsNullOrEmpty(Request.QueryString["returnurl"]))
+                if (!string.IsNullOrEmpty(UrlUtils.ValidReturnUrl(Request.QueryString["returnurl"])))
                 {
                     returnUrl = Request.QueryString["returnurl"];
                 }
@@ -161,7 +162,15 @@ namespace DotNetNuke.Modules.Admin.Authentication
                     try
                     {
                         UserController.VerifyUser(verificationCode.Replace(".", "+").Replace("-", "/").Replace("_", "="));
-                        UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("VerificationSuccess", LocalResourceFile), ModuleMessage.ModuleMessageType.GreenSuccess);
+
+	                    if (Request.IsAuthenticated)
+	                    {
+							Response.Redirect(Globals.NavigateURL(PortalSettings.HomeTabId, string.Empty, "VerificationSuccess=true"), true);
+	                    }
+	                    else
+	                    {
+		                    UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("VerificationSuccess", LocalResourceFile), ModuleMessage.ModuleMessageType.GreenSuccess);
+	                    }
                     }
                     catch (UserAlreadyVerifiedException)
                     {
@@ -196,7 +205,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 					catch (Exception ex)
 					{
 						//control not there 
-						DnnLog.Error(ex);
+						Logger.Error(ex);
 					}
 				}
 				try
@@ -207,7 +216,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 				{
 					//Not sure why this Try/Catch may be necessary, logic was there in old setFormFocus location stating the following
 					//control not there or error setting focus
-					DnnLog.Error(ex);
+					Logger.Error(ex);
 				}
 			}
 
@@ -233,7 +242,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 			if ((UseCaptcha && ctlCaptcha.IsValid) || !UseCaptcha)
 			{
 				var loginStatus = UserLoginStatus.LOGIN_FAILURE;
-				var objUser = UserController.ValidateUser(PortalId, txtUsername.Text, txtPassword.Text, "DNN", string.Empty, PortalSettings.PortalName, IPAddress, ref loginStatus);
+				var objUser = UserController.ValidateUser(PortalId, HttpUtility.HtmlEncode(txtUsername.Text), txtPassword.Text, "DNN", string.Empty, PortalSettings.PortalName, IPAddress, ref loginStatus);
 				var authenticated = Null.NullBoolean;
 				var message = Null.NullString;
 				if (loginStatus == UserLoginStatus.LOGIN_USERNOTAPPROVED)

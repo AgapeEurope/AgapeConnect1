@@ -6,32 +6,31 @@
 <%@ Reference Control="~/DesktopModules/Admin/Vendors/Affiliates.ascx" %>
 <%@ Reference Control="~/DesktopModules/Admin/Vendors/Banners.ascx" %>
 <div class="dnnForm dnnEditVendor dnnClear" id="dnnEditVendor">
-    <div class="dnnFormExpandContent"><a href=""><%=Localization.GetString("ExpandAll", Localization.SharedResourceFile)%></a></div>
-    <div class="dnnFormItem dnnFormHelp dnnClear"><p class="dnnFormRequired"><span><%=Localization.GetString("RequiredFields", Localization.SharedResourceFile)%></span></p></div>
+    <div class="dnnFormExpandContent"><a href=""><%=Localization.GetString("ExpandAll", Localization.SharedResourceFile)%></a></div>   
     <div>
         <h2 id="dnnPanel-EditVendorsSettings" class="dnnFormSectionHead"><a href="" class="dnnLabelExpanded"><%=LocalizeString("Settings")%></a></h2>
         <fieldset>
             <div class="dnnFormItem">
-                <dnn:label id="plVendorName" runat="server" controlname="txtVendorName" />
-                <asp:textbox id="txtVendorName" runat="server" CssClass="dnnFormRequired" maxlength="50" />
+                <dnn:label id="plVendorName" runat="server" controlname="txtVendorName" CssClass="dnnFormRequired"  />
+                <asp:textbox id="txtVendorName" runat="server" maxlength="50" />
                 <asp:requiredfieldvalidator id="valVendorName" runat="server" CssClass="dnnFormMessage dnnFormError"  display="Dynamic" 
                         resourceKey="companyRequired" controltovalidate="txtVendorName" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plFirstName" runat="server" controlname="txtFirstName"/>
-                <asp:textbox id="txtFirstName" runat="server" cssclass="dnnFormRequired" maxlength="50" />
+                <dnn:label id="plFirstName" runat="server" controlname="txtFirstName" CssClass="dnnFormRequired" />
+                <asp:textbox id="txtFirstName" runat="server" maxlength="50" />
                 <asp:requiredfieldvalidator id="valFirstName" runat="server" CssClass="dnnFormMessage dnnFormError"  display="Dynamic" 
                             resourceKey="firstNameRequired" controltovalidate="txtFirstName" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plLastName" runat="server" controlname="txtLastName" />
-                <asp:textbox id="txtLastName" runat="server" cssclass="dnnFormRequired" maxlength="50" />
+                <dnn:label id="plLastName" runat="server" controlname="txtLastName" CssClass="dnnFormRequired"  />
+                <asp:textbox id="txtLastName" runat="server" maxlength="50" />
                 <asp:requiredfieldvalidator id="valLastName" runat="server" cssclass="dnnFormMessage dnnFormError" display="Dynamic" 
                         resourceKey="lastNameRequired" controltovalidate="txtLastName" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plEmail" runat="server" controlname="txtEmail"/>
-                <asp:textbox id="txtEmail" runat="server" cssclass="dnnFormRequired" maxlength="50" />
+                <dnn:label id="plEmail" runat="server" controlname="txtEmail" CssClass="dnnFormRequired" />
+                <asp:textbox id="txtEmail" runat="server" maxlength="50" />
                 <asp:requiredfieldvalidator id="valEmail" runat="server" cssclass="dnnFormMessage dnnFormError" display="Dynamic" 
                         resourceKey="eMailRequired" controltovalidate="txtEmail"></asp:requiredfieldvalidator>
                 <asp:RegularExpressionValidator id="valEmail2" runat="server" cssclass="dnnFormMessage dnnFormError" 

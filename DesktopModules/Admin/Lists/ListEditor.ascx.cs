@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -27,10 +27,9 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Icons;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
-using DotNetNuke.Services.Localization;
-using DotNetNuke.UI.WebControls;
+using DotNetNuke.Web.UI.WebControls;
 
-using DNNControls = DotNetNuke.UI.WebControls;
+using Telerik.Web.UI;
 
 #endregion
 
@@ -50,8 +49,8 @@ namespace DotNetNuke.Common.Lists
     public partial class ListEditor : PortalModuleBase
     {
 
-		#region "Protected Properties"
-		
+        #region "Protected Properties"
+        
         protected string Mode
         {
             get
@@ -64,9 +63,9 @@ namespace DotNetNuke.Common.Lists
             }
         }
 
-		#endregion
+        #endregion
 
-		#region "Private Methods"
+        #region "Private Methods"
 
         private void BindList(string key)
         {
@@ -99,29 +98,29 @@ namespace DotNetNuke.Common.Lists
             var colLists = ctlLists.GetListInfoCollection(string.Empty, string.Empty, PortalSettings.ActiveTab.PortalID);
             var indexLookup = new Hashtable();
 
-            DNNtree.TreeNodes.Clear();
+            listTree.Nodes.Clear();
 
             foreach (ListInfo list in colLists)
             {
-                var node = new TreeNode(list.DisplayName);
+				var node = new DnnTreeNode { Text = list.DisplayName };
                 {
-                    node.Key = list.Key;
+                    node.Value = list.Key;
                     node.ToolTip = list.EntryCount + " entries";
-                    node.ImageIndex = (int) eImageType.Folder;
+					node.ImageUrl = IconController.IconURL("Folder");
                 }
                 if (list.Level == 0)
                 {
-                    DNNtree.TreeNodes.Add(node);
+					listTree.Nodes.Add(node);
                 }
                 else
                 {
                     if (indexLookup[list.ParentList] != null)
                     {
-                        var parentNode = (TreeNode) indexLookup[list.ParentList];
-                        parentNode.TreeNodes.Add(node);
+                        var parentNode = (DnnTreeNode) indexLookup[list.ParentList];
+                        parentNode.Nodes.Add(node);
                     }
                 }
-				
+                
                 //Add index key here to find it later, should suggest with Joe to add it to DNNTree
                 if (indexLookup[list.Key] == null)
                 {
@@ -141,14 +140,14 @@ namespace DotNetNuke.Common.Lists
         ///     [tamttt] 20/10/2004	Created
         /// </history>
         /// -----------------------------------------------------------------------------
-        private TreeNode GetParentNode(string ParentKey)
+        private DnnTreeNode GetParentNode(string ParentKey)
         {
-            int i;
-            for (i = 0; i <= DNNtree.TreeNodes.Count - 1; i++)
+	        var allNodes = listTree.GetAllNodes();
+			for (var i = 0; i < allNodes.Count; i++)
             {
-                if (DNNtree.TreeNodes[i].Key == ParentKey)
+				if (allNodes[i].Value == ParentKey)
                 {
-                    return DNNtree.TreeNodes[i];
+					return allNodes[i] as DnnTreeNode;
                 }
             }
             return null;
@@ -171,7 +170,7 @@ namespace DotNetNuke.Common.Lists
             base.OnInit(e);
 
             //Set the List Entries Control Properties
-			lstEntries.ID = "ListEntries";
+            lstEntries.ID = "ListEntries";
             
             //ensure that module context is forwarded from parent module to child module
             lstEntries.ModuleContext.Configuration = ModuleContext.Configuration;
@@ -193,20 +192,14 @@ namespace DotNetNuke.Common.Lists
         {
             base.OnLoad(e);
 
-            DNNtree.NodeClick += DNNTree_NodeClick;
+            listTree.NodeClick += DNNTree_NodeClick;
             cmdAddList.Click += cmdAddList_Click;
 
             try
             {
                 if (!Page.IsPostBack)
                 {
-					//configure tree
-                    DNNtree.ImageList.Add(IconController.IconURL("Folder"));
-                    DNNtree.ImageList.Add(IconController.IconURL("File"));
-                    DNNtree.IndentWidth = 10;
-                    DNNtree.CollapsedNodeImage = IconController.IconURL("Max","12X12");
-                    DNNtree.ExpandedNodeImage = IconController.IconURL("Min", "12X12");
-
+                    //configure tree
                     if (Request.QueryString["Key"] != null)
                     {
                         Mode = "ListEntries";
@@ -241,14 +234,9 @@ namespace DotNetNuke.Common.Lists
         {
             base.OnPreRender(e);
 
-            if (Mode == "NoList")
-            {
-                divDetails.Visible = false;
-            }
-            else
-            {
-                divDetails.Visible = true;
-            }
+            var listSelected = Mode != "NoList";
+            divNoList.Visible = !listSelected;
+            divDetails.Visible = listSelected;
         }
 
         /// -----------------------------------------------------------------------------
@@ -263,10 +251,10 @@ namespace DotNetNuke.Common.Lists
         ///     [tamttt] 20/10/2004	Created
         /// </history>
         /// -----------------------------------------------------------------------------
-        private void DNNTree_NodeClick(object source, DNNTreeNodeClickEventArgs e)
+        private void DNNTree_NodeClick(object source, RadTreeNodeEventArgs e)
         {
             Mode = "ListEntries";
-            BindList(e.Node.Key);
+            BindList(e.Node.Value);
         }
 
         /// -----------------------------------------------------------------------------
@@ -287,8 +275,8 @@ namespace DotNetNuke.Common.Lists
             Mode = "AddList";
             BindList("");
         }
-		
-		#endregion
+        
+        #endregion
 
         #region Nested type: eImageType
 

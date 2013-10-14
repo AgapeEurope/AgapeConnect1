@@ -1,15 +1,9 @@
 <%@ Control Language="C#" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI.Editor" TagPrefix="tools" %>
-<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI.Widgets" TagPrefix="widgets" %>
-<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI.Dialogs" TagPrefix="dialogs" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Assembly="DotNetNuke.RadEditorProvider" Namespace="DotNetNuke.Providers.RadEditorProvider" TagPrefix="provider" %>
 
-<% if(Request.IsSecureConnection) { %>
-	<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<% } else { %>
-	<script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
-<% } %>
+<script type="text/javascript" src="[$protocol$]ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
 
 <script type="text/javascript">
 	var _PageOnSite_ClientID = "PageOnSite";
@@ -40,8 +34,7 @@
 		return regexp.test(s);
 	}
 
-
-	function _PageOnSite_Change(obj) {
+    function _PageOnSite_Change(obj) {
 		if (obj) {
 			var linkTextTextBox = $get("LinkText");
 			var linkUrlTextBox = $get("LinkURL");
@@ -60,17 +53,13 @@
 		}
 	}
 
-
-
 	function GetLinkClickURL(linkUrl) {
 		// Data is provided in the DialogParams format
 		var linkClickURL = linkUrl;
-		var trackClicksCheckbox = $get("TrackLink")
-		var trackUserCheckbox = $get("TrackUser")
+	    var trackClicksCheckbox = $get("TrackLink");
+	    var trackUserCheckbox = $get("TrackUser");
 
-		//secured files will already have a linkclick url, so don't bother looking them up
-		if (linkClickURL != "http:///" && linkClickURL != "http://" 
-    		&& (linkClickURL.indexOf("LinkClick") == -1 || linkClickURL.indexOf("fileticket") == -1)) {
+		if (linkClickURL != "http:///" && linkClickURL != "https://") {
 			
 			$.ajax({
 				type: 'POST',
@@ -199,7 +188,7 @@
 	            return;
 	        }
 
-	        var href = "http://"; //"link"
+	        var href = (_sslEnabled == "true") ? "https://" : "http://"; //"link"
 
 	        if (currentLink.href) {
 	            href = GetLinkClickURL(currentHref);
@@ -616,6 +605,7 @@
 	var _homeDirectory = parent.dnn.getVar('editorHomeDirectory');
 	var _portalGuid = parent.dnn.getVar('editorPortalGuid');
 	var _enableUrlLanguage = parent.dnn.getVar('editorEnableUrlLanguage');
+	var _sslEnabled = parent.dnn.getVar('sslEnabled');
 </script>
 
 <table cellpadding="0" cellspacing="0" class="reDialog LinkManager NoMarginDialog" style="width: 392px;">
@@ -747,11 +737,11 @@
 						<hr />
 						<table>
 							<tr>
-								<td colspan="2"><asp:CheckBox ID="TrackLink" runat="server" Text="Track the number of times this link is clicked" /></td>
+								<td colspan="2"><asp:CheckBox ID="TrackLink" runat="server" />[$LocalizeString('TrackLink')]</td>
 							</tr>
 							<tr>
 								<td style="width:20px">&nbsp;</td>
-								<td><asp:CheckBox ID="TrackUser" runat="server" Text="Log the user, date and time for each click" /></td>
+								<td><asp:CheckBox ID="TrackUser" runat="server" />[$LocalizeString('TrackUser')]</td>
 							</tr>
 						</table>
 						<hr />
@@ -929,7 +919,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="reLabelCell" style="vertical-algin: top; text-align: right; width: 90px;">
+							<td class="reLabelCell" style="vertical-align: top; text-align: right; width: 90px;">
 								&nbsp;
 							</td>
 							<td class="reControlCell">

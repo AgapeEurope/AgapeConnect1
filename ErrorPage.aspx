@@ -16,13 +16,13 @@
 	        </tr>
 	        <tr style="height:100%;">
 		        <td valign="top" style="width:650px;">
-                    <h2>DotNetNuke Error</h2>
+                    <h2>DNN Error</h2>
                     <hr />
                     <p><asp:PlaceHolder ID="ErrorPlaceHolder" runat="server" /></p>
                 </td>
 	        </tr>
 	        <tr>
-	            <td align="right"><asp:Hyperlink ID="hypReturn" runat="Server" NavigateUrl="~/Default.aspx" cssClass="WizardButton" text="Return to Site"/></td>
+	            <td align="right"><asp:Hyperlink ID="hypReturn" runat="Server" NavigateUrl="~/Default.aspx" cssClass="dnnPrimaryAction" text="Return to Site"/></td>
 	        </tr>
 	        <tr><td height="10px"></td></tr>
         </table>

@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -26,6 +26,7 @@ using System.Globalization;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common.Lists;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Framework;
@@ -34,9 +35,9 @@ using DotNetNuke.Security.Roles.Internal;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Skins.Controls;
-using DotNetNuke.UI.Utilities;
 using DotNetNuke.Web.UI.WebControls.Extensions;
 
+using DataCache = DotNetNuke.UI.Utilities.DataCache;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
@@ -66,6 +67,7 @@ namespace DotNetNuke.Modules.Admin.Security
 
         private void ActivateControls(bool enabled)
         {
+            securityModeList.Enabled = enabled;
             cboRoleGroups.Enabled = enabled;
             chkIsPublic.Enabled = enabled;
             chkAutoAssignment.Enabled = enabled;
@@ -76,6 +78,8 @@ namespace DotNetNuke.Modules.Admin.Security
             txtTrialPeriod.Enabled = enabled;
             cboTrialFrequency.Enabled = enabled;
             txtRSVPCode.Enabled = enabled;
+            cmdDelete.Visible = enabled;
+            statusList.Enabled = enabled;
         }
 
         /// -----------------------------------------------------------------------------
@@ -92,11 +96,11 @@ namespace DotNetNuke.Modules.Admin.Security
         {
             var arrGroups = RoleController.GetRoleGroups(PortalId);
 
-            cboRoleGroups.Items.Add(new ListItem(Localization.GetString("GlobalRoles"), "-1"));
+            cboRoleGroups.AddItem(Localization.GetString("GlobalRoles"), "-1");
 
             foreach (RoleGroupInfo roleGroup in arrGroups)
             {
-                cboRoleGroups.Items.Add(new ListItem(roleGroup.RoleGroupName, roleGroup.RoleGroupID.ToString()));
+                cboRoleGroups.AddItem(roleGroup.RoleGroupName, roleGroup.RoleGroupID.ToString());
             }
         }
 
@@ -160,7 +164,7 @@ namespace DotNetNuke.Modules.Admin.Security
                 var objPortalInfo = objPortalController.GetPortal(PortalSettings.PortalId);
                 if ((objPortalInfo == null || string.IsNullOrEmpty(objPortalInfo.ProcessorUserId)))
                 {
-					//Warn users about fee based roles if we have a Processor Id
+                    //Warn users about fee based roles if we have a Processor Id
                     lblProcessorWarning.Visible = true;
                 }
                 else
@@ -179,19 +183,19 @@ namespace DotNetNuke.Modules.Admin.Security
 
                     cboBillingFrequency.DataSource = colFrequencies;
                     cboBillingFrequency.DataBind();
-                    cboBillingFrequency.Items.FindByValue("N").Selected = true;
+                    cboBillingFrequency.FindItemByValue("N").Selected = true;
 
                     cboTrialFrequency.DataSource = colFrequencies;
                     cboTrialFrequency.DataBind();
-                    cboTrialFrequency.Items.FindByValue("N").Selected = true;
+                    cboTrialFrequency.FindItemByValue("N").Selected = true;
 
                     securityModeList.Items.Clear();
-                    foreach(var enumValue in Enum.GetValues(typeof(SecurityMode)))
+                    foreach (var enumValue in Enum.GetValues(typeof(SecurityMode)))
                     {
                         var enumName = Enum.GetName(typeof(SecurityMode), enumValue);
                         var enumItem = new ListItem(enumName, ((int)enumValue).ToString(CultureInfo.InvariantCulture));
 
-                        securityModeList.Items.Add(enumItem);
+                        securityModeList.AddItem(enumItem.Text, enumItem.Value);
                     }
 
                     statusList.Items.Clear();
@@ -200,7 +204,7 @@ namespace DotNetNuke.Modules.Admin.Security
                         var enumName = Enum.GetName(typeof(RoleStatus), enumValue);
                         var enumItem = new ListItem(enumName, ((int)enumValue).ToString(CultureInfo.InvariantCulture));
 
-                        statusList.Items.Add(enumItem);
+                        statusList.AddItem(enumItem.Text, enumItem.Value);
                     }
 
                     BindGroups();
@@ -208,51 +212,59 @@ namespace DotNetNuke.Modules.Admin.Security
                     ctlIcon.FileFilter = Globals.glbImageFileTypes;
                     if (_roleID != -1)
                     {
-                        lblRoleName.Visible = true;
-                        txtRoleName.Visible = false;
-                        valRoleName.Enabled = false;
-
                         var role = TestableRoleController.Instance.GetRole(PortalSettings.PortalId, r => r.RoleID == _roleID);
                         if (role != null)
                         {
+                            lblRoleName.Visible = role.IsSystemRole;
+                            txtRoleName.Visible = !role.IsSystemRole;
+                            valRoleName.Enabled = !role.IsSystemRole;
+
                             lblRoleName.Text = role.RoleName;
+                            txtRoleName.Text = role.RoleName;
+
                             txtDescription.Text = role.Description;
-                            if (cboRoleGroups.Items.FindByValue(role.RoleGroupID.ToString(CultureInfo.InvariantCulture)) != null)
+                            if (cboRoleGroups.FindItemByValue(role.RoleGroupID.ToString(CultureInfo.InvariantCulture)) != null)
                             {
                                 cboRoleGroups.ClearSelection();
-                                cboRoleGroups.Items.FindByValue(role.RoleGroupID.ToString(CultureInfo.InvariantCulture)).Selected = true;
+                                cboRoleGroups.FindItemByValue(role.RoleGroupID.ToString(CultureInfo.InvariantCulture)).Selected = true;
                             }
                             if (!String.IsNullOrEmpty(role.BillingFrequency))
                             {
-                                txtServiceFee.Text = role.ServiceFee.ToString("N2", CultureInfo.CurrentCulture);
-                                txtBillingPeriod.Text = role.BillingPeriod.ToString(CultureInfo.InvariantCulture);
-                                if (cboBillingFrequency.Items.FindByValue(role.BillingFrequency) != null)
+                                if (role.ServiceFee > 0)
                                 {
-                                    cboBillingFrequency.ClearSelection();
-                                    cboBillingFrequency.Items.FindByValue(role.BillingFrequency).Selected = true;
+                                    txtServiceFee.Text = role.ServiceFee.ToString("N2", CultureInfo.CurrentCulture);
+                                    txtBillingPeriod.Text = role.BillingPeriod.ToString(CultureInfo.InvariantCulture);
+                                    if (cboBillingFrequency.FindItemByValue(role.BillingFrequency) != null)
+                                    {
+                                        cboBillingFrequency.ClearSelection();
+                                        cboBillingFrequency.FindItemByValue(role.BillingFrequency).Selected = true;
+                                    }
                                 }
                             }
                             if (!String.IsNullOrEmpty(role.TrialFrequency))
                             {
-                                txtTrialFee.Text = role.TrialFee.ToString("N2", CultureInfo.CurrentCulture);
-                                txtTrialPeriod.Text = role.TrialPeriod.ToString(CultureInfo.InvariantCulture);
-                                if (cboTrialFrequency.Items.FindByValue(role.TrialFrequency) != null)
+                                if (role.TrialFee > 0)
                                 {
-                                    cboTrialFrequency.ClearSelection();
-                                    cboTrialFrequency.Items.FindByValue(role.TrialFrequency).Selected = true;
+                                    txtTrialFee.Text = role.TrialFee.ToString("N2", CultureInfo.CurrentCulture);
+                                    txtTrialPeriod.Text = role.TrialPeriod.ToString(CultureInfo.InvariantCulture);
+                                    if (cboTrialFrequency.FindItemByValue(role.TrialFrequency) != null)
+                                    {
+                                        cboTrialFrequency.ClearSelection();
+                                        cboTrialFrequency.FindItemByValue(role.TrialFrequency).Selected = true;
+                                    }
                                 }
                             }
 
-                            if (securityModeList.Items.FindByValue(Convert.ToString((int)role.SecurityMode)) != null)
+                            if (securityModeList.FindItemByValue(Convert.ToString((int)role.SecurityMode)) != null)
                             {
                                 securityModeList.ClearSelection();
-                                securityModeList.Items.FindByValue(Convert.ToString((int)role.SecurityMode)).Selected = true;
+                                securityModeList.FindItemByValue(Convert.ToString((int)role.SecurityMode)).Selected = true;
                             }
 
-                            if (statusList.Items.FindByValue(Convert.ToString((int)role.Status)) != null)
+                            if (statusList.FindItemByValue(Convert.ToString((int)role.Status)) != null)
                             {
                                 statusList.ClearSelection();
-                                statusList.Items.FindByValue(Convert.ToString((int)role.Status)).Selected = true;
+                                statusList.FindItemByValue(Convert.ToString((int)role.Status)).Selected = true;
                             }
 
                             chkIsPublic.Checked = role.IsPublic;
@@ -272,11 +284,12 @@ namespace DotNetNuke.Modules.Admin.Security
                             Response.Redirect(Globals.NavigateURL("Security Roles"));
                         }
 
-                        if (_roleID == PortalSettings.AdministratorRoleId || _roleID == PortalSettings.RegisteredRoleId)
+                        if (role.IsSystemRole) //disable controls if it's a system role
                         {
-                            cmdDelete.Visible = false;
+                            UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SystemRoleWarning.Text", LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);
                             ActivateControls(false);
                         }
+
                         if (_roleID == PortalSettings.RegisteredRoleId)
                         {
                             cmdManage.Visible = false;
@@ -291,16 +304,16 @@ namespace DotNetNuke.Modules.Admin.Security
 
                         statusList.SelectedIndex = 1;
 
-						//select default role group id
-						if(Request.QueryString["RoleGroupID"] != null)
-						{
-							var roleGroupID = Request.QueryString["RoleGroupID"];
-							if (cboRoleGroups.Items.FindByValue(roleGroupID) != null)
-							{
-								cboRoleGroups.ClearSelection();
-								cboRoleGroups.Items.FindByValue(roleGroupID).Selected = true;
-							}
-						}
+                        //select default role group id
+                        if (Request.QueryString["RoleGroupID"] != null)
+                        {
+                            var roleGroupID = Request.QueryString["RoleGroupID"];
+                            if (cboRoleGroups.FindItemByValue(roleGroupID) != null)
+                            {
+                                cboRoleGroups.ClearSelection();
+                                cboRoleGroups.FindItemByValue(roleGroupID).Selected = true;
+                            }
+                        }
                     }
                 }
             }
@@ -339,56 +352,60 @@ namespace DotNetNuke.Modules.Admin.Security
                 if (Page.IsValid)
                 {
                     float sglServiceFee = 0;
-                    var intBillingPeriod = 1;
+                    var intBillingPeriod = Null.NullInteger;
                     var strBillingFrequency = "N";
+
+                    float sglTrialFee = 0;
+                    var intTrialPeriod = Null.NullInteger;
+                    var strTrialFrequency = "N";
+
 
                     if (cboBillingFrequency.SelectedItem.Value == "N" && !String.IsNullOrEmpty(txtServiceFee.Text))
                     {
                         UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("IncompatibleFee", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                         return;
                     }
-                    if (!String.IsNullOrEmpty(txtServiceFee.Text) && !String.IsNullOrEmpty(txtBillingPeriod.Text) && cboBillingFrequency.SelectedItem.Value != "N")
+
+                    if (!String.IsNullOrEmpty(txtServiceFee.Text) && cboBillingFrequency.SelectedItem.Value != "N")
                     {
                         sglServiceFee = float.Parse(txtServiceFee.Text);
-                        intBillingPeriod = int.Parse(txtBillingPeriod.Text);
+                        intBillingPeriod = String.IsNullOrEmpty(txtBillingPeriod.Text) ? 1 : int.Parse(txtBillingPeriod.Text);
                         strBillingFrequency = cboBillingFrequency.SelectedItem.Value;
                     }
-                    float sglTrialFee = 0;
-                    var intTrialPeriod = 1;
-                    var strTrialFrequency = "N";
 
-                    if (sglServiceFee != 0 && !String.IsNullOrEmpty(txtTrialFee.Text) && !String.IsNullOrEmpty(txtTrialPeriod.Text) && cboTrialFrequency.SelectedItem.Value != "N")
+                    if (sglServiceFee != 0 && !String.IsNullOrEmpty(txtTrialFee.Text) && cboTrialFrequency.SelectedItem.Value != "N")
                     {
                         sglTrialFee = float.Parse(txtTrialFee.Text);
-                        intTrialPeriod = int.Parse(txtTrialPeriod.Text);
+                        intTrialPeriod = string.IsNullOrEmpty(txtTrialPeriod.Text) ? 1 : int.Parse(txtTrialPeriod.Text);
                         strTrialFrequency = cboTrialFrequency.SelectedItem.Value;
                     }
 
                     var role = new RoleInfo
-                                   {
-                                       PortalID = PortalId,
-                                       RoleID = _roleID,
-                                       RoleGroupID = int.Parse(cboRoleGroups.SelectedValue),
-                                       RoleName = txtRoleName.Text,
-                                       Description = txtDescription.Text,
-                                       ServiceFee = sglServiceFee,
-                                       BillingPeriod = intBillingPeriod,
-                                       BillingFrequency = strBillingFrequency,
-                                       TrialFee = sglTrialFee,
-                                       TrialPeriod = intTrialPeriod,
-                                       TrialFrequency = strTrialFrequency,
-                                       IsPublic = chkIsPublic.Checked,
-                                       AutoAssignment = chkAutoAssignment.Checked,
-                                       SecurityMode = (SecurityMode)Enum.Parse(typeof(SecurityMode), securityModeList.SelectedValue),
-                                       Status = (RoleStatus)Enum.Parse(typeof(RoleStatus), statusList.SelectedValue),
-                                       RSVPCode = txtRSVPCode.Text,
-                                       IconFile = ctlIcon.Url
-                                   };
+                    {
+                        PortalID = PortalId,
+                        RoleID = _roleID,
+                        RoleGroupID = int.Parse(cboRoleGroups.SelectedValue),
+                        RoleName = txtRoleName.Text,
+                        Description = txtDescription.Text,
+                        ServiceFee = sglServiceFee,
+                        BillingPeriod = intBillingPeriod,
+                        BillingFrequency = strBillingFrequency,
+                        TrialFee = sglTrialFee,
+                        TrialPeriod = intTrialPeriod,
+                        TrialFrequency = strTrialFrequency,
+                        IsPublic = chkIsPublic.Checked,
+                        AutoAssignment = chkAutoAssignment.Checked,
+                        SecurityMode = (SecurityMode)Enum.Parse(typeof(SecurityMode), securityModeList.SelectedValue),
+                        Status = (RoleStatus)Enum.Parse(typeof(RoleStatus), statusList.SelectedValue),
+                        RSVPCode = txtRSVPCode.Text,
+                        IconFile = ctlIcon.Url
+                    };
+
                     if (_roleID == -1)
                     {
                         if (TestableRoleController.Instance.GetRole(PortalId, r => r.RoleName == role.RoleName) == null)
                         {
-                            TestableRoleController.Instance.AddRole(role);
+                            TestableRoleController.Instance.AddRole(role, chkAssignToExistUsers.Checked);
                         }
                         else
                         {
@@ -398,13 +415,13 @@ namespace DotNetNuke.Modules.Admin.Security
                     }
                     else
                     {
-                        TestableRoleController.Instance.UpdateRole(role);
+                        TestableRoleController.Instance.UpdateRole(role, chkAssignToExistUsers.Checked);
                     }
-					
+
                     //Clear Roles Cache
                     DataCache.RemoveCache("GetRoles");
 
-                    Response.Redirect(Globals.NavigateURL());
+                    Response.Redirect(Globals.NavigateURL(string.Empty, "RoleGroupID=" + role.RoleGroupID));
                 }
             }
             catch (Exception exc) //Module failed to load
@@ -431,7 +448,7 @@ namespace DotNetNuke.Modules.Admin.Security
                 var role = TestableRoleController.Instance.GetRole(PortalSettings.PortalId, r => r.RoleID == _roleID);
 
                 TestableRoleController.Instance.DeleteRole(role);
-              
+
                 //Clear Roles Cache
                 DataCache.RemoveCache("GetRoles");
 

@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -81,7 +81,7 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
             foreach (string strFile in files)
             {
                 string file = root.Replace('\\', '/') + "/" + Path.GetFileName(strFile);
-                cboSource.Items.Add(new ListItem(file, file.ToLower()));
+                cboSource.AddItem(file, file.ToLower());
             }
 
         }
@@ -109,7 +109,7 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
         {
             string root;
             cboIcon.Items.Clear();
-            cboIcon.Items.Add("<" + Localization.GetString("Not_Specified") + ">");
+            cboIcon.AddItem("<" + Localization.GetString("Not_Specified") + ">", "");
             if (!String.IsNullOrEmpty(cboSource.SelectedItem.Value))
             {
                 root = cboSource.SelectedItem.Value;
@@ -129,7 +129,7 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
                             string path = Path.GetFileName(file);
                             if (path != null)
                             {
-                                cboIcon.Items.Add(new ListItem(Path.GetFileName(file), path.ToLower()));
+                                cboIcon.AddItem(Path.GetFileName(file), path.ToLower());
                             }
                         }
                     }
@@ -162,33 +162,34 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
                     var moduleControl = ModuleControlController.GetModuleControl(ModuleControlId);
                     BindControlList("DesktopModules", true);
                     BindControlList("Admin/Skins", false);
-                    cboSource.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", ""));
+                    //cboSource.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", ""));
+                    cboSource.InsertItem(0, "<" + Localization.GetString("None_Specified") + ">", "");
                     if (!Null.IsNull(ModuleControlId))
                     {
                         if (moduleControl != null)
                         {
                             txtKey.Text = moduleControl.ControlKey;
                             txtTitle.Text = moduleControl.ControlTitle;
-                            if (cboSource.Items.FindByValue(moduleControl.ControlSrc.ToLower()) != null)
+                            if (cboSource.FindItemByValue(moduleControl.ControlSrc.ToLower()) != null)
                             {
-                                cboSource.Items.FindByValue(moduleControl.ControlSrc.ToLower()).Selected = true;
+                                cboSource.FindItemByValue(moduleControl.ControlSrc.ToLower()).Selected = true;
                                 LoadIcons();
                             }
                             else
                             {
                                 txtSource.Text = moduleControl.ControlSrc;
                             }
-                            if (cboType.Items.FindByValue(Convert.ToInt32(moduleControl.ControlType).ToString()) != null)
+                            if (cboType.FindItemByValue(Convert.ToInt32(moduleControl.ControlType).ToString()) != null)
                             {
-                                cboType.Items.FindByValue(Convert.ToInt32(moduleControl.ControlType).ToString()).Selected = true;
+                                cboType.FindItemByValue(Convert.ToInt32(moduleControl.ControlType).ToString()).Selected = true;
                             }
                             if (!Null.IsNull(moduleControl.ViewOrder))
                             {
                                 txtViewOrder.Text = moduleControl.ViewOrder.ToString();
                             }
-                            if (cboIcon.Items.FindByValue(moduleControl.IconFile.ToLower()) != null)
+                            if (cboIcon.FindItemByValue(moduleControl.IconFile.ToLower()) != null)
                             {
-                                cboIcon.Items.FindByValue(moduleControl.IconFile.ToLower()).Selected = true;
+                                cboIcon.FindItemByValue(moduleControl.IconFile.ToLower()).Selected = true;
                             }
                             if (!Null.IsNull(moduleControl.HelpURL))
                             {
@@ -205,11 +206,11 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
                     {
                         if (cboType.Enabled)
                         {
-                            cboType.Items.FindByValue("0").Selected = true;
+                            cboType.FindItemByValue("0").Selected = true;
                         }
                         else
                         {
-                            cboType.Items.FindByValue("-2").Selected = true;
+                            cboType.FindItemByValue("-2").Selected = true;
                         }
                     }
                 }

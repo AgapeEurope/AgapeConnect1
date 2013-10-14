@@ -1,4 +1,4 @@
-﻿#emulator {position: relative;display: inline-block;}
+﻿#emulator {position: relative;display: inline-block;margin-left: 60px; }
 
 #emulator .dimension_h {display: inline-block;position: absolute;height: 10px;left: 10px;}
 #emulator .dimension_h span { display: block;text-align: center;vertical-align: middle;color: #939393;float: left;}

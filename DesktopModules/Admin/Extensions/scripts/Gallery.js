@@ -89,12 +89,12 @@ function Gallery(params) {
 
     //bind to our document events
 
-
-    $("#typeDDL").change(function (event) {
-        var e = event || window.event;
-        _gallery.FilterGallery(e, this);
-        return false;
-    });
+   
+//    $("#typeDDL").change(function (event) {
+//        var e = event || window.event;
+//        _gallery.FilterGallery(e, this);
+//        return false;
+//    });
 
     $("#tag-list").click(function (e) {
         e = e || window.event;
@@ -125,7 +125,7 @@ function Gallery(params) {
     $(document).keydown(function (e) {
         e = e || window.event;
         if (e.which == 13) {
-            window.stop();
+            window.stop ? window.stop() : document.execCommand("stop");
             e.stopPropagation();
             e.preventDefault();
             _gallery.SearchGallery($('#searchText').val());
@@ -273,6 +273,16 @@ Gallery.prototype.TagFilterGallery = function (e, caller) {
 Gallery.prototype.FilterGallery = function (e, ddl) {
     var filter = $((e.srcElement || e.target)).attr('value');
 
+    this.action = "filter";
+    if (filter)
+        this.extensionFilter = filter;
+
+    this.getTags();
+    this.index = 1;
+    return this.Search();
+}
+
+Gallery.prototype.FilterGallery2 = function (filter) {
     this.action = "filter";
     if (filter)
         this.extensionFilter = filter;
@@ -476,7 +486,9 @@ Gallery.prototype.showExtensions = function (callback) {
 
 
     if (this.pagedExtensions.length > 0) {
-        $("#eTmpl").tmpl(this.pagedExtensions).appendTo(this.extensionList).fadeIn(this.animationSpeed);
+    	var extensions = $("#eTmpl").tmpl(this.pagedExtensions);
+    	extensions.appendTo(this.extensionList).hide();
+    	this.extensionList.children().fadeIn(this.animationSpeed);
     }
     this.pagedExtensions = [];
     if (callback) callback(this);

@@ -1,7 +1,7 @@
 ﻿#region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,12 +22,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
 using DotNetNuke.Framework;
+using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 
 using Telerik.Web.UI;
@@ -35,7 +39,7 @@ using Telerik.Web.UI.Upload;
 
 //
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2009
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -86,12 +90,7 @@ namespace DotNetNuke.Modules.Admin.Languages
 
         protected bool IsDefaultLanguage(string code)
         {
-            bool returnValue = false;
-            if (code == PortalDefault)
-            {
-                returnValue = true;
-            }
-            return returnValue;
+            return code == PortalDefault;
         }
 
         protected bool IsLanguageEnabled(string Code)
@@ -102,40 +101,51 @@ namespace DotNetNuke.Modules.Admin.Languages
 
         private void ProcessLanguage(List<TabInfo> pageList, Locale locale, int languageCount, int totalLanguages)
         {
-            var tabCtrl = new TabController();
-            RadProgressContext progress = RadProgressContext.Current;
-
-            progress.Speed = "N/A";
-            progress.PrimaryTotal = totalLanguages;
-            progress.PrimaryValue = languageCount;
-
-            int total = pageList.Count;
-            for (int i = 0; i <= total - 1; i++)
+            try
             {
-                TabInfo currentTab = pageList[i];
-                int stepNo = i + 1;
+                var tabCtrl = new TabController();
+                RadProgressContext progress = RadProgressContext.Current;
 
-                progress.SecondaryTotal = total;
-                progress.SecondaryValue = stepNo;
-                float secondaryPercent = ((float) stepNo/(float) total) * 100;
-                progress.SecondaryPercent = Convert.ToInt32(secondaryPercent);
-                float primaryPercent = ((((float)languageCount + ((float)stepNo / (float)total)) / (float)totalLanguages)) * 100;
-                progress.PrimaryPercent = Convert.ToInt32(primaryPercent);
-                
-                progress.CurrentOperationText = string.Format(Localization.GetString("ProcessingPage", LocalResourceFile), locale.Code, stepNo, total, currentTab.TabName);
+                progress.Speed = "N/A";
+                progress.PrimaryTotal = totalLanguages;
+                progress.PrimaryValue = languageCount;
 
-                if (!Response.IsClientConnected)
+                int total = pageList.Count;
+                for (int i = 0; i <= total - 1; i++)
                 {
-                    //Cancel button was clicked or the browser was closed, so stop processing
-                    break;
+                    TabInfo currentTab = pageList[i];
+                    int stepNo = i + 1;
+
+                    progress.SecondaryTotal = total;
+                    progress.SecondaryValue = stepNo;
+                    float secondaryPercent = ((float)stepNo / (float)total) * 100;
+                    progress.SecondaryPercent = Convert.ToInt32(secondaryPercent);
+                    float primaryPercent = ((((float)languageCount + ((float)stepNo / (float)total)) / (float)totalLanguages)) * 100;
+                    progress.PrimaryPercent = Convert.ToInt32(primaryPercent);
+
+                    progress.CurrentOperationText = string.Format(Localization.GetString("ProcessingPage", LocalResourceFile), locale.Code, stepNo, total, currentTab.TabName);
+
+                    if (!Response.IsClientConnected)
+                    {
+                        //clear cache
+                        DataCache.ClearPortalCache(PortalId, true);
+
+                        //Cancel button was clicked or the browser was closed, so stop processing
+                        break;
+                    }
+
+                    progress.TimeEstimated = (total - stepNo) * 100;
+
+                    tabCtrl.CreateLocalizedCopy(currentTab, locale, false);
+
                 }
+                var portalCtl = new PortalController();
+                portalCtl.MapLocalizedSpecialPages(PortalId, locale.Code);
 
-                progress.TimeEstimated = (total - stepNo)*100;
-
-                tabCtrl.CreateLocalizedCopy(currentTab, locale);
-
-                //Add a delay for debug testing
-                //Threading.Thread.Sleep(500)
+            }
+            catch (Exception exc)
+            {
+                Exceptions.ProcessModuleLoadException(this, exc);
             }
         }
 
@@ -177,7 +187,37 @@ namespace DotNetNuke.Modules.Admin.Languages
             pageCreationProgressArea.Localization.UploadedFiles = Localization.GetString("Progress", LocalResourceFile);
             pageCreationProgressArea.Localization.CurrentFileName = Localization.GetString("Processing", LocalResourceFile);
 
-            localizeLabel.Text = String.Format(Localization.GetString("localize", LocalResourceFile), Locale, _PortalDefault);
+            //List<TabInfo> pageList = new TabController().GetCultureTabList(PortalId);
+
+            var pageList = GetTabsToLocalize(PortalId, Locale);
+            PagesToLocalize.Text = pageList.Count.ToString(CultureInfo.InvariantCulture);
+            if (pageList.Count == 0)
+            {
+                updateButton.Enabled = false;
+            }
+        }
+
+        public List<TabInfo> GetTabsToLocalize(int portalId, string code)
+        {
+            var results = new List<TabInfo>();
+            var portalTabs = new TabController().GetTabsByPortal(portalId);
+            foreach (var kvp in portalTabs.Where(kvp => kvp.Value.CultureCode == PortalSettings.DefaultLanguage && !kvp.Value.IsDeleted))
+            {
+                if (kvp.Value.LocalizedTabs.Count == 0)
+                {
+                    results.Add(kvp.Value);
+                }
+                else
+                {
+                    bool tabLocalizedInCulture = kvp.Value.LocalizedTabs.Any(localizedTab => localizedTab.Value.CultureCode == code);
+                    if (!tabLocalizedInCulture)
+                    {
+                        results.Add(kvp.Value);
+                    }
+                }
+            }
+            return results;
+
         }
 
         protected void cancelButton_Click(object sender, EventArgs e)
@@ -191,7 +231,7 @@ namespace DotNetNuke.Modules.Admin.Languages
             var tabCtrl = new TabController();
             var portalCtrl = new PortalController();
             var locale = LocaleController.Instance.GetLocale(Locale);
-            List<TabInfo> pageList = tabCtrl.GetCultureTabList(PortalId);
+            List<TabInfo> pageList = GetTabsToLocalize(PortalId, Locale);
 
             int scriptTimeOut = Server.ScriptTimeout;
             Server.ScriptTimeout = timeout;
@@ -204,6 +244,9 @@ namespace DotNetNuke.Modules.Admin.Languages
 
             //Map special pages
             portalCtrl.MapLocalizedSpecialPages(PortalSettings.PortalId, locale.Code);
+
+            //clear cache
+            DataCache.ClearPortalCache(PortalId, true);
 
             //Restore Script Timeout
             Server.ScriptTimeout = scriptTimeOut;

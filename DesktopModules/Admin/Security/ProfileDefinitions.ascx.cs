@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -66,6 +66,7 @@ namespace DotNetNuke.Modules.Admin.Users
         #region Private Members
 
         private ProfilePropertyDefinitionCollection _profileProperties;
+        private bool _requiredColumnHidden = false;
 
         #endregion
 
@@ -492,6 +493,7 @@ namespace DotNetNuke.Modules.Admin.Users
                     if (checkBoxColumn.DataField == "Required" && UsersPortalId == Null.NullInteger)
                     {
                         checkBoxColumn.Visible = false;
+                        _requiredColumnHidden = true;
                     }
                     if (SupportsRichClient() == false)
                     {
@@ -665,10 +667,12 @@ namespace DotNetNuke.Modules.Admin.Users
                 switch (e.Item.ItemType)
                 {
                     case ListItemType.Header:
-                        //we combined the header label and checkbox in same place, so it is control 1 instead of 0
+                        //we combined the header label and checkbox in same place, so it is control 1 instead of 0                       
                         ((WebControl)e.Item.Cells[COLUMN_REQUIRED].Controls[1]).Attributes.Add("onclick", "dnn.util.checkallChecked(this," + COLUMN_REQUIRED + ");");
                         ((CheckBox)e.Item.Cells[COLUMN_REQUIRED].Controls[1]).AutoPostBack = false;
-                        ((WebControl)e.Item.Cells[COLUMN_VISIBLE].Controls[1]).Attributes.Add("onclick", "dnn.util.checkallChecked(this," + COLUMN_VISIBLE + ");");
+
+                        int column_visible = _requiredColumnHidden ? COLUMN_VISIBLE - 1 : COLUMN_VISIBLE;
+                        ((WebControl)e.Item.Cells[COLUMN_VISIBLE].Controls[1]).Attributes.Add("onclick", "dnn.util.checkallChecked(this," + column_visible + ");");
                         ((CheckBox)e.Item.Cells[COLUMN_VISIBLE].Controls[1]).AutoPostBack = false;
                         break;
                     case ListItemType.AlternatingItem:

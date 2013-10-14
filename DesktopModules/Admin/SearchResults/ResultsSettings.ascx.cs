@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,89 +21,100 @@
 #region Usings
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Portals;
 using DotNetNuke.Services.Exceptions;
+using DotNetNuke.Services.Search.Internals;
+using DotNetNuke.Web.UI.WebControls;
 
 #endregion
 
 namespace DotNetNuke.Modules.SearchResults
 {
-    /// -----------------------------------------------------------------------------
-    /// Namespace:  DotNetNuke.Modules.SearchResults
-    /// Project:    DotNetNuke.SearchResults
-    /// Class:      ResultsSettings
-    /// -----------------------------------------------------------------------------
-    /// <summary>
-    /// The ResultsSettings ModuleSettingsBase is used to manage the 
-    /// settings for the Search Results Module
-    /// </summary>
-    /// <returns></returns>
-    /// <remarks>
-    /// </remarks>
-    /// <history>
-    ///		[cnurse]	11/11/2004	created
-    /// </history>
-    /// -----------------------------------------------------------------------------
     public partial class ResultsSettings : ModuleSettingsBase
     {
 		#region "Base Method Implementations"
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// LoadSettings loads the settings from the Databas and displays them
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        ///		[cnurse]	11/11/2004	created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public override void LoadSettings()
         {
             try
             {
                 if ((Page.IsPostBack == false))
                 {
-                    if (!String.IsNullOrEmpty(Convert.ToString(TabModuleSettings["maxresults"])))
+                    if (!String.IsNullOrEmpty(Convert.ToString(Settings["LinkTarget"])))
                     {
-                        txtresults.Text = Convert.ToString(TabModuleSettings["maxresults"]);
+                        comboBoxLinkTarget.SelectedValue = Convert.ToString(Settings["LinkTarget"]);
                     }
-                    else
+
+                    if (!string.IsNullOrEmpty(Convert.ToString(Settings["ScopeForPortals"])))
                     {
-                        txtresults.Text = "";
-                    }
-                    if (!String.IsNullOrEmpty(Convert.ToString(TabModuleSettings["perpage"])))
-                    {
-                        txtPage.Text = Convert.ToString(TabModuleSettings["perpage"]);
-                    }
-                    else
-                    {
-                        txtPage.Text = "";
-                    }
-                    if (!String.IsNullOrEmpty(Convert.ToString(TabModuleSettings["titlelength"])))
-                    {
-                        txtTitle.Text = Convert.ToString(TabModuleSettings["titlelength"]);
-                    }
-                    else
-                    {
-                        txtTitle.Text = "";
-                    }
-                    if (!String.IsNullOrEmpty(Convert.ToString(TabModuleSettings["descriptionlength"])))
-                    {
-                        txtdescription.Text = Convert.ToString(TabModuleSettings["descriptionlength"]);
-                    }
-                    else
-                    {
-                        txtdescription.Text = "";
-                    }
-                    chkDescription.Checked = false;
-                    if (!String.IsNullOrEmpty(Convert.ToString(TabModuleSettings["showdescription"])))
-                    {
-                        if (Convert.ToString(TabModuleSettings["showdescription"]) == "Y")
+                        var list = Convert.ToString(Settings["ScopeForPortals"]).Split('|').ToList();
+                        var portalList = LoadPortalsList().ToList();
+                        if (portalList.Any())
                         {
-                            chkDescription.Checked = true;
+                            foreach (var portal in portalList)
+                            {
+                                var item = new DnnComboBoxItem(portal[0], portal[1]) {Checked = list.Contains(portal[1])};
+                                comboBoxPortals.Items.Add(item);
+                            }
                         }
+                        else
+                        {
+                            divPortalGroup.Visible = false;
+                        }
+                    }
+                    else
+                    {
+                        var portalList = LoadPortalsList().ToList();
+                        if (portalList.Any())
+                        {
+                            foreach (var portal in portalList)
+                            {
+                                var item = new DnnComboBoxItem(portal[0], portal[1]) { Checked = PortalId.ToString() == portal[1] };
+                                comboBoxPortals.Items.Add(item);
+                            }
+                        }
+                        else
+                        {
+                            divPortalGroup.Visible = false;
+                        }
+                    }
+
+                    
+                    if (!string.IsNullOrEmpty(Convert.ToString(Settings["ScopeForFilters"])))
+                    {
+                        var list = Convert.ToString(Settings["ScopeForFilters"]).Split('|').ToList();
+                        var filterList = LoadSeachContentSourcesList();
+                        foreach (var filter in filterList)
+                        {
+                            var item = new DnnComboBoxItem(filter, filter) {Checked = list.Contains(filter)};
+                            comboBoxFilters.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        var filterList = LoadSeachContentSourcesList();
+                        foreach (var filter in filterList)
+                        {
+                            var item = new DnnComboBoxItem(filter, filter) {Checked = true};
+                            comboBoxFilters.Items.Add(item);
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(Convert.ToString(Settings["EnableWildSearch"])))
+                    {
+                        var enableWildSearch = Convert.ToBoolean(Settings["EnableWildSearch"]);
+                        chkEnableWildSearch.Checked = enableWildSearch;
+                    }
+                    else
+                    {
+                        chkEnableWildSearch.Checked = true;
                     }
                 }
             }
@@ -113,16 +124,6 @@ namespace DotNetNuke.Modules.SearchResults
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// UpdateSettings saves the modified settings to the Database
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        ///		[cnurse]	11/11/2004	created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public override void UpdateSettings()
         {
             try
@@ -130,31 +131,94 @@ namespace DotNetNuke.Modules.SearchResults
                 if (Page.IsValid)
                 {
                     var objModules = new ModuleController();
+                    
+                    objModules.UpdateModuleSetting(ModuleId, "LinkTarget", comboBoxLinkTarget.SelectedValue);
 
-                    objModules.UpdateTabModuleSetting(TabModuleId, "maxresults", txtresults.Text);
-                    objModules.UpdateTabModuleSetting(TabModuleId, "perpage", txtPage.Text);
-                    objModules.UpdateTabModuleSetting(TabModuleId, "titlelength", txtTitle.Text);
-                    objModules.UpdateTabModuleSetting(TabModuleId, "descriptionlength", txtdescription.Text);
-                    objModules.UpdateTabModuleSetting(TabModuleId, "showdescription", chkDescription.Checked ? "Y" : "N");
+                    var selectedPortals = new StringBuilder();
+                    foreach (var p in comboBoxPortals.CheckedItems)
+                    {
+                        if (selectedPortals.Length > 0)
+                        {
+                            selectedPortals.AppendFormat("|{0}", p.Value);
+                        }
+                        else
+                        {
+                            selectedPortals.Append(p.Value);
+                        }
+                    }
+
+                    objModules.UpdateModuleSetting(ModuleId, "ScopeForPortals", selectedPortals.ToString());
+
+                    var selectedFilters = new StringBuilder();
+                    foreach (var p in comboBoxFilters.CheckedItems)
+                    {
+                        if (selectedFilters.Length > 0)
+                        {
+                            selectedFilters.AppendFormat("|{0}", p.Value);
+                        }
+                        else
+                        {
+                            selectedFilters.Append(p.Value);
+                        }
+                    }
+
+                    objModules.UpdateModuleSetting(ModuleId, "ScopeForFilters", selectedFilters.ToString());
+
+                    objModules.UpdateModuleSetting(ModuleId, "EnableWildSearch", chkEnableWildSearch.Checked.ToString());
                 }
             }
             catch (Exception exc)
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
+
+			DataCache.RemoveCache(string.Format("ModuleInfos{0}", PortalSettings.PortalId));
         }
 		
 		#endregion
 
-        private void InitializeComponent()
+        protected IEnumerable<string[]> LoadPortalsList()
         {
+            var groups = PortalGroupController.Instance.GetPortalGroups().ToArray();
+            var mygroup = (from @group in groups
+                           select PortalGroupController.Instance.GetPortalsByGroup(@group.PortalGroupId)
+                               into portals
+                               where portals.Any(x => x.PortalID == PortalSettings.Current.PortalId)
+                               select portals.ToArray()).FirstOrDefault();
+
+            var result = new List<string[]>();
+            if (mygroup != null && mygroup.Any())
+            {
+                result.AddRange(mygroup.Select(
+                    pi => new[] {pi.PortalName, pi.PortalID.ToString(CultureInfo.InvariantCulture)}));
+            }
+
+            return result;
         }
 
-        protected override void OnInit(EventArgs e)
+        protected IEnumerable<string> LoadSeachContentSourcesList()
         {
-            base.OnInit(e);
+            var portalCtrl = new PortalController();
+            var portals = portalCtrl.GetPortals();
 
-            InitializeComponent();
+            var result = new List<string>();
+            foreach (var portal in portals)
+            {
+                var pi = portal as PortalInfo;
+
+                if (pi != null)
+                {
+                    var list = InternalSearchController.Instance.GetSearchContentSourceList(pi.PortalID);
+                    foreach (var src in list)
+                    {
+                        if (!src.IsPrivate && !result.Contains(src.LocalizedName))
+                        {
+                            result.Add(src.LocalizedName);
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 }

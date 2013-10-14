@@ -3,11 +3,11 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <div class="dnnForm dnnStore dnnClear">
     <div class="dnnFormItem">
-        <asp:label id="plUsername" AssociatedControlID="txtUsername" runat="server" resourcekey="Username" CssClass="dnnFormLabel" />
+        <dnn:label id="plUsername" AssociatedControlID="txtUsername" runat="server" resourcekey="Username" CssClass="dnnFormLabel" />
         <asp:textbox id="txtUsername" runat="server" />
     </div>
     <div class="dnnFormItem">
-        <asp:label id="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Password" CssClass="dnnFormLabel" />
+        <dnn:label id="plPassword" AssociatedControlID="txtPassword" runat="server" resourcekey="Password" CssClass="dnnFormLabel" />
         <asp:textbox id="txtPassword" textmode="Password" runat="server" />
     </div>
      <ul class="dnnActions dnnClear">

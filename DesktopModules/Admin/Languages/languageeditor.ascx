@@ -11,7 +11,7 @@
         <fieldset>
             <div id="rowMode" runat="server" class="dnnFormItem">
                 <dnn:Label ID="plMode" runat="server" Text="Available Locales" ControlName="cboLocales" />
-                <asp:RadioButtonList ID="rbMode" runat="server" AutoPostBack="True" RepeatColumns="3" RepeatDirection="Horizontal" CssClass="dnnLEMode">
+                <asp:RadioButtonList ID="rbMode" runat="server" AutoPostBack="True" RepeatLayout="Flow" RepeatColumns="3" RepeatDirection="Horizontal" CssClass="dnnLEMode dnnFormRadioButtons">
                 <asp:ListItem resourcekey="ModeSystem" Value="System" Selected="True" />
                     <asp:ListItem resourcekey="ModeHost" Value="Host" />
                     <asp:ListItem resourcekey="ModePortal" Value="Portal" />
@@ -44,8 +44,9 @@
                                 <HeaderTemplate>
                                     <table cellpadding="0" cellspacing="0" class="dnnGrid">
                                         <tr>
-                                            <td style="width:49%;"><asp:Label ID="Label5" runat="server" resourcekey="DefaultValue" /></td>
-                                            <td style="width:49%;"><asp:Label ID="Label4" runat="server" resourcekey="Value" /></td>
+                                            <td style="width:45%;"><asp:Label ID="Label5" runat="server" resourcekey="DefaultValue" /></td>
+                                            <td style="width:45%;"><asp:Label ID="Label4" runat="server" resourcekey="Value" /></td>
+                                            <td></td>
                                         </tr>
                                     </table>
                                 </HeaderTemplate>
@@ -56,11 +57,16 @@
                                                 <asp:Label ID="resourceKeyLabel" runat="server" resourcekey="ResourceName" />
                                                 <asp:Label ID="resourceKey" runat="server" Text='<%# Eval("key") %>' />
                                             </td>
+                                            <td></td>
                                         </tr>
                                         <tr style="vertical-align: top;">
-                                            <td style="width:49%;"><asp:TextBox ID="txtDefault" runat="server" Enabled="false" /></td>
-                                            <td style="width:49%;">
-                                                <asp:TextBox ID="txtValue" runat="server" />
+                                            <td style="width:45%;">
+                                                <asp:TextBox ID="txtDefault" runat="server" Enabled="false"/>
+                                            </td>
+                                            <td style="width:45%;">
+                                                <asp:TextBox ID="txtValue" runat="server" />                                                
+                                            </td>
+                                            <td valign="top">
                                                 <asp:HyperLink ID="lnkEdit" runat="server" NavigateUrl='<%# OpenFullEditor(Eval("key").ToString()) %>'>
                                                     <dnn:DnnImage runat="server" AlternateText="Edit" ID="imgEdit" IconKey="Edit" resourcekey="cmdEdit" Style="vertical-align:top"></dnn:DnnImage>
                                                 </asp:HyperLink>

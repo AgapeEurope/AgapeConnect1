@@ -181,7 +181,7 @@
     <value>Help URL:</value>
   </data>
   <data name="plHelpURL.Help" xml:space="preserve">
-    <value>You can provide a Help Url for this control.  This will appear on the Actions menu.</value>
+    <value>You can provide a Help URL for this control.  This will appear on the Actions menu.</value>
   </data>
   <data name="plModule.Help" xml:space="preserve">
     <value>This is the Friendly Name of the Module.</value>

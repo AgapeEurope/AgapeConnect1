@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -79,7 +79,7 @@ namespace DotNetNuke.Modules.Admin.Newsletters
             {
                 return result.Replace(url, Globals.AddHTTP(HttpContext.Current.Request.Url.Host) + url);
             }
-            return url.Contains("://") ? result : result.Replace(url, Globals.AddHTTP(HttpContext.Current.Request.Url.Host) + Globals.ApplicationPath + "/" + url);
+            return url.Contains("://") || url.Contains("mailto:") ? result : result.Replace(url, Globals.AddHTTP(HttpContext.Current.Request.Url.Host) + Globals.ApplicationPath + "/" + url);
         }
 
         #endregion

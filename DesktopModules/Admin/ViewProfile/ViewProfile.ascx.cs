@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading;
 
 using DotNetNuke.Common;
+using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Profile;
@@ -78,6 +79,12 @@ namespace DotNetNuke.Modules.Admin.Users
         {
             base.OnInit(e);
 
+			//redirect to home page if the user has been deleted
+			if(ProfileUser == null || ProfileUser.IsDeleted)
+			{
+				Response.Redirect(GetRedirectUrl(), true);
+			}
+
             jQuery.RegisterJQuery(Page);
         }
 
@@ -98,11 +105,13 @@ namespace DotNetNuke.Modules.Admin.Users
                     return;
                 }
 
-                var template = (ModuleContext.Settings["ProfileTemplate"] != null) 
-                            ? Convert.ToString(ModuleContext.Settings["ProfileTemplate"]) 
-                            : Localization.GetString("DefaultTemplate", LocalResourceFile);
-                var editUrl = Globals.NavigateURL(ModuleContext.PortalSettings.ActiveTab.TabID, "Profile", "userId=" + ProfileUserId, "pageno=1");
-                var profileUrl = Globals.NavigateURL(ModuleContext.PortalSettings.ActiveTab.TabID, "Profile", "userId=" + ProfileUserId, "pageno=3");
+                var template = Convert.ToString(ModuleContext.Settings["ProfileTemplate"]);
+                if(string.IsNullOrEmpty(template))
+                {
+                    template = Localization.GetString("DefaultTemplate", LocalResourceFile);
+                }
+			    var editUrl = Globals.NavigateURL(ModuleContext.PortalSettings.ActiveTab.TabID, "Profile", "userId=" + ProfileUserId, "pageno=1");
+                var profileUrl = Globals.NavigateURL(ModuleContext.PortalSettings.ActiveTab.TabID, "Profile", "userId=" + ProfileUserId, "pageno=2");
 
                 if (template.Contains("[BUTTON:EDITPROFILE]"))
                 {
@@ -158,6 +167,10 @@ namespace DotNetNuke.Modules.Admin.Users
                 var profileResourceFile = "~/DesktopModules/Admin/Security/App_LocalResources/Profile.ascx";
                 StringBuilder sb = new StringBuilder();
                 bool propertyNotFound = false;
+
+			    var dataType = new ListController().GetListEntryInfo("DataType", "RichText");
+
+
                 foreach (ProfilePropertyDefinition property in ProfileUser.Profile.ProfileProperties)
                 {
                     string value = propertyAccess.GetProperty(property.PropertyName,
@@ -166,19 +179,18 @@ namespace DotNetNuke.Modules.Admin.Users
                                                               ModuleContext.PortalSettings.UserInfo,
                                                               Scope.DefaultSettings,
                                                               ref propertyNotFound);
-                    var propertyName = Localization.GetString("ProfileProperties_" + property.PropertyName,profileResourceFile);
-                    propertyName = (String.IsNullOrEmpty(propertyName)) 
-                                        ? property.PropertyName
-                                        : propertyName.Trim(':');
+
 
                     var clientName = Localization.GetSafeJSString(property.PropertyName);
                     sb.Append("self['" + clientName + "'] = ko.observable(");
                     sb.Append("\"");
-                    value = Localization.GetSafeJSString(value);
-                    if(property.PropertyName == "Biography")
+                    value = Localization.GetSafeJSString(Server.HtmlDecode(value));
+
+                    if(property.DataType == dataType.EntryID)
                     {
                         value = value.Replace("\r", string.Empty).Replace("\n", string.Empty);
                     }
+
                     sb.Append(value + "\"" + ");");
                     sb.Append('\n');
                     sb.Append("self['" + clientName + "Text'] = '");
@@ -208,6 +220,29 @@ namespace DotNetNuke.Modules.Admin.Users
 				//Module failed to load
 				Exceptions.ProcessModuleLoadException(this, exc);
 			}
+		}
+
+		#endregion
+
+		#region Private Methods
+
+		private string GetRedirectUrl()
+		{
+			//redirect user to default page if not specific the home tab, do this action to prevent loop redirect.
+			var homeTabId = ModuleContext.PortalSettings.HomeTabId;
+			string redirectUrl;
+
+			if (homeTabId > Null.NullInteger)
+			{
+				redirectUrl = Globals.NavigateURL(homeTabId);
+			}
+			else
+			{
+				redirectUrl = Globals.GetPortalDomainName(PortalSettings.Current.PortalAlias.HTTPAlias, Request, true) +
+							  "/" + Globals.glbDefaultPage;
+			}
+
+			return redirectUrl;
 		}
 
 		#endregion

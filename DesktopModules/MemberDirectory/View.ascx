@@ -9,17 +9,18 @@
 <dnn:DnnCssInclude ID="DnnCssInclude3" runat="server" FilePath="~/Resources/Shared/Components/UserFileManager/UserFileManager.css" />
 <dnn:DnnJsInclude ID="DnnJsInclude3" runat="server" FilePath="~/Resources/Shared/Components/Tokeninput/jquery.tokeninput.js" Priority="103" />
 <dnn:DnnCssInclude ID="DnnCssInclude4" runat="server" FilePath="~/Resources/Shared/Components/Tokeninput/Themes/token-input-facebook.css" />
+<dnn:DnnJsInclude ID="DnnJsInclude6" runat="server" FilePath="~/Resources/Shared/Components/UserFileManager/jquery.dnnUserFileUpload.js" Priority="104" />
 
 <div id="memberDirectory" runat="server"  class="dnnForm dnnMemberDirectory">
 	<div id="searchBar" class="mdSearch dnnClear" runat="server">
-    	<div class="mdSearchBar">
+    	<div class="mdSearchBar" id="mdBasicSearchBar">
         	<div class="searchWrapper">
                 <a href="#" id="refreshResults" data-bind="visible: ResetEnabled, click: resetSearch" title="<%=LocalizeString("Refresh") %>"><span><%=LocalizeString("Refresh") %></span></a>
             	<input type="text" id="mdBasicSearch" data-bind="value: SearchTerm" placeholder="<%=LocalizeString("SearchConnections") %>" />
             </div>
             <a href="" title="search" data-bind="click: basicSearch" class="dnnPrimaryAction"><%=LocalizeString("Search") %></a>
         </div>
-        <span class="selectDrop">
+        <span class="selectDrop" id="advancedSearchBar" runat="server">
         	<a href="#" id="mdAdvancedSearch" class="mdAdvancedSearch dnnTertiaryAction" title="advanced search"><%=LocalizeString("AdvancedSearch") %></a>
         	<div class="mdAdvancedSearchForm" id="mdAdvancedSearchForm">
                 <div class="dnnFormItem">
@@ -76,7 +77,7 @@
             pageSize: <% = PageSize %>,
             profileUrl: "<% = ViewProfileUrl %>",
             profileUrlUserToken: "<% = ProfileUrlUserToken %>",
-            profilePicHandler: '<% = DotNetNuke.Common.Globals.UserProfilePicFormattedUrl().Replace("userId", "photoUrl") %>',
+            profilePicHandler: '<% = DotNetNuke.Common.Globals.UserProfilePicFormattedUrl() %>',
             addFriendText: '<%=DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("AddFriend")) %>',
             acceptFriendText: '<%=DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("AcceptFriend")) %>',
             friendPendingText:'<%=DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("FriendPending")) %>',
@@ -92,6 +93,20 @@
             serverErrorWithDescriptionText: '<%=DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("ServerErrorWithDescription"))%>',
             servicesFramework: $.ServicesFramework(<%=ModuleContext.ModuleId %>)
         });
-        md.init('#<%= memberDirectory.ClientID %>');
+    	md.init('#<%= memberDirectory.ClientID %>');
+
+    	$("#mdBasicSearchBar input[type=text]").keydown(function(e) {
+			if (e.which == 13) {
+				$("#mdBasicSearchBar a[class*=dnnPrimaryAction]").focus().click();
+				e.preventDefault();
+			}
+	    });
+	    
+	    $("#mdAdvancedSearchForm input[type=text]").keydown(function(e) {
+	    	if (e.which == 13) {
+	    		$("#mdAdvancedSearchForm a[class*=dnnPrimaryAction]").focus().click();
+	    		e.preventDefault();
+	    	}
+	    });
     });
 </script>

@@ -21,6 +21,23 @@
 {
     margin-bottom: 1em;
 }
+
+.dnnSecurityRoles{
+    width: 100%;
+}
+
+.dnnSecurityRoles td .dnnLabel{    
+    text-align: center;
+    width: auto !important;
+    margin-bottom: 5px;
+}
+.dnnSecurityRoles .inlineButton {
+	position: relative;
+	top: -33px;
+	vertical-align: bottom;
+	margin-left: 4px;
+}
+
 .dnnFormItem input.dnnUserSearchInput
 {
     width: 40%;
@@ -43,10 +60,30 @@
     padding-bottom: 10px;
     text-align: center;
 }
-.dnnRequireProfile .dnnForm, .dnnUser, .dnnMembership
+
+#dnnManageUsers .dnnUser, #dnnManageUsers .dnnMembership
 {
-    width: 45%;
+    /*width: 45%;*/
     float: left;
+    margin-right: 10px;
+}
+#dnnManageUsers .dnnMembership{
+    margin-left: 30px;
+    padding: 15px 0 0 25px;
+    background-color :#eaeaea;
+}
+
+
+#dnnEditUser .dnnUserVanityUrl {
+    width: 35%;
+}
+
+#dnnEditUser .dnnFormGroup {
+    width: 60%;
+}
+
+.dnnUser.register{
+    width: 100%;
 }
 .dnnProfileDetails .dnnFormItem .dnnTooltip
 {
@@ -115,23 +152,58 @@ p.dnnFormRequired span
     margin-left: 10px;
     margin-right: 10px;
 }
-.dnnProfile .dnnFilePicker .dnnFormItem
-{
-    padding: 0;
-}
 .dnnProfile .dnnFormItem input[type="text"], .dnnProfile .dnnFormItem select
 {
     margin-right: 10px;
 }
-.dnnProfileDetails .dnnFormItem select
-{
+
+.dnnProfileDetails .dnnFormItem input[type="text"],
+.dnnProfileDetails .dnnFormItem select,
+.dnnProfileDetails .RadPicker{
+    display: block;
+    float: left;
     width: 300px;
+}
+.dnnProfileDetails .RadPicker .riTextBox {
+	height: auto;
+}
+.dnnProfileDetails .dnnFormItem select{
+    width: 315px;
+}
+
+.dnnLeft{
+    margin-bottom: 20px;
+}
+
+.dnnProfileDetails .dnnFormItem  > .dnnLeft{
+	width:325px;
+}
+
+.dnnProfileDetails .dnnFormItem .dnnLeft select{
+    display: block;
+    float: left;
 }
 .dnnProfileDetails .dnnFormItem .dnnFormVisibility
 {
-    width: 40%;
-    float: right;
+    width: 10%;
+    float: left;
 }
+
+#dnn_ctr_ManageUsers_Profile_ProfileProperties_Photo_PhotoFileControl{
+    float: left;
+}
+
+#dnn_ctr_ManageUsers_Profile_ProfileProperties_Photo_PhotoFileControl span{
+    width: auto !important;
+}
+
+/*
+#dnn_ctr_ManageUsers_Profile_ProfileProperties_Photo_PhotoFileControl input[type="file"]{
+    width: auto !important;
+    margin: 0 10px 10px 0;
+}
+*/
+/*
 .dnnProfileDetails .dnnForm .dnnFormVisibility ul li
 {
     list-style-type: none;
@@ -146,11 +218,6 @@ p.dnnFormRequired span
     width: 8%;
     float: none;
     margin-left: 30px;
-}
-
-.dnnProfileDetails .dnnFormItem .dnnFormVisibility
-{
-    margin-top: 5px;
 }
 .dnnProfileDetails .dnnFormItem .dnnFormVisibility > ul
 {
@@ -173,27 +240,22 @@ p.dnnFormRequired span
 {
     border: turquoise 1px solid;
 }
+*/
 
 .dnnProfileDetails .dnnFormItem .dnnFormInput input[type="radio"]
 {
     width: 8%;
     float: none;
 }
-.dnnEditRoleGroups .dnnFormItem input, .dnnEditRoleGroups .dnnFormItem textarea
-{
-    width: 35%;
-}
-.erAdvancedSettings .dnnFormItem input[type="text"], .dnnManageUsers .dnnFormItem input[type="text"]
-{
-    width: 35%;
-}
-.dnnManageUsers .dnnFormItem span.dnnFormMessage.dnnFormError
+
+/*.dnnManageUsers .dnnFormItem span.dnnFormMessage.dnnFormError
 {
     position: absolute;
     left: 68%;
     top: 0;
     z-index: 9999;
 }
+*/
 .dnnEditProfileDef .dnnFormMessage
 {
     display: block;
@@ -208,15 +270,6 @@ p.dnnFormRequired span
     float: none;
 }
 
-.dnnUser .dnnForm, .dnnMembership .dnnForm
-{
-    min-width: 500px;
-}
-.dnnUser.register
-{
-    width: 750px;
-}
-
 div.dnnRegistrationForm
 {
     width: 96%;
@@ -227,6 +280,13 @@ div.dnnRegistrationForm .dnnForm
     float: left;
     min-width: 50px;
     width: 60%;
+}
+div.dnnRegistrationForm div.dnnCaptcha {
+	width: 60%;
+}
+span.dnnFormMessage.dnnFormError.dnnCaptcha
+{
+	bottom: -55px;
 }
 .dnnSocialRegistration
 {
@@ -435,4 +495,143 @@ ul.buttonList .windowslive a:active
 ul.buttonList .windowslive a span
 {
     background-position: 9px -141px;
+}
+.dnnButtonIcon{
+    background: transparent url(../../../images/visibility.png) no-repeat center;
+}
+.PagingTable{
+    width: 100%;
+}
+.PagingTable td{
+    padding: 3px;
+}
+
+/* Biography */
+#dnn_ctr_ManageUsers_Profile_ProfileProperties_Biography_Biography_Label + .dnnLeft
+{
+   margin-top:5px;
+   width:69%;
+   padding-right:10px;
+   clear:left;
+}
+.dnnLeft #dnn_ctr_ManageUsers_Profile_ProfileProperties_Biography_Biographyedit
+{
+    width:100%!important;
+    }
+
+.dnnRegistrationForm .password-strength-container, 
+.dnnFormPassword .password-strength-container, 
+.dnnPassword .password-strength-container {
+    display: inline-block;
+    position: relative;
+    max-width: 455px;
+    width: 266px;
+    padding: 10px;
+    background: #e3e3e5;
+    margin: 0 0 18px -10px;
+}
+.dnnFormPassword  input[type="password"].password-confirm.checkStength  {
+    width: 248px;   
+}
+
+
+.dnnFormItem .password-strength-container input[type="password"] {
+    width: 100%;
+    margin-bottom: 6px; /* reset the default */
+    max-width: 248px;
+}
+
+.min-length-text {
+    line-height: 14px;
+    color: #8a8a8a
+}
+
+.meter {
+    position: relative;
+    float: right;
+    width: 130px;
+    height: 20px;
+    padding: 0 4px 0 0;
+    background: #a3a3a3;
+}
+
+.meter div {
+    width: 0;
+    height: 20px;
+}
+
+.meter label {
+    position: absolute;
+    right: 4px;
+    top:0;
+    line-height: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* tooltip */
+
+.password-strength-tooltip, .confirm-password-tooltip {
+    position: absolute;
+    z-index: 9;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.75);
+
+    -webkit-border-radius: 3px; /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+    -moz-border-radius: 3px; /* Firefox 1-3.6 */
+    border-radius: 3px; /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+
+    color: #DDDDDD;
+    font-size: 11px;
+    padding: 0;
+}
+
+.password-strength-tooltip:before, .confirm-password-tooltip:before {
+    background: none repeat scroll 0 0 transparent;
+    border-top: 7px solid rgba(0, 0, 0, 0.75);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    height: 0;
+    margin-left: 30px;
+    position: absolute;
+    bottom: -7px;
+    width: 0;
+}
+
+.password-strength-tooltip-content {
+    width: 250px;
+}
+
+.confirm-password-tooltip-content {
+    display: block;
+    padding: 6px 12px;
+    white-space: nowrap;
+}
+
+.password-strength-tooltip-content ul {
+    list-style-type: none;
+    margin: 12px
+}
+
+.password-strength-tooltip-content li {
+    list-style-type: none;
+}
+
+.password-strength-tooltip-content li label {
+    display: block;
+    padding: 0 0 0 26px;
+    line-height: 18px;
+    background: url("/Icons/Sigma/Delete_16x16_Standard_2.png") no-repeat left center;
+}
+
+.password-strength-tooltip-content li label.satisfied {
+    background-image: url("/Icons/Sigma/Grant_16x16_Standard.png");
+}
+
+.dnnFormItem input.matched {
+    background: url("/Icons/Sigma/Grant_16x16_Standard.png") #fff no-repeat 98% center;
+}
+
+.dnnFormItem input.unmatched {
+    background: url("/Icons/Sigma/Delete_16x16_Standard_2.png") #fff no-repeat 98% center;
 }

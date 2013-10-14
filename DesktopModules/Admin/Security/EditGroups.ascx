@@ -3,10 +3,10 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <div class="dnnForm dnnEditRoleGroups dnnClear" id="dnnEditRoleGroups">
     <fieldset>
-        <div class="dnnFormItem dnnFormHelp dnnClear"><p class="dnnFormRequired"><span><%=Localization.GetString("RequiredFields", Localization.SharedResourceFile)%></span></p></div>
+        <%--<div class="dnnFormItem dnnFormHelp dnnClear"><p class="dnnFormRequired"><span><%=Localization.GetString("RequiredFields", Localization.SharedResourceFile)%></span></p></div>--%>
         <div class="dnnFormItem">
-            <dnn:label id="plRoleGroupName" runat="server" controlname="txtRoleGroupName"/>
-			<asp:textbox id="txtRoleGroupName" cssclass="dnnFormRequired" runat="server" maxlength="50" />
+            <dnn:label id="plRoleGroupName" runat="server" controlname="txtRoleGroupName" cssclass="dnnFormRequired" />
+			<asp:textbox id="txtRoleGroupName" runat="server" maxlength="50" />
 			<asp:requiredfieldvalidator id="valRoleGroupName" cssclass="dnnFormMessage dnnFormError" runat="server" resourcekey="valRoleGroupName" controltovalidate="txtRoleGroupName"  display="Dynamic"/>
         </div>
         <div class="dnnFormItem">

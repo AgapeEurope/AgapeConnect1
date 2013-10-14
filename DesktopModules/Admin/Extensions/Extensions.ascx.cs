@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -44,13 +44,19 @@ namespace DotNetNuke.Modules.Admin.Extensions
     /// <history>
     /// 	[cnurse]	01/04/2008	Created
     /// </history>
-    public partial class Extensions : ModuleUserControlBase, IActionable
+    public partial class Extensions : ModuleUserControlBase
     {
         #region Protected Methods
 
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
+
+            cmdInstall.NavigateUrl = Util.InstallURL(ModuleContext.TabId, "");
+
+            cmdInstall.Visible = ModuleContext.PortalSettings.UserInfo.IsSuperUser;
+            createExtensionLink.Visible = ModuleContext.IsHostMenu;
+            createModuleLink.Visible = ModuleContext.IsHostMenu;
  
             jQuery.RequestDnnPluginsRegistration();
 
@@ -85,57 +91,6 @@ namespace DotNetNuke.Modules.Admin.Extensions
                 availableExtensionsTabExpand.Visible = true;
             }
 
-        }
-
-        #endregion
-
-        #region IActionable Members
-
-        public ModuleActionCollection ModuleActions
-        {
-            get
-            {
-                var actions = new ModuleActionCollection();
-
-                if (ModuleContext.PortalSettings.UserInfo.IsSuperUser)
-                {
-                    actions.Add(ModuleContext.GetNextActionID(),
-                                Localization.GetString("ExtensionInstall.Action", LocalResourceFile),
-                                ModuleActionType.AddContent,
-                                "",
-                                "action_import.gif",
-                                Util.InstallURL(ModuleContext.TabId, ""),
-                                false,
-                                SecurityAccessLevel.Host,
-                                true,
-                                false);
-                }
-
-                if (ModuleContext.IsHostMenu)
-                {
-                    actions.Add(ModuleContext.GetNextActionID(),
-                                Localization.GetString("CreateExtension.Action", LocalResourceFile),
-                                ModuleActionType.AddContent,
-                                "",
-                                "add.gif",
-                                ModuleContext.EditUrl("NewExtension"),
-                                false,
-                                SecurityAccessLevel.Host,
-                                true,
-                                false);
-                    actions.Add(ModuleContext.GetNextActionID(),
-                                Localization.GetString("CreateModule.Action", LocalResourceFile),
-                                ModuleActionType.AddContent,
-                                "",
-                                "add.gif",
-                                ModuleContext.EditUrl("EditModuleDefinition"),
-                                false,
-                                SecurityAccessLevel.Host,
-                                true,
-                                false);
-                }
-                return actions;
-            }
         }
 
         #endregion

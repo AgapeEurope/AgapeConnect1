@@ -151,13 +151,13 @@ function reloadCalPopup() //[0]dateString, [1]dstWindowName
 	}
 	else 
 	{
-    popCalWin.document.close();
-		popCalWin.document.clear();
-  }
+        popCalWin.document.close();
+		popCalWin.document.write('');
+    }
 	
 	//this is the line with the big problem
-  popCalWin.document.write(popCalData);
-	return void(1);
+    popCalWin.document.write(popCalData);
+    return void(1);
 }
  
 function calPopupSetData(firstDay,dstWindowName)
@@ -399,7 +399,10 @@ function getDateFromFormat(val,format) {
 	return newdate;
 	}
 
+if (typeof(Sys) != "undefined"){
+    Sys.Application.notifyScriptLoaded() ;
+}
+
 // ******************
 // End Popup Calendar
 // ******************
-

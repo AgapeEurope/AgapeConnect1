@@ -1,24 +1,25 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SimpleSettingsView.ascx.cs"
 	Inherits="DotNetNuke.Modules.MobileManagement.SimpleSettingsView" %>
 <%@ Register TagPrefix="dnn" TagName="label" Src="~/controls/LabelControl.ascx" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div class="dnnForm  dnnClear" id="dnnMobileManagement">
 	<h2 id="dnnSimpleSettings" class="dnnFormSectionHead">
 		<%=LocalizeString("SimpleSettings")%></h2>
 	<fieldset>
-		<div class="dnnFormItem dnnEditSection">
+		<div class="dnnFormItem">
 			<dnn:label id="lblRedirectName" runat="server" controlname="txtRedirectName" resourcekey="lblRedirectName"
-				suffix=":" />
-			<asp:TextBox ID="txtRedirectName" runat="server" class="dnnFormRequired dnnFormInput" />
+				suffix=":"  CssClass="dnnFormRequired" />
+			<asp:TextBox ID="txtRedirectName" runat="server" CssClass="dnnFixedSizeComboBox" />
 			<asp:RequiredFieldValidator ID="valTrackingId" runat="server" CssClass="dnnFormMessage dnnFormError"
 				ControlToValidate="txtRedirectName" Display="Dynamic" resourcekey="valRedirectName"
 				ValidationGroup="Form" />
 		</div>
-		<div class="dnnFormItem dnnEditSection">
-			<dnn:label id="lblRedirect" runat="server" resourcekey="lblRedirect" controlname="cboSourcePage" />
-			<asp:Label ID="lblHomePage" runat="server" />
-			<asp:DropDownList ID="cboSourcePage" runat="server" CssClass="dnnDropDown" />
+		<div class="dnnFormItem">
+			  <dnn:label id="lblRedirect" runat="server" resourcekey="lblRedirect" controlname="cboSourcePage" />
+			  <asp:Label ID="lblHomePage" runat="server" CssClass="dnnFixedSizeComboBox" />
+              <dnn:DnnPageDropDownList ID="cboSourcePage" runat="server" />
 		</div>
-		<div class="dnnFormItem dnnEditSection">
+		<div class="dnnFormItem">
 			<dnn:label id="lblRedirectTarget" runat="server" controlname="optRedirectTarget"
 				resourcekey="lblRedirectTarget" />
 			<asp:RadioButtonList ID="optRedirectTarget" CssClass="dnnFormRadioButtons" runat="server"
@@ -27,21 +28,17 @@
 				<asp:ListItem Value="Tab" resourcekey="optPage" name="optTarget" />
 				<asp:ListItem Value="Url" resourcekey="optUrl" name="optTarget" />
 			</asp:RadioButtonList>
-			<div id="dvTargetPortal" runat="server" class="dnnEditItem">
-				<br />
-				<br />
-				<asp:DropDownList ID="cboPortal" runat="server" CssClass="dnnDropDown" />
+			<div id="dvTargetPortal" runat="server" class="dnnFormItem">
+				<div class="dnnLabel"></div>
+                <dnn:DnnComboBox ID="cboPortal" runat="server" CssClass="dnnFixedSizeComboBox" />
 			</div>
-			<div id="dvTargetPage" runat="server" class="dnnEditItem">
-				<br />
-				<br />
-				<asp:DropDownList ID="cboTargetPage" runat="server" CssClass="dnnDropDown" />
+			<div id="dvTargetPage" runat="server" class="dnnFormItem">
+				<div class="dnnLabel"></div>
+                 <dnn:DnnPageDropDownList ID="cboTargetPage" runat="server" />
 			</div>
-			<div id="dvTargetUrl" runat="server">
-				<br />
-				<br />
+			<div id="dvTargetUrl" runat="server" class="dnnFormItem">				
 				<dnn:label id="lblTargetUrl" runat="server" controlname="txtTargetUrl" resourcekey="lblTargetUrl" />
-				<asp:TextBox ID="txtTargetUrl" runat="server" class="dnnFormInput" Text="http://" />
+				<asp:TextBox ID="txtTargetUrl" runat="server" class="dnnFormInput" Text="http://" CssClass="dnnFixedSizeComboBox" />
 			</div>
 		</div>
 	</fieldset>
@@ -101,32 +98,6 @@
                             $('#<%= dvTargetPage.ClientID %>').hide();
                             $('#<%= dvTargetUrl.ClientID %>').show();
                         }
-                    });
-
-                    /*filter target page list to hide the select value of source page list*/
-                    var filterTargetList = function () {
-                        var sourceList = $("#<%=cboSourcePage.ClientID %>");
-                        if (sourceList.length == 0) {
-                            return;
-                        }
-
-                        var sourcePage = sourceList.val();
-                        var targetList = $("#<%=cboTargetPage.ClientID %>")[0];
-                        var options = targetList.options;
-                        var initialSel = -1;
-                        for (var i = 0; i < options.length; i++) {
-                            options[i].disabled = options[i].value == sourcePage;
-
-                            if (initialSel == -1 && !options[i].disabled) initialSel = i;
-                        }
-
-                        targetList.options[initialSel].selected = true;
-                    };
-
-                    filterTargetList();
-
-                    $("#<%=cboSourcePage.ClientID %>").change(function (e) {
-                        filterTargetList();
                     });
                 });
 

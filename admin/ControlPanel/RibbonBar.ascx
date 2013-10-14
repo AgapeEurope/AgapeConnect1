@@ -7,20 +7,22 @@
 <%@ Register TagPrefix="dnn" TagName="SwitchSite" Src="~/admin/ControlPanel/SwitchSite.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.DDRMenu.TemplateEngine" Assembly="DotNetNuke.Web.DDRMenu" %>
 <%@ Register TagPrefix="dnn" TagName="MENU" src="~/DesktopModules/DDRMenu/Menu.ascx" %>
+<!--SEO NOINDEX-->
 <asp:Panel id="ControlPanel" runat="server" CssClass="dnnForm dnnControlPanel dnnClear">
     <div class="dnnCPHeader dnnClear">
         <div class="dnnCPHMode dnnLeft"><dnn:MENU ID="adminMenus" MenuStyle="admin/Menus/DNNAdmin" IncludeHidden="True" runat="server" OnInit="DetermineNodesToInclude" /></div>
         <div class="dnnCPHNav dnnRight">
 			<asp:Label ID="lblUILanguage" runat="server" ResourceKey="lblUILanguage" Visible="false" />
-			<asp:DropDownList ID="ddlUICulture" runat="server" AutoPostBack="true" Visible="false" Width="100px" />
-
+            <dnn:DnnComboBox ID="ddlUICulture" runat="server" AutoPostBack="true" Visible="false" />
             <asp:Label id="lblMode" runat="server" ResourceKey="Mode" />
-            <asp:DropDownList ID="ddlMode" runat="server" AutoPostBack="true">
-                <asp:listitem value="VIEW" ResourceKey="ModeView" />
-                <asp:listitem value="EDIT" ResourceKey="ModeEdit" />
-                <asp:listitem value="LAYOUT" ResourceKey="ModeLayout" />
-				<asp:listitem value="PREVIEW" ResourceKey="ModeMobilePreview" />
-            </asp:DropDownList>
+            <dnn:DnnComboBox ID="ddlMode" runat="server" AutoPostBack="true" OnClientSelectedIndexChanged="ddlModeClientSelectedIndexChanged">
+                <Items>
+                    <dnn:DnnComboBoxItem value="VIEW" ResourceKey="ModeView" />
+                    <dnn:DnnComboBoxItem value="EDIT" ResourceKey="ModeEdit" />
+                    <dnn:DnnComboBoxItem value="LAYOUT" ResourceKey="ModeLayout" />
+                    <dnn:DnnComboBoxItem value="PREVIEW" ResourceKey="ModeMobilePreview" />
+                </Items>
+            </dnn:DnnComboBox>
         </div>
         <asp:HyperLink ID="hypMessage" runat="server" Target="_new" CssClass="dnnCPHMessage" />
     </div>
@@ -82,7 +84,7 @@
             </div>            
         </asp:Panel>
     </div>
-
+    
 	<script type="text/javascript">
 		jQuery(document).ready(function ($) {
 			if (!$(".dnnControlPanel").data("loaded")) {
@@ -110,23 +112,17 @@
 					title: titleText
 				});
 
-				$("#<%=ddlMode.ClientID %>").each(function (e) {
-					var changeEvent = $(this).attr("onchange");
-					$(this).attr("onchange", "");
-
-					$(this).change(function (e) {
-						if ($(this).val() === "PREVIEW") {
-							<%=PreviewPopup() %> ;
-							return false;
-						}
-						else {
-							eval(changeEvent);
-						}
-					});
-				});
-
 				$(".dnnControlPanel").data("loaded", true);
 			};
 		});
+
+        function ddlModeClientSelectedIndexChanged(sender, e){
+            var selectedItem = e.get_item();
+            if(selectedItem != null && selectedItem.get_value() === "PREVIEW"){
+                <%=PreviewPopup() %>;
+                e.stopPropagation();
+            }
+        }
 	</script>
 </asp:Panel>
+<!--END SEO-->

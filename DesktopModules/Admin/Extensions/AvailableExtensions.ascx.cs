@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -49,8 +49,7 @@ namespace DotNetNuke.Modules.Admin.Extensions
 {
     public partial class AvailableExtensions : ModuleUserControlBase
     {
-        private const string DefaultExtensionImage = "icon_extensions_32px.gif";
-        private const string DefaultLanguageImage = "icon_languagePack.gif";
+        private const string DefaultExtensionImage = "icon_extensions_32px.png";
         private const string DefaultAuthenicationImage = "icon_authentication.png";
         private const string DefaultContainerImage = "icon_container.gif";
         private const string DefaultSkinImage = "icon_skin.gif";
@@ -81,10 +80,6 @@ namespace DotNetNuke.Modules.Admin.Extensions
                             case "Provider":
                                 type = packageType.PackageType;
                                 installPath = Globals.ApplicationMapPath + "\\Install\\" + packageType.PackageType;
-                                break;
-                            case "CoreLanguagePack":
-                                type = "Language";
-                                installPath = Globals.ApplicationMapPath + "\\Install\\Language";
                                 break;
                             default:
                                 type = String.Empty;
@@ -169,7 +164,7 @@ namespace DotNetNuke.Modules.Admin.Extensions
                                             {
                                                 package.FriendlyName = package.Name;
                                             }
-                                            package.Description = XmlUtils.GetNodeValue(nav, "description");
+                                            package.Description = XmlUtils.GetNodeValue(nav, "description");                                            
                                             package.FileName = file.Replace(installPath + "\\", "");
 
                                             XPathNavigator foldernameNav = null;
@@ -304,9 +299,6 @@ namespace DotNetNuke.Modules.Admin.Extensions
                 case "AuthenticationSystem":
                 case "Auth_System":
                     return (!String.IsNullOrEmpty(package.IconFile)) ? package.IconFile : Globals.ImagePath + DefaultAuthenicationImage;
-                case "CoreLanguagePack":
-                case "ExtensionLanguagePack":
-                    return (!String.IsNullOrEmpty(package.IconFile)) ? package.IconFile : Globals.ImagePath + DefaultLanguageImage;
                 case "Provider":
                     return (!String.IsNullOrEmpty(package.IconFile)) ? package.IconFile : Globals.ImagePath + DefaultProviderImage;
                 default:
@@ -325,7 +317,7 @@ namespace DotNetNuke.Modules.Admin.Extensions
         {
             base.OnLoad(e);
 
-            //cmdInstall.Click += cmdInstall_Click;
+            languagePacks.ModuleContext.Configuration = ModuleContext.Configuration;
             extensionTypeRepeater.ItemDataBound += extensionTypeRepeater_ItemDataBound;
 
         }
@@ -346,7 +338,7 @@ namespace DotNetNuke.Modules.Admin.Extensions
                 DataGrid extensionsGrid = item.FindControl("extensionsGrid") as DataGrid;
                 extensionsGrid.ItemDataBound += extensionsGrid_ItemDataBound;
 
-                Localization.LocalizeDataGrid(ref extensionsGrid, LocalResourceFile); 
+                Localization.LocalizeDataGrid(ref extensionsGrid, LocalResourceFile);
                 BindGrid(kvp.Value, extensionsGrid);
             }
         }
@@ -361,7 +353,6 @@ namespace DotNetNuke.Modules.Admin.Extensions
                 HyperLink installLink = (HyperLink)item.Controls[4].Controls[1];
 
                 installLink.NavigateUrl = Util.InstallURL(ModuleContext.TabId, "", package.PackageType, package.FileName);
-
             }
         }
     }

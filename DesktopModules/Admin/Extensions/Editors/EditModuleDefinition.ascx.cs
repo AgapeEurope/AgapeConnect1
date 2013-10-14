@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -41,6 +41,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Modules;
 using DotNetNuke.UI.Skins.Controls;
 using DotNetNuke.Services.FileSystem;
+using DotNetNuke.Web.UI.WebControls;
 
 #endregion
 
@@ -329,7 +330,9 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
 				string extension = Path.GetExtension(file);
 				if (extension != null && extensions.Contains(extension))
 				{
-					cboFile.Items.Add(Path.GetFileName(file));
+					//cboFile.Items.Add(Path.GetFileName(file));
+                    var fileName = Path.GetFileName(file);
+                    cboFile.AddItem(fileName, fileName); 
 				}
 			}
 		}
@@ -340,14 +343,16 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
 			var arrFolders = Directory.GetDirectories(Globals.ApplicationMapPath + "\\DesktopModules\\" + cboOwner.SelectedValue);
 			foreach (var strFolder in arrFolders)
 			{
-				var item = new ListItem(strFolder.Replace(Path.GetDirectoryName(strFolder) + "\\", ""));
+				var path = strFolder.Replace(Path.GetDirectoryName(strFolder) + "\\", "");
+				var item = new DnnComboBoxItem(path, path);
 				if (item.Value == selectedValue)
 				{
 					item.Selected = true;
 				}
 				cboModule.Items.Add(item);
 			}
-			cboModule.Items.Insert(0, new ListItem("<" + Localization.GetString("Not_Specified", Localization.SharedResourceFile) + ">", ""));
+			//cboModule.Items.Insert(0, new ListItem("<" + Localization.GetString("Not_Specified", Localization.SharedResourceFile) + ">", ""));
+            cboModule.InsertItem(0, "<" + Localization.GetString("Not_Specified", Localization.SharedResourceFile) + ">", "");
 		}
 
 		private void LoadOwnerFolders(string selectedValue)
@@ -360,7 +365,8 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
 				//exclude module folders
 				if (files.Length == 0 || strFolder.ToLower() == "admin")
 				{
-					var item = new ListItem(strFolder.Replace(Path.GetDirectoryName(strFolder) + "\\", ""));
+					var path = strFolder.Replace(Path.GetDirectoryName(strFolder) + "\\", "");
+					var item = new DnnComboBoxItem(path, path);
 					if (item.Value == selectedValue)
 					{
 						item.Selected = true;
@@ -368,7 +374,8 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
 					cboOwner.Items.Add(item);
 				}
 			}
-			cboOwner.Items.Insert(0, new ListItem("<" + Localization.GetString("Not_Specified", Localization.SharedResourceFile) + ">", ""));
+			//cboOwner.Items.Insert(0, new ListItem("<" + Localization.GetString("Not_Specified", Localization.SharedResourceFile) + ">", ""));
+            cboOwner.InsertItem(0, "<" + Localization.GetString("Not_Specified", Localization.SharedResourceFile) + ">", "");
 		}
 
 		private void SetupModuleFolders()
@@ -442,7 +449,8 @@ namespace DotNetNuke.Modules.Admin.ModuleDefinitions
 			{
 				if (!Page.IsPostBack)
 				{
-					cboCreate.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", ""));
+					//cboCreate.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", ""));
+                    cboCreate.InsertItem(0, "<" + Localization.GetString("None_Specified") + ">", "");
 					LoadOwnerFolders(Null.NullString);
 					LoadModuleFolders(Null.NullString);
 				}
