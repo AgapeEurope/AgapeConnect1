@@ -47,7 +47,7 @@ _acDocuments/
 _RmbReceipts/
 
 # Build results
-[Dd]ebug/
+#[Dd]ebug/
 [Rr]elease/
 *_i.c
 *_p.c
