@@ -108,6 +108,7 @@ show: function(hide)
 	{
 		this.refresh();
 		this.ctl.style.display = '';
+		this.ctr.className = this.ctr.className + " visible";
 	}
 	if (hide)
 		this.beginHide();
@@ -123,6 +124,7 @@ beginHide: function()
 hide: function()
 {
 	this.ctl.style.display = 'none';
+	this.ctr.className = this.ctr.className.replace(" visible", "");
 },
 
 buttonClick: function (evt) 
@@ -211,9 +213,7 @@ render: function ()
 		else
 			dnn.dom.addSafeHandler(this.ctl, 'onclick', this, 'click');
 	    */
-	    var clickEvent = 'click';
-	    if (dnn.dom.browser.isType(dnn.dom.browser.InternetExplorer))  //ie has issue if contenteditable looses focus to a span (img are ok).  this works for both
-	        clickEvent = 'mousedown';
+	    var clickEvent = 'mousedown';
 	    
 	    bar.addHandlers(this.ctl, bar.getDynamicEventObject(clickEvent, bar.buttonClick), this);    
    	    bar.addHandlers(this.ctl, {'mouseover': bar.buttonMouseOver,

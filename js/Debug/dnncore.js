@@ -6,7 +6,10 @@ var DNN_COL_DELIMITER = String.fromCharCode(16);
 var DNN_ROW_DELIMITER = String.fromCharCode(15);
 var __dnn_m_bPageLoaded = false;
 
-window.onload = __dnn_Page_OnLoad;
+if (window.addEventListener)
+    window.addEventListener("load", __dnn_Page_OnLoad, false);
+else
+    window.attachEvent("onload", __dnn_Page_OnLoad);
 
 function __dnn_ClientAPIEnabled()
 {
@@ -16,11 +19,7 @@ function __dnn_ClientAPIEnabled()
 function __dnn_Page_OnLoad()
 {
 	if (__dnn_ClientAPIEnabled())
-	{
-		var sLoadHandlers = dnn.getVar('__dnn_pageload');
-		if (sLoadHandlers != null)
-			eval(sLoadHandlers);
-		
+	{	
 		dnn.dom.attachEvent(window, 'onscroll', __dnn_bodyscroll);
 	}
 	__dnn_m_bPageLoaded = true;
@@ -41,7 +40,7 @@ function __dnn_KeyDown(iKeyCode, sFunc, e)
 function __dnn_bodyscroll() 
 {
 	var oF=document.forms[0];	
-	if (__dnn_ClientAPIEnabled() && __dnn_m_bPageLoaded)
+	if (__dnn_ClientAPIEnabled() && __dnn_m_bPageLoaded && typeof(oF.ScrollTop) != 'undefined')
 		oF.ScrollTop.value=document.documentElement.scrollTop ? document.documentElement.scrollTop : dnn.dom.getByTagName("body")[0].scrollTop;
 }
 
@@ -62,7 +61,10 @@ function __dnn_setScrollTop(iTop)
 				dnn.setVar('ScrollToControl', '');
 			}
 		}
-		window.scrollTo(0, iTop);
+
+		if (document.getElementsByTagName("html")[0].style["overflow"] != "hidden") {
+			window.scrollTo(0, iTop);
+		}
 	}
 }
 
@@ -463,7 +465,11 @@ function __dnn_PaneControl(ctl, iIndex)
 	this.id = ctl.id;
 	this.index = iIndex;
 	this.origBorder = ctl.style.border;
-	
+
+}
+
+function __dnn_ShowModalPage(urlPage) {
+    dnnModal.show(urlPage, /*showReturn*/true, 550, 950, true, '');    
 }
 
 //move towards dnncore ns.  right now only for personalization

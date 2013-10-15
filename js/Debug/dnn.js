@@ -51,14 +51,17 @@ dnn.extend(dnn, {
         if (this.vars == null) {
             //this.vars = new Array();
             var ctl = dnn.dom.getById('__dnnVariable');
-            if (ctl.value.indexOf('`') == 0)
-                ctl.value = ctl.value.substring(1).replace(/`/g, '"');
 
-            if (ctl.value.indexOf('__scdoff') != -1) //back compat
-            {
-                COL_DELIMITER = '~|~';
-                ROW_DELIMITER = '~`~';
-                QUOTE_REPLACEMENT = '~!~';
+            if (ctl != null) {
+                if (ctl.value.indexOf('`') == 0)
+                    ctl.value = ctl.value.substring(1).replace( /`/g , '"');
+
+                if (ctl.value.indexOf('__scdoff') != -1) //back compat
+                {
+                    COL_DELIMITER = '~|~';
+                    ROW_DELIMITER = '~`~';
+                    QUOTE_REPLACEMENT = '~!~';
+                }
             }
 
             if (ctl != null && ctl.value.length > 0)
@@ -998,7 +1001,7 @@ dnn.extend(dnn.dom, {
 
     navigate: function (sURL, sTarget) {
         if (sTarget != null && sTarget.length > 0) {
-            if (sTarget == '_blank')	//todo: handle more
+            if (sTarget == '_blank' || sTarget == '_new')	//todo: handle more
                 window.open(sURL);
             else
                 document.frames[sTarget].location.href = sURL;

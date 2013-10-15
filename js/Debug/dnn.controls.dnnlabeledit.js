@@ -142,7 +142,7 @@ dnn.controls.DNNLabelEdit.prototype =
         this.initEditWrapper();
         if (this.editContainer != null)
         {
-            this.editContainer.style.height = (dnn.dom.positioning.elementHeight(this.container) + 4) + 'px';
+            //this.editContainer.style.height = (dnn.dom.positioning.elementHeight(this.container) + 4) + 'px';
             //var dims = new dnn.dom.positioning.dims(this.container.parentNode);
             //this.editContainer.style.width = (dims.w - dims.l) + 'px';
             //this.editContainer.style.width = dnn.dom.positioning.elementWidth(this.container.parentNode) + 'px' //'100%';
@@ -280,6 +280,7 @@ dnn.controls.DNNLabelEdit.prototype =
         ctx.callBackStatus(result, ctx);
         ctx.invoke_handler('callBackSuccess', new dnn.controls.DNNCallbackEventArgs(result, ctx, req));
         ctx.showLabel();
+	    ctx.flashLabel();
     },
 
     //obsolete
@@ -306,12 +307,17 @@ dnn.controls.DNNLabelEdit.prototype =
                 if (typeof btn == 'function')	//safeguard against other js frameworks
                     continue;
 
-                if (key == 'edit')
-                    btn.visible = !inEdit;
-                else if (this.isFormatButton(key))
-                    btn.visible = (inEdit && this.editWrapper && this.editWrapper.isRichText);
-                else
-                    btn.visible = inEdit;
+	            if (key == 'edit') {
+	            	btn.visible = !inEdit;
+		            if (btn.visible) {
+			            this.toolbar.css = this.toolbar.css.replace(" editMode", "");
+		            } else {
+			            this.toolbar.css = this.toolbar.css + " editMode";
+		            }
+	            } else if (this.isFormatButton(key))
+		            btn.visible = (inEdit && this.editWrapper && this.editWrapper.isRichText);
+	            else
+		            btn.visible = inEdit;
 
             }
             this.toolbar.refresh();
@@ -333,6 +339,17 @@ dnn.controls.DNNLabelEdit.prototype =
         this.editContainer.style.display = 'none';
         this.handleToolbarDisplay();
     },
+    
+    flashLabel: function () {
+    	var handler = this;
+	    this.container.style.backgroundColor = "#fffacd";
+	    setTimeout(function () {
+		    handler.container.style.backgroundColor = "#fffff0";
+		    setTimeout(function () {
+			    handler.container.style.backgroundColor = "transparent";
+            }, 300);
+        }, 2500);
+	},
 
     callBackFail: function(result, ctx, req)
     {

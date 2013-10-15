@@ -19,8 +19,16 @@
         };
 
         base.setModuleHeaders = function (xhr) {
-            xhr.setRequestHeader("ModuleId", base.getModuleId());
-            xhr.setRequestHeader("TabId", base.getTabId());
+            var tabId = base.getTabId();
+            if (tabId > -1) {
+                xhr.setRequestHeader("ModuleId", base.getModuleId());
+                xhr.setRequestHeader("TabId", tabId);
+            }
+
+            var afValue = base.getAntiForgeryValue();
+            if (afValue) {
+                xhr.setRequestHeader("RequestVerificationToken", afValue);
+            }
         };
 
         base.getAntiForgeryKey = function () {
@@ -29,15 +37,6 @@
 
         base.getAntiForgeryValue = function () {
             return $('[name="__RequestVerificationToken"]').val();
-        };
-
-        base.getAntiForgeryProperty = function (hash) {
-            if (!hash) {
-                hash = {};
-            }
-
-            hash[base.getAntiForgeryKey()] = base.getAntiForgeryValue();
-            return hash;
         };
 
         return base;
