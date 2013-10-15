@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cmdExport.Text" xml:space="preserve">
     <value>Export Template</value>
@@ -139,10 +139,10 @@
     <value>Provide a name for the Template File to be created</value>
   </data>
   <data name="plContent.Text" xml:space="preserve">
-    <value>Include Content:</value>
+    <value>Include Content?</value>
   </data>
   <data name="plContent.Help" xml:space="preserve">
-    <value>If selected, the content will also be exported to the template file.</value>
+    <value>Check this option if you want to export all module content when creating the new template</value>
   </data>
   <data name="plDescription.Text" xml:space="preserve">
     <value>Template Description:</value>
@@ -164,5 +164,89 @@
   </data>
   <data name="PortalSetup.Text" xml:space="preserve">
     <value>Site Setup</value>
+  </data>
+  <data name="ErrorPages.Text" xml:space="preserve">
+    <value>You must select at least one page to be exported.</value>
+  </data>
+  <data name="lblFiles.Help" xml:space="preserve">
+    <value>Check this option if you want to export all site files and folders when creating the new template.</value>
+  </data>
+  <data name="lblFiles.Text" xml:space="preserve">
+    <value>Include Files?</value>
+  </data>
+  <data name="lblMultilanguage.Help" xml:space="preserve">
+    <value>If the site being exported has content localization enabled you can decide whether to create a template for a multilanguage site or just create a single language template. </value>
+  </data>
+  <data name="lblMultilanguage.Text" xml:space="preserve">
+    <value>Export As Multilingual Site?</value>
+  </data>
+  <data name="lblPages.Help" xml:space="preserve">
+    <value>Select the pages that must be exported to the template. &lt;br /&gt;&lt;b&gt;NB: &lt;/b&gt;If you intend to use the exported template to create a new site, please be sure to select all, or selected Admin pages. If no Admin pages are available in the template, the new site will not have an Admin menu. </value>
+  </data>
+  <data name="lblPages.Text" xml:space="preserve">
+    <value>Pages to export:</value>
+  </data>
+  <data name="lblProfile.Help" xml:space="preserve">
+    <value>Check this option if you want to export profile property definitions when creating the new template.</value>
+  </data>
+  <data name="lblProfile.Text" xml:space="preserve">
+    <value>Include Profile Properties?</value>
+  </data>
+  <data name="lblRoles.Help" xml:space="preserve">
+    <value>Check this option if you want to export roles when creating the new template.</value>
+  </data>
+  <data name="lblRoles.Text" xml:space="preserve">
+    <value>Include Roles?</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Advanced Configuration</value>
+  </data>
+  <data name="lblLanguages.Help" xml:space="preserve">
+    <value>This option allows you to select which languages will be included in the template when exporting pages.</value>
+  </data>
+  <data name="lblLanguages.Text" xml:space="preserve">
+    <value>Export pages in selected languages:</value>
+  </data>
+  <data name="ErrorAncestorPages.Text" xml:space="preserve">
+    <value>You must select all ancestors from root level in order to include a child page.</value>
+  </data>
+  <data name="lblModules.Help" xml:space="preserve">
+    <value>Check this option to include module deploy permissions into the exported template. Please be aware that if you check this option, it may also be necessary to export Roles as well.</value>
+  </data>
+  <data name="lblModules.Text" xml:space="preserve">
+    <value>Include Module Deployment Permissions?</value>
+  </data>
+  <data name="lblNote.Text" xml:space="preserve">
+    <value>Note: the default language ({0}) will always be exported</value>
+  </data>
+  <data name="BasicSettings.Text" xml:space="preserve">
+    <value>Basic configuration</value>
+  </data>
+  <data name="lblAdminOnly.Text" xml:space="preserve">
+    <value>Visible to administrators only</value>
+  </data>
+  <data name="lblDisabled.Text" xml:space="preserve">
+    <value>Page is disabled</value>
+  </data>
+  <data name="lblEveryone.Text" xml:space="preserve">
+    <value>Page is visible to everyone</value>
+  </data>
+  <data name="lblHidden.Text" xml:space="preserve">
+    <value>Page is hidden in menu</value>
+  </data>
+  <data name="lblHome.Text" xml:space="preserve">
+    <value>Homepage of the website</value>
+  </data>
+  <data name="lblRegistered.Text" xml:space="preserve">
+    <value>Visible to registered users</value>
+  </data>
+  <data name="lblSecure.Text" xml:space="preserve">
+    <value>Visible to dedicated roles only</value>
+  </data>
+  <data name="DefaultLanguage.Text" xml:space="preserve">
+    <value>{0} is the default language of the selected site</value>
+  </data>
+  <data name="lblNoteSingleLanguage.Text" xml:space="preserve">
+    <value>Note: the default language is &lt;b&gt;{0}&lt;/b&gt;</value>
   </data>
 </root>

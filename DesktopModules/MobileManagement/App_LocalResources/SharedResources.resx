@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cmdAdd.Text" xml:space="preserve">
     <value>Create</value>
@@ -148,16 +148,16 @@
     <value>Select user device</value>
   </data>
   <data name="lblTargetUrl.Help" xml:space="preserve">
-    <value>Destination url for the redirect</value>
+    <value>Destination URL for the redirect</value>
   </data>
   <data name="lblTargetUrl.Text" xml:space="preserve">
-    <value>Url</value>
+    <value>URL</value>
   </data>
   <data name="lnkPortalAlias.Text" xml:space="preserve">
     <value>Enter new website alias</value>
   </data>
   <data name="optBoth.Text" xml:space="preserve">
-    <value>Both</value>
+    <value>Mobile and Tablet</value>
   </data>
   <data name="optOther.Text" xml:space="preserve">
     <value>Advanced</value>
@@ -175,7 +175,7 @@
     <value>Tablet</value>
   </data>
   <data name="optUrl.Text" xml:space="preserve">
-    <value>Url</value>
+    <value>URL</value>
   </data>
   <data name="OtherType.Text" xml:space="preserve">
     <value>Define your rules below. Add multiple rules by clicking the ADD button.</value>
@@ -284,5 +284,11 @@
   </data>
   <data name="Tablet.Text" xml:space="preserve">
     <value>Tablet</value>
+  </data>
+  <data name="optSmartPhone.Text" xml:space="preserve">
+    <value>Smart Phone</value>
+  </data>
+  <data name="SmartPhone.Text" xml:space="preserve">
+    <value>Smart Phone</value>
   </data>
 </root>

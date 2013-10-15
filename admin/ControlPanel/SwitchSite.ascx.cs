@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,12 +22,14 @@
 
 using System;
 using System.Collections;
+using System.Linq;
 using System.Threading;
 using System.Web.UI;
 
 using DotNetNuke.Common;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Portals;
+using DotNetNuke.Entities.Portals.Internal;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Web.UI.WebControls;
 
@@ -67,10 +69,9 @@ namespace DotNetNuke.UI.ControlPanel
                 if ((!string.IsNullOrEmpty(SitesLst.SelectedValue)))
                 {
                     int selectedPortalID = int.Parse(SitesLst.SelectedValue);
-                    var portalAliasCtrl = new PortalAliasController();
-                    ArrayList portalAliases = portalAliasCtrl.GetPortalAliasArrayByPortalID(selectedPortalID);
+                    var portalAliases = TestablePortalAliasController.Instance.GetPortalAliasesByPortalId(selectedPortalID).ToList();
 
-                    if (((portalAliases != null) && portalAliases.Count > 0 && (portalAliases[0] != null)))
+                    if ((portalAliases.Count > 0 && (portalAliases[0] != null)))
                     {
                         Response.Redirect(Globals.AddHTTP(((PortalAliasInfo) portalAliases[0]).HTTPAlias));
                     }
@@ -135,7 +136,8 @@ namespace DotNetNuke.UI.ControlPanel
             SitesLst.DataValueField = "PortalID";
             SitesLst.DataBind();
 
-            SitesLst.Items.Insert(0, new ListItem(string.Empty));
+            //SitesLst.Items.Insert(0, new ListItem(string.Empty));
+            SitesLst.InsertItem(0, string.Empty, string.Empty);
         }
 
         #endregion

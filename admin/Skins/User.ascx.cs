@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -162,15 +162,14 @@ namespace DotNetNuke.UI.Skins.Controls
 
                         if (ShowUnreadMessages)
                         {
-                            var unreadMessages = InternalMessagingController.Instance.CountUnreadMessages(userInfo.UserID, userInfo.PortalID);
-                            var unreadAlerts = NotificationsController.Instance.CountNotifications(userInfo.UserID, userInfo.PortalID);
+                            var unreadMessages = InternalMessagingController.Instance.CountUnreadMessages(userInfo.UserID, PortalController.GetEffectivePortalId(userInfo.PortalID));
+                            var unreadAlerts = NotificationsController.Instance.CountNotifications(userInfo.UserID, PortalController.GetEffectivePortalId(userInfo.PortalID));
 
                             messageLink.Text = unreadMessages > 0 ? string.Format(Localization.GetString("Messages", Localization.GetResourceFile(this, MyFileName)), unreadMessages) : Localization.GetString("NoMessages", Localization.GetResourceFile(this, MyFileName));
                             notificationLink.Text = unreadAlerts > 0 ? string.Format(Localization.GetString("Notifications", Localization.GetResourceFile(this, MyFileName)), unreadAlerts) : Localization.GetString("NoNotifications", Localization.GetResourceFile(this, MyFileName));
 
-                            var messageTabUrl = Globals.NavigateURL(GetMessageTab(), "", string.Format("userId={0}", userInfo.UserID));
-                            messageLink.NavigateUrl = messageTabUrl;
-                            notificationLink.NavigateUrl = messageTabUrl + "?view=notifications&action=notifications";
+                            messageLink.NavigateUrl = Globals.NavigateURL(GetMessageTab(), "", string.Format("userId={0}", userInfo.UserID));
+                            notificationLink.NavigateUrl = Globals.NavigateURL(GetMessageTab(), "", string.Format("userId={0}", userInfo.UserID),"view=notifications","action=notifications");
                             notificationLink.ToolTip = Localization.GetString("CheckNotifications", Localization.GetResourceFile(this, MyFileName));
                             messageLink.ToolTip = Localization.GetString("CheckMessages", Localization.GetResourceFile(this, MyFileName));
                             messageGroup.Visible = true;
@@ -240,7 +239,7 @@ namespace DotNetNuke.UI.Skins.Controls
                     foreach (KeyValuePair<int, ModuleInfo> kvp in moduleController.GetTabModules(tab.TabID))
                     {
                         var module = kvp.Value;
-                        if (module.DesktopModule.FriendlyName == "Message Center")
+                        if (module.DesktopModule.FriendlyName == "Message Center" && !module.IsDeleted)
                         {
                             return tab.TabID;                            
                         }

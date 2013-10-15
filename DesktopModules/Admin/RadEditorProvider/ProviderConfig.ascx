@@ -1,6 +1,7 @@
 ﻿<%@ Control language="C#" Inherits="DotNetNuke.Providers.RadEditorProvider.ProviderConfig" AutoEventWireup="false"  Codebehind="ProviderConfig.ascx.cs" %>
 <%@ Import Namespace="DotNetNuke.Services.Localization" %>
 <%@ Register TagPrefix="Telerik" Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" %>
+<%@ Register TagPrefix="dnn" Assembly="DotNetNuke.Web" Namespace="DotNetNuke.Web.UI.WebControls"%>
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls"%>
 <%@ Register TagPrefix="dnn" TagName="label" Src="~/controls/LabelControl.ascx" %>
 <asp:Panel class="dnnProviderConfig dnnClear" id="dnnProviderConfig" runat="server">
@@ -8,7 +9,8 @@
 		<asp:Panel id="pnlSelectProvider" runat="server" class="dnnProviderSelect">
 			<h3><asp:Label ID="lblSelectedProvider" runat="server" resourcekey="lblSelectedProvider" /></h3>
 			<asp:Label ID="editorState" runat="server" />
-			<asp:DropDownList ID="editorList" runat="server" />
+			<%--<asp:DropDownList ID="editorList" runat="server" />--%>
+		    <dnn:DnnComboBox ID="editorList" runat="server" />
 			<asp:LinkButton ID="btnEnable" runat="server" CssClass="dnnPrimaryAction" resourcekey="btnEnable" />
 		</asp:Panel>
 		<div class="dnnTreePages">
@@ -69,23 +71,47 @@
 <script language="javascript" type="text/javascript">
 	/*globals jQuery, window, Sys */
 	(function ($, Sys) {
-		function setupDnnProviderConfig() {
-			$('#<%=pnlEditor.ClientID%>').dnnTabs().dnnPanels();
-			$('#dnnProviderConfig .dnnFormExpandContent a').dnnExpandAll({ expandText: '<%=Localization.GetSafeJSString("ExpandAll", Localization.SharedResourceFile)%>', collapseText: '<%=Localization.GetSafeJSString("CollapseAll", Localization.SharedResourceFile)%>', targetArea: '#dnnProviderConfig' });
-			$('.dnnDeleteTab').dnnConfirm({
-			    text: '<%=DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("DeleteItem"))%>',
-				yesText: '<%=Localization.GetSafeJSString("Yes.Text", Localization.SharedResourceFile)%>',
-				noText: '<%=Localization.GetSafeJSString("No.Text", Localization.SharedResourceFile)%>',
-				title: '<%=Localization.GetSafeJSString("Confirm.Text", Localization.SharedResourceFile)%>'
-			});
-		}
+	    function setupDnnProviderConfig() {
+	        $('#<%=pnlEditor.ClientID%>').dnnTabs().dnnPanels();
+	        $('#dnnEditorConfig .dnnFormExpandContent a').dnnExpandAll({ expandText: '<%=Localization.GetSafeJSString("ExpandAll", Localization.SharedResourceFile)%>', collapseText: '<%=Localization.GetSafeJSString("CollapseAll", Localization.SharedResourceFile)%>', targetArea: '#dnnEditorConfig' });
+	        $('.dnnDeleteTab').dnnConfirm({
+	            text: '<%=DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("DeleteItem"))%>',
+	            yesText: '<%=Localization.GetSafeJSString("Yes.Text", Localization.SharedResourceFile)%>',
+	            noText: '<%=Localization.GetSafeJSString("No.Text", Localization.SharedResourceFile)%>',
+	            title: '<%=Localization.GetSafeJSString("Confirm.Text", Localization.SharedResourceFile)%>'
+	        });
+	    }
 
-		$(document).ready(function () {
-			setupDnnProviderConfig();
-			Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-				setupDnnProviderConfig();
-			});
-		});
+	    function setupSpinner() {
+	        $('.SpinnerStepOne').each(function () {
+	            var ctrl = $(this);
+	            var defaultVal = parseInt(ctrl.val());
+	            ctrl.dnnSpinner({
+	                type: 'range',
+	                defaultVal: defaultVal,
+	            	typedata: {min: 0, max: 9999}
+	            });
+	        });
+
+	        $('.SpinnerStep1024').each(function () {
+	            var ctrl = $(this);
+	            var defaultVal = parseInt(ctrl.val());
+	            ctrl.dnnSpinner({
+	                type: 'range',
+	                defaultVal: defaultVal,
+	                typedata: { min: 1024, interval: 1024, max: 2147482624 }
+	            });
+	        });
+	    }
+
+	    $(document).ready(function () {
+	        setupDnnProviderConfig();
+	        setupSpinner();
+	        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+	            setupDnnProviderConfig();
+	            setupSpinner();
+	        });
+	    });
 
 	} (jQuery, window.Sys));
 </script>

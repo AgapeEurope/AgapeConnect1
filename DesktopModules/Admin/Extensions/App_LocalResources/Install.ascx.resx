@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LogTitle.Text" xml:space="preserve">
     <value>Package Install Logs</value>
@@ -130,7 +130,7 @@
     <value>&lt;h1&gt;About Package Install&lt;/h1&gt;&lt;p&gt;Allows you to upload and install packages to the website.&lt;/p&gt;</value>
   </data>
   <data name="NoFile.Text" xml:space="preserve">
-    <value>You need to select a file to upload first - click the Browse button to locate the file on your local file system.</value>
+    <value>You need to select a file to upload first - click the Choose File button to locate the file on your local file system.</value>
   </data>
   <data name="InstallCustomPackage.Text" xml:space="preserve">
     <value>Install New {0} Extension</value>
@@ -202,7 +202,7 @@
     <value>The package is already Installed.</value>
   </data>
   <data name="RepairInstallWarning.Text" xml:space="preserve">
-    <value>WARNING: You have elected to repair the installation of this package.  This will cause the files in the package to overwrite all the files that were previously installed.</value>
+    <value>WARNING: You have selected to repair the installation of this package.  This will cause the files in the package to overwrite all the files that were previously installed.</value>
   </data>
   <data name="Return.Text" xml:space="preserve">
     <value>Return</value>
@@ -241,7 +241,7 @@
     <value>Browse for File:</value>
   </data>
   <data name="BrowseFileHelp.Text" xml:space="preserve">
-    <value>Use the Browse button to browse your local file system to find the extension package you wish to install, then click Next to continue.</value>
+    <value>Use the Choose File button to browse your local file system to find the extension package you wish to install, then click Next to continue.</value>
   </data>
   <data name="Warnings.Help" xml:space="preserve">
     <value>If you have reached this page it is because the installer needs to gather some more information, before proceeding.</value>
@@ -257,5 +257,17 @@
   </data>
   <data name="FileSizeRestriction.Text" xml:space="preserve">
     <value>Your site is configured with a maximum file upload size of {0} MB. </value>
+  </data>
+  <data name="AzureCompact.Text" xml:space="preserve">
+    <value>Install without Sql Azure Compatible Verification?</value>
+  </data>
+  <data name="AzureCompactHelp.Text" xml:space="preserve">
+    <value>The website is currently using SQL Azure as the database server, and the package you are trying to install is not verifed as SQL Azure compatible. If a non-compatible module is installed, it can prevent backups and restores of the database from taking place, and can cause run-time exceptions that are not detected during installation.</value>
+  </data>
+  <data name="AzureCompactMessage.Text" xml:space="preserve">
+    <value>The package doesn't has Sql Azure Compatible Verification.</value>
+  </data>
+  <data name="AzureCompactWarning.Text" xml:space="preserve">
+    <value>WARNING: You have selected to install the package without SqlAzure Compatible Verification.</value>
   </data>
 </root>

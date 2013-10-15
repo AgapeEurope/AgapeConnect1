@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Activate.Text" xml:space="preserve">
     <value>Activate</value>
@@ -223,10 +223,10 @@ The web servers firewall or another firewall is blocking access to the host or t
     <value>There were no results found matching your search.</value>
   </data>
   <data name="Premium.Header" xml:space="preserve">
-    <value>Thank you for using Premium device data</value>
+    <value>Thank you for using {0} device data</value>
   </data>
   <data name="PremiumIntro.Text" xml:space="preserve">
-    <value>The premium data contains thousands of devices, including games consoles, eBook readers, tablets, smart phones and feature phones. Each device is associated with a wide range of relevant properties, from screen size and input methods to operating system, browser and hardware.</value>
+    <value>The {0} data contains thousands of devices, including games consoles, eBook readers, tablets, smart phones and feature phones. Each device is associated with a wide range of relevant properties, from screen size and input methods to operating system, browser and hardware.</value>
   </data>
   <data name="PurchaseInfo.Text" xml:space="preserve">
     <value>To get the premium data, you can purchase your license from the </value>
@@ -235,7 +235,7 @@ The web servers firewall or another firewall is blocking access to the host or t
     <value>, or upgrade to one of the &lt;a href="http://store.dotnetnuke.com/home/product-details/dotnetnuke-professional-and-enterprise-edition-subscriptions" target="_blank"&gt;Commercial Editions&lt;/a&gt;.</value>
   </data>
   <data name="PurchaseInfoLink.Href" xml:space="preserve">
-    <value>http://store.dotnetnuke.com/home/product-details/premium-mobile-device-data---51degreesmobi</value>
+    <value>http://store.dotnetnuke.com/home/product-details/premium-mobile-device-data-51degreesmobi</value>
   </data>
   <data name="PurchaseInfoLink.Text" xml:space="preserve">
     <value>DotNetNuke Store</value>
@@ -263,7 +263,7 @@ The web servers firewall or another firewall is blocking access to the host or t
     <value>Software</value>
   </data>
   <data name="UpgradePoint1.Text" xml:space="preserve">
-    <value>Automatically redirect users to optimized web pages, enabling you to create separate sites for tables, feature phones and smartphones.</value>
+    <value>Automatically redirect users to optimized web pages, enabling you to create separate sites for tablets, feature phones and smartphones.</value>
   </data>
   <data name="UpgradePoint2.Text" xml:space="preserve">
     <value>Enhance the isMobile and Screen Size properties in Lite data with over 50 device properties including isTablet, screen size in millimeters, vendor, model, platform details, input methods and levels of JavaScript support.</value>
@@ -327,5 +327,14 @@ The web servers firewall or another firewall is blocking access to the host or t
   </data>
   <data name="PremiumUploadSuccess.Text" xml:space="preserve">
     <value>Data has been uploaded successfully.</value>
+  </data>
+  <data name="LicenseType_CMS.Text" xml:space="preserve">
+    <value>CMS</value>
+  </data>
+  <data name="LicenseType_Lite.Text" xml:space="preserve">
+    <value>Lite</value>
+  </data>
+  <data name="LicenseType_Premium.Text" xml:space="preserve">
+    <value>Premium</value>
   </data>
 </root>

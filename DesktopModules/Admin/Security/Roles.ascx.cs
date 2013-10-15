@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -28,35 +28,31 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common;
+using DotNetNuke.Common.Lists;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Framework;
 using DotNetNuke.Security;
+using DotNetNuke.Security.Permissions;
 using DotNetNuke.Security.Roles;
 using DotNetNuke.Security.Roles.Internal;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.WebControls;
+using DotNetNuke.Web.UI.WebControls;
+using Telerik.Web.UI;
 
 #endregion
 
 namespace DesktopModules.Admin.Security
 {
 
-	/// -----------------------------------------------------------------------------
 	/// <summary>
 	/// The Roles PortalModuleBase is used to manage the Security Roles for the
 	/// portal.
 	/// </summary>
-    /// <remarks>
-	/// </remarks>
-	/// <history>
-	/// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-	///                       and localisation
-	/// </history>
-	/// -----------------------------------------------------------------------------
-    public partial class Roles : PortalModuleBase, IActionable
+    public partial class Roles : PortalModuleBase
     {
 
         #region Private Members
@@ -65,43 +61,8 @@ namespace DesktopModules.Admin.Security
 
         #endregion
 
-        #region IActionable Members
-
-        public ModuleActionCollection ModuleActions
-        {
-            get
-            {
-                var actions = new ModuleActionCollection
-                                  {
-                                      {
-                                          GetNextActionID(), Localization.GetString(ModuleActionType.AddContent, LocalResourceFile), ModuleActionType.AddContent, "", "add.gif",
-                                          EditUrl("RoleGroupID", Request.QueryString["RoleGroupID"]), false, SecurityAccessLevel.Edit, true, false
-                                          },
-                                      {
-                                          GetNextActionID(), Localization.GetString("AddGroup.Action", LocalResourceFile), ModuleActionType.AddContent, "", "add.gif", EditUrl("EditGroup"), false,
-                                          SecurityAccessLevel.Edit, true, false
-                                          }
-                                  };
-                return actions;
-            }
-        }
-
-        #endregion
-
         #region Private Methods
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindData gets the roles from the Database and binds them to the DataGrid
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        ///     [cnurse]    01/05/2006  Updated to reflect Use of Role Groups
-        /// </history>
-        /// -----------------------------------------------------------------------------
         private void BindData()
         {
             var roles = _roleGroupId < -1 
@@ -120,46 +81,35 @@ namespace DesktopModules.Admin.Security
                 lnkEditGroup.NavigateUrl = EditUrl("RoleGroupId", _roleGroupId.ToString(CultureInfo.InvariantCulture), "EditGroup");
                 cmdDelete.Visible = roles.Count == 0;
             }
-            Localization.LocalizeDataGrid(ref grdRoles, LocalResourceFile);
-
+            
             grdRoles.DataBind();
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindGroups gets the role Groups from the Database and binds them to the DropDown
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        ///     [cnurse]    01/05/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         private void BindGroups()
         {
-            ListItem liItem;
             ArrayList arrGroups = RoleController.GetRoleGroups(PortalId);
 
             if (arrGroups.Count > 0)
             {
                 cboRoleGroups.Items.Clear();
-                cboRoleGroups.Items.Add(new ListItem(Localization.GetString("AllRoles"), "-2"));
+                //cboRoleGroups.Items.Add(new ListItem(Localization.GetString("AllRoles"), "-2"));
+                cboRoleGroups.AddItem(Localization.GetString("AllRoles"), "-2");
 
-                liItem = new ListItem(Localization.GetString("GlobalRoles"), "-1");
+				var item = new DnnComboBoxItem(Localization.GetString("GlobalRoles"), "-1");
                 if (_roleGroupId == -1)
                 {
-                    liItem.Selected = true;
+                    item.Selected = true;
                 }
-                cboRoleGroups.Items.Add(liItem);
+                cboRoleGroups.Items.Add(item);
 
                 foreach (RoleGroupInfo roleGroup in arrGroups)
                 {
-                    liItem = new ListItem(roleGroup.RoleGroupName, roleGroup.RoleGroupID.ToString(CultureInfo.InvariantCulture));
+					item = new DnnComboBoxItem(roleGroup.RoleGroupName, roleGroup.RoleGroupID.ToString(CultureInfo.InvariantCulture));
                     if (_roleGroupId == roleGroup.RoleGroupID)
                     {
-                        liItem.Selected = true;
+                        item.Selected = true;
                     }
-                    cboRoleGroups.Items.Add(liItem);
+                    cboRoleGroups.Items.Add(item);
                 }
                 divGroups.Visible = true;
             }
@@ -173,19 +123,27 @@ namespace DesktopModules.Admin.Security
 
         #endregion
 
-		#region "Public Methods"
+        #region Protected Methods
 
-        /// -----------------------------------------------------------------------------
+        /// <summary>
+        /// Get text description of Frequency Value
+        /// </summary>
+        protected string FormatFrequency(string frequency)
+        {
+            if (frequency == "N") return string.Empty;
+
+            var ctlEntry = new ListController();
+            ListEntryInfo entry = ctlEntry.GetListEntryInfo("Frequency", frequency);
+            return entry.Text;
+        }
+
+        #endregion
+
+        #region Public Methods
+        
         /// <summary>
         /// FormatPeriod filters out Null values from the Period column of the Grid
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string FormatPeriod(int period)
         {
             var formatPeriod = Null.NullString;
@@ -203,23 +161,17 @@ namespace DesktopModules.Admin.Security
             return formatPeriod;
         }
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// FormatPrice correctly formats the fee
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string FormatPrice(float price)
         {
             var formatPrice = Null.NullString;
             try
             {
+// ReSharper disable CompareOfFloatsByEqualityOperator
                 if (price != Null.NullSingle)
+// ReSharper restore CompareOfFloatsByEqualityOperator
                 {
                     formatPrice = price.ToString("##0.00");
                 }
@@ -235,33 +187,25 @@ namespace DesktopModules.Admin.Security
 
 		#region Event Handlers
 
-		/// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_Init runs when the control is initialised
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
 
+            cmdAddRole.Click += cmdAddRole_Click;
+            cmdAddRoleGroup.Click += cmdAddRoleGroup_Click;
+
             jQuery.RequestDnnPluginsRegistration();
 
-            foreach (DataGridColumn column in grdRoles.Columns)
+            foreach (var column in grdRoles.Columns)
             {
-                if (ReferenceEquals(column.GetType(), typeof (ImageCommandColumn)))
+                if (ReferenceEquals(column.GetType(), typeof (DnnGridImageCommandColumn)))
                 {
 					//Manage Delete Confirm JS
-                    var imageColumn = (ImageCommandColumn) column;
-                    imageColumn.Visible = IsEditable;
+                    var imageColumn = (DnnGridImageCommandColumn)column;
+                    imageColumn.Visible = ModulePermissionController.HasModulePermission(ModuleConfiguration.ModulePermissions, "EDIT");
                     if (imageColumn.CommandName == "Delete")
                     {
-                        imageColumn.OnClickJS = Localization.GetString("DeleteItem");
+                        imageColumn.OnClickJs = Localization.GetString("DeleteItem");
                     }
 					
                     //Manage Edit Column NavigateURLFormatString
@@ -279,7 +223,7 @@ namespace DesktopModules.Admin.Security
                     {
                         //so first create the format string with a dummy value and then
                         //replace the dummy value with the FormatString place holder
-                        string formatString = Globals.NavigateURL(TabId, "User Roles", "RoleId=KEYFIELD", "mid=" + ModuleId);
+                        string formatString = EditUrl("RoleId", "KEYFIELD", "User Roles");
                         formatString = formatString.Replace("KEYFIELD", "{0}");
                         imageColumn.NavigateURLFormatString = formatString;
                     }
@@ -293,17 +237,16 @@ namespace DesktopModules.Admin.Security
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_Load runs when the control is loaded
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
+        void cmdAddRoleGroup_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(EditUrl("EditGroup"));
+        }
+
+        void cmdAddRole_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(EditUrl("RoleGroupID", Request.QueryString["RoleGroupID"]), true);
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -329,31 +272,11 @@ namespace DesktopModules.Admin.Security
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Index of the RoleGroups combo box changes
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/06/2006  created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected void OnRoleGroupIndexChanged(object sender, EventArgs e)
         {
 			Response.Redirect(Globals.NavigateURL("", string.Format("RoleGroupID={0}", cboRoleGroups.SelectedValue)));
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Delete Button is clicked to delete a role group
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/06/2006  created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected void OnDeleteClick(object sender, ImageClickEventArgs e)
         {
             _roleGroupId = Int32.Parse(cboRoleGroups.SelectedValue);
@@ -365,36 +288,27 @@ namespace DesktopModules.Admin.Security
             BindGroups();
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// grdRoles_ItemDataBound runs when a row in the grid is bound
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	11/28/2008 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void OnRolesGridItemDataBound(object sender, DataGridItemEventArgs e)
+        protected void OnRolesGridItemDataBound(object sender, GridItemEventArgs e)
         {
             var item = e.Item;
             switch (item.ItemType)
             {
-                case ListItemType.SelectedItem:
-                case ListItemType.AlternatingItem:
-                case ListItemType.Item:
+                case GridItemType.SelectedItem:
+                case GridItemType.AlternatingItem:
+                case GridItemType.Item:
                     {
-                        var imgColumnControl = item.Controls[0].Controls[0];
-                        if (imgColumnControl is HyperLink)
+                        var gridDataItem = (GridDataItem) item;
+
+                        var editLink = gridDataItem["EditButton"].Controls[0] as HyperLink;
+                        if (editLink != null)
                         {
-                            var editLink = (HyperLink) imgColumnControl;
                             var role = (RoleInfo) item.DataItem;
                             editLink.Visible = role.RoleName != PortalSettings.AdministratorRoleName || (PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName));
                         }
-                        imgColumnControl = item.Controls[1].Controls[0];
-                        if (imgColumnControl is HyperLink)
+
+                        var rolesLink = gridDataItem["RolesButton"].Controls[0] as HyperLink;
+                        if (rolesLink != null)
                         {
-                            var rolesLink = (HyperLink) imgColumnControl;
                             var role = (RoleInfo) item.DataItem;
                             rolesLink.Visible = (role.Status == RoleStatus.Approved) && (role.RoleName != PortalSettings.AdministratorRoleName || (PortalSecurity.IsInRole(PortalSettings.AdministratorRoleName)));
                         }

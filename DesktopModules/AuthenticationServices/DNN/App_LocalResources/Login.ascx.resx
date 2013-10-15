@@ -132,14 +132,11 @@
   <data name="UserDoesNotExist.Text" xml:space="preserve">
     <value>User does not exist</value>
   </data>
-  <data name="VerificationSuccess.Text" xml:space="preserve">
-    <value>Your account has been successfully verified</value>
-  </data>
   <data name="Email.Text" xml:space="preserve">
     <value>Email Address:</value>
   </data>
   <data name="cmdPassword.Text" xml:space="preserve">
-    <value>Retrieve Password</value>
+    <value>Reset Password</value>
   </data>
   <data name="cmdRegister.Text" xml:space="preserve">
     <value>Register</value>

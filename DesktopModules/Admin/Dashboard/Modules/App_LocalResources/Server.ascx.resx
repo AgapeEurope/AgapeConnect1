@@ -181,9 +181,9 @@
     <value>Web Server Information:</value>
   </data>
   <data name="ServerInfo_Url.Help" xml:space="preserve">
-    <value>The principal url for this site.</value>
+    <value>The principal URL for this site.</value>
   </data>
   <data name="ServerInfo_Url.Text" xml:space="preserve">
-    <value>Site Url:</value>
+    <value>Site URL:</value>
   </data>
 </root>

@@ -31,4 +31,9 @@
             </Columns>
         </MasterTableView>
     </dnn:DnnGrid>
+    <ul class="dnnActions dnnClear">
+	    <li><asp:Hyperlink id="cmdAdd" runat="server" CssClass="dnnPrimaryAction" resourcekey="AddContent.Action"  /></li>
+	    <li><asp:Hyperlink id="cmdStatus" runat="server" CssClass="dnnSecondaryAction" resourcekey="ContentOptions.Action" /></li>
+	    <li><asp:Hyperlink id="cmdHistory" runat="server" CssClass="dnnSecondaryAction" resourcekey="ScheduleHistory.Action" /></li>
+    </ul>
 </div>

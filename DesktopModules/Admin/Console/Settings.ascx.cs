@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -35,6 +35,7 @@ using DotNetNuke.Modules.Console.Components;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
+using DotNetNuke.Web.UI.WebControls;
 
 #endregion
 
@@ -43,6 +44,7 @@ namespace DesktopModules.Admin.Console
 
     public partial class Settings : ModuleSettingsBase
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Settings));
 
         private void BindTabs(int tabId, bool includeParent)
         {
@@ -137,14 +139,17 @@ namespace DesktopModules.Admin.Console
                     {
                         if ((TabPermissionController.CanViewPage(t)))
                         {
-                            ParentTab.Items.Add(new ListItem(t.IndentedTabName, t.TabID.ToString(CultureInfo.InvariantCulture)));
+                            ParentTab.AddItem(t.IndentedTabName, t.TabID.ToString(CultureInfo.InvariantCulture));
+                            //ParentTab.Items.Add(new ListItem(t.IndentedTabName, t.TabID.ToString(CultureInfo.InvariantCulture)));
                         }
                     }
-                    ParentTab.Items.Insert(0, "");
+                    //ParentTab.Items.Insert(0, "");
+                    ParentTab.InsertItem(0, "", "");
                     SelectDropDownListItem(ref ParentTab, "ParentTabID");
                     foreach (string val in ConsoleController.GetSizeValues())
                     {
-                        DefaultSize.Items.Add(new ListItem(Localization.GetString(val, LocalResourceFile), val));
+                        //DefaultSize.Items.Add(new ListItem(Localization.GetString(val, LocalResourceFile), val));
+                        DefaultSize.AddItem(Localization.GetString(val, LocalResourceFile), val);
                     }
                     SelectDropDownListItem(ref DefaultSize, "DefaultSize");
 
@@ -156,7 +161,8 @@ namespace DesktopModules.Admin.Console
                     }
                     foreach (var val in ConsoleController.GetViewValues())
                     {
-                        DefaultView.Items.Add(new ListItem(Localization.GetString(val, LocalResourceFile), val));
+                        //DefaultView.Items.Add(new ListItem(Localization.GetString(val, LocalResourceFile), val));
+                        DefaultView.AddItem(Localization.GetString(val, LocalResourceFile), val);
                     }
                     SelectDropDownListItem(ref DefaultView, "DefaultView");
                     if (Settings.ContainsKey("IncludeParent"))
@@ -171,6 +177,10 @@ namespace DesktopModules.Admin.Console
                     {
                         ShowTooltip.Checked = Convert.ToBoolean(Settings["ShowTooltip"]);
                     }
+					if (Settings.ContainsKey("OrderTabsByHierarchy"))
+					{
+						OrderTabsByHierarchy.Checked = Convert.ToBoolean(Settings["OrderTabsByHierarchy"]);
+					}
                     if (Settings.ContainsKey("ConsoleWidth"))
                     {
                         ConsoleWidth.Text = Convert.ToString(Settings["ConsoleWidth"]);
@@ -202,7 +212,7 @@ namespace DesktopModules.Admin.Console
                     }
                     catch (Exception exc)
                     {
-                        DnnLog.Error(exc);
+                        Logger.Error(exc);
 
                         throw new Exception("ConsoleWidth value is invalid. Value must be numeric.");
                     }
@@ -221,6 +231,7 @@ namespace DesktopModules.Admin.Console
                 moduleController.UpdateModuleSetting(ModuleId, "DefaultView", DefaultView.SelectedValue);
                 moduleController.UpdateModuleSetting(ModuleId, "AllowViewChange", AllowViewChange.Checked.ToString(CultureInfo.InvariantCulture));
                 moduleController.UpdateModuleSetting(ModuleId, "ShowTooltip", ShowTooltip.Checked.ToString(CultureInfo.InvariantCulture));
+				moduleController.UpdateModuleSetting(ModuleId, "OrderTabsByHierarchy", OrderTabsByHierarchy.Checked.ToString(CultureInfo.InvariantCulture));
                 moduleController.UpdateModuleSetting(ModuleId, "IncludeParent", IncludeParent.Checked.ToString(CultureInfo.InvariantCulture)); 
                 moduleController.UpdateModuleSetting(ModuleId, "ConsoleWidth", wdth);
 
@@ -228,8 +239,8 @@ namespace DesktopModules.Admin.Console
                 {
                     if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
                     {
-                        var tabPath = ((HiddenField)item.Controls[3]).Value;
-                        var visibility = ((DropDownList)item.Controls[5]).SelectedValue;
+	                    var tabPath = (item.FindControl("tabPath") as HiddenField).Value;
+						var visibility = (item.FindControl("tabVisibility") as DnnComboBox).SelectedValue;
 
                         var key = String.Format("TabVisibility{0}", tabPath.Replace("//","-"));
                         moduleController.UpdateModuleSetting(ModuleId, key, visibility);
@@ -268,22 +279,29 @@ namespace DesktopModules.Admin.Console
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 var tab = (TabInfo) e.Item.DataItem;
-                DropDownList visibilityDropDown = (DropDownList)e.Item.FindControl("tabVisibility");
+                DnnComboBox visibilityDropDown = (DnnComboBox)e.Item.FindControl("tabVisibility");
 
                 var tabLabel = (Label) e.Item.FindControl("tabLabel");
                 var tabPathField = (HiddenField) e.Item.FindControl("tabPath");
 
                 visibilityDropDown.Items.Clear();
-                visibilityDropDown.Items.Add(new ListItem(LocalizeString("AllUsers"), "AllUsers"));
+                //visibilityDropDown.Items.Add(new ListItem(LocalizeString("AllUsers"), "AllUsers"));
+                visibilityDropDown.AddItem(LocalizeString("AllUsers"), "AllUsers");
                 if (modeList.SelectedValue == "Profile")
                 {
-                    visibilityDropDown.Items.Add(new ListItem(LocalizeString("Friends"), "Friends"));
-                    visibilityDropDown.Items.Add(new ListItem(LocalizeString("User"), "User"));
+                    //visibilityDropDown.Items.Add(new ListItem(LocalizeString("Friends"), "Friends"));
+                    //visibilityDropDown.Items.Add(new ListItem(LocalizeString("User"), "User"));
+
+                    visibilityDropDown.AddItem(LocalizeString("Friends"), "Friends");
+                    visibilityDropDown.AddItem(LocalizeString("User"), "User");
                 }
                 else
                 {
-                    visibilityDropDown.Items.Add(new ListItem(LocalizeString("Owner"), "Owner"));
-                    visibilityDropDown.Items.Add(new ListItem(LocalizeString("Members"), "Members"));
+                    //visibilityDropDown.Items.Add(new ListItem(LocalizeString("Owner"), "Owner"));
+                    //visibilityDropDown.Items.Add(new ListItem(LocalizeString("Members"), "Members"));
+
+                    visibilityDropDown.AddItem(LocalizeString("Owner"), "Owner");
+                    visibilityDropDown.AddItem(LocalizeString("Members"), "Members");
                 }
 
                 tabLabel.Text = tab.TabName;
@@ -294,12 +312,12 @@ namespace DesktopModules.Admin.Console
             }
         }    
 
-        private void SelectDropDownListItem(ref DropDownList ddl, string key)
+        private void SelectDropDownListItem(ref DnnComboBox ddl, string key)
         {
             if (Settings.ContainsKey(key))
             {
                 ddl.ClearSelection();
-                var selItem = ddl.Items.FindByValue(Convert.ToString(Settings[key]));
+                var selItem = ddl.FindItemByValue(Convert.ToString(Settings[key]));
                 if (selItem != null)
                 {
                     selItem.Selected = true;

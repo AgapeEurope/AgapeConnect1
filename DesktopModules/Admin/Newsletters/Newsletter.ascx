@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="URLControl" Src="~/controls/URLControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.UI.WebControls" Assembly="DotNetNuke" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div class="dnnForm dnnNewsletters dnnClear" id="dnnNewsletters">
     <ul class="dnnAdminTabNav dnnClear">
 		<li><a href="#newMessage"><%=LocalizeString("Message")%></a></li>
@@ -21,26 +22,28 @@
             </div>
             <div class="dnnFormItem">
                 <dnn:label id="plEmail" runat="server" controlname="txtEmail"/>
-                <asp:TextBox ID="txtEmail" runat="server" TextMode="MultiLine" rows="3" Columns="60" />
+                <asp:TextBox ID="txtEmail" runat="server" TextMode="MultiLine" rows="3" Columns="60" CssClass="noResize" />
             </div>
             <div class="dnnFormItem">
-                <dnn:label id="plFrom" runat="server" controlname="txtFrom"/>
+                <dnn:label id="plFrom" runat="server" controlname="txtFrom" />
                 <asp:TextBox ID="txtFrom" runat="server" MaxLength="100"/>
                 <asp:RegularExpressionValidator ID="revEmailAddress" runat="server" resourcekey="revEmailAddress.ErrorMessage"
                     CssClass="dnnFormMessage dnnFormError" ControlToValidate="txtFrom"
-                    ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
+                    ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic" />
             </div>
             <div class="dnnFormItem">
                 <dnn:label id="plReplyTo" runat="server" controlname="txtReplyTo" />
                 <asp:TextBox ID="txtReplyTo" runat="server" MaxLength="100" />
-                <asp:RegularExpressionValidator ID="revReplyTo" runat="server" resourcekey="revEmailAddress.ErrorMessage" CssClass="dnnFormMessage dnnFormError" ControlToValidate="txtReplyTo" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
+                <asp:RegularExpressionValidator ID="revReplyTo" runat="server" resourcekey="revEmailAddress.ErrorMessage" CssClass="dnnFormMessage dnnFormError" ControlToValidate="txtReplyTo" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic" />
             </div>
             <div class="dnnFormItem">
                 <dnn:Label ID="plSubject" runat="server" ControlName="txtSubject" />
                 <asp:TextBox ID="txtSubject" runat="server" MaxLength="100" />
             </div>
-            <div>
-                <dnn:TextEditor ID="teMessage" runat="server" Width="750" TextRenderMode="Raw" HtmlEncode="False" defaultmode="Rich" height="350" choosemode="True" chooserender="False" />
+            <div class="dnnFormItem">
+                
+                <dnn:TextEditor ID="teMessage" runat="server" Width="100%" TextRenderMode="Raw" HtmlEncode="False" defaultmode="Rich" height="350" choosemode="True" chooserender="False" />
+
             </div>
         </fieldset>
     </div>
@@ -56,24 +59,38 @@
             </div>
             <div class="dnnFormItem">
                 <dnn:Label id="plPriority" runat="server" ControlName="cboPriority" />
-                <asp:DropDownList id="cboPriority" runat="server">
+              <%--  <asp:DropDownList id="cboPriority" runat="server">
                     <asp:ListItem resourcekey="High" Value="1" />
                     <asp:ListItem resourcekey="Normal" Value="2" Selected="True" />
                     <asp:ListItem resourcekey="Low" Value="3" />
-                </asp:DropDownList>
+                </asp:DropDownList>--%>
+                <dnn:DnnComboBox id="cboPriority" runat="server">
+                    <items>
+                        <dnn:DnnComboBoxItem resourcekey="High" Value="1" />
+                         <dnn:DnnComboBoxItem resourcekey="Normal" Value="2" Selected="True" />
+                          <dnn:DnnComboBoxItem resourcekey="Low" Value="3" />
+                    </items>
+                </dnn:DnnComboBox>
             </div>
             <div class="dnnFormItem">
                 <dnn:Label id="plSendMethod" runat="server" ControlName="cboSendMethod" />
-                <asp:DropDownList id="cboSendMethod" runat="server" AutoPostBack="true">
+             <%--   <asp:DropDownList id="cboSendMethod" runat="server" AutoPostBack="true">
                     <asp:ListItem resourcekey="SendTo" Value="TO" Selected="True" />
                     <asp:ListItem resourcekey="SendBCC" Value="BCC" />
                     <asp:ListItem resourcekey="SendRelay" Value="RELAY" />
-                </asp:DropDownList>
+                </asp:DropDownList>--%>
+                <dnn:DnnComboBox id="cboSendMethod" runat="server" AutoPostBack="true">
+                    <Items>
+                        <dnn:DnnComboBoxItem resourcekey="SendTo" Value="TO" Selected="True" />
+                        <dnn:DnnComboBoxItem resourcekey="SendBCC" Value="BCC" />
+                        <dnn:DnnComboBoxItem resourcekey="SendRelay" Value="RELAY"/>
+                    </Items>
+                </dnn:DnnComboBox>
             </div>
             <div id="pnlRelayAddress" runat="server" visible="false" class="dnnFormItem">
                 <dnn:label id="plRelayAddress" runat="server" controlname="txtRelayAddress" />
                 <asp:TextBox ID="txtRelayAddress" runat="server" Columns="40" MaxLength="100" />
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" resourcekey="revEmailAddress.ErrorMessage" CssClass="dnnFormMessage dnnFormError" ControlToValidate="txtRelayAddress" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" />
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" resourcekey="revEmailAddress.ErrorMessage" CssClass="dnnFormMessage dnnFormError" ControlToValidate="txtRelayAddress" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic" />
             </div>
             <div class="dnnFormItem">
                 <dnn:Label id="plSendAction" runat="server" ControlName="optSendAction" />

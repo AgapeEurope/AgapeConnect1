@@ -35,50 +35,46 @@
         </table>
     </ItemTemplate>
     <EditItemTemplate>
-        <table width="100%">
-            <tr>
-                <td colspan="3"><div class="dnnFormMessage dnnFormWarning"><asp:Label ID="lblWarning" runat="server" Text="Simple warning" resourcekey="lblWarning" /></div></td>
-            </tr>
-            <tr>
-                <td rowspan="5" valign="top">
-                    <dnn:DnnImageButton ID="cmdSave" runat="server" CommandName="Update" IconKey="Save" CssClass="dnnPrimaryAction" />
-                    <dnn:DnnImageButton ID="cmdDelete" runat="server" CommandName="Cancel" IconKey="Delete" CssClass="dnnSecondaryAction" CausesValidation="false" />
-                </td>
-                <td width="188"><dnn:label id="plServerVar" runat="server" controlname="txtServerVar" suffix=":" /></td>
-                <td>
-                    <asp:TextBox ID="txtServerVar" runat="server" Text='<%#Eval("ServerVariable") %>' />
-                    <asp:Label ID="lblServerVarLink" runat="server" text="Simple Link" resourcekey="lblServerVarLink" />
-                </td>
-            </tr>
-            <tr>
-                <td><dnn:label id="plOperator" runat="server" controlname="ddlOperator" suffix=":" /></td>
-                <td>
-                    <asp:DropDownList ID="ddlOperator" runat="server">
-                        <asp:ListItem>Equal</asp:ListItem>
-                        <asp:ListItem>NotEqual</asp:ListItem>
-                        <asp:ListItem>Regex</asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <td><dnn:label id="plValue" runat="server" controlname="txtValue" suffix=":" /></td>
-                <td><asp:TextBox ID="txtValue" runat="server" Text='<%#Eval("RawValue") %>' /></td>
-            </tr>
-            <tr>
-                <td><dnn:label id="plAction" runat="server" controlname="ddlAction" suffix=":" /></td>
-                <td>
-                    <asp:DropDownList ID="ddlAction" runat="server">
-                        <asp:ListItem>Redirect</asp:ListItem>
-                        <asp:ListItem>PermanentRedirect</asp:ListItem>
-                        <asp:ListItem>NotFound</asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <td><dnn:label id="plLocation" runat="server" controlname="txtLocation" suffix=":" /></td>
-                <td><asp:TextBox ID="txtLocation" runat="server" Text='<%#Eval("Location") %>' /></td>
-            </tr>
-        </table>
+        <fieldset>
+	        <div class="dnnFormMessage dnnFormWarning"><asp:Label ID="lblWarning" runat="server" Text="Simple warning" resourcekey="lblWarning" /></div>
+			<div class="dnnFormItem">
+				<dnn:label id="plServerVar" runat="server" controlname="txtServerVar" suffix=":" />
+				<asp:TextBox ID="txtServerVar" runat="server" Text='<%#Eval("ServerVariable") %>' />
+                <asp:Label ID="lblServerVarLink" runat="server" text="Simple Link" resourcekey="lblServerVarLink" />
+			</div>
+			<div class="dnnFormItem">
+				<dnn:label id="plOperator" runat="server" controlname="ddlOperator" suffix=":" />
+				<dnn:DnnComboBox ID="ddlOperator" runat="server">
+					<Items>
+						<dnn:DnnComboBoxItem Value="Equal" Text="Equal"></dnn:DnnComboBoxItem>
+						<dnn:DnnComboBoxItem Value="NotEqual" Text="NotEqual"></dnn:DnnComboBoxItem>
+						<dnn:DnnComboBoxItem Value="Regex" Text="Regex"></dnn:DnnComboBoxItem>
+					</Items>
+                </dnn:DnnComboBox>
+			</div>
+			<div class="dnnFormItem">
+				<dnn:label id="plValue" runat="server" controlname="txtValue" suffix=":" />
+				<asp:TextBox ID="txtValue" runat="server" Text='<%#Eval("RawValue") %>' />
+			</div>
+			<div class="dnnFormItem">
+				<dnn:label id="plAction" runat="server" controlname="ddlAction" suffix=":" />
+				<dnn:DnnComboBox ID="ddlAction" runat="server">
+					<Items>
+						<dnn:DnnComboBoxItem Value="Redirect" Text="Redirect"></dnn:DnnComboBoxItem>
+						<dnn:DnnComboBoxItem Value="PermanentRedirect" Text="PermanentRedirect"></dnn:DnnComboBoxItem>
+						<dnn:DnnComboBoxItem Value="NotFound" Text="NotFound"></dnn:DnnComboBoxItem>
+					</Items>
+                </dnn:DnnComboBox>
+			</div>
+			<div class="dnnFormItem">
+				<dnn:label id="plLocation" runat="server" controlname="txtLocation" suffix=":" />
+				<asp:TextBox ID="txtLocation" runat="server" Text='<%#Eval("Location") %>' />
+			</div>
+			<ul class="dnnActions dnnClear">
+				<asp:LinkButton ID="cmdSave" runat="server" CommandName="Update" ResourceKey="Save" CssClass="dnnPrimaryAction" />
+                <asp:LinkButton ID="cmdDelete" runat="server" CommandName="Cancel" ResourceKey="Cancel" CssClass="dnnSecondaryAction" CausesValidation="false" />
+			</ul>
+		</fieldset>
     </EditItemTemplate>
     <SeparatorTemplate><div></div></SeparatorTemplate>
 </asp:DataList>

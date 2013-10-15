@@ -24,4 +24,19 @@
     <Help>Instructs the Search control to use the external Web search feature for the internal Site search</Help>
     <Value>True,False</Value>
   </Setting>
+  <Setting>
+    <Name>MinCharRequired</Name>
+    <Help>minium chars required to trigger auto search</Help>
+    <Value></Value>
+  </Setting>
+  <Setting>
+    <Name>AutoSearchDelayInMilliSecond</Name>
+    <Help>The millisecond to delay trigger auto search</Help>
+    <Value></Value>
+  </Setting>
+  <Setting>
+    <Name>EnableWildSearch</Name>
+    <Help>Enable wild search</Help>
+    <Value></Value>
+  </Setting>
 </Settings>

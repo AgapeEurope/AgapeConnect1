@@ -3,9 +3,9 @@
 <%@ Register TagPrefix="dnn" TagName="Audit" Src="~/controls/ModuleAuditControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Assembly="DotNetNuke.WebControls" Namespace="DotNetNuke.UI.WebControls" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div class="dnnForm dnnEditBanner dnnClear" id="dnnEditBanner">
-	<fieldset>
-		<div class="dnnFormItem dnnFormHelp dnnClear"><p class="dnnFormRequired"><span><%=Localization.GetString("RequiredFields", Localization.SharedResourceFile)%></span></p></div>
+	<fieldset>		
 		<div id="bannersRow" runat="server" Visible="false" class="dnnFormItem">
 			<asp:DataList id="lstBanners" runat="server" CellPadding="0" Width="100%" EnableViewState="true">
 				<itemstyle horizontalalign="Center" />
@@ -16,8 +16,8 @@
 			</asp:DataList>
 		</div>
 		<div class="dnnFormItem">
-			<dnn:Label id="plBannerName" runat="server" controlname="txtBannerName" />
-			<asp:textbox id="txtBannerName" runat="server" maxlength="100" Columns="30" cssclass="dnnFormRequired" />
+			<dnn:Label id="plBannerName" runat="server" controlname="txtBannerName" cssclass="dnnFormRequired" />
+			<asp:textbox id="txtBannerName" runat="server" maxlength="100" Columns="30"  />
 			<asp:requiredfieldValidator id="valBannerName" resourcekey="BannerName.ErrorMessage" runat="server" ControlToValidate="txtBannerName" Display="Dynamic" CssClass="dnnFormMessage dnnFormError"/>
 		</div>
 		<div class="dnnFormItem">
@@ -49,27 +49,25 @@
 			<div class="dnnLeft"><dnn:url id="ctlURL" runat="server" Required="False" ShowFiles="True" ShowTabs="True" ShowUrls="True" ShowTrack="False" ShowLog="False" UrlType="U" /></div>
 	   </div>    
 		<div class="dnnFormItem">
-			<dnn:Label id="plCPM" runat="server" controlname="txtCPM" />
-			<asp:TextBox id="txtCPM" runat="server" maxlength="7" Columns="30" cssclass="dnnFormRequired" />
+			<dnn:Label id="plCPM" runat="server" controlname="txtCPM" cssclass="dnnFormRequired" />
+			<asp:TextBox id="txtCPM" runat="server" maxlength="7" Columns="30" />
 			<asp:requiredfieldValidator id="valCPM" runat="server" resourcekey="CPM.ErrorMessage" ControlToValidate="txtCPM" Display="Dynamic" CssClass="dnnFormMessage dnnFormError" />
 			<asp:compareValidator id="compareCPM" runat="server" resourcekey="CPM.ErrorMessage" ControlToValidate="txtCPM" Display="Dynamic" Type="Currency" Operator="DataTypeCheck"
 				CssClass="dnnFormMessage dnnFormError" />
 		</div>    
 		<div class="dnnFormItem">
-			<dnn:Label id="plImpressions" runat="server" controlname="txtImpressions"/>
-			<asp:TextBox id="txtImpressions" runat="server" maxlength="10" Columns="30" cssclass="dnnFormRequired"/>
+			<dnn:Label id="plImpressions" runat="server" controlname="txtImpressions" cssclass="dnnFormRequired" />
+			<asp:TextBox id="txtImpressions" runat="server" maxlength="10" Columns="30" />
 			<asp:requiredfieldValidator id="valImpressions" resourcekey="Impressions.ErrorMessage" runat="server" ControlToValidate="txtImpressions" Display="Dynamic" CssClass="dnnFormMessage dnnFormError" />
 			<asp:compareValidator id="compareImpressions" resourcekey="Impressions.ErrorMessage" runat="server" Display="Dynamic" ControlToValidate="txtImpressions" Operator="DataTypeCheck" Type="Integer" CssClass="dnnFormMessage dnnFormError" />
 		</div>    
 		<div class="dnnFormItem">
 			<dnn:Label id="plStartDate" runat="server" controlname="txtStartDate" />
-			<asp:TextBox id="txtStartDate" runat="server" Columns="30" maxlength="11" />
-			<asp:hyperlink id="cmdStartCalendar" resourcekey="Calendar" CssClass="dnnSecondaryAction" Runat="server" />
+		    <dnn:DnnDatePicker ID="StartDatePicker" runat="server"/>
 		</div>    
 		<div class="dnnFormItem">
 			<dnn:Label id="plEndDate" runat="server" controlname="txtEndDate" />
-			<asp:TextBox id="txtEndDate" runat="server" Columns="30" maxlength="11" />
-			<asp:hyperlink id="cmdEndCalendar" resourcekey="Calendar" CssClass="dnnSecondaryAction" Runat="server" />
+			<dnn:DnnDatePicker ID="EndDatePicker" runat="server"/>
 		</div>    
 		<div class="dnnFormItem">
 			<dnn:Label id="plCriteria" runat="server" controlname="optCriteria" />

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPage.Text" xml:space="preserve">
     <value>Add Page(s)</value>
@@ -325,7 +325,7 @@
     <value>There are no modules on the selected page.</value>
   </data>
   <data name="TabExists.Text" xml:space="preserve">
-    <value>The Page Name you chose is already being used for another page at the same level of the page heirarchy.</value>
+    <value>The Page Name you chose is already being used for another page at the same level of the page hierarchy.</value>
   </data>
   <data name="TabCreated.Text" xml:space="preserve">
     <value>Page {0} Created</value>
@@ -391,7 +391,7 @@
     <value>Specify whether or not this page should be forced to use a secure connection (SSL). This option will only be enabled if the administrator has Enabled SSL in the site settings.</value>
   </data>
   <data name="lblPermanentRedirect.Help" xml:space="preserve">
-    <value>Check this box if you want to notify the client that this page should be considered as permanently moved.  This would allow SearchEngines to modify their urls to directly link to the resource.  This is ignored if the LinkType is None.</value>
+    <value>Check this box if you want to notify the client that this page should be considered as permanently moved.  This would allow SearchEngines to modify their URLs to directly link to the resource.  This is ignored if the LinkType is None.</value>
   </data>
   <data name="lblSitemapPriority.Help" xml:space="preserve">
     <value>Enter the desired priority (between 0 and 1.0).  This helps determine how this page is ranked in Google with respect to other pages on your site (0.5 is the default).</value>
@@ -411,16 +411,34 @@
   <data name="lblVisible.Help" xml:space="preserve">
     <value>You have the choice on whether or not to include the page in the main navigation menu. If a page is not included in the menu, you can still link to it based on its page URL.</value>
   </data>
-  <data name="valName.Text" xml:space="preserve">
+  <data name="valName.ErrorMessage" xml:space="preserve">
     <value>Page Name is required</value>
   </data>
   <data name="bulkPagesLabel.Text" xml:space="preserve">
     <value>Pages:</value>
   </data>
   <data name="PathDuplicateWithAlias.Text" xml:space="preserve">
-    <value>There has a site domain same with your page path.</value>
+    <value>There is a site domain identical to your page path.</value>
   </data>
   <data name="ExceededQuota.Text" xml:space="preserve">
     <value>It's not allowed to add page because adding a page will exceed the Page Quota for this site. Please contact your hosting provider for inquiries related to increasing your Page Quota.</value>
+  </data>
+  <data name="valRefresh.ErrorMessage" xml:space="preserve">
+    <value>Invalid number</value>
+  </data>
+  <data name="valPriority.ErrorMessage" xml:space="preserve">
+    <value>Invalid value for priority</value>
+  </data>
+  <data name="valPriorityRequired.ErrorMessage" xml:space="preserve">
+    <value>Priority is Required</value>
+  </data>
+  <data name="lblAllowIndex.Help" xml:space="preserve">
+    <value>This setting controls whether a page should be indexed by search crawlers. It uses the INDEX/NOINDEX values for ROBOTS meta tag.</value>
+  </data>
+  <data name="lblAllowIndex.Text" xml:space="preserve">
+    <value>Allow Indexing:</value>
+  </data>
+  <data name="Search.Text" xml:space="preserve">
+    <value>Search</value>
   </data>
 </root>

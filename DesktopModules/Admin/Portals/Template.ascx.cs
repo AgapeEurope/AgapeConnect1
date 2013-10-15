@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -46,6 +46,9 @@ using DotNetNuke.UI.Skins.Controls;
 using ICSharpCode.SharpZipLib.Zip;
 
 using FileInfo = DotNetNuke.Services.FileSystem.FileInfo;
+using System.Web.UI.WebControls;
+using Telerik.Web.UI;
+using System.Globalization;
 
 #endregion
 
@@ -64,7 +67,7 @@ namespace DotNetNuke.Modules.Admin.Portals
     /// -----------------------------------------------------------------------------
     public partial class Template : PortalModuleBase
     {
-		#region "Private Methods"
+        #region "Private Methods"
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -123,7 +126,7 @@ namespace DotNetNuke.Modules.Admin.Portals
         /// -----------------------------------------------------------------------------
         private void SerializeFolders(XmlWriter writer, PortalInfo objportal, ref ZipOutputStream zipFile)
         {
-			//Sync db and filesystem before exporting so all required files are found
+            //Sync db and filesystem before exporting so all required files are found
             var folderManager = FolderManager.Instance;
             folderManager.Synchronize(objportal.PortalID);
             writer.WriteStartElement("folders");
@@ -227,19 +230,33 @@ namespace DotNetNuke.Modules.Admin.Portals
                 //if not deleted
                 if (!tab.IsDeleted)
                 {
-                    //Serialize the Tab
-                    XmlNode tabNode = TabController.SerializeTab(new XmlDocument(), tabs, tab, portal, chkContent.Checked);
+                    XmlNode tabNode = null;
+                    if (string.IsNullOrEmpty(tab.CultureCode) || tab.CultureCode == portal.DefaultLanguage)
+                    {
+                        // page in default culture and checked
+                        if (ctlPages.CheckedNodes.Any(p => p.Value == tab.TabID.ToString(CultureInfo.InvariantCulture)))
+                            tabNode = TabController.SerializeTab(new XmlDocument(), tabs, tab, portal, chkContent.Checked);
+                    }
+                    else
+                    {
+                        // check if default culture page is selected
+                        TabInfo defaultTab = tab.DefaultLanguageTab;
+                        if (defaultTab == null || ctlPages.CheckedNodes.Count(p => p.Value == defaultTab.TabID.ToString(CultureInfo.InvariantCulture)) > 0)
+                            tabNode = TabController.SerializeTab(new XmlDocument(), tabs, tab, portal, chkContent.Checked);
+                    }
 
-                    tabNode.WriteTo(writer);
+                    if (tabNode != null)
+                        tabNode.WriteTo(writer);
                 }
             }
-            
+
         }
 
         /// -----------------------------------------------------------------------------
         /// <summary>
         /// Serializes all portal Tabs
         /// </summary>
+        /// <param name="writer"></param>
         /// <param name="portal">Portal to serialize</param>
         /// <remarks>
         /// Only portal tabs will be exported to the template, Admin tabs are not exported.
@@ -258,29 +275,325 @@ namespace DotNetNuke.Modules.Admin.Portals
 
             writer.WriteStartElement("tabs");
 
-            var locales = LocaleController.Instance.GetLocales(portal.PortalID).Values;
-            if (locales.Count > 1 && PortalSettings.ContentLocalizationEnabled)
+            if (chkMultilanguage.Checked)
             {
                 //Process Default Language first
                 SerializeTabs(writer, portal, tabs, tabController.GetTabsByPortal(portal.PortalID).WithCulture(portal.DefaultLanguage, true));
 
                 //Process other locales
-                foreach (Locale locale in locales.Where(l => l.Code != portal.DefaultLanguage))
+                foreach (ListItem language in chkLanguages.Items)
                 {
-                    SerializeTabs(writer, portal, tabs, tabController.GetTabsByPortal(portal.PortalID).WithCulture(locale.Code, false));
+                    if (language.Selected && language.Value != portal.DefaultLanguage)
+                        SerializeTabs(writer, portal, tabs, tabController.GetTabsByPortal(portal.PortalID).WithCulture(language.Value, false));
                 }
             }
             else
             {
-                SerializeTabs(writer, portal, tabs, tabController.GetTabsByPortal(portal.PortalID));
+                if (chkMultilanguage.Enabled)
+                {
+                    // only export 1 language
+                    string language = languageComboBox.SelectedValue;
+                    SerializeTabs(writer, portal, tabs, tabController.GetTabsByPortal(portal.PortalID).WithCulture(language, true));
+                }
+                else
+                {
+                    SerializeTabs(writer, portal, tabs, tabController.GetTabsByPortal(portal.PortalID));
+                }
             }
 
             writer.WriteEndElement();
         }
 
-		#endregion
+        private void SetupSettings()
+        {
+            var portalController = new PortalController();
+            var portalInfo = portalController.GetPortal(Convert.ToInt32(cboPortals.SelectedValue));
 
-		#region "EventHandlers"
+            Dictionary<string, string> settingsDictionary = PortalController.GetPortalSettingsDictionary(portalInfo.PortalID);
+            string setting;
+            bool contentLocalizable = false;
+            settingsDictionary.TryGetValue("ContentLocalizationEnabled", out setting);
+
+            if (!String.IsNullOrEmpty(setting))
+            {
+                bool.TryParse(setting, out contentLocalizable);
+            }
+            if (contentLocalizable)
+            {
+                chkMultilanguage.Enabled = true;
+                chkMultilanguage.Checked = true;
+                rowLanguages.Visible = true;
+
+                BindLocales(portalInfo);
+            }
+            else
+            {
+                chkMultilanguage.Enabled = false;
+                chkMultilanguage.Checked = false;
+                rowLanguages.Visible = false;
+                rowMultiLanguage.Visible = false;
+            }
+            BindTree(portalInfo);
+        }
+
+        private void BindLocales(PortalInfo portalInfo)
+        {
+            var locales = LocaleController.Instance.GetLocales(portalInfo.PortalID).Values;
+            MultiselectLanguages.Visible = false;
+            SingleSelectLanguages.Visible = false;
+            if (chkMultilanguage.Checked)
+            {
+                MultiselectLanguages.Visible = true;
+                chkLanguages.DataTextField = "EnglishName";
+                chkLanguages.DataValueField = "Code";
+                chkLanguages.DataSource = locales;
+                chkLanguages.DataBind();
+
+                foreach (ListItem item in chkLanguages.Items)
+                {
+                    if (item.Value == portalInfo.DefaultLanguage)
+                    {
+                        item.Enabled = false;
+                        item.Attributes.Add("title", string.Format(LocalizeString("DefaultLanguage"), item.Text));
+                        lblNote.Text = string.Format(LocalizeString("lblNote"), item.Text);
+                    }
+                    item.Selected = true;
+                }
+
+            }
+            else
+            {
+                languageComboBox.BindData(true);
+                languageComboBox.SetLanguage(portalInfo.DefaultLanguage);
+
+                SingleSelectLanguages.Visible = true;
+                lblNoteSingleLanguage.Text = string.Format(LocalizeString("lblNoteSingleLanguage"), new CultureInfo(portalInfo.DefaultLanguage).EnglishName);
+
+            }
+        }
+
+        #region Pages tree
+        private bool IsAdminTab(TabInfo tab)
+        {
+            var perms = tab.TabPermissions;
+            return perms.Cast<TabPermissionInfo>().All(perm => perm.RoleName == PortalSettings.AdministratorRoleName || !perm.AllowAccess);
+        }
+        private bool IsRegisteredUserTab(TabInfo tab)
+        {
+            var perms = tab.TabPermissions;
+            return perms.Cast<TabPermissionInfo>().Any(perm => perm.RoleName == PortalSettings.RegisteredRoleName && perm.AllowAccess);
+        }
+        private static bool IsSecuredTab(TabInfo tab)
+        {
+            var perms = tab.TabPermissions;
+            return perms.Cast<TabPermissionInfo>().All(perm => perm.RoleName != "All Users" || !perm.AllowAccess);
+        }
+
+        private string IconPortal
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_Portal.png");
+            }
+        }
+        private string GetNodeStatusIcon(TabInfo tab)
+        {
+            if (tab.DisableLink)
+            {
+                return string.Format("<img src=\"{0}\" alt=\"\" title=\"{1}\" class=\"statusicon\" />", IconPageDisabled, LocalizeString("lblDisabled"));
+            }
+
+            if (tab.IsVisible == false)
+            {
+                return string.Format("<img src=\"{0}\" alt=\"\" title=\"{1}\" class=\"statusicon\" />", IconPageHidden, LocalizeString("lblHidden"));
+            }
+
+            return "";
+        }
+        private string IconPageDisabled
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_Disabled.png");
+            }
+        }
+        private string IconPageHidden
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_Hidden.png");
+            }
+        }
+        private string AllUsersIcon
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_Everyone.png");
+            }
+        }
+        private string AdminOnlyIcon
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_UserAdmin.png");
+            }
+        }
+        private string IconHome
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_Home.png");
+            }
+        }
+        private string RegisteredUsersIcon
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_User.png");
+            }
+        }
+        private string SecuredIcon
+        {
+            get
+            {
+                return ResolveUrl("~/DesktopModules/Admin/Tabs/images/Icon_UserSecure.png");
+            }
+        }
+        private string GetNodeIcon(TabInfo tab, out string toolTip)
+        {
+            toolTip = "";
+            if (PortalSettings.HomeTabId == tab.TabID)
+            {
+                toolTip = LocalizeString("lblHome");
+                return IconHome;
+            }
+
+            if (IsSecuredTab(tab))
+            {
+                if (IsAdminTab(tab))
+                {
+                    toolTip = LocalizeString("lblAdminOnly");
+                    return AdminOnlyIcon;
+                }
+
+                if (IsRegisteredUserTab(tab))
+                {
+                    toolTip = LocalizeString("lblRegistered");
+                    return RegisteredUsersIcon;
+                }
+
+                toolTip = LocalizeString("lblSecure");
+                return SecuredIcon;
+            }
+
+            toolTip = LocalizeString("lblEveryone");
+            return AllUsersIcon;
+        }
+
+        private void BindTree(PortalInfo portal)
+        {
+            ctlPages.Nodes.Clear();
+
+            var tabController = new TabController();
+            var rootNode = new RadTreeNode
+                {
+                    Text = PortalSettings.PortalName,
+                    ImageUrl = IconPortal,
+                    Value = Null.NullInteger.ToString(CultureInfo.InvariantCulture),
+                    Expanded = true,
+                    AllowEdit = false,
+                    EnableContextMenu = true,
+                    Checked = true
+                };
+            rootNode.Attributes.Add("isPortalRoot", "True");
+
+            //var tabs = new TabCollection();
+            List<TabInfo> tabs;
+            if (chkMultilanguage.Checked)
+            {
+                tabs = TabController.GetPortalTabs(TabController.GetTabsBySortOrder(portal.PortalID, portal.DefaultLanguage, true),
+                     Null.NullInteger,
+                     false,
+                     "<" + Localization.GetString("None_Specified") + ">",
+                     true,
+                     false,
+                     true,
+                     false,
+                     false);
+
+                //Tabs = tabController.GetTabsByPortal(portal.PortalID).WithCulture(portal.DefaultLanguage, true);
+            }
+            else
+            {
+                tabs = TabController.GetPortalTabs(TabController.GetTabsBySortOrder(portal.PortalID, languageComboBox.SelectedValue, true),
+                     Null.NullInteger,
+                     false,
+                     "<" + Localization.GetString("None_Specified") + ">",
+                     true,
+                     false,
+                     true,
+                     false,
+                     false);
+                //tabs = tabController.GetTabsByPortal(portal.PortalID);
+            }
+
+            foreach (var tab in tabs) //.Values)
+            {
+                if (tab.Level == 0)
+                {
+                    string tooltip;
+                    var nodeIcon = GetNodeIcon(tab, out tooltip);
+                    var node = new RadTreeNode
+                    {
+                        Text = string.Format("{0} {1}", tab.TabName, GetNodeStatusIcon(tab)),
+                        Value = tab.TabID.ToString(CultureInfo.InvariantCulture),
+                        AllowEdit = true,
+                        ImageUrl = nodeIcon,
+                        ToolTip = tooltip,
+                        Checked = true
+                    };
+
+                    AddChildNodes(node, portal);
+                    rootNode.Nodes.Add(node);
+                }
+            }
+
+            ctlPages.Nodes.Add(rootNode);
+        }
+        private void AddChildNodes(RadTreeNode parentNode, PortalInfo portal)
+        {
+            parentNode.Nodes.Clear();
+
+            var parentId = int.Parse(parentNode.Value);
+
+            var Tabs = new TabController().GetTabsByPortal(portal.PortalID).WithCulture(languageComboBox.SelectedValue, true).WithParentId(parentId);
+
+
+            foreach (var tab in Tabs)
+            {
+                if (tab.ParentId == parentId)
+                {
+                    string tooltip;
+                    var nodeIcon = GetNodeIcon(tab, out tooltip);
+                    var node = new RadTreeNode
+                    {
+                        Text = string.Format("{0} {1}", tab.TabName, GetNodeStatusIcon(tab)),
+                        Value = tab.TabID.ToString(CultureInfo.InvariantCulture),
+                        AllowEdit = true,
+                        ImageUrl = nodeIcon,
+                        ToolTip = tooltip,
+                        Checked = true
+                    };
+                    AddChildNodes(node, portal);
+                    parentNode.Nodes.Add(node);
+                }
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region "EventHandlers"
 
         protected override void OnInit(EventArgs e)
         {
@@ -305,7 +618,7 @@ namespace DotNetNuke.Modules.Admin.Portals
 
             cmdCancel.Click += cmdCancel_Click;
             cmdExport.Click += cmdExport_Click;
-
+            cboPortals.SelectedIndexChanged += cboPortals_SelectedIndexChanged;
             try
             {
                 if (!Page.IsPostBack)
@@ -315,6 +628,8 @@ namespace DotNetNuke.Modules.Admin.Portals
                     cboPortals.DataValueField = "PortalId";
                     cboPortals.DataSource = objportals.GetPortals();
                     cboPortals.DataBind();
+                    cboPortals.SelectedValue = PortalId.ToString(CultureInfo.InvariantCulture);
+                    SetupSettings();
                 }
             }
             catch (Exception exc)
@@ -365,6 +680,31 @@ namespace DotNetNuke.Modules.Admin.Portals
         {
             try
             {
+                // Validations
+                bool isValid = true;
+
+                // Verify all ancestor pages are selected
+                foreach (RadTreeNode page in ctlPages.CheckedNodes)
+                {
+                    if (page.ParentNode != null && page.ParentNode.Value != "-1" && !page.ParentNode.Checked)
+                        isValid = false;
+                }
+                if (!isValid)
+                {
+                    DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, LocalizeString("ErrorAncestorPages"), ModuleMessage.ModuleMessageType.RedError);
+                }
+
+                if (ctlPages.CheckedNodes.Count == 0)
+                {
+                    isValid = false;
+                    DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, LocalizeString("ErrorPages"), ModuleMessage.ModuleMessageType.RedError);
+                }
+
+                if (!Page.IsValid || !isValid)
+                {
+                    return;
+                }
+
                 ZipOutputStream resourcesFile;
                 var sb = new StringBuilder();
                 var settings = new XmlWriterSettings();
@@ -372,10 +712,6 @@ namespace DotNetNuke.Modules.Admin.Portals
                 settings.OmitXmlDeclaration = true;
                 settings.Indent = true;
 
-                if (!Page.IsValid)
-                {
-                    return;
-                }
                 string filename;
                 filename = Globals.HostMapPath + txtTemplateName.Text;
                 if (!filename.EndsWith(".template"))
@@ -436,17 +772,15 @@ namespace DotNetNuke.Modules.Admin.Portals
                 {
                     writer.WriteElementString("portalaliasmapping", setting);
                 }
-                settingsDictionary.TryGetValue("ContentLocalizationEnabled", out setting);
-                if (!String.IsNullOrEmpty(setting))
-                {
-                    writer.WriteElementString("contentlocalizationenabled", setting);
-                }
+
+                writer.WriteElementString("contentlocalizationenabled", chkMultilanguage.Checked.ToString());
+
                 settingsDictionary.TryGetValue("TimeZone", out setting);
                 if (!string.IsNullOrEmpty(setting))
                 {
                     writer.WriteElementString("timezone", setting);
                 }
-                
+
                 writer.WriteElementString("hostspace", objportal.HostSpace.ToString());
                 writer.WriteElementString("userquota", objportal.UserQuota.ToString());
                 writer.WriteElementString("pagequota", objportal.PageQuota.ToString());
@@ -454,19 +788,54 @@ namespace DotNetNuke.Modules.Admin.Portals
                 //End Portal Settings
                 writer.WriteEndElement();
 
-                //Serialize Profile Definitions
-                SerializeProfileDefinitions(writer, objportal);
+                var enabledLocales = LocaleController.Instance.GetLocales(objportal.PortalID);
+                if (enabledLocales.Count > 1)
+                {
+                    writer.WriteStartElement("locales");
+                    if (chkMultilanguage.Checked)
+                    {
+                        foreach (ListItem item in chkLanguages.Items)
+                        {
+                            if (item.Selected)
+                            {
+                                writer.WriteElementString("locale", item.Value);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var enabledLocale in enabledLocales)
+                        {
+                            writer.WriteElementString("locale", enabledLocale.Value.Code);
+                        }
 
-                //Serialize Portal Desktop Modules
-                DesktopModuleController.SerializePortalDesktopModules(writer, objportal.PortalID);
+                    }
+                    writer.WriteEndElement();
 
-                //Serialize Roles
-                RoleController.SerializeRoleGroups(writer, objportal.PortalID);
+                }
+
+                if (chkProfile.Checked)
+                {
+                    //Serialize Profile Definitions
+                    SerializeProfileDefinitions(writer, objportal);
+                }
+
+                if (chkModules.Checked)
+                {
+                    //Serialize Portal Desktop Modules
+                    DesktopModuleController.SerializePortalDesktopModules(writer, objportal.PortalID);
+                }
+
+                if (chkRoles.Checked)
+                {
+                    //Serialize Roles
+                    RoleController.SerializeRoleGroups(writer, objportal.PortalID);
+                }
 
                 //Serialize tabs
                 SerializeTabs(writer, objportal);
 
-                if (chkContent.Checked)
+                if (chkFiles.Checked)
                 {
                     //Create Zip File to hold files
                     resourcesFile = new ZipOutputStream(File.Create(filename + ".resources"));
@@ -483,14 +852,36 @@ namespace DotNetNuke.Modules.Admin.Portals
 
                 writer.Close();
 
-				DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, "", string.Format(Localization.GetString("ExportedMessage", LocalResourceFile), filename), ModuleMessage.ModuleMessageType.GreenSuccess);
+                DotNetNuke.UI.Skins.Skin.AddModuleMessage(this, "", string.Format(Localization.GetString("ExportedMessage", LocalResourceFile), filename), ModuleMessage.ModuleMessageType.GreenSuccess);
             }
             catch (Exception exc)
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
         }
-		
-		#endregion
+
+        private void cboPortals_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetupSettings();
+        }
+
+        protected void chkMultilanguage_OnCheckedChanged(object sender, EventArgs e)
+        {
+            var portalController = new PortalController();
+            var portalInfo = portalController.GetPortal(Convert.ToInt32(cboPortals.SelectedValue));
+
+            BindLocales(portalInfo);
+            BindTree(portalInfo);
+        }
+
+        #endregion
+
+
+        protected void languageComboBox_OnItemChanged(object sender, EventArgs e)
+        {
+            var portalController = new PortalController();
+            var portalInfo = portalController.GetPortal(Convert.ToInt32(cboPortals.SelectedValue));
+            BindTree(portalInfo);
+        }
     }
 }

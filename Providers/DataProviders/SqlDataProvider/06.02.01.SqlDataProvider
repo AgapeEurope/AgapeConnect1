@@ -1550,6 +1550,22 @@ AS
 	WHERE  [MessageID] = @MessageID 
 
 GO
+
+/* Update role descriptions*/
+/***************************/
+
+UPDATE {databaseOwner}{objectQualifier}Roles
+	SET [Description] = 'Administrators of this Website'
+	WHERE RoleName = 'Administrators'
+	AND [Description] = 'Portal Administrators'
+GO
+
+UPDATE {databaseOwner}{objectQualifier}Roles
+	SET [Description] = 'A public role for site subscriptions'
+	WHERE RoleName = 'Subscribers'
+	AND [Description] = 'A public role for portal subscriptions'
+GO
+
 /************************************************************/
 /*****              SqlDataProvider                     *****/
 /************************************************************/

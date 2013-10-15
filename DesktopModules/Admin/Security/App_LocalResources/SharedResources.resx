@@ -231,4 +231,13 @@
   <data name="DisplayName.RegExError" xml:space="preserve">
     <value>The Display Name is invalid</value>
   </data>
+  <data name="Password.Help" xml:space="preserve">
+    <value>Enter your password</value>
+  </data>
+  <data name="VanityUrl.Help" xml:space="preserve">
+    <value>You can optionally choose a custom URL for your user profile.</value>
+  </data>
+  <data name="VanityUrl.Text" xml:space="preserve">
+    <value>Profile URL:</value>
+  </data>
 </root>

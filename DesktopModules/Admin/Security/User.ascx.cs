@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,18 +21,32 @@
 #region Usings
 
 using System;
+using System.Collections;
 using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 
+using DotNetNuke.Common.Utilities;
+using DotNetNuke.Entities.Host;
 using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Profile;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Framework;
 using DotNetNuke.Instrumentation;
+using DotNetNuke.Security;
 using DotNetNuke.Security.Membership;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.UI.Utilities;
+using DotNetNuke.Web.Client.ClientResourceManagement;
+using DotNetNuke.Web.UI.WebControls;
+
+using Telerik.Web.UI;
 
 using DataCache = DotNetNuke.Common.Utilities.DataCache;
 using Globals = DotNetNuke.Common.Globals;
+using System.Web.UI.WebControls;
 
 #endregion
 
@@ -50,6 +64,7 @@ namespace DotNetNuke.Modules.Admin.Users
     /// -----------------------------------------------------------------------------
     public partial class User : UserUserControlBase
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (User));
 		#region Public Properties
 
         public UserCreateStatus CreateStatus { get; set; }
@@ -129,6 +144,43 @@ namespace DotNetNuke.Modules.Admin.Users
 		#endregion
 
 		#region Private Methods
+
+        /// <summary>
+        /// method checks to see if its allowed to change the username
+        /// valid if a host, or an admin where the username is in only 1 portal
+        /// </summary>
+        /// <returns></returns>
+        private bool CanUpdateUsername()
+        {
+            //do not allow for non-logged in users
+            if (Request.IsAuthenticated==false || AddUser)
+            {
+                return false;
+            }
+
+            //can only update username if a host/admin and account being managed is not a superuser
+            if (UserController.GetCurrentUserInfo().IsSuperUser)
+            {
+                //only allow updates for non-superuser accounts
+                if (User.IsSuperUser==false)
+                {
+                    return true;
+                }
+            }
+
+            //if an admin, check if the user is only within this portal
+            if (UserController.GetCurrentUserInfo().IsInRole(PortalSettings.AdministratorRoleName))
+            {
+                //only allow updates for non-superuser accounts
+                if (User.IsSuperUser)
+                {
+                    return false;
+                }
+                if (PortalController.GetPortalsByUser(User.UserID).Count == 1) return true;
+            }
+
+            return false;
+        }
 
         private void UpdateDisplayName()
         {
@@ -312,6 +364,28 @@ namespace DotNetNuke.Modules.Admin.Users
 
             userNameReadOnly.Visible = !AddUser;
             userName.Visible = AddUser;
+            
+            if (CanUpdateUsername())
+            {
+               
+                renameUserName.Visible = true;
+                
+                userName.Visible = false;
+                userNameReadOnly.Visible = false;
+
+                ArrayList portals = PortalController.GetPortalsByUser(User.UserID);
+                if (portals.Count>1)
+                {
+                    numSites.Text=String.Format(Localization.GetString("UpdateUserName", LocalResourceFile), portals.Count.ToString());
+                    cboSites.Visible = true;
+                    cboSites.DataSource = portals;
+                    cboSites.DataTextField = "PortalName";
+                    cboSites.DataBind();
+
+                    renameUserPortals.Visible = true;
+                }
+            }
+
             var userNameSetting = GetSetting(UserPortalID, "Security_UserNameValidation");
             if ((userNameSetting != null) && (!string.IsNullOrEmpty(Convert.ToString(userNameSetting))))
             {
@@ -322,18 +396,6 @@ namespace DotNetNuke.Modules.Admin.Users
             if ((setting != null) && (!string.IsNullOrEmpty(Convert.ToString(setting))))
             {
                 email.ValidationExpression = Convert.ToString(setting);
-            }
-
-            foreach (ProfilePropertyDefinition def in User.Profile.ProfileProperties)
-            {
-                if (def.PropertyName == "FirstName")
-                {
-                    firstName.ValidationExpression = def.ValidationExpression;
-                }
-                if (def.PropertyName == "LastName")
-                {
-                    lastName.ValidationExpression = def.ValidationExpression;
-                }
             }
 
             setting = GetSetting(UserPortalID, "Security_DisplayNameFormat");
@@ -349,24 +411,39 @@ namespace DotNetNuke.Modules.Admin.Users
                     displayNameReadOnly.Visible = true;
                     displayName.Visible = false;
                 }
+                firstName.Visible = true;
+                lastName.Visible = true;
             }
             else
             {
                 displayNameReadOnly.Visible = false;
                 displayName.Visible = true;
+                firstName.Visible = false;
+                lastName.Visible = false;
             }
-
 
             userForm.DataSource = User;
 			if (!Page.IsPostBack)
 			{
 				userForm.DataBind();
+			    renameUserName.Value = User.Username;
 			}
         }
 
 		#endregion
 
 		#region Event Handlers
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            ClientResourceManager.RegisterScript(Page, "~/Resources/Shared/scripts/dnn.jquery.extensions.js");
+            ClientResourceManager.RegisterScript(Page, "~/Resources/Shared/scripts/dnn.jquery.tooltip.js");
+            ClientResourceManager.RegisterScript(Page, "~/Resources/Shared/scripts/dnn.PasswordStrength.js");
+			ClientResourceManager.RegisterScript(Page, "~/DesktopModules/Admin/Security/Scripts/dnn.PasswordComparer.js");
+
+            jQuery.RequestDnnPluginsRegistration();
+        }
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -386,6 +463,56 @@ namespace DotNetNuke.Modules.Admin.Users
             cmdRemove.Click += cmdRemove_Click;
             cmdRestore.Click += cmdRestore_Click;
         }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+
+			if (Host.EnableStrengthMeter)
+			{
+				passwordContainer.CssClass = "password-strength-container";
+				txtPassword.CssClass = "password-strength";
+				txtConfirm.CssClass = string.Format("{0} checkStength", txtConfirm.CssClass);
+				
+				var options = new DnnPaswordStrengthOptions();
+				var optionsAsJsonString = Json.Serialize(options);
+				var passwordScript = string.Format("dnn.initializePasswordStrength('.{0}', {1});{2}",
+					"password-strength", optionsAsJsonString, Environment.NewLine);
+
+				if (ScriptManager.GetCurrent(Page) != null)
+				{
+					// respect MS AJAX
+					ScriptManager.RegisterStartupScript(Page, GetType(), "PasswordStrength", passwordScript, true);
+				}
+				else
+				{
+					Page.ClientScript.RegisterStartupScript(GetType(), "PasswordStrength", passwordScript, true);
+				}
+			}
+
+			var confirmPasswordOptions = new DnnConfirmPasswordOptions()
+			{
+				FirstElementSelector = "#" + passwordContainer.ClientID + " input[type=password]",
+				SecondElementSelector = ".password-confirm",
+				ContainerSelector = ".dnnFormPassword",
+				UnmatchedCssClass = "unmatched",
+				MatchedCssClass = "matched"
+			};
+
+			var confirmOptionsAsJsonString = Json.Serialize(confirmPasswordOptions);
+			var confirmScript = string.Format("dnn.initializePasswordComparer({0});{1}", confirmOptionsAsJsonString, Environment.NewLine);
+
+			if (ScriptManager.GetCurrent(Page) != null)
+			{
+				// respect MS AJAX
+				ScriptManager.RegisterStartupScript(Page, GetType(), "ConfirmPassword", confirmScript, true);
+			}
+			else
+			{
+				Page.ClientScript.RegisterStartupScript(GetType(), "ConfirmPassword", confirmScript, true);
+			}
+        }
+
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -467,6 +594,7 @@ namespace DotNetNuke.Modules.Admin.Users
             {
                 return;
             }
+
             if (AddUser)
             {
                 if (IsValid)
@@ -488,6 +616,11 @@ namespace DotNetNuke.Modules.Admin.Users
                     {
 						//Update DisplayName to conform to Format
                         UpdateDisplayName();
+                        //either update the username or update the user details
+                        if (CanUpdateUsername())
+                        {
+                            UserController.ChangeUsername(User.UserID, HttpUtility.HtmlEncode(renameUserName.Value.ToString()));
+                        }
 
                         UserController.UpdateUser(UserPortalID, User);
                         OnUserUpdated(EventArgs.Empty);
@@ -495,7 +628,7 @@ namespace DotNetNuke.Modules.Admin.Users
                     }
                     catch (Exception exc)
                     {
-                        DnnLog.Error(exc);
+                        Logger.Error(exc);
 
                         var args = new UserUpdateErrorArgs(User.UserID, User.Username, "EmailError");
                         OnUserUpdateError(args);
@@ -505,6 +638,5 @@ namespace DotNetNuke.Modules.Admin.Users
         }
 		
 		#endregion
-
     }
 }

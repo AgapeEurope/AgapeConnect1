@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -382,7 +382,7 @@ namespace DotNetNuke.UI.ControlPanels
                         {
                             DisableAction(imgRolesIcon, "iconbar_roles_bw.gif", cmdRolesIcon, cmdRoles);
                         }
-                        if (GetModulePermission(PortalSettings.PortalId, "File Manager") == false)
+						if (GetModulePermission(PortalSettings.PortalId, "Digital Asset Management") == false)
                         {
                             DisableAction(imgFilesIcon, "iconbar_files_bw.gif", cmdFilesIcon, cmdFiles);
                         }
@@ -576,7 +576,7 @@ namespace DotNetNuke.UI.ControlPanels
                         break;
                     case "cmdFiles":
                     case "cmdFilesIcon":
-                        URL = BuildURL(PortalSettings.PortalId, "File Manager");
+						URL = BuildURL(PortalSettings.PortalId, "Digital Asset Management");
                         break;
                     case "cmdExtensions":
                     case "cmdExtensionsIcon":

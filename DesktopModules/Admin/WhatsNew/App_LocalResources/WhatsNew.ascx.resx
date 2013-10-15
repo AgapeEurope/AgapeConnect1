@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="footer.text" xml:space="preserve">
     <value>For a complete list of all bug fixes and enhancements, please see the &lt;a target="_blank" href="http://support.dotnetnuke.com/project/Project.aspx?Tab=Changelog&amp;PROJID=2"&gt;official change log&lt;/a&gt;.</value>
@@ -438,7 +438,7 @@ were corrected with each release.&lt;/p&gt;
 	webfarm where scheduled tasks can be executed.&lt;/li&gt;
 	&lt;li&gt;Enhanced the Scheduler to support multiple instances running on the same 
 	server&lt;/li&gt;
-	&lt;li&gt;Fixed issue with removing Superuser role from a user.&lt;/li&gt;
+	&lt;li&gt;Fixed issue with removing SuperUser role from a user.&lt;/li&gt;
 	&lt;li&gt;Fixed issue with deleting users which was not fully recognized by the 
 	rest of the application.&lt;/li&gt;
 	&lt;li&gt;Fixed issue with upgrades which would fail if .Net 3.5 was installed&lt;/li&gt;
@@ -1548,8 +1548,8 @@ corrected with each release. &lt;/p&gt;
           &lt;/ul&gt;
           &lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
           &lt;ul&gt;
-          &lt;li&gt;Added DNNWerk&#39;s Page Management Module to the DotNetNuke Core &lt;/li&gt;
-          &lt;li&gt;Added DNNWerk&#39;s RadEditor Provider to the DotNetNuke Core &lt;/li&gt;
+          &lt;li&gt;Added DNNWerk's Page Management Module to the DotNetNuke Core &lt;/li&gt;
+          &lt;li&gt;Added DNNWerk's RadEditor Provider to the DotNetNuke Core &lt;/li&gt;
           &lt;/ul&gt;
           &lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
           &lt;ul&gt;
@@ -1646,8 +1646,8 @@ corrected with each release. &lt;/p&gt;
 	&lt;li&gt;none&lt;/li&gt;
 &lt;/ul&gt;</value>
   </data>
-    <data name="WhatsNew.06.01.00" xml:space="preserve">
-      <value>
+  <data name="WhatsNew.06.01.00" xml:space="preserve">
+    <value>
           &lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
           &lt;ul&gt;
           &lt;li&gt;Implemented a new way of managing client resources which dramatically improves
@@ -1666,8 +1666,8 @@ corrected with each release. &lt;/p&gt;
           &lt;li&gt;Fixed the order of the pages in the Control Panel when adding new pages&lt;/li&gt;
           &lt;li&gt;Improved usability in the Edit Extensions Page&lt;/li&gt;
           &lt;li&gt;Telerik resource files were updated to version 915 release&lt;/li&gt;
-          &lt;li&gt;Updated the Portals Module and Site Settings to consistently display &quot;site&quot;
-          instead of &quot;portal&quot;&lt;/li&gt;
+          &lt;li&gt;Updated the Portals Module and Site Settings to consistently display "site"
+          instead of "portal"&lt;/li&gt;
           &lt;li&gt;The community modules have been removed from the installation package and
           will be available through the Extensions Catalog&lt;/li&gt;
           &lt;/ul&gt;
@@ -1689,9 +1689,9 @@ corrected with each release. &lt;/p&gt;
           &lt;li&gt;none&lt;/li&gt;
           &lt;/ul&gt;
       </value>
-    </data>
-    <data name="WhatsNew.06.01.01" xml:space="preserve">
-        <value>
+  </data>
+  <data name="WhatsNew.06.01.01" xml:space="preserve">
+    <value>
             &lt;H3 class=SubSubHead&gt;Major Highlights&lt;/H3&gt;
             &lt;UL&gt;
             &lt;LI&gt;Fixed problem with the core skin object rendering CSS above the other
@@ -1711,9 +1711,9 @@ corrected with each release. &lt;/p&gt;
             &lt;UL&gt;
             &lt;LI&gt;none &lt;/LI&gt;&lt;/UL&gt;
         </value>
-    </data>
-    <data name="WhatsNew.06.01.02" xml:space="preserve">
-      <value>
+  </data>
+  <data name="WhatsNew.06.01.02" xml:space="preserve">
+    <value>
         &lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
         &lt;ul&gt;
         &lt;li&gt;Updated XmlMerge to support location tags in web.config&lt;/li&gt;
@@ -1764,9 +1764,9 @@ corrected with each release. &lt;/p&gt;
         &lt;li&gt;RadEditor Provider&lt;/li&gt;
         &lt;/ul&gt;
       </value>
-    </data>
+  </data>
   <data name="WhatsNew.06.01.03" xml:space="preserve">
-        <value>
+    <value>
         &lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
         &lt;ul&gt;
 	        &lt;li&gt;Fixed issue during CE to PE upgrade that caused the Google Analytics module 
@@ -1786,9 +1786,9 @@ corrected with each release. &lt;/p&gt;
 	        &lt;li&gt;Fixed error logged when marking an item as ready for translation&lt;/li&gt;
 	        &lt;li&gt;Fixed upgrade issue in the files table when upgrading from 5.x.x to 6.x.x.&lt;/li&gt;
 	        &lt;li&gt;Fixed issue when creating module from the Newsletter module&lt;/li&gt;
-	        &lt;li&gt;Fixed UI issue in the Tabs Module where the legend didn&#39;t wrap&lt;/li&gt;
+	        &lt;li&gt;Fixed UI issue in the Tabs Module where the legend didn't wrap&lt;/li&gt;
 	        &lt;li&gt;Updated assemblies to Telerik Q3 2011 Ajax&lt;/li&gt;
-	        &lt;li&gt;Included missing key in the GlobalResources.resx file (&quot;//Admin//Lists.text&quot;)&lt;/li&gt;
+	        &lt;li&gt;Included missing key in the GlobalResources.resx file ("//Admin//Lists.text")&lt;/li&gt;
 	        &lt;li&gt;Fixed issue where language key were missing in the RadEditor&lt;/li&gt;
 	        &lt;li&gt;Implemented work around for a bug in the browser definition files that were causing ASP.NET to not be able to detect certain browsers&lt;/li&gt;
 	        &lt;li&gt;Fixed issue with localization files not being handled correctly by the Telerik DNN Grid&lt;/li&gt;
@@ -1814,7 +1814,7 @@ corrected with each release. &lt;/p&gt;
 	        &lt;li&gt;none&lt;/li&gt;
         &lt;/ul&gt;
         </value>
-    </data>
+  </data>
   <data name="WhatsNew.06.01.04" xml:space="preserve">
     <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
 &lt;ul&gt;
@@ -1886,7 +1886,7 @@ corrected with each release. &lt;/p&gt;
       &lt;li&gt;Fixed issue when creating extensions from Host &gt; Extensions&lt;/li&gt;
       &lt;li&gt;Fixed issue in the Site Settings when single quotes were being treated as escape characters&lt;/li&gt;
       &lt;li&gt;
-        Fixed issue with PDF&#39;s getting corrupted when sending them as
+        Fixed issue with PDF's getting corrupted when sending them as
         attachments in the Newsletter Module
       &lt;/li&gt;
       &lt;li&gt;Fixed font styling issues in the installation flow&lt;/li&gt;
@@ -2071,5 +2071,578 @@ corrected with each release. &lt;/p&gt;
         &lt;li&gt;none&lt;/li&gt;
       &lt;/ul&gt;
     </value>
+  </data>
+  <data name="WhatsNew.06.02.03" xml:space="preserve">
+    <value>
+      &lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Fixed issue where mailto: links were not working when sending bulk email&lt;/li&gt;
+&lt;li&gt;Fixed issue where users did not see friendship relationships&lt;/li&gt;
+&lt;li&gt;Problem is in 6.2, which does not show in the Versions Affected list above&lt;/li&gt;
+&lt;li&gt;Fixed the issue with cascade deletes in comments in CoreMessaging_Notification&lt;/li&gt;
+&lt;li&gt;Fixed UI issue when using a date fields as a required profile property during user registration&lt;/li&gt;
+&lt;li&gt;Fixed error when running the product in debug mode&lt;/li&gt;
+&lt;li&gt;Fixed visibility issue when a user publishes a comment on a friend's wall&lt;/li&gt;
+&lt;li&gt;Fixed issue that caused module icons to not appear in the UI&lt;/li&gt;
+&lt;li&gt;Fixed UI issue in the datepicker control when using Chrome&lt;/li&gt;
+&lt;li&gt;Fixed issue where saving a page removed the page icon&lt;/li&gt;
+&lt;li&gt;Fixed issue with effective and expiry dates of roles&lt;/li&gt;
+&lt;li&gt;Fixed UI issue when expanding all tabs in the HTML Editor Manager&lt;/li&gt;
+&lt;li&gt;Fixed issue that caused the profile picture to disappear when switching from English to French&lt;/li&gt;
+&lt;li&gt;Fixed issue where use trial link appeared for a service even if no trial period was setup&lt;/li&gt;
+&lt;li&gt;Fixed validation issue in profile properties&lt;/li&gt;
+&lt;li&gt;Fixed issue in Member Directory filter by profile property where registered users did not get the correct results&lt;/li&gt;
+&lt;li&gt;Fixed issue that caused Social Group Roles to be limited to the Global Role group&lt;/li&gt;
+&lt;li&gt;Removed settings that did not apply from Super User Account Module Settings&lt;/li&gt;
+&lt;li&gt;Fixed UX issue in the Journal when the product is installed in Dutch&lt;/li&gt;
+&lt;li&gt;Fixed issue in the journal when entering URL's of the format www.domain.com instead of http://www.domain.com&lt;/li&gt;
+&lt;li&gt;Fixed issue when using '&amp;' in the title of Social Groups&lt;/li&gt;
+&lt;li&gt;Updated to the latest version of the Telerik libraries&lt;/li&gt;
+&lt;li&gt;Added a warning message when deleting comments from the Journal&lt;/li&gt;
+&lt;li&gt;Updated the DotNetNuke.Data.SqlDataProvider so that the product runs in Azure successfully&lt;/li&gt;
+
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;File Manager&lt;/li&gt;
+&lt;li&gt;Journal Module&lt;/li&gt;
+&lt;li&gt;Member Directory Module&lt;/li&gt;
+&lt;li&gt;Social Groups Module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+    </value>
+  </data>
+  <data name="WhatsNew.06.02.04" xml:space="preserve">
+    <value>
+      &lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;Fixed issue where the module printing function was only visible to administrators&lt;/li&gt;
+	      &lt;li&gt;Fixed issue where pane level skinning was being assigned to a default container for any content pane&lt;/li&gt;
+	      &lt;li&gt;Fixed issue when using password aging and FB / Google authentication&lt;/li&gt;
+	      &lt;li&gt;Fixed issue that was causing the DateEditControl to not load the assigned value&lt;/li&gt;
+	      &lt;li&gt;Fixed issue that stopped additional profile properties to be displayed in the member directory after modifying the template&lt;/li&gt;
+	      &lt;li&gt;Fixed error that stopped users from saving host settings when a custom port number is used in the SMTP server&lt;/li&gt;
+	      &lt;li&gt;Fixed issue when replying to a message sent to a role by the administrator&lt;/li&gt;
+	      &lt;li&gt;Fixed performance issue when importing site templates with hundreds of pages&lt;/li&gt;
+	      &lt;li&gt;Improved flow when creating profile properties&lt;/li&gt;
+	      &lt;li&gt;Fixed race condition when using the unverified users functionality&lt;/li&gt;
+	      &lt;li&gt;Enhanced the page creation process so that "/", "-", "*" can be used in page names&lt;/li&gt;
+	      &lt;li&gt;Fixed issue where the Enable Localized Content was disabled for newly added languages&lt;/li&gt;
+	      &lt;li&gt;Fixed error shown to the user when the messaging is configured to limit the number of recipients to 1 and the user tries to message multiple users&lt;/li&gt;
+	      &lt;li&gt;Fixed validation issue in the Trial Fee field when creating / editing roles using billing and trial periods&lt;/li&gt;
+	      &lt;li&gt;Fixed UI issue in the biography field in the profile&lt;/li&gt;
+	      &lt;li&gt;Enhanced the deletion process of child sites so that the folder is deleted and the name can be reused&lt;/li&gt;
+	      &lt;li&gt;Updated the DotNetNuke.Data.SqlDataProvider so that the product runs in Azure successfully&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;none&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+      &lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;Member Directory Module&lt;/li&gt;
+	      &lt;li&gt;Messaging Module&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;none&lt;/li&gt;
+      &lt;/ul&gt;
+    </value>
+  </data>
+  <data name="WhatsNew.06.02.05" xml:space="preserve">
+    <value>
+      &lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;Updated the system so that it supports nested folders in the App_Code folder&lt;/li&gt;
+	      &lt;li&gt;Updated the Global Error Handling so that when errors within the global.asax handler happen, they are caught and shown in a page displaying the original HTTP error code&lt;/li&gt;
+	      &lt;li&gt;Fixed issue that stopped users from specifying Link URLs that open on a new window&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;Fixed issue in the Member Directory module that could show members to non authenticated users&lt;/li&gt;
+          &lt;li&gt;Fixed issue in the Lists module that could potentially be used for script / html injection&lt;/li&gt;
+          &lt;li&gt;Fixed issue in Module's titles that would allow users to enter html or JavaScript code&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+      &lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;none&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;none&lt;/li&gt;
+      &lt;/ul&gt;
+    </value>
+  </data>
+  <data name="WhatsNew.07.00.00" xml:space="preserve">
+    <value>
+      &lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;Fixed issue that caused profiles of deleted users to be available&lt;/li&gt;
+	      &lt;li&gt;Removed the postback after checkboxes are selected in Page Settings &gt; Taxonomy&lt;/li&gt;
+	      &lt;li&gt;Implemented the functionality required to edit security role names and social group names&lt;/li&gt;
+	      &lt;li&gt;Fixed JavaScript error when using a ";" semicolon as a profile property&lt;/li&gt;
+	      &lt;li&gt;Fixed issue when using DateTime properties in profiles&lt;/li&gt;
+	      &lt;li&gt;Fixed viewstate error when using Facebook authentication in conjunction with "require valid profile for login"&lt;/li&gt;
+	      &lt;li&gt;Fixed issue where cached pages were not sending Content-Type in the response header&lt;/li&gt;
+	      &lt;li&gt;Fixed issue where deleting the razor host module caused the razorhelpers to be deleted too&lt;/li&gt;
+	      &lt;li&gt;Fixed issue where users could not upload a profile picture when a site belonged to a site group&lt;/li&gt;
+	      &lt;li&gt;Fixed issue where the Journal ignores the page size setting&lt;/li&gt;
+	      &lt;li&gt;Fixed issue where URLs were incorrect after moving a site with site groups enabled to a new serer&lt;/li&gt;
+	      &lt;li&gt;Fixed issue in the Journal that made image thumbnails not clickable&lt;/li&gt;
+	      &lt;li&gt;Fixed issue in the Journal where images were played like youtube videos&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;Fixed issue in the Member Directory module that could show members to non authenticated users&lt;/li&gt;
+          &lt;li&gt;Fixed issue in the Lists module that could potentially be used for script / html injection&lt;/li&gt;
+          &lt;li&gt;Fixed issue in Module's titles that would allow users to enter html or JavaScript code&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+      &lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;File Manager&lt;/li&gt;
+	      &lt;li&gt;Journal&lt;/li&gt;
+	      &lt;li&gt;Member Directory&lt;/li&gt;
+	      &lt;li&gt;Message Center&lt;/li&gt;
+	      &lt;li&gt;My Modules&lt;/li&gt;
+	      &lt;li&gt;Social Groups&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+      &lt;ul&gt;
+	      &lt;li&gt;none&lt;/li&gt;
+      &lt;/ul&gt;
+    </value>
+  </data>
+  <data name="WhatsNew.07.00.01" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue in sitemap priority when hosting services uses commas instead of dots as decimal separators&lt;/li&gt;
+	&lt;li&gt;This issue affects directly to the no technician user of portal&lt;/li&gt;
+	&lt;li&gt;Fixed issue where files with special characters were not encoded correctly in the URL&lt;/li&gt;
+	&lt;li&gt;Fixed error that cause settings to not be saved from the page management module&lt;/li&gt;
+	&lt;li&gt;Fixed issue in the device redirection module where the isTablet or Both options were not being enabled when upgrading to the 51Degrees Basic data&lt;/li&gt;
+	&lt;li&gt;Fixed issue where the hyperlink manager threw an exception when running in debug mode&lt;/li&gt;
+	&lt;li&gt;Fixed issue in the editor provider dialog that caused "My Folder" to not show&lt;/li&gt;
+	&lt;li&gt;Fixed issue in the Journal where clicking the Get More button threw an authorization error&lt;/li&gt;
+	&lt;li&gt;Fixed issue that stopped users from deleting role groups&lt;/li&gt;
+	&lt;li&gt;Fixed module permissions issue when the editor has permissions to edit a module but not the page&lt;/li&gt;
+	&lt;li&gt;Fixed issue where autosave was not enabled by default when upgrading from CE to PE or EE&lt;/li&gt;
+	&lt;li&gt;Fixed error when sending a friend request to a member of a child site when the sites are in a group&lt;/li&gt;
+	&lt;li&gt;Fixed issue in the Journal where the text box would hide when commenting on an existing comment&lt;/li&gt;
+	&lt;li&gt;Fixed issue in the control panel where the module list would not work correctly with Firefox 17&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused only one component to be shown when adding multi-component modules to a page&lt;/li&gt;
+	&lt;li&gt;Fixed UI issue that caused the control panel to not hide when the HTML Editor is set to full screen mode&lt;/li&gt;
+	&lt;li&gt;Fixed issue where lists with large recordsets didn't be display all records&lt;/li&gt;
+	&lt;li&gt;Fixed issue that made images not clickable in the Journal&lt;/li&gt;
+	&lt;li&gt;Fixed issue that cause the Image or File Upload icons in the Journal to now work when using Firefox 17&lt;/li&gt;
+	&lt;li&gt;Fixed issue that made the Taxonomy module unavailable&lt;/li&gt;
+	&lt;li&gt;Fixed issue when using jquery tabs&lt;/li&gt;
+	&lt;li&gt;Added horizontal scrolling to grids with large record sets&lt;/li&gt;
+	&lt;li&gt;Removed the Feed Explorer module from the package&lt;/li&gt;
+	&lt;li&gt;Added the isSmartPhone property to the device redirection module when upgrading to the Basic or Premium data&lt;/li&gt;
+	&lt;li&gt;Optimized the messaging and notifications html / css to maximize the default.css inheritance&lt;/li&gt;
+	&lt;li&gt;Fixed issue where the user was not able to download language packs from the host - languages section&lt;/li&gt;
+
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;ul&gt;
+	&lt;li&gt;Enhanced the code that generates profile pictures to avoid performance problems&lt;/li&gt;
+    &lt;li&gt;Enhanced the member search to avoid data compromise&lt;/li&gt;
+    &lt;li&gt;A number of browsers incorrectly implement a particular HTML tag, in violation of the official W3C standards. Defensive coding was added to avoid the posibility to use this tag to redirect requests for certain files to another site&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;File Manager&lt;/li&gt;
+	&lt;li&gt;Pages Module&lt;/li&gt;
+	&lt;li&gt;Taxonomy Manager&lt;/li&gt;
+	&lt;li&gt;HTML Editor&lt;/li&gt;
+	&lt;li&gt;Journal&lt;/li&gt;
+	&lt;li&gt;Member Directory Module&lt;/li&gt;
+	&lt;li&gt;Device Detection and Redirection Module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.00.02" xml:space="preserve">
+    <value>
+      
+&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue that made the edit module icon to not appear when editing pages&lt;/li&gt;
+
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+    </value>
+  </data>
+  <data name="WhatsNew.06.02.06" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue that cause the member avatars to not show in the Member Directory&lt;/li&gt;
+
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Enhanced the code that generates profile pictures to avoid performance problems&lt;/li&gt;
+    &lt;li&gt;Enhanced the member search to avoid data compromise&lt;/li&gt;
+    &lt;li&gt;A number of browsers incorrectly implement a particular HTML tag, in violation of the official W3C standards. Defensive coding was added to avoid the posibility to use this tag to redirect requests for certain files to another site&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;Member Directory Module&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.06.02.08" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue where the application throws an Unhandled Error and an HTTP Response Code of 200 when the connection to the database is lost&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;None&lt;/li&gt;
+
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;None&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;None&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.00.03" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue that prevented non admins and non hosts to save HTML content as a template&lt;/li&gt;
+	&lt;li&gt;Fixed potential endless loop when using the device redirection on a new site&lt;/li&gt;
+	&lt;li&gt;Fixed UI issue where sub menus could go off screen&lt;/li&gt;
+	&lt;li&gt;Fixed issue that stopped users from switching sites from the control bar&lt;/li&gt;
+	&lt;li&gt;Fixed CSS issue for disabled menu items&lt;/li&gt;
+	&lt;li&gt;Fixed issue with link in the Journal when a site is restored in a different server&lt;/li&gt;
+	&lt;li&gt;Fixed issue that prevented pop ups from closing when a window would not use the default alias for JQuery&lt;/li&gt;
+	&lt;li&gt;Fixed errors when registering or logging in using a Twitter account&lt;/li&gt;
+	&lt;li&gt;Fixed issue that stopped users from updating the Max File Size value&lt;/li&gt;
+	&lt;li&gt;Implemented functionality in the Admin &gt; Advanced Configuration &gt; Languages so that users are able to re install and upgrade language packs&lt;/li&gt;
+	&lt;li&gt;Fixed error in the HTML Editor Image Manager that stopped users from navigating the complete folder structure&lt;/li&gt;
+	&lt;li&gt;Improved performance of the File Explorer when looking for files from an HTML module&lt;/li&gt;
+	&lt;li&gt;Fixed issue where more than one language pack was being shown for each language during installation&lt;/li&gt;
+	&lt;li&gt;Fixed issue where notification emails were not being sent&lt;/li&gt;
+	&lt;li&gt;Fixed issue where the wrong timezone would be set in the host user's profile&lt;/li&gt;
+	&lt;li&gt;Fixed issue where email was not getting delivered when a user received a message from another user&lt;/li&gt;
+	&lt;li&gt;Fixed issue that prevented users from renaming pages that include special characteres&lt;/li&gt;
+	&lt;li&gt;Enhanced the flow when downloading documents that can be opened in a browser (like xml)&lt;/li&gt;
+	&lt;li&gt;Removed non FIPS compliant code from the Client Resource Management component&lt;/li&gt;
+	&lt;li&gt;Fixed issue where the user was not able to download language packs from the host &gt; languages section&lt;/li&gt;
+	&lt;li&gt;Implemented functionality to send query strings when redirecting sites using the mobile redirection feature&lt;/li&gt;
+
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;File Manager Module&lt;/li&gt;
+	&lt;li&gt;HTML Module&lt;/li&gt;
+	&lt;li&gt;Journal Module&lt;/li&gt;
+	&lt;li&gt;Messaging Module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.00.04" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue that caused message replies to now show in the feed&lt;/li&gt;
+	&lt;li&gt;Fixed errors in Razor DDR Templates when upgrading to a version higher than 7.0.0&lt;/li&gt;
+	&lt;li&gt;Fixed issue that prevented hosts users from changing their password&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused line feeds to be removed from messages when using Firefox&lt;/li&gt;
+	&lt;li&gt;Fixed UX issue when copying pages from the control panel&lt;/li&gt;
+	&lt;li&gt;Fixed JS errors when creating pages using IE 10&lt;/li&gt;
+	&lt;li&gt;Fixed issue where standard asp file input elements were rendered incorrectly&lt;/li&gt;
+	&lt;li&gt;Fixed drag and drop functionality when updating a user's profile picture&lt;/li&gt;
+	&lt;li&gt;Replaced the old style icons for modules shown in the control panel&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused the server to hang when pages were moved using the Pages Module&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused the site logo to not function correctly on child websites&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused autocomplete to fail when a Console Module was added to a page&lt;/li&gt;
+	&lt;li&gt;Fixed module actions positioning issues when using ajax to load content after the page is rendered&lt;/li&gt;
+	&lt;li&gt;Enhanced the way user names are displayed when liking comments in the Journal Module&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused multilingual sites to show duplicate entries in the site switching tool in the control panel&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused multiple entries to be added to the ContentItems table when adding tags to modules&lt;/li&gt;
+	&lt;li&gt;Updated the list of devices in the Preview Management Module to include the most popular devices to date&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;Pages Module&lt;/li&gt;
+	&lt;li&gt;DDR Menu&lt;/li&gt;
+	&lt;li&gt;Journal Module&lt;/li&gt;
+	&lt;li&gt;Messaging Module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.00.05" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue in the Client Resource Manager where data URL's were removed when running the composite files option&lt;/li&gt;
+	&lt;li&gt;Fixed issue when switching language from the control panel&lt;/li&gt;
+	&lt;li&gt;Fixed issue that stopped the Telerik RadMenu and RadTabstring from rendering correctly when an HTML module is added to the same page&lt;/li&gt;
+	&lt;li&gt;Fixed issue that stopped users from changing login settings&lt;/li&gt;
+	&lt;li&gt;Fixed issue that stopped users from changing the settings in the event viewer&lt;/li&gt;
+	&lt;li&gt;Fixed postback issue when copying a page using the control panel&lt;/li&gt;
+	&lt;li&gt;Implemented module icon override when updating to a new version of the product&lt;/li&gt;
+	&lt;li&gt;Fixed image upload control rendering issue  when using IE or Firefox&lt;/li&gt;
+	&lt;li&gt;Fixed issue that makes the dashboard fail when running SQL Azure&lt;/li&gt;
+	&lt;li&gt;Fixed export as XML in Dashboard feature when running on SQL Azure&lt;/li&gt;
+	&lt;li&gt;Fixed upgrade issue when hosting a site in SQL Azure&lt;/li&gt;
+	&lt;li&gt;Fixed password validation issue when adding a new user&lt;/li&gt;
+	&lt;li&gt;Added autocomplete when searching for devices to the Device Preview Management module&lt;/li&gt;
+	&lt;li&gt;Fix issue when the user is upgrading DNN and recycles the app pool before calling the upgrade page&lt;/li&gt;
+	&lt;li&gt;Fixed support pop ups feature when creating a new module from a manifest file&lt;/li&gt;
+	&lt;li&gt;Fixed the To and From logic in the messaging module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed permissions issue when uploading files throught Service Framework requests&lt;/li&gt;
+	&lt;li&gt;Fixed potential javascript injections on sites running multiple languages&lt;/li&gt;
+	&lt;li&gt;Implemented filters in the rich text editor to avoid the posibility of cross-site scription issues&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;Log Viewer Module&lt;/li&gt;
+	&lt;li&gt;Pages Module&lt;/li&gt;
+	&lt;li&gt;Taxonomy Module&lt;/li&gt;
+	&lt;li&gt;Dashboard Module&lt;/li&gt;
+	&lt;li&gt;HTML Module&lt;/li&gt;
+	&lt;li&gt;Member Directory Module&lt;/li&gt;
+	&lt;li&gt;Messaging Module&lt;/li&gt;
+	&lt;li&gt;Site Groups Module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.00.06" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Fixed issue that caused broken links when changing the name of a page&lt;/li&gt;
+	&lt;li&gt;Added search capabilities in the page management section&lt;/li&gt;
+	&lt;li&gt;Added new funtionality to the Member Directory so that users can choose between the different search options&lt;/li&gt;
+	&lt;li&gt;When creating a social group the newly created role group is now set as the default group&lt;/li&gt;
+	&lt;li&gt;Implemented new functionality to allow users to hid the login button in the default skin&lt;/li&gt;
+	&lt;li&gt;Removed the module and skin templates from the Starter Kit package&lt;/li&gt;
+	&lt;li&gt;Fixed issue that shows an error when registration is set to unique display name&lt;/li&gt;
+	&lt;li&gt;Fixed issue that made child site files not to show when managing sites&lt;/li&gt;
+	&lt;li&gt;Fixed UX issue when changing the file size in the configuration management section&lt;/li&gt;
+	&lt;li&gt;Fixed issue in the Journal module where followers could see posts that are meant for friends only&lt;/li&gt;
+	&lt;li&gt;Fixed paging conflict between roles and users in the users' accounts screen&lt;/li&gt;
+	&lt;li&gt;Added new functionality that allows users to see all the social groups they belong to&lt;/li&gt;
+	&lt;li&gt;Fixed issue where separating a site from a group would not copy all the users&lt;/li&gt;
+	&lt;li&gt;Fixed issue when creating a page from a template when the template has modules that are set to display on all pages&lt;/li&gt;
+	&lt;li&gt;Removed the "-" from the invalid character list for page names&lt;/li&gt;
+	&lt;li&gt;Fixed the styling in the date time picker to display the time&lt;/li&gt;
+	&lt;li&gt;Fixed issue that shown the tokens when searching for pages&lt;/li&gt;
+	&lt;li&gt;Fixed issue that made the site redirection management screen to not work correctly when pop ups are disabled&lt;/li&gt;
+	&lt;li&gt;Fixed issue where exported templates point to the incorrect site settings&lt;/li&gt;
+	&lt;li&gt;Fixed issue that caused Social Group Roles to be limited to the Global Role group&lt;/li&gt;
+	&lt;li&gt;Fixed issue when page names include a ":" colon&lt;/li&gt;
+	&lt;li&gt;Fixed issue where scheduler runs overlap when retry is set to a short interval&lt;/li&gt;
+	&lt;li&gt;Fixed issue with modules that are expected to display in all pages and Content Localization is enabled.&lt;/li&gt;
+	&lt;li&gt;Implemented auto-refresh functionality in the message center so that users can see updates in real time without refreshing the page&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;Device Preview Management Module&lt;/li&gt;
+	&lt;li&gt;Pages Module&lt;/li&gt;
+	&lt;li&gt;Journal Module&lt;/li&gt;
+	&lt;li&gt;Member Directory Module&lt;/li&gt;
+	&lt;li&gt;Site Groups Module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;none&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.01.00" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Implemented functionality so that users are able to assign custom CSS to pages without modifying the skin&lt;/li&gt;
+	&lt;li&gt;Updated to JQuery 1.9.1&lt;/li&gt;
+	&lt;li&gt;Implemented auto-complete functinoality in the taxonomy module&lt;/li&gt;
+	&lt;li&gt;Updated the page and  user selector controls to improve the experience in larger sites with multiple users&lt;/li&gt;
+	&lt;li&gt;Implemented a warning message for Azure users when they install a module that does not have the Azure Compatible flag&lt;/li&gt;
+	&lt;li&gt;Fixed issue where users were being logged out if switching between www.domain.com and domain.com&lt;/li&gt;
+	&lt;li&gt;Fixed issue when exporting and importing a template where content localization is enabled&lt;/li&gt;
+	&lt;li&gt;Fixed issue where data was not being cleaned up after removing a folder provider&lt;/li&gt;
+	&lt;li&gt;Fixed issue that made modules not to render corectly when module caching was enabled through the Client Resource Management Framework&lt;/li&gt;
+	&lt;li&gt;Added support for accents in profile properties&lt;/li&gt;
+	&lt;li&gt;Fixed issue where calling the GetUserByVanityUrl function was throwing an error&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;None&lt;/li&gt;
+
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;File Manager&lt;/li&gt;
+	&lt;li&gt;Languages Module&lt;/li&gt;
+	&lt;li&gt;Pages Module&lt;/li&gt;
+	&lt;li&gt;Taxonomy Module&lt;/li&gt;
+	&lt;li&gt;Journal Module&lt;/li&gt;
+	&lt;li&gt;Membler Directory Module&lt;/li&gt;
+	&lt;li&gt;Social Groups&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+	&lt;li&gt;None&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.01.01" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;Fixed issue where vanity URL was not working correctly in FireFox&lt;/li&gt;
+    &lt;li&gt;Fixed issue where default Friendly URL setting was missing for the doNotRewriteRegex&lt;/li&gt;
+    &lt;li&gt;Fixed issue where language URLs were not working&lt;/li&gt;
+    &lt;li&gt;Fixed issue where adding a new page resulted in an error message&lt;/li&gt;
+    &lt;li&gt;Added the ability to define a standard prefix to vanity URLs&lt;/li&gt;
+    &lt;li&gt;Fixed issue where the unauthenticated role permissions were not being applied&lt;/li&gt;
+    &lt;li&gt;Fixed issue where password strength meter was missing for sites upgraded to 7.1&lt;/li&gt;
+    &lt;li&gt;Fixed issue where the Search Admin was missing a resx file in the mobile site template&lt;/li&gt;
+    &lt;li&gt;Updated RadControls for ASP.Net Ajax to the Q2 2013 release&lt;/li&gt;
+    &lt;li&gt;Fixed issue where hard-deleting a user resulted in an error&lt;/li&gt;
+    &lt;li&gt;Fixed issue where localization would stop working&lt;/li&gt;
+    &lt;li&gt;Fixed issue where progress bar does not show any progress in the Digital Asset Manager&lt;/li&gt;
+    &lt;li&gt;Fixed issue where removing a custom page URL causes a redirect to the home page&lt;/li&gt;
+    &lt;li&gt;Fixed issue where language aliases are not created when importing a site with content localization&lt;/li&gt;
+    &lt;li&gt;Fixed issue where upgrades from 6.1.5 would cause numerous error log entries regarding potentially dangerous request&lt;/li&gt;
+    &lt;li&gt;Fixed issue where disabling anonymous authentication with AD provider installed causes 404 error&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+&lt;ul&gt;
+    &lt;li&gt;None&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;Languages Module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+&lt;ul&gt;
+    &lt;li&gt;None&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
+  <data name="WhatsNew.07.01.02" xml:space="preserve">
+    <value>&lt;h3 class="SubSubHead"&gt;Major Highlights&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Added the ability to manage the Vanity URL prefix&lt;/li&gt;
+
+  &lt;li&gt;Added the ability to filter members in the member directory by role&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where the user could inadvertently click the login button multiple times&lt;/li&gt;
+
+  &lt;li&gt;Fixed issues where core classes could not be used in out of process cache provider&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where profile visibility submenu was not displayed correctly&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where the member directory was broken when Convert URL to lowercase setting was enabled&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where password checker didn’t work with unicode resource strings&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where ExecuteDataSet had a breaking change in DNN 7.0&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where Super User could not change personal profile URL&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where installing site with blank template caused error&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where upgrades failed when the ProfessionalPreview module is not installed&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where social media auth providers are not properly filling in profile properties&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where admin only content was not visible to Super User&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where user gets an access denied error after password reset&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where client resource manager failed to minify files&lt;/li&gt;
+
+  &lt;li&gt;Fixed issue where search didn’t work after adding search results to alternate page&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 class="SubSubHead"&gt;Security Fixes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;None &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 class="SubSubHead"&gt;Updated Modules/Providers&lt;/h3&gt;
+
+&lt;h4 class="SubSubHead"&gt;Modules&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;None &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 class="SubSubHead"&gt;Providers&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;None &lt;/li&gt;
+&lt;/ul&gt;</value>
   </data>
 </root>

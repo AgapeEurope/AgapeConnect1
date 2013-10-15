@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -23,39 +23,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-using System.Web.UI;
+using System.Web.Security;
 using System.Web.UI.WebControls;
 using System.Xml;
 using System.Xml.XPath;
-using ASP;
+
 using DotNetNuke.Application;
-using DotNetNuke.Common;
-using DotNetNuke.Common.Internal;
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Data;
-using DotNetNuke.Entities.Controllers;
-using DotNetNuke.Entities.Portals;
-using DotNetNuke.Entities.Portals.Internal;
-using DotNetNuke.Entities.Users;
 using DotNetNuke.Framework;
-using DotNetNuke.Instrumentation;
-using DotNetNuke.Security.Membership;
-using DotNetNuke.Services.Localization;
+using DotNetNuke.Services.Installer.Packages;
 using DotNetNuke.Services.Localization.Internal;
-using DotNetNuke.UI.Skins.Controls;
+using DotNetNuke.Services.Upgrade;
+using DotNetNuke.Services.Upgrade.InternalController.Steps;
+using DotNetNuke.Services.Upgrade.Internals;
+using DotNetNuke.Services.Upgrade.Internals.Steps;
+using DotNetNuke.Services.Upgrade.Internals.InstallConfiguration;
 using DotNetNuke.UI.Utilities;
 using DotNetNuke.Web.Client.ClientResourceManagement;
 
-using DataCache = DotNetNuke.Common.Utilities.DataCache;
+using Telerik.Web.UI;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
@@ -69,42 +62,49 @@ namespace DotNetNuke.Services.Install
     /// <remarks>
     /// </remarks>
     /// <history>
-    /// 	[cnurse]	01/23/2007 Created
+    /// 	[cnurse]	01/23/2007  Created
+    ///
+    ///     [vnguyen]   07/09/2012  Modified
+    ///     [aprasad]
     /// </history>
     /// -----------------------------------------------------------------------------
     public partial class InstallWizard : PageBase, IClientAPICallbackEventHandler
     {
         #region Private Members
-
+        // Hide Licensing Step for Community Edition
+        private static readonly bool IsProOrEnterprise = (File.Exists(HttpContext.Current.Server.MapPath("~\\bin\\DotNetNuke.Professional.dll")) || File.Exists(HttpContext.Current.Server.MapPath("~\\bin\\DotNetNuke.Enterprise.dll")));
+        
         private readonly DataProvider _dataProvider = DataProvider.Instance();
-        protected new string LocalResourceFile = "~/Install/App_LocalResources/InstallWizard.aspx.resx";
+        private const string LocalesFile = "/Install/App_LocalResources/Locales.xml";
+        protected static readonly string StatusFilename = "installstat.log.resources.txt";
+        protected static new string LocalResourceFile = "~/Install/App_LocalResources/InstallWizard.aspx.resx";
         private Version _dataBaseVersion;
         private XmlDocument _installTemplate;
-        private const string LocalesFile = "/Install/App_LocalResources/Locales.xml";
-        private string _connectionString = Null.NullString;
+        private static string[] _supportedLanguages;
+        
+		private static ConnectionConfig _connectionConfig;
+        private static string _connectionResult;
+        private static InstallConfig _installConfig;
+        private static string _culture;
 
+        private static IInstallationStep _currentStep;
+        private static bool _installerRunning;
+        private static int _installerProgress;
+        //private static bool _isValidConnection = false;
+        //private static bool _isValidInput = false;
+        
         #endregion
 
 		#region Private Properties
+        private static string StatusFile
+        {
+            get
+            {
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Install", StatusFilename);
+            }
+        }
 
-    	private bool PortalBinded
-    	{
-    		get
-    		{
-    			if(ViewState["PortalBinded"] == null)
-    			{
-    				return false;
-    			}
-
-    			return Convert.ToBoolean(ViewState["PortalBinded"]);
-    		}
-    		set
-			{
-				ViewState["PortalBinded"] = value;
-			}
-    	}
-        
-        #endregion
+		#endregion
 
 		#region Protected Members
 
@@ -209,529 +209,31 @@ namespace DotNetNuke.Services.Install
 
         #region Private Methods
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindAuthSystems binds the Authentication Systems checkbox list
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/28/2008 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindAuthSystems()
+        private void SetBrowserLanguage()
         {
-            BindPackageItems("AuthSystem", lstAuthSystems, lblNoAuthSystems, "NoAuthSystems", AuthSystemsErrorLabel);
+            string cultureCode;
+            if (string.IsNullOrEmpty(PageLocale.Value) && string.IsNullOrEmpty(_culture))
+            {
+                cultureCode = !string.IsNullOrEmpty(HttpContext.Current.Request.Params.Get("culture")) ? HttpContext.Current.Request.Params.Get("culture") : TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(_supportedLanguages);
+            }
+            else if (string.IsNullOrEmpty(PageLocale.Value) && !string.IsNullOrEmpty(_culture))
+            {
+                cultureCode = _culture;
+            }
+            else 
+            {
+                cultureCode = PageLocale.Value;
+            }
+
+            PageLocale.Value = cultureCode;
+            _culture = cultureCode;
+
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureCode);
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindConnectionString binds the connection String info
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindConnectionString()
-        {
-            string connection = Config.GetConnectionString();
-            foreach (string connectionParam in connection.Split(';'))
-            {
-                int index = connectionParam.IndexOf("=");
-                if (index > 0)
-                {
-                    string key = connectionParam.Substring(0, index);
-                    string value = connectionParam.Substring(index + 1);
-                    switch (key.ToLower())
-                    {
-                        case "server":
-                        case "data source":
-                        case "address":
-                        case "addr":
-                        case "network address":
-                            txtServer.Text = value;
-                            break;
-                        case "database":
-                        case "initial catalog":
-                            txtDatabase.Text = value;
-                            break;
-                        case "uid":
-                        case "user id":
-                        case "user":
-                            txtUserId.Text = value;
-                            break;
-                        case "pwd":
-                        case "password":
-                            txtPassword.Text = value;
-                            break;
-                        case "integrated security":
-                            chkIntegrated.Checked = (value.ToLower() == "true");
-                            break;
-                        case "attachdbfilename":
-                            txtFile.Text = value.Replace("|DataDirectory|", "");
-                            break;
-                    }
-                }
-            }
-            if (chkIntegrated.Checked)
-            {
-                chkOwner.Checked = true;
-            }
-            chkOwner.Enabled = !chkIntegrated.Checked;
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Gets the userid for the upgradeConnectionString
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[smehaffie]	07/13/2008 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private static string GetUpgradeConnectionStringUserID()
-        {
-            string dbUser = "";
-            string connection = Config.GetUpgradeConnectionString();
-
-            //If connection string does not use integrated security, then get user id.
-            if (connection.ToLower().Contains("user id") || connection.ToLower().Contains("uid") || connection.ToLower().Contains("user"))
-            {
-                string[] connectionParams = connection.Split(';');
-
-                foreach (string connectionParam in connectionParams)
-                {
-                    int index = connectionParam.IndexOf("=");
-                    if (index > 0)
-                    {
-                        string key = connectionParam.Substring(0, index);
-                        string value = connectionParam.Substring(index + 1);
-                        if ("user id|uuid|user".Contains(key.Trim().ToLower()))
-                        {
-                            dbUser = value.Trim();
-                        }
-                    }
-                }
-            }
-            return dbUser;
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindDatabases binds the supported databases
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindDatabases()
-        {
-            if ((Config.GetDefaultProvider("data").Name == "SqlDataProvider"))
-            {
-                string connection = Config.GetConnectionString();
-                if (connection.ToLower().Contains("attachdbfilename"))
-                {
-                    rblDatabases.Items.FindByValue("SQLFile").Selected = true;
-                }
-                else
-                {
-                    rblDatabases.Items.FindByValue("SQLDatabase").Selected = true;
-                }
-            }
-            if ((Config.GetDefaultProvider("data").Name == "OracleDataProvider"))
-            {
-                rblDatabases.Items.Add(new ListItem(LocalizeString("Oracle"), "Oracle"));
-                rblDatabases.SelectedIndex = 2;
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindLanguages binds the languages checkbox list
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/20/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindLanguages()
-        {
-            BindPackageItems("Language", lstLanguages, lblNoLanguages, "NoLanguages", languagesErrorLabel);
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindModules binds the modules checkbox list
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/19/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindModules()
-        {
-            BindPackageItems("Module", lstModules, lblNoModules, "NoModules", modulesErrorLabel);
-        }
-
-        private void BindPackageItems(string packageType, CheckBoxList list, Label noItemsLabel, string noItemsKey, Label errorLabel)
-        {
-            string installPath = Globals.ApplicationMapPath + "\\Install\\" + packageType;
-            list.Items.Clear();
-            if (Directory.Exists(installPath))
-            {
-                string[] arrFiles = Directory.GetFiles(installPath);
-                foreach (string strFile in arrFiles)
-                {
-                    string strResource = strFile.Replace(installPath + "\\", "");
-                    if (strResource.ToLower().EndsWith(".zip") || strResource.ToLower().EndsWith(".resources"))
-                    {
-                        var packageItem = new ListItem();
-                        //*.zip packages are installed by default
-                        if (strResource.ToLower().EndsWith(".zip"))
-                        {
-                            packageItem.Selected = true;
-                            packageItem.Enabled = false;
-                        }
-                        else //*.resources packages will be optional
-                        {
-                            packageItem.Selected = false;
-                            packageItem.Enabled = true;
-                        }
-                        packageItem.Value = strResource;
-                        strResource = Regex.Replace(strResource, ".zip", "", RegexOptions.IgnoreCase);
-                        strResource = Regex.Replace(strResource, ".resources", "", RegexOptions.IgnoreCase);
-                        strResource = Regex.Replace(strResource, "_Install", ")", RegexOptions.IgnoreCase);
-                        strResource = Regex.Replace(strResource, "_Source", ")", RegexOptions.IgnoreCase);
-                        strResource = strResource.Replace("_0", " (0");
-                        packageItem.Text = strResource;
-
-                        list.Items.Add(packageItem);
-                    }
-                }
-            }
-            if (list.Items.Count > 0)
-            {
-                noItemsLabel.Visible = false;
-            }
-            else
-            {
-                noItemsLabel.Visible = true;
-                noItemsLabel.Text = LocalizeString(noItemsKey);
-            }
-            if (errorLabel != null)
-            {
-                errorLabel.Text = Null.NullString;
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindPermissions binds the permissions checkbox list
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindPermissions(bool test)
-        {
-            PermissionsValid = true;
-
-            lstPermissions.Items.Clear();
-            var permissionItem = new ListItem();
-            var verifiers = new List<FileSystemPermissionVerifier>
-                                {
-                                    new FileSystemPermissionVerifier(Server.MapPath("~")),
-                                    new FileSystemPermissionVerifier(Server.MapPath("~/App_Data"))
-                                };
-
-            //FolderCreate
-			if (test && PermissionsValid)
-			{
-			    permissionItem.Selected = verifiers.All(v => v.VerifyFolderCreate());
-                PermissionsValid = PermissionsValid && permissionItem.Selected;
-            }
-            permissionItem.Enabled = false;
-            permissionItem.Text = LocalizeString("FolderCreate");
-            lstPermissions.Items.Add(permissionItem);
-
-            //FileCreate
-            permissionItem = new ListItem();
-			if (test && PermissionsValid)
-            {
-                permissionItem.Selected = verifiers.All(v => v.VerifyFileCreate());
-                PermissionsValid = PermissionsValid && permissionItem.Selected;
-            }
-            permissionItem.Enabled = false;
-            permissionItem.Text = LocalizeString("FileCreate");
-            lstPermissions.Items.Add(permissionItem);
-
-            //FileDelete
-            permissionItem = new ListItem();
-			if (test && PermissionsValid)
-            {
-                permissionItem.Selected = verifiers.All(v => v.VerifyFileDelete());
-                PermissionsValid = PermissionsValid && permissionItem.Selected;
-            }
-            permissionItem.Enabled = false;
-            permissionItem.Text = LocalizeString("FileDelete");
-            lstPermissions.Items.Add(permissionItem);
-
-            //FolderDelete
-            permissionItem = new ListItem();
-			if (test && PermissionsValid)
-            {
-                permissionItem.Selected = verifiers.All(v => v.VerifyFolderDelete());
-                PermissionsValid = PermissionsValid && permissionItem.Selected;
-            }
-            permissionItem.Enabled = false;
-            permissionItem.Text = LocalizeString("FolderDelete");
-            lstPermissions.Items.Add(permissionItem);
-            if (test)
-            {
-                var paths = string.Join("; ", (from v in verifiers select v.BasePath).ToArray());
-                permissionsErrorLabel.Text = PermissionsValid ? LocalizeString("PermissionsOk") : LocalizeString("PermissionsError").Replace("{0}", paths);
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindPortal binds the portal information
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/19/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindPortal()
-        {
-			if(PortalBinded)
-			{
-				return;
-			}
-
-            XmlNode portalNode = InstallTemplate.SelectSingleNode("//dotnetnuke/portals/portal");
-            XmlNode superUserNode = InstallTemplate.SelectSingleNode("//dotnetnuke/superuser");
-            if (portalNode != null)
-            {
-                if (superUserNode != null)
-                {
-                    usrAdmin.FirstName = XmlUtils.GetNodeValue(superUserNode.CreateNavigator(), "firstname");
-                    usrAdmin.LastName = XmlUtils.GetNodeValue(superUserNode.CreateNavigator(), "lastname");
-                    usrAdmin.UserName = XmlUtils.GetNodeValue(superUserNode.CreateNavigator(), "username");
-                    usrAdmin.Email = XmlUtils.GetNodeValue(superUserNode.CreateNavigator(), "email");
-                }
-                txtPortalTitle.Text = XmlUtils.GetNodeValue(portalNode.CreateNavigator(), "portalname");
-
-                string templateName = XmlUtils.GetNodeValue(portalNode.CreateNavigator(), "templatefile");
-
-                BindTemplates(templateName);
-            }
-            adminUserErrorLabel.Text = Null.NullString;
-
-        	PortalBinded = true;
-        }
-
-        private class TemplateDisplayComparer : IComparer<PortalController.PortalTemplateInfo>
-        {
-            public int Compare(PortalController.PortalTemplateInfo x, PortalController.PortalTemplateInfo y)
-            {
-                var cultureCompare = String.Compare(x.CultureCode, y.CultureCode, StringComparison.CurrentCulture);
-                if (cultureCompare == 0)
-                {
-                    return String.Compare(x.Name, y.Name, StringComparison.CurrentCulture);
-                }
-
-                //put blank cultures last
-                if (string.IsNullOrEmpty(x.CultureCode) || string.IsNullOrEmpty(y.CultureCode))
-                {
-                    cultureCompare *= -1;
-                }
-                return cultureCompare;
-            }
-        }
-
-        private void BindTemplates(string templateName)
-        {
-            var templates = TestablePortalController.Instance.GetAvailablePortalTemplates();
-            templates = templates.OrderBy(x => x, new TemplateDisplayComparer()).ToList();
-
-            foreach (var template in templates)
-            {
-                cboPortalTemplate.Items.Add(CreateListItem(template));
-            }
-
-            SelectADefaultTemplate(templates, templateName);
-
-            if (cboPortalTemplate.Items.Count == 0)
-            {
-                UI.Skins.Skin.AddModuleMessage(this, "", Localization.Localization.GetString("PortalMissing", LocalResourceFile),
-                                                ModuleMessage.ModuleMessageType.RedError);
-            }
-            cboPortalTemplate.Items.Insert(0, new ListItem(Localization.Localization.GetString("None_Specified"), "-1"));
-        }
-
-        private void SelectADefaultTemplate(IList<PortalController.PortalTemplateInfo> templates, string templateName)
-        {
-            string currentCulture = Thread.CurrentThread.CurrentUICulture.Name;
-
-            var defaultTemplates =
-                templates.Where(x => Path.GetFileName(x.TemplateFilePath) == templateName).ToList();
-
-            var match = defaultTemplates.FirstOrDefault(x => x.CultureCode == currentCulture);
-            if (match == null)
-            {
-                match = defaultTemplates.FirstOrDefault(x => x.CultureCode.StartsWith(currentCulture.Substring(0, 2)));
-            }
-            if (match == null)
-            {
-                match = defaultTemplates.FirstOrDefault(x => string.IsNullOrEmpty(x.CultureCode));
-            }
-
-            if (match != null)
-            {
-                cboPortalTemplate.SelectedIndex = templates.IndexOf(match);
-            }
-        }
-
-        ListItem CreateListItem(PortalController.PortalTemplateInfo template)
-        {
-            string text, value;
-            if (string.IsNullOrEmpty(template.CultureCode))
-            {
-                text = template.Name;
-                value = Path.GetFileName(template.TemplateFilePath);
-            }
-            else
-            {
-                text = string.Format("{0} - {1}", template.Name, Localization.Localization.GetLocaleName(template.CultureCode, CultureDropDownTypes.NativeName));
-                value = string.Format("{0}|{1}", Path.GetFileName(template.TemplateFilePath), template.CultureCode);
-            }
-
-            return new ListItem(text, value);
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindProviders binds the Providers checkbox list
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	06/24/2008 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindProviders()
-        {
-            BindPackageItems("Provider", lstProviders, lblNoProviders, "NoProviders", providersErrorLabel);
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// BindSkins binds the skins checkbox list
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/16/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void BindSkins()
-        {
-            BindPackageItems("Skin", lstSkins, lblNoSkins, "NoSkins", skinsErrorLabel);
-
-            BindPackageItems("Container", lstContainers, lblNoContainers, "NoContainers", null);
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// EnableButton enables/Disables a Navigation Button
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/28/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private static void EnableButton(LinkButton button, bool enabled)
-        {
-            if (button != null)
-            {
-                button.OnClientClick = "return !checkDisabled(this);";
-                button.CssClass = enabled
-                                    ? ((button.CommandName == "MoveNext") ? "dnnPrimaryAction" : "dnnSecondaryAction")
-                                    : "dnnPrimaryAction dnnDisabledAction";
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// GetInstallerLocales gets an ArrayList of the Locales
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private static ArrayList GetInstallerLocales()
-        {
-            var supportedLocales = new ArrayList();
-            string filePath = Globals.ApplicationMapPath + LocalesFile.Replace("/", "\\");
-
-            if (File.Exists(filePath))
-            {
-                var doc = new XPathDocument(filePath);
-                foreach (XPathNavigator nav in doc.CreateNavigator().Select("root/language"))
-                {
-                    if (nav.NodeType != XPathNodeType.Comment)
-                    {
-                        var objLocale = new Locale
-                                            {
-                                                Text = nav.GetAttribute("name", ""),
-                                                Code = nav.GetAttribute("key", ""),
-                                                Fallback = nav.GetAttribute("fallback", "")
-                                            };
-
-                        supportedLocales.Add(objLocale);
-                    }
-                }
-            }
-            else
-            {
-                var objLocale = new Locale
-                                    {
-                                        Text = "English",
-                                        Code = "en-US",
-                                        Fallback = ""
-                                    };
-                supportedLocales.Add(objLocale);
-            }
-            return supportedLocales;
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// GetNextScriptVersion gets the next script to Install
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/15/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         private string GetNextScriptVersion(string strProviderPath, Version currentVersion)
         {
-            string strNextVersion = "Done";
+            var strNextVersion = "Done";
 
             if (currentVersion == null)
             {
@@ -739,8 +241,8 @@ namespace DotNetNuke.Services.Install
             }
             else
             {
-                string strScriptVersion = Null.NullString;
-                ArrayList arrScripts = Upgrade.Upgrade.GetUpgradeScripts(strProviderPath, currentVersion);
+                var strScriptVersion = Null.NullString;
+                var arrScripts = Upgrade.Upgrade.GetUpgradeScripts(strProviderPath, currentVersion);
 
                 if (arrScripts.Count > 0)
                 {
@@ -755,27 +257,6 @@ namespace DotNetNuke.Services.Install
             return strNextVersion;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// GetWizardButton gets a wizard button from the template
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/28/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private LinkButton GetWizardButton(string containerID, string buttonID)
-        {
-            Control navContainer = wizInstall.FindControl(containerID);
-            LinkButton button = null;
-            if (navContainer != null)
-            {
-                button = navContainer.FindControl(buttonID) as LinkButton;
-            }
-            return button;
-        }
-
         private void Initialise()
         {
             if (TestDataBaseInstalled())
@@ -788,9 +269,7 @@ namespace DotNetNuke.Services.Install
                 if (DatabaseVersion > new Version(0, 0, 0))
                 {
                     //Upgrade
-                    languagePanel.Visible = false;
-                    introTitleLabel.Text = string.Format(LocalizeString("UpgradeTitle"), ApplicationVersion.ToString(3));
-                    introDetailLabel.Text = string.Format(LocalizeString("Upgrade"), Upgrade.Upgrade.GetStringVersion(DatabaseVersion));
+                    lblIntroDetail.Text = string.Format(LocalizeString("Upgrade"), Upgrade.Upgrade.GetStringVersion(DatabaseVersion));
                 }
                 else
                 {
@@ -799,17 +278,90 @@ namespace DotNetNuke.Services.Install
                 }
             }
         }
-
-        private bool InstallAuthSystems()
+        
+        private static void LaunchAutoInstall()
         {
-            return InstallPackageItems("AuthSystem", lstAuthSystems, lblNoAuthSystems, "InstallAuthSystemError");
+            //Get current Script time-out
+            var scriptTimeOut = HttpContext.Current.Server.ScriptTimeout;
+
+            //Set Script timeout to MAX value
+            HttpContext.Current.Server.ScriptTimeout = int.MaxValue;
+
+            if (_culture != null) Thread.CurrentThread.CurrentUICulture = new CultureInfo(_culture);
+
+            Install();
+
+            //restore Script timeout
+            HttpContext.Current.Server.ScriptTimeout = scriptTimeOut;
+        }
+
+        private static void Install()
+        {
+            //bail out early if we are already running
+            if (_installerRunning)
+                return;
+
+            var percentForEachStep = 100 / _steps.Count;
+            var useGenericPercent = false;
+            var totalPercent = _steps.Sum(step => step.Value);
+            if (totalPercent != 100) useGenericPercent = true;
+
+            _installerRunning = true;
+            _installerProgress = 0;
+            foreach (var step in _steps)
+            {
+                _currentStep = step.Key;
+                
+                if (_currentStep.GetType().Name == "ActivateLicenseStep" && !IsProOrEnterprise) continue;
+
+                try
+                {
+                    _currentStep.Activity += CurrentStepActivity;
+                    _currentStep.Execute();
+                }
+                catch (Exception ex)
+                {
+                    CurrentStepActivity("ERROR:" + ex.Message);
+                    _installerRunning = false;
+                    return;
+                }
+                switch (_currentStep.Status)
+                {
+                    case StepStatus.AppRestart:
+                        _installerRunning = false;
+                        HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl, true);
+                        break;
+                    default:
+                        if (_currentStep.Status != StepStatus.Done)
+                        {
+                            CurrentStepActivity(string.Format(Localization.Localization.GetString("ErrorInStep", "~/Install/App_LocalResources/InstallWizard.aspx.resx")
+                                                                                                  , _currentStep.Errors.Count > 0 ? string.Join(",", _currentStep.Errors.ToArray()) : _currentStep.Details));
+
+							_installerRunning = false;
+                            return;
+                        }
+                        break;
+                }
+                if (useGenericPercent)
+                    _installerProgress += percentForEachStep;
+                else
+                    _installerProgress += step.Value;
+            }
+
+            _currentStep = null;
+
+            _installerProgress = 100;
+            CurrentStepActivity(Localization.Localization.GetString("InstallationDone", "~/Install/App_LocalResources/InstallWizard.aspx.resx"));
+
+            //indicate we are done
+            _installerRunning = false;
         }
 
         private string InstallDatabase()
         {
             string strErrorMessage;
 
-            string strProviderPath = _dataProvider.GetProviderPath();
+            var strProviderPath = _dataProvider.GetProviderPath();
             if (!strProviderPath.StartsWith("ERROR:"))
             {
                 //Install Base Version
@@ -817,7 +369,6 @@ namespace DotNetNuke.Services.Install
             }
             else
             {
-                //provider error
                 strErrorMessage = strProviderPath;
             }
             if (string.IsNullOrEmpty(strErrorMessage))
@@ -832,237 +383,12 @@ namespace DotNetNuke.Services.Install
             return strErrorMessage;
         }
 
-        private bool InstallHost()
-        {
-            bool success = false;
-            try
-            {
-                //Initialise Host Settings
-                Upgrade.Upgrade.InitialiseHostSettings(InstallTemplate, false);
-
-
-                Upgrade.Upgrade.InstallFiles(InstallTemplate, false);
-
-                if (!string.IsNullOrEmpty(txtSMTPServer.Text))
-                {
-                    HostController.Instance.Update("SMTPServer", txtSMTPServer.Text);
-                    HostController.Instance.Update("SMTPAuthentication", optSMTPAuthentication.SelectedItem.Value);
-                    HostController.Instance.Update("SMTPUsername", txtSMTPUsername.Text, true);
-                    HostController.Instance.Update("SMTPPassword", txtSMTPPassword.Text, true);
-                    HostController.Instance.Update("SMTPEnableSSL", chkSMTPEnableSSL.Checked ? "Y" : "N");
-                }
-
-                //Clear Host Cache
-                DataCache.ClearHostCache(false);
-
-                success = true;
-            }
-            catch (Exception exc)
-            {
-                DnnLog.Error(exc);
-                success = false;
-            }
-
-            return success;
-        }
-
-        private bool InstallLanguages()
-        {
-            return InstallPackageItems("Language", lstLanguages, languagesErrorLabel, "InstallLanguageError");
-        }
-
-        private bool InstallModules()
-        {
-            return InstallPackageItems("Module", lstModules, modulesErrorLabel, "InstallModuleError");
-        }
-
-        private bool InstallPackageItems(string packageType, CheckBoxList list, Label errorLabel, string errorKey)
-        {
-            bool success = false;
-            string strErrorMessage = Null.NullString;
-
-            //Get current Script time-out
-            int scriptTimeOut = Server.ScriptTimeout;
-            try
-            {
-                //Set Script timeout to MAX value
-                Server.ScriptTimeout = int.MaxValue;
-
-                string installPath = Globals.ApplicationMapPath + "\\Install\\" + packageType;
-                foreach (ListItem packageItem in list.Items)
-                {
-                    if (packageItem.Selected)
-                    {
-                        if ((File.Exists(installPath + "\\" + packageItem.Value)))
-                        {
-                            success = Upgrade.Upgrade.InstallPackage(installPath + "\\" + packageItem.Value, packageType, false);
-                            if (!success)
-                            {
-                                strErrorMessage += string.Format(LocalizeString(errorKey), packageItem.Text);
-                            }
-                        }
-                    }
-                }
-
-                success = string.IsNullOrEmpty(strErrorMessage) || packageType == "Language";
-            }
-            catch (Exception ex)
-            {
-                DnnLog.Error(ex);
-                strErrorMessage = ex.StackTrace;
-            }
-            finally
-            {
-                //restore Script timeout
-                Server.ScriptTimeout = scriptTimeOut;
-            }
-            if (!success)
-            {
-                errorLabel.Text += strErrorMessage;
-            }
-            return success;
-        }
-
-        private bool InstallPortal()
-        {
-            string strErrorMessage = usrAdmin.Validate();
-
-            if (!string.IsNullOrEmpty(strErrorMessage))
-            {
-                string strError = LocalizeString(strErrorMessage);
-                if (strErrorMessage == "PasswordLength")
-                {
-                    strError = string.Format(strError, MembershipProviderConfig.MinPasswordLength);
-                }
-                adminUserErrorLabel.Text = string.Format(LocalizeString("AdminUserError"), strError);
-                return false;
-            }
-
-            if(cboPortalTemplate.SelectedIndex == 0)
-            {
-                string error = LocalizeString("MustSelecteATemplate");
-                adminUserErrorLabel.Text = error;
-                return false;
-            }
-
-            bool success = false;
-            try
-            {
-                string strServerPath = Globals.ApplicationMapPath + "\\";
-                string strPortalAlias = Globals.GetDomainName(HttpContext.Current.Request, true).Replace("/Install", "");
-                PortalController.PortalTemplateInfo template = LoadPortalTemplateInfoForSelectedItem();
-
-                UserInfo adminUser = CreateUserInfo();
-
-                if (template.CultureCode != "en-US")
-                {
-                    //Check if language is installed
-                    var locale = LocaleController.Instance.GetLocale(template.CultureCode);
-
-                    //If not installed - install it
-                    if (locale == null)
-                    {
-                        string installPath = Globals.ApplicationMapPath + "\\Install\\Language";
-                        string languagePack = String.Format(installPath + "\\ResourcePack.Full.{0}.{1}.resources", Globals.FormatVersion(ApplicationVersion, "00", 3, "."), template.CultureCode);
-                        if (File.Exists(languagePack))
-                        {
-                            success = Upgrade.Upgrade.InstallPackage(languagePack, "Language", false);
-                        }
-                    }
-                }
-
-                //Create Portal
-                PortalId = TestablePortalController.Instance.CreatePortal(txtPortalTitle.Text,
-                                                                            adminUser,
-                                                                            "",
-                                                                            "", 
-                                                                            template,
-                                                                            "",
-                                                                            strPortalAlias,
-                                                                            strServerPath,
-                                                                            "",
-                                                                            false);
-                success = (PortalId > Null.NullInteger);
-
-                if (template.CultureCode != "en-US")
-                {
-                    var locale = LocaleController.Instance.GetLocale("en-US");
-
-                    //remove en-US from portal
-                    Localization.Localization.RemoveLanguageFromPortal(PortalId, locale.LanguageId);
-                }
-
-                //Set admin user to be a superuser
-                adminUser = UserController.GetUserByName(PortalId, usrAdmin.UserName);
-                adminUser.IsSuperUser = true;
-                UserController.UpdateUser(PortalId, adminUser);
-
-                //Log user in to site
-                UserLoginStatus loginStatus = UserLoginStatus.LOGIN_FAILURE;
-                UserController.UserLogin(PortalId, usrAdmin.UserName, usrAdmin.Password, "", "", "", ref loginStatus, false);
-
-                Config.Touch();
-                Response.Redirect("~/Default.aspx", true);
-            }
-            catch (ThreadAbortException)
-            {
-                //do nothing - we swallow this exception - becuase of redirect
-            }
-            catch (Exception ex)
-            {
-                DnnLog.Error(ex);
-                success = false;
-                strErrorMessage = ex.Message;
-            }
-            if (!success)
-            {
-                adminUserErrorLabel.Text = string.Format(LocalizeString("InstallPortalError"), strErrorMessage);
-            }
-            
-            return success;
-        }
-
-        private UserInfo CreateUserInfo()
-        {
-            var adminUser = new UserInfo();
-            adminUser.FirstName = usrAdmin.FirstName;
-            adminUser.LastName = usrAdmin.LastName;
-            adminUser.Username = usrAdmin.UserName;
-            adminUser.DisplayName = usrAdmin.FirstName + " " + usrAdmin.LastName;
-            adminUser.Membership.Password = usrAdmin.Password;
-            adminUser.Email = usrAdmin.Email;
-            adminUser.IsSuperUser = false;
-            adminUser.Membership.Approved = true;
-            adminUser.Profile.FirstName = usrAdmin.FirstName;
-            adminUser.Profile.LastName = usrAdmin.LastName;
-            return adminUser;
-        }
-
-        PortalController.PortalTemplateInfo LoadPortalTemplateInfoForSelectedItem()
-        {
-            var values = cboPortalTemplate.SelectedItem.Value.Split('|');
-
-            return TestablePortalController.Instance.GetPortalTemplate(Path.Combine(TestableGlobals.Instance.HostMapPath, values[0]), values.Length > 1 ? values[1] : null);
-        }
-
-        private bool InstallProviders()
-        {
-            return InstallPackageItems("Provider", lstProviders, providersErrorLabel, "InstallProviderError");
-        }
-
-        private bool InstallSkins()
-        {
-            bool skinSuccess = InstallPackageItems("Skin", lstSkins, skinsErrorLabel, "InstallSkinError");
-            bool containerSuccess = InstallPackageItems("Container", lstContainers, skinsErrorLabel, "InstallContainerError");
-            return skinSuccess && containerSuccess;
-        }
-
         private string InstallVersion(string strVersion)
         {
-            string strErrorMessage = Null.NullString;
+            var strErrorMessage = Null.NullString;
             var version = new Version(strVersion);
-            string strScriptFile = Null.NullString;
-            string strProviderPath = _dataProvider.GetProviderPath();
+            var strScriptFile = Null.NullString;
+            var strProviderPath = _dataProvider.GetProviderPath();
             if (!strProviderPath.StartsWith("ERROR:"))
             {
                 //Install Version
@@ -1072,7 +398,6 @@ namespace DotNetNuke.Services.Install
             }
             else
             {
-                //provider error
                 strErrorMessage = strProviderPath;
             }
             if (string.IsNullOrEmpty(strErrorMessage))
@@ -1087,379 +412,165 @@ namespace DotNetNuke.Services.Install
             return strErrorMessage;
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// LocalizePage sets up the Localized Text
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/09/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
+        private static void CurrentStepActivity(string status)
+        {
+            var percentage = (_currentStep == null) ? _installerProgress : _installerProgress + (_currentStep.Percentage / _steps.Count);
+            var obj = new
+            {
+                progress = percentage,
+                details = status,
+                check0 = filePermissionCheck.Status.ToString() + (filePermissionCheck.Errors.Count == 0 ? "" : " Errors " + filePermissionCheck.Errors.Count),
+                check1 = installDatabase.Status.ToString() + (installDatabase.Errors.Count == 0 ? "" : " Errors " + installDatabase.Errors.Count),
+                check2 = installExtensions.Status.ToString() + (installExtensions.Errors.Count == 0 ? "" : " Errors " + installExtensions.Errors.Count),
+                check3 = installSite.Status.ToString() + (installSite.Errors.Count == 0 ? "" : " Errors " + installSite.Errors.Count),
+                check4 = createSuperUser.Status.ToString() + (createSuperUser.Errors.Count == 0 ? "" : " Errors " + createSuperUser.Errors.Count),
+                check5 = activateLicense.Status.ToString() + (activateLicense.Errors.Count == 0 ? "" : " Errors " + activateLicense.Errors.Count)
+            };
+
+            try
+            {
+                if (!File.Exists(StatusFile)) File.CreateText(StatusFile);
+                var sw = new StreamWriter(StatusFile, true);
+                sw.WriteLine(obj.ToJson());
+                sw.Close();
+            }
+            catch (Exception)
+            {
+                //TODO - do something                
+            }
+        }
+        
+        private static void GetInstallerLocales()
+        {
+            var filePath = Globals.ApplicationMapPath + LocalesFile.Replace("/", "\\");
+
+            if (File.Exists(filePath))
+            {
+                var doc = new XPathDocument(filePath);
+                var languages = doc.CreateNavigator().Select("root/language");
+
+                if (languages.Count > 0)
+                {
+                    _supportedLanguages = new string[languages.Count];
+                    var i = 0;
+                    foreach (XPathNavigator nav in languages)
+                    {
+                        if (nav.NodeType != XPathNodeType.Comment)
+                        {
+                            _supportedLanguages.SetValue(nav.GetAttribute("key", ""), i);
+                        }
+                        i++;
+                    }
+                }
+                else
+                {
+                    _supportedLanguages = new string[1];
+                    _supportedLanguages.SetValue("en-US", 0);
+                }
+            }
+            else
+            {
+                _supportedLanguages = new string[1];
+                _supportedLanguages.SetValue("en-US", 0);
+            }
+        }
+
         private void LocalizePage()
         {
-            //Main Title
-            Title = LocalizeString("Title") + @" - " + LocalizeString("Page" + wizInstall.ActiveStepIndex + ".Title");
-
-            //Page Titles
-            for (int i = 0; i <= wizInstall.WizardSteps.Count - 1; i++)
-            {
-                wizInstall.WizardSteps[i].Title = LocalizeString("Page" + i + ".Title");
-            }
-
-            //Wizard Buttons
-            LinkButton nextButton = GetWizardButton("StepNavigationTemplateContainerID", "StepNextButton");
-            nextButton.Text = LocalizeString("Next");
-
-            nextButton = GetWizardButton("StartNavigationTemplateContainerID", "StartNextButton");
-            nextButton.Text = LocalizeString("Next");
-
-            LinkButton previousButton = GetWizardButton("StepNavigationTemplateContainerID", "StepPreviousButton");
-            previousButton.Text = LocalizeString("Previous");
-
-            switch (wizInstall.ActiveStepIndex)
-            {
-                case 0: //Page 0 - Welcome
-                    introTitleLabel.Text = string.Format(LocalizeString("IntroTitle"), Globals.FormatVersion(ApplicationVersion));
-                    introDetailLabel.Text = LocalizeString("IntroDetail");
-                
-                    installTypeRadioButton.Items[0].Text = LocalizeString("Typical");
-                    installTypeRadioButton.Items[1].Text = LocalizeString("Full");
-                    installTypeRadioButton.Items[2].Text = LocalizeString("Auto");
-
-                       break;
-				case 1: //Page 1 - File Permissions
-                    BindPermissions(false);
-
-                    LinkButton customButton = GetWizardButton("StepNavigationTemplateContainerID", "CustomButton");
-                    customButton.Text = LocalizeString("TestPerm");
-                    break;
-				case 2://Page 2 - Database Configuration
-					databaseConfigTitleLabel.Text = LocalizeString("DatabaseConfigTitle");
-					databaseConfigDetailLabel.Text = LocalizeString("DatabaseConfigDetail");
-
-					rblDatabases.Items[0].Text = LocalizeString("SQLServerXPress");
-					rblDatabases.Items[1].Text = LocalizeString("SQLServer");
-					break;
-				case 3: //Page 3 - Database Installation
-                    databaseInstallTitleLabel.Text = LocalizeString("DatabaseInstallTitle");
-                    databaseInstallDetailLabel.Text = LocalizeString("DatabaseInstallDetail");
-                    break;
-                case 4: //Page 4 - Modules
-                    modulesTitleLabel.Text = LocalizeString("ModulesTitle");
-                    modulesDetailLabel.Text = LocalizeString("ModulesDetail");
-                    lblModules.Text = LocalizeString("Modules");
-                    break;
-                case 5: //Page 5 - Skins/Conatiners
-                    skinsTitleLabel.Text = LocalizeString("SkinsTitle");
-                    skinsDetailLabel.Text = LocalizeString("SkinsDetail");
-                    lblSkins.Text = LocalizeString("Skins");
-                    lblContainers.Text = LocalizeString("Containers");
-                    break;
-                case 6: //Page 6 - Languages
-                    languagesTitleLabel.Text = LocalizeString("LanguagesTitle");
-                    languagesDetailLabel.Text = LocalizeString("LanguagesDetail");
-                    lblLanguages.Text = LocalizeString("Languages");
-                    break;
-                case 7: //Page 7 - Auth Systems
-                    authSystemsTitleLabel.Text = LocalizeString("AuthSystemsTitle");
-                    authSystemDetailLabel.Text = LocalizeString("AuthSystemsDetail");
-                    lblAuthSystems.Text = LocalizeString("AuthSystems");
-                    break;
-                case 8: //Page 8 - Providers
-                    providersTitleLabel.Text = LocalizeString("ProvidersTitle");
-                    providersDetailLabel.Text = LocalizeString("ProvidersDetail");
-                    lblProviders.Text = LocalizeString("Providers");
-                    break;
-                case 9: //Page 9 - User/Portal Configuration
-					adminUserTitleLabel.Text = LocalizeString("AdminUserTitle");
-					adminUserDetailLabel.Text = LocalizeString("AdminUserDetail");
-					usrAdmin.FirstNameLabel = LocalizeString("FirstName");
-					usrAdmin.LastNameLabel = LocalizeString("LastName");
-					usrAdmin.UserNameLabel = LocalizeString("UserName");
-					usrAdmin.PasswordLabel = LocalizeString("Password");
-					usrAdmin.ConfirmLabel = LocalizeString("Confirm");
-					usrAdmin.EmailLabel = LocalizeString("Email");
-					lblAdminUser.Text = LocalizeString("AdminUser");
-					lblPortal.Text = LocalizeString("Portal");
-					portalDetailLabel.Text = LocalizeString("PortalDetail");
-					lblSMTPSettings.Text = LocalizeString("SMTPSettings");
-					lblSMTPSettingsHelp.Text = LocalizeString("SMTPSettingsHelp");
-                    break;
-            }
+            Page.Title = LocalizeString("PageTitle");
+            lblIntroDetail.Text = LocalizeString("IntroDetail");      
         }
 
-        private void SetupDatabasePage()
+        private static string LocalizeStringStatic(string key)
         {
-            if (rblDatabases.SelectedIndex > Null.NullInteger)
-            {
-                bool isSQLFile = (rblDatabases.SelectedValue == "SQLFile");
-                bool isSQLDb = (rblDatabases.SelectedValue == "SQLDatabase");
-                bool isOracle = (rblDatabases.SelectedValue == "Oracle");
-                databasePanel.Visible = true;
-                fileRow.Visible = isSQLFile;
-                databaseRow.Visible = isSQLDb;
-                integratedRow.Visible = !isOracle;
-                userRow.Visible = !chkIntegrated.Checked || isOracle;
-                passwordRow.Visible = !chkIntegrated.Checked || isOracle;
-                chkOwner.Enabled = isSQLDb;
-                chkOwner.Checked = (Config.GetDataBaseOwner() == "dbo.");
-                txtqualifier.Text = Config.GetObjectQualifer();
-            }
-            else
-            {
-                databasePanel.Visible = false;
-            }
+            return Localization.Localization.GetString(key, LocalResourceFile, _culture);
         }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// SetupPage updates the WizardPage
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private void SetupPage()
-        {
-            LinkButton nextButton = GetWizardButton("StepNavigationTemplateContainerID", "StepNextButton");
-            LinkButton prevButton = GetWizardButton("StepNavigationTemplateContainerID", "StepPreviousButton");
-            LinkButton customButton = GetWizardButton("StepNavigationTemplateContainerID", "CustomButton");
-            EnableButton(nextButton, true);
-            EnableButton(prevButton, true);
-            ShowButton(customButton, false);
-            switch (wizInstall.ActiveStepIndex)
-            {
-                case 0: //Page 0 - Welcome
-                    permissionsErrorLabel.Text = "";
-                    break;
-                case 1:
-                    databaseErrorLabel.Text = "";
-                    ShowButton(customButton, true);
-                    break;
-                case 2: //Page 2 - Database Configuration
-                    permissionsErrorLabel.Text = "";
-                    SetupDatabasePage();
-                    break;
-                case 3:
-                    databaseErrorLabel.Text = "";
-                    installErrorLabel.Text = "";
-                    installErrorLabel.Visible = false;
-                    EnableButton(nextButton, false);
-                    ShowButton(prevButton, false);
-                    break;
-                case 4: //Page 4 - Modules
-                    BindModules();
-					ShowButton(prevButton, false);
-					break;
-                case 5: //Page 5 - Skins/Conatiners
-                    BindSkins();
-                    ShowButton(prevButton, false);
-                    break;
-                case 6: //Page 6 - Languages
-                    BindLanguages();
-                    ShowButton(prevButton, false);
-                    break;
-                case 7: //Page 7 - Auth Systems
-                    BindAuthSystems();
-                    ShowButton(prevButton, false);
-                    break;
-                case 8: //Page 8 - Providers
-                    BindProviders();
-                    ShowButton(prevButton, false);
-                    break;
-                case 9: //Page 9 - User/Portal Configuration
-                //    BindSuperUser();
-                //    ShowButton(prevButton, false);
-                //    break;
-                //case 10: //Page 10 - Portal
-                    BindPortal();
-                    ShowButton(prevButton, false);
-                    break;
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// ShowButton shows/hides a Navigation Button
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/28/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private static void ShowButton(LinkButton button, bool enabled)
-        {
-            if (button != null)
-            {
-                button.Visible = enabled;
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// TestDatabaseConnection checks the Database connection properties provided
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	01/23/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        private bool TestDatabaseConnection()
-        {
-            bool success = false;
-
-            if (string.IsNullOrEmpty(rblDatabases.SelectedValue))
-            {
-                _connectionString = "ERROR:" + LocalizeString("ChooseDbError");
-            }
-            else
-            {
-                bool isSQLFile = (rblDatabases.SelectedValue == "SQLFile");
-                bool isOracle = (rblDatabases.SelectedValue == "Oracle");
-                DbConnectionStringBuilder builder = _dataProvider.GetConnectionStringBuilder();
-                if (!string.IsNullOrEmpty(txtServer.Text))
-                {
-                    builder["Data Source"] = txtServer.Text;
-                }
-                if (!string.IsNullOrEmpty(txtDatabase.Text) && !isSQLFile)
-                {
-                    builder["Initial Catalog"] = txtDatabase.Text;
-                }
-                if (string.IsNullOrEmpty(txtDatabase.Text) && !isSQLFile)
-                {
-                    databaseErrorLabel.Text = LocalizeString("DbNameError");
-                    if (!isOracle) return false;
-                }
-                if (!string.IsNullOrEmpty(txtFile.Text) && isSQLFile)
-                {
-                    builder["attachdbfilename"] = "|DataDirectory|" + txtFile.Text;
-                }
-                if (chkIntegrated.Checked)
-                {
-                    builder["integrated security"] = "true";
-                }
-                if (!string.IsNullOrEmpty(txtUserId.Text))
-                {
-                    builder["uid"] = txtUserId.Text;
-                }
-                if (!string.IsNullOrEmpty(txtPassword.Text))
-                {
-                    builder["pwd"] = txtPassword.Text;
-                }
-                if (isSQLFile)
-                {
-                    builder["user instance"] = "true";
-                }
-                string owner = txtUserId.Text + ".";
-                if (chkOwner.Checked)
-                {
-                    owner = "dbo.";
-                }
-                _connectionString = DataProvider.Instance().TestDatabaseConnection(builder, owner, txtqualifier.Text);
-            }
-            if (_connectionString.StartsWith("ERROR:"))
-            {
-                databaseErrorLabel.Text = string.Format(LocalizeString("ConnectError"), _connectionString.Replace("ERROR:", ""));
-            }
-            else
-            {
-                success = true;
-                databaseErrorLabel.Text = LocalizeString("ConnectSuccess");
-            }
-            return success;
-        }
-
-        /// -----------------------------------------------------------------------------
+        
         /// <summary>
         /// TestDataBaseInstalled checks whether the Database is the current version
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/16/2007 Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
+        /// <returns></returns>
         private bool TestDataBaseInstalled()
         {
-            bool success = true;
-            if (DatabaseVersion == null || DatabaseVersion.Major != ApplicationVersion.Major || DatabaseVersion.Minor != ApplicationVersion.Minor || DatabaseVersion.Build != ApplicationVersion.Build)
+            var success = !(DatabaseVersion == null || DatabaseVersion.Major != ApplicationVersion.Major || DatabaseVersion.Minor != ApplicationVersion.Minor || DatabaseVersion.Build != ApplicationVersion.Build);
+            return success;
+        }
+       
+		private void SetupDatabaseInfo()
+        {
+            //Try to use connection information in DotNetNuke.Install.Config. If not found use from web.config
+            _connectionConfig = _installConfig.Connection;
+            if (_connectionConfig == null || string.IsNullOrEmpty(_connectionConfig.Server))
             {
-                success = false;
+                _connectionConfig = InstallController.Instance.GetConnectionFromWebConfig();
             }
-            if (!success)
+
+            if (_connectionConfig != null)
             {
-                installErrorLabel.Text = LocalizeString("Install.Error");
+                txtDatabaseServerName.Text = _connectionConfig.Server;
+                txtDatabaseObjectQualifier.Text = _connectionConfig.Qualifier;
+
+                //SQL Express Or SQL Server
+                if (!string.IsNullOrEmpty(_connectionConfig.File))
+                {
+                    txtDatabaseFilename.Text = _connectionConfig.File;
+                    databaseType.SelectedIndex = 0;
+                }
+                else
+                {
+                    txtDatabaseName.Text = _connectionConfig.Database;
+                    databaseType.SelectedIndex = 1;
+                }
+
+                //Integrated or Custom
+                if (_connectionConfig.Integrated)
+                {
+                    databaseSecurityType.SelectedIndex = 0;
+                }
+                else
+                {
+                    databaseSecurityType.SelectedIndex = 1;
+                    txtDatabaseUsername.Text = _connectionConfig.User;
+                    txtDatabasePassword.Text = _connectionConfig.Password;
+                }
+
+                //Owner or Not
+                databaseRunAs.Checked = _connectionConfig.RunAsDbowner;
             }
+        }
+
+        private static bool CheckDatabaseConnection()
+        {
+            var success = false;
+            _connectionResult = CheckDatabaseConnection(_connectionConfig);
+            if (!_connectionResult.StartsWith("ERROR:"))
+                success = true;
+
             return success;
         }
 
-        private bool TestSMTPSettings()
+		private static string CheckDatabaseConnection(ConnectionConfig connectionConfig)
         {
-            if (!string.IsNullOrEmpty(usrAdmin.Email))
-            {
-                try
-                {
-                    var emailMessage = new MailMessage(usrAdmin.Email, usrAdmin.Email, LocalizeString("EmailTestMessageSubject"), string.Empty);
+            _connectionResult = InstallController.Instance.TestDatabaseConnection(connectionConfig);		    
+            if (_connectionResult.StartsWith("ERROR:"))
+                return _connectionResult;
 
-                    var smtpClient = new SmtpClient(txtSMTPServer.Text);
+            var connectionString = _connectionResult;            
+            var details = Localization.Localization.GetString("IsAbleToPerformDatabaseActionsCheck", LocalResourceFile);
+            if (!InstallController.Instance.IsAbleToPerformDatabaseActions(connectionString))
+                _connectionResult = "ERROR: " + string.Format(Localization.Localization.GetString("IsAbleToPerformDatabaseActions", LocalResourceFile), details);
 
-                    string[] smtpHostParts = txtSMTPServer.Text.Split(':');
-                    if (smtpHostParts.Length > 1)
-                    {
-                        smtpClient.Host = smtpHostParts[0];
-                        smtpClient.Port = Convert.ToInt32(smtpHostParts[1]);
-                    }
+            //database actions check-running sql 2008 or higher
+            details = Localization.Localization.GetString("IsValidSqlServerVersionCheck", LocalResourceFile);
+            if (!InstallController.Instance.IsValidSqlServerVersion(connectionString))
+                _connectionResult = "ERROR: " + string.Format(Localization.Localization.GetString("IsValidSqlServerVersion", LocalResourceFile), details);
 
-
-                    switch (optSMTPAuthentication.SelectedItem.Value)
-                    {
-                        case "":
-                        case "0":
-                            // anonymous
-                            break;
-                        case "1":
-                            // basic
-                            if (!string.IsNullOrEmpty(txtSMTPUsername.Text) && !string.IsNullOrEmpty(txtSMTPPassword.Text))
-                            {
-                                smtpClient.UseDefaultCredentials = false;
-                                smtpClient.Credentials = new NetworkCredential(txtSMTPUsername.Text, txtSMTPPassword.Text);
-                            }
-                            break;
-                        case "2":
-                            // NTLM
-                            smtpClient.UseDefaultCredentials = true;
-                            break;
-                    }
-
-                    smtpClient.EnableSsl = chkSMTPEnableSSL.Checked;
-
-                    smtpClient.Send(emailMessage);
-
-                    adminUserErrorLabel.Text = string.Format(LocalizeString("SMTPSuccess"), LocalizeString("EmailSentMessage"));
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    DnnLog.Error(ex);
-                    adminUserErrorLabel.Text = string.Format(LocalizeString("SMTPError"), string.Format(LocalizeString("EmailErrorMessage"), ex.Message));
-
-                    return false;
-                }
-            }
-            adminUserErrorLabel.Text = string.Format(LocalizeString("SMTPError"), LocalizeString("SpecifyHostEmailMessage"));
-            return false;
+            return _connectionResult;
         }
 
-        private void UpdateMachineKey()
+        private static void UpdateMachineKey()
         {
-            string installationDate = Config.GetSetting("InstallationDate");
+            var installationDate = Config.GetSetting("InstallationDate");
 
             if (installationDate == null || String.IsNullOrEmpty(installationDate))
             {
@@ -1467,19 +578,209 @@ namespace DotNetNuke.Services.Install
                 if (String.IsNullOrEmpty(strError))
                 {
                     //send a new request to the application to initiate step 2
-                    Response.Redirect(HttpContext.Current.Request.RawUrl, true);
+                    HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl, true);
                 }
                 else
                 {
                     //403-3 Error - Redirect to ErrorPage
-                    string strURL = "~/ErrorPage.aspx?status=403_3&error=" + strError;
+                    var strUrl = "~/ErrorPage.aspx?status=403_3&error=" + strError;
                     HttpContext.Current.Response.Clear();
-                    HttpContext.Current.Server.Transfer(strURL);
+                    HttpContext.Current.Server.Transfer(strUrl);
                 }
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Updates and synchronizes DotNetNuke.install.config with Web.config
+        /// </summary>
+        /// <param name="installInfo"></param>
+        private static void UpdateInstallConfig(Dictionary<string, string> installInfo)
+        {
+            _installConfig = new InstallConfig();
+            // SuperUser Config
+            _installConfig.SuperUser = new SuperUserConfig();
+            _installConfig.SuperUser.UserName = installInfo["username"];
+            _installConfig.SuperUser.Password = installInfo["password"];
+            _installConfig.SuperUser.Locale = _culture;
+            // Defaults
+            _installConfig.SuperUser.Email = "host@change.me";
+            _installConfig.SuperUser.FirstName = "SuperUser";
+            _installConfig.SuperUser.LastName = "Account";
+
+            // website culture
+            _installConfig.InstallCulture = installInfo["language"];
+
+            // Website Portal Config
+            var portalConfig = new PortalConfig();
+            portalConfig.PortalName = installInfo["websiteName"];
+            portalConfig.TemplateFileName = installInfo["template"];
+            portalConfig.IsChild = false;
+            _installConfig.Portals = new List<PortalConfig>();
+            _installConfig.Portals.Add(portalConfig);
+
+            InstallController.Instance.SetInstallConfig(_installConfig);
+        }
+
+        private static void UpdateDatabaseInstallConfig(Dictionary<string, string> installInfo)
+        {
+            // Database Config
+            if (installInfo["databaseSetup"] == "advanced")
+            {
+                _connectionConfig = new ConnectionConfig();
+                _connectionConfig.Server = installInfo["databaseServerName"];
+                _connectionConfig.Qualifier = installInfo["databaseObjectQualifier"];
+                _connectionConfig.Integrated = installInfo["databaseSecurity"] == "integrated";
+                _connectionConfig.User = installInfo["databaseUsername"];
+                _connectionConfig.Password = installInfo["databasePassword"];
+                _connectionConfig.RunAsDbowner = installInfo["databaseRunAsOwner"] == "on";
+
+                if (installInfo["databaseType"] == "express")
+                {
+                    _connectionConfig.File = installInfo["databaseFilename"];
+                    _connectionConfig.Database = "";
+                }
+                else
+                {
+                    _connectionConfig.Database = installInfo["databaseName"];
+                    _connectionConfig.File = "";
+                }
+            }
+
+            _installConfig.Connection = _connectionConfig;
+            InstallController.Instance.SetInstallConfig(_installConfig);
+        }
+        
+        private void BindLanguageList()
+        {
+            try
+            {
+                var myResponseReader = UpdateService.GetLanguageList();
+                //empty language list
+                languageList.Items.Clear();
+
+                //Loading into XML doc
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(myResponseReader);
+                var languages = xmlDoc.SelectNodes("available/language");
+	            var packages = new List<PackageInfo>();
+
+				if (languages != null)
+				{
+					foreach (XmlNode language in languages)
+					{
+						string cultureCode = "";
+						string version = "";
+						foreach (XmlNode child in language.ChildNodes)
+						{
+							if (child.Name == "culturecode")
+							{
+								cultureCode = child.InnerText;
+							}
+
+							if (child.Name == "version")
+							{
+								version = child.InnerText;
+							}
+						}
+						if (!string.IsNullOrEmpty(cultureCode) && !string.IsNullOrEmpty(version) && version.Length == 6)
+						{
+							var myCIintl = new CultureInfo(cultureCode, true);
+							version = version.Insert(4, ".").Insert(2, ".");
+							var package = new PackageInfo { Name = "LanguagePack-" + myCIintl.Name, FriendlyName = myCIintl.NativeName };
+							package.Name = myCIintl.NativeName;
+							package.Description = cultureCode;
+							Version ver = null;
+							Version.TryParse(version, out ver);
+							package.Version = ver;
+
+							if (packages.Any(p => p.Name == package.Name))
+							{
+								var existPackage = packages.First(p => p.Name == package.Name);
+								if (package.Version > existPackage.Version)
+								{
+									packages.Remove(existPackage);
+									packages.Add(package);
+								}
+							}
+							else
+							{
+								packages.Add(package);
+							}
+						}
+					}
+				}
+				foreach (var package in packages)
+                {
+					var li = new ListItem { Value = package.Description, Text = package.Name };
+		            languageList.AddItem(li.Text, li.Value);
+		            RadComboBoxItem lastItem = languageList.Items[languageList.Items.Count - 1];
+					if (DotNetNukeContext.Current.Application.Version.Major != package.Version.Major
+						|| DotNetNukeContext.Current.Application.Version.Minor != package.Version.Minor
+						|| DotNetNukeContext.Current.Application.Version.Build != package.Version.Build)
+		            {
+						lastItem.Attributes.Add("onclick", "javascript:LegacyLangaugePack('" + package.Version + "');");
+		            }
+                }
+            }
+            catch (Exception)
+            {
+                //suppress for now - need to decide what to do when webservice is unreachable
+                //throw;
+            }
+            finally
+            {
+                //ensure there is always an en-us
+                if (languageList.Items.FindItemByValue("en-US") == null)
+                {
+                    var myCIintl = new CultureInfo("en-US", true);
+                    var li = new ListItem {Value = "en-US", Text = myCIintl.NativeName};
+                    languageList.AddItem(li.Text, li.Value);
+                    RadComboBoxItem lastItem = languageList.Items[languageList.Items.Count - 1];
+                    lastItem.Attributes.Add("onclick", "javascript:ClearLegacyLangaugePack();");
+                    languageList.Sort = RadComboBoxSort.Ascending;
+                    languageList.Items.Sort();
+                }
+                var item = languageList.Items.FindItemByValue(_culture);
+                languageList.SelectedIndex = item != null ? item.Index : languageList.Items.FindItemByValue("en-US").Index;
+                languageList.Sort = RadComboBoxSort.Ascending;
+                languageList.Items.Sort();
+            }
+        }
+
+        private static void VisitSiteClick(object sender, EventArgs eventArgs)
+        {    
+            //Delete the status file.
+            try
+            {
+                File.Delete(StatusFile);
+                
+            }
+            catch (Exception)
+            {
+                //Do nothing
+            }
+            
+            //delete the initial install config -check readonly status first
+            try
+            {
+                string installConfig = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Install", "DotNetNuke.install.config");
+                if (File.Exists(installConfig))
+                {
+                    //make sure file is not read-only
+                    File.SetAttributes(installConfig, FileAttributes.Normal);
+                    File.Delete(installConfig);
+                } 
+            
+            }
+            catch (Exception)
+            {
+
+                //Do nothing
+            }
+            Config.Touch();
+            HttpContext.Current.Response.Redirect("../Default.aspx");
+        }
+        #endregion 
 
         #region Protected Methods
 
@@ -1510,9 +811,9 @@ namespace DotNetNuke.Services.Install
         /// -----------------------------------------------------------------------------
         protected string LocalizeString(string key)
         {
-            return Localization.Localization.GetString(key, LocalResourceFile, cboLanguages.SelectedValue.ToLower());
+            return Localization.Localization.GetString(key, LocalResourceFile, _culture);
         }
-
+        
         protected override void OnError(EventArgs e)
         {
             HttpContext.Current.Response.Clear();
@@ -1536,14 +837,18 @@ namespace DotNetNuke.Services.Install
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
-
-            cboLanguages.SelectedIndexChanged += cboLanguages_SelectedIndexChanged;
-            chkIntegrated.CheckedChanged += chkIntegrated_CheckedChanged;
-            rblDatabases.SelectedIndexChanged += rblDatabases_SelectedIndexChanged;
-            wizInstall.ActiveStepChanged += wizInstall_ActiveStepChanged;
-            wizInstall.NextButtonClick += wizInstall_NextButtonClick;
-
-            ClientAPI.HandleClientAPICallbackEvent(this);
+            //if previous config deleted create new empty one
+            string installConfig = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Install", "DotNetNuke.install.config");
+            if (!File.Exists(installConfig))
+            {
+                File.Copy(installConfig + ".resources", installConfig);
+            }
+            GetInstallerLocales();
+            if (!Page.IsPostBack || _installConfig == null)
+            {
+                _installConfig = InstallController.Instance.GetInstallConfig();
+                _connectionConfig = _installConfig.Connection;
+            }
         }
 
         /// -----------------------------------------------------------------------------
@@ -1558,138 +863,113 @@ namespace DotNetNuke.Services.Install
         /// -----------------------------------------------------------------------------
         protected override void OnLoad(EventArgs e)
         {
+            SetBrowserLanguage();
+            LocalizePage();
+            
             base.OnLoad(e);
+            visitSite.Click += VisitSiteClick;           
+
 			//Register jquery reference.
 			jQuery.RequestRegistration();
 
-            //register variable ActionCallback with script necessary to perform callback
-            //[ACTIONTOKEN] will be replaced on the client side with real action
-            ClientAPI.RegisterClientVariable(Page, "ActionCallback", ClientAPI.GetCallbackEventReference(this, "[ACTIONTOKEN]", "successFunc", "this", "errorFunc"), true);
+            //Create Status Files
+            if (!File.Exists(StatusFile)) File.CreateText(StatusFile).Close();
 
-            hostWarningLabel.Visible = !Regex.IsMatch(Request.Url.Host, "^([a-zA-Z0-9.-]+)$", RegexOptions.IgnoreCase);
+            // Hide Licensing Step if no License Info is available
+            LicenseActivation.Visible = IsProOrEnterprise && !String.IsNullOrEmpty(_installConfig.License.AccountEmail) && !String.IsNullOrEmpty(_installConfig.License.InvoiceNumber);
 
-			//update current thread culture to make dnn label work correctly
-			Thread.CurrentThread.CurrentUICulture = new CultureInfo(cboLanguages.SelectedValue);
-
-            if (!Page.IsPostBack)
+            if ((!IsProOrEnterprise) && templateList.Items.FindItemByValue("Mobile Website.template") != null)
             {
-				//Adding ClientDependency Resources config to web.config
-				BindPermissions(true);
-				if (PermissionsValid && !ClientResourceManager.IsInstalled())
-				{
-					ClientResourceManager.AddConfiguration();
-					Response.Redirect(Request.RawUrl);
-				}
-                installTypeRadioButton.Items.Clear();
-                installTypeRadioButton.Items.Add(new ListItem(LocalizeString("Typical"), "Typical"));
-                installTypeRadioButton.Items.Add(new ListItem(LocalizeString("Full"), "Full"));
-                installTypeRadioButton.Items.Add(new ListItem(LocalizeString("Auto"), "Auto"));
-                installTypeRadioButton.SelectedIndex = 0;
+                templateList.Items.Remove(templateList.Items.FindItemByValue("Mobile Website.template"));
+            }
 
-                rblDatabases.Items.Clear();
-                rblDatabases.Items.Add(new ListItem(LocalizeString("SQLServerXPress"), "SQLFile"));
-                rblDatabases.Items.Add(new ListItem(LocalizeString("SQLServer"), "SQLDatabase"));
-
-                //Parse the conneection String to the form
-                BindConnectionString();
-
-                //Database Choices
-                BindDatabases();
-
-                if (TestDatabaseConnection())
+            if (HttpContext.Current.Request.RawUrl.EndsWith("&initiateinstall"))
+            {
+                var synchConnectionString = new SynchConnectionStringStep();
+                synchConnectionString.Execute();
+                Response.Redirect(HttpContext.Current.Request.RawUrl.Replace("&initiateinstall", "&executeinstall"), true);
+            }
+            else if (HttpContext.Current.Request.RawUrl.EndsWith("&executeinstall"))
+            {
+                try
                 {
-                    Initialise();
-
-                    installTypeRadioButton.Items[2].Enabled = true;
-                    databaseWarningLabel.Visible = false;
+                    _installerRunning = true;
+                    LaunchAutoInstall();
+                }
+                catch(Exception)
+                {
+                    //Redirect back to first page
+                    Response.Redirect(HttpContext.Current.Request.RawUrl.Replace("&executeinstall", ""), true);
+                }
+            }
+            else if (!Page.IsPostBack)
+            {
+                if (_installerRunning)
+                {
+                    LaunchAutoInstall();
                 }
                 else
                 {
-                    //Install but connection string not configured to point at a valid SQL Server
-                    UpdateMachineKey();
+                    SetupDatabaseInfo();
+                    BindLanguageList();
+                    
+                    if (CheckDatabaseConnection())
+                    {
+                        Initialise();
+                    }
+                    else
+                    {
+                        //Install but connection string not configured to point at a valid SQL Server
+                        UpdateMachineKey();
+                    }
 
-                    installTypeRadioButton.Items[2].Enabled = false;
-                    databaseWarningLabel.Visible = true;
+                    if (!Regex.IsMatch(Request.Url.Host, "^([a-zA-Z0-9.-]+)$", RegexOptions.IgnoreCase))
+                    {
+                        lblError.Visible = true;
+                        lblError.Text = Localization.Localization.GetString("HostWarning", LocalResourceFile);
+                    }
+
+                    //ensure web.config is not read-only
+                    var configPath = Server.MapPath("~/web.config");
+                    try
+                    {
+                        var attributes = File.GetAttributes(configPath);
+                        //file is read only
+                        if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                        {
+                            attributes = attributes & ~FileAttributes.ReadOnly;
+                            File.SetAttributes(configPath, attributes);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Visible = true;
+                        lblError.Text = ex.ToString();
+                        return;
+                    }
+
+                    //Adding ClientDependency Resources config to web.config                    
+                    if (!ClientResourceManager.IsInstalled() && ValidatePermissions().Item1)
+                    {
+                        ClientResourceManager.AddConfiguration();
+                        Response.Redirect(Request.RawUrl);
+                        //TODO - this may cause infinite loop
+                    }
+
+                    //Ensure connection strings are in synch
+                    var synchConnectionString = new SynchConnectionStringStep();
+                    synchConnectionString.Execute();
+                    if (synchConnectionString.Status == StepStatus.AppRestart) Response.Redirect(HttpContext.Current.Request.RawUrl, true);
+
+                    txtUsername.Text = _installConfig.SuperUser.UserName;
+                    if (_installConfig.Portals.Count > 0)
+                    {
+                        txtWebsiteName.Text = _installConfig.Portals[0].PortalName;
+                        //TODO Language and Template
+                    }
                 }
-                cboLanguages.DataSource = GetInstallerLocales();
-                cboLanguages.DataBind();
-                SelectBrowserLanguage();
-                wizInstall.ActiveStepIndex = 0;
-
-                LocalizePage();
-                SetupPage();
             }
-        }
 
-        private void SelectBrowserLanguage()
-        {
-            var codes = cboLanguages.Items.Cast<ListItem>().Select(x => x.Value);
-            string cultureCode = TestableLocalization.Instance.BestCultureCodeBasedOnBrowserLanguages(codes);
-
-            cboLanguages.Items.FindByValue(cultureCode).Selected = true;
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_PreRender runs just before the page is rendered
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/15/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected override void OnPreRenderComplete(EventArgs e)
-        {
-            base.OnPreRenderComplete(e);
-
-            //Make sure that the password is not cleared on pastback
-            txtPassword.Attributes["value"] = txtPassword.Text;
-            txtSMTPPassword.Attributes["value"] = txtSMTPPassword.Text;
-        }
-
-        // ReSharper disable InconsistentNaming
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Selected Language is changed
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/09/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void cboLanguages_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LocalizePage();
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Integrated Security Checkbox value is changed
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/23/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void chkIntegrated_CheckedChanged(object sender, EventArgs e)
-        {
-            userRow.Visible = !chkIntegrated.Checked;
-            passwordRow.Visible = !chkIntegrated.Checked;
-            if (chkIntegrated.Checked)
-            {
-                chkOwner.Checked = true;
-            }
-            chkOwner.Enabled = !chkIntegrated.Checked;
-            LocalizePage();
-        }
-
-        protected void customButton_Click(object sender, EventArgs e)
-        {
-            BindPermissions(true);
         }
 
         /// -----------------------------------------------------------------------------
@@ -1761,213 +1041,247 @@ namespace DotNetNuke.Services.Install
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Selected Database is changed
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/23/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void rblDatabases_SelectedIndexChanged(object sender, EventArgs e)
+        #endregion
+
+        #region WebMethods
+
+        //steps shown in UI
+        static readonly IInstallationStep filePermissionCheck = new FilePermissionCheckStep();
+        static readonly IInstallationStep installDatabase = new InstallDatabaseStep();
+        static readonly IInstallationStep installExtensions = new InstallExtensionsStep();
+        static readonly IInstallationStep installSite = new InstallSiteStep();
+        static readonly IInstallationStep createSuperUser = new InstallSuperUserStep();
+        static readonly IInstallationStep activateLicense = new ActivateLicenseStep();
+
+        //Ordered List of Steps (and weight in percentage) to be executed
+        private static readonly IDictionary<IInstallationStep, int> _steps = new Dictionary<IInstallationStep, int>
+                                        {   {filePermissionCheck, 10},
+                                            {new IISVerificationStep(), 5},
+                                            {installDatabase, 20},
+                                            {installExtensions, 25},
+                                            {new InitializeHostSettingsStep(), 5},
+											{new UpdateLanguagePackStep(), 5},
+                                            {installSite, 20},
+                                            {createSuperUser, 5},
+                                            {activateLicense, 4},
+                                            {new InstallVersionStep(), 1}
+                                        };
+
+        [System.Web.Services.WebMethod]
+        public static void RunInstall()
         {
-            BindConnectionString();
-            SetupDatabasePage();
-            LocalizePage();
+            _installerRunning = false;
+            LaunchAutoInstall();
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Active Wizard Step has changed
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/09/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void wizInstall_ActiveStepChanged(object sender, EventArgs e)
+        [System.Web.Services.WebMethod]
+        public static object GetInstallationLog(int startRow)
         {
-            //Main Title
-            Title = LocalizeString("Title") + " - " + LocalizeString("Page" + wizInstall.ActiveStepIndex + ".Title");
-
-			LocalizePage();
-
-            switch (wizInstall.ActiveStepIndex)
+            var data = string.Empty;
+            string logFile = "InstallerLog" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + ".resources";
+            try
             {
-                case 1: //Page 1 - File Permissions
-                    BindPermissions(true);
-                    break;
-				case 2: //Page 2 - Bind database connection form
-					BindConnectionString();
-            		break;
-                case 4: //Page 4 - Modules
-                    if (installTypeRadioButton.SelectedValue == "Typical")
+                var lines = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Portals", "_default", "logs", logFile));
+                var errorLogged = false;
+                if (lines.Length > startRow)
+                {
+                    var count = lines.Length - startRow > 500  ? 500 : lines.Length - startRow;
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    for (var i = startRow; i < startRow + count; i++)
                     {
-                        BindModules();
-                        if (InstallModules())
+                        if (lines[i].Contains("[ERROR]"))
                         {
-                            //Skip Modules Page
-                            wizInstall.ActiveStepIndex = 5;
+                            sb.Append(lines[i]);
+                            sb.Append("<br/>");
+                            errorLogged = true;
                         }
                     }
-                    break;
-                case 5: //Page 5 - Skins/Conatiners
-                    if (installTypeRadioButton.SelectedValue == "Typical")
-                    {
-                        BindSkins();
-                        if (InstallSkins())
-                        {
-                            //Skip Skins Page
-                            wizInstall.ActiveStepIndex = 6;
-                        }
-                    }
-                    break;
-                case 6: //Page 6 - Languages
-                    if (installTypeRadioButton.SelectedValue == "Typical")
-                    {
-                        BindLanguages();
-                        if (InstallLanguages())
-                        {
-                            //Skip Languages Page
-                            wizInstall.ActiveStepIndex = 7;
-                        }
-                    }
-                    break;
-                case 7: //Page 7 - Auth Systems
-                    if (installTypeRadioButton.SelectedValue == "Typical")
-                    {
-                        BindAuthSystems();
-                        if (InstallAuthSystems())
-                        {
-                            //Skip Auth Systems Page
-                            wizInstall.ActiveStepIndex = 8;
-                        }
-                    }
-                    break;
-                case 8: //Page 8 - Providers
-                    if (installTypeRadioButton.SelectedValue == "Typical")
-                    {
-                        BindProviders();
-                        if (InstallProviders())
-                        {
-                            //Skip Providers Page
-                            wizInstall.ActiveStepIndex = 9;
-                        }
-                    }
-                    break;
-                case 9: //Page 9 - SMTP Settings
-                    if (installTypeRadioButton.SelectedValue == "Full")
-                    {
-                        SMTPSettingsPanel.Visible = true;
-                    }
-					break;
+
+                    data = sb.ToString();
+                }
+                if (errorLogged ==false)
+                {
+                    Localization.Localization.GetString("NoErrorsLogged", "~/Install/App_LocalResources/InstallWizard.aspx.resx");
+                }
             }
+            catch (Exception)
+            {
+            }
+
+            return data;
+        }
+		
+		[System.Web.Services.WebMethod]
+        public static Tuple<bool, string> ValidateInput(Dictionary<string, string> installInfo)
+        {
+            var result = true;
+		    var errorMsg=string.Empty;
             
-            SetupPage();
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Runs when the Wizard's Next button is clicked
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	02/20/2007	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void wizInstall_NextButtonClick(object sender, WizardNavigationEventArgs e)
-        {
-            switch (e.CurrentStepIndex)
+            // Check Required Fields
+			if (installInfo["username"] == string.Empty || installInfo["password"] == string.Empty || installInfo["confirmPassword"] == string.Empty || installInfo["websiteName"] == string.Empty)
             {
-                case 0:
-                    if (installTypeRadioButton.SelectedValue == "Auto")
-                    {
-                        Response.Redirect("~/Install/Install.aspx?mode=install");
-                    }
-                    break;
-                case 1: //Page 1 - File Permissions
-                    BindPermissions(true);
-                    e.Cancel = !PermissionsValid;
-                    break;
-                case 2: //Page 2 - Database Configuration
-                    bool canConnect = TestDatabaseConnection();
-                    if (canConnect)
-                    {
-                        //Update Connection String
-                        Config.UpdateConnectionString(_connectionString);
-                        string dbOwner;
-                        if (chkOwner.Checked)
-                        {
-                            dbOwner = "dbo";
-                        }
-                        else
-                        {
-                            dbOwner = (string.IsNullOrEmpty(GetUpgradeConnectionStringUserID()))
-                                            ? txtUserId.Text
-                                            : GetUpgradeConnectionStringUserID();
-                        }
-                        if (rblDatabases.SelectedValue == "Oracle")
-                        {
-                            Config.UpdateDataProvider("OracleDataProvider", "", txtqualifier.Text);
-                        }
-                        else
-                        {
-                            Config.UpdateDataProvider("SqlDataProvider", dbOwner, txtqualifier.Text);
-                        }
+                result = false;
+		        errorMsg = LocalizeStringStatic("InputErrorMissingRequiredFields");
+		    }
+			else if (installInfo["password"] != installInfo["confirmPassword"])
+			{
+				result = false;
+				errorMsg = LocalizeStringStatic("PasswordMismatch");
+			}
 
-                        //Get Base DatabaseVersion
-                        GetBaseDatabaseVersion();
-                    }
-                    else
-                    {
-                        e.Cancel = true;
-                    }
-
-                    break;
-                case 3: //Page 3 - Database Installation
-                    e.Cancel = !TestDataBaseInstalled();
-                    break;
-                case 4: //Page 4 - Modules
-                    e.Cancel = !InstallModules();
-                    break;
-                case 5: //Page 5 - Skins/Containers
-                    e.Cancel = !InstallSkins();
-                    break;
-                case 6: //Page 6 - Languages
-                    e.Cancel = !InstallLanguages();
-                    break;
-                case 7: //Page 7 - Auth Systems
-                    e.Cancel = !InstallAuthSystems();
-                    break;
-                case 8: //Page 8 - Providers
-                    e.Cancel = !InstallProviders();
-                    break;
-                case 9: //Page 9 - Admin/Host User
-					//Check if SMTP needs to be tested
-					if (!String.IsNullOrEmpty(txtSMTPServer.Text))
-					{
-						if (!TestSMTPSettings())
-						{
-							e.Cancel = true;
-							return;
-						}
-					}
-					if (!InstallHost())
-					{
-						e.Cancel = true;
-						return;
-					}
-                    e.Cancel = !InstallPortal();
-                    break;
-            }
+		    if (result)
+		    {
+                UpdateInstallConfig(installInfo);
+                new SynchConnectionStringStep().Execute();
+		    }
+            return new Tuple<bool, string>(result, errorMsg);
         }
 
-        // ReSharper restore InconsistentNaming
+		[System.Web.Services.WebMethod]
+		public static Tuple<bool, string> ValidatePermissions()
+		{
+			var permissionsValid = true;
+			IEnumerable<FileSystemPermissionVerifier> failedList;
+			var errorMessage = string.Empty;
+
+			var verifiers = new List<FileSystemPermissionVerifier>
+                                {
+                                    new FileSystemPermissionVerifier(HttpContext.Current.Server.MapPath("~"), 3),
+                                    new FileSystemPermissionVerifier(HttpContext.Current.Server.MapPath("~/App_Data"), 3)
+                                };
+
+			failedList = verifiers.Where(v => !v.VerifyFolderCreate()).ToArray();
+			if (failedList.Any())
+			{
+				permissionsValid = false;
+			}
+
+			if (permissionsValid)
+			{
+				failedList = verifiers.Where(v => !v.VerifyFileCreate()).ToArray();
+				if (failedList.Any())
+				{
+					permissionsValid = false;
+				}
+			}
+
+			if (permissionsValid)
+			{
+				failedList = verifiers.Where(v => !v.VerifyFileDelete()).ToArray();
+				if (failedList.Any())
+				{
+					permissionsValid = false;
+				}
+			}
+
+			if (permissionsValid)
+			{
+				failedList = verifiers.Where(v => !v.VerifyFolderDelete()).ToArray();
+				if (failedList.Any())
+				{
+					permissionsValid = false;
+				}
+			}
+
+			if (!permissionsValid)
+			{
+				errorMessage = string.Format(LocalizeStringStatic("FileAndFolderPermissionCheckFailed"), string.Join("; ", (from v in verifiers select v.BasePath)));
+			}
+			return new Tuple<bool, string>(permissionsValid, errorMessage);
+		}
+
+        [System.Web.Services.WebMethod]
+        public static bool ValidatePassword(string password)
+        {
+            // Check Length
+            var result = !(password.Length < Membership.MinRequiredPasswordLength);
+
+            // Check against regex    
+            if (!string.IsNullOrEmpty(Membership.PasswordStrengthRegularExpression) && !Regex.IsMatch(password, Membership.PasswordStrengthRegularExpression))
+                result = false;
+
+            // Check non-alphaNumeric
+            var nonAlnumCount = password.Where((t, i) => !char.IsLetterOrDigit(password, i)).Count();
+            if (nonAlnumCount < Membership.MinRequiredNonAlphanumericCharacters) result = false;
+
+            return result;
+        }      
+
+        [System.Web.Services.WebMethod]
+        public static bool VerifyDatabaseConnectionOnLoad()
+        {
+            return CheckDatabaseConnection();
+        }
+
+        [System.Web.Services.WebMethod]
+        public static Tuple<bool, string> VerifyDatabaseConnection(Dictionary<string, string> installInfo)
+        {
+            var connectionConfig = new ConnectionConfig();
+
+            // Database Config
+            if (installInfo["databaseSetup"] == "standard")
+            {
+                connectionConfig = _connectionConfig;
+            }
+            else
+            {
+                connectionConfig.Server = installInfo["databaseServerName"];
+                connectionConfig.Qualifier = installInfo["databaseObjectQualifier"];
+                connectionConfig.Integrated = installInfo["databaseSecurity"] == "integrated";
+                connectionConfig.User = string.IsNullOrEmpty(installInfo["databaseUsername"]) ? null : installInfo["databaseUsername"];
+                connectionConfig.Password = string.IsNullOrEmpty(installInfo["databasePassword"]) ? null : installInfo["databasePassword"];
+                connectionConfig.RunAsDbowner = installInfo["databaseRunAsOwner"] == "on";
+
+                if (installInfo["databaseType"] == "express")
+                {
+                    connectionConfig.File = installInfo["databaseFilename"];
+                    connectionConfig.Database = "";
+                }
+                else
+                {
+                    connectionConfig.Database = installInfo["databaseName"];
+                    connectionConfig.File = "";
+                }
+            }
+
+            var result = CheckDatabaseConnection(connectionConfig);
+            var validConnection = !result.StartsWith("ERROR:");
+            if (validConnection)
+            {
+                UpdateDatabaseInstallConfig(installInfo);
+                _connectionConfig = connectionConfig;
+                _installConfig.Connection = connectionConfig;
+            }
+            return new Tuple<bool, string>(validConnection, result);
+        }
+
+        /// <summary>
+        /// Indicate if the Installer is running
+        /// </summary>
+        /// <returns>True or False</returns>
+        /// <remarks>Checks the local static variable or the existence of status file</remarks>
+        [System.Web.Services.WebMethod]
+        public static bool IsInstallerRunning()
+        {
+            bool isRunning;
+
+            if (_installerRunning) 
+            {
+                isRunning =  true;
+            }
+            else if (File.Exists(StatusFile))
+            {
+                var file = new FileInfo(StatusFile);
+                isRunning = (file.Length > 0);
+            }
+            else
+            {
+                isRunning = false;
+            }
+
+            return isRunning;
+        }
 
         #endregion
-    }
+    } 
 }

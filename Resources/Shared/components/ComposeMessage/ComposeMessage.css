@@ -1,9 +1,8 @@
 ﻿.composeMessageDialog .dnnLeft .dnnFormItem{border-bottom:solid 1px #eee;width:400px;}
 .composeMessageDialog .dnnLeft .dnnFormItem img{vertical-align:middle;float:right;}
 .composeMessageDialog .dnnLeft button{cursor:pointer;padding:0.5em 1em;border:none;}
-.composeMessageDialog .dnnFormItem input[type="text"], .composeMessageDialog .dnnFormItem textarea{min-width: 55%;}
 .composeMessageDialog .dnnFormItem label, .composeMessageDialog .dnnFormItem .dnnFormLabel, .composeMessageDialog .dnnFormItem .dnnTooltip{width: 25%;}
-ul.token-input-list-facebook{width: 55%;}
+ul.token-input-list-facebook{width: 46%; margin-bottom: 18px;}
 div.token-input-dropdown-facebook ul li img{padding-right:10px;vertical-align:middle;}
 /* MESSAGE ATTACHMENTS */
 .composeMessageDialog .messageAttachments {

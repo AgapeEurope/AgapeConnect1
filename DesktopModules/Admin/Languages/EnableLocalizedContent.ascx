@@ -7,15 +7,15 @@
         <div class="dnnFormItem">
             <h2 class="dnnFormSectionHead"><asp:Label ID="headerLabel" runat="server" resourceKey="header" /></h2>
         </div>
-        <div class="dnnFormItem">
-            <asp:Label ID="enableLocalizationLabel" runat="server" resourceKey="enableLocalization" />
+        <div class="dnnFormMessage dnnFormInfo">
+            <%= LocalizeString("enableLocalization")%>
         </div>
         <div class="dnnFormItem">
-            <asp:Label ID="siteDefaultLabel" runat="server" resourceKey="siteDefaultLabel" />
+            <dnn:Label ID="siteDefaultLabel" runat="server" resourceKey="siteDefaultLabel" HelpKey="siteDefaultDescription" />
             <dnn:DnnLanguageLabel ID="defaultLanguageLabel" runat="server"  />
         </div>
         <div class="dnnFormItem">
-            <asp:Label ID="siteDefaultDescriptionLabel" runat="server" resourcekey="siteDefaultDescription" />
+            <dnn:Label ID="AllPagesTranslatable" runat="server"/><asp:CheckBox runat="server" ID="chkAllPagesTranslatable" />
         </div>
     </fieldset>
     <ul class="dnnActions dnnClear">

@@ -3,12 +3,14 @@
 <div class="dnnFormItem">
     <div class="dnnClear">
         <asp:Label runat="server" ResourceKey="Name" AssociatedControlID="Name" />
-        <asp:TextBox ID="Name" runat="server" />
+        <asp:TextBox ID="Name" runat="server" MaxLength="200" />
     </div>
     <div class="dnnClear">
         <asp:Label runat="server" ResourceKey="Location" AssociatedControlID="LocationLst" />
-        <asp:DropDownList ID="LocationLst" runat="server" />
-        <asp:DropDownList ID="PageLst" runat="server" MaxHeight="300px" CssClass="dnnCPPageList" />
+        <%--<asp:DropDownList ID="LocationLst" runat="server" />--%>
+        <dnn:DnnComboBox ID="LocationLst" runat="server" />
+        <%--<asp:DropDownList ID="PageLst" runat="server" MaxHeight="300px" CssClass="dnnCPPageList" />--%>
+        <dnn:DnnComboBox ID="PageLst" runat="server" CssClass="dnnCPPageList" />
     </div>
     <div class="dnnClear">
         <asp:Label id="SkinLbl" runat="server" ResourceKey="Skin" AssociatedControlID="SkinLst" />

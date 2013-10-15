@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /* RESET STYLES
@@ -7,7 +7,7 @@
 ----------------------------------------------- */
 #smMainContent{
 	position:relative;
-	margin:0 auto; padding:25px 0;
+	margin:0 auto; padding:25px 25px 15px 0;
 }
 
 .dnnFormMessage{-moz-border-radius:3px;border-radius:3px;padding:10px 10px 10px 40px;line-height:1.4;margin:0.5em 1em;}
@@ -32,31 +32,28 @@
 	/*
 	-  Messages / Notification Specific Button Styles
 	------------------------------------------------------------------*/
-	.DnnModule-Messaging-Notifications .dnnTertiaryAction {
-	    width:auto!important; /* overwrite possible button width styles */
-		padding:8px 10px;
-		font-size:11px;
-	}
+	
 	
 		/* Select Drop Down with button style */
 		.DnnModule-Messaging-Notifications .selectDrop {position:relative;z-index:1; width:auto;}
-		.DnnModule-Messaging-Notifications .selectDrop .dnnTertiaryAction span{padding-right:5px;}
+		.DnnModule-Messaging-Notifications .selectDrop  > a span{padding-right:5px;}
 		
 		/* Select Drop Down Arrow for regular, active, and disabled state */
-		.selectDrop .dnnTertiaryAction:after{
+		.selectDrop > a:after{
 			display:none;
 			content:'';
 			position:relative;
 			display:inline-block; width:7px; height:9px;
-			background: url(images/icons.png) 0 3px no-repeat;
+			background: url(images/icons.png) 0 3px no-repeat;	
+			margin: 0 0 0 6px;
 		}
-		.selectDrop .dnnTertiaryAction:hover:after{background: url(images/icons.png) -250px 3px no-repeat;}
-		.selectDrop .dnnTertiaryAction.disabled:hover:after{background: url(images/icons.png) 0 3px no-repeat;}
+		.selectDrop > a:hover:after{background: url(images/icons.png) -250px 3px no-repeat;}
+		.selectDrop > a.disabled:hover:after{background: url(images/icons.png) 0 3px no-repeat;}
 		
-		.selectDrop .dnnTertiaryAction:active span{color:#ddd;}
-		.selectDrop .dnnTertiaryAction:active:after{background: url(images/icons.png) -250px 3px no-repeat;}
-		.active .dnnTertiaryAction:after{background: url(images/icons.png) -250px 3px no-repeat!important;} 
-		.selectDrop .dnnTertiaryAction.disabled:active:after{background: url(images/icons.png) 0 3px no-repeat;}
+		.selectDrop > a:active span{color:#ddd;}
+		.selectDrop > a:active:after{background: url(images/icons.png) -250px 3px no-repeat;}
+		.active > a:after{background: url(images/icons.png) -250px 3px no-repeat!important;} 
+		.selectDrop > a.disabled:active:after{background: url(images/icons.png) 0 3px no-repeat;}
 		
 		/* Styles for select drop*/
 		.DnnModule .selectDrop ul{
@@ -88,50 +85,27 @@
 			-moz-box-shadow: 		inset 0px 0px 5px 0px #555;
 			box-shadow: 			inset 0px 0px 5px 0px #555; 
 		}
-		.selectDrop.active .dnnTertiaryAction:after{background: url(../images/icons.png) -250px 3px no-repeat;}
+		.selectDrop.active > a:after{background: url(../images/icons.png) -250px 3px no-repeat;}
 		
 		/* Prevent default .select dropdown hoverstate when dropdown is open*/
-		.selectDrop.active .dnnTertiaryAction:active:after{background: url(../images/icons.png) 0 3px no-repeat;}
+		.selectDrop.active > a:active:after{background: url(../images/icons.png) 0 3px no-repeat;}
 		
 		/* when select drop down button is clicked toggle active class to show*/
 		.selectDrop.active ul{display:block;}
 		.selectDrop ul li{margin-bottom:5px;}
 		
-		/* Button Group Styles */
-		.buttonGroup {margin-right:7px;}
-		
-		/* Remove corners and add dividers to buttons in button group */
-		.buttonGroup .dnnTertiaryAction{
-			margin:0; -webkit-border-radius:0; -moz-border-radius:0; border-radius:0;
-			border-left:1px solid #fcfcfc; /*light*/
-			border-right:1px solid #c7c7c7; /*dark*/
-		}
-		
-		.buttonGroup .dnnTertiaryAction.active{border-right:1px solid #666;}
-		.buttonGroup .dnnTertiaryAction:active{border-left:1px solid #444;}
-		.buttonGroup .dnnTertiaryAction.disabled:hover{border-left:1px solid #fcfcfc; /*light*/}
-		
-		/*First Button styles of a button group */
-		.alpha .dnnTertiaryAction, .alpha .dnnTertiaryAction:hover, .alpha .dnnTertiaryAction.active{
-			border-left:none;
-			/*CSS3*/
-			-moz-border-radius-topleft: 		3px;
-			-moz-border-radius-bottomleft: 	3px;
-			-webkit-border-radius: 			3px 0 0 3px;
-			border-radius:					3px 0 0 3px; 
-		}
-		/*Last Button styles of a button group */
-		.omega .dnnTertiaryAction, .omega .dnnTertiaryAction:active, .omega .dnnTertiaryAction.active{
-			border-right:none;
-			/*CSS3*/
-			-moz-border-radius-topright: 	3px;
-			-moz-border-radius-bottomright: 3px;
-			-webkit-border-radius: 			0 3px 3px 0;
-			border-radius: 					0 3px 3px 0; 
+		.dnnCoreMessagingContent  .messageControls a.ArchiveItems{			
+			margin-left: 5px;
 		}
 
 		.clear{clear:both;}
-	
+		
+		ul.token-input-list-facebook { width: 45% !important; margin-bottom: 18px !important; }
+
+
+button, input[type="button"], input[type="reset"], input[type="submit"], .dnnPrimaryAction, .dnnSecondaryAction, .dnnTertiaryAction, ul.dnnAdminTabNav li a, .dnnLogin .LoginTabGroup span{ 
+		min-width:55px;
+	}	
 
 /* MODULE STRUCTURE
 ----------------------------------------------- */
@@ -218,6 +192,7 @@
 	.dnnTertiaryAction.ToggleOrder:active span{background-position:-300px 3px;}
 	.dnnTertiaryAction.ToggleOrder.ascend span{background-position: -200px 3px;}
 	.dnnTertiaryAction.ToggleOrder.ascend:active span{background-position: -350px 3px;}
+	.dnnPrimaryAction.ComposeMessage { margin-bottom: 0; }
 
 	/* AJAX load styles */
 	#loadingMessages, #loadingNotifications {
@@ -286,45 +261,28 @@
 
 	.DnnModule-Messaging-Details .smListings .profileImg{
 		display:block;
-		padding:5px;
-		width:50px; height:auto;
-		background:#fff;
-		border:1px solid #e2e2e2;
-		
-		/*CSS3*/
-		-webkit-border-radius:  2px;
-		-moz-border-radius: 	2px;
-		border-radius: 			2px; 
+		width:40px; height:40px;
+		background:#ddd;
+		border:3px solid #ddd;
 	}
-	.DnnModule-Messaging-Details .smListings .profileImg span{
-		display:block;
-		width:50px; max-height:50px; overflow:hidden;
-	}
-	.DnnModule-Messaging-Details .smListings .profileImg img{width:auto; height:auto;}
-	.DnnModule-Messaging-Details .smListings .profileImg:hover{background:#666;}
-
+	.DnnModule-Messaging-Details .smListings .profileImg span{display:inline-block; width:40px; height:40px; overflow:hidden; border: transparent; text-decoration: none;}
+	.DnnModule-Messaging-Details .smListings .profileImg span em { display: table-cell; width: 40px; height: 40px; vertical-align: middle; } 
+	.DnnModule-Messaging-Details .smListings .profileImg img{display: inline-block; border: none; width: 100%; -ms-interpolation-mode: bicubic;	}
 	/*Column 2 Styles*/
 	.DnnModule-Messaging-Notifications .smListings .profileImg{
 		display:block;
-		padding:5px;
-		width:50px; height:auto;
-		background:#fff;
-		border:1px solid #e2e2e2;
-		
-		/*CSS3*/
-		-webkit-border-radius:  2px;
-		-moz-border-radius: 	2px;
-		border-radius: 			2px; 
+		width:40px; height:40px;
+		background:#ddd;
+		border:3px solid #ddd;
 	}
-	.DnnModule-Messaging-Notifications .smListings .profileImg span{display:block; width:50px; max-height:50px; overflow:hidden;	}
-	.DnnModule-Messaging-Notifications .smListings .profileImg img{min-width:50px;	}
-	.DnnModule-Messaging-Notifications .smListings .profileImg:hover{background:#666;}
-	
+	.DnnModule-Messaging-Notifications .smListings .profileImg span{display:inline-block; width:40px; height:40px; overflow:hidden; border: transparent; text-decoration: none;}
+	.DnnModule-Messaging-Notifications .smListings .profileImg span em { display: table-cell; width: 40px; height: 40px; vertical-align: middle; } 
+	.DnnModule-Messaging-Notifications .smListings .profileImg img{display: inline-block; border: none; width: 100%; -ms-interpolation-mode: bicubic;	}
 	.DnnModule-Messaging-Details .smListings .active .subject{font-weight:bold;}
 	.DnnModule-Messaging-Details .smListings .meta{margin-bottom:10px;}
 	.DnnModule-Messaging-Details .smListings .meta em{font-style:italic;}
 	.DnnModule-Messaging-Details .smListings .meta a{font-weight:bold;}
-	.DnnModule-Messaging-Details .smListings .message{color:#888; margin-bottom:15px;}
+	.DnnModule-Messaging-Details .smListings .message{color:#888; margin-bottom:15px;white-space: pre-wrap;}
 	.DnnModule-Messaging-Details .smListings .attatchements{margin-bottom:15px;}
 	.DnnModule-Messaging-Details .smListings .attatchements strong{
 		display:block;
@@ -342,7 +300,7 @@
 	.DnnModule-Messaging-Notifications .smListings .meta em{font-style:italic;}
 	.DnnModule-Messaging-Notifications .smListings .meta a{}
 	.DnnModule-Messaging-Notifications .smListings .meta a:hover{/*baby blue*/}
-	.DnnModule-Messaging-Notifications .smListings .message{color:#888;}
+	.DnnModule-Messaging-Notifications .smListings .message{color:#888;white-space: pre-wrap;}
 
 	.DnnModule-Messaging-Details .smListings .ListCol-3 ul{float:right;} 
 	.DnnModule-Messaging-Details .smListings .ListCol-3 ul li{text-align:right; margin-bottom:8px; height:18px; list-style:none;}
@@ -406,8 +364,8 @@
 		text-align:right;
 	}
 	.DnnModule-Messaging-Notifications .smListings .ListCol-4 ul li:first-child{color:#888;}
-	.DnnModule-Messaging-Notifications .smListings li ul .hoverControls div{display:none;padding-top:5px;}
-	.DnnModule-Messaging-Notifications .smListings li:hover ul  > .hoverControls div{display:block;}
+	.DnnModule-Messaging-Notifications .smListings li ul .hoverControls div{display:none; padding-top:5px;}
+	.DnnModule-Messaging-Notifications .smListings li:hover ul  > .hoverControls div{display:block; margin-top: 15px; }
 	    
 	.DnnModule-Messaging-Notifications .smListings .active .ActiveToggle, .smListings .ActiveToggle:hover {
 		display:inline-block;
@@ -487,6 +445,19 @@
 		background:#F9F8D2;
 		color:#333;
 	}
-	.notificationControls .dnnPrimaryAction{margin-right:5px;}
-    .dnnFormPopup{overflow:hidden !important}
+	.notificationControls .dnnPrimaryAction{margin-right:5px;} 
     .troubleshoot{border:1px solid red;}
+    
+    /*composeMessageDialog*/
+    .composeMessageDialog.dnnForm{
+        padding-top: 18px;
+    }
+	.composeMessageDialog .fileUploadArea{ display: inline-block;vertical-align: top;}
+    .composeMessageDialog .dnnTertiaryAction{ margin: 0 10px 0 0;padding: 6px 6px;height: 32px;}
+	/*Attachments*/
+	.composeMessageDialog .messageAttachments{ margin-top: 5px;}
+	/* File Upload */
+	.composeMessageDialog .itemUpload{ clear: both;}
+    .composeMessageDialog .itemUpload .progress_bar_wrapper{ width: 500px;overflow: hidden;}
+    .composeMessageDialog .itemUpload .progress-bar div{ background-image: url('Images/progress.gif');position:relative;padding:0 !important;}
+	

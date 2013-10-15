@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -40,6 +40,7 @@ using DotNetNuke.Entities.Users;
 using DotNetNuke.Framework;
 using DotNetNuke.Instrumentation;
 using DotNetNuke.Modules.Admin.Users;
+using DotNetNuke.Security;
 using DotNetNuke.Security.Membership;
 using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Authentication;
@@ -68,6 +69,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 	/// </history>
 	public partial class Login : UserModuleBase
 	{
+		private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (Login));
 
 		#region Private Members
 
@@ -676,6 +678,11 @@ namespace DotNetNuke.Modules.Admin.Authentication
 					ctlProfile.DataBind();
 					break;
 			}
+
+			if (showProfile && Request.Url.ToString().Contains("popUp=true"))
+			{
+				ScriptManager.RegisterClientScriptBlock(this, GetType(), "ResizePopup", "if(parent.$('#iPopUp').length > 0 && parent.$('#iPopUp').dialog('isOpen')){parent.$('#iPopUp').dialog({width: 950, height: 550}).dialog({position: 'center'});};", true);
+			}
 		}
 
 		private void UpdateProfile(UserInfo objUser, bool update)
@@ -744,6 +751,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 			UserValidStatus validStatus = UserValidStatus.VALID;
 			string strMessage = Null.NullString;
 			DateTime expiryDate = Null.NullDate;
+		    bool okToShowPanel = true;
 
 			validStatus = UserController.ValidateUser(objUser, PortalId, ignoreExpiring);
 
@@ -757,6 +765,22 @@ namespace DotNetNuke.Modules.Admin.Authentication
 			switch (validStatus)
 			{
 				case UserValidStatus.VALID:
+                    //check if the user is an admin/host and validate their IP
+                    if (Host.EnableIPChecking)
+                    {
+                        bool isAdminUser = objUser.IsSuperUser || PortalSettings.UserInfo.IsInRole(PortalSettings.AdministratorRoleName); ;
+                        if (isAdminUser) 
+                        {
+                            if (IPFilterController.Instance.IsIPBanned(Request.UserHostAddress))
+                            {
+                                new PortalSecurity().SignOut();
+                                AddModuleMessage("IPAddressBanned", ModuleMessage.ModuleMessageType.RedError, true);
+                                okToShowPanel = false;
+                                break;
+                            }
+                        }
+                    }
+
 					//Set the Page Culture(Language) based on the Users Preferred Locale
 					if ((objUser.Profile != null) && (objUser.Profile.PreferredLocale != null))
 					{
@@ -799,12 +823,18 @@ namespace DotNetNuke.Modules.Admin.Authentication
 					pnlProceed.Visible = false;
 					break;
 				case UserValidStatus.UPDATEPROFILE:
+					//Save UserID in ViewState so that can update profile later.
+					UserId = objUser.UserID;
+
+					//When the user need update its profile to complete login, we need clear the login status because if the logrin is from
+					//3rd party login provider, it may call UserController.UserLogin because they doesn't check this situation.
+					new PortalSecurity().SignOut();
 					//Admin has forced profile update
 					AddModuleMessage("ProfileUpdate", ModuleMessage.ModuleMessageType.YellowWarning, true);
 					PageNo = 3;
 					break;
 			}
-			ShowPanel();
+		    if (okToShowPanel) ShowPanel();
 		}
 
         private bool UserNeedsVerification()
@@ -900,7 +930,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 				catch (Exception ex)
 				{
 					//control not there 
-					DnnLog.Error(ex);
+					Logger.Error(ex);
 				}
 			}
 			if (!Request.IsAuthenticated || UserNeedsVerification())

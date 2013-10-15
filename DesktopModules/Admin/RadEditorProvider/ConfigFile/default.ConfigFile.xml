@@ -10,12 +10,12 @@
   <property name="Language">
   </property>
   <property name="ContentFilters">DefaultFilters</property>
-  <property name="CssFile">/editor.css</property>
+  <property name="CssFile">editor.css</property>
   <property name="NewLineBr">False</property>
   <property name="StripFormattingOptions">MSWordRemoveAll</property>
   <property name="LinksUseRelativeUrls">True</property>
-  <property name="LinksUseTabNames">False</property>
-  <property name="ShowPortalLinks">True</property>
+  <property name="LinksType">Normal</property>
+  <property name="ShowPortalLinks">False</property>
   <property name="ContentAreaMode">Iframe</property>
   <property name="ToolbarMode">Default</property>
   <property name="ToolsWidth">

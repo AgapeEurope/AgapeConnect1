@@ -136,7 +136,7 @@
     <value>Create a new Account</value>
   </data>
   <data name="cmdForgotPassword.Text" xml:space="preserve">
-    <value>Forgot Password ?</value>
+    <value>Forgot Password?</value>
   </data>
   <data name="cmdPassword.Text" xml:space="preserve">
     <value>Retrieve Password</value>
@@ -164,6 +164,9 @@
   </data>
   <data name="InvalidCode.Text" xml:space="preserve">
     <value>Invalid Verification Code</value>
+  </data>
+  <data name="IPAddressBanned.Text" xml:space="preserve">
+    <value>You cannot login to the website from this IP address.</value>
   </data>
   <data name="LoginFailed.Text" xml:space="preserve">
     <value>Login Failed. Please remember that passwords are case sensitive</value>

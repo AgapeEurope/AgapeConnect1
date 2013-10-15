@@ -30,7 +30,8 @@
 	display:block;
 	padding:25px; margin-bottom:25px;
 	width:870px;
-	background:#efefef;
+/*
+    background:#efefef;
 	border:1px solid #ccc;
 	line-height:1.5em;
 	
@@ -38,6 +39,7 @@
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px; 
+    */
 }
 #fiftyOneDegrees .upgradePremium h5 + div{
 	width:60%;
@@ -84,25 +86,19 @@
 	.DnnModule-Device-Detection .upgradePremium input[type="submit"] + p{margin-top:15px;}
 	
 	.DnnModule-Device-Detection .upgradePremium input[value="Refresh"]{display:block;}
-	.DnnModule-Device-Detection .deviceMsg div{float:left; }
+	.DnnModule-Device-Detection .deviceMsg div{float:left; margin-right: 10px; }
 	.DnnModule-Device-Detection .deviceMsg .dnnFormMessage{margin:15px 0; display:inline-block; zoom:1; width:480px}
 	.DnnModule-Device-Detection .deviceMsg .dnnFormMessage + div{clear:left;  min-width:400px;}
 	.DnnModule-Device-Detection .deviceMsg .footer{
 		float:right; 
-		width:260px;
+		width:200px;
 		padding:25px; 
+		padding-bottom: 12px;
 		margin-bottom:15px;
-		background:#ddd;
-		border:1px solid #ccc;
-		
-		-moz-border-radius:3px;
-		border-radius:3px;
-		
-		-webkit-box-shadow: 	0px 1px 0px rgba(255, 255, 255, 1);
-		-moz-box-shadow: 		0px 1px 0px rgba(255, 255, 255, 1);
-		box-shadow: 			0px 1px 0px rgba(255, 255, 255, 1); 
+		background:#eaeaea;
+		margin-top: -30px;
 	}
-	.DnnModule-Device-Detection .deviceMsg .footer span{display:block;}
+	.DnnModule-Device-Detection .deviceMsg .footer span{display:block; font-size: 13px; margin-bottom: 12px; text-align: center; width: 100%; }
 	.DnnModule-Device-Detection .footer span strong{display:inline; width:auto;}
 	.DnnModule-Device-Detection .deviceMsg .footer + input[type="submit"]{
 		display:inline-block;
@@ -129,7 +125,7 @@
 	}
 	.DnnModule-Device-Detection .upgradePoints + p {color:#111; font-weight:bold;}
 
-.DnnModule-Device-Detection h4 {font-size:16px;}
+.DnnModule-Device-Detection h4 {font-size:16px; color: #666;}
 .DnnModule-Device-Detection h5{margin:0 0 10px 0; padding:0; font-size:14px;}
 
 .DnnModule-Device-Detection .deviceColGroup{
@@ -140,21 +136,26 @@
 .DnnModule-Device-Detection .deviceCol-left{
 	float:left;
 	width:305px;
-	padding:0 10px 15px 0;
+	padding: 25px;
+	background-color: #eaeaea;
 }
 .DnnModule-Device-Detection .deviceCol-left input[type="text"]{padding:5px; margin-right:5px;}
 .DnnModule-Device-Detection .deviceCol-right{
 	position:relative;
 	float:left;
-	width:585px;
+	width:550px;
 	padding:0 0 15px 15px;
 	border-left:1px solid #ddd;
     height: 400px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /*overflow-y: scroll;
+    overflow-x: hidden;*/
+    overflow: auto;
 }
 .DnnModule-Device-Detection .deviceCol-right .contents-help,
-.DnnModule-Device-Detection .deviceCol-right .contents-back{position:absolute; top:25px; right:25px;}
+.DnnModule-Device-Detection .deviceCol-right .contents-back{position:absolute; top:10px; right:25px; color: #028BFF;}
+
+.DnnModule-Device-Detection .deviceCol-right .contents-help strong,
+.DnnModule-Device-Detection .deviceCol-right .contents-back strong{color: #028BFF;}
 
 .DnnModule-Device-Detection .deviceCol-left label{
 	display:block;
@@ -175,8 +176,9 @@
 }
 
 .DnnModule-Device-Detection .contents-header{
-	margin-bottom:15px;
-	border-bottom:5px solid #333;
+	margin-bottom:25px;
+	border-bottom:1px solid #999;
+	padding-bottom: 25px;
 }
 
 /* VENDORS BROWSING */
@@ -200,14 +202,14 @@
 .deviceExplorerDevice h2 { font-size: 1.1em; clear: both; }
 
 /* VENDORS DEVICE BROWSING */ 
-.deviceExplorerDevices .item{margin-bottom:5px; min-height:50px;}
+.deviceExplorerDevices .item{margin-bottom:5px; min-height:150px;}
 .deviceExplorerDevices .item .model{font-weight:bold;}
 
 .DnnModule-Device-Detection .dnnTertiaryAction{margin-bottom:15px;}
 
 /* EXPLORE DEVICE */ 
 .deviceExplorerDevice .item{
-	width:550px;
+	width:520px;
 	display:inline-block;
 	padding:3px;
 	clear:both;
@@ -217,6 +219,8 @@
 	width:240px;
 	float:left;
 }
+
+/*
 .deviceExplorerDevice .dnnTooltip{display:inline-block;}
 .deviceExplorerDevice .dnnTooltip label{
 	display:block; float:left;
@@ -235,7 +239,7 @@
     overflow: hidden;
     z-index: 25;
 }
-
+*/
 .wide .dnnTooltip{ display:inline-block;}
 .wide label{float:left; width:auto;}
 .wide label a{padding-right:20px;}
@@ -244,3 +248,26 @@
 	left:auto;
 	right:-230px; top:-12px;
 }
+
+.deviceMsg > h2{
+
+    color :#666;
+    font-size: 18px;
+    width: 500px;   
+    display: block;
+}
+
+.deviceMsg > fieldset{   
+    display: block;
+}
+
+.deviceMsg > fieldset p{
+    width: 600px;
+    float: left;
+}
+
+.deviceExplorerVendors > p{
+    color: #666;
+}
+
+

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accessibility.Text" xml:space="preserve">
     <value>Accessibility</value>
@@ -164,7 +164,7 @@
 [/IsNotOwner]
 [/IsMember]
 [IsNotMember]
- &lt;a href="#" id="JoinGroup-[groupitem:RoleId]"&gt;{resx:JoinGroup}&lt;/a&gt;
+ &lt;a href="#" id="JoinGroup-[groupitem:RoleId]" groupid="[groupitem:RoleId]" groupViewTabId ="[GroupViewTabId]"&gt;{resx:JoinGroup}&lt;/a&gt;
 [/IsNotMember]
 [IsPendingMember]
  &lt;i&gt;Membership Pending&lt;/i&gt;
@@ -214,13 +214,13 @@
                             &lt;li class="photo-icn"&gt;[groupitem:stat_photo] {resx:photos}&lt;/li&gt;
                             &lt;li class="docs-icn"&gt;[groupitem:stat_file] {resx:documents}&lt;/li&gt;
                             [IsNotMember]
-                            &lt;li class="join-group-icn"&gt;&lt;a href="#" title="" class="dnnTertiaryAction" id="groupJoin-[groupitem:RoleId]"&gt;{resx:Join}&lt;/a&gt;&lt;/li&gt;[/IsNotMember] 
+                            &lt;li class="join-group-icn"&gt;&lt;a href="#" title="" class="dnnTertiaryAction" id="groupJoin-[groupitem:RoleId]" groupid="[groupitem:RoleId]" groupViewTabId ="[GroupViewTabId]"&gt;{resx:Join}&lt;/a&gt;&lt;/li&gt;[/IsNotMember] 
 [IsPendingMember]&lt;li class="join-group-icn"&gt;&lt;a href="#" title="" class="dnnDisabled"&gt;{resx:Pending}&lt;/a&gt;&lt;/li&gt;[/IsPendingMember]
                         &lt;/ul&gt;
                     &lt;/div&gt;
                 &lt;/div&gt;</value>
   </data>
-  <data name="GroupNameInvalid.Text" xml:space="preserve">
+  <data name="GroupNameDuplicate.Text" xml:space="preserve">
     <value>The name you have entered is already in use.</value>
   </data>
   <data name="GroupPendingNotification.Body" xml:space="preserve">
@@ -313,5 +313,14 @@
   </data>
   <data name="AutoConfigure.Text" xml:space="preserve">
     <value>Auto Configure</value>
+  </data>
+  <data name="SearchButton.Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="GroupSearch.Required" xml:space="preserve">
+    <value>Search term required.</value>
+  </data>
+  <data name="GroupName.Invalid" xml:space="preserve">
+    <value>The Name is invalid - roles can only contain the following characters A-Za-z0-9_- and spaces</value>
   </data>
 </root>

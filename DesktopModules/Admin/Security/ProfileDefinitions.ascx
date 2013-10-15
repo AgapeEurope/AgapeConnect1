@@ -11,10 +11,10 @@
         <footerstyle cssclass="dnnGridFooter" />
         <pagerstyle cssclass="dnnGridPager" />
         <columns>
-            <dnn:imagecommandcolumn CommandName="Edit" Text="Edit" IconKey="Edit" HeaderText="Edit" KeyField="PropertyDefinitionID" EditMode="URL" />
-            <dnn:imagecommandcolumn CommandName="Delete" Text="Delete" IconKey="Delete" HeaderText="Del" KeyField="PropertyDefinitionID" />
-            <dnn:imagecommandcolumn commandname="MoveDown" IconKey="Dn" headertext="Dn" keyfield="PropertyDefinitionID" />
-            <dnn:imagecommandcolumn commandname="MoveUp" IconKey="Up" headertext="Up" keyfield="PropertyDefinitionID" />
+            <dnn:imagecommandcolumn CommandName="Edit" Text="Edit" IconKey="Edit" KeyField="PropertyDefinitionID" EditMode="URL" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder"  HeaderStyle-Width="18px"/>
+            <dnn:imagecommandcolumn CommandName="Delete" Text="Delete" IconKey="Delete" KeyField="PropertyDefinitionID" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder" HeaderStyle-Width="18px"/>
+            <dnn:imagecommandcolumn commandname="MoveDown" IconKey="Dn" keyfield="PropertyDefinitionID" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder" HeaderStyle-Width="18px"/>
+            <dnn:imagecommandcolumn commandname="MoveUp" IconKey="Up" keyfield="PropertyDefinitionID" HeaderStyle-Width="18px" />
             <dnn:textcolumn DataField="PropertyName" HeaderText="Name" Width="100px" />
             <dnn:textcolumn DataField="PropertyCategory" HeaderText="Category" Width="80px" />
             <asp:TemplateColumn HeaderText="DataType">

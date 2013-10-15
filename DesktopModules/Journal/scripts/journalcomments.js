@@ -90,11 +90,10 @@
         }
         function Post(method, data, callback, journalId) {
             var sf = opts.servicesFramework;
-            sf.getAntiForgeryProperty(data);
-
+            
             $.ajax({
                 type: "POST",
-                url: sf.getServiceRoot('Journal') + 'Services.ashx/' + method,
+                url: sf.getServiceRoot('Journal') + 'Services/' + method,
                 beforeSend: sf.setModuleHeaders,
                 data: data,
                 success: function (data) {

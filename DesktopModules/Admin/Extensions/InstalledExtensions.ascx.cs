@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,9 +22,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Application;
@@ -33,7 +33,7 @@ using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Portals;
-using DotNetNuke.Framework;
+using DotNetNuke.Entities.Users;
 using DotNetNuke.Security;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Installer;
@@ -45,13 +45,15 @@ using DotNetNuke.UI.WebControls;
 
 #endregion
 
+// ReSharper disable CheckNamespace
 namespace DotNetNuke.Modules.Admin.Extensions
+// ReSharper restore CheckNamespace
 {
     public partial class InstalledExtensions : ModuleUserControlBase, IActionable
     {
         #region Private Members
 
-        private const string DefaultExtensionImage = "icon_extensions.gif";
+        private const string DefaultExtensionImage = "icon_extensions_32px.png";
         private const string DefaultLanguageImage = "icon_languagePack.gif";
         private const string DefaultAuthenicationImage = "icon_authentication.png";
         private const string DefaultContainerImage = "icon_container.gif";
@@ -103,17 +105,11 @@ namespace DotNetNuke.Modules.Admin.Extensions
         private void AddModulesToList(List<PackageInfo> packages)
         {
             Dictionary<int, PortalDesktopModuleInfo> portalModules = DesktopModuleController.GetPortalDesktopModulesByPortalID(ModuleContext.PortalId);
-            foreach (PackageInfo modulePackage in PackageController.GetPackagesByType(Null.NullInteger, "Module"))
-            {
-                DesktopModuleInfo desktopModule = DesktopModuleController.GetDesktopModuleByPackageID(modulePackage.PackageID);
-                foreach (PortalDesktopModuleInfo portalModule in portalModules.Values)
-                {
-                    if (desktopModule != null && portalModule.DesktopModuleID == desktopModule.DesktopModuleID)
-                    {
-                        packages.Add(modulePackage);
-                    }
-                }
-            }
+            packages.AddRange(from modulePackage in PackageController.GetPackagesByType(Null.NullInteger, "Module") 
+                              let desktopModule = DesktopModuleController.GetDesktopModuleByPackageID(modulePackage.PackageID) 
+                                from portalModule in portalModules.Values 
+                                where desktopModule != null && portalModule.DesktopModuleID == desktopModule.DesktopModuleID 
+                                select modulePackage);
         }
 
         private void BindGrid(string packageType, DataGrid grid, Label noResultsLabel)
@@ -146,14 +142,7 @@ namespace DotNetNuke.Modules.Admin.Extensions
                     break;
                 case "Skin":
                 case "Container":
-                    if (ModuleContext.PortalSettings.ActiveTab.IsSuperTab)
-                    {
-                        packages = PackageController.GetPackagesByType(Null.NullInteger, packageType);
-                    }
-                    else
-                    {
-                        packages = PackageController.GetPackagesByType(ModuleContext.PortalId, packageType);
-                    }
+                    packages = PackageController.GetPackagesByType(ModuleContext.PortalSettings.ActiveTab.IsSuperTab ? Null.NullInteger : ModuleContext.PortalId, packageType);
                     break;
                 default:
                     packages = PackageController.GetPackagesByType(Null.NullInteger, packageType);
@@ -200,6 +189,7 @@ namespace DotNetNuke.Modules.Admin.Extensions
                         var formatString = ModuleContext.NavigateUrl(ModuleContext.TabId, "UnInstall", false, parameters);                        
                         formatString = formatString.Replace("KEYFIELD", "{0}");
                         imageColumn.NavigateURLFormatString = formatString;
+                        imageColumn.Visible = UserController.GetCurrentUserInfo().IsSuperUser;
                     }
                     if (imageColumn.CommandName == "Edit")
                     {
@@ -270,12 +260,13 @@ namespace DotNetNuke.Modules.Admin.Extensions
 
         protected string GetIsPackageInUseInfo(object dataItem)
         {
-            if ((dataItem is PackageInfo))
+            var info = dataItem as PackageInfo;
+            if (info != null)
             {
-                var package = (PackageInfo)dataItem;
+                var package = info;
                 if ((package.PackageType.ToUpper() == "MODULE"))
                 {
-                    return PackagesInUse.ContainsKey(package.PackageID) ? "<a href=\"" + ModuleContext.EditUrl("PackageID", package.PackageID.ToString(), "UsageDetails") + "\">" + LocalizeString("Yes") + "</a>" : LocalizeString("No");
+                    return PackagesInUse.ContainsKey(package.PackageID) ? "<a href=\"" + ModuleContext.EditUrl("PackageID", package.PackageID.ToString(CultureInfo.InvariantCulture), "UsageDetails") + "\">" + LocalizeString("Yes") + "</a>" : LocalizeString("No");
                 }
             }
             return string.Empty;
@@ -305,32 +296,36 @@ namespace DotNetNuke.Modules.Admin.Extensions
         protected string GetPackageIcon(object dataItem)
         {
             var package = dataItem as PackageInfo;
-            switch (package.PackageType)
+            if (package != null)
             {
-                case "Module":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultExtensionImage;
-                case "Container":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultContainerImage;
-                case "Skin":
-                case "SkinObject":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultSkinImage;
-                case "AuthenticationSystem":
-                case "Auth_System":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultAuthenicationImage;
-                case "CoreLanguagePack":
-                case "ExtensionLanguagePack":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultLanguageImage;
-                case "Provider":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultProviderImage;
-                case "Widget":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultWidgetImage;
-                case "DashboardControl":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultDashboardImage;
-                case "Library":
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultLibraryImage;
-                default:
-                    return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultExtensionImage;
+                switch (package.PackageType)
+                {
+                    case "Module":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultExtensionImage;
+                    case "Container":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultContainerImage;
+                    case "Skin":
+                    case "SkinObject":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultSkinImage;
+                    case "AuthenticationSystem":
+                    case "Auth_System":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultAuthenicationImage;
+                    case "CoreLanguagePack":
+                    case "ExtensionLanguagePack":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultLanguageImage;
+                    case "Provider":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultProviderImage;
+                    case "Widget":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultWidgetImage;
+                    case "DashboardControl":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultDashboardImage;
+                    case "Library":
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultLibraryImage;
+                    default:
+                        return (package.IconFile != string.Empty) ? package.IconFile : Globals.ImagePath + DefaultExtensionImage;
+                }
             }
+            return null;
         }
 
         protected string GetPackageType(object dataItem)
@@ -409,20 +404,13 @@ namespace DotNetNuke.Modules.Admin.Extensions
             DataGridItem item = e.Item;
             if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem || item.ItemType == ListItemType.SelectedItem)
             {
-                var editHyperlink = item.Controls[1].Controls[0] as HyperLink;
+                var editHyperlink = item.Controls[8].Controls[0] as HyperLink;
                 if (editHyperlink != null)
                 {
                     var package = (PackageInfo) item.DataItem;
                     if (ModuleContext.PortalSettings.ActiveTab.IsSuperTab)
                     {
-                        if (package.IsSystemPackage)
-                        {
-                            editHyperlink.Visible = false;
-                        }
-                        else
-                        {
-                            editHyperlink.Visible = PackageController.CanDeletePackage(package, ModuleContext.PortalSettings);
-                        }
+                        editHyperlink.Visible = !package.IsSystemPackage && PackageController.CanDeletePackage(package, ModuleContext.PortalSettings);
                     }
                     else
                     {
@@ -444,13 +432,11 @@ namespace DotNetNuke.Modules.Admin.Extensions
             {
                 var kvp = (KeyValuePair<string, PackageType>)e.Item.DataItem;
 
-                DataGrid extensionsGrid = item.FindControl("extensionsGrid") as DataGrid;
+                var extensionsGrid = item.FindControl("extensionsGrid") as DataGrid;
 
-                Label noResultsLabel = item.FindControl("noResultsLabel") as Label;
+                var noResultsLabel = item.FindControl("noResultsLabel") as Label;
 
-                BindGrid(kvp.Key, extensionsGrid, noResultsLabel);
-
-				
+                BindGrid(kvp.Key, extensionsGrid, noResultsLabel);				
             }
         }
 

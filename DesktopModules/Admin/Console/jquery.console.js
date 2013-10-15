@@ -27,29 +27,30 @@
         }
 
         function _changeView(jObj) {
-            var classList = "console-none console-none-detail console-small console-large console-small-detail console-large-detail";
+            var classList = "console-none console-none-detail console-small console-large console-small-detail console-large-detail",
+                cssStyle;
             switch (opts.selectedSize) {
                 case "IconFile":
-                    style = "console-small";
+                    cssStyle = "console-small";
                     $(jObj).find("div > div img").hide();
                     $(jObj).find("div > div img:first-child").show();
                     break;
                 case "IconFileLarge":
                     $(jObj).find("div > div img").show();
                     $(jObj).find("div > div img:first-child").hide();
-                    style = "console-large";
+                    cssStyle = "console-large";
                     break;
                 case "IconNone":
                     $(jObj).find("div > div img").hide();
                     $(jObj).find("div > div img:first-child").hide();
-                    style = "console-none";
+                    cssStyle = "console-none";
                     break;
             }
-            style += opts.showDetails == "Show" ? "-detail" : "";
+            cssStyle += opts.showDetails == "Show" ? "-detail" : "";
 
-            $(jObj).find("div").removeClass(classList).addClass(style);
+            $(jObj).find("div").removeClass(classList).addClass(cssStyle);
 
-            opts.currentClass = style;
+            opts.currentClass = cssStyle;
         }
 
         $(this).find("div > div").bind(

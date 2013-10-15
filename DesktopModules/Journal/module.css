@@ -1,7 +1,7 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
-.journalTools {max-width:600px;margin-bottom:22px;}
+
 #journalEditor, .jcmt .cmteditarea
 {
         display:inline-block;
@@ -30,13 +30,13 @@
 #journalEditor #journalContent .juser, .journalrow .juser{color:#000;border:1px solid #ccd5e4; background-color:#eff2f7;}
 #journalEditor #journalContent .jtag, .journalrow .jtag{border:1px solid #ccc; background-color:#f5f5f5}
 
-#journalEditor #journalClose, #linkClose, .miniclose, .minidel{float:right;display:none;width:14px; height:14px; cursor:pointer; background-image:url('images/mini_del.gif'); background-repeat:no-repeat;}
+#journalEditor #journalClose, #linkClose, .miniclose, .minidel{float:right;display:none;width:14px !important; height:14px !important; cursor:pointer; background-image:url('images/mini_del.gif'); background-repeat:no-repeat;}
 #journalEditor .minidel{position:absolute;right:0px;}
 #journalEditor #journalClose{position:absolute; right:6px; top:6px;}
 
 #journalEditor #journalClose{position:absolute;right:2px;}
 #journalEditor #journalPlaceholder,.jcmt .cmteditarea .editorPlaceholder{font-size:14px;color:#999;height:24px;line-height:24px;padding-left:7px;}
-#journalEditor #journalContent{font-family:Arial, Helvetica; float:left; display:none;height:1px;margin-bottom:4px;padding: 2px 4px 6px 4px;font-size:14px;border-top-width:0px;border-left-width:0px; border-right-width:0px;border-bottom:1px solid #cdcdcd;line-height:1.3em;width:99%;resize:none;}
+#journalEditor #journalContent{font-family:Arial, Helvetica; float:left; display:none;height:1px;margin-bottom:4px;padding: 2px 4px 6px 4px;font-size:14px; border: none; -webkit-box-shadow: none; box-shadow: none; line-height:1.3em;width:99%;resize:none;}
 
 
 #journalEditor .journalPlaceholder {width:100%;}
@@ -49,9 +49,8 @@
 		margin:6px 16px 4px;
 		min-width:80px;
 }
-#journalEditor #tbar span{display:block;height:16px;width:24px;float:right;background-image:url('images/journal-tools.png'); border:1px solid transparent}
-#journalEditor #tbar span:hover{}
-
+#journalEditor #tbar > span{display:block;height:16px;width:24px;float:right;background-image:url('images/journal-tools.png'); border:1px solid transparent}
+.securityMenu > ul > li > span {display: inline-block; margin-right: 3px;}
 #journalEditor #tbar span#tbar-photo{background-position:0 0;}
 #journalEditor #tbar span#tbar-attach{background-position:-24px 0;}
 #journalEditor #tbar span#tbar-perm{background-position:-81px 0;}
@@ -66,12 +65,12 @@
 -moz-border-radius-bottomleft: 3px;
 border-bottom-right-radius: 3px;
 border-bottom-left-radius: 3px;
-    top: -2px;
+    top: -10px;
     position:relative;}
 
 .journalTools #journalOptionArea div{font-size:12px;padding:6px;padding-top:12px;padding-bottom:12px;}
 .journalTools #journalOptionArea div span{font-weight:bold;color:#333;padding-right:12px;padding-left:12px;}
-.journalTools #journalOptionArea div a{font-size:11px; font-weight:bold;}
+
 .journalTools #journalOptionArea #itemUpload{margin:0;padding:0;}
 
 
@@ -105,12 +104,16 @@ border-bottom-left-radius: 3px;
 .journalrow div.author{overflow:hidden;float:left;}
 .journalrow div.author img{width:40px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fff;border:1px #ccc solid;padding:4px;}
 .journalrow div.journalitem{margin-left:65px;overflow:hidden}
-.journalrow div.journalitem p.journalfooter{font-size:11px;}
-.journalrow div.journalitem p.journalfooter span{font-size:12px; padding:0px 4px 0px 4px; font-weight:bold;}
+
+.journalrow div.journalitem p.journalfooter span{padding:0px 4px 0px 4px; font-weight:bold;}
 .journalrow div.journalitem .authorname{padding-right:6px;}
-.journalrow div.journalitem ul.jcmt,.journalrow div.journalitem .likes{width:450px;padding:0px;font-size:11px;}
+.journalrow div.journalitem ul.jcmt,.journalrow div.journalitem .likes{width:100%;padding:0px;font-size:11px;}
 
 /*.journalrow div.journalitem ul.jcmt li{border-bottom: solid 1px #fff;}*/
+    .journalrow div.journalitem ul.jcmt {
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
 .journalrow div.journalitem ul.jcmt, .journalrow div.journalitem ul.jcmt li{list-style-type:none;}
 .journalrow div.journalitem ul.jcmt li textarea{border:solid 0px #ccc;font-family:tahoma,verdana,arial,sans-serif;font-size:12px;padding:0px;height:20px;margin-left:0px;margin-right:0px;width:100%;}
 .journalrow div.journalitem ul.jcmt li .miniclose{margin:2px;}
@@ -142,7 +145,7 @@ border-bottom-left-radius: 3px;
 	position: absolute;
 	right:-7px;
 	display:none;
-	min-width:175px; height:300px;
+	min-width:200px; height:300px;
 	margin-top: 24px;
 	background-color:#fff;
 	z-index:1000;
@@ -175,7 +178,11 @@ border-bottom-left-radius: 3px;
 	box-shadow: 			0px 2px 0px 0px rgba(0, 0, 0, .5); 
         
 }
-.securityMenu ul li{list-style:none;}
+.securityMenu ul li{list-style:none; margin-bottom: 4px;}
+
+.journalitem p{
+	margin-bottom: 5px;
+}
 
 /* File Upload */
 .progress_bar_wrapper{ width: 500px;overflow: hidden;}
@@ -183,7 +190,7 @@ border-bottom-left-radius: 3px;
 
 #tbar-attach-Area input{cursor:pointer; left: 0;top: 0;width: 150px;position:absolute; opacity:0; display:inline;height:18px;padding:4px;margin-bottom:9px;font-size:13px;line-height:18px;color:#555555;border:1px solid #ccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 
-.journalTools #journalOptionArea div span.browser-upload-btn{position:relative; font-size: 11px; font-weight: bold; color:#003366;padding-left:0px; cursor:pointer; }
+.journalTools #journalOptionArea div span.browser-upload-btn{position:relative; font-weight: bold; padding-left:0px; cursor:pointer; }
     .browser-upload-btn:hover{cursor:pointer;}
 div.journalTools div#journalOptionArea div.fileUploadArea div#itemUpload div.filePreviewArea {padding:0;margin:0}
 div.journalTools div#journalOptionArea div.fileUploadArea div#itemUpload div.progress_bar_wrapper{padding:0;margin:0;}
@@ -201,3 +208,37 @@ div.journalTools div#journalOptionArea div.fileUploadArea div#itemUpload div.pro
     
 div#journalItems div.journalrow div.journalitem ul.jcmt li.cmteditarea{display:none;overflow:auto;}
 .journalrow .juser{ cursor: pointer;}
+
+
+div#journalOptionArea > div.fileUploadArea {
+    background: #eff8ff; /* blue */		
+}
+
+div#journalOptionArea div.journal_onlineFileShare,
+div#journalOptionArea div.journal_localFileShare {
+    width: 50%;
+    float: left;
+    padding: 0;
+}
+
+div#journalOptionArea div.journal_onlineFileShare {
+    border-right: 1px solid #cce8ff;
+    margin-right: 25px;
+}
+div#journalOptionArea div.journal_localFileShare {
+    width: 40%;
+}
+
+div#journalOptionArea div.journal_onlineFileShare div {
+    margin: 0;
+    padding: 0;
+}
+div#journalOptionArea div.journal_onlineFileShare a.dnnSecondaryAction {
+    display: inline-block;
+    margin: 15px 0 0 15px;
+}
+
+div#journalOptionArea div.journal_localFileShare .dnnInputFileWrapper {
+    display: inline-block;
+    margin: 15px 0 0 -10px;
+}

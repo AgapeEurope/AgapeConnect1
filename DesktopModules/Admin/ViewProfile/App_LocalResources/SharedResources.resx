@@ -128,9 +128,6 @@
 	&lt;/div&gt;
 	&lt;div class="ProfileContact"&gt;[PROFILE:TELEPHONE] [PROFILE:WEBSITE] [PROFILE:IM]&lt;/div&gt;&lt;div style="clear:both;"&gt;&lt;/div&gt;
 	&lt;div class="ProfileBio"&gt;[PROFILE:BIOGRAPHY]&lt;/div&gt;
-&lt;/div&gt;
- &lt;ul class="dnnActions dnnClear"&gt;
-	&lt;li&gt;[HYPERLINK:EDITPROFILE]&lt;/li&gt;
-&lt;/ul&gt;</value>
+&lt;/div&gt;</value>
   </data>
 </root>

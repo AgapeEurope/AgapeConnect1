@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,7 +22,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Web.UI.WebControls;
 using System.Xml;
 using DotNetNuke.Common;
@@ -62,14 +64,10 @@ namespace DotNetNuke.Modules.Admin.Tabs
 
         private void BindBeforeAfterTabControls()
         {
-            TabInfo parentTab = null;
             var noneSpecified = "<" + Localization.GetString("None_Specified") + ">";
-            if (cboParentTab.SelectedItem != null)
-            {
-                var parentTabID = Int32.Parse(cboParentTab.SelectedItem.Value);
-                var controller = new TabController();
-                parentTab = controller.GetTab(parentTabID, PortalId, false);
-            }
+            cboParentTab.UndefinedItem = new ListItem(noneSpecified, string.Empty);
+            var parentTab = cboParentTab.SelectedPage;
+
             List<TabInfo> listTabs = parentTab != null ? new TabController().GetTabsByPortal(parentTab.PortalID).WithParentId(parentTab.TabID) : new TabController().GetTabsByPortal(PortalId).WithParentId(Null.NullInteger);
             listTabs = TabController.GetPortalTabs(listTabs, Null.NullInteger, true, noneSpecified, false, false, false, false, true);
             cboPositionTab.DataSource = listTabs;
@@ -84,53 +82,42 @@ namespace DotNetNuke.Modules.Admin.Tabs
         private void BindFiles()
         {
             cboTemplate.Items.Clear();
-            if (cboFolders.SelectedIndex != 0)
+            if (cboFolders.SelectedItem != null)
             {
-                var files = Directory.GetFiles(PortalSettings.HomeDirectoryMapPath + cboFolders.SelectedValue, "*.page.template");
-                foreach (var file in files)
+                var folder = FolderManager.Instance.GetFolder(cboFolders.SelectedItemValueAsInt);
+                if (folder != null)
                 {
-                    var f = file.Replace(PortalSettings.HomeDirectoryMapPath + cboFolders.SelectedValue, "");
-                    cboTemplate.Items.Add(new ListItem(f.Replace(".page.template", ""), f));
+                    var files = Directory.GetFiles(PortalSettings.HomeDirectoryMapPath + folder.FolderPath, "*.page.template");
+                    foreach (var file in files)
+                    {
+                        var f = file.Replace(PortalSettings.HomeDirectoryMapPath + folder.FolderPath, "");
+                        cboTemplate.AddItem(f.Replace(".page.template", ""), f);
+                    }
+                    cboTemplate.InsertItem(0, "<" + Localization.GetString("None_Specified") + ">", "None_Specified");
+                    cboTemplate.SelectedIndex = 0;
                 }
-                cboTemplate.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", "None_Specified"));
-                cboTemplate.SelectedIndex = 0;
+
             }
         }
 
         private void BindTabControls()
         {
-            cboParentTab.DataSource = GetTabs(true);
-            cboParentTab.DataBind();
             BindBeforeAfterTabControls();
             divInsertPositionRow.Visible = cboPositionTab.Items.Count > 0;
             cboParentTab.AutoPostBack = true;
-            if (cboPositionTab.Items.FindByValue(TabId.ToString()) != null)
+            if (cboPositionTab.FindItemByValue(TabId.ToString(CultureInfo.InvariantCulture)) != null)
             {
                 cboPositionTab.ClearSelection();
-                cboPositionTab.Items.FindByValue(TabId.ToString()).Selected = true;
+                cboPositionTab.FindItemByValue(TabId.ToString(CultureInfo.InvariantCulture)).Selected = true;
             }
         }
 
         private void DisplayNewRows()
         {
             divTabName.Visible = (optMode.SelectedIndex == 0);
+            divParentTab.Visible = (optMode.SelectedIndex == 0);
             divInsertPositionRow.Visible = (optMode.SelectedIndex == 0);
             divInsertPositionRow.Visible = (optMode.SelectedIndex == 0);
-        }
-
-        private List<TabInfo> GetTabs(bool includeURL)
-        {
-            var noneSpecified = "<" + Localization.GetString("None_Specified") + ">";
-            List<TabInfo> tabs = TabController.GetPortalTabs(PortalId, Null.NullInteger, true, noneSpecified, true, false, includeURL, false, true);
-            if (UserInfo.IsSuperUser)
-            {
-                Dictionary<int, TabInfo> hostTabs = new TabController().GetTabsByPortal(Null.NullInteger);
-                foreach (KeyValuePair<int, TabInfo> kvp in hostTabs)
-                {
-                    tabs.Add(kvp.Value);
-                }
-            }
-            return tabs;
         }
 
         protected override void OnInit(EventArgs e)
@@ -147,9 +134,9 @@ namespace DotNetNuke.Modules.Admin.Tabs
         {
             base.OnLoad(e);
 
-            cboFolders.SelectedIndexChanged += OnFolderIndexChanged;
+            cboFolders.SelectionChanged += OnFolderIndexChanged;
             cmdImport.Click += OnImportClick;
-            cboParentTab.SelectedIndexChanged += OnParentTabIndexChanged;
+            cboParentTab.SelectionChanged += OnParentTabIndexChanged;
             cboTemplate.SelectedIndexChanged += OnTemplateIndexChanged;
             optMode.SelectedIndexChanged += OptModeSelectedIndexChanged;
 
@@ -158,26 +145,11 @@ namespace DotNetNuke.Modules.Admin.Tabs
                 if (!Page.IsPostBack)
                 {
                     cmdCancel.NavigateUrl = Globals.NavigateURL();
-                    cboFolders.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", "-"));
-#pragma warning disable 612,618
-                    var folders = FileSystemUtils.GetFoldersByUser(PortalId, false, false, "BROWSE, ADD");
-#pragma warning restore 612,618
-                    foreach (FolderInfo folder in folders)
-                    {
-                        var folderItem = new ListItem
-                                             {
-                                                 Text =
-                                                     folder.FolderPath == Null.NullString
-                                                         ? Localization.GetString("Root", LocalResourceFile)
-                                                         : PathUtils.Instance.RemoveTrailingSlash(folder.DisplayPath),
-                                                 Value = folder.FolderPath
-                                             };
-                        cboFolders.Items.Add(folderItem);
-                    }
-                    if (cboFolders.Items.FindByValue("Templates/") != null)
-                    {
-                        cboFolders.Items.FindByValue("Templates/").Selected = true;
-                    }
+                    cboFolders.UndefinedItem = new ListItem("<" + Localization.GetString("None_Specified") + ">", string.Empty);
+                    var folders = FolderManager.Instance.GetFolders(UserInfo, "BROWSE, ADD");
+                    var templateFolder = folders.SingleOrDefault(f => f.FolderPath == "Templates/");
+                    if (templateFolder != null) cboFolders.SelectedFolder = templateFolder;
+
                     BindFiles();
                     BindTabControls();
                     DisplayNewRows();
@@ -208,13 +180,18 @@ namespace DotNetNuke.Modules.Admin.Tabs
                     UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SpecifyMode", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                     return;
                 }
+                if (cboFolders.SelectedItem == null) return;
+                var selectedFolder = FolderManager.Instance.GetFolder(cboFolders.SelectedItemValueAsInt);
+                if (selectedFolder == null) return;
+
                 var xmlDoc = new XmlDocument();
-                xmlDoc.Load(PortalSettings.HomeDirectoryMapPath + cboFolders.SelectedValue + cboTemplate.SelectedValue);
+                xmlDoc.Load(PortalSettings.HomeDirectoryMapPath + selectedFolder.FolderPath + cboTemplate.SelectedValue);
 
                 var tabNodes = new List<XmlNode>();
-                foreach (XmlNode tabNode in xmlDoc.SelectSingleNode("//portal/tabs").ChildNodes)
+                var selectSingleNode = xmlDoc.SelectSingleNode("//portal/tabs");
+                if (selectSingleNode != null)
                 {
-                    tabNodes.Add(tabNode);
+                    tabNodes.AddRange(selectSingleNode.ChildNodes.Cast<XmlNode>());
                 }
                 if (tabNodes.Count == 0)
                 {
@@ -230,21 +207,22 @@ namespace DotNetNuke.Modules.Admin.Tabs
                         UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("SpecifyName", LocalResourceFile), ModuleMessage.ModuleMessageType.RedError);
                         return;
                     }
-					
-					//New Tab
-                    objTab = new TabInfo {PortalID = PortalId, TabName = txtTabName.Text, IsVisible = true};
-                    if (cboParentTab.SelectedItem != null)
+
+                    //New Tab
+                    objTab = new TabInfo { PortalID = PortalId, TabName = txtTabName.Text, IsVisible = true };
+                    var parentId = cboParentTab.SelectedItemValueAsInt;
+                    if (parentId != Null.NullInteger)
                     {
-                        objTab.ParentId = Int32.Parse(cboParentTab.SelectedItem.Value);
+                        objTab.ParentId = parentId;
                     }
                     objTab.TabPath = Globals.GenerateTabPath(objTab.ParentId, objTab.TabName);
-                    int tabID = TabController.GetTabByTabPath(objTab.PortalID, objTab.TabPath, Null.NullString);
+                    var tabId = TabController.GetTabByTabPath(objTab.PortalID, objTab.TabPath, Null.NullString);
                     var objTabs = new TabController();
 
                     //Check if tab exists
-                    if (tabID != Null.NullInteger)
+                    if (tabId != Null.NullInteger)
                     {
-                        TabInfo existingTab = objTabs.GetTab(tabID, PortalId, false);
+                        TabInfo existingTab = objTabs.GetTab(tabId, PortalId, false);
                         if (existingTab != null && existingTab.IsDeleted)
                         {
                             UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("TabRecycled", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
@@ -256,16 +234,32 @@ namespace DotNetNuke.Modules.Admin.Tabs
                         return;
                     }
 
-                    int positionTabID = Int32.Parse(cboPositionTab.SelectedItem.Value);
+                    var positionTabId = Int32.Parse(cboPositionTab.SelectedItem.Value);
+
+                    var pc = new PermissionController();
+
+                    var permission = pc.GetPermissionByCodeAndKey("SYSTEM_TAB", "VIEW");
+                    if (permission.Count > 0)
+                    {
+                        var pid = ((PermissionInfo)permission[0]).PermissionID;
+                        objTab.TabPermissions.Add(new TabPermissionInfo { PermissionID = pid, AllowAccess = true, RoleID = 0 });
+                    }
+
+                    permission = pc.GetPermissionByCodeAndKey("SYSTEM_TAB", "EDIT");
+                    if (permission.Count > 0)
+                    {
+                        var pid = ((PermissionInfo)permission[0]).PermissionID;
+                        objTab.TabPermissions.Add(new TabPermissionInfo { PermissionID = pid, AllowAccess = true, RoleID = 0 });
+                    }
 
                     var objEventLog = new EventLogController();
-                    if (rbInsertPosition.SelectedValue == "After" && positionTabID > Null.NullInteger)
+                    if (rbInsertPosition.SelectedValue == "After" && positionTabId > Null.NullInteger)
                     {
-                        objTab.TabID = objTabs.AddTabAfter(objTab, positionTabID);
+                        objTab.TabID = objTabs.AddTabAfter(objTab, positionTabId);
                     }
-                    else if (rbInsertPosition.SelectedValue == "Before" && positionTabID > Null.NullInteger)
+                    else if (rbInsertPosition.SelectedValue == "Before" && positionTabId > Null.NullInteger)
                     {
-                        objTab.TabID = objTabs.AddTabBefore(objTab, positionTabID);
+                        objTab.TabID = objTabs.AddTabBefore(objTab, positionTabId);
                     }
                     else
                     {
@@ -273,12 +267,11 @@ namespace DotNetNuke.Modules.Admin.Tabs
                     }
                     objEventLog.AddLog(objTab, PortalSettings, UserId, "", EventLogController.EventLogType.TAB_CREATED);
 
-                    //Update Tab properties from template - for the first tab only
                     objTab = TabController.DeserializeTab(tabNodes[0], objTab, PortalId, PortalTemplateModuleAction.Replace);
 
                     var exceptions = string.Empty;
                     //Create second tabs onwards. For firs tab, we like to use tab details from text box, for rest it'll come from template
-                    for(var tab=1; tab < tabNodes.Count; tab++)
+                    for (var tab = 1; tab < tabNodes.Count; tab++)
                     {
                         try
                         {
@@ -287,10 +280,10 @@ namespace DotNetNuke.Modules.Admin.Tabs
                         catch (Exception ex)
                         {
                             Exceptions.LogException(ex);
-                            exceptions += string.Format("Template Tab # {0}. Error {1}<br/>", tab + 1, ex.Message);                            
-                        }                        
+                            exceptions += string.Format("Template Tab # {0}. Error {1}<br/>", tab + 1, ex.Message);
+                        }
                     }
-                    if(!string.IsNullOrEmpty(exceptions))
+                    if (!string.IsNullOrEmpty(exceptions))
                     {
                         UI.Skins.Skin.AddModuleMessage(this, exceptions, ModuleMessage.ModuleMessageType.RedError);
                         return;
@@ -298,7 +291,7 @@ namespace DotNetNuke.Modules.Admin.Tabs
                 }
                 else
                 {
-					//Replace Existing Tab
+                    //Replace Existing Tab
                     objTab = TabController.DeserializeTab(tabNodes[0], Tab, PortalId, PortalTemplateModuleAction.Replace);
                 }
                 switch (optRedirect.SelectedValue)
@@ -326,9 +319,11 @@ namespace DotNetNuke.Modules.Admin.Tabs
         {
             try
             {
-                if (cboTemplate.SelectedIndex > 0)
+                if (cboTemplate.SelectedIndex > 0 && cboFolders.SelectedItem != null)
                 {
-                    var filename = PortalSettings.HomeDirectoryMapPath + cboFolders.SelectedItem.Value + cboTemplate.SelectedValue;
+
+                    var selectedFolder = FolderManager.Instance.GetFolder(cboFolders.SelectedItemValueAsInt);
+                    var filename = PortalSettings.HomeDirectoryMapPath + selectedFolder.FolderPath + cboTemplate.SelectedValue;
                     var xmldoc = new XmlDocument();
                     xmldoc.Load(filename);
                     var node = xmldoc.SelectSingleNode("//portal/description");

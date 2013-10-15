@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="alternateItemTemplateLabel.Help" xml:space="preserve">
     <value>The Alternate Item Template is used to render the details for each alternate (even) Member.  </value>
@@ -187,7 +187,7 @@
     <value>Search Field 4:</value>
   </data>
   <data name="displaySearchLabel.Help" xml:space="preserve">
-    <value>Check this to display the Search  options.</value>
+    <value>Select the  Search  options. "None" to not display search option; "Simple" to only display the simple search option; "Simple And Advanced Search" to display both search options.</value>
   </data>
   <data name="displaySearchLabel.Text" xml:space="preserve">
     <value>Display Search:</value>
@@ -257,5 +257,14 @@
   </data>
   <data name="pageSizeLabel.Text" xml:space="preserve">
     <value>Page Size:</value>
+  </data>
+  <data name="DisplaySearch_Both.Text" xml:space="preserve">
+    <value>Simple and Advanced Search</value>
+  </data>
+  <data name="DisplaySearch_None.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="DisplaySearch_Simple.Text" xml:space="preserve">
+    <value>Simple Search</value>
   </data>
 </root>

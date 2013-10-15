@@ -1,23 +1,31 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="GroupEdit.ascx.cs" Inherits="DotNetNuke.Modules.Groups.GroupEdit" %>
-<div class="dnnForm  DnnModule-groupsWizard">
-    <div class="dnnFormItem dnnFormHelp dnnClear">
-        <p class="dnnFormRequired">
-            <span>
-                <%=LocalizeString("RequiredFields.Text")%></span></p>
-    </div>
+<div class="dnnForm  DnnModule-groupsWizard">   
     <div class="dnnFormItem">
-        <label id="" for="">
-            <%=LocalizeString("GroupName.Text")%></label>
+        <div class="dnnLabel">
+            <label>
+                <span class="dnnFormRequired"><%=LocalizeString("GroupName.Text")%></span>
+            </label>
+        </div>
         <asp:Literal ID="litGroupName" runat="server" />
+        <asp:TextBox ID="txtGroupName" runat="server" MaxLength="50" class="dnnFormRequired" />
+        <asp:RequiredFieldValidator ID="reqGroupName" runat="server" ControlToValidate="txtGroupName" CssClass="dnnFormMessage dnnFormError" ResourceKey="GroupName.Required" />
+        <asp:RegularExpressionValidator ID="valGroupName" CssClass="dnnFormMessage dnnFormError" runat="server" resourcekey="GroupName.Invalid" ControlToValidate="txtGroupName" Display="Dynamic" ValidationExpression="[A-Za-z0-9\.\s_-]*" />
+        <asp:Label ID="lblInvalidGroupName" runat="server" CssClass="dnnFormMessage dnnFormError" resourcekey="GroupNameDuplicate" Visible="false" />
     </div>
     <div class="dnnFormItem">
-        <label id="Label1" for="">
-            <%=LocalizeString("Description.Text")%></label>
+        <div class="dnnLabel">
+            <label>
+                <span><%=LocalizeString("Description.Text")%></span>
+            </label>
+        </div>
         <asp:TextBox ID="txtDescription" Columns="20" Rows="2" TextMode="MultiLine" runat="server" />
     </div>
     <div class="dnnFormItem">
-        <label id="Label2" for="">
-            <%=LocalizeString("GroupPicture.Text")%></label>
+        <div class="dnnLabel">
+            <label>
+                <span><%=LocalizeString("GroupPicture.Text")%></span>
+            </label>
+        </div>
         <div class="thumb">
             <span>
                 <img id="imgGroup" runat="server" width="50" src=""
@@ -33,25 +41,32 @@
     </div>
 
     <div class="dnnFormItem">
-        <label id="Label3" for="">
-            <%=LocalizeString("Accessibility.Text")%></label>
+        <div class="dnnLabel">
+            <label>
+                <span><%=LocalizeString("Accessibility.Text")%></span>
+            </label>
+        </div>
         <table>
             <tr>
                 <td>
-                    <asp:RadioButton ID="rdAccessTypePublic" GroupName="AccessType" runat="server" Checked="true" /><strong><%=LocalizeString("Public.Text")%></strong>
-                    <%=LocalizeString("Public.Help")%>
+                    <asp:RadioButton ID="rdAccessTypePublic" GroupName="AccessType" runat="server" Checked="true" />
+                    <label><%=LocalizeString("Public.Text")%></label>
+                    <span><%=LocalizeString("Public.Help")%></span>
                 </td>
             </tr>
             <tr id="trMem">
                 <td>
                     <div style="margin-left: 16px; font-size: 11px;">
-                        <asp:CheckBox ID="chkMemberApproved" runat="server" /><%=LocalizeString("MembersMustBeApproved") %></div>
+                        <asp:CheckBox ID="chkMemberApproved" runat="server" />
+                        <label><%=LocalizeString("MembersMustBeApproved") %></label>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:RadioButton ID="rdAccessTypePrivate" GroupName="AccessType" runat="server" /><strong><%=LocalizeString("Private.Text")%></strong>
-                    <%=LocalizeString("Private.Help")%>
+                    <asp:RadioButton ID="rdAccessTypePrivate" GroupName="AccessType" runat="server" />
+                    <label><%=LocalizeString("Private.Text")%></label>
+                    <span><%=LocalizeString("Private.Help")%></span>
                 </td>
             </tr>
         </table>

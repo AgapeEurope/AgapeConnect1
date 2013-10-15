@@ -35,6 +35,11 @@
 		});
 	} (jQuery, window.Sys));
 </script>   
+<ul class="dnnActions dnnRight dnnClear">
+	<li><asp:Hyperlink id="cmdInstall" runat="server" CssClass="dnnPrimaryAction" resourcekey="ExtensionInstall.Action"  /></li>
+	<li><dnn:ActionLink id="createExtensionLink" runat="server" ControlKey="NewExtension" CssClass="dnnSecondaryAction" resourcekey="CreateExtension.Action" /></li>
+	<li><dnn:ActionLink id="createModuleLink" runat="server" ControlKey="EditModuleDefinition" CssClass="dnnSecondaryAction" resourcekey="CreateModule.Action" /></li>
+</ul>
 <div class="dnnForm dnnExtensions dnnClear" id="dnnExtensions">
 	<ul class="dnnAdminTabNav dnnClear">
 		<li id="installedExtensionsTab" runat="server" visible="false"><a href="#installedExtensions"><%=LocalizeString("InstalledExtensions")%></a></li>

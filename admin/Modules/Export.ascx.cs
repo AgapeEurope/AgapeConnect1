@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common;
@@ -58,6 +59,7 @@ namespace DotNetNuke.Modules.Admin.Modules
 
         private new int ModuleId = -1;
         private ModuleInfo _module;
+	    private const string _invalidCharsRegex = "[\x00-\x08]|[\x0B-\x0C]|[\x0E-\x1F]";
 
         private ModuleInfo Module
         {
@@ -88,6 +90,8 @@ namespace DotNetNuke.Modules.Admin.Modules
                             var content = Convert.ToString(((IPortable)objObject).ExportModule(moduleID));
                             if (!String.IsNullOrEmpty(content))
                             {
+								//remove invalid chars in content
+	                            content = Regex.Replace(content, _invalidCharsRegex, string.Empty);
 								//add attributes to XML document
                                 content = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + "<content type=\"" + CleanName(Module.DesktopModule.ModuleName) + "\" version=\"" +
                                           Module.DesktopModule.Version + "\">" + content + "</content>";
@@ -182,15 +186,8 @@ namespace DotNetNuke.Modules.Admin.Modules
                 {
                     cmdCancel.NavigateUrl = Globals.NavigateURL();
 
-                    cboFolders.Items.Insert(0, new ListItem("<" + Localization.GetString("None_Specified") + ">", "-"));
-                    var user = UserController.GetCurrentUserInfo();
-                    var folders = FolderManager.Instance.GetFileSystemFolders(user, "ADD");
-                    foreach (var folderItem in
-                        from FolderInfo folder in folders
-                        select new ListItem { Text = folder.FolderPath == Null.NullString ? Localization.GetString("Root", LocalResourceFile) : folder.DisplayPath, Value = folder.FolderPath })
-                    {
-                        cboFolders.Items.Add(folderItem);
-                    }
+                    cboFolders.UndefinedItem = new ListItem("<" + Localization.GetString("None_Specified") + ">", string.Empty);
+                    cboFolders.Services.Parameters.Add("permission", "ADD");
                     if (Module != null)
                     {
                         txtFile.Text = CleanName(Module.ModuleTitle);
@@ -207,18 +204,23 @@ namespace DotNetNuke.Modules.Admin.Modules
         {
             try
             {
-                if (cboFolders.SelectedIndex != 0 && !String.IsNullOrEmpty(txtFile.Text))
+                if (cboFolders.SelectedItem != null && !String.IsNullOrEmpty(txtFile.Text))
                 {
-                    var strFile = "content." + CleanName(Module.DesktopModule.ModuleName) + "." + CleanName(txtFile.Text) + ".xml";
-                    var strMessage = ExportModule(ModuleId, strFile, cboFolders.SelectedItem.Value);
-                    if (String.IsNullOrEmpty(strMessage))
+                    var folder = FolderManager.Instance.GetFolder(cboFolders.SelectedItemValueAsInt);
+                    if (folder != null)
                     {
-                        Response.Redirect(Globals.NavigateURL(), true);
-                    }
-                    else
-                    {
-                        UI.Skins.Skin.AddModuleMessage(this, strMessage, ModuleMessage.ModuleMessageType.RedError);
-                    }
+                        var strFile = "content." + CleanName(Module.DesktopModule.ModuleName) + "." + CleanName(txtFile.Text) + ".xml";
+                        var strMessage = ExportModule(ModuleId, strFile, folder.FolderPath);
+                        if (String.IsNullOrEmpty(strMessage))
+                        {
+                            Response.Redirect(Globals.NavigateURL(), true);
+                        }
+                        else
+                        {
+                            UI.Skins.Skin.AddModuleMessage(this, strMessage, ModuleMessage.ModuleMessageType.RedError);
+                        }
+                        }
+                    
                 }
                 else
                 {

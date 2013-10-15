@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblNote.Text" xml:space="preserve">
     <value>The purpose of this module is to register and configure the Rad Editor Provider. It helps host users to set the HTML provider in the web.config and maintain its configuration.</value>
@@ -155,7 +155,7 @@ When the AutoResizeHeight property is set to true, then the editor's content are
     <value>The css file to be used by the editor in wysiwyg mode. This file must reside either in the skin directory or in the website directory. The path set here is relative to its parent (e.g. /editor.css is a file in the root of your skin)</value>
   </data>
   <data name="DocumentsFilters.Help" xml:space="preserve">
-    <value>A comma separated list of possible extensions to be used in the document manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
+    <value>A semicolon separated list of possible extensions to be used in the document manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
   </data>
   <data name="DocumentsPath.Help" xml:space="preserve">
     <value>The folder that the document manager starts with when loading the dialog</value>
@@ -172,7 +172,7 @@ When the AutoResizeHeight property is set to true, then the editor's content are
     <value>The content provider is a class that handles how files and folders in the file mananger dialogs are handled. Override this setting if you have another content provider in place. </value>
   </data>
   <data name="FlashFilters.Help" xml:space="preserve">
-    <value>A comma separated list of possible extensions to be used in the flash manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
+    <value>A semicolon separated list of possible extensions to be used in the flash manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
   </data>
   <data name="FlashPath.Help" xml:space="preserve">
     <value>The folder that the flash manager starts with when loading the dialog</value>
@@ -181,7 +181,7 @@ When the AutoResizeHeight property is set to true, then the editor's content are
     <value>The overall height of the editor control</value>
   </data>
   <data name="ImagesFilters.Help" xml:space="preserve">
-    <value>A comma separated list of possible extensions to be used in the image manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
+    <value>A semicolon separated list of possible extensions to be used in the image manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
   </data>
   <data name="ImagesPath.Help" xml:space="preserve">
     <value>The folder that the image manager starts with when loading the dialog</value>
@@ -192,8 +192,8 @@ When the AutoResizeHeight property is set to true, then the editor's content are
   <data name="LinksUseRelativeUrls.Help" xml:space="preserve">
     <value>If set to false, links are created absolute</value>
   </data>
-  <data name="LinksUseTabNames.Help" xml:space="preserve">
-    <value>If set to true a link to a website page is built like this: default.aspx?TabName=Home</value>
+  <data name="LinksType.Help" xml:space="preserve">
+    <value>"Use Page Name":a link to a website page is built like this: default.aspx?TabName=Home;&lt;br /&gt;"Use Page Id":a link to a website page is built like this: default.aspx?TabId=100;&lt;br /&gt;"Normal": a link to a website page is built as a normal link.</value>
   </data>
   <data name="MaxDocumentSize.Help" xml:space="preserve">
     <value>Maximum document upload size in bytes</value>
@@ -214,7 +214,7 @@ When the AutoResizeHeight property is set to true, then the editor's content are
     <value>Maximum template upload size in bytes</value>
   </data>
   <data name="MediaFilters.Help" xml:space="preserve">
-    <value>A comma separated list of possible extensions to be used in the media manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
+    <value>A semicolon separated list of possible extensions to be used in the media manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
   </data>
   <data name="MediaPath.Help" xml:space="preserve">
     <value>The folder that the media manager starts with when loading the dialog</value>
@@ -249,7 +249,7 @@ Lists are types of paragraphs and they accept the same attributes as paragraph t
 You must set the CustomLinks tool in your toolbar configuratioon in order to make this work!</value>
   </data>
   <data name="SilverlightFilters.Help" xml:space="preserve">
-    <value>A comma separated list of possible extensions to be used in the silverlight manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
+    <value>A semicolon separated list of possible extensions to be used in the silverlight manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
   </data>
   <data name="SilverlightPath.Help" xml:space="preserve">
     <value>The folder that the silverlight manager starts with when loading the dialog</value>
@@ -299,7 +299,7 @@ You must set the CustomLinks tool in your toolbar configuratioon in order to mak
 &lt;li&gt;AllExceptNewLines: Clears all tags except "br" and new lines (\n) on paste.&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
   <data name="TemplateFilters.Help" xml:space="preserve">
-    <value>A comma separated list of possible extensions to be used in the template manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
+    <value>A semicolon separated list of possible extensions to be used in the template manager.  The extensions must also be in the host settings list of allowed extensions.  Use the following format: *.extensionname</value>
   </data>
   <data name="TemplatePath.Help" xml:space="preserve">
     <value>The folder that the template manager starts with when loading the dialog</value>
@@ -389,8 +389,8 @@ You must set the CustomLinks tool in your toolbar configuratioon in order to mak
   <data name="LinksUseRelativeUrls.Text" xml:space="preserve">
     <value>Enable Relative URL Links:</value>
   </data>
-  <data name="LinksUseTabNames.Text" xml:space="preserve">
-    <value>Enable Tab Names In URL:</value>
+  <data name="LinksType.Text" xml:space="preserve">
+    <value>Page Links Type:</value>
   </data>
   <data name="MaxDocumentSize.Text" xml:space="preserve">
     <value>Max File Size:</value>
@@ -553,5 +553,17 @@ You must set the CustomLinks tool in your toolbar configuratioon in order to mak
   </data>
   <data name="Toolbar Settings.Title" xml:space="preserve">
     <value>Toolbar Settings</value>
+  </data>
+  <data name="UserFolder.Text" xml:space="preserve">
+    <value>[UserFolder]</value>
+  </data>
+  <data name="LinksType_Normal.Text" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="LinksType_UseTabId.Text" xml:space="preserve">
+    <value>Use Page Id in URL</value>
+  </data>
+  <data name="LinksType_UseTabName.Text" xml:space="preserve">
+    <value>Use Page Name in URL</value>
   </data>
 </root>

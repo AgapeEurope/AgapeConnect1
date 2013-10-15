@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -104,7 +104,7 @@ namespace DotNetNuke.Modules.Admin.Sales
                                 lblFrequency.Text = entry.Text;
                             }
                             txtUnits.Text = "1";
-                            if (objRole.BillingFrequency == "1") //one-time fee
+                            if (objRole.BillingFrequency == "O") //one-time fee
                             {
                                 txtUnits.Enabled = false;
                             }
@@ -211,7 +211,7 @@ namespace DotNetNuke.Modules.Admin.Sales
             double retValue = 0;
             try
             {
-                var objRequest = (HttpWebRequest) WebRequest.Create("http://www.xe.com/ucc/convert.cgi");
+                var objRequest = Globals.GetExternalRequest("http://www.xe.com/ucc/convert.cgi");
                 objRequest.Method = "POST";
                 objRequest.ContentLength = strPost.Length;
                 objRequest.ContentType = "application/x-www-form-urlencoded";

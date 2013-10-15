@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -103,30 +103,21 @@ namespace DotNetNuke.Modules.Admin.Vendors
                 AffiliateId = Int32.Parse(Request.QueryString["AffilId"]);
             }
 			
-            //this needs to execute always to the client script code is registred in InvokePopupCal
-            cmdStartCalendar.NavigateUrl = Calendar.InvokePopupCal(txtStartDate);
-            cmdEndCalendar.NavigateUrl = Calendar.InvokePopupCal(txtEndDate);
-
             if (Page.IsPostBack == false)
             {
 
-                var objAffiliates = new AffiliateController();
+                var affiliateController = new AffiliateController();
                 if (AffiliateId != Null.NullInteger)
                 {
                     //Obtain a single row of banner information
-                    var objAffiliate = objAffiliates.GetAffiliate(AffiliateId, VendorId, PortalId);
-                    if (objAffiliate != null)
+                    var affiliate = affiliateController.GetAffiliate(AffiliateId, VendorId, PortalId);
+                    if (affiliate != null)
                     {
-                        if (!Null.IsNull(objAffiliate.StartDate))
-                        {
-                            txtStartDate.Text = objAffiliate.StartDate.ToShortDateString();
-                        }
-                        if (!Null.IsNull(objAffiliate.EndDate))
-                        {
-                            txtEndDate.Text = objAffiliate.EndDate.ToShortDateString();
-                        }
-                        txtCPC.Text = objAffiliate.CPC.ToString("#0.0####");
-                        txtCPA.Text = objAffiliate.CPA.ToString("#0.0####");
+                        StartDatePicker.SelectedDate = Null.IsNull(affiliate.StartDate) ? (DateTime?) null : affiliate.StartDate;
+                        EndDatePicker.SelectedDate = Null.IsNull(affiliate.EndDate) ? (DateTime?)null : affiliate.EndDate;
+
+                        txtCPC.Text = affiliate.CPC.ToString("#0.0####");
+                        txtCPA.Text = affiliate.CPA.ToString("#0.0####");
                     }
                     else //security violation attempt to access item not related to this Module
                     {
@@ -254,8 +245,8 @@ namespace DotNetNuke.Modules.Admin.Vendors
                                        {
                                            AffiliateId = AffiliateId,
                                            VendorId = VendorId,
-                                           StartDate = !String.IsNullOrEmpty(txtStartDate.Text) ? DateTime.Parse(txtStartDate.Text) : Null.NullDate,
-                                           EndDate = !String.IsNullOrEmpty(txtEndDate.Text) ? DateTime.Parse(txtEndDate.Text) : Null.NullDate,
+                                           StartDate =  StartDatePicker.SelectedDate.HasValue ? StartDatePicker.SelectedDate.Value : Null.NullDate,
+                                           EndDate = EndDatePicker.SelectedDate.HasValue ? EndDatePicker.SelectedDate.Value : Null.NullDate,
                                            CPC = double.Parse(txtCPC.Text),
                                            CPA = double.Parse(txtCPA.Text)
                                        };

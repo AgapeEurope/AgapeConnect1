@@ -187,6 +187,6 @@
     <value>Instant Messenger ID:</value>
   </data>
   <data name="plIM.Help" xml:space="preserve">
-    <value>Enter your Instant Messenger (Yahoo, AOL, MSN etc) ID</value>
+    <value>Enter your Instant Messenger (Skype, Yahoo, Google, etc) ID</value>
   </data>
 </root>

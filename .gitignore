@@ -173,5 +173,10 @@ Portals/0/ImagesPages
 Portals/0/Documents
 
 App_Data/ClientDependency/*-map.xml
+App_Data/Search
 
 google12a54662ce33ec42.html
+
+#RadEditor config files (portal dependant)
+DesktopModules/Admin/RadEditorProvider/ConfigFile/configfile.xml
+DesktopModules/Admin/RadEditorProvider/ToolsFile/toolsfile.xml

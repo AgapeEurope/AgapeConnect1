@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BasicSettings.Text" xml:space="preserve">
     <value>Basic Settings</value>
@@ -277,7 +277,7 @@
     <value>Login Page:</value>
   </data>
   <data name="plLoginTabId.Help" xml:space="preserve">
-    <value>The Login Page for your site, pages which disabled to select in the list because there is no Account Login module on those pages.</value>
+    <value>The Login Page for your site, pages with no Account Login module are not eligible.</value>
   </data>
   <data name="plUserTabId.Text" xml:space="preserve">
     <value>User Profile Page:</value>
@@ -400,7 +400,7 @@
     <value>Site Alias:</value>
   </data>
   <data name="plPortalAlias.Help" xml:space="preserve">
-    <value>The Site Alias is the url used to reach the site.</value>
+    <value>The Site Alias is the URL used to reach the site.</value>
   </data>
   <data name="plExpiryDate.Text" xml:space="preserve">
     <value>Expiry Date:</value>
@@ -427,10 +427,10 @@
     <value>The number of days of site activity that is kept for this site.</value>
   </data>
   <data name="plDesktopModules.Text" xml:space="preserve">
-    <value>Premium Modules:</value>
+    <value>Available modules:</value>
   </data>
   <data name="plDesktopModules.Help" xml:space="preserve">
-    <value>Premium modules are only available to specific websites</value>
+    <value>Here you can select which of the installed modules can be used in this site.</value>
   </data>
   <data name="StylesheetEditor.Text" xml:space="preserve">
     <value>Stylesheet Editor</value>
@@ -451,7 +451,7 @@
     <value>New User Signup Message</value>
   </data>
   <data name="DeleteMessage.Text" xml:space="preserve">
-    <value>Are You Sure You Wish To Delete This Website ?</value>
+    <value>Are You Sure You Wish To Delete This Website?</value>
   </data>
   <data name="SubmitGoogle.Text" xml:space="preserve">
     <value>Submit Site To Google</value>
@@ -604,7 +604,7 @@
     <value>Search Results Page:</value>
   </data>
   <data name="portalAliasModeButtonListLabel.Help" xml:space="preserve">
-    <value>This setting determines how the site responds to urls which are defined as alias, but are not the default-alias. None - no additional action is taken,  Canonical - the alias url is handled as a Canaonical url, Redirect - redirected to default alias. </value>
+    <value>This setting determines how the site responds to URLs which are defined as alias, but are not the default-alias. None - no additional action is taken,  Canonical - the alias URL is handled as a Canaonical URL, Redirect - redirected to default alias. </value>
   </data>
   <data name="portalAliasModeButtonListLabel.Text" xml:space="preserve">
     <value>SiteAlias Mapping Mode:</value>
@@ -616,7 +616,7 @@
     <value>Redirect</value>
   </data>
   <data name="plAutoAddPortalAlias.Help" xml:space="preserve">
-    <value>This setting determines how the site responds to urls which are mapped to the site but are not currently in the list of aliases. Setting is effective in single-siteconfiguration only. Select this option to automatically map new url.</value>
+    <value>This setting determines how the site responds to URLs which are mapped to the site but are not currently in the list of aliases. Setting is effective in single-siteconfiguration only. Select this option to automatically map new URL.</value>
   </data>
   <data name="plAutoAddPortalAlias.Text" xml:space="preserve">
     <value>Auto Add Site Alias:</value>
@@ -704,6 +704,12 @@
   </data>
   <data name="MsgAllowAttachmentsNo.Text" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="plMsgSendEmail.Text" xml:space="preserve">
+    <value>Send Emails:</value>
+  </data>
+  <data name="plMsgSendEmail.Help" xml:space="preserve">
+    <value>Select if Emails are to be sent to Recipients for every Message and Notification.</value>
   </data>
   <data name="CrmHostSettingsSummary.Text" xml:space="preserve">
     <value>The host dictates default Client Resource Management behavior, but if you choose to do so, you may configure your site to behave differently.
@@ -1035,7 +1041,7 @@ The host-level settings are currently set as follows:
     <value>Password Retrieval Enabled</value>
   </data>
   <data name="PasswordStrengthRegularExpressionTitle.Help" xml:space="preserve">
-    <value>Specifies whether a question and answer system is used as part of the registration process.  Can only be changed in web.config file.</value>
+    <value>The regular expression used to evaluate password complexity from the provider specified in the Provider property, Can only be changed in web.config file, by adding/altering the passwordStrengthRegularExpression node of AspNetSqlMembershipProvider. Note: this server validation is different from the password strength meter introduced in 7.1.0 which only advises on password strength, whereas this expression is a requirement for new passwords (if it is defined).</value>
   </data>
   <data name="PasswordStrengthRegularExpressionTitle.Text" xml:space="preserve">
     <value>Password Strength Regular Expression</value>
@@ -1045,5 +1051,101 @@ The host-level settings are currently set as follows:
   </data>
   <data name="RequiresQuestionAndAnswerTitle.Text" xml:space="preserve">
     <value>Requires Question And Answer</value>
+  </data>
+  <data name="MsgSendEmailsNo.Text" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MsgSendEmailYes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="plHideLoginControl.Help" xml:space="preserve">
+    <value>Check this box to hide the login link in page.</value>
+  </data>
+  <data name="plHideLoginControl.Text" xml:space="preserve">
+    <value>Hide Login Control?</value>
+  </data>
+  <data name="MembershipManagement.Text" xml:space="preserve">
+    <value>Membership Management</value>
+  </data>
+  <data name="plEnableBannedList.Text" xml:space="preserve">
+    <value>Enable password banned list</value>
+  </data>
+  <data name="plEnableBannedList.Help" xml:space="preserve">
+    <value>Sets whether passwords are checked against a list of banned items</value>
+  </data>
+  <data name="plEnableIPChecking.Text" xml:space="preserve">
+    <value>Enable IP address checking</value>
+  </data>
+  <data name="plEnableIPChecking.Help" xml:space="preserve">
+    <value>Sets whether IP address is checked during login</value>
+  </data>
+  <data name="CharacterSubListLabel.Help" xml:space="preserve">
+    <value>Select the character to use to concatenate URLs.</value>
+  </data>
+  <data name="CharacterSubListLabel.Text" xml:space="preserve">
+    <value>Character:</value>
+  </data>
+  <data name="ExtensionLabel.Help" xml:space="preserve">
+    <value>Enter the extension, including the period prefix.  The default extension is .aspx.</value>
+  </data>
+  <data name="ExtensionLabel.Text" xml:space="preserve">
+    <value>Extension to use (default is .aspx):</value>
+  </data>
+  <data name="enable.Text" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="manageAliasesLabel.Help" xml:space="preserve">
+    <value>In this section you can manage the site's aliases.</value>
+  </data>
+  <data name="manageAliasesLabel.Text" xml:space="preserve">
+    <value>Manage Alias(es):</value>
+  </data>
+  <data name="redirectOldProfileUrlsLabel.Help" xml:space="preserve">
+    <value>Check this box to force old style profile URLs to be redirected to custom URLs.</value>
+  </data>
+  <data name="redirectOldProfileUrlsLabel.Text" xml:space="preserve">
+    <value>Redirect Old Profile URLs:</value>
+  </data>
+  <data name="verifyProfileUrlsLabel.Help" xml:space="preserve">
+    <value>Check this box to verify the profile URLs entered by users.</value>
+  </data>
+  <data name="verifyProfileUrlsLabel.Text" xml:space="preserve">
+    <value>Verify User Profile URLs:</value>
+  </data>
+  <data name="plEnableRegisterNotification.Help" xml:space="preserve">
+    <value>Whether enable website administrator to receive email notification during new user registration.</value>
+  </data>
+  <data name="plEnableRegisterNotification.Text" xml:space="preserve">
+    <value>Receive user registration notification:</value>
+  </data>
+  <data name="FileVersionSettings.Text" xml:space="preserve">
+    <value>File Version Settings</value>
+  </data>
+  <data name="plFileVersionEnabled.Help" xml:space="preserve">
+    <value>Set whether or not file versioning is enabled or disabled for the site</value>
+  </data>
+  <data name="plFileVersionEnabled.Text" xml:space="preserve">
+    <value>File Versioning enabled?</value>
+  </data>
+  <data name="plMaxVersions.Help" xml:space="preserve">
+    <value>Set the number of file versions to keep</value>
+  </data>
+  <data name="plMaxVersions.Text" xml:space="preserve">
+    <value>Maximum number of file versions kept</value>
+  </data>
+  <data name="versionSize.Error" xml:space="preserve">
+    <value>The number of versions kept must be in the range 5 to 25.</value>
+  </data>
+  <data name="vanilyUrlPrefixLabel.Help" xml:space="preserve">
+    <value>Enter a string to use to prefix vanity URLs</value>
+  </data>
+  <data name="vanilyUrlPrefixLabel.Text" xml:space="preserve">
+    <value>Vanity URL Prefix:</value>
+  </data>
+  <data name="VanityUrlExample.Text" xml:space="preserve">
+    <value>myVanityUrl</value>
+  </data>
+  <data name="VanityUrlPrefixHeader.Text" xml:space="preserve">
+    <value>Enter a prefix for Vanity URLs</value>
   </data>
 </root>

@@ -1,27 +1,25 @@
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.Admin.Vendors.EditAffiliate" CodeFile="EditAffiliate.ascx.cs" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div class="dnnForm dnnEditAffiliate dnnClear" id="dnnEditAffiliate">
-    <fieldset>
-        <div class="dnnFormItem dnnFormHelp dnnClear"><p class="dnnFormRequired"><span><%=Localization.GetString("RequiredFields", Localization.SharedResourceFile)%></span></p></div>
+    <fieldset>        
         <div class="dnnFormItem">
             <dnn:label id="plStartDate" runat="server" controlname="txtStartDate" />
-			<asp:textbox id="txtStartDate" runat="server" columns="30" maxlength="11" />
-			<asp:hyperlink id="cmdStartCalendar" resourcekey="Calendar" cssclass="dnnSecondaryAction" runat="server" />
+            <dnn:DnnDatePicker ID="StartDatePicker" runat="server" />
         </div>
         <div class="dnnFormItem">
             <dnn:label id="plEndDate" runat="server" controlname="txtEndDate" />
-			<asp:textbox id="txtEndDate" runat="server" columns="30" maxlength="11" />
-			<asp:hyperlink id="cmdEndCalendar" resourcekey="Calendar" cssclass="dnnSecondaryAction" runat="server" />
+			<dnn:DnnDatePicker ID="EndDatePicker" runat="server" />
         </div>
         <div class="dnnFormItem">
-            <dnn:label id="plCPC" runat="server" controlname="txtCPC" />
-			<asp:textbox id="txtCPC" runat="server" maxlength="7" columns="30" cssclass="dnnFormRequired" />
+            <dnn:label id="plCPC" runat="server" controlname="txtCPC" cssclass="dnnFormRequired" />
+			<asp:textbox id="txtCPC" runat="server" maxlength="7" columns="30"  />
 			<asp:requiredfieldvalidator id="valCPC1" resourcekey="CPC.ErrorMessage" runat="server" controltovalidate="txtCPC" display="Dynamic" cssclass="dnnFormMessage dnnFormError" />
 			<asp:comparevalidator id="valCPC2" resourcekey="CPC.ErrorMessage" runat="server" controltovalidate="txtCPC" display="Dynamic" type="Double" operator="DataTypeCheck" cssclass="dnnFormMessage dnnFormError" />
         </div>
         <div class="dnnFormItem">
-            <dnn:label id="plCPA" runat="server" controlname="txtCPA" />
-			<asp:textbox id="txtCPA" runat="server" maxlength="7" columns="30" cssclass="dnnFormRequired" />
+            <dnn:label id="plCPA" runat="server" controlname="txtCPA" cssclass="dnnFormRequired" />
+			<asp:textbox id="txtCPA" runat="server" maxlength="7" columns="30"  />
 			<asp:requiredfieldvalidator id="valCPA1" resourcekey="CPA.ErrorMessage" runat="server" controltovalidate="txtCPA" display="Dynamic" cssclass="dnnFormMessage dnnFormError" />
 			<asp:comparevalidator id="valCPA2" resourcekey="CPA.ErrorMessage" runat="server" controltovalidate="txtCPA" display="Dynamic" type="Double" operator="DataTypeCheck" cssclass="dnnFormMessage dnnFormError" />
         </div>

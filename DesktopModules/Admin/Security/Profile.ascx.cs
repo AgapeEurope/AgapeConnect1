@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -21,7 +21,8 @@
 #region Usings
 
 using System;
-
+using DotNetNuke.Common.Lists;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Profile;
 using DotNetNuke.Entities.Users;
@@ -159,22 +160,10 @@ namespace DesktopModules.Admin.Security
         /// -----------------------------------------------------------------------------
         public override void DataBind()
         {
-            if (IsAdmin)
-            {
-                lblTitle.Text = string.Format(Localization.GetString("ProfileTitle.Text", LocalResourceFile), User.Username, User.UserID);
-            }
-            else if (IsRegister)
-            {
-                lblTitle.Text = Localization.GetString("RequireProfile.Text", LocalResourceFile);
-            }
-            else
-            {
-                divTitle.Visible = false;
-            }
-			
+		
             //Before we bind the Profile to the editor we need to "update" the visible data
-            ProfilePropertyDefinitionCollection properties = new ProfilePropertyDefinitionCollection();
-
+            var properties = new ProfilePropertyDefinitionCollection();
+			var imageType = new ListController().GetListEntryInfo("DataType", "Image");
             foreach (ProfilePropertyDefinition profProperty in UserProfile.ProfileProperties)
             {
                 if (IsAdmin && !IsProfile)
@@ -182,8 +171,10 @@ namespace DesktopModules.Admin.Security
                     profProperty.Visible = true;
                 }
 
-                if (!profProperty.Deleted) 
+                if (!profProperty.Deleted && (Request.IsAuthenticated || profProperty.DataType != imageType.EntryID))
+                {
                     properties.Add(profProperty);
+                }
             }
 
             ProfileProperties.User = User;
@@ -209,6 +200,7 @@ namespace DesktopModules.Admin.Security
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
+            ID = "Profile.ascx";
 
             //Get the base Page
             var basePage = Page as PageBase;
@@ -217,6 +209,7 @@ namespace DesktopModules.Admin.Security
 				//Check if culture is RTL
                 ProfileProperties.LabelMode = basePage.PageCulture.TextInfo.IsRightToLeft ? LabelMode.Right : LabelMode.Left;
             }
+            ProfileProperties.LocalResourceFile = LocalResourceFile;
         }
 
         /// -----------------------------------------------------------------------------
@@ -232,7 +225,6 @@ namespace DesktopModules.Admin.Security
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            ProfileProperties.LocalResourceFile = LocalResourceFile;
             cmdUpdate.Click += cmdUpdate_Click;
         }
 
@@ -248,10 +240,11 @@ namespace DesktopModules.Admin.Security
         /// -----------------------------------------------------------------------------
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
-            if (IsUserOrAdmin == false)
+			if (IsUserOrAdmin == false && UserId == Null.NullInteger)
             {
                 return;
             }
+
             if (IsValid)
             {
                 var properties = (ProfilePropertyDefinitionCollection) ProfileProperties.DataSource;

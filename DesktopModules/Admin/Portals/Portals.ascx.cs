@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,24 +22,24 @@
 
 using System;
 using System.Collections;
+using System.Linq;
 using System.Text;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Modules.Actions;
 using DotNetNuke.Entities.Portals;
-using DotNetNuke.Framework;
+using DotNetNuke.Entities.Portals.Internal;
 using DotNetNuke.Security;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.UI.Skins.Controls;
 using DotNetNuke.UI.Utilities;
-using DotNetNuke.UI.WebControls;
-
+using DotNetNuke.Web.UI.WebControls;
+using Telerik.Web.UI;
 using Globals = DotNetNuke.Common.Globals;
 
 #endregion
@@ -47,192 +47,48 @@ using Globals = DotNetNuke.Common.Globals;
 namespace DotNetNuke.Modules.Admin.Portals
 {
 
-	/// -----------------------------------------------------------------------------
 	/// <summary>
 	/// The Portals PortalModuleBase is used to manage the portlas.
 	/// </summary>
-    /// <remarks>
-	/// </remarks>
-	/// <history>
-	/// 	[cnurse]	9/28/2004	Updated to reflect design changes for Help, 508 support
-	///                       and localisation
-	/// </history>
-	/// -----------------------------------------------------------------------------
-    public partial class Portals : PortalModuleBase, IActionable
+    public partial class Portals : PortalModuleBase
     {
-		#region "Private Members"
+		#region Private Members
 
-        protected int TotalPages = -1;
-        protected int TotalRecords;
-        private int _currentPage = 1;
-        private string _Filter = "";
-        private ArrayList _portals = new ArrayList();
+        public Portals()
+	    {
+	        Filter = "";
+	    }
+
+	    #endregion
+
+		#region Protected Members
+
+	    protected string Filter { get; set; }
 
 		#endregion
 
-		#region "Protected Members"
+		#region Private Methods
 
-        protected int CurrentPage
-        {
-            get
-            {
-                return _currentPage;
-            }
-            set
-            {
-                _currentPage = value;
-            }
-        }
-
-        protected string Filter
-        {
-            get
-            {
-                return _Filter;
-            }
-            set
-            {
-                _Filter = value;
-            }
-        }
-
-        protected ArrayList PortalsList
-        {
-            get
-            {
-                return _portals;
-            }
-            set
-            {
-                _portals = value;
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Gets the Page Size for the Grid
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	03/02/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected int PageSize
-        {
-            get
-            {
-                return 20;
-            }
-        }
-
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Gets a flag that determines whether to suppress the Pager (when not required)
-        /// </summary>
-        /// <history>
-        /// 	[cnurse]	08/10/2006  Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected bool SuppressPager
-        {
-            get
-            {
-                return true;
-            }
-        }
-		
-		#endregion
-
-        #region IActionable Members
-
-        public ModuleActionCollection ModuleActions
-        {
-            get
-            {
-                var actions = new ModuleActionCollection
-                                    {
-                                        {
-                                            GetNextActionID(), 
-                                            Localization.GetString(ModuleActionType.AddContent, LocalResourceFile), 
-                                            ModuleActionType.AddContent, 
-                                            "", 
-                                            "add.gif", 
-                                            EditUrl("Signup"), 
-                                            false,
-                                            SecurityAccessLevel.Host, 
-                                            true, 
-                                            false
-                                        },
-                                        {
-                                            GetNextActionID(), 
-                                            Localization.GetString("ExportTemplate.Action", LocalResourceFile), 
-                                            ModuleActionType.AddContent, 
-                                            "", 
-                                            "lt.gif", 
-                                            EditUrl("Template"), 
-                                            false,
-                                            SecurityAccessLevel.Admin, 
-                                            true, 
-                                            false
-                                          }
-                                    };
-                if (PortalController.GetExpiredPortals().Count > 0)
-                {
-                    actions.Add(GetNextActionID(), Localization.GetString("DeleteExpired.Action", LocalResourceFile), 
-                                    ModuleActionType.AddContent, "Delete", "delete.gif", "",
-                                    "confirm('" + ClientAPI.GetSafeJSString(Localization.GetString("DeleteItems.Confirm")) + "')", 
-                                    true, SecurityAccessLevel.Admin, true, false);
-                }
-
-                return actions;
-            }
-        }
-
-        #endregion
-
-		#region "Private Methods"
-
-		/// -----------------------------------------------------------------------------
 		/// <summary>
 		/// BindData fetches the data from the database and updates the controls
 		/// </summary>
-        /// <remarks>
-		/// </remarks>
-        /// <history>
-		/// 	[cnurse]	9/28/2004	Updated to reflect design changes for Help, 508 support
-		///                       and localisation
-		/// </history>
-		/// -----------------------------------------------------------------------------
         private void BindData()
         {
             CreateLetterSearch();
-            var strQuerystring = Null.NullString;
-            if (!String.IsNullOrEmpty(Filter))
-            {
-                strQuerystring += "filter=" + Filter;
-            }
+
+		    int totalRecords = 0;
+		    ArrayList portals;
             if (Filter == Localization.GetString("Expired", LocalResourceFile))
             {
-                PortalsList = PortalController.GetExpiredPortals();
-                ctlPagingControl.Visible = false;
+                portals = PortalController.GetExpiredPortals();
+                totalRecords = portals.Count;
             }
             else
             {
-                PortalsList = PortalController.GetPortalsByName(Filter + "%", CurrentPage - 1, PageSize, ref TotalRecords);
+                portals = PortalController.GetPortalsByName(Filter + "%", grdPortals.CurrentPageIndex, grdPortals.PageSize, ref totalRecords);
             }
-            grdPortals.DataSource = PortalsList;
-            grdPortals.DataBind();
-
-            ctlPagingControl.TotalRecords = TotalRecords;
-            ctlPagingControl.PageSize = PageSize;
-            ctlPagingControl.CurrentPage = CurrentPage;
-
-            ctlPagingControl.QuerystringParams = strQuerystring;
-            ctlPagingControl.TabID = TabId;
-
-            if (SuppressPager && ctlPagingControl.Visible)
-            {
-                ctlPagingControl.Visible = (PageSize < TotalRecords);
-            }
+		    grdPortals.VirtualItemCount = totalRecords;
+            grdPortals.DataSource = portals;
         }
 
         private void CheckSecurity()
@@ -243,16 +99,9 @@ namespace DotNetNuke.Modules.Admin.Portals
             }
         }
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Builds the letter filter
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	11/17/2006	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         private void CreateLetterSearch()
         {
             var filters = Localization.GetString("Filter.Text", LocalResourceFile);
@@ -265,14 +114,9 @@ namespace DotNetNuke.Modules.Admin.Portals
             rptLetterSearch.DataBind();
         }
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// Deletes all expired portals
         /// </summary>
-        /// <history>
-        /// 	[cnurse]	11/17/2006	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
         private void DeleteExpiredPortals()
         {
             try
@@ -290,49 +134,32 @@ namespace DotNetNuke.Modules.Admin.Portals
 
 		#endregion
 
-		#region "Protected Methods"
+		#region Protected Methods
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// FilterURL correctly formats the Url for filter by first letter and paging
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/10/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         protected string FilterURL(string filter, string currentPage)
         {
             string url;
             if (!String.IsNullOrEmpty(filter))
             {
-                url = !String.IsNullOrEmpty(currentPage) ? Globals.NavigateURL(TabId, "", "filter=" + filter, "currentpage=" + CurrentPage) : Globals.NavigateURL(TabId, "", "filter=" + filter);
+                url = !String.IsNullOrEmpty(currentPage) ? Globals.NavigateURL(TabId, "", "filter=" + filter, "currentpage=" + grdPortals.CurrentPageIndex) : Globals.NavigateURL(TabId, "", "filter=" + filter);
             }
             else
             {
-                url = !String.IsNullOrEmpty(currentPage) ? Globals.NavigateURL(TabId, "", "currentpage=" + CurrentPage) : Globals.NavigateURL(TabId, "");
+                url = !String.IsNullOrEmpty(currentPage) ? Globals.NavigateURL(TabId, "", "currentpage=" + grdPortals.CurrentPageIndex) : Globals.NavigateURL(TabId, "");
             }
             return url;
         }
 
 		#endregion
 
-		#region "Public Methods"
+		#region Public Methods
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// FormatExpiryDate formats the expiry date and filter out null-dates
         /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/28/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string FormatExpiryDate(DateTime dateTime)
         {
             var strDate = string.Empty;
@@ -350,36 +177,23 @@ namespace DotNetNuke.Modules.Admin.Portals
             return strDate;
         }
 
-        /// -----------------------------------------------------------------------------
         /// <summary>
         /// FormatExpiryDate formats the format name as an a tag
         /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/28/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        /// </history>
-        /// -----------------------------------------------------------------------------
         public string FormatPortalAliases(int portalID)
         {
             var str = new StringBuilder();
             try
             {
-                var objPortalAliasController = new PortalAliasController();
-                var arr = objPortalAliasController.GetPortalAliasArrayByPortalID(portalID);
-                PortalAliasInfo objPortalAliasInfo;
-                int i;
-                for (i = 0; i <= arr.Count - 1; i++)
+                var arr = TestablePortalAliasController.Instance.GetPortalAliasesByPortalId(portalID).ToList();
+                foreach ( PortalAliasInfo portalAliasInfo in arr)
                 {
-                    objPortalAliasInfo = (PortalAliasInfo) arr[i];
-
-                    var httpAlias = Globals.AddHTTP(objPortalAliasInfo.HTTPAlias);
+                    var httpAlias = Globals.AddHTTP(portalAliasInfo.HTTPAlias);
                     var originalUrl = HttpContext.Current.Items["UrlRewrite:OriginalUrl"].ToString().ToLowerInvariant();
 
                     httpAlias = Globals.AddPort(httpAlias, originalUrl);
 
-                    str.Append("<a href=\"" + httpAlias + "\">" + objPortalAliasInfo.HTTPAlias + "</a>" + "<BR>");
+                    str.Append("<a href=\"" + httpAlias + "\">" + portalAliasInfo.HTTPAlias + "</a>" + "<BR>");
                 }
             }
             catch (Exception exc) //Module failed to load
@@ -397,15 +211,18 @@ namespace DotNetNuke.Modules.Admin.Portals
         {
             base.OnInit(e);
 
-            foreach (DataGridColumn column in grdPortals.Columns)
+            cmdDeleteExpired.Visible = PortalController.GetExpiredPortals().Count > 0;
+            cmdDeleteExpired.Click += cmdDeleteExpired_Click;
+
+            foreach (GridColumn column in grdPortals.Columns)
             {
-                if (ReferenceEquals(column.GetType(), typeof (ImageCommandColumn)))
+                if (ReferenceEquals(column.GetType(), typeof (DnnGridImageCommandColumn)))
                 {
 					//Manage Delete Confirm JS
-                    var imageColumn = (ImageCommandColumn) column;
+                    var imageColumn = (DnnGridImageCommandColumn)column;
                     if (imageColumn.CommandName == "Delete")
                     {
-                        imageColumn.OnClickJS = Localization.GetString("DeleteItem");
+                        imageColumn.OnClickJs = Localization.GetString("DeleteItem");
                     }
 					
                     //Manage Edit Column NavigateURLFormatString
@@ -427,18 +244,11 @@ namespace DotNetNuke.Modules.Admin.Portals
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// Page_Load runs when the control is loaded.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <history>
-        /// 	[cnurse]	9/28/2004	Updated to reflect design changes for Help, 508 support
-        ///                       and localisation
-        ///     [VMasanas]  9/28/2004   Changed redirect to Access Denied
-        /// </history>
-        /// -----------------------------------------------------------------------------
+        void cmdDeleteExpired_Click(object sender, EventArgs e)
+        {
+            DeleteExpiredPortals();
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -448,15 +258,14 @@ namespace DotNetNuke.Modules.Admin.Portals
 
             try
             {
-				//Add an Action Event Handler to the Skin
-                AddActionHandler(OnModuleActionClick);
+
                 if (!UserInfo.IsSuperUser)
                 {
                     Response.Redirect(Globals.NavigateURL("Access Denied"), true);
                 }
                 if (Request.QueryString["CurrentPage"] != null)
                 {
-                    CurrentPage = Convert.ToInt32(Request.QueryString["CurrentPage"]);
+                    grdPortals.CurrentPageIndex = Convert.ToInt32(Request.QueryString["CurrentPage"]);
                 }
                 if (Request.QueryString["filter"] != null)
                 {
@@ -468,9 +277,7 @@ namespace DotNetNuke.Modules.Admin.Portals
                 }
                 if (!Page.IsPostBack)
                 {
-					//Localize the Headers
-                    Localization.LocalizeDataGrid(ref grdPortals, LocalResourceFile);
-                    BindData();
+					BindData();
                 }
             }
             catch (Exception exc)
@@ -480,29 +287,7 @@ namespace DotNetNuke.Modules.Admin.Portals
             }
         }
 
-        /// -----------------------------------------------------------------------------
-        /// <summary>
-        /// ModuleAction_Click handles all ModuleAction events raised from the skin
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <param name="sender"> The object that triggers the event</param>
-        /// <param name="e">An ActionEventArgs object</param>
-        /// <history>
-        /// 	[cnurse]	11/17/2006	Created
-        /// </history>
-        /// -----------------------------------------------------------------------------
-        protected void OnModuleActionClick(object sender, ActionEventArgs e)
-        {
-            switch (e.Action.CommandArgument)
-            {
-                case "Delete":
-                    DeleteExpiredPortals();
-                    break;
-            }
-        }
-
-        protected void OnGridDeleteCommand(object source, DataGridCommandEventArgs e)
+        protected void OnGridDeleteCommand(object source, GridCommandEventArgs e)
         {
             try
             {
@@ -530,16 +315,16 @@ namespace DotNetNuke.Modules.Admin.Portals
             }
         }
 
-        protected void OnGridItemDataBound(object sender, DataGridItemEventArgs e)
+        protected void OnGridItemDataBound(object sender, GridItemEventArgs e)
         {
             var item = e.Item;
             switch (item.ItemType)
             {
-                case ListItemType.SelectedItem:
-                case ListItemType.AlternatingItem:
-                case ListItemType.Item:
+                case GridItemType.SelectedItem:
+                case GridItemType.AlternatingItem:
+                case GridItemType.Item:
                     {
-                        var imgColumnControl = item.Controls[1].Controls[0];
+                        var imgColumnControl = ((GridDataItem)item)["DeleteColumn"].Controls[0];
                         if (imgColumnControl is ImageButton)
                         {
                             var delImage = (ImageButton) imgColumnControl;
@@ -553,5 +338,9 @@ namespace DotNetNuke.Modules.Admin.Portals
 
         #endregion
 
+	    protected void GridNeedsDataSource(object sender, GridNeedDataSourceEventArgs e)
+	    {
+	        BindData();
+	    }
     }
 }

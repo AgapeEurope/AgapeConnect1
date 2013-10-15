@@ -85,6 +85,10 @@
       <name>tooltipArrow.png</name>
     </file>
     <file>
+      <path />
+      <name>packages.config</name>
+    </file>
+    <file>
       <path>scripts/</path>
       <name>MemberDirectory.js</name>
     </file>

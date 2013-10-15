@@ -1,21 +1,20 @@
 <%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.Admin.LogViewer.EditLogTypes" CodeFile="EditLogTypes.ascx.cs" %>
-<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.UI.WebControls" Assembly="DotNetNuke" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-<%@ Register TagPrefix="dnn" TagName="SectionHead" Src="~/controls/SectionHeadControl.ascx" %>
 
 <div class="dnnForm dnnEditLogTypes" id="dnnEditLogTypes">
     <asp:panel id="pnlLogTypeConfigInfo" runat="server">
-	    <asp:datagrid id="dgLogTypeConfigInfo" runat="server" autogeneratecolumns="false" cellpadding="4" datakeyfield="ID" border="0">
-		    <itemstyle horizontalalign="Left" />
-		    <columns>
-		        <dnn:imagecommandcolumn CommandName="Edit" IconKey="Edit" KeyField="ID" />
-			    <asp:boundcolumn headertext="LogType" datafield="LogTypeFriendlyName" />
-			    <asp:boundcolumn headertext="Portal" datafield="LogTypePortalID" />
-			    <asp:boundcolumn headertext="Active" datafield="LoggingIsActive" />
-			    <asp:boundcolumn headertext="FileName" datafield="LogFilename" />
-		    </columns>
-	    </asp:datagrid>
+	    <dnn:DnnGrid id="dgLogTypeConfigInfo" runat="server" autogeneratecolumns="false">
+	        <MasterTableView DataKeyNames="ID">
+		        <Columns>
+		            <dnn:DnnGridImageCommandColumn CommandName="Edit" IconKey="Edit" UniqueName="EditColumn" />
+			        <dnn:DnnGridBoundColumn headertext="LogType" datafield="LogTypeFriendlyName" />
+			        <dnn:DnnGridBoundColumn headertext="Portal" datafield="LogTypePortalID" />
+			        <dnn:DnnGridBoundColumn headertext="Active" datafield="LoggingIsActive" />
+			        <dnn:DnnGridBoundColumn headertext="FileName" datafield="LogFilename" />
+		        </Columns>
+            </MasterTableView>
+	    </dnn:DnnGrid>
 	    <ul class="dnnActions dnnClear"><li><asp:HyperLink class="dnnPrimaryAction" id="hlReturn" runat="server" resourcekey="cmdReturn" causesvalidation="False" /></li></ul>
     </asp:panel>
     <asp:panel id="pnlEditLogTypeConfigInfo" runat="server">

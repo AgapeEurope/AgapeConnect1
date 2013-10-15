@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections;
+using System.Globalization;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -36,6 +37,7 @@ using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Log.EventLog;
 using DotNetNuke.UI.Skins.Controls;
 using DotNetNuke.UI.UserControls;
+using Telerik.Web.UI;
 
 #endregion
 
@@ -90,7 +92,9 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             ddlLogTypePortalID.DataSource = pc.GetPortals();
             ddlLogTypePortalID.DataBind();
 
+// ReSharper disable LocalizableElement
             var i = new ListItem {Text = Localization.GetString("All"), Value = "*"};
+// ReSharper restore LocalizableElement
             ddlLogTypePortalID.Items.Insert(0, i);
 
 
@@ -111,18 +115,20 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             foreach (int item in items)
             {
                 ddlKeepMostRecent.Items.Add(item == 1
-                                                ? new ListItem(item + Localization.GetString("LogEntry", LocalResourceFile), item.ToString())
-                                                : new ListItem(item + Localization.GetString("LogEntries", LocalResourceFile), item.ToString()));
+                                                ? new ListItem(item + Localization.GetString("LogEntry", LocalResourceFile), item.ToString(CultureInfo.InvariantCulture))
+                                                : new ListItem(item + Localization.GetString("LogEntries", LocalResourceFile), item.ToString(CultureInfo.InvariantCulture)));
             }
             int[] items2 = {1, 2, 3, 4, 5, 10, 25, 100, 250, 500, 1000};
             ddlThreshold.Items.Clear();
             foreach (int item in items2)
             {
                 ddlThreshold.Items.Add(item == 1
-                                           ? new ListItem(item + Localization.GetString("Occurence", LocalResourceFile), item.ToString())
-                                           : new ListItem(item + Localization.GetString("Occurences", LocalResourceFile), item.ToString()));
+                                           ? new ListItem(item + Localization.GetString("Occurence", LocalResourceFile), item.ToString(CultureInfo.InvariantCulture))
+                                           : new ListItem(item + Localization.GetString("Occurences", LocalResourceFile), item.ToString(CultureInfo.InvariantCulture)));
             }
+// ReSharper disable LocalizableElement
             var j = new ListItem {Text = Localization.GetString("All"), Value = "*"};
+// ReSharper restore LocalizableElement
             ddlLogTypeKey.Items.Insert(0, j);
         }
 
@@ -131,11 +137,6 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             var objLogController = new LogController();
             ArrayList arrLogTypeConfigInfo = objLogController.GetLogTypeConfigInfo();
 
-            //Localize the Headers
-            if (!Page.IsPostBack)
-            {
-                Localization.LocalizeDataGrid(ref dgLogTypeConfigInfo, LocalResourceFile);
-            }
             dgLogTypeConfigInfo.DataSource = arrLogTypeConfigInfo;
             dgLogTypeConfigInfo.DataBind();
             pnlEditLogTypeConfigInfo.Visible = false;
@@ -201,9 +202,9 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             cmdDelete.Click += OnDeleteClick;
             cmdCancel.Click += OnCancelClick;
             cmdUpdate.Click += OnUpdateClick;
-            chkEmailNotificationStatus.CheckedChanged += chkEmailNotificationStatus_CheckedChanged;
-            chkIsActive.CheckedChanged += chkIsActive_CheckedChanged;
-            dgLogTypeConfigInfo.EditCommand += dgLogTypeConfigInfo_EditCommand;
+            chkEmailNotificationStatus.CheckedChanged += ChkEmailNotificationStatusCheckedChanged;
+            chkIsActive.CheckedChanged += ChkIsActiveCheckedChanged;
+            dgLogTypeConfigInfo.EditCommand += DgLogTypeConfigInfoEditCommand;
 
             try
             {
@@ -324,28 +325,28 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             BindSummaryData();
         }
 
-        protected void chkEmailNotificationStatus_CheckedChanged(Object sender, EventArgs e)
+        protected void ChkEmailNotificationStatusCheckedChanged(Object sender, EventArgs e)
         {
             // TODO: Revisit
             DisableNotificationControls();
         }
 
-        protected void chkIsActive_CheckedChanged(Object sender, EventArgs e)
+        protected void ChkIsActiveCheckedChanged(Object sender, EventArgs e)
         {
             // TODO: Revisit
             DisableLoggingControls();
         }
 
-        protected void dgLogTypeConfigInfo_EditCommand(object source, DataGridCommandEventArgs e)
+        protected void DgLogTypeConfigInfoEditCommand(object source, GridCommandEventArgs e)
         {
-            var LogID = Convert.ToString(dgLogTypeConfigInfo.DataKeys[e.Item.ItemIndex]);
-            ViewState["LogID"] = LogID;
+            var logID = Convert.ToString(((GridDataItem)e.Item).GetDataKeyValue("ID"));
+            ViewState["LogID"] = logID;
 
             BindDetailData();
 
             var l = new LogController();
 
-            LogTypeConfigInfo objLogTypeConfigInfo = l.GetLogTypeConfigInfoByID(LogID);
+            LogTypeConfigInfo objLogTypeConfigInfo = l.GetLogTypeConfigInfoByID(logID);
 
             chkIsActive.Checked = objLogTypeConfigInfo.LoggingIsActive;
             chkEmailNotificationStatus.Checked = objLogTypeConfigInfo.EmailNotificationIsActive;
@@ -365,15 +366,15 @@ namespace DotNetNuke.Modules.Admin.LogViewer
                 ddlKeepMostRecent.ClearSelection();
                 ddlKeepMostRecent.Items.FindByValue(objLogTypeConfigInfo.KeepMostRecent).Selected = true;
             }
-            if (ddlThreshold.Items.FindByValue(objLogTypeConfigInfo.NotificationThreshold.ToString()) != null)
+            if (ddlThreshold.Items.FindByValue(objLogTypeConfigInfo.NotificationThreshold.ToString(CultureInfo.InvariantCulture)) != null)
             {
                 ddlThreshold.ClearSelection();
-                ddlThreshold.Items.FindByValue(objLogTypeConfigInfo.NotificationThreshold.ToString()).Selected = true;
+                ddlThreshold.Items.FindByValue(objLogTypeConfigInfo.NotificationThreshold.ToString(CultureInfo.InvariantCulture)).Selected = true;
             }
-            if (ddlThresholdNotificationTime.Items.FindByValue(objLogTypeConfigInfo.NotificationThresholdTime.ToString()) != null)
+            if (ddlThresholdNotificationTime.Items.FindByValue(objLogTypeConfigInfo.NotificationThresholdTime.ToString(CultureInfo.InvariantCulture)) != null)
             {
                 ddlThresholdNotificationTime.ClearSelection();
-                ddlThresholdNotificationTime.Items.FindByValue(objLogTypeConfigInfo.NotificationThresholdTime.ToString()).Selected = true;
+                ddlThresholdNotificationTime.Items.FindByValue(objLogTypeConfigInfo.NotificationThresholdTime.ToString(CultureInfo.InvariantCulture)).Selected = true;
             }
             if (ddlThresholdNotificationTimeType.Items.FindByText(objLogTypeConfigInfo.NotificationThresholdTimeType.ToString()) != null)
             {
@@ -383,6 +384,8 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             txtMailFromAddress.Text = objLogTypeConfigInfo.MailFromAddress;
             txtMailToAddress.Text = objLogTypeConfigInfo.MailToAddress;
             DisableLoggingControls();
+
+            e.Canceled = true; //disable inline editing in grid
         }
 
         #endregion

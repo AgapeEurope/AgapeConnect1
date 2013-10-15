@@ -23,7 +23,7 @@ ul.token-input-list li {
 ul.token-input-list li input {
     border: 0;
     width: 350px;
-    padding: 3px 8px;
+    padding: 8px;
     background-color: white;
     -webkit-appearance: caret;
 }
@@ -34,7 +34,7 @@ li.token-input-token {
     height: 1%;
     margin: 3px;
     padding: 3px 5px;
-    background-color: #d0efa0;
+    /*background-color: #d0efa0;*/
     color: #000;
     font-weight: bold;
     cursor: default;

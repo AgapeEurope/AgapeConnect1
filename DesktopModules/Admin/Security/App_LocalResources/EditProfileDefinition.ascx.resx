@@ -210,9 +210,6 @@
   <data name="plPropertyName.Text" xml:space="preserve">
     <value>Property Name:</value>
   </data>
-  <data name="cmdSaveKeys.Text" xml:space="preserve">
-    <value>Save Localized Text</value>
-  </data>
   <data name="cmdCreate.Text" xml:space="preserve">
     <value>Create New Property</value>
   </data>
@@ -232,13 +229,13 @@
     <value>Manage List Entries</value>
   </data>
   <data name="Introduction_Add.Help" xml:space="preserve">
-    <value>The first step in setting up a Profile Property Definition is to define the property's details.  Enter the details in this page and click "Next" to create the Property Definition.   &lt;b&gt;Note:&lt;/b&gt; All fields marked with a red arrow are required.</value>
+    <value>The first step in setting up a Profile Property Definition is to define the property's details.  Enter the details in this page and click "Next" to create the Property Definition.   &lt;b&gt;Note:&lt;/b&gt; All fields marked with a red asterisk are required.</value>
   </data>
   <data name="Introduction_Add.Title" xml:space="preserve">
     <value>Add New Property Details</value>
   </data>
   <data name="Localization.Help" xml:space="preserve">
-    <value>The next step is to manage the localization of this property.  Select the language you wish to update, add text or modify the existing text and click "Save Localized Text"</value>
+    <value>The next step is to manage the localization of this property.  Select the language you wish to update, add text or modify the existing text and click "Update"</value>
   </data>
   <data name="Localization.Title" xml:space="preserve">
     <value>Manage Localization</value>
@@ -283,6 +280,9 @@
     <value>Cancel</value>
   </data>
   <data name="Return.Text" xml:space="preserve">
-    <value>Return</value>
+    <value>Update</value>
+  </data>
+  <data name="valPropertyName.ErrorMessage" xml:space="preserve">
+    <value>You need enter a name for this property.</value>
   </data>
 </root>

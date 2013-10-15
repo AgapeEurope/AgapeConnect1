@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HostInfo_DataProvider.Help" xml:space="preserve">
     <value>The default data provider for the site.</value>
@@ -142,10 +142,10 @@
     <value>Logging Provider:</value>
   </data>
   <data name="HostInfo_Version.Help" xml:space="preserve">
-    <value>The version of DotNetNuke.</value>
+    <value>The version of product.</value>
   </data>
   <data name="HostInfo_Version.Text" xml:space="preserve">
-    <value>DotNetNuke Version:</value>
+    <value>Version:</value>
   </data>
   <data name="HostInfo_CachingProvider.Help" xml:space="preserve">
     <value>The default caching provider for the site.</value>
@@ -154,10 +154,10 @@
     <value>Caching Provider:</value>
   </data>
   <data name="HostInfo_FriendlyUrlProvider.Help" xml:space="preserve">
-    <value>The default friendly url provider for the site.</value>
+    <value>The default friendly URL provider for the site.</value>
   </data>
   <data name="HostInfo_FriendlyUrlProvider.Text" xml:space="preserve">
-    <value>Friendy Url Provider:</value>
+    <value>Friendy URL Provider:</value>
   </data>
   <data name="HostInfo_Permissions.Help" xml:space="preserve">
     <value>The Code Access Security (CAS) Permissions available for this site.</value>
@@ -196,10 +196,10 @@
     <value>DotNetNuke Host Settings:</value>
   </data>
   <data name="HostInfo_Product.Help" xml:space="preserve">
-    <value>The DotNetNuke application you are running</value>
+    <value>The application you are running</value>
   </data>
   <data name="HostInfo_Product.Text" xml:space="preserve">
-    <value>DotNetNuke Product:</value>
+    <value>Product:</value>
   </data>
   <data name="HostInfo_JQueryUIVersion.Help" xml:space="preserve">
     <value>This is the version of jQuery UI this DotNetNuke installation is running.</value>

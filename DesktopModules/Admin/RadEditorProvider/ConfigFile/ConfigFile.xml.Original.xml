@@ -2,7 +2,7 @@
 <configuration>
     <property name="Common Settings" IsSeparator="true" />
     <property name="Skin">Default</property>
-    <property name="AutoResizeHeight">true</property>
+    <property name="AutoResizeHeight">false</property>
     <property name="BorderWidth">0</property>
     <property name="Height">500px</property>
     <property name="Width">680px</property>
@@ -14,8 +14,8 @@
     <property name="NewLineBr">False</property>
     <property name="StripFormattingOptions">MSWordRemoveAll</property>
     <property name="LinksUseRelativeUrls">True</property>
-    <property name="LinksUseTabNames">false</property>
-    <property name="ShowPortalLinks">True</property>
+    <property name="LinksType">Normal</property>
+    <property name="ShowPortalLinks">False</property>
     <property name="ContentAreaMode"></property>
 
     <property name="Toolbar Settings" IsSeparator="true" />
@@ -24,11 +24,11 @@
 
     <property name="Document Manager Settings" IsSeparator="true" />
     <property name="DocumentsFilters">*.*</property>
-    <property name="DocumentsPath">/Documents</property>
+    <property name="DocumentsPath">Documents/</property>
     <property name="MaxDocumentSize">1024000</property>
 
     <property name="Image Manager Settings" IsSeparator="true" />
-    <property name="ImagesPath">/Images</property>
+    <property name="ImagesPath">Images/</property>
     <property name="MaxImageSize">1024000</property>
     <property name="ImagesFilters">
         <item>*.jpg</item>
@@ -39,14 +39,14 @@
     </property>
 
     <property name="Flash Manager Settings" IsSeparator="true" />
-    <property name="FlashPath">/Flash</property>
+    <property name="FlashPath">/</property>
     <property name="MaxFlashSize">1024000</property>
     <property name="FlashFilters">
         <item>*.swf</item>
     </property>
 
     <property name="Media Manager Settings" IsSeparator="true" />
-    <property name="MediaPath">/Media</property>
+    <property name="MediaPath">/</property>
     <property name="MaxMediaSize">1024000</property>
     <property name="MediaFilters">
         <item>*.avi</item>
@@ -54,12 +54,12 @@
     </property>
 
     <property name="Silverlight Manager Settings" IsSeparator="true" />
-    <property name="SilverlightPath">/Silverlight</property>
-    <property name="SilverlightFilters">.*</property>   
+    <property name="SilverlightPath">/</property>
+    <property name="SilverlightFilters">*.*</property>   
     <property name="MaxSilverlightSize">1024000</property>
 
     <property name="Template Manager Settings" IsSeparator="true" />
-    <property name="TemplatePath">/Templates</property>
+    <property name="TemplatePath">Templates/</property>
     <property name="MaxTemplateSize">1024000</property>
     <property name="TemplateFilters">
         <item>*.html</item>

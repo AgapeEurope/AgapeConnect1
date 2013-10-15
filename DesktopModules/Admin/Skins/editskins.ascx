@@ -1,39 +1,49 @@
 <%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.Admin.Skins.EditSkins" CodeFile="EditSkins.ascx.cs" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.UI.WebControls" Assembly="DotNetNuke" %>
+<%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <div class="dnnForm dnnEditSkins dnnClear" id="dnnEditSkins">
 	<fieldset>
 		<legend></legend>
 		<div id="typeRow" runat="server" class="dnnFormItem">
 			<dnn:label id="plType" runat="server"/>
+            <div class="dnnFormRadioButtons">
 			<asp:checkbox id="chkHost" cssclass="esCheckBoxes" Runat="server" resourcekey="Host" AutoPostBack="True" Checked="True" />
 			<asp:checkbox id="chkSite" cssclass="esCheckBoxes" Runat="server" resourcekey="Site" AutoPostBack="True" Checked="True" />
+            </div>
 		</div>
 		<div class="dnnFormItem">
 			<dnn:label id="plSkins" controlname="cboSkins" runat="server" />
-			<asp:dropdownlist id="cboSkins" Runat="server" AutoPostBack="True" />
+			<%--<asp:dropdownlist id="cboSkins" Runat="server" AutoPostBack="True" />--%>
+            <dnn:DnnComboBox id="cboSkins" Runat="server" AutoPostBack="true" />
 		</div>
 		<div class="dnnFormItem">
 			<dnn:label id="plContainers" controlname="cboContainers" runat="server" />
-			<asp:dropdownlist id="cboContainers" Runat="server" AutoPostBack="True" />
+			<%--<asp:dropdownlist id="cboContainers" Runat="server" AutoPostBack="True" />--%>
+            <dnn:DnnComboBox ID="cboContainers" runat="server" AutoPostBack="true" />
 			<div class="legacySkinNotice">
-				<asp:Label ID="lblLegacy" runat="server" class="dnnFormMessage dnnFormWarning" resourcekey="LegacySkin" Visible="false" />
+				<asp:Label ID="lblLegacy" runat="server" class="dnnFormMessage dnnFormWarning" resourcekey="LegacySkin" />
 			</div>	
 		</div>
 		<asp:panel id="pnlSkin" Runat="server" Visible="False" Cssclass="dnnFormItem">
 			<dnn:label id="lblApply" runat="server" ControlName="chkPortal" Suffix=":" />
+            <div class='dnnFormRadioButtons'>
 			<asp:CheckBox id="chkPortal" Checked="True" resourcekey="Portal" Runat="server" CssClass="esCheckBoxes" />
 			<asp:CheckBox id="chkAdmin" Checked="True" resourcekey="Admin" Runat="server" CssClass="esCheckBoxes" />
+            </div>
+            <div class="dnnClear"></div>
 		</asp:panel>
 		<div>
 			<h2 class="dnnFormSectionHead"><%=LocalizeString("plSkins")%></h2>
 			<fieldset>
+			    <asp:Panel runat="server" ID="pnlMsgSkins"></asp:Panel>
 				<table id="tblSkins" runat="server" cellspacing="0" cellpadding="0" class="skinViewer" />
 			</fieldset>
 		</div>
 		<div>
 			<h2 class="dnnFormSectionHead"><%=LocalizeString("plContainers")%></h2>
-			<fieldset>
+			<fieldset id="fsTabContainers">
+			    <asp:Panel runat="server" ID="pnlMsgContainers"></asp:Panel>
 				<table id="tblContainers" runat="server" cellspacing="0" cellpadding="0" class="skinViewer" />
 			</fieldset>
 		</div>

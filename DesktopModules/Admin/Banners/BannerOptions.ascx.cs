@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -26,6 +26,7 @@ using System.Data;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common;
+using DotNetNuke.Common.Utilities;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
@@ -38,6 +39,18 @@ namespace DotNetNuke.Modules.Admin.Vendors
 {
     public partial class BannerOptions : PortalModuleBase
     {
+        #region Private Properties
+
+        private string ReturnURL
+        {
+            get
+            {
+                return UrlUtils.ValidReturnUrl(Request.Params["ReturnURL"]) ?? Globals.NavigateURL();
+            }
+        }
+
+        #endregion
+
         /// <summary>
 		/// The Page_Load event handler on this User Control is used to
         /// obtain a DataReader of banner information from the Banners
@@ -161,7 +174,7 @@ namespace DotNetNuke.Modules.Admin.Vendors
                     objModules.UpdateModuleSetting(ModuleId, "bannerclickthroughurl", txtBannerClickThroughURL.Text);
 
                     //Redirect back to the portal home page
-                    Response.Redirect(Globals.NavigateURL(), true);
+                    Response.Redirect(ReturnURL, true);
                 }
             }
             catch (Exception exc) //Module failed to load
@@ -174,7 +187,7 @@ namespace DotNetNuke.Modules.Admin.Vendors
         {
             try
             {
-                Response.Redirect(Globals.NavigateURL(), true);
+                Response.Redirect(ReturnURL, true);
             }
             catch (Exception exc) //Module failed to load
             {

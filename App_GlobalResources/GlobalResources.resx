@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SyndicateModule.Action" xml:space="preserve">
     <value>Syndicate</value>
@@ -595,7 +595,6 @@ Thank you for registering at [Portal:PortalName]. Please read the following info
 
 Website Address: [Portal:URL]
 Username: [User:UserName]
-Password: [Membership:Password]
 
 Your account details will be reviewed by the website Administrator and you will receive a notification upon account activation.
 
@@ -654,18 +653,19 @@ Thank you, we appreciate your support...
   <data name="EMAIL_PASSWORD_REMINDER_BODY.Text" xml:space="preserve">
     <value>Dear [User:DisplayName],
 
-You have requested a Password Reminder from [Portal:PortalName].
+You have requested a Password Reset Token from [Portal:PortalName].
 
 Please login using the following information:
 
 Website Address: [Portal:URL]
 Username:   [User:Username]
-Password: [Membership:Password]
+
+Link to reset password: http://[Portal:URL]/default.aspx?ctl=PasswordReset&amp;resetToken=[Membership:PasswordResetToken]
 
 Sincerely,
 [Portal:PortalName]
 
-*Note: If you did not request a Password Reminder, please disregard this Message.
+*Note: If you did not request a Password Reset Token, please disregard this Message.
 </value>
   </data>
   <data name="EMAIL_PROFILE_UPDATED_SUBJECT.Text" xml:space="preserve">
@@ -708,7 +708,6 @@ We are pleased to advise that you have been added as a Registered User to [Porta
 
 Portal Website Address: [Portal:URL]
 Username: [User:UserName]
-Password: [Membership:Password]
 
 You can use the following link to complete your verified registration:
 
@@ -730,8 +729,8 @@ We are pleased to advise that you have been added as a Registered User to [Porta
 
 Portal Website Address: [Portal:URL]
 Username: [User:UserName]
-Password: [Membership:Password]
 
+If you do not know, or cannot remember, your password, please go to http://[Portal:URL]/default.aspx?ctl=PasswordReset&amp;resetToken=[Membership:PasswordResetToken] to reset it.
 Thank you, we appreciate your support...
 
 [Portal:PortalName]
@@ -978,7 +977,7 @@ Operation Completed:  [Custom:3]
   </data>
   <data name="License.Text" xml:space="preserve">
     <value>&lt;p&gt;DotNetNuke&amp;reg; - http://www.dotnetnuke.com&lt;br /&gt;
-Copyright (c) 2002-2012&lt;br/&gt;
+Copyright (c) 2002-2013&lt;br/&gt;
     by DotNetNuke Corporation&lt;/p&gt;
     &lt;p&gt;Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
@@ -1036,7 +1035,6 @@ Please login using the following information:
 
 Website Address: [Portal:URL]
 Username:   [User:Username]
-Password: [Membership:Password]
 
 Sincerely,
 [Portal:PortalName]</value>
@@ -1045,7 +1043,7 @@ Sincerely,
     <value>[Portal:PortalName] Password Updated</value>
   </data>
   <data name="ViewSource.Action" xml:space="preserve">
-    <value>View Source</value>
+    <value>Develop</value>
   </data>
   <data name="EnglishName.Text" xml:space="preserve">
     <value>English Name</value>
@@ -1284,5 +1282,62 @@ Please do not reply to this email.</value>
   </data>
   <data name="//Admin//SharePointConnector.String" xml:space="preserve">
     <value>SharePoint Connector</value>
+  </data>
+  <data name="ApplicationUpgrades.Text" xml:space="preserve">
+    <value>Application Upgrades</value>
+  </data>
+  <data name="GeneralUpgrades.Text" xml:space="preserve">
+    <value>Performing General Upgrades</value>
+  </data>
+  <data name="ExecutingScript.Text" xml:space="preserve">
+    <value>Executing Script</value>
+  </data>
+  <data name="LogStart.Text" xml:space="preserve">
+    <value>Start </value>
+  </data>
+  <data name="LogEnd.Text" xml:space="preserve">
+    <value>End </value>
+  </data>
+  <data name="ActivatingLicense.Text" xml:space="preserve">
+    <value>Activating License</value>
+  </data>
+  <data name="ModulePermissions.Action" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="MoveToPane.Action" xml:space="preserve">
+    <value>To {0}</value>
+  </data>
+  <data name="DropModuleTarget.Text" xml:space="preserve">
+    <value>Drop Module Here</value>
+  </data>
+  <data name="DragModuleHint.Text" xml:space="preserve">
+    <value>Drag this Module to a new Location</value>
+  </data>
+  <data name="DraggingHintText.Text" xml:space="preserve">
+    <value>Move mouse over a drop zone.</value>
+  </data>
+  <data name="DropModuleHint.Text" xml:space="preserve">
+    <value>Release mouse button to drop Module here.</value>
+  </data>
+  <data name="//AboutUs//StyleGuide.String" xml:space="preserve">
+    <value>Style Guide</value>
+  </data>
+  <data name="//Admin//AdvancedSettings.String" xml:space="preserve">
+    <value>Advanced Configuration Settings</value>
+  </data>
+  <data name="//ContactUs.String" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="//Admin//AdvancedURLManagement.String" xml:space="preserve">
+    <value>Advanced URL Management</value>
+  </data>
+  <data name="//Admin//FileManagement.String" xml:space="preserve">
+    <value>File Management</value>
+  </data>
+  <data name="UrlPathCleaned.Error" xml:space="preserve">
+    <value>The Page URL entered contains characters which cannot be used in a URL.   These characters have been removed.  Click the 'Update' button again to accept the modified URL.</value>
+  </data>
+  <data name="UrlPathNotUnique.Error" xml:space="preserve">
+    <value>The submitted URL is not available.  If you wish to accept the suggested alternative, please click Save.</value>
   </data>
 </root>

@@ -49,6 +49,6 @@
 		<value>View Online Help</value>
 	</data>
 	<data name="lblInfo.Text">
-		<value>&lt;h1&gt;Module Information&lt;/h1&gt;&lt;p&gt;Displays the technical details of the associated module instance.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Organization:&lt;/b&gt; [ORGANIZATION]&lt;br /&gt;&lt;b&gt;Owner:&lt;/b&gt; [OWNER]&lt;br /&gt;&lt;b&gt;Email:&lt;/b&gt; [EMAIL]&lt;br /&gt;&lt;b&gt;Url:&lt;/b&gt; [URL]&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Module:&lt;/b&gt; [MODULE]&lt;br /&gt;&lt;b&gt;Version:&lt;/b&gt; [VERSION]&lt;br /&gt;&lt;b&gt;Definition:&lt;/b&gt; [DEFINITION]&lt;br /&gt;&lt;b&gt;Control:&lt;/b&gt; [CONTROL]&lt;br /&gt;&lt;b&gt;Source:&lt;/b&gt; [SRC]&lt;/p&gt;</value>
+		<value>&lt;h1&gt;Module Information&lt;/h1&gt;&lt;p&gt;Displays the technical details of the associated module instance.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Organization:&lt;/b&gt; [ORGANIZATION]&lt;br /&gt;&lt;b&gt;Owner:&lt;/b&gt; [OWNER]&lt;br /&gt;&lt;b&gt;Email:&lt;/b&gt; [EMAIL]&lt;br /&gt;&lt;b&gt;URL:&lt;/b&gt; [URL]&lt;br /&gt;&lt;br /&gt;&lt;b&gt;Module:&lt;/b&gt; [MODULE]&lt;br /&gt;&lt;b&gt;Version:&lt;/b&gt; [VERSION]&lt;br /&gt;&lt;b&gt;Definition:&lt;/b&gt; [DEFINITION]&lt;br /&gt;&lt;b&gt;Control:&lt;/b&gt; [CONTROL]&lt;br /&gt;&lt;b&gt;Source:&lt;/b&gt; [SRC]&lt;/p&gt;</value>
 	</data>
 </root>

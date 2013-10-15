@@ -17,16 +17,15 @@
   <property name="NewLineBr">False</property>
   <property name="StripFormattingOptions">MSWordRemoveAll</property>
   <property name="LinksUseRelativeUrls">True</property>
-  <property name="LinksUseTabNames">False</property>
+  <property name="LinksType">Normal</property>
   <property name="ShowPortalLinks">True</property>
   <property name="ContentAreaMode">Iframe</property>
   <property name="ToolbarMode">Default</property>
-  <property name="ToolsWidth">
-  </property>
+  <property name="ToolsWidth">5</property>
   <property name="DocumentsFilters">*.*</property>
-  <property name="DocumentsPath">/</property>
+  <property name="DocumentsPath">Documents/</property>
   <property name="MaxDocumentSize">3145728</property>
-  <property name="ImagesPath">/</property>
+  <property name="ImagesPath">ImagesPages/</property>
   <property name="MaxImageSize">1024000</property>
   <property name="ImagesFilters">
     <item>*.jpg</item>

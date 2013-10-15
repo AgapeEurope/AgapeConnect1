@@ -1,4 +1,6 @@
 ﻿@using DotNetNuke.Web.DDRMenu;
+@using System.Dynamic; 
+@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage<dynamic>
 @{ var root = Model.Source.root; }
 
 @helper RenderNodes(IList<MenuNode> nodes)

@@ -1,14 +1,13 @@
 <%@ Control language="C#" Inherits="DotNetNuke.Modules.Journal.View" AutoEventWireup="false"  Codebehind="View.ascx.cs" %>
 <%@ Import Namespace="DotNetNuke.Common.Utilities" %>
 <%@ Register Namespace="DotNetNuke.Modules.Journal.Controls" Assembly="DotNetNuke.Modules.Journal" TagPrefix="dnnj" %>
+<%@ Import Namespace="DotNetNuke.Services.Localization" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 
 <div id="userFileManager"></div>
 
-<dnn:DnnJsInclude runat="server" FilePath="~/DesktopModules/Journal/scripts/jquery.iframe-transport.js" />
 <dnn:DnnJsInclude runat="server" PathNameAlias="SharedScripts" FilePath="knockout.js" />
-<dnn:DnnJsInclude runat="server" FilePath="~/DesktopModules/Journal/scripts/jquery.fileupload.js" Priority="101"/>
-<dnn:DnnJsInclude runat="server" FilePath="~/DesktopModules/Journal/scripts/jquery.dnnUserFileUpload.js" Priority="102" />
+<dnn:DnnJsInclude runat="server" FilePath="~/Resources/Shared/Components/UserFileManager/jquery.dnnUserFileUpload.js" Priority="102" />
 <dnn:DnnJsInclude runat="server" FilePath="~/Resources/Shared/Components/UserFileManager/UserFileManager.js" Priority="105"></dnn:DnnJsInclude>
 <dnn:DnnCssInclude runat="server" FilePath="~/Resources/Shared/Components/UserFileManager/UserFileManager.css"></dnn:DnnCssInclude>
 
@@ -52,9 +51,18 @@
         <% if (AllowFiles || AllowPhotos) { %>
         <div class="fileUploadArea">
             <div class="jpa" id="tbar-attach-Area">
-                <span id="tbar-photoText"><%= LocalizeString("SelectPhoto.Text") %></span> 
-                <span id="tbar-fileText"><%= LocalizeString("SelectFile.Text") %></span> <a href="#" id="photoFromSite"><%= LocalizeString("BrowseFromSite.Text") %></a> <span>|</span> 
-                <span class="browser-upload-btn"><%= LocalizeString("UploadFromLocal.Text") %><input type="file" name="files[]" /></span>
+                <div class="journal_onlineFileShare">
+                    <span id="tbar-photoText"><%= LocalizeString("SelectPhoto.Text") %></span> 
+                    <span id="tbar-fileText"><%= LocalizeString("SelectFile.Text") %></span>
+                    <div>
+                        <a href="javascript:void(0)" id="photoFromSite" class="dnnSecondaryAction"><%= LocalizeString("BrowseFromSite.Text") %></a> 
+                    </div>
+                </div>
+                <div class="journal_localFileShare">
+                    <span class="browser-upload-btn"><%= LocalizeString("UploadFromLocal.Text") %></span>
+                    <input id="uploadFileId" type="file" name="files[]" />
+                </div>
+                <div style="clear:both; padding: 0; margin: 0;"></div>
             </div>
             <div id="itemUpload">
                 <div class="fileupload-error dnnFormMessage dnnFormValidationSummary" style="display:none;"></div>
@@ -89,7 +97,7 @@
         </div>
     </div>
 </div>
-          <div class="dnnClear"></div>
+<div class="dnnClear"></div>
 
 
 <%} %>
@@ -98,10 +106,24 @@
 <div id="journalItems">
 <dnnj:JournalListControl ID="ctlJournalList" runat="server"></dnnj:JournalListControl>
 </div>
-<a href="javascript:void(0)" onclick="getItems();" style="display:none;" id="getMore" class="dnnPrimaryAction"><%= LocalizeString("GetMore.Text") %></a>
+<a href="#" style="display:none;" id="getMore" class="dnnPrimaryAction"><%= LocalizeString("GetMore.Text") %></a>
 
 <script type="text/javascript">
-  <asp:literal id="litScripts" runat="server" />
+    var InputFileNS = {};
+    InputFileNS.chooseFileText = '<%=Localization.GetSafeJSString(LocalizeString("ChooseFile.Text"))%>';
+    InputFileNS.initilizeInput = function() {
+        var fileUploadCtrl = $('.fileUploadArea').find('.dnnInputFileWrapper .dnnSecondaryAction');
+        if (fileUploadCtrl) {
+            fileUploadCtrl.html(InputFileNS.chooseFileText);
+        }
+    };
+    $(document).ready(function () {
+        InputFileNS.initilizeInput();
+    });
+</script>
+
+<script type="text/javascript">
+    <asp:literal id="litScripts" runat="server" />
     $(document).ready(function () {
         var sf = $.ServicesFramework(<%=ModuleId %>);
         var journalServiceBase = sf.getServiceRoot('Journal');
@@ -115,7 +137,8 @@
         $('.fileUploadArea').dnnUserFileUpload({
             maxFileSize: maxUploadSize,
             serverErrorMessage: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("ServerError.Text")) %>',
-            addImageServiceUrl: journalServiceBase + 'FileUpload.ashx/UploadFile',
+            addImageServiceUrl: journalServiceBase + 'FileUpload/UploadFile',
+            beforeSend: sf.setModuleHeaders,
             callback: function (result) {
                 var $previewArea = $('.filePreviewArea');
                 if (IsImage(result.extension)) {
@@ -123,6 +146,9 @@
                 }else{
                     attachPhoto(result.file_id, result.thumbnail_url, false);
                 }
+            },
+            complete: function () {
+                InputFileNS.initilizeInput();
             }
         });
         var jopts = {};
@@ -130,11 +156,11 @@
         jopts.servicesFramework = sf;
         $('body').journalTools(jopts);
         
-           $('#userFileManager').userFileManager({
+        $('#userFileManager').userFileManager({
             title: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Title.Text")) %>',
             cancelText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Cancel.Text")) %>',
             attachText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Attach.Text")) %>',
-            getItemsServiceUrl: sf.getServiceRoot('InternalServices') + 'UserFile.ashx/GetItems',
+            getItemsServiceUrl: sf.getServiceRoot('InternalServices') + 'UserFile/GetItems',
             nameHeaderText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Name.Header")) %>',
             typeHeaderText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("Type.Header")) %>',
             lastModifiedHeaderText: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("LastModified.Header")) %>',
@@ -149,7 +175,7 @@
                     attachPhoto(file.id, file.thumb_url, false);
                 }
             }
-           });
+        });
         
        
         var opts = {};
@@ -169,154 +195,184 @@
     });
   
     function buildLikes(data,journalId){
-             var currLike = $('#like-' + journalId).text();
-             if (currLike == resxLike) {
-                $('#like-' + journalId).fadeOut(function(){
-                    $(this).text(resxUnLike).fadeIn();
-                    });
-             }else{
-                $('#like-' + journalId).fadeOut(function() {
-                    $(this).text(resxLike).fadeIn();
-                });
-             }
-             $('#jid-' + journalId + ' .likes').fadeOut(function() {
-                $(this).empty().append(data.LikeList).fadeIn();
-             });
-        };
+        var currLike = $('#like-' + journalId).text();
+        if (currLike == resxLike) {
+            $('#like-' + journalId).fadeOut(function(){
+                $(this).text(resxUnLike).fadeIn();
+            });
+        }else{
+            $('#like-' + journalId).fadeOut(function() {
+                $(this).text(resxLike).fadeIn();
+            });
+        }
+        $('#jid-' + journalId + ' .likes').fadeOut(function() {
+            $(this).empty().append(data.LikeList).fadeIn();
+        });
+    };
     var commentOpts = {};
     commentOpts.servicesFramework = $.ServicesFramework(<%=ModuleId %>);
     function pluginInit() {
-        $('.jcmt').each(function(index){
+        
+        $('.jcmt').each(function () {
+            if($(this).data("journalCommentsBinded")) {
+                return;
+            }
+            $(this).data("journalCommentsBinded", true);
+            
             $(this).journalComments(commentOpts);
         });
+        
         var rows = $(".journalrow");
-        if (rows.length == 20) {
+        if (rows.length == pagesize) {
             $("#getMore").show();
         }
-        $('a[id^="cmtbtn-"]').click(function (e) {
-            e.preventDefault();
-            var jid = $(this).attr('id').replace('cmtbtn-', '');
-            var cmtarea = $("#jcmt-" + jid + " .cmteditarea");
-            var cmtbtn = $("#jcmt-" + jid + " .cmtbtn");
-            var cmtbtnlink = $("#jcmt-" + jid + " .cmtbtn a");
-            if (cmtarea.css('display') == 'none'){
-                cmtarea.show();
-                cmtbtnlink.addClass('disabled');
-                cmtbtn.show();
+        
+        $('a[id^="cmtbtn-"]').each(function () {
+            if($(this).data("clickBinded")) {
+                return;
+            }
+            $(this).data("clickBinded", true);
 
-            } else {
-                
-                var cmtedit = $("#jcmt-" + jid + " .cmteditor");
-                var plh = $("#jcmt-" + jid + " .editorPlaceholder");
-                cmtedit.animate({
-                    height: '0'
-                }, 400, function () {
-                    cmtbtn.hide();
-                    cmtbtnlink.addClass('disabled').hide();
-                    cmtedit.text('').hide();
-                    cmtarea.hide();
-                    plh.show();
-                });
-      
-            };
-            
+            $(this).click(function(e) {
+
+                e.preventDefault();
+                var jid = $(this).attr('id').replace('cmtbtn-', '');
+                var cmtarea = $("#jcmt-" + jid + " .cmteditarea");
+                var cmtbtn = $("#jcmt-" + jid + " .cmtbtn");
+                var cmtbtnlink = $("#jcmt-" + jid + " .cmtbtn a");
+                if (cmtarea.css('display') == 'none') {
+                    cmtarea.show();
+                    cmtbtnlink.addClass('disabled');
+                    cmtbtn.show();
+                    $("#jcmt-" + jid + "-txt").focus();
+
+                } else {
+
+                    var cmtedit = $("#jcmt-" + jid + " .cmteditor");
+                    var plh = $("#jcmt-" + jid + " .editorPlaceholder");
+                    cmtedit.animate({
+                            height: '0'
+                        }, 400, function() {
+                            cmtbtn.hide();
+                            cmtbtnlink.addClass('disabled').hide();
+                            cmtedit.text('').hide();
+                            cmtarea.hide();
+                            plh.show();
+                        });
+                }
+            });
         });
-        $('a[id^="like-"]').click(function (e) {
-            e.preventDefault();
-            var jid = $(this).attr('id').replace('like-', '');
-            var data = {};
-            data.JournalId = jid;
-            journalPost('Like',data,buildLikes,jid);
+
+        $('a[id^="like-"]').each(function () {
+            if($(this).data("clickBinded")) {
+                return;
+            }
+            $(this).data("clickBinded", true);
+
+            $(this).click(function(e) {
+                e.preventDefault();
+                var jid = $(this).attr('id').replace('like-', '');
+                var data = { };
+                data.JournalId = jid;
+                journalPost('Like', data, buildLikes, jid);
+            });
         });
+        
+        $(".journalrow .minidel").each(function() {
+            if($(this).data("confirmBinded")) {
+                return;
+            }
+
+            $(this).data("confirmBinded", true);
+            var clickFunc = $(this).attr("onclick").substr(0, $(this).attr("onclick").indexOf("("));
+            $(this).attr("onclick", "");
+            var $this = this;
+            $(this).dnnConfirm({
+                text: '<%= Localization.GetSafeJSString(LocalizeString("DeleteItem")) %>',
+                yesText: '<%= Localization.GetSafeJSString("Yes.Text", Localization.SharedResourceFile) %>',
+                noText: '<%= Localization.GetSafeJSString("No.Text", Localization.SharedResourceFile) %>',
+                title: '<%= Localization.GetSafeJSString("Confirm.Text", Localization.SharedResourceFile) %>',
+                isButton: true,
+                callbackTrue: function() {
+                    eval(clickFunc).call($this, $this);
+                }
+            });
+        });
+
+	    if (!$("#getMore").data("clickBinded")) {
+		    $("#getMore").click(function(e) {
+		    	getItems();
+			    e.preventDefault();
+		    });
+		    $("#getMore").data("clickBinded", true);
+	    }
     }
     pluginInit();
 
-    $('.journalitem .jlink img').click(function() {
-        var url = $(this).next().find('a').attr('href');
-        var vidId = url.substring(url.lastIndexOf('/')+1);
-        var frame = $('<iframe frameborder="0" allowfullscreen />')
-            .attr('height',315)
-            .attr('width',420)
-            .attr('src', 'http://www.youtube.com/embed/' + vidId + '?rel=0')
-            .css('position','relative')
-            .css('z-index','2000')
-            .css('height','315px');
-        var div = $('<div style="display:none;height:315px;" />');
-        div.append(frame);
-            
-        $(this).before(div);
-        frame.load(function(){
-            $(this).parent().siblings().hide();
-            var p = $(this).parent();
-            p.slideDown('fast');
-        });
-            
-    });
-       function journalDelete(obj) {
-            var p = obj.parentNode;
-            var jid = p.id.replace('jid-','');
-            //console.log(jid);
-            var data = {};
-            data.JournalId = jid;
-            journalPost('Delete',data,journalRemove,jid)
-        };
-        function journalRemove(data, jid) {
-            $('#jid-' + jid).slideUp(function(){
-                $(this).remove();
-            });
-        };
-        function journalPost(method,data,callback,journalId) {
-            var sf = $.ServicesFramework(<%=ModuleId %>);
-            sf.getAntiForgeryProperty(data);
-            
-            $.ajax({
-                type: "POST",
-                url: sf.getServiceRoot('Journal') + "Services.ashx/" + method,
-                beforeSend: sf.setModuleHeaders,
-                data: data,
-                success: function (data) {
-                    if (typeof (callback) != "undefined") {
-                        callback(data,journalId);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert(error);
-                }
-            });
-        };
-        function getItems() {
-            var sf = $.ServicesFramework(<%=ModuleId %>);
-            var rows = $(".journalrow").get();
-        
-            data = {};
-            data.ProfileId = pid;
-            data.GroupId = gid;
-            data.RowIndex = rows.length + 1;
-            data.MaxRows = pagesize;
-            sf.getAntiForgeryProperty(data);
 
-            $.ajax({
-                type: "POST",
-                url: sf.getServiceRoot('Journal') + 'Services.ashx/GetListForProfile',
-                beforeSend: sf.setModuleHeaders,
-                data: data,
-                success: function (data) {
-                    if (data.length > 0) {
-                        $("#journalItems").append(data);
-                          pluginInit();
-                        var newRows = $(".journalrow").get();
-                        var diff = (newRows.length - rows.length);
-                        if (diff < pagesize) {
-                            $("#getMore").hide();
-                        }
-                    }
-                    if (typeof (callback) != "undefined") {
-                        callback(data);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert(error);
+    function journalDelete(obj) {
+        var p = obj.parentNode;
+        var jid = p.id.replace('jid-','');
+        //console.log(jid);
+        var data = {};
+        data.JournalId = jid;
+        journalPost('SoftDelete',data,journalRemove,jid)
+    };
+    function journalRemove(data, jid) {
+        $('#jid-' + jid).slideUp(function(){
+            $(this).remove();
+        });
+    };
+    function journalPost(method,data,callback,journalId) {
+        var sf = $.ServicesFramework(<%=ModuleId %>);
+            
+        $.ajax({
+            type: "POST",
+            url: sf.getServiceRoot('Journal') + "Services/" + method,
+            beforeSend: sf.setModuleHeaders,
+            data: data,
+            success: function (data) {
+                if (typeof (callback) != "undefined") {
+                    callback(data,journalId);
                 }
-            });
-        }
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+    };
+    function getItems() {
+        var sf = $.ServicesFramework(<%=ModuleId %>);
+        var rows = $(".journalrow").get();
+        
+        data = {};
+        data.ProfileId = pid;
+        data.GroupId = gid;
+        data.RowIndex = rows.length + 1;
+        data.MaxRows = pagesize;
+
+        $.ajax({
+            type: "POST",
+            url: sf.getServiceRoot('Journal') + 'Services/GetListForProfile',
+            beforeSend: sf.setModuleHeaders,
+            data: data,
+            success: function (data) {
+                if (data.length > 0) {
+                    $("#journalItems").append(data);
+                    pluginInit();
+                    var newRows = $(".journalrow").get();
+                    var diff = (newRows.length - rows.length);
+                    if (diff < pagesize) {
+                        $("#getMore").hide();
+                    }
+                }
+                if (typeof (callback) != "undefined") {
+                    callback(data);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+    }
 </script>

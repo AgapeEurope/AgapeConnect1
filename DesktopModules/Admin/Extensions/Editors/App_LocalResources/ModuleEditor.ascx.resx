@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="cmdUpdate.Text" xml:space="preserve">
     <value>Update Desktop Module</value>
@@ -217,13 +217,13 @@
     <value>Control Type:</value>
   </data>
   <data name="ModuleControlInfo_HelpURL.Help" xml:space="preserve">
-    <value>You can provide a Help Url for this control. This will appear on the Actions menu.</value>
+    <value>You can provide a Help URL for this control. This will appear on the Actions menu.</value>
   </data>
   <data name="ModuleControlInfo_HelpURL.Text" xml:space="preserve">
     <value>Help URL:</value>
   </data>
   <data name="ModuleControlInfo_IconFile.Help" xml:space="preserve">
-    <value>The url to the Icon for this control</value>
+    <value>The URL to the Icon for this control</value>
   </data>
   <data name="ModuleControlInfo_IconFile.Text" xml:space="preserve">
     <value>Icon File:</value>
@@ -353,5 +353,20 @@
   </data>
   <data name="FriendlyName.Required" xml:space="preserve">
     <value>The friendly name is required.</value>
+  </data>
+  <data name="Shareable.Help" xml:space="preserve">
+    <value>Identifies whether the module supports sharing itself across multiple sites.</value>
+  </data>
+  <data name="Shareable.Text" xml:space="preserve">
+    <value>Module Sharing</value>
+  </data>
+  <data name="DefinitionName.Help" xml:space="preserve">
+    <value>An unchanging name for the Module Definition</value>
+  </data>
+  <data name="DefinitionName.Required" xml:space="preserve">
+    <value>The definition name is required</value>
+  </data>
+  <data name="DefinitionName.Text" xml:space="preserve">
+    <value>Definition Name:</value>
   </data>
 </root>

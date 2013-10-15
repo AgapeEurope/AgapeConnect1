@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -65,7 +65,7 @@ namespace DotNetNuke.Modules.Admin.LogViewer
     ///                       controls
     /// </history>
     /// -----------------------------------------------------------------------------
-    public partial class LogViewer : PortalModuleBase, IActionable, ILogViewer
+    public partial class LogViewer : PortalModuleBase, ILogViewer
     {
 
         #region Private Members
@@ -81,7 +81,8 @@ namespace DotNetNuke.Modules.Admin.LogViewer
 
         private void BindLogTypeDropDown()
         {
-            ddlLogType.Items.Add(new ListItem(Localization.GetString("All"), "*"));
+            //ddlLogType.Items.Add(new ListItem(Localization.GetString("All"), "*"));
+            ddlLogType.AddItem(Localization.GetString("All"), "*");
             var logController = new LogController();
 
             List<LogTypeConfigInfo> logTypes;
@@ -100,7 +101,8 @@ namespace DotNetNuke.Modules.Admin.LogViewer
 
             foreach (var logType in logTypes)
             {
-                ddlLogType.Items.Add(new ListItem(logType.LogTypeFriendlyName, logType.LogTypeKey));
+                //ddlLogType.Items.Add(new ListItem(logType.LogTypeFriendlyName, logType.LogTypeKey));
+                ddlLogType.AddItem(logType.LogTypeFriendlyName, logType.LogTypeKey);
             }
         }
 
@@ -108,14 +110,15 @@ namespace DotNetNuke.Modules.Admin.LogViewer
         {
             if (UserInfo.IsSuperUser)
             {
-                ddlPortalid.Items.Add(new ListItem(Localization.GetString("All"), "-1"));
+                //ddlPortalid.Items.Add(new ListItem(Localization.GetString("All"), "-1"));
+                ddlPortalid.AddItem(Localization.GetString("All"), "-1");
                 var objPortalController = new PortalController();
 
                 foreach (PortalInfo portal in objPortalController.GetPortals().Cast<PortalInfo>()
                                                 .OrderBy(p => p.PortalName)
                                                 .ToList())
                 {
-                    ddlPortalid.Items.Add(new ListItem(portal.PortalName, portal.PortalID.ToString()));
+                    ddlPortalid.AddItem(portal.PortalName, portal.PortalID.ToString());
                 }
 				
                 //check to see if any portalname is empty, otherwise set it to portalid
@@ -298,7 +301,14 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             {
 				//display the values in the Panel child controls.
                 var ldi = (LogDetailInfo)objLogProperties[i];
-                str.Append("<p><strong>" + ldi.PropertyName + "</strong>: " + Server.HtmlEncode(ldi.PropertyValue) + "</p>");
+                if (ldi.PropertyName == "Message")
+                {
+                    str.Append("<p><strong>" + ldi.PropertyName + "</strong>:</br><pre>" + Server.HtmlEncode(ldi.PropertyValue) + "</pre></p>");
+                }
+                else
+                {
+                    str.Append("<p><strong>" + ldi.PropertyName + "</strong>:" + Server.HtmlEncode(ldi.PropertyValue) + "</p>");
+                }
             }
             str.Append("<p>" + Localization.GetString("ServerName", LocalResourceFile) + Server.HtmlEncode(objLogInfo.LogServerName) + "</p>");
             return str.ToString();
@@ -343,6 +353,7 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             var logController = new LogController();
             _logTypeDictionary = logController.GetLogTypeInfoDictionary();
         }
+
 
         /// -----------------------------------------------------------------------------
         /// <summary>
@@ -432,32 +443,6 @@ namespace DotNetNuke.Modules.Admin.LogViewer
 
         #endregion
 
-        #region IActionable Members
-
-        public ModuleActionCollection ModuleActions
-        {
-            get
-            {
-                var actions = new ModuleActionCollection();
-                if (IsEditable)
-                {
-                    actions.Add(GetNextActionID(),
-                                Localization.GetString(ModuleActionType.AddContent, LocalResourceFile),
-                                ModuleActionType.AddContent,
-                                "",
-                                "",
-                                EditUrl(),
-                                false,
-                                SecurityAccessLevel.Host,
-                                true,
-                                false);
-                }
-                return actions;
-            }
-        }
-
-        #endregion
-
         #region ILogViewer Members
 
         public void BindData()
@@ -466,7 +451,7 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             {
                 if (!Page.IsPostBack && Request.QueryString["pid"] != null)
                 {
-                    ddlPortalid.Items.FindByValue(Request.QueryString["pid"]).Selected = true;
+                    ddlPortalid.FindItemByValue(Request.QueryString["pid"]).Selected = true;
                 }
                 _portalId = Int32.Parse(ddlPortalid.SelectedItem.Value);
             }
@@ -479,7 +464,7 @@ namespace DotNetNuke.Modules.Admin.LogViewer
             var pageSize = Convert.ToInt32(ddlRecordsPerPage.SelectedValue);
             if (!Page.IsPostBack && Request.QueryString["LogTypeKey"] != null)
             {
-                var li = ddlLogType.Items.FindByValue(Request.QueryString["LogTypeKey"]);
+                var li = ddlLogType.FindItemByValue(Request.QueryString["LogTypeKey"]);
                 if (li != null)
                 {
                     li.Selected = true;
@@ -520,6 +505,8 @@ namespace DotNetNuke.Modules.Admin.LogViewer
 
                 ctlPagingControlBottom.Visible = false;
             }
+
+			editSettings.Visible = UserInfo.IsSuperUser;
         }
 
         public string EventFilter { get; set; }

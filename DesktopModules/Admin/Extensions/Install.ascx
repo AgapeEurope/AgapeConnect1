@@ -35,7 +35,7 @@
             <asp:WizardStep ID="Step0" runat="Server" Title="Introduction" StepType="Start" AllowReturn="false">
                 <div class="dnnForm">
                     <div class="dnnFormItem"><asp:Label ID="lblBrowseFileHelp" runat="server" resourcekey="BrowseFileHelp" /></div>
-                    <div class="dnnFormItem">
+                    <div class="dnnFormItem dnnClear">
                         <input id="cmdBrowse" type="file" size="50" name="cmdBrowse" runat="server" />
                         <asp:Label ID="lblLoadMessage" runat="server" CssClass="dnnFormMessage dnnFormValidationSummary" Visible="false" />
                     </div>
@@ -62,6 +62,10 @@
                 <asp:Panel ID="pnlWhitelist" runat = "server" Visible="false">
                     <asp:Label ID="lblIgnoreWhiteListHelp" runat="server" resourcekey="IgnoreWhiteListHelp" />
                     <asp:CheckBox ID="chkIgnoreWhiteList" runat="server" resourcekey="IgnoreWhiteList" TextAlign="Left" AutoPostBack="true" />
+                </asp:Panel>
+				<asp:Panel ID="pnlAzureCompact" runat = "server" Visible="false">
+                    <p><asp:Label ID="lblAzureCompact" runat="server" resourcekey="AzureCompactHelp" /></p>
+                    <p><strong><asp:CheckBox ID="chkAzureCompact" runat="server" resourcekey="AzureCompact" TextAlign="Left" AutoPostBack="true" /></strong></p>
                 </asp:Panel>
                 <asp:PlaceHolder ID="phLoadLogs" runat="server" />
             </asp:WizardStep>
@@ -104,3 +108,25 @@
         </WizardSteps>
     </asp:Wizard>
 </div>
+<script type="text/javascript">
+	/*globals jQuery, window, Sys */
+	(function ($, Sys) {
+		function setUpInstallWizard() {
+			var actionLinks = $("a[id$=nextButtonStart], a[id$=cancelButtonStart], a[id$=nextButtonStep], a[id$=cancelButtonStep], a[id$=finishButtonStep]");
+			actionLinks.click(function () {
+				if ($(this).hasClass("dnnDisabledAction")) {
+					return false;
+				}
+
+				actionLinks.addClass("dnnDisabledAction");
+			});
+		}
+		
+		$(document).ready(function () {
+			setUpInstallWizard();
+			Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+				setUpInstallWizard();
+			});
+		});
+	}(jQuery, window.Sys));
+</script>   

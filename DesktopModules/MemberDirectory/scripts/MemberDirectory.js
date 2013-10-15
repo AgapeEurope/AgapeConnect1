@@ -1,7 +1,7 @@
 ﻿function MemberDirectory($, ko, settings) {
     var opts = $.extend({}, MemberDirectory.defaultSettings, settings);
     var serviceFramework = settings.servicesFramework;
-    var baseServicepath = serviceFramework.getServiceRoot('MemberDirectory') + 'MemberDirectory.ashx/';
+    var baseServicepath = serviceFramework.getServiceRoot('MemberDirectory') + 'MemberDirectory/';
     var pageIndex = 0;
     var pageSize = opts.pageSize;
     var userId = opts.userId;
@@ -96,11 +96,16 @@
         });
 
         self.ProfileUrl = ko.computed(function () {
-            return profileUrl.replace(profileUrlUserToken, self.UserId().toString());
+            var url = "";
+            var userId = self.UserId();
+            if (userId != undefined) {
+                url = profileUrl.replace(new RegExp(profileUrlUserToken, "gi"), self.UserId().toString());
+            }
+            return url;
         }, this);
-
+        
         self.getProfilePicture = function (w, h) {
-            return profilePicHandler.replace("{0}", self.PhotoURL()).replace("{1}", h).replace("{2}", w);
+            return profilePicHandler.replace("{0}", self.UserId()).replace("{1}", h).replace("{2}", w);
         };
 
         //Actions
@@ -110,7 +115,7 @@
                 cache: false,
                 url: baseServicepath + 'AcceptFriend',
                 beforeSend: serviceFramework.setModuleHeaders,
-                data: serviceFramework.getAntiForgeryProperty({ friendId: self.UserId })
+                data: { friendId: self.UserId }
             }).done(function (data) {
                 if (data.Result === "success") {
                     self.FriendStatus(2);
@@ -128,7 +133,7 @@
                 cache: false,
                 url: baseServicepath + 'AddFriend',
                 beforeSend: serviceFramework.setModuleHeaders,
-                data: serviceFramework.getAntiForgeryProperty({ friendId: self.UserId })
+                data: { friendId: self.UserId }
             }).done(function (data) {
                 if (data.Result === "success") {
                     self.FriendStatus(1);
@@ -147,7 +152,7 @@
                 cache: false,
                 url: baseServicepath + 'Follow',
                 beforeSend: serviceFramework.setModuleHeaders,
-                data: serviceFramework.getAntiForgeryProperty({ followId: self.UserId })
+                data: { followId: self.UserId }
             }).done(function (data) {
                 if (data.Result === "success") {
                     self.FollowingStatus(2);
@@ -165,7 +170,7 @@
                 cache: false,
                 url: baseServicepath + 'RemoveFriend',
                 beforeSend: serviceFramework.setModuleHeaders,
-                data: serviceFramework.getAntiForgeryProperty({ friendId: self.UserId })
+                data: { friendId: self.UserId }
             }).done(function (data) {
                 if (data.Result === "success") {
                     self.FriendStatus(0);
@@ -183,7 +188,7 @@
                 cache: false,
                 url: baseServicepath + 'UnFollow',
                 beforeSend: serviceFramework.setModuleHeaders,
-                data: serviceFramework.getAntiForgeryProperty({ followId: self.UserId })
+                data: { followId: self.UserId }
             }).done(function (data) {
                 if (data.Result === "success") {
                     self.FollowingStatus(0);
@@ -253,7 +258,7 @@
                 url: baseServicepath + "GetMember",
                 beforeSend: serviceFramework.setModuleHeaders,
                 data: {
-                    userName: item.userName
+                    userId: item.userId
                 }
             }).done(function (members) {
                 if (typeof members !== "undefined" && members != null) {
@@ -440,6 +445,7 @@
                     $(this).addClass("active");
                     $(".mdSearch").addClass("active");
                 });
+                
                 var timer;
                 var cursorIsOnAdvancedSearchForm;
                 $('a#mdAdvancedSearch').mouseleave(function () {

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Configuration.Text" xml:space="preserve">
     <value>Configuration</value>
@@ -133,10 +133,10 @@
     <value>Is this site using a Web Farm.</value>
   </data>
   <data name="plVersion.Text" xml:space="preserve">
-    <value>DotNetNuke Version:</value>
+    <value>Version:</value>
   </data>
   <data name="plVersion.Help" xml:space="preserve">
-    <value>The DotNetNuke application version you are running</value>
+    <value>The application version you are running</value>
   </data>
   <data name="plDataProvider.Text" xml:space="preserve">
     <value>Data Provider:</value>
@@ -364,7 +364,7 @@
     <value>Enter the name of your Hosting Account</value>
   </data>
   <data name="plHostURL.Help" xml:space="preserve">
-    <value>Enter the url of your Hosting Account</value>
+    <value>Enter the URL of your Hosting Account</value>
   </data>
   <data name="plHostEmail.Help" xml:space="preserve">
     <value>Enter a support email adress for your Hosting Account</value>
@@ -502,13 +502,7 @@
     <value>Enter the length of the Users Online Buffer</value>
   </data>
   <data name="FriendlyUrl.Text" xml:space="preserve">
-    <value>Friendly Url Settings</value>
-  </data>
-  <data name="plUseFriendlyUrls.Text" xml:space="preserve">
-    <value>Use Friendly Urls?</value>
-  </data>
-  <data name="plUseFriendlyUrls.Help" xml:space="preserve">
-    <value>Check to enable search engine friendly urls.</value>
+    <value>Friendly URL Settings</value>
   </data>
   <data name="RequestFilter.Text" xml:space="preserve">
     <value>Request Filter Settings</value>
@@ -583,7 +577,7 @@
     <value>Enable Module Online Help:</value>
   </data>
   <data name="plEnableHelp.Help" xml:space="preserve">
-    <value>You can enable or disable the Online Help Action Menu for Modules.  If enabled, you will need to provide the Help Url for the module, in the Module Definitions, although this may have been provided by the developer of the module.</value>
+    <value>You can enable or disable the Online Help Action Menu for Modules.  If enabled, you will need to provide the Help URL for the module, in the Module Definitions, although this may have been provided by the developer of the module.</value>
   </data>
   <data name="plCacheability.Text" xml:space="preserve">
     <value>Authenticated Cacheability:</value>
@@ -653,9 +647,6 @@
   </data>
   <data name="Deflate.Text" xml:space="preserve">
     <value>Deflate Compression</value>
-  </data>
-  <data name="GZip.Text" xml:space="preserve">
-    <value>GZip Compression</value>
   </data>
   <data name="NoCompression.Text" xml:space="preserve">
     <value>No Compression</value>
@@ -808,10 +799,10 @@
     <value>jQuery Settings</value>
   </data>
   <data name="plProduct.Text" xml:space="preserve">
-    <value>DotNetNuke Product:</value>
+    <value>Product:</value>
   </data>
   <data name="plProduct.Help" xml:space="preserve">
-    <value>The DotNetNuke application you are running</value>
+    <value>The application you are running</value>
   </data>
   <data name="FrameworkDownLevel.Text" xml:space="preserve">
     <value>Note: You are running on an old version of the .NET Framework.  Future upgrades of the DotNetNuke platform will require .NET 3.5 SP1 or later. If you believe you are running .NET 3.5 SP1 already, please check your web.config file and ensure that the 3.5 or above versions of both System.Core and System.Data.Linq are referenced in the assemblies node.</value>
@@ -936,22 +927,257 @@
   <data name="MinificationSettingsInfo.Title" xml:space="preserve">
     <value>Important note regarding minification settings</value>
   </data>
+  <data name="IPFiltersDisabled.Text" xml:space="preserve">
+    <value>Login IP filtering is current disabled. To enabled this please check the Enable IP address checking checkbox under Membership Management.</value>
+  </data>
+  <data name="IPFiltersDisabled.Title" xml:space="preserve">
+    <value>Important note regarding IP Filtering</value>
+  </data>
+  <data name="IPFiltersInfo.Text" xml:space="preserve">
+    <value>When configuring IP addresses to filter, users cannot edit/delete an entry that would lock out their current IP address.</value>
+  </data>
+  <data name="IPFiltersInfo.Title" xml:space="preserve">
+    <value>Important note regarding IP Filtering settings</value>
+  </data>
   <data name="txtBatch.Text" xml:space="preserve">
     <value>Number of messages sent in each batch:</value>
   </data>
   <data name="txtBatch.Help" xml:space="preserve">
     <value>The number of messages sent by the messaging scheduler in each batch.</value>
   </data>
-  <data name="SmtpServerInvalid.Text" xml:space="preserve">
-    <value>Smtp server's value is incorrect, you can't add custom port in it if your install instance is running under medium trust level.</value>
+  <data name="SmtpServerWarning.Text" xml:space="preserve">
+    <value>You are try to use a custom SMTP port with your install instance running under medium trust, you need contact your host provider to make sure this setting can work correctly on the server.</value>
+  </data>
+  <data name="LogSettings.Text" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="LogSettingsHelp.Text" xml:space="preserve">
+    <value>View install and other logs</value>
   </data>
   <data name="Html5Doctype.Text" xml:space="preserve">
     <value>HTML 5</value>
+  </data>
+  <data name="LogLocations.Text" xml:space="preserve">
+    <value>Log locations</value>
+  </data>
+  <data name="plLogs.Text" xml:space="preserve">
+    <value>Log files</value>
+  </data>
+  <data name="plLogs.Help" xml:space="preserve">
+    <value>List of log files available to view</value>
+  </data>
+  <data name="SelectLog.Text" xml:space="preserve">
+    <value>Please select a log file to view</value>
   </data>
   <data name="plBatch.Help" xml:space="preserve">
     <value>The number of messages sent by the messaging scheduler in each batch.</value>
   </data>
   <data name="plBatch.Text" xml:space="preserve">
     <value>Number of messages sent in each batch:</value>
+  </data>
+  <data name="MembershipManagement.Text" xml:space="preserve">
+    <value>Membership Management</value>
+  </data>
+  <data name="plResetLinkValidity.Text" xml:space="preserve">
+    <value>Reset link timeout (minutes)</value>
+  </data>
+  <data name="plNumberPasswords.Text" xml:space="preserve">
+    <value>Number of passwords to store</value>
+  </data>
+  <data name="plNumberPasswords.Help" xml:space="preserve">
+    <value>Sets number of passwords to store for reuse check</value>
+  </data>
+  <data name="plEnableBannedList.Text" xml:space="preserve">
+    <value>Enable password banned list</value>
+  </data>
+  <data name="plEnableBannedList.Help" xml:space="preserve">
+    <value>Sets whether passwords are checked against a list of banned items</value>
+  </data>
+  <data name="plEnableStrengthMeter.Text" xml:space="preserve">
+    <value>Enable password strength check</value>
+  </data>
+  <data name="plEnableStrengthMeter.Help" xml:space="preserve">
+    <value>Sets whether the password strength meter is shown on registration screen</value>
+  </data>
+  <data name="plEnableIPChecking.Text" xml:space="preserve">
+    <value>Enable IP address checking</value>
+  </data>
+  <data name="plEnableIPChecking.Help" xml:space="preserve">
+    <value>Sets whether IP address is checked during login</value>
+  </data>
+  <data name="CdnSettings.Text" xml:space="preserve">
+    <value>CDN Settings</value>
+  </data>
+  <data name="plMsAjaxCdn.Help" xml:space="preserve">
+    <value>Enable CDN setting for Microsoft Ajax Library?</value>
+  </data>
+  <data name="plMsAjaxCdn.Text" xml:space="preserve">
+    <value>Enable MS Ajax CDN?</value>
+  </data>
+  <data name="plTelerikBasicUrl.Help" xml:space="preserve">
+    <value>Set the basic URL of Telerik CDN, it will use the files on Telerik server if you keep this field empty. you can see more from &lt;a href="http://www.telerik.com/help/aspnet-ajax/cdn-custom-provider.html" target="_blank"&gt;here&lt;/a&gt;.</value>
+  </data>
+  <data name="plTelerikBasicUrl.Text" xml:space="preserve">
+    <value>Telerik CDN Basic URL</value>
+  </data>
+  <data name="plTelerikCdn.Help" xml:space="preserve">
+    <value>Enable CDN settings for Telerik Controls?</value>
+  </data>
+  <data name="plTelerikCdn.Text" xml:space="preserve">
+    <value>Enable Telerik CDN?</value>
+  </data>
+  <data name="plTelerikSecureUrl.Help" xml:space="preserve">
+    <value>Set the secure URL of Telerik CDN, it will use the files on Telerik server if you keep this field empty. you can see more from &lt;a href="http://www.telerik.com/help/aspnet-ajax/cdn-custom-provider.html" target="_blank"&gt;here&lt;/a&gt;.</value>
+  </data>
+  <data name="plTelerikSecureUrl.Text" xml:space="preserve">
+    <value>Telerik CDN Secure URL</value>
+  </data>
+  <data name="plAsyncTimeout.Help" xml:space="preserve">
+    <value>Set a value that indicates the time, in seconds, before asynchronous postbacks time out if no response is received, the value should between 90-9999 seconds.</value>
+  </data>
+  <data name="plAsyncTimeout.Text" xml:space="preserve">
+    <value>Time Before Timeout:</value>
+  </data>
+  <data name="plEnablePasswordHistory.Help" xml:space="preserve">
+    <value>Sets whether a list of recently used passwords is maintained and checked to prevent re-use.</value>
+  </data>
+  <data name="plEnablePasswordHistory.Text" xml:space="preserve">
+    <value>Enable password history?</value>
+  </data>
+  <data name="plResetLinkValidity.Help" xml:space="preserve">
+    <value>Password reset links are only valid for (in minutes).</value>
+  </data>
+  <data name="valResetLink.Error" xml:space="preserve">
+    <value>Reset link timeouts must be greater than 0</value>
+  </data>
+  <data name="AlwaysUse.Text" xml:space="preserve">
+    <value>All URLs.</value>
+  </data>
+  <data name="CharacterSubListLabel.Help" xml:space="preserve">
+    <value>Select the character to use to concatenate URLs.</value>
+  </data>
+  <data name="CharacterSubListLabel.Text" xml:space="preserve">
+    <value>Character:</value>
+  </data>
+  <data name="ExtensionLabel.Help" xml:space="preserve">
+    <value>Enter the extension, including the period prefix.  The default extension is .aspx.</value>
+  </data>
+  <data name="ExtensionLabel.Text" xml:space="preserve">
+    <value>Extension to use (default is .aspx):</value>
+  </data>
+  <data name="PageOnly.Text" xml:space="preserve">
+    <value>Only pages with no querystring.</value>
+  </data>
+  <data name="EmptyString.Text" xml:space="preserve">
+    <value>&lt;&lt;Empty String&gt;&gt;</value>
+  </data>
+  <data name="Never.Text" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="IPFilters.Text" xml:space="preserve">
+    <value>Login IP Filters</value>
+  </data>
+  <data name="plJQueryMigrateHostUrl.Help" xml:space="preserve">
+    <value>This is the full URL for the jQuery migrate plugin. If this field is empty then it will continue to use the resource in website.</value>
+  </data>
+  <data name="plJQueryMigrateHostUrl.Text" xml:space="preserve">
+    <value>Hosted jQuery Migrate Plugin URL:</value>
+  </data>
+  <data name="lblSearchIndexPath.Help" xml:space="preserve">
+    <value>Location where Search Index is stored. This location can be manually changed by creating a Host Setting "Search_IndexFolder" in database. It is advised to stop App Pool prior to making this change. Content of old folder must be manually copied to new location also or manual re-index must be triggered. </value>
+  </data>
+  <data name="lblSearchIndexPath.Text" xml:space="preserve">
+    <value>Search Index Path:</value>
+  </data>
+  <data name="SearchIndex.Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="btnCompactSearchIndex.Text" xml:space="preserve">
+    <value>Compact Index</value>
+  </data>
+  <data name="MessageIndexWarning.Text" xml:space="preserve">
+    <value>&lt;b&gt;Compacting&lt;/b&gt; of Index reclaims space from deleted items in the Index Store. Compacting is recommended only when there are many 'Deleted Documents' in Index Store.  Compacting may require twice the size of current Index Store during processing.
+&lt;b&gt;Re-Indexing&lt;/b&gt; applies to content from Host pages only. Re-Index deletes existing content from the Index Store and then re-indexes everything.
+Both Compacting and Re-Indexing are done by Site Search Crawler scheduled job.
+
+&lt;b&gt;Caution&lt;/b&gt; - Compacting or Re-Indexing should be done during non-peak hours as the process can be CPU intensive.</value>
+  </data>
+  <data name="btnHostSearchReindex.Text" xml:space="preserve">
+    <value>Re-Index Host Content</value>
+  </data>
+  <data name="CompactIndexConfirmationCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CompactIndexConfirmationMessage.Text" xml:space="preserve">
+    <value>Compacting Index can by CPU consuming and may require twice the space of the current Index Store for processing. Compacting is done by site search crawler and depends on it's scheduling frequency. Are you sure you want to continue?</value>
+  </data>
+  <data name="CompactIndexConfirmationTitle.Text" xml:space="preserve">
+    <value>Confirm Compacting</value>
+  </data>
+  <data name="CompactIndexConfirmationYes.Text" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="lblGetMoreInformation.Text" xml:space="preserve">
+    <value>Get More Information</value>
+  </data>
+  <data name="lblIndexWordMaxLength.Help" xml:space="preserve">
+    <value>Enter the maximum word size to be included in the Index.</value>
+  </data>
+  <data name="lblIndexWordMaxLength.Text" xml:space="preserve">
+    <value>Maximum Word Length:</value>
+  </data>
+  <data name="lblIndexWordMinLength.Help" xml:space="preserve">
+    <value>Enter the minimum word size to be included in the Index.</value>
+  </data>
+  <data name="lblIndexWordMinLength.Text" xml:space="preserve">
+    <value>Minimum Word Length:</value>
+  </data>
+  <data name="lblSearchIndexActiveDocuments.Help" xml:space="preserve">
+    <value>The number of active documents in search index files</value>
+  </data>
+  <data name="lblSearchIndexActiveDocuments.Text" xml:space="preserve">
+    <value>Active Documents:</value>
+  </data>
+  <data name="lblSearchIndexDeletedDocuments.Help" xml:space="preserve">
+    <value>The number of deleted documents in search index files</value>
+  </data>
+  <data name="lblSearchIndexDeletedDocuments.Text" xml:space="preserve">
+    <value>Deleted Documents:</value>
+  </data>
+  <data name="lblSearchIndexLastModifiedOn.Help" xml:space="preserve">
+    <value>Last modified time of search index files</value>
+  </data>
+  <data name="lblSearchIndexLastModifiedOn.Text" xml:space="preserve">
+    <value>Last Modified On:</value>
+  </data>
+  <data name="ReIndexConfirmationCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ReIndexConfirmationMessage.Text" xml:space="preserve">
+    <value>Re-Index will cause existing content in the Index Store to be deleted. Re-index is done by search crawler(s) and depends on their scheduling frequency. Are you sure you want to continue?</value>
+  </data>
+  <data name="ReIndexConfirmationTitle.Text" xml:space="preserve">
+    <value>Confirm Re-Indexing</value>
+  </data>
+  <data name="ReIndexConfirmationYes.Text" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="valIndexWordMaxLengthCompare.Error" xml:space="preserve">
+    <value>Must be integer that greater than min length</value>
+  </data>
+  <data name="valIndexWordMaxLengthRequired.Error" xml:space="preserve">
+    <value>Max length of index word is required</value>
+  </data>
+  <data name="valIndexWordMinLengthCompare.Error" xml:space="preserve">
+    <value>Must be integer that greater than 0</value>
+  </data>
+  <data name="valIndexWordMinLengthRequired.Error" xml:space="preserve">
+    <value>Min length of index word is required</value>
+  </data>
+  <data name="lblSearchIndexDbSize.Help" xml:space="preserve">
+    <value>The total size of search index database files</value>
+  </data>
+  <data name="lblSearchIndexDbSize.Text" xml:space="preserve">
+    <value>Search Index Size:</value>
   </data>
 </root>

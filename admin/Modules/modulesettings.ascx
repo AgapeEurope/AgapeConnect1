@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.Admin.Modules.ModuleSettingsPage" CodeFile="ModuleSettings.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="false" Inherits="DotNetNuke.Modules.Admin.Modules.ModuleSettingsPage" CodeFile="Modulesettings.ascx.cs" %>
 <%@ Register TagPrefix="dnn" TagName="URL" Src="~/controls/URLControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Security.Permissions.Controls" Assembly="DotNetNuke" %>
@@ -46,13 +46,21 @@
                     <dnn:label id="plAllTabs" runat="server" controlname="chkAllTabs" />
                     <asp:CheckBox ID="chkAllTabs" runat="server" AutoPostBack="true" />
                 </div>
-                <div class="dnnFormItem" id="rowSearchOnce" runat="server">
-                    <dnn:label id="plSearchOnce" runat="server" controlname="chkSearchOnce" />
-                    <asp:CheckBox ID="chkSearchOnce" runat="server" />
-                </div>
                 <div class="dnnFormItem" id="trnewPages" runat="server">
                     <dnn:label id="plNewTabs" runat="server" controlname="chkNewTabs" />
                     <asp:CheckBox ID="chkNewTabs" runat="server" />
+                </div>               
+				<div class="dnnFormItem" id="allowIndexRow" runat="server">
+					<dnn:Label ID="AllowIndexLabel" runat="server" ControlName="chkAllowIndex" />
+					<asp:CheckBox ID="chkAllowIndex" runat="server" />
+				</div>  
+                <div id="isShareableRow" runat="server" Visible="False" class="dnnFormItem">
+                    <dnn:label id="isShareableLabel" runat="server" controlname="isShareableCheckBox" />
+                    <asp:CheckBox ID="isShareableCheckBox" runat="server"/>
+                </div>
+                <div id="isShareableRowViewOnly" class="dnnFormItem">
+                    <dnn:label id="isShareableViewOnlyLabel" runat="server" controlname="isShareableViewOnlyCheckBox" />
+                    <asp:CheckBox ID="isShareableViewOnlyCheckBox" runat="server" />
                 </div>
                 <div class="dnnFormItem">
                     <dnn:label id="plAdminBorder" runat="server" controlname="chkAdminBorder" />
@@ -68,21 +76,18 @@
                 </div>
                 <div class="dnnFormItem">
                     <dnn:label id="plStartDate" runat="server" controlname="txtStartDate" />
-                    <dnn:dnndatepicker id="startDatePicker" runat="server" />
-                    <asp:CompareValidator ID="valtxtStartDate" ControlToValidate="startDatePicker" Operator="DataTypeCheck"
-                        Type="Date" runat="server" Display="Dynamic" resourcekey="valStartDate.ErrorMessage"
-                        CssClass="dnnFormMessage dnnFormError" />
+                    <dnn:dnndatetimepicker id="startDatePicker" runat="server" />
                 </div>
                 <div class="dnnFormItem">
                     <dnn:label id="plEndDate" runat="server" controlname="txtEndDate" />
-                    <dnn:dnndatepicker id="endDatePicker" runat="server" />
-                    <asp:CompareValidator ID="valtxtEndDate" ControlToValidate="endDatePicker" Operator="DataTypeCheck"
-                        Type="Date" runat="server" Display="Dynamic" resourcekey="valEndDate.ErrorMessage"
-                        CssClass="dnnFormMessage dnnFormError" />
-                    <asp:CompareValidator ID="val2txtEndDate" ControlToValidate="endDatePicker" ControlToCompare="startDatePicker"
-                        Operator="GreaterThanEqual" Type="Date" runat="server" Display="Dynamic" resourcekey="valEndDate2.ErrorMessage"
-                        CssClass="dnnFormMessage dnnFormError" />
+                    <dnn:dnndatetimepicker id="endDatePicker" runat="server" />
+                    
                 </div>
+				<div class="dnnFormItem">
+					<asp:CustomValidator runat="server" ControlToValidate="endDatePicker" ClientValidationFunction="compareDate" 
+						Display="Dynamic" resourcekey="valEndDate2.ErrorMessage" CompareControl="startDatePicker"
+                        CssClass="dnnFormMessage dnnFormError"></asp:CustomValidator>
+				</div>
             </fieldset>
             <h2 id="dnnPanel-ModuleAdditionalPages" class="dnnFormSectionHead">
                 <a href="" class="dnnSectionExpanded">
@@ -90,9 +95,15 @@
             <fieldset>
                 <div>
                     <div class="dnnFormItem">
-                        <dnnweb:DnnGrid ID="dgOnTabs" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="20">
+                        <dnnweb:DnnGrid ID="dgOnTabs" runat="server" AutoGenerateColumns="False" 
+                            AllowPaging="true" PageSize="20">
                             <MasterTableView>
                                 <Columns>
+                                    <dnnweb:DnnGridTemplateColumn HeaderText="Site" HeaderStyle-Width="150px">
+                                        <ItemTemplate>
+                                            <%#GetInstalledOnSite(Container.DataItem)%>
+                                        </ItemTemplate>
+                                    </dnnweb:DnnGridTemplateColumn>
                                     <dnnweb:DnnGridTemplateColumn HeaderText="Page">
                                         <ItemTemplate>
                                             <%#GetInstalledOnLink(Container.DataItem)%>
@@ -116,7 +127,8 @@
             <fieldset>
                 <div id="permissionsRow" runat="server">
                     <dnn:modulepermissionsgrid id="dgPermissions" runat="server" />
-                    <asp:CheckBox ID="chkInheritPermissions" AutoPostBack="true" runat="server" resourcekey="InheritPermissions" />
+                    <div class="dnnClear"></div>
+                    <asp:CheckBox ID="chkInheritPermissions" Visible="false" AutoPostBack="true" runat="server" resourcekey="InheritPermissions" />
                 </div>
             </fieldset>
         </div>
@@ -139,7 +151,7 @@
                 </div>
                 <div class="dnnFormItem">
                     <dnn:label id="plAlign" runat="server" controlname="cboAlign" />
-                    <div class="dnnLeft">
+                    
                         <asp:RadioButtonList ID="cboAlign" CssClass="dnnFormRadioButtons" runat="server"
                             RepeatLayout="Flow">
                             <asp:ListItem resourcekey="Left" Value="left" />
@@ -147,7 +159,7 @@
                             <asp:ListItem resourcekey="Right" Value="right" />
                             <asp:ListItem resourcekey="Not_Specified" Value="" />
                         </asp:RadioButtonList>
-                    </div>
+                   
                 </div>
                 <div class="dnnFormItem">
                     <dnn:label id="plColor" runat="server" controlname="txtColor" />
@@ -205,7 +217,8 @@
                 </div>
                 <div class="dnnFormItem dnnContainerPreview">
                     <dnn:label id="plModuleContainer" runat="server" controlname="ctlModuleContainer" />
-                    <asp:DropDownList ID="moduleContainerCombo" runat="server" DataTextField="Key" DataValueField="Value" />
+                    <%--<asp:DropDownList ID="moduleContainerCombo" runat="server" DataTextField="Key" DataValueField="Value" />--%>
+                    <dnn:DnnComboBox ID="moduleContainerCombo" runat="server" DataTextField="Key" DataValueField="Value" />
                     <a href="#" class="dnnSecondaryAction">
                         <%=LocalizeString("ContainerPreview")%></a>
                 </div>
@@ -214,11 +227,12 @@
                 <a href="" class="dnnSectionExpanded">
                     <%=LocalizeString("CacheSettings")%></a></h2>
             <fieldset>
-                <div class="dnnFormItem">
+                <div class="dnnFormItem dnnCacheSettings">
                     <dnn:label id="lblCacheProvider" runat="server" controlname="cboCacheProvider" resourcekey="CacheProvider" />
-                    <asp:DropDownList ID="cboCacheProvider" runat="server" AutoPostBack="true" DataValueField="Key"
-                        DataTextField="filteredkey" />
-                    <asp:Label ID="lblCacheInherited" runat="server" resourceKey="CacheInherited" CssClass="dnnFormError" />
+                    <%--<asp:DropDownList ID="cboCacheProvider" runat="server" AutoPostBack="true" DataValueField="Key"
+                        DataTextField="filteredkey" />--%>
+                    <dnn:DnnComboBox ID="cboCacheProvider" runat="server" AutoPostBack="true" DataValueField="Key" DataTextField="filteredkey" />
+                    <asp:Label ID="lblCacheInherited" runat="server" resourceKey="CacheInherited" CssClass="labelCacheInherited" />
                 </div>
                 <div class="dnnFormItem" id="divCacheDuration" runat="server" visible="false">
                     <asp:Panel ID="cacheWarningRow" runat="server" Class="dnnFormMessage dnnFormWarning">
@@ -245,8 +259,9 @@
                 </div>
                 <div class="dnnFormItem" id="rowTab" runat="server">
                     <dnn:label id="plTab" runat="server" controlname="cboTab" />
-                    <asp:DropDownList ID="cboTab" DataTextField="IndentedTabName" DataValueField="TabId"
-                        runat="server" />
+                    <%--<asp:DropDownList ID="cboTab" DataTextField="IndentedTabName" DataValueField="TabId"
+                        runat="server" />--%>
+                    <dnn:DnnComboBox ID="cboTab" DataTextField="IndentedTabName" DataValueField="TabId" runat="server" />
                 </div>
             </fieldset>
         </div>
@@ -294,12 +309,29 @@
                 title: '<%= Localization.GetSafeJSString("Confirm.Text", Localization.SharedResourceFile) %>'
             });
             $('.dnnContainerPreview').dnnPreview({
-                containerSelector: 'select',
+                containerSelector: '<%=  moduleContainerCombo.ClientID %>',
                 baseUrl: '<%= DotNetNuke.Common.Globals.NavigateURL(this.TabId) %>',
                 noSelectionMessage: '<%= DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString("PreviewNoSelectionMessage.Text")) %>',
                 alertCloseText: '<%= Localization.GetSafeJSString("Close.Text", Localization.SharedResourceFile)%>',
-                alertOkText: '<%= Localization.GetSafeJSString("Ok.Text", Localization.SharedResourceFile)%>'
+                alertOkText: '<%= Localization.GetSafeJSString("Ok.Text", Localization.SharedResourceFile)%>',
+                useComboBox: true
             });
+
+            toggleShareableRowViewOnly(false);
+            $('#<%=isShareableCheckBox.ClientID %>').change(function () {
+                toggleShareableRowViewOnly(true);
+            });
+
+        }
+        
+        function toggleShareableRowViewOnly(animation) {
+            var isSharable = $('#<%=isShareableCheckBox.ClientID %>').attr("checked");
+            if (isSharable == "checked") {
+                animation ? $('#isShareableRowViewOnly').slideDown() : $('#isShareableRowViewOnly').show();
+            }
+            else {
+                animation ? $('#isShareableRowViewOnly').slideUp('fast') : $('#isShareableRowViewOnly').hide();
+            }
         }
 
         $(document).ready(function () {
@@ -307,6 +339,14 @@
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 setUpDnnModuleSettings();
             });
+	        
+            window.compareDate = function (source, arg) {
+            	var id = source.controltovalidate;
+            	var compareId = source.getAttribute("CompareControl");
+            	var time = $find(id).get_timeView().getTime();
+            	var compareTime = $find(id.substr(0, id.lastIndexOf("_") + 1) + compareId).get_timeView().getTime();
+            	arg.IsValid = compareTime == null || time > compareTime;
+            };
         });
     } (jQuery, window.Sys));
 </script>

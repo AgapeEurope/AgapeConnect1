@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -46,35 +46,8 @@ namespace DotNetNuke.Modules.Admin.Scheduler
     /// 	[cnurse]	9/28/2004	Updated to reflect design changes for Help, 508 support
     ///                       and localisation
     /// </history>
-    public partial class ViewSchedule : PortalModuleBase, IActionable
+    public partial class ViewSchedule : PortalModuleBase
     {
-
-        #region IActionable Members
-
-        public ModuleActionCollection ModuleActions
-        {
-            get
-            {
-                var actionCollection = new ModuleActionCollection
-                                           {
-                                               {
-                                                   GetNextActionID(), Localization.GetString(ModuleActionType.AddContent, LocalResourceFile), ModuleActionType.AddContent, "", "add.gif", EditUrl(), false,
-                                                   SecurityAccessLevel.Host, true, false
-                                                   },
-                                               {
-                                                   GetNextActionID(), Localization.GetString(ModuleActionType.ContentOptions, LocalResourceFile), ModuleActionType.AddContent, "",
-                                                   "icon_scheduler_16px.gif", EditUrl("", "", "Status"), false, SecurityAccessLevel.Host, true, false
-                                                   },
-                                               {
-                                                   GetNextActionID(), Localization.GetString("ScheduleHistory.Action", LocalResourceFile), ModuleActionType.AddContent, "",
-                                                   "icon_viewScheduleHistory_16px.gif", EditUrl("", "", "History"), false, SecurityAccessLevel.Host, true, false
-                                                   }
-                                           };
-                return actionCollection;
-            }
-        }
-
-        #endregion
 
 		#region Protected Methods
 
@@ -137,6 +110,11 @@ namespace DotNetNuke.Modules.Admin.Scheduler
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            cmdAdd.NavigateUrl = EditUrl();
+            cmdStatus.NavigateUrl = EditUrl("", "", "Status");
+            cmdHistory.NavigateUrl = EditUrl("", "", "History");
+
             try
             {
 

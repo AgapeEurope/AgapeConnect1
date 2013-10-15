@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="plEnabled.Text" xml:space="preserve">
     <value>Enabled</value>
@@ -202,7 +202,7 @@
     <value>Create Language Pack</value>
   </data>
   <data name="EnabledPublishedMessage.Text" xml:space="preserve">
-    <value>&lt;em&gt;A language must be enabled before it can be activated and it must be deactivated before it can be disabled&lt;/em&gt;</value>
+    <value>- &lt;em&gt;A language must be enabled before it can be activated and it must be deactivated before it can be disabled&lt;/em&gt;</value>
   </data>
   <data name="EnableLocalization.Text" xml:space="preserve">
     <value>Enable Localized Content</value>
@@ -224,9 +224,6 @@
   </data>
   <data name="LanguageSettings.Text" xml:space="preserve">
     <value>Language Settings</value>
-  </data>
-  <data name="TimeZones.Text" xml:space="preserve">
-    <value>Time Zone Editor</value>
   </data>
   <data name="LocalizePages.Text" xml:space="preserve">
     <value>No of Pages</value>
@@ -250,7 +247,7 @@
     <value>System Default:</value>
   </data>
   <data name="detectBrowserLable.Help" xml:space="preserve">
-    <value>Should the user's browser language be used to detect the user's prefered language?</value>
+    <value>Should the user's browser language be used to detect the user's preferred language?</value>
   </data>
   <data name="detectBrowserLable.Text" xml:space="preserve">
     <value>Enable Browser Language Detection?</value>
@@ -262,12 +259,69 @@
     <value>Publish Pages in this Language that are marked as Translated</value>
   </data>
   <data name="Publish.Confirm" xml:space="preserve">
-    <value>All translated pages in the {0} language have been published.</value>
+    <value>Would you like to publish all pages in the {0} language?</value>
   </data>
   <data name="allowUserCulture.Help" xml:space="preserve">
-    <value>When enabled will allow user to select a diffent language for the interface than the one used for content</value>
+    <value>When enabled will allow user to select a different language for the interface than the one used for content</value>
   </data>
   <data name="allowUserCulture.Text" xml:space="preserve">
     <value>Allow users to choose interface language?</value>
+  </data>
+  <data name="InstallAvailabeLanguage.Text" xml:space="preserve">
+    <value>Install Available Languages</value>
+  </data>
+  <data name="DisableLocalization.Text" xml:space="preserve">
+    <value>Disable Localized Content</value>
+  </data>
+  <data name="ContentLocalization.Tab" xml:space="preserve">
+    <value>Content Localization</value>
+  </data>
+  <data name="Languages.Tab" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="Settings.Tab" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="LocalizablePages.Text" xml:space="preserve">
+    <value>Number of Localizable Pages</value>
+  </data>
+  <data name="cmdDeleteTranslation.Text" xml:space="preserve">
+    <value>Remove all translations for this language</value>
+  </data>
+  <data name="DeleteTranslations.Confirm" xml:space="preserve">
+    <value>You are about to permanently &lt;b&gt;remove&lt;/b&gt; all translations for the '&lt;b&gt;{0}&lt;/b&gt;' language. Are you sure about this?</value>
+  </data>
+  <data name="MakeNeutral.Text" xml:space="preserve">
+    <value>Convert page to Neutral Language</value>
+  </data>
+  <data name="MakeTranslatable.Text" xml:space="preserve">
+    <value>Make Page Translatable</value>
+  </data>
+  <data name="ChildrenExistWhenConvertingToNeutral.Text" xml:space="preserve">
+    <value>Page can not be converted to a neutral culture, because there are child pages.</value>
+  </data>
+  <data name="AddMissingLanguages.Text" xml:space="preserve">
+    <value>Add Missing Languages</value>
+  </data>
+  <data name="Page.Help" xml:space="preserve">
+    <value>Select a page here to filter the information below</value>
+  </data>
+  <data name="Page.Text" xml:space="preserve">
+    <value>Select a Page:</value>
+  </data>
+  <data name="DisableLocalization.Confirm" xml:space="preserve">
+    <value>Are you sure you want to disable Content Localization for this web site? This action will &lt;b&gt;delete&lt;/b&gt; all translated pages, and &lt;b&gt;cannot&lt;/b&gt; be undone.</value>
+  </data>
+  <data name="MakeNeutral.Confirm" xml:space="preserve">
+    <value>This will delete all translations of the page. Only the default language version of the page will remain. Are you sure you want to do this?</value>
+  </data>
+  <data name="plUrl.Help" xml:space="preserve">
+    <value>Check this box to enable the Language Parameter in the URL.</value>
+  </data>
+  <data name="plUrl.Text" xml:space="preserve">
+    <value>Enable Language Parameter in URLs?</value>
+  </data>
+  <data name="NeutralMessage.Text" xml:space="preserve">
+    <value>This is a "Language Neutral" page, which means that the page will be visible in every language of the site. Language Neutral pages cannot be translated.</value>
   </data>
 </root>

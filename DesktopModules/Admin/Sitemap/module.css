@@ -1,1 +1,9 @@
-﻿.dnnSiteMap .dnnFormItem input[type="checkbox"]{width:auto;}
+﻿.dnnFormItem .dnnSpinner{ width: 300px; }
+.dnnSiteMapUrl{
+    margin-bottom: 15px;
+}
+.dnnSiteMapUrl a{
+    display: inline-block;
+    margin-top: 4px;
+
+}

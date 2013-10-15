@@ -1,7 +1,7 @@
 ﻿#region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -25,12 +25,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 
 using DotNetNuke.Common;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
+using DotNetNuke.Entities.Portals.Internal;
 using DotNetNuke.Framework;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Localization;
@@ -63,8 +64,6 @@ namespace DotNetNuke.Modules.Admin.Sitemap
             var excludePriority = float.Parse(PortalController.GetPortalSetting("SitemapExcludePriority", PortalId, "0.1"), NumberFormatInfo.InvariantInfo);
             txtExcludePriority.Text = excludePriority.ToString();
 
-            //Load Days to Cache options
-            //LoadDaysToCache();
             cmbDaysToCache.SelectedIndex = Int32.Parse(PortalController.GetPortalSetting("SitemapCacheDays", PortalId, "1"));
         }
 
@@ -100,8 +99,7 @@ namespace DotNetNuke.Modules.Admin.Sitemap
         private bool IsChildPortal(PortalSettings ps, HttpContext context)
         {
             var isChild = false;
-            var aliasController = new PortalAliasController();
-            var arr = aliasController.GetPortalAliasArrayByPortalID(ps.PortalId);
+            var arr = TestablePortalAliasController.Instance.GetPortalAliasesByPortalId(ps.PortalId).ToList();
             var serverPath = Globals.GetAbsoluteServerPath(context.Request);
 
             if (arr.Count > 0)
@@ -110,7 +108,7 @@ namespace DotNetNuke.Modules.Admin.Sitemap
                 var portalName = Globals.GetPortalDomainName(ps.PortalAlias.HTTPAlias, Request, true);
                 if (portalAlias.HTTPAlias.IndexOf("/") > -1)
                 {
-                    portalName = portalAlias.HTTPAlias.Substring(portalAlias.HTTPAlias.LastIndexOf("/") + 1);
+                    portalName = PortalController.GetPortalFolder(portalAlias.HTTPAlias);
                 }
                 if (!string.IsNullOrEmpty(portalName) && Directory.Exists(serverPath + portalName))
                 {
@@ -200,14 +198,10 @@ namespace DotNetNuke.Modules.Admin.Sitemap
                 {
                     LoadConfiguration();
 
-                    if (IsChildPortal(PortalSettings, Context))
-                    {
-                        lnkSiteMapUrl.Text = Globals.AddHTTP(Globals.GetDomainName(Request)) + @"/SiteMap.aspx?portalid=" + PortalId;
-                    }
-                    else
-                    {
-                        lnkSiteMapUrl.Text = Globals.AddHTTP(PortalSettings.PortalAlias.HTTPAlias) + @"/SiteMap.aspx";
-                    }
+                    string portalAlias = !String.IsNullOrEmpty(PortalSettings.DefaultPortalAlias)
+                                        ? PortalSettings.DefaultPortalAlias
+                                        : PortalSettings.PortalAlias.HTTPAlias;
+                    lnkSiteMapUrl.Text = Globals.AddHTTP(portalAlias) + @"/SiteMap.aspx";
 
                     lnkSiteMapUrl.NavigateUrl = lnkSiteMapUrl.Text;
 

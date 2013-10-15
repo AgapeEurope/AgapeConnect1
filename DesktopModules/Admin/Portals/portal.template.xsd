@@ -5,9 +5,11 @@
       <xs:sequence>
         <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
         <xs:element name="settings" maxOccurs="1" minOccurs="0">
-          <xs:complexType>		  
+          <xs:complexType>
             <xs:all>
               <xs:element name="enableskinwidgets" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="enableautosave" type="xs:string" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="timetoautosave" type="xs:integer" minOccurs="0" maxOccurs="1" />
               <xs:element name="logofile" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="footertext" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="expirydate" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
@@ -31,8 +33,16 @@
               <xs:element name="portalaliasmapping" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="contentlocalizationenabled" type="xs:string" minOccurs="0" maxOccurs="1" />
             </xs:all>
-		    <xs:attribute name="sku" type="xs:string"/>
-		  </xs:complexType>
+            <xs:attribute name="sku" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="locales" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="locale" minOccurs="0" maxOccurs="unbounded">
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
         </xs:element>
         <xs:element name="profiledefinitions" maxOccurs="1" minOccurs="0">
           <xs:complexType>
@@ -55,7 +65,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="portalDesktopModule" minOccurs="0" maxOccurs="unbounded">
-                <xs:complexType>				
+                <xs:complexType>
                   <xs:all>
                     <xs:element name="friendlyname" type="xs:string" minOccurs="1" maxOccurs="1" />
                     <xs:element name="portalDesktopModulePermissions" maxOccurs="1" minOccurs="0">
@@ -75,8 +85,8 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:all>
-				  <xs:attribute name="sku" type="xs:string"/>
-				</xs:complexType>
+                  <xs:attribute name="sku" type="xs:string"/>
+                </xs:complexType>
               </xs:element>
             </xs:sequence>
           </xs:complexType>
@@ -110,6 +120,7 @@
                                 <xs:element name="rsvpcode" type="xs:string" minOccurs="0" maxOccurs="1" />
                                 <xs:element name="securitymode" type="xs:string" minOccurs="0" maxOccurs="1" />
                                 <xs:element name="status" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="issystemrole" type="xs:boolean" minOccurs="0" maxOccurs="1" />
                               </xs:all>
                             </xs:complexType>
                           </xs:element>
@@ -141,6 +152,7 @@
                     <xs:element name="roletype" type="roleType" minOccurs="0" maxOccurs="1" />
                     <xs:element name="iconfile" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="rsvpcode" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="issystemrole" type="xs:boolean" minOccurs="0" maxOccurs="1" />
                   </xs:all>
                 </xs:complexType>
               </xs:element>
@@ -173,6 +185,8 @@
                       </xs:complexType>
                     </xs:element>
                     <xs:element name="moduleID" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="content" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="contentKey" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="KeyID" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1" />
                     <xs:element name="tabtype" type="tabType" minOccurs="0" maxOccurs="1" />
@@ -182,14 +196,15 @@
                     <xs:element name="visible" type="xs:boolean" minOccurs="0" maxOccurs="1" />
                     <xs:element name="issecure" type="xs:boolean" minOccurs="0" maxOccurs="1" />
                     <xs:element name="disabled" type="xs:boolean" minOccurs="0" maxOccurs="1" />
-										<xs:element name="iconfile" type="xs:string" minOccurs="0" maxOccurs="1" />
-										<xs:element name="iconfilelarge" type="xs:string" minOccurs="0" maxOccurs="1" />
-										<xs:element name="parent" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="iconfile" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="iconfilelarge" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="parent" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="skinsrc" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="containersrc" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="sitemappriority" type="xs:float" minOccurs="0" maxOccurs="1"/>
                     <xs:element name="cultureCode" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="defaultLanguageTab" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="UseBaseFriendlyUrls" type="xs:boolean" minOccurs="0" maxOccurs="1" />
                     <xs:element name="url" minOccurs="0" maxOccurs="1">
                       <xs:complexType>
                         <xs:simpleContent>
@@ -268,7 +283,9 @@
                                               </xs:complexType>
                                             </xs:element>
                                             <xs:element name="KeyID" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="contentKey" type="xs:string" minOccurs="0" maxOccurs="1" />
                                             <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="ownerportalid" type="xs:integer" minOccurs="0" maxOccurs="1" />
                                             <xs:element name="alignment" type="alignmentEnum" minOccurs="0" maxOccurs="1" />
                                             <xs:element name="showtitle" type="xs:boolean" minOccurs="0" maxOccurs="1" />
                                             <xs:element name="alltabs" type="xs:boolean" minOccurs="0" maxOccurs="1" />
@@ -293,6 +310,9 @@
                                             <xs:element name="webslicettl" type="xs:integer" minOccurs="0" maxOccurs="1" />
                                             <xs:element name="definition" type="xs:string" minOccurs="1" maxOccurs="1" />
                                             <xs:element name="moduledefinition" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="uniqueId" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="cultureCode" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                            <xs:element name="defaultLanguageGuid" type="xs:string" minOccurs="0" maxOccurs="1" />
                                             <xs:element name="content" nillable="true" minOccurs="0" maxOccurs="1">
                                               <xs:complexType>
                                                 <xs:simpleContent>
@@ -346,7 +366,7 @@
                                                   </xs:element>
                                                 </xs:sequence>
                                               </xs:complexType>
-                                            </xs:element>                                            
+                                            </xs:element>
                                           </xs:all>
                                         </xs:complexType>
                                       </xs:element>
@@ -360,8 +380,8 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:all>
-				  <xs:attribute name="sku" type="xs:string"/>
-				</xs:complexType>				
+                  <xs:attribute name="sku" type="xs:string"/>
+                </xs:complexType>
               </xs:element>
             </xs:sequence>
           </xs:complexType>
@@ -374,7 +394,7 @@
                   <xs:sequence>
                     <xs:element name="folderpath" type="xs:string" />
                     <xs:element name="storagelocation" type="xs:integer" maxOccurs="1" minOccurs="0" />
-		    <xs:element name="isprotected" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                    <xs:element name="isprotected" type="xs:boolean" maxOccurs="1" minOccurs="0" />
                     <xs:element name="folderpermissions" maxOccurs="1" minOccurs="0">
                       <xs:complexType>
                         <xs:sequence>
@@ -482,6 +502,8 @@
       <xs:enumeration value="usertab"/>
       <xs:enumeration value="logintab"/>
       <xs:enumeration value="splashtab"/>
+      <xs:enumeration value="gettingStartedTab"/>
+      <xs:enumeration value="404Tab"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="alignmentEnum">

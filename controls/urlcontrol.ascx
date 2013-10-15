@@ -33,9 +33,11 @@
                 <input id="txtFile" type="file" size="30" name="txtFile" runat="server" />
             </div>
 	    </div>
+        <div class="dnnFormItem">
         <asp:LinkButton ID="cmdUpload" resourcekey="Upload" CssClass="dnnSecondaryAction" runat="server" CausesValidation="False" />
         <asp:LinkButton ID="cmdSave" resourcekey="Save" CssClass="dnnSecondaryAction" runat="server" CausesValidation="False" />
         <asp:LinkButton ID="cmdCancel" resourcekey="Cancel" CssClass="dnnSecondaryAction" runat="server" CausesValidation="False" />
+        </div>
     </asp:Panel>
     <asp:Panel id="ImagesRow" runat="server" CssClass="dnnFormItem urlControlImagesRow dnnClear">
         <asp:Label ID="lblImages" runat="server" EnableViewState="False" resourcekey="Image" CssClass="dnnFormLabel" />
@@ -45,10 +47,12 @@
         <asp:Label ID="lblUser" runat="server" EnableViewState="False" resourcekey="User" />
         <asp:TextBox ID="txtUser" runat="server" />
     </asp:Panel>
-    <asp:Panel id="ErrorRow" runat="server" CssClass="dnnFormMessage">
+    <asp:Panel id="ErrorRow" runat="server" CssClass="dnnFormMessage" Visible="false">
         <asp:Label ID="lblMessage" runat="server" EnableViewState="False" CssClass="dnnFormError" />
     </asp:Panel>
-    <asp:CheckBox ID="chkTrack" resourcekey="Track" runat="server" Text="Track?" TextAlign="Right" />
-    <asp:CheckBox ID="chkLog" resourcekey="Log" runat="server" Text="Log?" TextAlign="Right" />
-    <asp:CheckBox ID="chkNewWindow" resourcekey="NewWindow" runat="server" Text="New Window?" TextAlign="Right" Visible="False" />
+    <div class="dnnClear">
+        <asp:CheckBox ID="chkTrack" resourcekey="Track" runat="server" Text="Track?" TextAlign="Right" />
+        <asp:CheckBox ID="chkLog" resourcekey="Log" runat="server" Text="Log?" TextAlign="Right" />
+        <asp:CheckBox ID="chkNewWindow" resourcekey="NewWindow" runat="server" Text="New Window?" TextAlign="Right" Visible="False" />
+    </div>
 </div>

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>Console Settings</value>
@@ -239,5 +239,17 @@
   </data>
   <data name="IconNone.Text" xml:space="preserve">
     <value>No Icons</value>
+  </data>
+  <data name="Members.Text" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="Owner.Text" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="OrderTabsByHierarchy.Help" xml:space="preserve">
+    <value>When set to true the page list will be reordered to move pages which have child pages to the end of list.  This is done so that pages with the same level will display in same area of the console module.</value>
+  </data>
+  <data name="OrderTabsByHierarchy.Text" xml:space="preserve">
+    <value>Order Items By Hierarchy</value>
   </data>
 </root>

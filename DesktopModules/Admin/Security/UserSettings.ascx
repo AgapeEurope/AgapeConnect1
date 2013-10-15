@@ -1,6 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="false" Inherits="DesktopModules.Admin.Security.UserSettings" CodeFile="UserSettings.ascx.cs" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
-<div class="dnnForm dnnUserSettings dnnClear" id="dnnUserSettings">
+<asp:Panel runat="server" ID="CannotChangeSettingsMessage" CssClass="dnnFormMessage dnnFormWarning" Visible="False"><%=LocalizeString("CannotChangeSettings") %></asp:Panel>
+<div class="dnnForm dnnUserSettings dnnClear" id="dnnUserSettings" runat="server" ClientIDMode="Static">
     <div class="usUserAccounts" id="usUserAccounts">
         <fieldset>
             <dnn:DnnFormEditor ID="settingsEditor" runat="server" FormMode="Short">
@@ -15,7 +16,7 @@
                     <dnn:DnnFormToggleButtonItem runat="server" DataField="Column_CreatedDate"/>                    
                     <dnn:DnnFormToggleButtonItem runat="server" DataField="Column_LastLogin"/>
                     <dnn:DnnFormEnumItem ID="displayMode" runat="server" DataField="Display_Mode" />                    
-                    <dnn:DnnFormToggleButtonItem runat="server" DataField="Profile_ManageServices"/>
+                    <dnn:DnnFormToggleButtonItem id="manageServiceItem" runat="server" DataField="Profile_ManageServices"/>
                     <dnn:DnnFormNumericTextBoxItem runat="server" DataField="Records_PerPage"/>
                     <dnn:DnnFormEnumItem ID="usersControl" runat="server" DataField="Security_UsersControl"/>                    
                 </Items>

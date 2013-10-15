@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CreateLanguage.Action" xml:space="preserve">
     <value>Add New Language</value>
@@ -134,9 +134,6 @@
   </data>
   <data name="ResourceVerifier.Action" xml:space="preserve">
     <value>Resource Verifier</value>
-  </data>
-  <data name="TimeZone.Action" xml:space="preserve">
-    <value>Time Zone Editor</value>
   </data>
   <data name="Return.Action" xml:space="preserve">
     <value>Return</value>

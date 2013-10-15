@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="plState.Text" xml:space="preserve">
     <value>State:</value>
@@ -138,8 +138,14 @@
   <data name="plCity.Text" xml:space="preserve">
     <value>City:</value>
   </data>
+  <data name="plCity.Help" xml:space="preserve">
+    <value>Enter the City</value>
+  </data>
   <data name="plCountry.Text" xml:space="preserve">
     <value>Country:</value>
+  </data>
+  <data name="plCountry.Help" xml:space="preserve">
+    <value>Enter the Country</value>
   </data>
   <data name="StreetRequired.Text" xml:space="preserve">
     <value>Street is required</value>
@@ -149,6 +155,12 @@
   </data>
   <data name="CountryRequired.Text" xml:space="preserve">
     <value>Country is required</value>
+  </data>
+  <data name="plState.Help" xml:space="preserve">
+    <value>Select the state from the list</value>
+  </data>
+  <data name="plProvince.Help" xml:space="preserve">
+    <value>Select the province from the list</value>
   </data>
   <data name="StateRequired.Text" xml:space="preserve">
     <value>State is required</value>
@@ -162,11 +174,20 @@
   <data name="plRegion.Text" xml:space="preserve">
     <value>Region:</value>
   </data>
+  <data name="plRegion.Help" xml:space="preserve">
+    <value>Enter the Region</value>
+  </data>
   <data name="plPostal.Text" xml:space="preserve">
     <value>Postal Code:</value>
   </data>
+  <data name="plPostal.Help" xml:space="preserve">
+    <value>Enter the Postal Code</value>
+  </data>
   <data name="plZip.Text" xml:space="preserve">
     <value>ZIP Code:</value>
+  </data>
+  <data name="plZip.Help" xml:space="preserve">
+    <value>Enter the ZIP Code</value>
   </data>
   <data name="PostalRequired.Text" xml:space="preserve">
     <value>Postal Code is required</value>
@@ -174,17 +195,26 @@
   <data name="plTelephone.Text" xml:space="preserve">
     <value>Telephone:</value>
   </data>
+  <data name="plTelephone.Help" xml:space="preserve">
+    <value>Enter Telephone No.</value>
+  </data>
   <data name="TelephoneRequired.Text" xml:space="preserve">
     <value>Telephone Number is required</value>
   </data>
   <data name="plCell.Text" xml:space="preserve">
     <value>Cell:</value>
   </data>
+  <data name="plCell.Help" xml:space="preserve">
+    <value>Enter Cell Phone No.</value>
+  </data>
   <data name="CellRequired.Text" xml:space="preserve">
     <value>Cell Phone Number is required</value>
   </data>
   <data name="plFax.Text" xml:space="preserve">
     <value>Fax:</value>
+  </data>
+  <data name="plFax.Help" xml:space="preserve">
+    <value>Enter Fax No.</value>
   </data>
   <data name="FaxRequired.Text" xml:space="preserve">
     <value>Fax Number is required</value>

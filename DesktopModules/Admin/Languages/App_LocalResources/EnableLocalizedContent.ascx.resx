@@ -127,7 +127,7 @@
     <value>Current Site Default</value>
   </data>
     <data name="enableLocalization.Text" xml:space="preserve">
-    <value>Enabling localized content allows you to provide translated module content in addition to displaying translated static text. Once enabled it cannot be disabled.</value>
+    <value>Enabling localized content allows you to provide translated module content in addition to displaying translated static text. Once localized content is enabled the default site culture will be set permanently and &lt;strong&gt;&lt;em&gt;you will no longer be able to change it&lt;/em&gt;&lt;/strong&gt;. &lt;br/&gt;&lt;br/&gt;Click Cancel if you need to change the current site default.</value>
   </data>
     <data name="header.Text" xml:space="preserve">
     <value>Enable Localized Content</value>
@@ -158,5 +158,11 @@
   </data>
     <data name="TotalPages.Text" xml:space="preserve">
     <value>Total Pages</value>
+  </data>
+  <data name="AllPagesTranslatable.Help" xml:space="preserve">
+    <value>If checked, all pages that are in the default language will be made translatable. DotNetNuke will create a copy of all translatable pages, in all other selected languages</value>
+  </data>
+  <data name="AllPagesTranslatable.Text" xml:space="preserve">
+    <value>Make all pages Translatable</value>
   </data>
 </root>

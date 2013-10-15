@@ -130,7 +130,7 @@
     <value>Unable to process page template.</value>
   </data>
   <data name="Err.DuplicateWithAlias" xml:space="preserve">
-    <value>There has a site domain same with your page path.</value>
+    <value>There is a site domain identical to your page path.</value>
   </data>
   <data name="Err.Header" xml:space="preserve">
     <value>An error occurred while adding a page:</value>

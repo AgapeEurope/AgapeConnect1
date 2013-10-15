@@ -12,7 +12,7 @@
     
     Example:
     
-    ... ado.net/XML headers && schema ...
+    ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Roles.Action" xml:space="preserve">
     <value>Manage Roles for this User</value>
@@ -176,7 +176,7 @@
     <value>Manage User's Password</value>
   </data>
   <data name="cmdUser.Text" xml:space="preserve">
-    <value>Manage User Credentials</value>
+    <value>Manage Account</value>
   </data>
   <data name="cmdRoles.Text" xml:space="preserve">
     <value>Manage Roles for this User</value>
@@ -258,5 +258,17 @@
   </data>
   <data name="Register.Title" xml:space="preserve">
     <value>User Registration</value>
+  </data>
+  <data name="AccountSettings.Text" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="MembershipDetails.Text" xml:space="preserve">
+    <value>Account Information</value>
+  </data>
+  <data name="UserPromotedToSuperuser.Text" xml:space="preserve">
+    <value>User has been updated to be a SuperUser.</value>
+  </data>
+  <data name="UserDemotedFromSuperuser.Text" xml:space="preserve">
+    <value>User has been updated to be a regular user.</value>
   </data>
 </root>

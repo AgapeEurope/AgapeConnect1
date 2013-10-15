@@ -2,16 +2,18 @@
 <%@ Import Namespace="DotNetNuke.Services.Localization" %>
 <div class="dnnForm dnnClear" id="dnnMobileManagement">
 	<fieldset>
-		<div class="dnnRedirectionTypeOpt">
-			<asp:RadioButtonList ID="optSimpleAdvanced" CssClass="dnnFormRadioButtons" runat="server" RepeatDirection="Vertical">
+		<div class="dnnFormItem">
+			<asp:RadioButtonList ID="optSimpleAdvanced" CssClass="dnnFormRadioButtons" runat="server" RepeatLayout="Flow">
 				<asp:ListItem Value="SimpleSettings" resourcekey="optSimple" Selected="true" />
 				<asp:ListItem Value="RedirectionSettings" resourcekey="optAdvanced" />
 			</asp:RadioButtonList>
-			<br/><br/><br/><br/>
-			<ul class="dnnActions dnnClear">
-				<li><asp:HyperLink ID="lnkAdd" runat="server" resourcekey="cmdAdd" CssClass="dnnPrimaryAction" /></li>
-			</ul>
-		</div>
+        </div>
+      
+        <div class="dnnFormItem">
+		<ul class="dnnActions dnnClear">
+			<li><asp:HyperLink ID="lnkAdd" runat="server" resourcekey="cmdAdd" CssClass="dnnPrimaryAction" /></li>
+		</ul>
+	    </div>
 		
         <div id="dvRedirectionsGrid" runat="server" class="dnnGrid dnnRedirectionGrid">
         	<div><%=LocalizeString("RedirectManagerMessage.Text")%></div>
@@ -25,19 +27,21 @@
 			    <FooterStyle CssClass="dnnGridFooter" />
 			    <PagerStyle CssClass="dnnGridPager" />
 			    <Columns>
-				    <asp:TemplateColumn HeaderText="">
+				    <asp:TemplateColumn HeaderText="" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder">
 					    <ItemTemplate>
 						    <img id="imgDragDrop" runat="server" src="~/Icons/Sigma/DragDrop_15x15_Standard.png" alt=""/>
 					    </ItemTemplate>
 				    </asp:TemplateColumn>
-                    <asp:TemplateColumn HeaderText="">
+                    <asp:TemplateColumn HeaderText="" HeaderStyle-CssClass="dnnGridHeaderTD-NoBorder">
 					    <ItemTemplate>
-                            <a href="<%#GetEditUrl(Eval("Id").ToString()) %>"><img src="<%=ResolveUrl("~/images/edit.gif") %>" alt="" /></a>
+                            <a href="<%#GetEditUrl(Eval("Id").ToString()) %>"><img src="<%=ResolveUrl("~/icons/sigma/edit_16X16_standard.png") %>" alt="" /></a>
 					    </ItemTemplate>
 				    </asp:TemplateColumn>
                     <asp:TemplateColumn HeaderText="">
 					    <ItemTemplate>
-                            <asp:LinkButton ID="btnDel" runat="server" CssClass="delete" CausesValidation="false" CommandArgument='<%#Eval("Id") %>' CommandName="delete" ></asp:LinkButton>
+                            <asp:LinkButton ID="btnDel" runat="server" CssClass="delete" CausesValidation="false" CommandArgument='<%#Eval("Id") %>' CommandName="delete" >
+                                 <asp:Image ID="image1" runat="server" ImageUrl="~/icons/sigma/delete_16X16_standard.png" />
+                            </asp:LinkButton>
 					    </ItemTemplate>
 				    </asp:TemplateColumn>
 				    <asp:TemplateColumn HeaderText="Redirection Rule">
@@ -63,7 +67,7 @@
                         <ItemTemplate>
                 	        <div class="dnnRedirectionIsEnabled">
 						        <asp:LinkButton id="btnEnable" runat="server" CssClass="enable" CausesValidation="false" CommandArgument='<%#Eval("Id") %>' CommandName="enable">
-							        <img src="<%#Convert.ToBoolean(Eval("Enabled")) ? ResolveUrl("~/images/grant.gif") : ResolveUrl("~/images/delete.gif") %>" alt="" />
+							        <img src="<%#Convert.ToBoolean(Eval("Enabled")) ? ResolveUrl("~/icons/sigma/checked_16x16_standard.png") : ResolveUrl("~/icons/sigma/cancel_16x16_standard.png") %>" alt="" />
 						        </asp:LinkButton>
 					        </div>
                         </ItemTemplate>
@@ -78,8 +82,9 @@
 <script type="text/javascript">
     (function ($) {
         $(document).ready(function () {
-            $("#<%=lnkAdd.ClientID %>").click(function (e) {
-                var href = $(this).attr("href").replace(escape(escape("{0}")), $("input[type=radio][name$=optSimpleAdvanced]:checked").val());
+        	$("#<%=lnkAdd.ClientID %>").click(function (e) {
+        		var type = $("input[type=radio][name$=optSimpleAdvanced]:checked").val();
+                var href = $(this).attr("href").replace(escape("{0}"), type).replace("{0}", type);
                 $(this).attr("href", href);
             });
             $('a.delete').dnnConfirm({

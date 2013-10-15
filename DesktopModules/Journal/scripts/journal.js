@@ -30,13 +30,8 @@ function attachPhoto(fileId, path, isImage) {
     } else {
         journalItem.JournalType = 'file';
     }
-    path = decodeURIComponent(path);
-    
     journalItem.ItemData = {};
     journalItem.ItemData.ImageUrl = path;
-    var fileName = path.substring(path.lastIndexOf('/') + 1);
-    path = path.substring(0, path.lastIndexOf('/') + 1);
-    path = path + escape(fileName);
 
     if (isImage) {
         $(".filePreviewArea").show().append($("<img src='" + path + "' />").css("width", "120px").hide().fadeIn());
@@ -266,7 +261,6 @@ function attachPhoto(fileId, path, isImage) {
             data.groupId = gid;
             data.journalType = journalItem.JournalType;
             data.securitySet = journalItem.Security;
-            opts.servicesFramework.getAntiForgeryProperty(data);
             var ItemData = journalItem.ItemData;
             if (ItemData != null) {
                 data.itemData = JSON.stringify(ItemData);
@@ -284,7 +278,7 @@ function attachPhoto(fileId, path, isImage) {
             }
             $.ajax({
                 type: "POST",
-                url: opts.servicesFramework.getServiceRoot('Journal') + "Services.ashx/Create",
+                url: opts.servicesFramework.getServiceRoot('Journal') + "Services/Create",
                 data: data,
                 beforeSend: opts.servicesFramework.setModuleHeaders,
                 success: function (data) {
@@ -305,10 +299,9 @@ function attachPhoto(fileId, path, isImage) {
 
         });
         function getNewItem(data, callback) {
-            opts.servicesFramework.getAntiForgeryProperty(data);
             $.ajax({
                 type: "POST",
-                url: opts.servicesFramework.getServiceRoot('Journal') + "Services.ashx/GetListForProfile",
+                url: opts.servicesFramework.getServiceRoot('Journal') + "Services/GetListForProfile",
                 beforeSend: opts.servicesFramework.setModuleHeaders,
                 data: data,
                 success: function (data) {
@@ -350,11 +343,10 @@ function attachPhoto(fileId, path, isImage) {
             $previewArea.data('url', url);
             $clearLink.show();
 
-            var data = opts.servicesFramework.getAntiForgeryProperty();
-            data.Url = url;
+            var data = { Url: url };
             $.ajax({
                 type: "POST",
-                url: opts.servicesFramework.getServiceRoot('Journal') + 'Services.ashx/PreviewURL',
+                url: opts.servicesFramework.getServiceRoot('Journal') + 'Services/PreviewURL',
                 beforeSend: opts.servicesFramework.setModuleHeaders,
                 data: data,
                 success: function (data) {

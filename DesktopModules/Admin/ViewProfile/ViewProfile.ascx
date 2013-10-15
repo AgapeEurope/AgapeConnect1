@@ -1,4 +1,5 @@
 <%@ Control language="C#" CodeFile="ViewProfile.ascx.cs" AutoEventWireup="false" Explicit="True" Inherits="DotNetNuke.Modules.Admin.Users.ViewProfile" %>
+<%@ Import Namespace="System.Globalization" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.Client.ClientResourceManagement" Assembly="DotNetNuke.Web.Client" %>
 <dnn:DnnJsInclude ID="DnnJsInclude" runat="server" FilePath="~/Resources/Shared/scripts/knockout.js" />
 
@@ -14,12 +15,12 @@
     jQuery(document).ready(function($) {
         function ProfileViewModelModule<%=ModuleContext.ModuleId.ToString(CultureInfo.InvariantCulture) %>() {
             var self = this;
-            self.AboutMeText = '<%=LocalizeString("AboutMe") %>';
-            self.LocationText = '<%=LocalizeString("Location") %>';
-            self.GetInTouchText = '<%=LocalizeString("GetInTouch") %>';
-            self.EmptyAboutMeText = '<%=LocalizeString("EmptyAboutMe") %>';
-            self.EmptyLocationText = '<%=LocalizeString("EmptyLocation") %>';
-            self.EmptyGetInTouchText = '<%=LocalizeString("EmptyGetInTouch") %>';
+            self.AboutMeText = '<%=Localization.GetSafeJSString(LocalizeString("AboutMe")) %>';
+            self.LocationText = '<%=Localization.GetSafeJSString(LocalizeString("Location")) %>';
+            self.GetInTouchText = '<%=Localization.GetSafeJSString(LocalizeString("GetInTouch")) %>';
+            self.EmptyAboutMeText = '<%=Localization.GetSafeJSString(LocalizeString("EmptyAboutMe")) %>';
+            self.EmptyLocationText = '<%=Localization.GetSafeJSString(LocalizeString("EmptyLocation")) %>';
+            self.EmptyGetInTouchText = '<%=Localization.GetSafeJSString(LocalizeString("EmptyGetInTouch")) %>';
             
             <% = ProfileProperties %>
 

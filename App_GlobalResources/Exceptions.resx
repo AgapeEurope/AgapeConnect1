@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddFileExtensionNotAllowed.Text" xml:space="preserve">
     <value>The extension '{0}' is not allowed. The file has not been added.</value>
@@ -237,8 +237,8 @@
   <data name="MsgSenderRequiredError.Text" xml:space="preserve">
     <value>Either Sender is null or Sender.UserID is negative.</value>
   </data>
-  <data name="MsgOnlyHostOrAdminOrGroupOwnerCanSendToRoleError.Text" xml:space="preserve">
-    <value>Only SuperUsers, Site Administrators or Group Owners can send message to Role.</value>
+  <data name="MsgOnlyHostOrAdminOrUserInGroupCanSendToRoleError.Text" xml:space="preserve">
+    <value>Only SuperUsers, Site Administrators or Users in the Group can send message to Role.</value>
   </data>
   <data name="MsgThrottlingIntervalNotMet.Text" xml:space="preserve">
     <value>The message cannot be sent at this time, as the site administrator requires a minimum of {0} minute(s) between messages from the same user.</value>
@@ -254,5 +254,47 @@
   </data>
   <data name="MsgMessageRequiredError.Text" xml:space="preserve">
     <value>The message object supplied cannot be null.</value>
+  </data>
+  <data name="TabNotInPortal.Text" xml:space="preserve">
+    <value>Specified Page is not in this Site.</value>
+  </data>
+  <data name="TabModuleNotExist.Text" xml:space="preserve">
+    <value>Specified Module Instance does not exist.</value>
+  </data>
+  <data name="ControllerNotFound.Text" xml:space="preserve">
+    <value>Unable to locate a controller for {0}.  Searched in namespaces: {1}.</value>
+  </data>
+  <data name="AmbiguousController.Text" xml:space="preserve">
+    <value>Multiple types were found that match the controller named '{0}' in namespaces {1}.</value>
+  </data>
+  <data name="MaxLengthExceeded.Text" xml:space="preserve">
+    <value>The maximum length of the Field {0} has been exceeded</value>
+  </data>
+  <data name="InvalidPublishPeriod.Text" xml:space="preserve">
+    <value>The End Date must be after the Start Date</value>
+  </data>
+  <data name="ProfileService_UpdateVanityUrl.Error" xml:space="preserve">
+    <value>There was an error updating the Profile URL.  If you continue to see this message, please check with the site administrator.</value>
+  </data>
+  <data name="StartDateMustNotBeInThePast.Text" xml:space="preserve">
+    <value>The Start Date must not be in the past</value>
+  </data>
+  <data name="StartDateRequired.Text" xml:space="preserve">
+    <value>The Start Date is required</value>
+  </data>
+  <data name="FileLockedRunningWorkflowError.Text" xml:space="preserve">
+    <value>File locked. The file cannot be updated because it is currently part of a workflow.</value>
+  </data>
+  <data name="InstallPackageError.Text" xml:space="preserve">
+    <value>Package {0} Installed failed because '{1}'.</value>
+  </data>
+  <data name="FileLockedOutOfPublishPeriodError.Text" xml:space="preserve">
+    <value>File locked. The file cannot be updated because it is not within a valid start and end date for publication.</value>
+  </data>
+  <data name="CannotMoveFolderAlreadyExists.Text" xml:space="preserve">
+    <value>The folder '{0}' cannot be moved. A folder with that name already exists under the folder '{1}'.</value>
+  </data>
+  <data name="CannotMoveFolderBetweenFolderType.Text" xml:space="preserve">
+    <value>The folder with name '{0}' cannot be moved. Move Folder operation between this two folder types is not allowed</value>
   </data>
 </root>

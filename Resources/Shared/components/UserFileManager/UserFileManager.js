@@ -158,7 +158,8 @@
                     });
                     $actionList.appendTo($div);
 
-                    // finds button pane in scope of the plugin
+                	// finds button pane in scope of the plugin
+	                $wrap.dialog("widget").find('.ui-dialog-buttonpane').empty();
                     $div.appendTo($wrap.dialog("widget").find('.ui-dialog-buttonpane'));
                     $wrap.dialog("widget").find('.ui-dialog-buttonset').hide();
                 },
@@ -180,7 +181,7 @@
         dialogClass: 'dnnFormPopup fileManagerPopup',
         width: '700px', // dialog width
         minHeight: '400px', // dialog height
-        getItemsServiceUrl: '/DesktopModules/Journal/API/UserFile.ashx/GetItems',
+        getItemsServiceUrl: '/DesktopModules/Journal/API/UserFile/GetItems',
         attachCallback: function (file) {
             // available properties .id, .modified, .name, .parentId, .size, .thumb_url, .type
             alert(file.name + ' attached.');

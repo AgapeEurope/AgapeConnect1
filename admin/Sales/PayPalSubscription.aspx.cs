@@ -1,7 +1,7 @@
 #region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -40,6 +40,7 @@ namespace DotNetNuke.Modules.Admin.Sales
 {
     public partial class PayPalSubscription : PageBase
     {
+    	private static readonly ILog Logger = LoggerSource.Instance.GetLogger(typeof (PayPalSubscription));
         private void InitializeComponent()
         {
         }
@@ -137,7 +138,7 @@ namespace DotNetNuke.Modules.Admin.Sales
                                 strPayPalURL += "&redirect_cmd=_xclick-subscriptions&business=" + Globals.HTTPPOSTEncode(strProcessorUserId);
                                 strPayPalURL += "&item_name=" +
                                                 Globals.HTTPPOSTEncode(PortalSettings.PortalName + " - " + objRole.RoleName + " ( " + objRole.ServiceFee.ToString("#.##") + " " +
-                                                                       PortalSettings.Currency + " every " + intBillingPeriod + " " + GetBillingFrequencyCode(objRole.BillingFrequency) + " )");
+                                                                       PortalSettings.Currency + " every " + intBillingPeriod + " " + GetBillingFrequencyText(objRole.BillingFrequency) + " )");
                                 strPayPalURL += "&item_number=" + Globals.HTTPPOSTEncode(intRoleId.ToString());
                                 strPayPalURL += "&no_shipping=1&no_note=1";
                                 if (objRole.TrialFrequency != "N")
@@ -174,7 +175,7 @@ namespace DotNetNuke.Modules.Admin.Sales
 						catch (Exception ex)
 						{
 							//issue getting user address
-							DnnLog.Error(ex);
+							Logger.Error(ex);
 						}
 						
                         //Return URL
@@ -233,11 +234,16 @@ namespace DotNetNuke.Modules.Admin.Sales
             }
         }
 
-        private string GetBillingFrequencyCode(string Value)
+        /// <summary>
+        /// This methods return the text description of the Frequency value
+        /// </summary>
+        /// <param name="value">value of the Frequency</param>
+        /// <returns>text of the Frequency</returns>
+        private string GetBillingFrequencyText(string value)
         {
             var ctlEntry = new ListController();
-            ListEntryInfo entry = ctlEntry.GetListEntryInfo("Frequency", Value);
-            return entry.Value;
+            ListEntryInfo entry = ctlEntry.GetListEntryInfo("Frequency", value);
+            return entry.Text;
         }
     }
 }

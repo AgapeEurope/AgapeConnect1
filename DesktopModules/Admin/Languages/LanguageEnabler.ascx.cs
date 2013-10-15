@@ -1,7 +1,7 @@
 ﻿#region Copyright
 // 
 // DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2012
+// Copyright (c) 2002-2013
 // by DotNetNuke Corporation
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
@@ -22,9 +22,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
-using System.Web.UI;
+using System.Web;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Common;
@@ -33,39 +34,22 @@ using DotNetNuke.Entities.Host;
 using DotNetNuke.Entities.Modules;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Framework;
+using DotNetNuke.Security.Permissions;
 using DotNetNuke.Services.Exceptions;
 using DotNetNuke.Services.Installer;
 using DotNetNuke.Services.Localization;
 using DotNetNuke.Services.Personalization;
 using DotNetNuke.UI.Skins.Controls;
-using DotNetNuke.Web.UI;
 using DotNetNuke.Web.UI.WebControls;
 
 using Telerik.Web.UI;
 
-//
-// DotNetNuke® - http://www.dotnetnuke.com
-// Copyright (c) 2002-2009
-// by DotNetNuke Corporation
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions 
-// of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
-// TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-// CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-// DEALINGS IN THE SOFTWARE.
-//
-
 #endregion
 
+// ReSharper disable CheckNamespace
 namespace DotNetNuke.Modules.Admin.Languages
+// ReSharper restore CheckNamespace
 {
     /// -----------------------------------------------------------------------------
     /// <summary>
@@ -79,16 +63,23 @@ namespace DotNetNuke.Modules.Admin.Languages
     /// -----------------------------------------------------------------------------
     public partial class LanguageEnabler : PortalModuleBase
     {
-        private readonly TabController _TabController = new TabController();
-        private string _PortalDefault = "";
-
         #region "Private Properties"
-
-        private string ViewType
+        private TabController _tabController;
+        private TabController TabController
         {
             get
             {
-                return Localization.GetLanguageDisplayMode(PortalId);
+                return _tabController ?? (_tabController = new TabController());
+            }
+        }
+
+        private string _PortalDefault = "";
+
+        private string PageSelectorCookieName
+        {
+            get
+            {
+                return string.Format("Languages_Page_{0}_{1}", PortalId, CultureInfo.CurrentUICulture.Name);
             }
         }
 
@@ -116,13 +107,13 @@ namespace DotNetNuke.Modules.Admin.Languages
 
         private void BindGrid()
         {
-            languagesGrid.DataSource = LocaleController.Instance.GetLocales(Null.NullInteger).Values;
+            //languagesGrid.DataSource = LocaleController.Instance.GetLocales(Null.NullInteger).Values;
             languagesGrid.DataBind();
         }
 
         private TabCollection GetLocalizedPages(string code, bool includeNeutral)
         {
-            return _TabController.GetTabsByPortal(PortalId).WithCulture(code, includeNeutral);
+            return TabController.GetTabsByPortal(PortalId).WithCulture(code, includeNeutral);
         }
 
         #endregion
@@ -131,7 +122,7 @@ namespace DotNetNuke.Modules.Admin.Languages
 
         protected bool CanEnableDisable(string code)
         {
-            bool canEnable = true;
+            bool canEnable;
             if (IsLanguageEnabled(code))
             {
                 canEnable = !IsDefaultLanguage(code) && !IsLanguagePublished(code);
@@ -145,7 +136,11 @@ namespace DotNetNuke.Modules.Admin.Languages
 
         protected bool CanLocalize(string code)
         {
-            return PortalSettings.ContentLocalizationEnabled && IsLanguageEnabled(code) && !IsDefaultLanguage(code);
+
+            int defaultPageCount = GetLocalizedPages(PortalSettings.DefaultLanguage, false).Count;
+            int currentPageCount = GetLocalizedPages(code, false).Count;
+
+            return PortalSettings.ContentLocalizationEnabled && IsLanguageEnabled(code) && !IsDefaultLanguage(code) && (currentPageCount < defaultPageCount);
         }
 
         protected string GetEditUrl(string id)
@@ -163,9 +158,21 @@ namespace DotNetNuke.Modules.Admin.Languages
             string status = "";
             if (!IsDefaultLanguage(code) && IsLocalized(code))
             {
-                status = GetLocalizedPages(code, false).Where(t => !t.Value.IsDeleted).Count().ToString();
+                status = GetLocalizedPages(code, false).Count(t => !t.Value.IsDeleted).ToString(CultureInfo.CurrentUICulture);
             }
             return status;
+        }
+        protected string GetLocalizablePages(string code)
+        {
+            int count = 0;
+            foreach (KeyValuePair<int, TabInfo> t in GetLocalizedPages(code, false))
+            {
+                if (!t.Value.IsDeleted)
+                {
+                    count++;
+                }
+            }
+            return count.ToString(CultureInfo.CurrentUICulture);
         }
 
         protected string GetLocalizedStatus(string code)
@@ -185,8 +192,8 @@ namespace DotNetNuke.Modules.Admin.Languages
             string status = "";
             if (!IsDefaultLanguage(code) && IsLocalized(code))
             {
-                int translatedCount = (from t in new TabController().GetTabsByPortal(PortalId).WithCulture(code, false).Values where t.IsTranslated && !t.IsDeleted select t).Count();
-                status = translatedCount.ToString();
+                int translatedCount = (from t in TabController.GetTabsByPortal(PortalId).WithCulture(code, false).Values where t.IsTranslated && !t.IsDeleted select t).Count();
+                status = translatedCount.ToString(CultureInfo.InvariantCulture);
             }
             return status;
         }
@@ -197,7 +204,7 @@ namespace DotNetNuke.Modules.Admin.Languages
             if (!IsDefaultLanguage(code) && IsLocalized(code))
             {
                 int localizedCount = GetLocalizedPages(code, false).Count;
-                int translatedCount = (from t in new TabController().GetTabsByPortal(PortalId).WithCulture(code, false).Values where t.IsTranslated select t).Count();
+                int translatedCount = (from t in TabController.GetTabsByPortal(PortalId).WithCulture(code, false).Values where t.IsTranslated select t).Count();
                 status = string.Format("{0:#0%}", translatedCount / (float)localizedCount);
             }
             return status;
@@ -205,24 +212,19 @@ namespace DotNetNuke.Modules.Admin.Languages
 
         protected bool IsDefaultLanguage(string code)
         {
-            bool returnValue = false;
-            if (code == PortalDefault)
-            {
-                returnValue = true;
-            }
-            return returnValue;
+            return code == PortalDefault;
         }
 
         protected bool IsLanguageEnabled(string Code)
         {
-            Locale enabledLanguage = null;
+            Locale enabledLanguage;
             return LocaleController.Instance.GetLocales(ModuleContext.PortalId).TryGetValue(Code, out enabledLanguage);
         }
 
         protected bool IsLanguagePublished(string Code)
         {
             bool isPublished = Null.NullBoolean;
-            Locale enabledLanguage = null;
+            Locale enabledLanguage;
             if (LocaleController.Instance.GetLocales(ModuleContext.PortalId).TryGetValue(Code, out enabledLanguage))
             {
                 isPublished = enabledLanguage.IsPublished;
@@ -232,7 +234,73 @@ namespace DotNetNuke.Modules.Admin.Languages
 
         protected bool IsLocalized(string code)
         {
-            return GetLocalizedPages(code, false).Count > 0;
+            return (code != PortalDefault && GetLocalizedPages(code, false).Count > 0);
+        }
+
+        protected string BuildConfirmationJS(string controlName, string confirmResource)
+        {
+
+            string s = "";
+            foreach (GridDataItem dataItem in languagesGrid.MasterTableView.Items)
+            {
+                var control = dataItem.FindControl(controlName);
+                var button = control as LinkButton;
+                if (button != null)
+                {
+                    var cmdDeleteTranslation = button;
+                    if (cmdDeleteTranslation.Visible)
+                    {
+                        int languageId = int.Parse(cmdDeleteTranslation.CommandArgument);
+                        Locale localeToDelete = LocaleController.Instance.GetLocale(languageId);
+                        s += string.Format(@"$('#{0}').dnnConfirm({{text: '{1}', yesText: '{2}', noText: '{3}', title: '{4}'}});",
+                            cmdDeleteTranslation.ClientID,
+                            string.Format(Localization.GetSafeJSString(confirmResource, LocalResourceFile), localeToDelete.Code),
+                            Localization.GetSafeJSString("Yes.Text", Localization.SharedResourceFile),
+                            Localization.GetSafeJSString("No.Text", Localization.SharedResourceFile),
+                            Localization.GetSafeJSString("Confirm.Text", Localization.SharedResourceFile)
+                            );
+                    }
+                }
+            }
+            return s;
+        }
+
+        protected void BindCLControl()
+        {
+            NeutralMessage.Visible = false;
+            MakeTranslatable.Visible = false;
+            MakeNeutral.Visible = false;
+            cmdUpdate.Visible = false;
+            AddMissing.Visible = false;
+            var tabInfo = ddlPages.SelectedPage;
+            if (tabInfo != null)
+            {
+            if (String.IsNullOrEmpty(tabInfo.CultureCode))
+            {
+                CLControl1.Visible = false;
+                if (UserInfo.IsSuperUser || UserInfo.IsInRole("Administrators"))
+                {
+                    MakeTranslatable.Visible = true;
+                }
+                NeutralMessage.Visible = true;
+            }
+            else
+            {
+                CLControl1.Visible = true;
+                CLControl1.enablePageEdit = true;
+                    CLControl1.BindAll(tabInfo.TabID);
+                cmdUpdate.Visible = true;
+
+                if (UserInfo.IsSuperUser || UserInfo.IsInRole("Administrators"))
+                {
+                    // only show "Convert to neutral" if page has no child pages
+                    MakeNeutral.Visible = (TabController.GetTabsByPortal(PortalId).WithParentId(tabInfo.TabID).Count == 0);
+
+                    // only show "add missing languages" if not all languages are available
+                        AddMissing.Visible = TabController.HasMissingLanguages(PortalId, tabInfo.TabID);
+                    }
+                }
+            }
         }
 
         #endregion
@@ -247,47 +315,42 @@ namespace DotNetNuke.Modules.Admin.Languages
             languagesGrid.ItemCreated += languagesGrid_ItemCreated;
             languagesGrid.PreRender += languagesGrid_PreRender;
             updateButton.Click += updateButton_Click;
+            cmdDisableLocalization.Click += cmdDisableLocalization_Click;
             cmdEnableLocalizedContent.NavigateUrl = ModuleContext.NavigateUrl(ModuleContext.TabId, "EnableContent", false, "mid=" + ModuleContext.ModuleId);
+
+            AJAX.RegisterScriptManager();
+            jQuery.RequestRegistration();
+
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-			try
-			{
-				_PortalDefault = PortalSettings.DefaultLanguage;
-				if (!Page.IsPostBack)
-				{
-					BindDefaultLanguageSelector();
-					BindGrid();
-					chkBrowser.Checked = ModuleContext.PortalSettings.EnableBrowserLanguage;
-					chkUserCulture.Checked = ModuleContext.PortalSettings.AllowUserUICulture;
-				}
+            Locale enabledLanguage;
+            LocaleController.Instance.GetLocales(ModuleContext.PortalId).TryGetValue("en-US", out enabledLanguage);
 
-                if (!UserInfo.IsSuperUser)
+            try
+            {
+                _PortalDefault = PortalSettings.DefaultLanguage;
+                if (!Page.IsPostBack)
                 {
-                    UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("HostOnlyMessage", LocalResourceFile), ModuleMessage.ModuleMessageType.BlueInfo);
+                    BindDefaultLanguageSelector();
+                    BindGrid();
+                    chkBrowser.Checked = ModuleContext.PortalSettings.EnableBrowserLanguage;
+                    chkUserCulture.Checked = ModuleContext.PortalSettings.AllowUserUICulture;
+
+                    urlRow.Visible = !PortalSettings.Current.ContentLocalizationEnabled;
+                    chkUrl.Checked = ModuleContext.PortalSettings.EnableUrlLanguage;
+
                 }
 
-				systemDefaultLanguageLabel.Language = Localization.SystemLocale;
-				if (PortalSettings.ContentLocalizationEnabled)
-				{
-					defaultLanguageLabel.Language = PortalSettings.DefaultLanguage;
-					defaultLanguageLabel.Visible = true;
-					languagesComboBox.Visible = false;
-					cmdEnableLocalizedContent.Visible = false;
-					defaultPortalMessage.Text = Localization.GetString("PortalDefaultPublished.Text", LocalResourceFile);
-					enabledPublishedPlaceHolder.Visible = true;
-				}
-				else
-				{
-					defaultLanguageLabel.Visible = false;
-					languagesComboBox.Visible = true;
-					cmdEnableLocalizedContent.Visible = Host.EnableContentLocalization;
-					defaultPortalMessage.Text = Localization.GetString("PortalDefaultEnabled.Text", LocalResourceFile);
-					enabledPublishedPlaceHolder.Visible = false;
-				}
+                if (!UserInfo.IsSuperUser && ModulePermissionController.CanAdminModule(ModuleConfiguration))
+                {
+                    UI.Skins.Skin.AddModuleMessage(this, LocalizeString("HostOnlyMessage"), ModuleMessage.ModuleMessageType.BlueInfo);
+                }
+
+                systemDefaultLanguageLabel.Language = Localization.SystemLocale;
 
                 addLanguageLink.Visible = UserInfo.IsSuperUser;
                 addLanguageLink.NavigateUrl = ModuleContext.EditUrl("Edit");
@@ -299,11 +362,115 @@ namespace DotNetNuke.Modules.Admin.Languages
                 verifyLanguageResourcesLink.NavigateUrl = ModuleContext.EditUrl("Verify");
 
                 installLanguagePackLink.Visible = UserInfo.IsSuperUser;
-                installLanguagePackLink.NavigateUrl = Util.InstallURL(ModuleContext.TabId, "");                         
+                installLanguagePackLink.NavigateUrl = Util.InstallURL(ModuleContext.TabId, "");
+
+                installAvailableLanguagePackLink.Visible = UserInfo.IsSuperUser;
+                var tab = TabController.GetTabByName("Extensions", Null.NullInteger);
+                installAvailableLanguagePackLink.NavigateUrl = string.Format("{0}#availableExtensions", tab.FullUrl);
+
+                if (!ModulePermissionController.CanAdminModule(ModuleConfiguration))
+                {
+                    tabLanguages.Visible = Convert.ToBoolean(ModuleContext.Settings["ShowLanguages"]);
+                    tabSettings.Visible = Convert.ToBoolean(ModuleContext.Settings["ShowSettings"]);
+                    PanelLanguages.Visible = tabLanguages.Visible;
+                    panelSettings.Visible = tabSettings.Visible;
+
+                    // only show CL tab if other tabs are visible. We are still going to show the CL Panel though
+                    TabStrips.Visible = tabSettings.Visible || tabSettings.Visible;
+                }
+
+                if (PortalSettings.ContentLocalizationEnabled)
+                {
+                    defaultLanguageLabel.Language = PortalSettings.DefaultLanguage;
+                    defaultLanguageLabel.Visible = true;
+                    languagesComboBox.Visible = false;
+                    cmdEnableLocalizedContent.Visible = false;
+                    cmdDisableLocalization.Visible = true;
+                    defaultPortalMessage.Text = LocalizeString("PortalDefaultPublished.Text");
+                    enabledPublishedPlaceHolder.Visible = true;
+                    if (!Page.IsPostBack)
+                    {
+                        SetSelectedPage();
+                        ddlPages_SelectedIndexChanged(null, null);
+                    }
+                }
+                else
+                {
+                    defaultLanguageLabel.Visible = false;
+                    languagesComboBox.Visible = true;
+                    cmdEnableLocalizedContent.Visible = Host.EnableContentLocalization;
+                    cmdDisableLocalization.Visible = false;
+                    defaultPortalMessage.Text = LocalizeString("PortalDefaultEnabled.Text");
+                    enabledPublishedPlaceHolder.Visible = false;
+                    tabContentLocalization.Visible = false;
+                    panelContentLocalization.Visible = false;
+                }
+
             }
             catch (Exception exc)
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
+            }
+        }
+
+        private void SetSelectedPage()
+        {
+            string CultureCode = LocaleController.Instance.GetCurrentLocale(PortalId).Code;
+            // try to set the selected item in the page dropdown.
+            // if we have a cookie value for language x, we also try to select the right page
+            // if the language switched to y
+            if (Request.Cookies[PageSelectorCookieName] != null)
+            {
+                int selectedPage;
+                TabInfo tabInfo = null;
+                bool goodValue = int.TryParse(Request.Cookies[PageSelectorCookieName].Value, out selectedPage);
+                if (goodValue)
+                {
+                    tabInfo = _tabController.GetTab(selectedPage, PortalId, false);
+                    if (tabInfo.IsDeleted)
+                    {
+                        tabInfo = null;
+                        Response.Cookies.Remove(PageSelectorCookieName);
+                    }
+                }
+                if (tabInfo == null)
+                {
+                    tabInfo = _tabController.GetTab(PortalSettings.HomeTabId, PortalId, false);
+                }
+                goodValue = (tabInfo != null);
+                if (goodValue)
+                {
+                    if (tabInfo.CultureCode == CultureCode)
+                    {
+                        ddlPages.SelectedPage = tabInfo;
+                    }
+                    else
+                    {
+                        if (tabInfo.DefaultLanguageTab != null)
+                        {
+                            if (tabInfo.DefaultLanguageTab.CultureCode == CultureCode)
+                            {
+                                ddlPages.SelectedPage = tabInfo;
+                            }
+                            else
+                            {
+                                foreach (var tabKV in tabInfo.DefaultLanguageTab.LocalizedTabs.Where(tabKV => tabKV.Value.CultureCode == CultureCode))
+                                {
+                                    ddlPages.SelectedPage = tabKV.Value;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (tabInfo.LocalizedTabs != null)
+                        {
+                            foreach (var tabKV in tabInfo.LocalizedTabs.Where(tabKV => tabKV.Value.CultureCode == CultureCode))
+                            {
+                                ddlPages.SelectedPage = tabKV.Value;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -313,14 +480,17 @@ namespace DotNetNuke.Modules.Admin.Languages
             {
                 if ((sender) is DnnCheckBox)
                 {
-                    var enabledCheckbox = (DnnCheckBox) sender;
+                    var enabledCheckbox = (DnnCheckBox)sender;
                     int languageId = int.Parse(enabledCheckbox.CommandArgument);
                     Locale locale = LocaleController.Instance.GetLocale(languageId);
                     Locale defaultLocale = LocaleController.Instance.GetDefaultLocale(PortalId);
 
                     Dictionary<string, Locale> enabledLanguages = LocaleController.Instance.GetLocales(PortalId);
 
-                	var redirectUrl = string.Empty;
+                    var localizedTabs = PortalSettings.ContentLocalizationEnabled ?
+                        TabController.GetTabsByPortal(PortalId).WithCulture(locale.Code, false).AsList() : new List<TabInfo>();
+
+                    var redirectUrl = string.Empty;
                     if (enabledCheckbox.Enabled)
                     {
                         // do not touch default language
@@ -331,27 +501,42 @@ namespace DotNetNuke.Modules.Admin.Languages
                                 //Add language to portal
                                 Localization.AddLanguageToPortal(PortalId, languageId, true);
                             }
+
+                            //restore the tabs and modules
+                            var moduleController = new ModuleController();
+                            foreach (var tab in localizedTabs)
+                            {
+                                TabController.RestoreTab(tab, PortalSettings);
+                                moduleController.GetTabModules(tab.TabID).Values.ToList().ForEach(moduleController.RestoreModule);
+                            }
                         }
                         else
                         {
                             //remove language from portal
                             Localization.RemoveLanguageFromPortal(PortalId, languageId);
 
-							//if the disable language is current language, should redirect to default language.
-							if(locale.Code.Equals(Thread.CurrentThread.CurrentUICulture.ToString(), StringComparison.InvariantCultureIgnoreCase))
-							{
-								redirectUrl = Globals.NavigateURL(PortalSettings.ActiveTab.TabID, 
-																	PortalSettings.ActiveTab.IsSuperTab, 
-																	PortalSettings, "", defaultLocale.Code);
-							}
+                            //if the disable language is current language, should redirect to default language.
+                            if (locale.Code.Equals(Thread.CurrentThread.CurrentUICulture.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                redirectUrl = Globals.NavigateURL(PortalSettings.ActiveTab.TabID,
+                                                                    PortalSettings.ActiveTab.IsSuperTab,
+                                                                    PortalSettings, "", defaultLocale.Code);
+                            }
+
+                            //delete the tabs in this language
+                            foreach (var tab in localizedTabs)
+                            {
+                                tab.DefaultLanguageGuid = Guid.Empty;
+                                TabController.SoftDeleteTab(tab.TabID, PortalSettings);
+                            }
                         }
                     }
 
                     //Redirect to refresh page (and skinobjects)
-					if (string.IsNullOrEmpty(redirectUrl))
-					{
-						redirectUrl = Globals.NavigateURL();
-					}
+                    if (string.IsNullOrEmpty(redirectUrl))
+                    {
+                        redirectUrl = Globals.NavigateURL();
+                    }
 
                     Response.Redirect(redirectUrl, true);
                 }
@@ -372,14 +557,22 @@ namespace DotNetNuke.Modules.Admin.Languages
             var gridItem = e.Item as GridDataItem;
             if (gridItem != null)
             {
-                var languge = gridItem.DataItem as Locale;
-                if (languge != null)
+                var locale = gridItem.DataItem as Locale;
+                if (locale != null)
                 {
+                    var localizeLinkAlt = gridItem.FindControl("localizeLinkAlt") as HyperLink;
+                    if (localizeLinkAlt != null)
+                    {
+                        localizeLinkAlt.NavigateUrl = ModuleContext.NavigateUrl(ModuleContext.TabId,
+                                                                            "LocalizePages",
+                                                                            false,
+                                                                            "mid=" + ModuleContext.ModuleId,
+                                                                            "locale=" + locale.Code);
+                    }
                     var localizeLink = gridItem.FindControl("localizeLink") as HyperLink;
                     if (localizeLink != null)
                     {
-                        Locale defaultLocale = LocaleController.Instance.GetLocale(PortalDefault);
-                        CultureDropDownTypes DisplayType = default(CultureDropDownTypes);
+                        CultureDropDownTypes DisplayType;
                         string _ViewType = Convert.ToString(Personalization.GetProfile("LanguageDisplayMode", "ViewType" + PortalId));
                         switch (_ViewType)
                         {
@@ -394,17 +587,18 @@ namespace DotNetNuke.Modules.Admin.Languages
                                 break;
                         }
 
-                        localizeLink.NavigateUrl = ModuleContext.NavigateUrl(ModuleContext.TabId, 
-                                                                            "LocalizePages", 
-                                                                            false, 
+                        localizeLink.NavigateUrl = ModuleContext.NavigateUrl(ModuleContext.TabId,
+                                                                            "LocalizePages",
+                                                                            false,
                                                                             "mid=" + ModuleContext.ModuleId,
-                                                                            "locale=" + languge.Code);
+                                                                            "locale=" + locale.Code);
 
                         var publishButton = gridItem.FindControl("publishButton") as ImageButton;
                         if (publishButton != null)
                         {
-                            string msgPublish = String.Format(Localization.GetString("Publish.Confirm", LocalResourceFile), Localization.GetLocaleName(languge.Code, DisplayType));
+                            string msgPublish = String.Format(LocalizeString("Publish.Confirm"), Localization.GetLocaleName(locale.Code, DisplayType));
                             msgPublish = msgPublish.Replace("'", "\'");
+                            msgPublish = Localization.GetSafeJSString(msgPublish);
                             publishButton.Attributes.Add("onclick", "alert('" + msgPublish + "');");
                         }
                     }
@@ -430,7 +624,7 @@ namespace DotNetNuke.Modules.Admin.Languages
             {
                 if ((sender) is DnnCheckBox)
                 {
-                    var publishedCheckbox = (DnnCheckBox) sender;
+                    var publishedCheckbox = (DnnCheckBox)sender;
                     int languageId = int.Parse(publishedCheckbox.CommandArgument);
                     Locale locale = LocaleController.Instance.GetLocale(languageId);
 
@@ -449,48 +643,183 @@ namespace DotNetNuke.Modules.Admin.Languages
             }
         }
 
-        protected void PublishPages(object sender, CommandEventArgs e)
+        protected void PublishPages(object sender, EventArgs eventArgs)
         {
-            var cultureCode = (string) e.CommandArgument;
 
-            LocaleController.Instance.PublishLanguage(PortalId, cultureCode, true);
+            var cmdPublishPages = (LinkButton)sender;
+            int languageId = int.Parse(cmdPublishPages.CommandArgument);
+            var locale = new LocaleController().GetLocale(languageId);
+            LocaleController.Instance.PublishLanguage(PortalId, locale.Code, true);
 
-            //Redirect to refresh page (and skinobjects)
+            //Redirect to refresh page (and skinObjects)
             Response.Redirect(Globals.NavigateURL(), true);
         }
 
-		protected void updateButton_Click(object sender, EventArgs e)
-		{
-			PortalController.UpdatePortalSetting(ModuleContext.PortalId, "EnableBrowserLanguage", chkBrowser.Checked.ToString());
-			PortalController.UpdatePortalSetting(ModuleContext.PortalId, "AllowUserUICulture", chkUserCulture.Checked.ToString());
+        protected void updateButton_Click(object sender, EventArgs e)
+        {
+            PortalController.UpdatePortalSetting(ModuleContext.PortalId, "EnableBrowserLanguage", chkBrowser.Checked.ToString());
+            PortalController.UpdatePortalSetting(ModuleContext.PortalId, "AllowUserUICulture", chkUserCulture.Checked.ToString());
 
-			// if contentlocalization is enabled, default language cannot be changed
-			if (!PortalSettings.ContentLocalizationEnabled)
-			{
-				// first check whether or not portal default language has changed
-				string newDefaultLanguage = languagesComboBox.SelectedValue;
-				if (newDefaultLanguage != PortalSettings.DefaultLanguage)
-				{
-					if (!IsLanguageEnabled(newDefaultLanguage))
-					{
-						Locale language = null;
-						language = LocaleController.Instance.GetLocale(newDefaultLanguage);
-						Localization.AddLanguageToPortal(ModuleContext.PortalId, language.LanguageId, true);
-					}
+            // if contentlocalization is enabled, default language cannot be changed
+            if (!PortalSettings.ContentLocalizationEnabled)
+            {
+                // first check whether or not portal default language has changed
+                string newDefaultLanguage = languagesComboBox.SelectedValue;
+                if (newDefaultLanguage != PortalSettings.DefaultLanguage)
+                {
+                    var needToRemoveOldDefaultLanguage = LocaleController.Instance.GetLocales(PortalId).Count == 1;
+                    var OldDefaultLanguage = LocaleController.Instance.GetLocale(PortalDefault);
+                    if (!IsLanguageEnabled(newDefaultLanguage))
+                    {
+                        var language = LocaleController.Instance.GetLocale(newDefaultLanguage);
+                        Localization.AddLanguageToPortal(ModuleContext.PortalId, language.LanguageId, true);
+                    }
 
-                // update portal default language
-                var objPortalController = new PortalController();
-                PortalInfo objPortal = objPortalController.GetPortal(PortalId);
-                objPortal.DefaultLanguage = newDefaultLanguage;
-                objPortalController.UpdatePortalInfo(objPortal);
+                    // update portal default language
+                    var objPortalController = new PortalController();
+                    PortalInfo objPortal = objPortalController.GetPortal(PortalId);
+                    objPortal.DefaultLanguage = newDefaultLanguage;
+                    objPortalController.UpdatePortalInfo(objPortal);
 
-					_PortalDefault = newDefaultLanguage;
-				}
-			}
-			BindDefaultLanguageSelector();
-			BindGrid();
-		}
+                    _PortalDefault = newDefaultLanguage;
+
+                    if (needToRemoveOldDefaultLanguage)
+                    {
+                        Localization.RemoveLanguageFromPortal(PortalId, OldDefaultLanguage.LanguageId);
+                    }
+                }
+
+                PortalController.UpdatePortalSetting(ModuleContext.PortalId, "EnableUrlLanguage", chkUrl.Checked.ToString());
+            }
+            BindDefaultLanguageSelector();
+            BindGrid();
+        }
+
+        protected void cmdDeleteTranslation_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if ((sender) is LinkButton)
+                {
+                    var cmdDeleteTranslation = (LinkButton)sender;
+                    int languageId = int.Parse(cmdDeleteTranslation.CommandArgument);
+                    Locale locale = LocaleController.Instance.GetLocale(languageId);
+
+                    TabController.DeleteTranslatedTabs(PortalId, locale.Code, false);
+
+                    new PortalController().RemovePortalLocalization(PortalId, locale.Code, false);
+
+                    LocaleController.Instance.PublishLanguage(PortalId, locale.Code, false);
+
+
+                    DataCache.ClearPortalCache(PortalId, true);
+
+                    //Redirect to refresh page (and skinobjects)
+                    Response.Redirect(Globals.NavigateURL(), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Exceptions.ProcessModuleLoadException(this, ex);
+            }
+        }
+
+        protected void cmdDisableLocalization_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var portalController = new PortalController();
+
+                foreach (Locale locale in LocaleController.Instance.GetLocales(PortalSettings.PortalId).Values)
+                {
+                    if (!IsDefaultLanguage(locale.Code))
+                    {
+
+                        LocaleController.Instance.PublishLanguage(PortalId, locale.Code, false);
+                        TabController.DeleteTranslatedTabs(PortalId, locale.Code, false);
+                        portalController.RemovePortalLocalization(PortalId, locale.Code, false);
+
+                    }
+                }
+
+                TabController.EnsureNeutralLanguage(PortalId, PortalDefault, false);
+
+                PortalController.UpdatePortalSetting(PortalId, "ContentLocalizationEnabled", "False");
+
+                DataCache.ClearPortalCache(PortalId, true);
+
+
+                Response.Redirect(Globals.NavigateURL(), true);
+            }
+            catch (Exception ex)
+            {
+                Exceptions.ProcessModuleLoadException(this, ex);
+            }
+        }
+
+        protected void ddlPages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlPages.SelectedPage != null)
+            {
+                var pageCookie = new HttpCookie(PageSelectorCookieName) { Value = ddlPages.SelectedPage.TabID.ToString(CultureInfo.InvariantCulture) };
+            Response.Cookies.Add(pageCookie);
+            }
+            BindCLControl();
+        }
+
+        protected void LanguagesGrid_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            languagesGrid.DataSource = LocaleController.Instance.GetLocales(Null.NullInteger).Values;
+        }
+
+        protected void cmdUpdate_Click(object sender, EventArgs e)
+        {
+            CLControl1.SaveData();
+            BindCLControl();
+        }
+
+        protected void cmdFix_Click(object sender, EventArgs e)
+        {
+            CLControl1.FixLocalizationErrors(ddlPages.SelectedPage.TabID);
+            BindCLControl();
+        }
+
+        protected void MakeTranslatable_Click(object sender, EventArgs e)
+        {
+            var tab = ddlPages.SelectedPage;
+            var defaultLocale = LocaleController.Instance.GetDefaultLocale(PortalId);
+            TabController.LocalizeTab(tab, defaultLocale, false);
+            TabController.AddMissingLanguages(PortalId, tab.TabID);
+            TabController.ClearCache(PortalId);
+            BindCLControl();
+        }
+
+        protected void MakeNeutral_Click(object sender, EventArgs e)
+        {
+            var tab = ddlPages.SelectedPage;
+            if (TabController.GetTabsByPortal(PortalId).WithParentId(tab.TabID).Count == 0)
+            {
+                var defaultLocale = LocaleController.Instance.GetDefaultLocale(PortalId);
+
+                TabController.ConvertTabToNeutralLanguage(PortalId, tab.TabID, defaultLocale.Code, true);
+
+                BindCLControl();
+            }
+            else
+            {
+                UI.Skins.Skin.AddModuleMessage(this, Localization.GetString("ChildrenExistWhenConvertingToNeutral", LocalResourceFile), ModuleMessage.ModuleMessageType.YellowWarning);
+            }
+        }
+
+        protected void AddMissing_Click(object sender, EventArgs e)
+        {
+            TabController.AddMissingLanguages(PortalId, ddlPages.SelectedPage.TabID);
+
+            BindCLControl();
+
+        }
 
         #endregion
+
     }
 }
