@@ -46,7 +46,7 @@ Author URI: http://dev7studios.com
 	display:inline-block;
 	width:18px;
 	height:18px;
-	background:url(bullets.png) no-repeat;
+	background:url(bulletsIcon.png) no-repeat;
 	text-indent:-9999px;
 	border:0;
 	margin: 0 0px;
@@ -71,6 +71,10 @@ Author URI: http://dev7studios.com
 }
 .theme-default a.nivo-prevNav {
 	left:15px;
+}
+.ContentPane {
+    background-color: #EBEFEF !important;
+
 }
 
 .theme-default .nivo-caption {

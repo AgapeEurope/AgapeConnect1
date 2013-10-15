@@ -592,22 +592,22 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
                     Dim s = From c In Staff Where c.CostCenter = row.CostCentreCode
 
-                    For Each dept In Depts
-                        If Not dept.CostCentreManager Is Nothing Then
+                    For Each dep In Depts
+                        If Not dep.CostCentreManager Is Nothing Then
 
 
-                            Dim Man = UserController.GetUserById(PortalId, dept.CostCentreManager)
+                            Dim Man = UserController.GetUserById(PortalId, dep.CostCentreManager)
                             If Not Man Is Nothing Then
-                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """, Manager of ,""" & dept.Name & ""","
+                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """, Manager of ,""" & dep.Name & ""","
                                 csvOut &= Man.DisplayName & vbNewLine
                             End If
                         End If
-                        If Not dept.CostCentreDelegate Is Nothing Then
+                        If Not dep.CostCentreDelegate Is Nothing Then
 
 
-                            Dim del = UserController.GetUserById(PortalId, dept.CostCentreDelegate)
+                            Dim del = UserController.GetUserById(PortalId, dep.CostCentreDelegate)
                             If Not del Is Nothing Then
-                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """, Manager of ,""" & dept.Name & ""","
+                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """, Manager of ,""" & dep.Name & ""","
                                 csvOut &= """" & del.DisplayName & """" & vbNewLine
                             End If
                         End If
