@@ -37,14 +37,6 @@ body, .Normal, a:link, a:active, a:visited, a:hover {
     -webkit-text-size-adjust: 100%; /*Prevent iPhone Text Enlargement*/
 }
 
-a:link, a:active, a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
 .clear_float {
     clear: both;
     line-height: 0;
