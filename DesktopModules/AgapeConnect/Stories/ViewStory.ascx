@@ -53,6 +53,8 @@
                     $('#more').hide();
                 }*/
 
+
+
                 function initialize() {
                     var myLatlng = new google.maps.LatLng(<%= location %>);
                 

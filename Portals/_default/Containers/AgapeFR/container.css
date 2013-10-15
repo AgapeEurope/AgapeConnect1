@@ -27,7 +27,7 @@
 
 .Normal h1 {
     font-size: 20px;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     margin-top: 15px;
     margin-bottom: 15px;
     color: #3A8BC2;
@@ -35,7 +35,7 @@
 
 .Normal h2 {
     font-size: 18px;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     margin-top: 15px;
     margin-bottom: 15px;
     color: #3A8BC2;
@@ -43,7 +43,7 @@
 
 .Normal h3 {
     font-size: 16px;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     margin-top: 15px;
     margin-bottom: 15px;
     color: #3A8BC2;
