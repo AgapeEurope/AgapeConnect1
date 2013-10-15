@@ -276,7 +276,7 @@ namespace KeyUser
 
             string validateurl = server + "proxyValidate?ticket=" + _st.Trim().ToString()
                 + "&service=" + service
-                + "&pgtUrl=https://myagape.org.uk/pgtCallback.aspx";
+                + "&pgtUrl=https://agapeconnect.me/CasLogin.aspx";
 
             Stream s;
 
@@ -328,6 +328,7 @@ namespace KeyUser
 
             try
             {
+                
                 returnPgt = new theKeyProxyTicket.PGTCallBack().RetrievePGTCallback("CASAUTH", "thecatsaysmeow3", _pgtIou);
             }
             catch
