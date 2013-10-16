@@ -24,34 +24,6 @@
     padding: 0;
 }
 
-
-.ui-widget-overlay {
-    z-index: 200;
-}
-.ui-dialog {
-    z-index:600;
-
-}
-
-div.ui-dialog-titlebar > .ui-dialog-titlebar-close {
-    top:3px;
-    right:2px;
-}
-.dnnFormPopup .dnnModalCtrl {
-    top:3px;
-    right:5px;
-
-}
-    .dnnFormPopup .dnnModalCtrl .ui-dialog-titlebar-close {
-        margin: -9px 0 0 0;
-        padding: 0;
-        right:3.5px;
-    }
-   
-
-.ui-dialog .ui-dialog-titlebar-close span {
-    display: none;
-}
 html, body, form {
     height: 100%;
     min-width: 975px;
