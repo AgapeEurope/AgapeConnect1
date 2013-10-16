@@ -274,7 +274,7 @@ Namespace DotNetNuke.Modules.FullStory
 
                     End If
                     SuperPowers.SuperEditor = UserInfo.IsSuperUser
-                    SuperPowers.EditUrl = EditUrl("AddEditStory")
+                    SuperPowers.EditUrl = NavigateURL(CInt(Request.QueryString("origTabId")), "AddEditStory", {"mid", Request.QueryString("origModId")})
                     SuperPowers.PortalId = PortalId
                     SuperPowers.SetControls()
 
