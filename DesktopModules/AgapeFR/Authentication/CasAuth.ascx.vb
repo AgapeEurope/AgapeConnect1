@@ -272,7 +272,6 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
         Protected Sub BtnTheKey_Click(sender As Object, e As EventArgs) Handles BtnTheKey.Click
 
             Dim template = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapefrance.css"
-            'Dim template = "http://www.agapefrance.org/sso/AgapeFrance_TheKey.css"
 
             ' First time through there is no ticket=, so get returnurl in request and redirect to CAS login
             Dim returnUrl As String = Request.QueryString("returnurl")
