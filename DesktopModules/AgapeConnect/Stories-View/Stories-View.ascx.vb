@@ -24,9 +24,18 @@ Namespace DotNetNuke.Modules.FullStory
         Public articleIcon As String = "/DesktopModules/AgapeConnect/Stories/images/articleIcon.png"
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+            If String.IsNullOrEmpty(Request.QueryString("StoryId")) Then
+                PagePanel.Visible = False
+                NotFoundLabel.Visible = True
+                NotFoundLabel.Text = ""
+                Return
+            End If
+
             Dim d As New StoriesDataContext
             Dim r = (From c In d.AP_Stories Where c.StoryId = Request.QueryString("StoryID")).First
             Dim thecache = From c In d.AP_Stories_Module_Channel_Caches Where c.AP_Stories_Module_Channel.AP_Stories_Module.TabModuleId = r.TabModuleId And c.Link.EndsWith("StoryId=" & r.StoryId)
+
+
 
             If Not String.IsNullOrEmpty(Request.Form("Boosted")) Then
 
