@@ -416,7 +416,7 @@ Namespace DotNetNuke.Modules.FullStory
             If q.Count > 0 Then
 
 
-                rtn &= "<div class=""agendaTitle"">Autres articles:</div>"
+                rtn &= "<div class=""agendaTitle"">Autres articles</div>"
                 For Each row In q.Take(5).OrderByDescending(Function(c) c.StoryDate)
                     rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'>"
