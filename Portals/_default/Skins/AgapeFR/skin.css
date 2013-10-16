@@ -17,7 +17,7 @@
 @import url("./css/footer.css");
 
 /*===================== PAGE GLOBALS ===================== */
-@import url("./start/jquery-ui-1.8.16.custom.css");
+@import url("./FranceTheme/jquery-ui-1.10.3.custom.min.css");
 * {
     margin: 0;
     padding: 0;
