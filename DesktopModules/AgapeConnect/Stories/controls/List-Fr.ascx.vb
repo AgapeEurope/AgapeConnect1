@@ -125,7 +125,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                 btnPrev.Visible = Not (pg = 0)
                 btnPrev.NavigateUrl = urlStub & (pg - 1)
                 btnNext.NavigateUrl = urlStub & (pg + 1)
-                btnNext.Visible = (CInt(Stories.Count / CInt(settings("NumberOfStories"))) > pg)
+                btnNext.Visible = (Math.Floor(Stories.Count / CInt(settings("NumberOfStories"))) > pg)
          
             End If
 
