@@ -2768,7 +2768,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ddlCostcenter.SelectedValue = theLine.First.CostCenter
                     ddlAccountCode.SelectedValue = theLine.First.AccountCode
 
-                    ifReceipt.Attributes("src") = PortalSettings.PortalAlias.HTTPAlias & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & theLine.First.RmbNo & "&RmbLine=" & theLine.First.RmbLineNo
+                    ifReceipt.Attributes("src") = Request.Url.Scheme & "://" & Request.Url.Host & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & theLine.First.RmbNo & "&RmbLine=" & theLine.First.RmbLineNo
+
                     If Not theLine.First.ReceiptImageId Is Nothing Then
                         pnlElecReceipts.Attributes("style") = ""
                     Else
