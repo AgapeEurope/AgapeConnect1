@@ -83,6 +83,7 @@
 
     .typeFont {
         color: #AAA;
+        margin: 10px 0 15px 0;
     }
      .typeFont span {
       position: relative;
