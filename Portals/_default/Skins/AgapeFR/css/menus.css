@@ -21,10 +21,19 @@
 #menu1 .navhor  a:link, #menu1 .navhor  a:active, #menu1 .navhor  a:visited, #menu1 .navhor  a:hover {
 	font-family: OpenSansLight;
 	font-size: 20px;
+    font-weight: normal;
     white-space: nowrap; /* Needed for first iPad */
 	padding: 0 10px 0 10px;
 	color: #3A8BC2;
 	margin-bottom: 6px;
+}
+
+#menu1 .navhor  a:link, #menu1 .navhor  a:active, #menu1 .navhor  a:visited {
+	text-decoration: none;
+}
+
+#menu1 .navhor  a:hover {
+	text-decoration: underline;
 }
 
 #menu1 .navhor  li a
@@ -72,8 +81,17 @@
 #menu2 .navhor  a:link, #menu2 .navhor  a:active, #menu2 .navhor  a:visited, #menu2 .navhor  a:hover {
 	font-family: OpenSansRegular;
 	font-size: 14px;
+    font-weight: normal;
 	padding: 0 5px 0 5px;
 	color: white;
+}
+
+#menu2 .navhor  a:link, #menu2 .navhor  a:active, #menu2 .navhor  a:visited{
+	text-decoration: none;
+}
+
+#menu2 .navhor  a:hover {
+	text-decoration: underline;
 }
 
 #menu2 .navhor li {
@@ -92,3 +110,4 @@
 	color: #3A8BC2;
 	background: url('../images/SubMenuBkg.png') repeat-x center; 
 }
+
