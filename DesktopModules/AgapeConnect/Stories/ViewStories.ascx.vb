@@ -5,6 +5,7 @@ Imports System.Data
 Imports System.Linq
 
 Imports DotNetNuke
+Imports DotNetNuke.Common
 Imports DotNetNuke.Security
 Imports StaffBroker
 Imports StaffBrokerFunctions
@@ -13,19 +14,20 @@ Imports DotNetNuke.Services.FileSystem
 Namespace DotNetNuke.Modules.AgapeConnect.Stories
     Partial Class ViewStories
         Inherits Entities.Modules.PortalModuleBase
+        Implements Entities.Modules.IActionable
         'Adding Stories Translation
         Dim d As New StoriesDataContext
         Dim theControl As Object
 
         Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
-            Dim addTitle = New Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+            'Dim addTitle = New Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+    
+            'addTitle.Actions.Add(GetNextActionID, "Story Settings", "StorySettings", "", "action_settings.gif", EditUrl("StorySettings"), False, SecurityAccessLevel.Edit, True, False)
+            'addTitle.Actions.Add(GetNextActionID, "Story Mixer", "StoryMixer", "", "action_settings.gif", EditUrl("Mixer"), False, SecurityAccessLevel.Edit, True, False)
+            'addTitle.Actions.Add(GetNextActionID, "Unpublished", "unpublished", "", "action_settings.gif", EditUrl("unpublished"), False, SecurityAccessLevel.Edit, True, False)
 
-            addTitle.Actions.Add(GetNextActionID, "Story Settings", "StorySettings", "", "action_settings.gif", EditUrl("StorySettings"), False, SecurityAccessLevel.Edit, True, False)
-            addTitle.Actions.Add(GetNextActionID, "Story Mixer", "StoryMixer", "", "action_settings.gif", EditUrl("Mixer"), False, SecurityAccessLevel.Edit, True, False)
-            addTitle.Actions.Add(GetNextActionID, "Unpublished", "unpublished", "", "action_settings.gif", EditUrl("unpublished"), False, SecurityAccessLevel.Edit, True, False)
-
-            addTitle.Actions.Add(GetNextActionID, "New Story", "NewStory", "", "add.gif", EditUrl("AddEditStory"), False, SecurityAccessLevel.Edit, True, False)
-            MyBase.Actions.Insert(0, addTitle)
+            'addTitle.Actions.Add(GetNextActionID, "New Story", "NewStory", "", "add.gif", EditUrl("AddEditStory"), False, SecurityAccessLevel.Edit, True, False)
+            'MyBase.Actions.Insert(0, addTitle)
         End Sub
 
 
@@ -167,7 +169,33 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
         End Sub
 
+#Region "Optional Interfaces"
 
+        Public ReadOnly Property ModuleActions() As Entities.Modules.Actions.ModuleActionCollection Implements Entities.Modules.IActionable.ModuleActions
+            Get
+               
+
+                Dim Actions As New Entities.Modules.Actions.ModuleActionCollection
+
+
+                '    Dim addTitle = New Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+
+                Actions.Add(GetNextActionID, "Story Settings", "StorySettings", "", "action_settings.gif", EditUrl("StorySettings"), False, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Story Mixer", "StoryMixer", "", "action_settings.gif", EditUrl("Mixer"), False, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Unpublished", "unpublished", "", "action_settings.gif", EditUrl("unpublished"), False, SecurityAccessLevel.Edit, True, False)
+
+                Actions.Add(GetNextActionID, "New Story", "NewStory", "", "add.gif", EditUrl("AddEditStory"), False, SecurityAccessLevel.Edit, True, False)
+                '  Actions.Add(addTitle)
+
+                'Actions.Add(GetNextActionID, Localization.GetString("StorySettings", LocalResourceFile), _
+                '             Entities.Modules.Actions.ModuleActionType.AddContent, "", "", _
+                '             EditUrl("StorySettings"), False, _
+                '             SecurityAccessLevel.Edit, True, False)
+                Return Actions
+            End Get
+        End Property
+
+#End Region
     End Class
 
 
