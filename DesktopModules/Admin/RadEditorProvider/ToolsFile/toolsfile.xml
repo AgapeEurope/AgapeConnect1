@@ -87,7 +87,7 @@
     <tools>
         <tool name="FormatBlock"/>
         <tool separator="true"/>
-        <tool name="ApplyClass"/>
+        <tool name="ApplyClass"/>      
         <tool name="FormatStripper"/>
     </tools>
 
@@ -99,12 +99,24 @@
         <paragraph name="&lt;H4>Titre 4&lt;/H4&gt;" value="&lt;H4&gt;" />
         <paragraph name="&lt;H5>Titre 5&lt;/H5&gt;" value="&lt;H5&gt;" />
         <paragraph name="&lt;H6>Titre 6&lt;/H6&gt;" value="&lt;H6&gt;" />
-        <paragraph name="&lt;span class='bleu'>Texte renforcé&lt;/span&gt;" value="&lt;span class='bleu'&gt;" />
+        <paragraph name="&lt;P class='introduction'&gt;Introduction&lt;/P&gt;" value="&lt;P class='introduction'&gt;" />
+        <paragraph name="&lt;P class='quote'&gt;Citation&lt;/P&gt;" value="&lt;P class='quote'&gt;" />
     </paragraphs>
 
     <classes>
-        <class name="Texte renforcé" value=".bleu" />
-        <class name="Titre 1 test" value=".title1" />
+        <class name="Texte renforcé" value=".highlight" />
     </classes>
+
+
+  <tools>
+    <tool name="InsertSnippet" />
+  </tools>
+  <snippets>
+    <snippet name="&lt;img src='/DesktopModules/Admin/RadEditorProvider/images/map.png' /&gt; Insérer une carte">
+      <![CDATA[         
+          <br />[MAP]
+      ]]>
+    </snippet>
+  </snippets>
 
 </root>

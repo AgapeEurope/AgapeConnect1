@@ -16,8 +16,17 @@
 /*===================== FOOTER ===================== */
 @import url("./css/footer.css");
 
+/*===================== TYPOGRAPHY ===================== */
+@import url("/Portals/_default/Skins/AgapeFR/css/content.css");
+
+/*===================== JQUERY-UI ===================== */
+@import url("./start/jquery-ui-1.8.16.custom.css");
+@import url("./JqueryUIFix.css");
+
 /*===================== PAGE GLOBALS ===================== */
 @import url("./start/jquery-ui-1.8.16.custom.css");
+@import url("./JqueryUIFix.css");
+
 @import url("./JqueryUIFix.css");
 * {
     margin: 0;
@@ -46,18 +55,4 @@ a:hover {
     text-decoration: underline;
 }
 
-.clear_float {
-    clear: both;
-    line-height: 0;
-    font-size: 0;
-    height: 0;
-}
 
-.debug {
-    border: solid 1px red;
-    background-color: yellow;
-}
-
-.bleu {
-    color: #3A8BC2;
-}
