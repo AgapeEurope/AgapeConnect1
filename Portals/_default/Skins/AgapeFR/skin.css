@@ -17,7 +17,7 @@
 @import url("./css/footer.css");
 
 /*===================== PAGE GLOBALS ===================== */
-@import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
+@import url("./start/jquery-ui-1.8.16.custom.css");
 * {
     margin: 0;
     padding: 0;
