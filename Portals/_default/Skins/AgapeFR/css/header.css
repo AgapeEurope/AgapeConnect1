@@ -70,5 +70,5 @@
 }
 
 #header #SearchContainer a:hover #SearchSubmit {
-	background:#ABACAE url('../images/loupe.png') no-repeat center center;
+	background-color: #ABACAE;
 }
