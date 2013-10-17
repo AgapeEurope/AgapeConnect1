@@ -36,7 +36,7 @@ Author URI: http://dev7studios.com
    
     height: 10px;
 	text-align: right;
-	/*margin-top: -25px;*/
+	margin-top: 5px;
 	/*bottom: -20px;*/
    color: transparent;
 	z-index: 9;
@@ -72,10 +72,7 @@ Author URI: http://dev7studios.com
 .theme-default a.nivo-prevNav {
 	left:15px;
 }
-.ContentPane {
-    background-color: #EBEFEF !important;
 
-}
 
 .theme-default .nivo-caption {
 
@@ -118,7 +115,7 @@ Author URI: http://dev7studios.com
 	background:transparent;
    color:#3A8BC2;
    position: absolute ;
-   bottom: -105px;
+   bottom: -120px;
    overflow-y: hidden;
    overflow-x: hidden;
    /*max-width: 650px;*/
@@ -126,7 +123,7 @@ Author URI: http://dev7studios.com
    vertical-align: top;
     height : 120px !important;
     
-     padding: 10px;
+     padding: 10px 0 10px 0;
 }
 
 .theme-default .nivo-capiton h3 span {

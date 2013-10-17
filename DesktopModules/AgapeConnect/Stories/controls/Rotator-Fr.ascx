@@ -22,7 +22,7 @@
                  '-moz-transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
                  '-webkit-transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
                  '-o-transform': 'translate(-' + offset + '%, -' + offset + '%) scale(' + scale + ')' ,
-                 'width':<%= divWidth %> +'px', 'height':(newH-8+90) + 'px' });
+                 'width':<%= divWidth %> +'px', 'height':(newH-8) + 'px' });
            
                
 

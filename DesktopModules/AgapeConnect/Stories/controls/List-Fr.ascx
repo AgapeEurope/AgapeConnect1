@@ -93,7 +93,7 @@
 
     .typeFont {
         <%--color: #AAA;--%>
-        margin: 10px 0 15px 0;
+        <%--margin: 10px 0 15px 0;--%>
     }
      .typeFont span {
       position: relative;
@@ -279,12 +279,12 @@
         </div>
 
         <div class="typeFont">
-             <asp:Image ID="Image1" runat="server" ImageUrl='<%# GetTypeImage( Eval("GUID")) %>' CssClass="iconImage" />&nbsp;&nbsp;
-           <h6>  <asp:Label ID="Label1" runat="server" Style="font-size: medium" Text='<%#  GetTypeText( Eval("GUID")) %>' /> &nbsp;&nbsp;
+            <h6>  <asp:Image ID="Image1" runat="server" ImageUrl='<%# GetTypeImage( Eval("GUID")) %>' CssClass="iconImage" />&nbsp;&nbsp;
+            <asp:Label ID="Label1" runat="server" Style="font-size: medium" Text='<%#  GetTypeText( Eval("GUID")) %>' /> &nbsp;&nbsp;
             <asp:Label ID="Label5" runat="server"  Font-Size="medium" Text='<%# GetStoryDateString(Eval("StoryDate"), Eval("GUID"), Eval("Link"))%>' /></h6>
         </div>
         <div style="clear: both;"></div>
-        <h3><asp:Label ID="HyperLink1" runat="server" CssClass="storyTitle"  Text='<%# Eval("Headline")%>' /></h3>
+        <h4><asp:Label ID="HyperLink1" runat="server" CssClass="storyTitle"  Text='<%# Eval("Headline")%>' /></h4>
 
 
 

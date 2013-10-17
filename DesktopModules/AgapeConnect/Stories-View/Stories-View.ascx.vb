@@ -421,7 +421,7 @@ Namespace DotNetNuke.Modules.FullStory
                     rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/articleIcon.png' style='width:30px;' /></td><td style='padding-left: 12px;'>"
-                    rtn &= "<h3 class='eventTitle'>" & row.Headline & "</h3>"
+                    rtn &= "<h4 class='eventTitle'>" & row.Headline & "</h4>"
 
                     rtn &= "<h6  class='eventSample'>" & row.StoryDate.ToString("dd MMMM yyyy", New CultureInfo("fr-fr")) & "</h6></td></tr></table></a></div>"
 
@@ -457,7 +457,7 @@ Namespace DotNetNuke.Modules.FullStory
                     rtn &= "<table><tr><td style='vertical-align: top;'><div class='eventDay' >" & row.StoryDate.Day & "</div>"
                     rtn &= "<div class='eventMonth'>" & row.StoryDate.ToString("MMM", New CultureInfo("fr-fr")) & "</div>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/cal.png' style='width:32px;' /></td><td style='padding-left: 12px;'>"
-                    rtn &= "<h3 class='eventTitle'>" & row.Headline & "</h3>"
+                    rtn &= "<h4 class='eventTitle'>" & row.Headline & "</h4>"
 
                     rtn &= "<h6  class='eventSample'>" & row.TextSample & "</h6></td></tr></table></a></div>"
 
@@ -493,7 +493,7 @@ Namespace DotNetNuke.Modules.FullStory
                     rtn &= "<table><tr><td style='vertical-align: top;'><div class='eventDay' >" & row.StoryDate.Day & "</div>"
                     rtn &= "<div class='eventMonth'>" & row.StoryDate.ToString("MMM", New CultureInfo("fr-fr")) & "</div>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/cal.png' style='width:32px;' /></td><td style='padding-left: 12px;'>"
-                    rtn &= "<h3 class='eventTitle'>" & row.Headline & "</h3>"
+                    rtn &= "<h4 class='eventTitle'>" & row.Headline & "</h4>"
 
                     rtn &= "<h6  class='eventSample'>" & row.TextSample & "</h6></td></tr></table></a></div>"
 
