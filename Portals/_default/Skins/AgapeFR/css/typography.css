@@ -108,6 +108,20 @@ h6 {
     line-height: 28px;
 }
 
+.draft {
+    background: yellow;
+    color: red;
+}
+
+ul, ol {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+    padding-left: 40px;
+}
+
 ul {
     list-style: disc;
 }
@@ -116,3 +130,7 @@ ol {
     list-style: decimal;
 }
 
+ul li, ol li {
+    text-align: left;
+    margin-bottom: 10px;
+}

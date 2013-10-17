@@ -1,4 +1,15 @@
-﻿/*===================== MENU1 ===================== */
+﻿ul.navhor {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+ul.navhor li {
+    padding: 0;
+    margin: 0;
+}
+
+/*===================== MENU1 ===================== */
 
 #header #menu1 {
 	position: absolute;
