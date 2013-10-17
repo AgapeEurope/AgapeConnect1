@@ -1,6 +1,9 @@
 ﻿#headerContent {
 	margin-right: 10px;
 	position:relative;
+}
+
+#headerContent, #headerContent p, #headerContent ul, #headerContent ol, #headerContent a:link, #headerContent a:active, #headerContent a:visited, #headerContent a:hover  {
     font-size: 12px;
     font-weight: normal;
 	font-family: OpenSansRegular;
