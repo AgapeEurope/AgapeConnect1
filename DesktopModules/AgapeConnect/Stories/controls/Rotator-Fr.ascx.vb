@@ -100,7 +100,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                         out &= "<a href=""" & href & """> "
 
                        
-                        Dim title As String = "<h3><span style='font-size: xx-large; opacity: 1.0 !important;'>" & row.Headline & "</span></h3>"
+                        Dim title As String = "<h1 style='line-height: 42px;'><span style=' opacity: 1.0 !important;'>" & row.Headline & "</span></h1>"
 
                         Select Case AspectMode
                             Case 0
