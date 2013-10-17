@@ -71,6 +71,7 @@
 
 #menu2 .navhor {
     width: 100%;
+    margin-bottom: 5px;
 }
 
 #menu2 .navhor, #menu2 .navhor li, #menu2 .navhor a:link, #menu2 .navhor a:active, #menu2 .navhor a:visited, #menu2 .navhor a:hover {
@@ -95,7 +96,7 @@
 }
 
 #menu2 .navhor li {
-	line-height: 34px;
+	/*line-height: 34px;*/
 }
 
 #menu2 .navhor li #pointer {
