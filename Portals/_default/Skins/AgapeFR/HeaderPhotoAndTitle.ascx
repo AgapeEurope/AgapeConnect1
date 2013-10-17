@@ -5,7 +5,7 @@
 <script type="text/javascript">
     (function ($, Sys) {
         function initContentTitle() {
-            $('#ContentContainer #ContentTitle').text('<%=TabController.CurrentPage.TabName%>');
+            $('#ContentContainer #ContentTitle').text("<%=TabController.CurrentPage.TabName%>");
         }
 
         $(document).ready(function () {
