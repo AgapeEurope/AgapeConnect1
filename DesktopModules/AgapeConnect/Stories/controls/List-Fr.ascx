@@ -87,9 +87,9 @@
     .storyTitle {
         
     }
-        .dnnGridItem:hover .storyTitle,.dnnGridAltItem:hover .storyTitle  {
+        <%--.dnnGridItem:hover .storyTitle,.dnnGridAltItem:hover .storyTitle  {
             text-decoration: underline;
-        }
+        }--%>
 
     .typeFont {
         <%--color: #AAA;--%>
