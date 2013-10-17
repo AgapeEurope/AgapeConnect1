@@ -74,9 +74,9 @@
 <asp:Panel ID="PagePanel" runat="server" Style="margin-right: 0px; margin-left: 0px;
     padding-left 0px;">
     <div class="Agape_Story_storymain">
-        <div class="AgapeH2">
+        <h1 class="AgapeH2">
            <asp:TextBox ID="Headline" CssClass="AgapeH2"  style="border-bottom-style: none; width: 100%;" runat="server" ></asp:TextBox>
-        </div>
+        </h1>
         <div class="Agape_Story_subtitle">
             <table width="100%">
                 <tr>

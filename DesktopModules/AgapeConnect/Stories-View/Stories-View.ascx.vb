@@ -416,14 +416,14 @@ Namespace DotNetNuke.Modules.FullStory
             If q.Count > 0 Then
 
 
-                rtn &= "<div class=""agendaTitle"">Autres articles</div>"
+                rtn &= "<h2 class=""agendaTitle"">Autres articles</h2>"
                 For Each row In q.Take(5).OrderByDescending(Function(c) c.StoryDate)
                     rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/articleIcon.png' style='width:30px;' /></td><td style='padding-left: 12px;'>"
-                    rtn &= "<div class='eventTitle'>" & row.Headline & "</div>"
+                    rtn &= "<h3 class='eventTitle'>" & row.Headline & "</h3>"
 
-                    rtn &= "<span  class='eventSample'>" & row.StoryDate.ToString("dd MMMM yyyy", New CultureInfo("fr-fr")) & "</span></td></tr></table></a></div>"
+                    rtn &= "<h6  class='eventSample'>" & row.StoryDate.ToString("dd MMMM yyyy", New CultureInfo("fr-fr")) & "</h6></td></tr></table></a></div>"
 
                 Next
 
@@ -450,16 +450,16 @@ Namespace DotNetNuke.Modules.FullStory
             If q.Count > 0 Then
 
 
-                rtn &= "<div class=""agendaTitle"">Agenda</div>"
+                rtn &= "<h2 class=""agendaTitle"">Agenda</h2>"
                 For Each row In q.Take(3).OrderBy(Function(c) c.StoryDate)
 
                     rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'><div class='eventDay' >" & row.StoryDate.Day & "</div>"
                     rtn &= "<div class='eventMonth'>" & row.StoryDate.ToString("MMM", New CultureInfo("fr-fr")) & "</div>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/cal.png' style='width:32px;' /></td><td style='padding-left: 12px;'>"
-                    rtn &= "<div class='eventTitle'>" & row.Headline & "</div>"
+                    rtn &= "<h3 class='eventTitle'>" & row.Headline & "</h3>"
 
-                    rtn &= "<span  class='eventSample'>" & row.TextSample & "</span></td></tr></table></a></div>"
+                    rtn &= "<h6  class='eventSample'>" & row.TextSample & "</h6></td></tr></table></a></div>"
 
                 Next
 
@@ -486,16 +486,16 @@ Namespace DotNetNuke.Modules.FullStory
             If q.Count > 0 Then
 
 
-                rtn &= "<div class=""agendaTitle"">Agenda</div>"
+                rtn &= "<h2 class=""agendaTitle"">Agenda</h2>"
                 For Each row In q.Take(3).OrderBy(Function(c) c.StoryDate)
 
                     rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'><div class='eventDay' >" & row.StoryDate.Day & "</div>"
                     rtn &= "<div class='eventMonth'>" & row.StoryDate.ToString("MMM", New CultureInfo("fr-fr")) & "</div>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/cal.png' style='width:32px;' /></td><td style='padding-left: 12px;'>"
-                    rtn &= "<div class='eventTitle'>" & row.Headline & "</div>"
+                    rtn &= "<h3 class='eventTitle'>" & row.Headline & "</h3>"
 
-                    rtn &= "<span  class='eventSample'>" & row.TextSample & "</span></td></tr></table></a></div>"
+                    rtn &= "<h6  class='eventSample'>" & row.TextSample & "</h6></td></tr></table></a></div>"
 
                 Next
 
