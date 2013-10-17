@@ -96,6 +96,7 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
                             target = "_self"
                         End If
                         Dim href = "javascript: registerClick(" & row.CacheId & "); window.open('" & row.Link & "', '" & target & "');"
+
                         out &= "<a href=""" & href & """> "
 
                        

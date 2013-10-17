@@ -56,9 +56,9 @@
             }
             //child.removeAttr('title')
 
-
-            child.css('display', 'none');
-            child.hide();
+            child.css('opacity', '0.0');
+            //child.css('display', 'none');
+            //child.hide();
             vars.totalSlides++;
         });
 

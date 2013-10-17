@@ -25,7 +25,11 @@
                  'width':<%= divWidth %> +'px', 'height':(newH-8) + 'px' });
            
                
-
+             //$('.nivo-imageLink').click(function(e){
+             //    console.log('hello');
+             //    var storylink= this.href;
+             //    eval(storyLink);
+             //});
 
          }
 
