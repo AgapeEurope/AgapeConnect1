@@ -1325,16 +1325,10 @@ ul.reCustomLinks ul
 	background-position: -168px center;
 }
 
-/*.ImageManager,
+.ImageManager,
 .InsertImage
 {
 	background-position: -366px center;
-}*/
-
-span.ImageManager,
-span.InsertImage
-{
-    background: url('../images/InsertMedia.png') no-repeat center center;
 }
 
 .ImageMapDialog
@@ -1354,16 +1348,10 @@ span.InsertImage
 	background-position: -1476px center;
 }
 
-/*.DocumentManager,
+.DocumentManager,
 .InsertDocument
 {
 	background-position: -1476px center;
-}*/
-
-span.DocumentManager,
-span.InsertDocument
-{
-    background: url('../images/DocumentManager.png') no-repeat center center;
 }
 
 .TemplateManager
@@ -1525,16 +1513,10 @@ span.InsertDocument
 	background-position: -2015px -7px;
 }
 
-/*.InsertCodeSnippet,
+.InsertCodeSnippet,
 .InsertSnippet
 {
 	background-position: -2164px center;
-}*/
-
-.reTool span.InsertCodeSnippet,
-.reTool span.InsertSnippet
-{
-    background-image: url('../images/snippet.png');
 }
 
 .InsertDate

@@ -5,23 +5,13 @@
 <script type="text/javascript">
     (function ($, Sys) {
         function initContentTitle() {
-            $('#ContentContainer #ContentTitle').text(document.title);
-        }
-
-        // Functions to fix the problem of DNN admin ActionMenu opening under the PhotoPane
-        function onActionMenu() {
-            $('.PhotoPane').css("z-index", "400");
-        }
-        function offActionMenu() {
-            $('.PhotoPane').css("z-index", "0");
+            $('#ContentContainer #ContentTitle').text('<%=TabController.CurrentPage.TabName%>');
         }
 
         $(document).ready(function () {
             initContentTitle();
-            $('.PhotoPane .dnnActionMenu').hover(onActionMenu, offActionMenu);
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 initContentTitle();
-                $('.PhotoPane .dnnActionMenu').hover(onActionMenu, offActionMenu);
             });
         });
     }(jQuery, window.Sys));

@@ -6,7 +6,7 @@
     </modules>
 
     <tools name="MainToolbar">
-        <tool name="AjaxSpellCheck" Text="Correcteur orthographique" />
+        <tool name="AjaxSpellCheck"/>
         <tool name="FindAndReplace" shortcut="CTRL+F"/>
         <tool name="PasteStrip"/>
         <tool separator="true"/>
@@ -15,9 +15,8 @@
     </tools>
 
     <tools name="InsertToolbar" >
-
-        <EditorToolStrip Name="InsertOptions" Text="Insérer un média" PopupHeight="250px">
-            <EditorTool Name="ImageManager" Text="Insérer une image" />
+        <EditorToolStrip Name="InsertOptions" PopupHeight="250px">
+            <EditorTool Name="ImageManager" Text="Insert Media" />
             <EditorTool Name="DocumentManager" />
 <!--
             <EditorTool Name="FlashManager" />
@@ -25,9 +24,6 @@
             <EditorTool Name="ImageMapDialog"/>
 -->
         </EditorToolStrip>
-      
-        <tool name="InsertSnippet" Text="Insérer un élément spécifique" />
-      
 <!--
         <EditorToolStrip Name="TemplateOptions" PopupHeight="80px">
             <EditorTool Name="SaveTemplate" Text="Save Template" />
@@ -91,8 +87,8 @@
     <tools>
         <tool name="FormatBlock"/>
         <tool separator="true"/>
-        <tool name="ApplyClass" Text="Style CSS"/>      
-        <tool name="FormatStripper" PopupWidth="250px"/>
+        <tool name="ApplyClass"/>      
+        <tool name="FormatStripper"/>
     </tools>
 
     <paragraphs>
@@ -111,17 +107,16 @@
         <class name="Texte renforcé" value=".highlight" />
     </classes>
 
-    <snippets>
-      <snippet name="&lt;img src='/DesktopModules/Admin/RadEditorProvider/images/map.png' /&gt; Insérer une carte">
-        <![CDATA[         
-            <br />[MAP]
-        ]]>
-      </snippet>
-      <snippet name="&lt;img src='/DesktopModules/Admin/RadEditorProvider/images/video.png' /&gt; Insérer une vidéo YouTube">
-        <![CDATA[         
-            <br /><iframe width="655" height="368" src="http://www.youtube.com/embed/[ID VIDEO YOUTUBE]?rel=0&amp;autohide=1&amp;color=white&amp;showinfo=0" frameborder="0"></iframe>
-        ]]>
-      </snippet>  
-    </snippets>
+
+  <tools>
+    <tool name="InsertSnippet" />
+  </tools>
+  <snippets>
+    <snippet name="&lt;img src='/DesktopModules/Admin/RadEditorProvider/images/map.png' /&gt; Insérer une carte">
+      <![CDATA[         
+          <br />[MAP]
+      ]]>
+    </snippet>
+  </snippets>
 
 </root>
