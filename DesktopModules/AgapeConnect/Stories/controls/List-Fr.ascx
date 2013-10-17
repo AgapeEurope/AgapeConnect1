@@ -19,6 +19,8 @@
             });
 
 
+            
+
 
 
         }
@@ -48,6 +50,16 @@
 </script>
 
 <style type="text/css">
+    
+    a.button, a.button:visited{
+       text-decoration: none;
+    }
+    #<%= dlStories.ClientId%> td{
+
+    width: 50%;
+    }
+
+
     .dnnGridItem a:hover,.dnnGridAltItem a:hover  {
         text-decoration: none;
     }
@@ -98,6 +110,7 @@
 
     .dnnGridItem, .dnnGridAltItem {
         border: 2px inset transparent;
+        max-width: 50%;
     }
 
     .mynavbar-inner {
@@ -255,8 +268,8 @@
 <asp:HiddenField ID="hfSelectedTags" runat="server" />
 
 
-<asp:DataList runat="server" ID="dlStories" AllowPaging="true" RepeatColumns="2" BorderStyle="None" Width="100%" CellSpacing="4" CellPadding="4" ShowHeader="False" GridLines="None" PagerStyle-Visible="false">
-    <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" VerticalAlign="Top" Width="50%" />
+<asp:DataList runat="server" ID="dlStories" AllowPaging="true" RepeatColumns="2" BorderStyle="None" CellSpacing="4" CellPadding="4" ShowHeader="False" GridLines="None" PagerStyle-Visible="false" ItemStyle-Width="50%">
+    <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" VerticalAlign="Top" Width="50%"  />
     <AlternatingItemStyle CssClass="dnnGridItem" />
     <FooterStyle CssClass="dnnGridFooter" />
     <ItemTemplate>
@@ -285,10 +298,10 @@
 </asp:DataList>
 
 
-<div style="width: 100%;">
+<div style="width: 100%; text-align: center; margin-top: 20px;">
 
-<asp:Hyperlink ID="btnPrev" runat="server" Text="Retour" CssClass="button buttonLeft" resourceKey="btnRetour" Visible="false" Width="55px"/>
-<asp:Hyperlink ID="btnNext" runat="server" Text="Plus" CssClass="button buttonRight" resourceKey="btnPlus"  Visible="false" Width="55px"/>
+<asp:Hyperlink ID="btnPrev" runat="server" Text="Retour" CssClass="button" resourceKey="btnRetour" Visible="false" Width="55px"/>
+<asp:Hyperlink ID="btnNext" runat="server" Text="Plus" CssClass="button" resourceKey="btnPlus"  Visible="false" Width="55px"/>
 </div>
 <div style="clear: both;"></div>
 <asp:Literal ID="ltPagination" runat="server"></asp:Literal>
