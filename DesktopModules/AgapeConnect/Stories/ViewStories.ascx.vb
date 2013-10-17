@@ -179,8 +179,10 @@ Namespace DotNetNuke.Modules.AgapeConnect.Stories
 
 
                 '    Dim addTitle = New Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+                If UserInfo.IsInRole("Administrators") Or UserInfo.IsSuperUser Then
+                    Actions.Add(GetNextActionID, "Story Settings", "StorySettings", "", "action_settings.gif", EditUrl("StorySettings"), False, SecurityAccessLevel.Edit, True, False)
 
-                Actions.Add(GetNextActionID, "Story Settings", "StorySettings", "", "action_settings.gif", EditUrl("StorySettings"), False, SecurityAccessLevel.Edit, True, False)
+                End If
                 Actions.Add(GetNextActionID, "Story Mixer", "StoryMixer", "", "action_settings.gif", EditUrl("Mixer"), False, SecurityAccessLevel.Edit, True, False)
                 Actions.Add(GetNextActionID, "Unpublished", "unpublished", "", "action_settings.gif", EditUrl("unpublished"), False, SecurityAccessLevel.Edit, True, False)
 
