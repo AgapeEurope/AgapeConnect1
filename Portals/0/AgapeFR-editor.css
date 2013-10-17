@@ -1,0 +1,15 @@
+﻿/*===================== FONTS ===================== */
+@import url("/Portals/_default/Skins/AgapeFR/css/font.css");
+
+/*===================== TYPOGRAPHY ===================== */
+@import url("/Portals/_default/Skins/AgapeFR/css/typography.css");
+
+body {
+    background-color: white;
+    text-align: left;
+    font-weight: normal;
+	font-family: OpenSansRegular;
+    font-size: 14px;
+    color: #5f5f5f;
+}
+

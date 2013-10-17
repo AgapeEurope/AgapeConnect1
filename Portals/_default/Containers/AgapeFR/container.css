@@ -5,7 +5,7 @@
     margin: 0px;
     text-align:left;
 }
-
+/*
 .Normal p {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -27,7 +27,6 @@
 
 .Normal h1 {
     font-size: 20px;
-    /*white-space: nowrap;*/
     margin-top: 15px;
     margin-bottom: 15px;
     color: #3A8BC2;
@@ -35,7 +34,6 @@
 
 .Normal h2 {
     font-size: 18px;
-    /*white-space: nowrap;*/
     margin-top: 15px;
     margin-bottom: 15px;
     color: #3A8BC2;
@@ -43,12 +41,11 @@
 
 .Normal h3 {
     font-size: 16px;
-    /*white-space: nowrap;*/
     margin-top: 15px;
     margin-bottom: 15px;
     color: #3A8BC2;
 }
-
+*/
 .DNNModuleContent .button, .DNNModuleContent a.dnnPrimaryAction, .DNNModuleContent a.dnnPrimaryAction:link, .DNNModuleContent a.dnnPrimaryAction:visited, .DNNModuleContent a.dnnPrimaryAction:hover, .DNNModuleContent a.dnnPrimaryAction:visited:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:hover, .DNNModuleContent ul.dnnActions a.dnnPrimaryAction:visited:hover {
     height: 42px;
     line-height: 42px;
