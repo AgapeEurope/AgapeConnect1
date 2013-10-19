@@ -14,6 +14,7 @@ body, p, ul, ol, a:link, a:active, a:visited, a:hover {
 p {
     margin-top: 8px;
     margin-bottom: 10px;
+    font-size: medium;
 }
 
 a:link, a:active, a:visited, a:hover {
@@ -93,8 +94,8 @@ h6 {
 
 .introduction {
     color: #3A8BC2;
-    font-weight: bold;
-    font-size: 20px;
+    font-weight: normal;
+    font-size: medium;
 }
 
 .quote {
