@@ -109,6 +109,7 @@
 
     <classes>
         <class name="Texte renforcé" value=".highlight" />
+        <class name="Texte temporaire à modifier" value=".draft" />
     </classes>
 
     <snippets>
