@@ -91,7 +91,6 @@ Author URI: http://dev7studios.com
     text-decoration: none;
 }
 
-
 .theme-default .nivo-controlNav.nivo-thumbs-enabled {
 	width: 100%;
 }
@@ -148,4 +147,8 @@ Author URI: http://dev7studios.com
 	overflow: visible;
    
 	 /*background:url(/DesktopModules/AgapeConnect/Stories/themes/default/loading.gif) no-repeat 50% 50%;*/
+}
+
+.dnnGridItem:hover span.storyTitle, .dnnGridAltItem:hover span.storyTitle {
+    text-decoration: none;
 }
