@@ -31,6 +31,10 @@ html, body, form {
 	background: white;
 }
 
+.dnnTextEditor {
+    font-size: small;
+}
+
 /*===================== BUTTONS ===================== */
 
 /* Primary Action and custom buttons */
@@ -41,7 +45,7 @@ html, body, form {
     display: inline-block;
     padding: 0px 20px 0 20px;
     font-family: OpenSansSemiBold;
-    font-size: 16px;
+    font-size: medium;
     font-weight: normal;
     white-space: nowrap;
     color: white;
@@ -67,7 +71,7 @@ html, body, form {
         background: -webkit-linear-gradient(top, #6cb6f3 0%,#4387d2 100%); /* Chrome10+,Safari5.1+ */
         background: linear-gradient(top, #6cb6f3 0%,#4387d2 100%); /* W3C */
         font-family: OpenSansSemiBold;
-        font-size: 16px;
+        font-size: medium;
         font-weight: normal;
         white-space: nowrap;
         color: white;
@@ -82,7 +86,7 @@ html, body, form {
         background: -webkit-linear-gradient(top, #6cb6f3 0%,#4387d2 100%); /* Chrome10+,Safari5.1+ */
         background: linear-gradient(top, #6cb6f3 0%,#4387d2 100%); /* W3C */
         font-family: OpenSansSemiBold;
-        font-size: 16px;
+        font-size: medium;
         font-weight: normal;
         white-space: nowrap;
         color: #fff;
@@ -98,7 +102,7 @@ html, body, form {
         color: #999 !important;
         text-shadow: none;
         font-family: OpenSansSemiBold;
-        font-size: 16px;
+        font-size: medium;
         font-weight: normal;
         white-space: nowrap;
         text-decoration: none;
@@ -122,6 +126,7 @@ ul.dnnAdminTabNav li a,
     box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.4), inset 0px 1px 0px 0px rgba(255, 255, 255, 1);
     text-shadow: 0px 1px 0px #ffffff;
     color: #333;
+    text-decoration: none;
 }
 
     .dnnFormItem button:hover, .dnnFormItem input[type="button"]:hover,
@@ -138,6 +143,7 @@ ul.dnnAdminTabNav li a,
         background: -ms-linear-gradient(top, #fefefe 0%,#e8e8e8 100%); /* IE10+ */
         background: linear-gradient(top, #fefefe 0%,#e8e8e8 100%); /* W3C */
         color: #555;
+        text-decoration: none;
     }
 
     .dnnFormItem button:active,
@@ -157,6 +163,7 @@ ul.dnnAdminTabNav li a,
         background: linear-gradient(top, #c6c6c6 0%,#f3f3f3 100%); /* W3C */
         -webkit-box-shadow: inset 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
         box-shadow: inset 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
+        text-decoration: none;
     }
 
 /*-------------------------------------*/
