@@ -3346,8 +3346,16 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         Protected Function GetAccountCode(ByVal LineTypeId As Integer, ByVal CostCenter As String) As String
 
             Dim q = From c In d.AP_StaffRmb_PortalLineTypes Where c.LineTypeId = LineTypeId And c.PortalId = PortalId
+
+
             If q.Count > 0 Then
-                If StaffBrokerFunctions.IsDept(PortalId, CostCenter) And CBool(Settings("UseDCode")) And q.First.DCode.Length > 0 Then
+                If q.First.PCode.Length = 0 And q.First.DCode.Length > 0 Then
+                    Return q.First.DCode
+                ElseIf q.First.DCode.Length = 0 And q.First.PCode.Length > 0 Then
+                    Return q.First.PCode
+                End If
+
+                If StaffBrokerFunctions.IsDept(PortalId, CostCenter) And q.First.DCode.Length > 0 Then
                     Return q.First.DCode
                 Else
                     Return q.First.PCode
@@ -3522,7 +3530,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
             Catch ex As Exception
-
+                StaffBrokerFunctions.EventLog("Error Resetting Expense Popup", ex.ToString, UserId)
             End Try
         End Sub
         Protected Sub SendStaffMail(ByVal theRmb As AP_Staff_Rmb)

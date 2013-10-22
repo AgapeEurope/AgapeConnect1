@@ -409,7 +409,7 @@ Namespace DotNetNuke.Modules.Stories
                 ' Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId"))
                 If CType(Settings("ViewTab"), String) <> "" Then
                     If Settings("ViewTab") <> TabId Then
-                        Response.Redirect(NavigateURL(CInt(Settings("ViewTab"))) & "?StoryId=" & Request.QueryString("StoryId"))
+                        Response.Redirect(NavigateURL(CInt(Settings("ViewTab"))) & "?StoryId=" & Request.QueryString("StoryId") & "&origTabId=" & TabId & "&origModId=" & ModuleId)
                     Else
                         Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId"))
                     End If
@@ -516,7 +516,7 @@ Namespace DotNetNuke.Modules.Stories
 
                 If CType(Settings("ViewTab"), String) <> "" Then
                     If Settings("ViewTab") <> TabId Then
-                        Response.Redirect(NavigateURL(CInt(Settings("ViewTab"))) & "?StoryId=" & insert.StoryId)
+                        Response.Redirect(NavigateURL(CInt(Settings("ViewTab"))) & "?StoryId=" & insert.StoryId & "&origTabId=" & TabId & "&origModId=" & ModuleId)
                     Else
                         Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & insert.StoryId)
                     End If
@@ -536,7 +536,7 @@ Namespace DotNetNuke.Modules.Stories
             Else
                 If CType(Settings("ViewTab"), String) <> "" Then
                     If Settings("ViewTab") <> TabId Then
-                        Response.Redirect(NavigateURL(CInt(Settings("ViewTab"))) & "?StoryId=" & Request.QueryString("StoryId"))
+                        Response.Redirect(NavigateURL(CInt(Settings("ViewTab"))) & "?StoryId=" & Request.QueryString("StoryId") & "&origTabId=" & TabId & "&origModId=" & ModuleId)
                     Else
                         Response.Redirect(EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId"))
                     End If
