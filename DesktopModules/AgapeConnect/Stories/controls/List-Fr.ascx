@@ -59,6 +59,10 @@
     width: 50%;
     }
 
+    .StoriesList {
+        width: 100%;
+    }
+
 
     .dnnGridItem a:hover,.dnnGridAltItem a:hover  {
         text-decoration: none;
@@ -266,7 +270,7 @@
 <asp:HiddenField ID="hfSelectedTags" runat="server" />
 
 
-<asp:DataList runat="server" ID="dlStories" AllowPaging="true" RepeatColumns="2" BorderStyle="None" CellSpacing="4" CellPadding="4" ShowHeader="False" GridLines="None" PagerStyle-Visible="false" ItemStyle-Width="50%">
+<asp:DataList runat="server" ID="dlStories" AllowPaging="true" RepeatColumns="2" BorderStyle="None" CellSpacing="4" CellPadding="4" ShowHeader="False" GridLines="None" PagerStyle-Visible="false" ItemStyle-Width="50%" CssClass="StoriesList">
     <ItemStyle CssClass="dnnGridItem" HorizontalAlign="Left" VerticalAlign="Top" Width="50%"  />
     <AlternatingItemStyle CssClass="dnnGridItem" />
     <FooterStyle CssClass="dnnGridFooter" />
