@@ -24,7 +24,7 @@
             $('.monthly').each(function() { setMinMax($(this)); });
             $('.yearly').each(function() {setMinMax($(this))});
             $('.monthly.net').each(function() {
-                var f = $(this).siblings("input['type'='hidden']").val();
+                var f = $(this).siblings("input:hidden").val();
 
                 f = f.replace(/\{NET}/g, $(this).val()=='' ? '0' : $(this).val());
                 f=replaceTags(f);
@@ -64,7 +64,7 @@
 
                 handleFormulas();
                 if ($(this).hasClass('net')) {
-                    var f = $(this).siblings("input['type'='hidden']").val();
+                    var f = $(this).siblings("input:hidden").val();
 
                     f = f.replace(/\{NET}/g, $(this).val()=='' ? '0' : $(this).val());
                     f=replaceTags(f);
@@ -94,14 +94,14 @@
                 
 
                 if ($(this).hasClass('net')) {
-                    var f = $(monthly).siblings("input['type'='hidden']").val();
+                    var f = $(monthly).siblings("input:hidden").val();
 
                     f = f.replace("{NET}", $(monthly).val());
 
                     $(monthly).parent().find(".net-tax-month").text(eval(f).toFixed(0));
 
                     $(this).parent().find(".net-tax-year").text((eval(f) * 12.0).toFixed(0));
-                    $(monthly).parent().find(".net-tax-month").siblings("input['type'='hidden']").val(eval(f).toFixed(0));
+                    $(monthly).parent().find(".net-tax-month").siblings("input:hidden").val(eval(f).toFixed(0));
 
                 }
                 calculateSectionTotal($(this).parent().parent().parent().parent().parent().parent());
@@ -131,12 +131,12 @@
                     var r = $(ddl).siblings('.mpd-tax-rate').find('.rate').val();
                     f = '(({NET}*12) / ( ( 100 / ' + r + ' ) -1 ))/12';
                     $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
                 }
                 else if (m == 'FIXED_AMOUNT') {
                     f = $(ddl).siblings('.mpd-tax-fixed').find('.fixed').val();
                     $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
                 }
                 else if (m == 'ALLOWANCE') {
                     //TODO: Generate Allowance Formula
@@ -145,7 +145,7 @@
                     var th = $(ddl).siblings('.mpd-tax-allowance').find('.threshold').val();
                     f = 'Math.max((({NET}*12)-' + th + '/ ( ( 100 / ' + r + ' ) -1 ),0)/12';
                     $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
 
                 }
                 else if (m == 'BANDS') {
@@ -192,11 +192,11 @@
 
 
                     $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input['type'='hidden']").val(f);
+                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
                 }
                 else if (m == 'Custom') {
                     //Do Validation?
-                    $(this).siblings("input['type'='hidden']").val(f);
+                    $(this).siblings("input:hidden").val(f);
                 }
 
                 
@@ -227,25 +227,25 @@
                 if (m == 'FIXED_RATE') {
                     $(this).siblings('.mpd-tax-rate').show();
                     $(this).parent().find('.tax-formula').text('');
-                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
                     $(this).siblings('.mpd-tax-rate').find('.rate').keyup();
                 }
                 else if (m == 'FIXED_AMOUNT') {
                     $(this).siblings('.mpd-tax-fixed').show();
                     $(this).parent().find('.tax-formula').text('')
-                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
                     $(this).siblings('.mpd-tax-fixed').find('.fixed').keyup();
                 }
                 else if (m == 'ALLOWANCE') {
                     $(this).siblings('.mpd-tax-allowance').show();
                     $(this).parent().find('.tax-formula').text('')
-                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
                     $(this).siblings('.mpd-tax-allowance').find('.rate').keyup();
                 }
                 else if (m == 'BANDS') {
                     $(this).siblings('.mpd-tax-bands').show();
                     $(this).parent().find('.tax-formula').text('')
-                    $(this).parent().find('.tax-formula').siblings("input['type'='hidden']").val('');
+                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
                     $(this).siblings('.mpd-tax-bands').find('.rate1').keyup();
                 }
                 else if (m == 'Custom') {
@@ -381,7 +381,8 @@
             c1 = eval( replacePercTags(comp, st, g));
         }
         
-        
+        $('#<%= hfCompensationValue.ClientID%>').val(c1);
+
         if(c1==0.0)  $('.myPortionRow').hide();
         else  $('.myPortionRow').show();
 
@@ -406,7 +407,7 @@
     function handleFormulas() {
         $('.calculated').each(function () {
             //Go through each formula and refresh the values
-            var f = $(this).siblings("input['type'='hidden']").val();
+            var f = $(this).siblings("input:hidden").val();
             f=replaceTags(f);
             // console.log(f);
             $(this).val(eval(f).toFixed(0));
@@ -651,7 +652,7 @@ top: 3px;
 
 <asp:HiddenField ID="hfAssessment" runat="server" Value="" />
 <asp:HiddenField ID="hfCompentation" runat="server" Value="" />
-
+<asp:HiddenField ID="hfCompensationValue" runat="server" Value="0.0" />
 <asp:HiddenField ID="hfMpdGoal" runat="server" Value="0.0" />
 
 

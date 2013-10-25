@@ -132,14 +132,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     End If
 
 
-                    itemCurrent.Monthly = mpdFunctions.getAverageMonthlyIncomeOver12Periods(Staff.StaffId)
-
+                  
 
                     Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
                     If bud.Count > 0 Then
-                        If Not bud.First.CurrentSupportLevel Is Nothing Then
-                            itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
-                        End If
+                        'If Not bud.First.CurrentSupportLevel Is Nothing Then
+                        '    itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
+                        'End If
 
                         Dim FirstBudgetMonth As Integer? = bud.First.AP_mpdCalc_Definition.FirstBudgetPeriod
                         If FirstBudgetMonth Is Nothing Then
@@ -217,6 +216,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     lblStaffName.Text = Staff.DisplayName
                     IsCouple = Staff.UserId2 > 0
                     StaffType = Staff.AP_StaffBroker_StaffType.Name
+                    itemCurrent.Monthly = mpdFunctions.getAverageMonthlyIncomeOver12Periods(Staff.StaffId)
 
                     If (theForm.First.AP_mpdCalc_Sections.Count > 0) Then
                         LastSection = theForm.First.AP_mpdCalc_Sections.Max(Function(c) c.Number)
@@ -304,6 +304,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
                    
                     bud.First.CurrentSupportLevel = itemCurrent.Monthly
                     bud.First.TotalBudget = hfMpdGoal.Value
+                    bud.First.Compensation = hfCompensationValue.Value
+                    bud.First.ToRaise = bud.First.TotalBudget - bud.First.Compensation
+                    
+
+
+
                     bud.First.BudgetPeriodStart = IIf(ddlStartPeriod.SelectedValue = "", New Date(ddlYear.SelectedValue, ddlPeriod.SelectedValue, 1).ToString("yyyyMM"), ddlStartPeriod.SelectedValue)
                     bud.First.BudgetYearStart = Left(bud.First.BudgetPeriodStart, 4)
                     If ToStatus >= 0 Then

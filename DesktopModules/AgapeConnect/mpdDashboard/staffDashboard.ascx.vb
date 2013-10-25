@@ -30,9 +30,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             If theStaff.Count > 0 Then
                 lblStaffName.Text = theStaff.First.DisplayName
-                Dim incomeData = (From c In d.AP_mpd_UserAccountInfos Where c.staffId = CInt(Request.QueryString("staffId")) And c.period >= Today.AddMonths(-13).ToString("yyyyMM") And c.income > 0).ToList
+                Dim mpdu = (From c In d.Ap_mpd_Users Where c.StaffId = CInt(Request.QueryString("staffId"))).First
 
-                Dim BudgetData = (From c In d.AP_mpdCalc_StaffBudgets Where c.StaffId = CInt(Request.QueryString("staffId")) And Not c.TotalBudget Is Nothing).ToList
+                Dim incomeData = (From c In mpdu.AP_mpd_UserAccountInfos Where c.period >= Today.AddMonths(-13).ToString("yyyyMM") And c.income > 0).ToList
+
+                Dim BudgetData = (From c In d.AP_mpdCalc_StaffBudgets Where c.StaffId = CInt(Request.QueryString("staffId")) And (c.Status = StaffRmb.RmbStatus.Processed Or c.Status = StaffRmb.RmbStatus.Approved) And Not c.TotalBudget Is Nothing).ToList
 
 
                 jsonLi = ""
@@ -46,26 +48,23 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 Dim fi As Double = incomeData.Average(Function(c) c.foreignIncome)
                 Dim comp As Double = incomeData.Average(Function(c) c.compensation)
-                Dim li As Double = incomeData.Average(Function(c) c.income - (c.foreignIncome + c.compensation))
+                Dim li As Double = incomeData.Average(Function(c) c.income - c.foreignIncome)
 
                 jsonPI = "['Local Income', " & li.ToString("0.00") & "],['Foreign Income', " & fi.ToString("0.00") & "], ['Compensation', " & comp.ToString("0.00") & "]"
 
 
-                Dim yearI = incomeData.Average(Function(c) c.income)
-                Dim quarterI = (From c In incomeData Order By c.period Descending Select c.income).Take(3).Average
-                Dim monthI = (From c In incomeData Order By c.period Select c.income).Last
-
+              
                 Dim BudgetAvg = 0
                 If BudgetData.Count > 0 Then
                     If Not BudgetData.First.TotalBudget Is Nothing Then
-                        BudgetAvg = BudgetData.First.TotalBudget
+                        BudgetAvg = BudgetData.First.ToRaise
                     End If
 
                 End If
 
-                lblYear.Text = (100 * yearI / BudgetAvg).ToString("0.0") & "%"
-                lblQuarter.Text = (100 * quarterI / BudgetAvg).ToString("0.0") & "%"
-                lblMonth.Text = (100 * monthI / BudgetAvg).ToString("0.0") & "%"
+                lblYear.Text = (100 * mpdu.AvgIncome12 / BudgetAvg).ToString("0.0") & "%"
+                lblQuarter.Text = (100 * mpdu.AvgIncome3 / BudgetAvg).ToString("0.0") & "%"
+                lblMonth.Text = (100 * mpdu.AvgIncome1 / BudgetAvg).ToString("0.0") & "%"
             End If
 
 

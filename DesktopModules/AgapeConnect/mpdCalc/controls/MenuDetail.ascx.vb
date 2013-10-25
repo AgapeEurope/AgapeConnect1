@@ -71,9 +71,12 @@ Partial Class DesktopModules_AgapeConnect_mpdCalc_controls_MenuDetail
             If currentBudget.Count > 0 Then
                 hfCurrentBudgetId.Value = currentBudget.First.StaffBudgetId
                 btnViewCurrentBudget.Visible = True
-                lblMPDGoal.Text = StaffBrokerFunctions.GetFormattedCurrency(PortalId, CInt(currentBudget.First.TotalBudget.Value).ToString("N0"))
+                lblMPDGoal.Text = StaffBrokerFunctions.GetFormattedCurrency(PortalId, CInt(currentBudget.First.ToRaise).ToString("N0"))
                 Dim AveIncome = mpdFunctions.getAverageMonthlyIncomeOver12Periods(value)
-                lblSupportLevel.Text = (AveIncome / currentBudget.First.TotalBudget).Value.ToString("0%")
+
+
+
+                lblSupportLevel.Text = (AveIncome / currentBudget.First.ToRaise).ToString("0%")
                 lblSupportLevel.Attributes("data-value") = "sl" & value
             End If
 

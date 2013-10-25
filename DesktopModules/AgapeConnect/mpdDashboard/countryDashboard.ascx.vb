@@ -34,9 +34,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Pid = thisCountry.First.portalId
                 lblCountryTitle.Text = thisCountry.First.name
                 Dim localStaffTypes = {"National Staff", "National Staff, Overseas"}
-                Dim allLocalStaff = From c In ds.AP_StaffBroker_Staffs Where c.PortalId = thisCountry.First.portalId And localStaffTypes.Contains(c.AP_StaffBroker_StaffType.Name) Select c.StaffId
+                Dim allLocalStaff = (From c In ds.AP_StaffBroker_Staffs Where c.PortalId = thisCountry.First.portalId And localStaffTypes.Contains(c.AP_StaffBroker_StaffType.Name) Select c.StaffId).ToList
 
-                Dim lastPeriod As String = thisCountry.First.AP_mpd_UserAccountInfos.Where(Function(c) c.income > 0).Max(Function(c) c.period)
+                Dim lastPeriod As String = d.AP_mpd_UserAccountInfos.Where(Function(c) c.mpdCountryId = thisCountry.First.mpdCountryId And c.income > 0).Max(Function(c) c.period)
                 If String.IsNullOrEmpty(lastPeriod) Then
                     lastPeriod = Today.ToString("yyyyMM")
                 End If
@@ -46,11 +46,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Dim quateerPeriod As String = LastPeriodDate.AddMonths(-3).ToString("yyyyMM")
                 Dim monthPeriod As String = LastPeriodDate.AddMonths(-1).ToString("yyyyMM")
 
-                Label3.Text = lastPeriod
+                ' Label3.Text = lastPeriod
 
 
 
-                Dim incomeData = (From c In thisCountry.First.AP_mpd_UserAccountInfos Where c.period >= firstPeriod And c.period <= lastPeriod And allLocalStaff.Contains(c.staffId) And c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).Count > 0 _
+                Dim incomeData = (From c In d.AP_mpd_UserAccountInfos Where c.mpdCountryId = thisCountry.First.mpdCountryId And c.period >= firstPeriod And c.period <= lastPeriod And allLocalStaff.Contains(c.staffId) And c.Ap_mpd_User.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).Count > 0 _
                     Select Period = c.period, staffId = c.staffId, income = c.income, expense = c.expense, Budget = mpdFunctions.getBudgetForStaffPeriod(c.staffId, c.period)).ToList ' c.AP_mpd_Country.AP_mpdCalc_Definitions.AP_mpdCalc_StaffBudgets.Where(Function(x) x.StaffId = c.staffId).First.TotalBudget)).ToList
 
 
