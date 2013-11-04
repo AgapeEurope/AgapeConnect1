@@ -289,6 +289,7 @@ public class StaffBrokerFunctions
         d.Agape_Main_AlterUserName(OldUsername, NewUsername);
 
     }
+   
     static public String ValidateAccountCode(string AccountCode, int PortalId)
     {
         StaffBrokerDataContext d = new StaffBrokerDataContext();
