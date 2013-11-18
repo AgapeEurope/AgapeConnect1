@@ -75,3 +75,20 @@
 #header #SearchContainer a:hover #SearchSubmit {
 	background-color: #ABACAE;
 }
+
+#header #faireundon {
+    text-align: right;
+}
+
+#header #faireundon a {
+    display: inline-block;
+    zoom: 1; *display: inline; /* IE fix for inline-block display */
+    width: 153px;
+    height: 52px;
+    background: url('../images/faireundon4.png') no-repeat center right;
+    margin: 10px 0 0 0;
+    /*width: 122px;
+    height: 41px;
+    background: url('../images/faireundon5.png') no-repeat center right;
+    margin: 20px 0 0 0;*/    
+}

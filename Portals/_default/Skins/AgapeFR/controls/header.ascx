@@ -52,6 +52,9 @@
 						<%'<div id="MinicartContainer" class="needMargin"><dnn:MINICART runat="server" ID="dnnMINICART" /></div>%>
 						<div id="SearchContainer" class="needMargin"><dnn:SEARCH runat="server" ID="dnnSEARCH" UseDropDownList="False" ShowWeb="False" ShowSite="False" Submit="<div id=&quot;SearchSubmit&quot;></div>" /></div>
 					</div>
+					<div id="faireundon">
+						<a href="/simpliquer/faireundon" title="<%=Translate("GiveLinkTitle.Text")%>"></a>
+					</div>
 					<div id="menu1">
 						<ddr:MENU ID="MENU1" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="*" runat="server" ExcludeNodes="" />
 					</div>
