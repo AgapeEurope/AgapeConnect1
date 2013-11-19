@@ -68,3 +68,6 @@
 		</div>
 	</div>
 </div>
+<div id="boutique_fixed_tag">
+    <a href="http://www.agapemedia.fr" target="_blank" title="<%=Translate("ShopLinkTitle.Text")%>"></a>
+</div>

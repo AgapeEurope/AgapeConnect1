@@ -138,6 +138,9 @@
   <data name="SearchWatermark.Text" xml:space="preserve">
     <value>Recherche</value>
   </data>
+  <data name="ShopLinkTitle.Text" xml:space="preserve">
+    <value>Boutique Agapé Média</value>
+  </data>
   <data name="Slogan.Text" xml:space="preserve">
     <value>Découvrir &amp;bull; Vivre &amp;bull; Partager </value>
   </data>
