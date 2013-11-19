@@ -44,10 +44,16 @@
 						<dnn:LOGO runat="server" ID="dnnLOGOHEADER" />
 					</div>	
 					<div id="toplinks">
-						<div id="RegisterContainer" class="needMargin"><dnn:USER runat="server" ID="dnnUSER" CssClass="user" /></div>
+						<%'<div id="RegisterContainer" class="needMargin"><dnn:USER runat="server" ID="dnnUSER" CssClass="user" /></div>%>
+                        <style type="text/css">
+                            #toplinks #LoginContainer a {background-color: yellow; color: red;}
+                        </style>
 						<div id="LoginContainer" class="needMargin"><dnn:LOGIN runat="server" ID="dnnLOGIN" CssClass="user" /></div>
-						<div id="MinicartContainer" class="needMargin"><dnn:MINICART runat="server" ID="dnnMINICART" /></div>
+						<%'<div id="MinicartContainer" class="needMargin"><dnn:MINICART runat="server" ID="dnnMINICART" /></div>%>
 						<div id="SearchContainer" class="needMargin"><dnn:SEARCH runat="server" ID="dnnSEARCH" UseDropDownList="False" ShowWeb="False" ShowSite="False" Submit="<div id=&quot;SearchSubmit&quot;></div>" /></div>
+					</div>
+					<div id="faireundon">
+						<a href="/simpliquer/faireundon" title="<%=Translate("GiveLinkTitle.Text")%>"></a>
 					</div>
 					<div id="menu1">
 						<ddr:MENU ID="MENU1" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="*" runat="server" ExcludeNodes="" />
@@ -61,4 +67,7 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div id="boutique_fixed_tag">
+    <a href="http://www.agapemedia.fr" target="_blank" title="<%=Translate("ShopLinkTitle.Text")%>"></a>
 </div>

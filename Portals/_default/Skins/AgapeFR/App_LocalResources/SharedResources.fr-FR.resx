@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GiveLinkTitle.Text" xml:space="preserve">
+    <value>Faire un don</value>
+  </data>
   <data name="OzoirAddress.Text" xml:space="preserve">
     <value>Agapé France&lt;br /&gt;BP 29&lt;br /&gt;77831 Ozoir-la-Ferrière Cedex</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="SearchWatermark.Text" xml:space="preserve">
     <value>Recherche</value>
+  </data>
+  <data name="ShopLinkTitle.Text" xml:space="preserve">
+    <value>Boutique Agapé Média</value>
   </data>
   <data name="Slogan.Text" xml:space="preserve">
     <value>Découvrir &amp;bull; Vivre &amp;bull; Partager </value>

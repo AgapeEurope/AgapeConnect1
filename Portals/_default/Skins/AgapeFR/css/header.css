@@ -75,3 +75,34 @@
 #header #SearchContainer a:hover #SearchSubmit {
 	background-color: #ABACAE;
 }
+
+#header #faireundon {
+    text-align: right;
+}
+
+#header #faireundon a {
+    display: inline-block;
+    zoom: 1; *display: inline; /* IE fix for inline-block display */
+    width: 153px;
+    height: 52px;
+    background: url('../images/faireundon4.png') no-repeat center right;
+    margin: 10px 0 0 0; 
+}
+
+
+/*===================== LIEN BOUTIQUE ===================== */
+#boutique_fixed_tag {
+    position: fixed;
+    z-index: 400;
+    right: 0px;
+    top: 200px;
+}
+
+#boutique_fixed_tag a {
+    display: inline-block;
+    zoom: 1;
+    *display: inline; /* IE fix for inline-block display */
+    width: 65px;
+    height: 168px;
+    background: url('../images/boutique1.png') no-repeat center right;
+}
