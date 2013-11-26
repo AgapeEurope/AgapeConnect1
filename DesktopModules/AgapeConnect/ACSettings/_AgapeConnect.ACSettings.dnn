@@ -1,0 +1,45 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="AgapeConnect.ACSettings" type="Module" version="1.0.0">
+  <friendlyName>acSettings</friendlyName>
+  <description>settings and install wizard for Agape Connect</description>
+  <iconFile />
+  <owner>
+    <name />
+    <organization />
+    <url />
+    <email />
+  </owner>
+  <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+  <releaseNotes />
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>AgapeConnect.ACSettings</moduleName>
+        <foldername>AgapeConnect/ACSettings</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>acSettings</friendlyName>
+            <definitionName>acSettings</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/AgapeConnect/ACSettings/ACSettings.ascx</controlSrc>
+                <supportsPartialRendering>False</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

@@ -41,7 +41,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
             'Label5.Text = CDate(UserController.GetUserById(PortalId, 7).Profile.GetPropertyValue("Birthday")).ToString("dd/MM/yyyy")
             ' tbTest.Text = CultureInfo.CurrentCulture.TwoLetterISOLanguageName
             'tbTest.Text = Left(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern, 8).ToLower
-            Dim auth As New DatatSync
+            ' Dim auth As New DatatSync
 
 
 
@@ -77,7 +77,9 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 Dim Staff As New Dictionary(Of String, Integer)
                 For Each row In StaffList
                   
+                    Try
 
+                   
                     If row.UserId2 > 0 Then
                         If Not (Staff.ContainsKey(row.DisplayName & " & " & row.User2.FirstName)) Then
                             Staff.Add(row.DisplayName & " & " & row.User2.FirstName, row.StaffId)
@@ -90,7 +92,9 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
 
                     End If
-
+                    Catch ex As Exception
+                        AgapeLogger.WriteEventLog(UserId, "Staff Admin-> Error adding " & row.DisplayName & " to Staff List" & ex.ToString)
+                    End Try
                 Next
 
 

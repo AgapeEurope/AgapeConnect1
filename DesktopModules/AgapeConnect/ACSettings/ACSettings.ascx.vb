@@ -21,17 +21,25 @@ Namespace DotNetNuke.Modules.AgapeConnect
             hfPortalId.Value = PortalId
 
             lblCurrency.Text = GetSetting("Currency", PortalId)
-            Dim d As New DatatSync
-            Try
-                lblPassword.Text = d.GetPassword()
-            Catch ex As Exception
-                lblPassword.Text = ""
-            End Try
 
+            Dim type = (From assembly In AppDomain.CurrentDomain.GetAssemblies()
+               From t In assembly.GetTypes()
+               Where t.Name = "DatatSync"
+               Select t).FirstOrDefault()
+            If Not type Is Nothing Then
+
+
+                Try
+                    Dim d = Activator.CreateInstance(type)
+                    lblPassword.Text = d.GetPassword()
+                Catch ex As Exception
+                    lblPassword.Text = ""
+                End Try
+            End If
             Dim x = System.Globalization.CultureInfo.CurrentCulture
 
 
-           
+
 
 
             If GetSetting("Datapump", PortalId) = "Unlocked" Then
@@ -41,7 +49,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     Dim uiCUL = CType(System.Configuration.ConfigurationManager.GetSection("system.web/globalization"), System.Web.Configuration.GlobalizationSection).UICulture
                     Dim format As IFormatProvider = New System.Globalization.CultureInfo(uiCUL, True)
 
-                    Dim lastPump As Date = Date.Parse(GetSetting("LastPump", PortalId), Format)
+                    Dim lastPump As Date = Date.Parse(GetSetting("LastPump", PortalId), format)
                     Dim LastSync As String = ""
 
                     If DateDiff(DateInterval.Minute, lastPump, Now) < 60 Then

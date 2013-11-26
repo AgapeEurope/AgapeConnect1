@@ -12,6 +12,38 @@
 <%@ Register TagPrefix="dnn" TagName="TERMS" Src="~/Admin/Skins/Terms.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="COPYRIGHT" Src="~/Admin/Skins/Copyright.ascx" %>
 
+
+<script type="text/javascript">
+      (function ($, Sys) {
+          function setUpMyTabs() {
+              if(!$('.acMenu').length)$('#ControlNav').prepend('<li class="controlBar_ArrowMenu acMenu"><a href="javascript:void(0)">AgapeConnect</a><div class="subNav" style="display: none;"><dl><dd><ul><li><a href="/admin/agapeConnect/staff" class="ControlBar_PopupLink">Staff</a></li><li><a href="/admin/agapeConnect/departments" class="ControlBar_PopupLink">Departments</a></li><li><a href="/admin/agapeConnect/templates" class="ControlBar_PopupLink">Templates</a></li><li><a href="/admin/agapeConnect/settings" class="ControlBar_PopupLink">Settings</a></li><li><a href="/admin/agapeConnect/icons" class="ControlBar_PopupLink">Icons</a></li></ul></dd></dl></div><!--close subNav--></li>');
+              $('.acMenu').hover(function () {
+                  //$(this).children('.subNav').show();
+                  $(this).children('.subNav').slideDown(100);},
+                  function () {
+                      $(this).children('.subNav').slideUp(100);
+                  });
+              $('.acMenu').click(function () {
+                  $(this).children('.subNav').slideDown(100);
+              });
+
+          }
+
+          $(document).ready(function () {
+              setUpMyTabs();
+              Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                  setUpMyTabs();
+              });
+          });
+
+
+
+      }(jQuery, window.Sys));
+
+</script>
+
+
+
     <div id="outerContainer" style="width: 100%; margin-left: 0px; margin-right: 0px;"
         align="center">
         <div id="innerContainer" style="width: 1100px;">

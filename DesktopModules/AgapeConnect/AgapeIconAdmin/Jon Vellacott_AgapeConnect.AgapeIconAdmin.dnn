@@ -1,0 +1,85 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="AgapeConnect.AgapeIconAdmin" type="Module" version="1.0.0">
+  <friendlyName>acAgapeIconAdmin</friendlyName>
+  <description>Agape Connect - AgapeIconAdmin</description>
+  <iconFile />
+  <owner>
+    <name>Jon Vellacott</name>
+    <organization>Agape</organization>
+    <url>http://www.agapeconect.me</url>
+    <email>JonVellacott@agape.org.uk</email>
+  </owner>
+  <license>Not yet available</license>
+  <releaseNotes>This package has no Release Notes</releaseNotes>
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>AgapeConnect.AgapeIconAdmin</moduleName>
+        <foldername>AgapeConnect/AgapeIconAdmin</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>acAgapeIconAdmin</friendlyName>
+            <definitionName>acAgapeIconAdmin</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/AgapeConnect/AgapeIconAdmin/AgapeIconAdmin.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\AgapeConnect\AgapeIconAdmin</basePath>
+        <file>
+          <path>App_LocalResources</path>
+          <name>AgapeIconAdmin.ascx.resx</name>
+        </file>
+        <file>
+          <path>images</path>
+          <name>Rmb-2.png</name>
+        </file>
+        <file>
+          <path>images</path>
+          <name>Rmb.png</name>
+        </file>
+        <file>
+          <path>images</path>
+          <name>ViewAccount.png</name>
+        </file>
+        <file>
+          <path>images</path>
+          <name>ViewAccount2.png</name>
+        </file>
+        <file>
+          <name>AgapeIconAdmin.ascx</name>
+        </file>
+        <file>
+          <name>AgapeIconAdmin.ascx.vb</name>
+        </file>
+        <file>
+          <name>AgapeIcons.ascx</name>
+        </file>
+        <file>
+          <name>AgapeIcons.ascx.vb</name>
+        </file>
+        <file>
+          <name>AgapeIcons.xml</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

@@ -1,0 +1,452 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages>
+    <package name="AgapeConnect.StaffAdmin" type="Module" version="1.0.0">
+      <friendlyName>acStaffAdmin</friendlyName>
+      <description>Agape Connect - StaffAdmin</description>
+      <iconFile />
+      <owner>
+        <name>Jon Vellacott</name>
+        <organization>Agape</organization>
+        <url>http://www.agapeconect.me</url>
+        <email>JonVellacott@agape.org.uk</email>
+      </owner>
+      <license>Not yet available</license>
+      <releaseNotes>This package has no Release Notes</releaseNotes>
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.StaffAdmin</moduleName>
+            <foldername>AgapeConnect/StaffAdmin</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>acStaffAdmin</friendlyName>
+                <definitionName>acStaffAdmin</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/StaffAdmin/StaffAdmin.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>BulkUpload</controlKey>
+                    <controlSrc>DesktopModules/AgapeConnect/StaffAdmin/BulkUpload.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>ChangeUsername</controlKey>
+                    <controlSrc>DesktopModules/AgapeConnect/StaffAdmin/ChangeUsername.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>StaffProfileFields</controlKey>
+                    <controlSrc>DesktopModules/AgapeConnect/StaffAdmin/StaffProfileFields.ascx</controlSrc>
+                    <supportsPartialRendering>True</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>True</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>StaffReportingRelationships</controlKey>
+                    <controlSrc>DesktopModules/AgapeConnect/StaffAdmin/StaffReportingRelationships.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>StaffTypes</controlKey>
+                    <controlSrc>DesktopModules/AgapeConnect/StaffAdmin/StaffTypes.ascx</controlSrc>
+                    <supportsPartialRendering>True</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+        <component type="Script">
+      <scripts>
+        <script type="Install">
+          <path>DesktopModules\AgapeConnect\StaffAdmin\providers</path>
+          <name>01.00.00.SqlDataProvider</name>
+          <version>01.00.00</version>
+        </script>
+      </scripts>
+    </component>
+        <component type="Config">
+          <config>
+            <configFile>web.config</configFile>
+            <install>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/system.web/compilation" action="update" collision="ignore" targetpath="codeSubDirectories">
+                    <codeSubDirectories />
+                  </node>
+                  <node path="/configuration/system.web/compilation/codeSubDirectories" action="update" key="directoryName" collision="overwrite">
+                    <add directoryName="StaffBroker" />
+                  </node>
+                  <node path="/configuration/system.web/compilation/codeSubDirectories" action="update" key="directoryName" collision="overwrite">
+                    <add directoryName="Account" />
+                  </node>
+                  <node path="/configuration/system.web/compilation/codeSubDirectories" action="update" key="directoryName" collision="overwrite">
+                    <add directoryName="tntWebUsers" />
+                  </node>
+                  <node path="/configuration/system.web/compilation/codeSubDirectories" action="update" key="directoryName" collision="overwrite">
+                    <add directoryName="casAuth" />
+                  </node>
+                </nodes>
+              </configuration>
+            </install>
+            <uninstall>
+              <configuration>
+                <nodes />
+              </configuration>
+            </uninstall>
+          </config>
+        </component>
+      </components>
+    </package>
+    <package name="AgapeConnect.CasAuth" type="Module" version="1.0.0">
+      <friendlyName>acCasAuth</friendlyName>
+      <description>Agape Connect - CasAuth</description>
+      <iconFile />
+      <owner>
+        <name>Jon Vellacott</name>
+        <organization>Agape</organization>
+        <url>http://www.agapeconect.me</url>
+        <email>JonVellacott@agape.org.uk</email>
+      </owner>
+      <license>Not yet available</license>
+      <releaseNotes>This package has no Release Notes</releaseNotes>
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.CasAuth</moduleName>
+            <foldername>AgapeConnect/CasAuth</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>acCasAuth</friendlyName>
+                <definitionName>acCasAuth</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/CasAuth/CasAuth.ascx</controlSrc>
+                    <supportsPartialRendering>True</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+       </components>
+    </package>
+    <package name="AgapeConnect.ACSettings" type="Module" version="1.0.0">
+      <friendlyName>acSettings</friendlyName>
+      <description>settings and install wizard for Agape Connect</description>
+      <iconFile />
+      <owner>
+        <name />
+        <organization />
+        <url />
+        <email />
+      </owner>
+      <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+      <releaseNotes />
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.ACSettings</moduleName>
+            <foldername>AgapeConnect/ACSettings</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>acSettings</friendlyName>
+                <definitionName>acSettings</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/ACSettings/ACSettings.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+       
+      </components>
+    </package>
+    <package name="AgapeConnect.CreatePortal" type="Module" version="1.0.0">
+      <friendlyName>acCreatePortal</friendlyName>
+      <description>Creates a new AgapeConnect portal</description>
+      <iconFile />
+      <owner>
+        <name />
+        <organization />
+        <url />
+        <email />
+      </owner>
+      <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+      <releaseNotes />
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.CreatePortal</moduleName>
+            <foldername>AgapeConnect/CreatePortal</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>NewPortal</friendlyName>
+                <definitionName>NewPortal</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/CreatePortal/CreatePortal.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+      </components>
+    </package>
+
+    <package name="AgapeConnect.Departments" type="Module" version="1.0.0">
+      <friendlyName>acDepartments</friendlyName>
+      <description>Agape Connect - Departments</description>
+      <iconFile />
+      <owner>
+        <name>Jon Vellacott</name>
+        <organization>Agape</organization>
+        <url>http://www.agapeconect.me</url>
+        <email>JonVellacott@agape.org.uk</email>
+      </owner>
+      <license>Not yet available</license>
+      <releaseNotes>This package has no Release Notes</releaseNotes>
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.Departments</moduleName>
+            <foldername>AgapeConnect/Departments</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>acDepartments</friendlyName>
+                <definitionName>acDepartments</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/Departments/Departments.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+      </components>
+    </package>
+    <package name="AgapeConnect.EditStaffProfile" type="Module" version="1.0.0">
+      <friendlyName>acEditStaffProfile</friendlyName>
+      <description />
+      <iconFile />
+      <owner>
+        <name />
+        <organization />
+        <url />
+        <email />
+      </owner>
+      <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+      <releaseNotes />
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.EditStaffProfile</moduleName>
+            <foldername>AgapeConnect/EditStaffProfile</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>acEditStaffProfile</friendlyName>
+                <definitionName>acEditStaffProfile</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/EditStaffProfile/EditStaffProfile.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                  <moduleControl>
+                    <controlKey>ProfileSettings</controlKey>
+                    <controlSrc>DesktopModules/AgapeConnect/EditStaffProfile/StaffProfileSettings.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component> 
+      </components>
+    </package>
+    <package name="AgapeConnect.Templates" type="Module" version="1.0.0">
+      <friendlyName>acTemplates</friendlyName>
+      <description>Agape Connect - Templates</description>
+      <iconFile />
+      <owner>
+        <name>Jon Vellacott</name>
+        <organization>Agape</organization>
+        <url>http://www.agapeconect.me</url>
+        <email>JonVellacott@agape.org.uk</email>
+      </owner>
+      <license>Not yet available</license>
+      <releaseNotes>This package has no Release Notes</releaseNotes>
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.Templates</moduleName>
+            <foldername>AgapeConnect/Templates</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>acTemplates</friendlyName>
+                <definitionName>acTemplates</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/Templates/Templates.ascx</controlSrc>
+                    <supportsPartialRendering>True</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>
+      </components>
+    </package>
+    <package name="AgapeConnect.Translate" type="Module" version="1.0.0">
+      <friendlyName>acTranslate</friendlyName>
+      <description>Allows you to translate the AgapeConnect modules.</description>
+      <iconFile />
+      <owner>
+        <name />
+        <organization />
+        <url />
+        <email />
+      </owner>
+      <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+      <releaseNotes />
+      <components>
+        <component type="Module">
+          <desktopModule>
+            <moduleName>AgapeConnect.Translate</moduleName>
+            <foldername>AgapeConnect/Translate</foldername>
+            <businessControllerClass />
+            <supportedFeatures />
+            <moduleDefinitions>
+              <moduleDefinition>
+                <friendlyName>acTranslate</friendlyName>
+                <definitionName>acTranslate</definitionName>
+                <defaultCacheTime>0</defaultCacheTime>
+                <moduleControls>
+                  <moduleControl>
+                    <controlKey />
+                    <controlSrc>DesktopModules/AgapeConnect/Translate/Translate.ascx</controlSrc>
+                    <supportsPartialRendering>False</supportsPartialRendering>
+                    <controlTitle />
+                    <controlType>View</controlType>
+                    <iconFile />
+                    <helpUrl />
+                    <supportsPopUps>False</supportsPopUps>
+                    <viewOrder>0</viewOrder>
+                  </moduleControl>
+                </moduleControls>
+              </moduleDefinition>
+            </moduleDefinitions>
+          </desktopModule>
+        </component>  
+      </components>
+    </package>
+  </packages>
+</dotnetnuke>

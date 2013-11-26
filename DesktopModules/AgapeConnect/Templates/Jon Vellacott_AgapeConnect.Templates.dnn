@@ -1,0 +1,59 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="AgapeConnect.Templates" type="Module" version="1.0.0">
+  <friendlyName>acTemplates</friendlyName>
+  <description>Agape Connect - Templates</description>
+  <iconFile />
+  <owner>
+    <name>Jon Vellacott</name>
+    <organization>Agape</organization>
+    <url>http://www.agapeconect.me</url>
+    <email>JonVellacott@agape.org.uk</email>
+  </owner>
+  <license>Not yet available</license>
+  <releaseNotes>This package has no Release Notes</releaseNotes>
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>AgapeConnect.Templates</moduleName>
+        <foldername>AgapeConnect/Templates</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>acTemplates</friendlyName>
+            <definitionName>acTemplates</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/AgapeConnect/Templates/Templates.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\AgapeConnect\Templates</basePath>
+        <file>
+          <name>emailTemplate.htm</name>
+        </file>
+        <file>
+          <name>Templates.ascx</name>
+        </file>
+        <file>
+          <name>Templates.ascx.vb</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

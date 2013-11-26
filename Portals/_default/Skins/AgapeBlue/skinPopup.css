@@ -1,4 +1,5 @@
 @import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
+@import url("/Portals/_default/Skins/AgapeBlue/JqueryUIFix.css");
 /*########## PortalCSS ################*/
 /*Use this section to set the styles for the portal to match your skin */
 .p {

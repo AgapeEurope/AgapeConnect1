@@ -26,7 +26,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 ddlOrigUser.DataValueField = "Username"
                 ddlOrigUser.DataBind()
             End If
-          
+
         End Sub
 
 
@@ -68,6 +68,20 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
                     lblLog.Text &= "Changing " & tbNewUsername.Text & " to: " & ouName & tbNewUsername.Text & "<br />"
                     StaffBrokerFunctions.ChangeUsername(tbNewUsername.Text, ouName & tbNewUsername.Text)
+                    Try
+
+
+                        Dim theOldUserAfter = UserController.GetUserByName(PortalId, ouName & tbNewUsername.Text)
+                        If Not theOldUserAfter Is Nothing Then
+                            UserController.RemoveUser(theOldUserAfter)
+                            Dim rc As New DotNetNuke.Security.Roles.RoleController
+                            Dim staffRole = rc.GetRoleByName(PortalId, "Staff")
+                            DotNetNuke.Security.Roles.RoleController.DeleteUserRole(theOldUserAfter, staffRole, PortalSettings, False)
+                            UserController.DeleteUser(theOldUserAfter, False, False)
+                        End If
+                    Catch ex As Exception
+
+                    End Try
                 End If
 
                 lblLog.Text &= "Changing " & ddlOrigUser.SelectedValue & " to: " & tbNewUsername.Text & "<br />"

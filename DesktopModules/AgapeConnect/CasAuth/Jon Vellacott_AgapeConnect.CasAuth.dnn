@@ -1,0 +1,70 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="AgapeConnect.CasAuth" type="Module" version="1.0.0">
+  <friendlyName>acCasAuth</friendlyName>
+  <description>Agape Connect - CasAuth</description>
+  <iconFile />
+  <owner>
+    <name>Jon Vellacott</name>
+    <organization>Agape</organization>
+    <url>http://www.agapeconect.me</url>
+    <email>JonVellacott@agape.org.uk</email>
+  </owner>
+  <license>Not yet available</license>
+  <releaseNotes>This package has no Release Notes</releaseNotes>
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>AgapeConnect.CasAuth</moduleName>
+        <foldername>AgapeConnect/CasAuth</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>acCasAuth</friendlyName>
+            <definitionName>acCasAuth</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/AgapeConnect/CasAuth/CasAuth.ascx</controlSrc>
+                <supportsPartialRendering>True</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\AgapeConnect\CasAuth</basePath>
+        <file>
+          <path>App_LocalResources</path>
+          <name>CasAuth.ascx.fr-FR.resx</name>
+        </file>
+        <file>
+          <path>App_LocalResources</path>
+          <name>CasAuth.ascx.resx</name>
+        </file>
+        <file>
+          <name>CasAuth.ascx</name>
+        </file>
+        <file>
+          <name>CasAuth.ascx.vb</name>
+        </file>
+        <file>
+          <name>CasAuthOld.ascx</name>
+        </file>
+        <file>
+          <name>CasAuthOld.ascx.vb</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

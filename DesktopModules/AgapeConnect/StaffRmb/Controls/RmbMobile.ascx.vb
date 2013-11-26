@@ -35,7 +35,7 @@ Partial Class controls_RmbLandline
     Public Sub Initialize(ByVal settings As Hashtable)
 
         If settings("NoReceipt") = 0 Then
-            If settings("VatAttrib") = False And settings("ElectonicReceipts") = False Then
+            If settings("VatAttrib") = False And settings("ElectronicReceipts") = False Then
                 'receipts are always required (and no VAT issues) so don't ask... Just assume receipts
 
                 ddlVATReceipt.SelectedValue = 1

@@ -1,0 +1,72 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages><package name="AgapeConnect.EditStaffProfile" type="Module" version="1.0.0">
+  <friendlyName>acEditStaffProfile</friendlyName>
+  <description />
+  <iconFile />
+  <owner>
+    <name />
+    <organization />
+    <url />
+    <email />
+  </owner>
+  <license>The license for this package is not currently included within the installation file, please check with the vendor for full license details.</license>
+  <releaseNotes />
+  <components>
+    <component type="Module">
+      <desktopModule>
+        <moduleName>AgapeConnect.EditStaffProfile</moduleName>
+        <foldername>AgapeConnect/EditStaffProfile</foldername>
+        <businessControllerClass />
+        <supportedFeatures />
+        <moduleDefinitions>
+          <moduleDefinition>
+            <friendlyName>acEditStaffProfile</friendlyName>
+            <definitionName>acEditStaffProfile</definitionName>
+            <defaultCacheTime>0</defaultCacheTime>
+            <moduleControls>
+              <moduleControl>
+                <controlKey />
+                <controlSrc>DesktopModules/AgapeConnect/EditStaffProfile/EditStaffProfile.ascx</controlSrc>
+                <supportsPartialRendering>False</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+                <viewOrder>0</viewOrder>
+              </moduleControl>
+              <moduleControl>
+                <controlKey>ProfileSettings</controlKey>
+                <controlSrc>DesktopModules/AgapeConnect/EditStaffProfile/StaffProfileSettings.ascx</controlSrc>
+                <supportsPartialRendering>False</supportsPartialRendering>
+                <controlTitle />
+                <controlType>View</controlType>
+                <iconFile />
+                <helpUrl />
+                <supportsPopUps>False</supportsPopUps>
+              </moduleControl>
+            </moduleControls>
+          </moduleDefinition>
+        </moduleDefinitions>
+      </desktopModule>
+    </component>
+    <component type="File">
+      <files>
+        <basePath>DesktopModules\AgapeConnect\EditStaffProfile</basePath>
+        <file>
+          <name>EditStaffProfile.ascx</name>
+        </file>
+        <file>
+          <name>EditStaffProfile.ascx.vb</name>
+        </file>
+        <file>
+          <name>StaffProfileSettings.ascx</name>
+        </file>
+        <file>
+          <name>StaffProfileSettings.ascx.vb</name>
+        </file>
+      </files>
+    </component>
+  </components>
+</package></packages>
+</dotnetnuke>

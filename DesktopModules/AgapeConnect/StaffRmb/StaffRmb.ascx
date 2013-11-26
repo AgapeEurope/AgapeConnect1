@@ -2091,7 +2091,7 @@
         <asp:Label ID="Label39" runat="server" ResourceKey="btnAdvReq" class="AgapeLink"></asp:Label>
     </a>
 
-    <asp:Label ID="lblMovedMenu" runat="server" Font-Size="XX-Small" Font-Italic="true" ForeColor="Gray" Text="If you are looking for Settings or Suggested Payments, these links have moved. Click the faint Manage Button at the top left of this module (over the New Reimbursment button). "></asp:Label>
+    <asp:Label ID="lblMovedMenu" runat="server" Font-Size="XX-Small" Font-Italic="true" ForeColor="Gray" Text="If you are looking for Settings, Suggested Payments or Download Batched Transactions, these links have moved. Click the faint wrench/screwdriver icon at the top right corner of this module. "></asp:Label>
 
     &nbsp<%--; &nbsp;
 <asp:LinkButton ID="btnSettings" runat="server" resourcekey="btnSettings"></asp:LinkButton>

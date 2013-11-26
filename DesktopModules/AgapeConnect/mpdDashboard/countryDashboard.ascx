@@ -21,7 +21,7 @@
             title: 'Staff MPD Health',
             pieHole: 0.4, reverseCategories: true,
             chartArea: { left: 40, top: 20, width: "120%", height: "100%" },
-            slices: [{ color: 'green' }, { color: '#7e870d' }, { color: '#ff9b00' }, { color: '#ff5f08' }, { color: 'red' }, { color: 'grey', offset: 0.1 }]
+            slices: [{ color: 'green' },/* { color: '#7e870d' }, */{ color: '#ff9b00' }, { color: '#ff5f08' }, { color: 'red' }, { color: 'grey', offset: 0.1 }]
         };
 
         var chart2 = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -34,9 +34,9 @@
                 $('.listDetail').hide();
                 if (section.indexOf('<50%') > -1) $('#d_lessthan50').show();
 
-                if (section.indexOf('50-75%') > -1) $('#d_low').show();
-                if (section.indexOf('75-90%') > -1) $('#d_medium').show();
-                if (section.indexOf('90-100%') > -1) $('#d_high').show();
+                if (section.indexOf('50-80%') > -1) $('#d_low').show();
+               // if (section.indexOf('80-90%') > -1) $('#d_medium').show();
+                if (section.indexOf('80-100%') > -1) $('#d_high').show();
                 if (section.indexOf('>100%') > -1) $('#d_full').show();
                 if (section.indexOf('No Budget') > -1) $('#d_none').show();
 
@@ -122,7 +122,7 @@
         <div class="well listDetail" id="d_low">
             <asp:Repeater ID="rpLow" runat="server">
                 <HeaderTemplate>
-                    <h4>50-75% Raised</h4>
+                    <h4>50-80% Raised</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <div>
@@ -150,7 +150,7 @@
         <div class="well listDetail" id="d_high">
             <asp:Repeater ID="rpHigh" runat="server">
                 <HeaderTemplate>
-                    <h4>90-100% Raised</h4>
+                    <h4>80-100% Raised</h4>
                 </HeaderTemplate>
                 <ItemTemplate>
                     <div>

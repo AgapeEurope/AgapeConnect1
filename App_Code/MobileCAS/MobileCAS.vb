@@ -17,8 +17,9 @@ Public Class MobileCAS
             rtn.LoginSuccess = True
             rtn.GUID = objKey.KeyGuid
             rtn.ProxyTicket = objKey.ProxyTicket
+            rtn.ServiceTicket = objKey.ServiceTicket
 
-
+            rtn.UserName = objKey.UserName
         End If
 
         Return rtn

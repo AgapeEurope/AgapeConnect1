@@ -2,7 +2,9 @@
 @import url("skinPopup.css");
 /*########## PortalCSS ################*/
 
-
+.ui-dialog {
+overflow: inherit !important;
+}
 #searchContainer, #seachContainer span, #searchContainer span .NormalTextBox
 {
     padding: 0 ;
@@ -23,6 +25,17 @@ a.dnnFormHelp span
 {
     text-align: left;    
 }
+.LanguageMenu {
+float: left;
+}
+.Language {
+    margin:3px;
+    padding-bottom: 4px;
+}
+
+form .dnn_mact > li > a {
+background-image: url(images/acActionMenu.png);
+}
 
 /*############## Menu Style ###############*/
 /* main menu td */
@@ -32,7 +45,7 @@ a.dnnFormHelp span
 	font-size: 12px; 
 	background-color:transparent;
 	width:970px;
-	z-index:1000px ;
+	z-index:10000 ;
 	
 }
 
@@ -46,7 +59,7 @@ font-weight: bold ;
  
 	white-space:nowrap;
 	/*float: left;*/
-	z-index:1000px ;
+	z-index:10000 ;
 	height: 24px;
 }
 
@@ -63,7 +76,7 @@ font-weight: bold ;
 height: 24px;
 	white-space:nowrap;
 	/*float: left;*/
-	z-index:1000px ;
+	z-index:10000 ;
 }
 
 
@@ -79,7 +92,7 @@ height: 24px;
 	 
 	white-space:nowrap;
 	/*float: left;*/
-	z-index:1000px ;
+	z-index:10000 ;
 	height: 24px;
 }
 
@@ -87,7 +100,7 @@ height: 24px;
 .main_dnnmenu_submenu 
 {
 	border:1px solid #C0D6E5;
-	z-index:1000px ;
+	z-index:10000 ;
 	
 }
 
@@ -103,7 +116,7 @@ height: 24px;
 	line-height:2em;
 	padding-left: 5px ;
 	margin: 0px ;
-	z-index:1000px ;
+	z-index:10000 ;
 }
 
 /*  SUB Menu hover & selected */
@@ -111,20 +124,20 @@ height: 24px;
 {  
 	background-color:#7d97bc; 
 	color:#FFF;
-	z-index:1000px ;
+	z-index:10000 ;
 }
 .main_dnnmenu_itemselected td{
  background-color: #7d97bc ; 
  font-weight: bold;
 	color:#FFF;
-	z-index:1000px ;
+	z-index:10000 ;
 }
 
 .main_dnnmenu_break
 {
 	height: 2px;
 	background-color: #D5E0FF;
-	z-index:1000px ;
+	z-index:10000 ;
 }
 
 .main_dnnmenu_ChildRoot
@@ -200,7 +213,7 @@ height: 24px;
 .breadcrumbCentre {
 	background-image: url(images/BreadcrumbInner.gif);
 	background-repeat: repeat-x;
-	height: 44px;
+	
 }
  .breadcrumbRight {
 	background-image: url(images/BreadcrumbRight.gif);
@@ -275,6 +288,11 @@ height: 24px;
 	white-space: nowrap ;
     vertical-align:  middle ;
 }
+    #searchContainer .searchInputContainer {
+        display: inherit !important;
+         position: inherit !important;
+    }
+
 .TopPane {
 	background-color: White;
 	margin:0;

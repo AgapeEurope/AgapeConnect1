@@ -58,11 +58,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 Dim g1 = groupedData.Where(Function(c) c.SupLev < 0.5)
-                Dim g2 = groupedData.Where(Function(c) c.SupLev >= 0.5 And c.SupLev < 0.75)
-                Dim g3 = groupedData.Where(Function(c) c.SupLev >= 0.75 And c.SupLev < 0.9)
-                Dim g4 = groupedData.Where(Function(c) c.SupLev >= 0.9 And c.SupLev < 1.0)
+                Dim g2 = groupedData.Where(Function(c) c.SupLev >= 0.5 And c.SupLev < 0.8)
+                '    Dim g3 = groupedData.Where(Function(c) c.SupLev >= 0.75 And c.SupLev < 0.9)
+                Dim g4 = groupedData.Where(Function(c) c.SupLev >= 0.8 And c.SupLev < 1.0)
                 Dim g5 = groupedData.Where(Function(c) c.SupLev >= 1.0)
-                Dim g0 = allLocalStaff.Count - (g1.Count + g2.Count + g3.Count + g4.Count + g5.Count)
+                Dim g0 = allLocalStaff.Count - (g1.Count + g2.Count + g4.Count + g5.Count)
 
 
 
@@ -73,9 +73,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 jsonPI = "['No Budget', " & g0 & "],"
                 jsonPI &= "['<50% Raised', " & g1.Count & "],"
-                jsonPI &= "['50-75% Raised', " & g2.Count & "],"
-                jsonPI &= "['75-90% Raised', " & g3.Count & "],"
-                jsonPI &= "['90-100% Raised', " & g4.Count & "],"
+                jsonPI &= "['50-80% Raised', " & g2.Count & "],"
+                ' jsonPI &= "['75-90% Raised', " & g3.Count & "],"
+                jsonPI &= "['80-100% Raised', " & g4.Count & "],"
                 jsonPI &= "['>100% Raised', " & g5.Count & "]"
 
                 jsonLi = ""
@@ -100,25 +100,29 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 Next
 
-                lblAvgSupport.Text = (groupedData.Average(Function(c) c.SupLev) * 100.0).ToString("0.0") & "%"
-
-                'lblAvgSupport.Text = mpdFunctions.getBudgetForStaffPeriod(20, "201301")
-
-                Dim bva = ((From c In incomeData Where c.expense < 0 And c.Budget > 0 Select -c.expense / c.Budget).Average())
-                lblBdgVsAct.Text = bva.ToString("0.0%")
-                lblBdgVsActLabel.Text = IIf(bva > 1, "(budgets under-estimated expenses)", "(budgets over-estimated expenses)")
+                lblAvgSupport.Text = 0
+                If groupedData.Count > 0 Then
+                    lblAvgSupport.Text = (groupedData.Average(Function(c) c.SupLev) * 100.0).ToString("0.0") & "%"
 
 
+                    'lblAvgSupport.Text = mpdFunctions.getBudgetForStaffPeriod(20, "201301")
 
-               
+                    Dim bva = ((From c In incomeData Where c.expense < 0 And c.Budget > 0 Select -c.expense / c.Budget).Average())
+
+                    lblBdgVsAct.Text = bva.ToString("0.0%")
+                    lblBdgVsActLabel.Text = IIf(bva > 1, "(budgets under-estimated expenses)", "(budgets over-estimated expenses)")
+
+                End If
+
+
                 rpLessThan50.DataSource = g1
                 rpLessThan50.DataBind()
 
                 rpLow.DataSource = g2
                 rpLow.DataBind()
 
-                rpMedium.DataSource = g3
-                rpMedium.DataBind()
+                'rpMedium.DataSource = g3
+                'rpMedium.DataBind()
 
                 rpHigh.DataSource = g4
                 rpHigh.DataBind()

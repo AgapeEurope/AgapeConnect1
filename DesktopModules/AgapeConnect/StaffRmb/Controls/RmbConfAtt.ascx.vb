@@ -33,9 +33,9 @@ Partial Class controls_RmbConfProv
     End Sub
 
     Public Sub Initialize(ByVal settings As Hashtable)
-
+        ttlReceipt.Text = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Text", LocalResourceFile)
         If settings("NoReceipt") = 0 Then
-            If settings("VatAttrib") = False And settings("ElectonicReceipts") = False Then
+            If settings("VatAttrib") = False And settings("ElectronicReceipts") = False Then
                 'receipts are always required (and no VAT issues) so don't ask... Just assume receipts
 
                 ddlVATReceipt.SelectedValue = 1
@@ -47,7 +47,7 @@ Partial Class controls_RmbConfProv
             hfNoReceiptLimit.Value = settings("NoReceipt")
             Dim _LIMIT As String = StaffBrokerFunctions.GetSetting("Currency", PortalId) & settings("NoReceipt")
             ddlVATReceipt.Items(3).Text = DotNetNuke.Services.Localization.Localization.GetString("NoReceipt.Text", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
-            ttlReceipt.Text = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Text", LocalResourceFile)
+
             ttlReceipt.HelpText = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Help", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
             ReceiptLine.Visible = True
             ddlVATReceipt.Items(3).Enabled = True

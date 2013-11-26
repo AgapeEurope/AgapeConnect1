@@ -20,6 +20,7 @@ Imports DotNetNuke.Services.FileSystem
 Namespace DotNetNuke.Modules.StaffRmbMod
     Partial Class ViewStaffRmb
         Inherits Entities.Modules.PortalModuleBase
+        Implements Entities.Modules.IActionable
 
 #Region "Properties"
         Dim d As New StaffRmbDataContext
@@ -59,34 +60,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Next
         End Sub
 
-        Private Sub AddClientAction(ByVal Title As String, ByVal theScript As String, ByRef root As DotNetNuke.Entities.Modules.Actions.ModuleAction)
-            Dim jsAction As New DotNetNuke.Entities.Modules.Actions.ModuleAction(ModuleContext.GetNextActionID)
-            With jsAction
-                .Title = Title
-                .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent
-                .ClientScript = theScript
-                .Secure = Security.SecurityAccessLevel.Edit
-            End With
-            root.Actions.Add(jsAction)
-        End Sub
+        
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Init
 
-            Dim addTitle = New DotNetNuke.Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
-
-            MyBase.Actions.Insert(0, addTitle)
-
-
-            addTitle.Actions.Add(GetNextActionID, "Settings", "RmbSettings", "", "action_settings.gif", EditUrl("RmbSettings"), False, SecurityAccessLevel.Edit, True, False)
-
-            AddClientAction("Download Batched Transactions", "showDownload()", addTitle)
-            AddClientAction("Suggested Payments", "showSuggestedPayments()", addTitle)
-
-            For Each a As DotNetNuke.Entities.Modules.Actions.ModuleAction In addTitle.Actions
-                If a.Title = "Download Batched Transactions" Or a.Title = "Suggested Payments" Then
-                    a.Icon = "FileManager/Icons/xls.gif"
-                End If
-            Next
+           
 
             If Not Page.IsPostBack And Request.QueryString("RmbNo") <> "" Then
                 hfRmbNo.Value = CInt(Request.QueryString("RmbNo"))
@@ -4968,7 +4946,37 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Sub
+#Region "Optional Interfaces"
+        Private Sub AddClientAction(ByVal Title As String, ByVal theScript As String, ByRef root As DotNetNuke.Entities.Modules.Actions.ModuleActionCollection)
+            Dim jsAction As New DotNetNuke.Entities.Modules.Actions.ModuleAction(ModuleContext.GetNextActionID)
+            With jsAction
+                .Title = Title
+                .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent
+                .ClientScript = theScript
+                .Secure = Security.SecurityAccessLevel.Edit
+            End With
+            root.Add(jsAction)
+        End Sub
+        Public ReadOnly Property ModuleActions() As Entities.Modules.Actions.ModuleActionCollection Implements Entities.Modules.IActionable.ModuleActions
+            Get
 
+                Dim Actions As New Entities.Modules.Actions.ModuleActionCollection
+
+                Actions.Add(GetNextActionID, "Expense Settings", "RmbSettings", "", "action_settings.gif", EditUrl("RmbSettings"), False, SecurityAccessLevel.Edit, True, False)
+
+                AddClientAction("Download Batched Transactions", "showDownload()", Actions)
+                AddClientAction("Suggested Payments", "showSuggestedPayments()", Actions)
+
+                For Each a As DotNetNuke.Entities.Modules.Actions.ModuleAction In Actions
+                    If a.Title = "Download Batched Transactions" Or a.Title = "Suggested Payments" Then
+                        a.Icon = "FileManager/Icons/xls.gif"
+                    End If
+                Next
+                Return Actions
+            End Get
+        End Property
+
+#End Region
       
     End Class
 End Namespace
