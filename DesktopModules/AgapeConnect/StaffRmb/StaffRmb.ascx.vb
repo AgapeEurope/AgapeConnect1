@@ -33,6 +33,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 #End Region
 
 #Region "Page Events"
+
+        'Private Sub AddClientActionOld(ByVal Title As String, ByVal theScript As String, ByRef root As DotNetNuke.Entities.Modules.Actions.ModuleAction)
+        '    Dim jsAction As New DotNetNuke.Entities.Modules.Actions.ModuleAction(ModuleContext.GetNextActionID)
+        '    With jsAction
+        '        .Title = Title
+        '        .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent
+        '        .ClientScript = theScript
+        '        .Secure = Security.SecurityAccessLevel.Edit
+        '    End With
+        '    root.Actions.Add(jsAction)
+        'End Sub
         Protected Sub Page_Load1(sender As Object, e As System.EventArgs) Handles Me.Load
             hfPortalId.Value = PortalId
             lblMovedMenu.Visible = IsEditable
@@ -60,11 +71,25 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Next
         End Sub
 
-        
+
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Init
 
-           
+            'Dim addTitle = New DotNetNuke.Entities.Modules.Actions.ModuleAction(GetNextActionID, "AgapeConnect", "AgapeConnect", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+
+            'MyBase.Actions.Insert(0, addTitle)
+
+
+            'addTitle.Actions.Add(GetNextActionID, "Settings", "RmbSettings", "", "action_settings.gif", EditUrl("RmbSettings"), False, SecurityAccessLevel.Edit, True, False)
+
+            'AddClientActionOld("Download Batched Transactions", "showDownload()", addTitle)
+            'AddClientActionOld("Suggested Payments", "showSuggestedPayments()", addTitle)
+
+            'For Each a As DotNetNuke.Entities.Modules.Actions.ModuleAction In addTitle.Actions
+            '    If a.Title = "Download Batched Transactions" Or a.Title = "Suggested Payments" Then
+            '        a.Icon = "FileManager/Icons/xls.gif"
+            '    End If
+            'Next
 
             If Not Page.IsPostBack And Request.QueryString("RmbNo") <> "" Then
                 hfRmbNo.Value = CInt(Request.QueryString("RmbNo"))
@@ -3981,34 +4006,84 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim csvOut As String = "RmbNo, Primary RC, Type, Submitted by, Submitted on,Approved by, Approved on, Processed By, Processed on, Amount" & vbNewLine
 
             For Each row In q
-                Dim submitter = UserController.GetUserById(PortalId, row.UserId).DisplayName
-                Dim approver = UserController.GetUserById(PortalId, row.ApprUserId).DisplayName
-                Dim Processor = UserController.GetUserById(PortalId, row.ProcUserId).DisplayName
+                Dim SubmitterName = ""
+                Dim ApproverName = ""
+                Dim ProcessorName = ""
+
+                Dim submitter = UserController.GetUserById(PortalId, row.UserId)
+                If Not submitter Is Nothing Then
+                    SubmitterName = submitter.DisplayName
+                End If
+                Dim approver = UserController.GetUserById(PortalId, row.ApprUserId)
+                If Not approver Is Nothing Then
+                    ApproverName = approver.DisplayName
+                End If
+                Dim Processor = UserController.GetUserById(PortalId, row.ProcUserId)
+                If Not Processor Is Nothing Then
+                    ProcessorName = Processor.DisplayName
+                End If
+
 
 
                 csvOut &= row.RID & ","
                 csvOut &= """" & row.CostCenter & ""","
                 csvOut &= """" & IIf(row.Department, "D", "P") & ""","
-                csvOut &= """" & submitter & ""","
+                csvOut &= """" & SubmitterName & ""","
                 csvOut &= row.RmbDate.Value.ToString("yyyy-MM-dd") & ","
-                csvOut &= """" & approver & ""","
+                csvOut &= """" & ApproverName & ""","
                 csvOut &= row.ApprDate.Value.ToString("yyyy-MM-dd") & ","
-                csvOut &= """" & Processor & ""","
+                csvOut &= """" & ProcessorName & ""","
                 csvOut &= row.ProcDate.Value.ToString("yyyy-MM-dd") & ","
                 csvOut &= row.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount) & vbNewLine
 
 
             Next
 
-            'Dim t As Type = Me.GetType()
-            'Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
-            'sb.Append("<script language='javascript'>")
-            'sb.Append("closePopupDownloadPeriodExpenseReport();")
-            'sb.Append("</script>")
-            'ScriptManager.RegisterClientScriptBlock(Page, t, "popupDownloadExpense", sb.ToString, False)
+            csvOut &= vbNewLine
+            csvOut &= "AdvNo, Staff RC, Type, Submitted by, Submitted on,Approved by, Approved on, Processed By, Processed on, Amount" & vbNewLine
+            Dim r = From c In d.AP_Staff_AdvanceRequests Where c.PortalId = PortalId And c.Period = Period And c.Year = Year And c.RequestStatus = RmbStatus.Processed
+
+            For Each row In r
+                Dim SubmitterName = ""
+                Dim ApproverName = ""
+                Dim ProcessorName = ""
+
+                Dim submitter = UserController.GetUserById(PortalId, row.UserId)
+                If Not submitter Is Nothing Then
+                    SubmitterName = submitter.DisplayName
+                End If
+                Dim approver = UserController.GetUserById(PortalId, row.ApproverId)
+                If Not approver Is Nothing Then
+                    ApproverName = approver.DisplayName
+                End If
+            
+
+                Dim RC = StaffBrokerFunctions.GetStaffMember(row.UserId).CostCenter
 
 
-          
+                csvOut &= row.LocalAdvanceId & ","
+                csvOut &= """" & RC & ""","
+                csvOut &= """Advance"","
+                csvOut &= """" & SubmitterName & ""","
+                csvOut &= row.RequestDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= """" & ApproverName & ""","
+                csvOut &= row.ApprovedDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= """" & ProcessorName & ""","
+                csvOut &= row.ProcessedDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= row.RequestAmount & vbNewLine
+
+
+            Next
+
+            Dim t As Type = Me.GetType()
+            Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            sb.Append("<script language='javascript'>")
+            sb.Append("closePopupDownloadExpense();")
+            sb.Append("</script>")
+            ScriptManager.RegisterStartupScript(Page, t, "popupDownloadExpense", sb.ToString, False)
+
+
+
             Dim attachment As String = "attachment; filename=Expense Report - " & Year & " Period " & Period & ".csv"
 
 
@@ -4025,7 +4100,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Sub
-
+       
 
         Protected Sub DownloadBatch(Optional ByVal MarkAsProcessed As Boolean = False)
             Dim downloadStatuses() As Integer = {RmbStatus.PendingDownload, RmbStatus.DownloadFailed}
@@ -5047,7 +5122,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 #End Region
       
         Protected Sub btnDownloadExpenseOK_Click(sender As Object, e As EventArgs) Handles btnDownloadExpenseOK.Click
-            DownloadPeriodReport(7, 2013)
+            DownloadPeriodReport(ddlDownloadExpensePeriod.SelectedValue, ddlDownloadExpenseYEar.SelectedValue)
 
         End Sub
     End Class

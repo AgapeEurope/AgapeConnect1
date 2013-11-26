@@ -1919,6 +1919,7 @@
                     <asp:AsyncPostBackTrigger ControlID="btnAddLine" EventName="Click" />
                     <%--  <asp:AsyncPostBackTrigger ControlID="btnPrint"  EventName="Click" />--%>
                     <asp:PostBackTrigger ControlID="btnPrint" />
+                      <asp:PostBackTrigger ControlID="btnDownloadExpenseOK" />
                     <%--  <asp:PostBackTrigger ControlID="btnDownloadBatch" />
                 <asp:PostBackTrigger ControlID="btnSuggestedPayments" />--%>
                     <%--  <asp:PostBackTrigger ControlID="btnAddLine" />--%>
@@ -2107,8 +2108,9 @@
 
         <br />
         <div width="100%" style="text-align: center">
-            <asp:Button ID="btnDownloadExpenseOK" runat="server" resourcekey="btnOK" class="aButton" />
-            <asp:Button ID="btnDownloadExpenseCancel" runat="server" resourcekey="btnCancel" class="aButton" />
+            <asp:Button ID="btnDownloadExpenseOK" runat="server" resourcekey="btnOK" class="aButton" OnClientClick="closePopupDownloadExpense();" />
+              <input id="Button3" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopupDownloadExpense();"
+                        class="aButton" />
         </div>
     </div>
 
