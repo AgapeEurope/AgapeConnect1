@@ -621,10 +621,18 @@ Namespace DotNetNuke.Modules.StaffAdmin
                     For Each sm In s
                         Dim u1 = UserController.GetUserById(PortalId, sm.UserId1)
 
+                        Dim u1Name = "Error - unknown"
+                        If Not u1 Is Nothing Then
+                            u1Name = u1.DisplayName
+                        Else
+
+                            StaffBrokerFunctions.EventLog("Error Exporting RC Report", "user does not exists for " & row.CostCentreCode & " : " & sm.UserId1, UserId)
+
+                        End If
                         Dim leaders1 = StaffBrokerFunctions.GetLeadersDetailed(sm.UserId1, PortalId)
 
                         For Each l In leaders1
-                            csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """,""" & IIf(l.isDelegate, "Delegate ", "") & "Leader of"",""" & u1.DisplayName & """,""" & l.DisplayName & """" & vbNewLine
+                            csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """,""" & IIf(l.isDelegate, "Delegate ", "") & "Leader of"",""" & u1Name & """,""" & l.DisplayName & """" & vbNewLine
 
                         Next
 
@@ -635,7 +643,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
                             Dim leaders2 = StaffBrokerFunctions.GetLeadersDetailed(sm.UserId2, PortalId)
 
                             For Each l In leaders1
-                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """,""" & IIf(l.isDelegate, "Delegate ", "") & "Leader of"",""" & u2.DisplayName & """,""" & l.DisplayName & """" & vbNewLine
+                                csvOut &= row.CostCentreCode & ",""" & row.CostCentreName & """,""" & IIf(l.isDelegate, "Delegate ", "") & "Leader of"",""" & u1Name & """,""" & l.DisplayName & """" & vbNewLine
 
                             Next
                         End If
