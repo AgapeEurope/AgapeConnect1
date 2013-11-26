@@ -297,23 +297,33 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
                 Dim q = From c In d.AP_StaffBroker_Staffs Where c.StaffId = CInt(e.Keys("StaffId"))
                 If q.Count > 0 Then
-
-                    Dim CC As String = CType(FormView1.FindControl("DropDownList1"), DropDownList).SelectedValue
-                    If q.First.CostCenter <> CC Then
-                        q.First.CostCenter = CC
-                        d.SubmitChanges()
-                        StaffBrokerFunctions.SetSetting("tntFlag", "Dirty", PortalId)
-                        Dim x As New tntWebUsers()
-                        x.RefreshWebUsers({q.First.UserId1})
-                        x.RefreshWebUsers(StaffBrokerFunctions.GetLeaders(q.First.UserId1, True).ToArray)
-
-                        If q.First.UserId2 > 0 Then
-                            x.RefreshWebUsers({q.First.UserId2})
-                            x.RefreshWebUsers(StaffBrokerFunctions.GetLeaders(q.First.UserId2, True).ToArray)
+                    Dim CC As String = ""
+                    If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                        CC = CType(FormView1.FindControl("tbCostCentreCode"), TextBox).Text
+                        If q.First.CostCenter <> CC Then
+                            q.First.CostCenter = CC
+                            d.SubmitChanges()
                         End If
+                    Else
+
+                        CC = CType(FormView1.FindControl("DropDownList1"), DropDownList).SelectedValue
+                        If q.First.CostCenter <> CC Then
+                            q.First.CostCenter = CC
+                            d.SubmitChanges()
+                            StaffBrokerFunctions.SetSetting("tntFlag", "Dirty", PortalId)
+                            Dim x As New tntWebUsers()
+                            x.RefreshWebUsers({q.First.UserId1})
+                            x.RefreshWebUsers(StaffBrokerFunctions.GetLeaders(q.First.UserId1, True).ToArray)
+
+                            If q.First.UserId2 > 0 Then
+                                x.RefreshWebUsers({q.First.UserId2})
+                                x.RefreshWebUsers(StaffBrokerFunctions.GetLeaders(q.First.UserId2, True).ToArray)
+                            End If
 
 
+                        End If
                     End If
+
 
 
 
@@ -352,7 +362,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
 
                     If MaritalStatus = -1 Then 'notstaff
-                        
+
 
                         q.First.UserId2 = MaritalStatus
                         Dim dob2 As String = CType(FormView1.FindControl("tbSpouseDateNotStaff"), TextBox).Text
@@ -378,7 +388,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
 
                     Else
-                        
+
 
                         Try
                             Dim B2 As Date = DateTime.Parse(CType(FormView1.FindControl("tbSpouseDateStaff"), TextBox).Text, CultureInfo.CurrentCulture)
@@ -422,7 +432,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
                     Next
 
 
-                   
+
 
 
 
@@ -456,7 +466,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
                     Dim PayrollDeductions = CType(FormView1.FindControl("dlPayrollDeductions"), DataList).Items
 
                     For Each row As DataListItem In PayrollDeductions
-                       Dim PropName As String = CType(row.FindControl("hfPropName"), HiddenField).Value
+                        Dim PropName As String = CType(row.FindControl("hfPropName"), HiddenField).Value
                         Dim PropType As Integer = CType(row.FindControl("hfPropType"), HiddenField).Value
 
                         User1.Profile.SetProfileProperty(PropName, CType(row.FindControl("tbPropValue1"), TextBox).Text)

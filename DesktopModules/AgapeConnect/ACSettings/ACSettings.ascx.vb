@@ -22,20 +22,20 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             lblCurrency.Text = GetSetting("Currency", PortalId)
 
-            Dim type = (From assembly In AppDomain.CurrentDomain.GetAssemblies()
-               From t In assembly.GetTypes()
-               Where t.Name = "DatatSync"
-               Select t).FirstOrDefault()
-            If Not type Is Nothing Then
+            'Dim type = (From assembly In AppDomain.CurrentDomain.GetAssemblies()
+            '   From t In assembly.GetTypes()
+            '   Where t.Name = "DatatSync"
+            '   Select t).FirstOrDefault()
+            'If Not type Is Nothing Then
 
 
-                Try
-                    Dim d = Activator.CreateInstance(type)
-                    lblPassword.Text = d.GetPassword()
-                Catch ex As Exception
-                    lblPassword.Text = ""
-                End Try
-            End If
+            Try
+                Dim d = New DatatSync()
+                lblPassword.Text = d.GetPassword()
+            Catch ex As Exception
+                lblPassword.Text = ""
+            End Try
+            ' End If
             Dim x = System.Globalization.CultureInfo.CurrentCulture
 
 

@@ -393,12 +393,14 @@
                             </td>
                             <td colspan="1">
                                 
-                                <asp:DropDownList ID="DropDownList1" runat="server" SelectedValue='<%# StaffBrokerFunctions.ValidateCostCenter(Eval("CostCenter"), PortalId) %>'
+                                <asp:DropDownList ID="DropDownList1" runat="server" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>' SelectedValue='<%# StaffBrokerFunctions.ValidateCostCenter(Eval("CostCenter"), PortalId) %>'
                                     DataSourceID="dsCostCenters" DataTextField="DisplayName" DataValueField="CostCentreCode"
                                     AppendDataBoundItems="true">
                                     <asp:ListItem Text="" Value="" />
                                 </asp:DropDownList>
                                  
+                                <asp:TextBox ID="tbCostCentreCode" runat="server" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' Text='<%# Eval("CostCenter")%>'></asp:TextBox>
+
                                 </td><td align="left">
                                
                                 <table>
