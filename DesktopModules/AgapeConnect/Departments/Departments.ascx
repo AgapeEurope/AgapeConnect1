@@ -72,11 +72,11 @@
                             <td> 
                                <asp:DropDownList ID="ddlCostCentre" runat="server" SelectedValue='<%# StaffBrokerFunctions.ValidateCostCenter( Eval("CostCentre"), PortalId) %>'  
                                     DataSourceID="dsCostCenters" DataTextField="DisplayName" 
-                                    DataValueField="CostCentreCode" AppendDataBoundItems="true">
-                                    <asp:ListItem Text="" Value="" />
+                                    DataValueField="CostCentreCode" AppendDataBoundItems="true"  Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>'>
+                                    <asp:ListItem Text="" Value=""  />
                                 </asp:DropDownList>
                                
-                               
+                                 <asp:TextBox ID="tbCostCentreCode" runat="server" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' Text='<%# Eval("CostCentre")%>'></asp:TextBox>
                             </td>
                             <td>
                                 <uc1:labelcontrol ID="labelcontrol5" runat="server" Text="Can Reimburse" HelpText="Check this option if you want staff to be able to reimburse from this cost centre" />

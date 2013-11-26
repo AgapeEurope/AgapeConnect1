@@ -133,14 +133,23 @@ Namespace DotNetNuke.Modules.StaffAdmin
             End If
             Dim d As New StaffBrokerDataContext
             Dim q = From c In d.AP_StaffBroker_Departments Where c.CostCenterId = lbDepartments.SelectedValue
-
             If q.Count > 0 Then
-                q.First.CostCentre = CType(FormView1.FindControl("ddlCostCentre"), DropDownList).SelectedValue
+                If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
 
-                d.SubmitChanges()
+                    q.First.CostCentre = CType(FormView1.FindControl("tbCostCentreCode"), TextBox).Text
+                    d.SubmitChanges()
 
+                Else
+
+
+
+
+                    q.First.CostCentre = CType(FormView1.FindControl("ddlCostCentre"), DropDownList).SelectedValue
+
+                    d.SubmitChanges()
+
+                End If
             End If
-
             Try
                 Dim x As New tntWebUsers()
                 If Not String.IsNullOrEmpty(e.NewValues("CostCentreManager")) Then
