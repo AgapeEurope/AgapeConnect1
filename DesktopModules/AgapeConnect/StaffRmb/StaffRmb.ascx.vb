@@ -75,6 +75,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 hfNoReceiptLimit.Value = Settings("NoReceipt")
             End If
 
+            'DownloadPeriodReport(7, 2013)
 
 
             If Not Page.IsPostBack Then
@@ -98,6 +99,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     cbSalaries.Enabled = False
 
                 End If
+                ddlDownloadExpenseYEar.Items.Clear()
+                ddlDownloadExpenseYEar.Items.Add(Today.Year - 1)
+                ddlDownloadExpenseYEar.Items.Add(Today.Year)
+                ddlDownloadExpenseYEar.Items.Add(Today.Year + 1)
+                ddlDownloadExpenseYEar.SelectedValue = (Today.Year)
+
+                ddlDownloadExpensePeriod.Items.Clear()
+                For i As Integer = 1 To 12
+                    ddlDownloadExpensePeriod.Items.Add(New ListItem(MonthName(i), i))
+                Next
+                ddlDownloadExpensePeriod.SelectedValue = Today.AddMonths(-1).Month
 
 
 
@@ -3964,6 +3976,56 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
         End Function
 
+        Protected Sub DownloadPeriodReport(ByVal Period As Integer, ByVal Year As Integer)
+            Dim q = From c In d.AP_Staff_Rmbs Where c.PortalId = PortalId And c.Period = Period And c.Year = Year And c.Status = RmbStatus.Processed
+            Dim csvOut As String = "RmbNo, Primary RC, Type, Submitted by, Submitted on,Approved by, Approved on, Processed By, Processed on, Amount" & vbNewLine
+
+            For Each row In q
+                Dim submitter = UserController.GetUserById(PortalId, row.UserId).DisplayName
+                Dim approver = UserController.GetUserById(PortalId, row.ApprUserId).DisplayName
+                Dim Processor = UserController.GetUserById(PortalId, row.ProcUserId).DisplayName
+
+
+                csvOut &= row.RID & ","
+                csvOut &= """" & row.CostCenter & ""","
+                csvOut &= """" & IIf(row.Department, "D", "P") & ""","
+                csvOut &= """" & submitter & ""","
+                csvOut &= row.RmbDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= """" & approver & ""","
+                csvOut &= row.ApprDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= """" & Processor & ""","
+                csvOut &= row.ProcDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= row.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount) & vbNewLine
+
+
+            Next
+
+            'Dim t As Type = Me.GetType()
+            'Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+            'sb.Append("<script language='javascript'>")
+            'sb.Append("closePopupDownloadPeriodExpenseReport();")
+            'sb.Append("</script>")
+            'ScriptManager.RegisterClientScriptBlock(Page, t, "popupDownloadExpense", sb.ToString, False)
+
+
+          
+            Dim attachment As String = "attachment; filename=Expense Report - " & Year & " Period " & Period & ".csv"
+
+
+
+
+            HttpContext.Current.Response.Clear()
+            HttpContext.Current.Response.ClearHeaders()
+            HttpContext.Current.Response.ClearContent()
+            HttpContext.Current.Response.AddHeader("content-disposition", attachment)
+            HttpContext.Current.Response.ContentType = "text/csv"
+            HttpContext.Current.Response.AddHeader("Pragma", "public")
+            HttpContext.Current.Response.Write(csvOut)
+            HttpContext.Current.Response.End()
+
+
+        End Sub
+
 
         Protected Sub DownloadBatch(Optional ByVal MarkAsProcessed As Boolean = False)
             Dim downloadStatuses() As Integer = {RmbStatus.PendingDownload, RmbStatus.DownloadFailed}
@@ -4951,9 +5013,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim jsAction As New DotNetNuke.Entities.Modules.Actions.ModuleAction(ModuleContext.GetNextActionID)
             With jsAction
                 .Title = Title
-                .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent
+                ' .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.
+                .Url = "javascript: " & theScript & ";"
                 .ClientScript = theScript
                 .Secure = Security.SecurityAccessLevel.Edit
+                .UseActionEvent = False
             End With
             root.Add(jsAction)
         End Sub
@@ -4966,11 +5030,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                 AddClientAction("Download Batched Transactions", "showDownload()", Actions)
                 AddClientAction("Suggested Payments", "showSuggestedPayments()", Actions)
-
+                AddClientAction("Download Period Expense Report", "showDownloadExpense()", Actions)
                 For Each a As DotNetNuke.Entities.Modules.Actions.ModuleAction In Actions
-                    If a.Title = "Download Batched Transactions" Or a.Title = "Suggested Payments" Then
+                    If a.Title = "Download Batched Transactions" Or a.Title = "Suggested Payments" Or a.Title = "Download Period Expense Report" Then
                         a.Icon = "FileManager/Icons/xls.gif"
+
+
                     End If
+
+
                 Next
                 Return Actions
             End Get
@@ -4978,5 +5046,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 #End Region
       
+        Protected Sub btnDownloadExpenseOK_Click(sender As Object, e As EventArgs) Handles btnDownloadExpenseOK.Click
+            DownloadPeriodReport(7, 2013)
+
+        End Sub
     End Class
 End Namespace

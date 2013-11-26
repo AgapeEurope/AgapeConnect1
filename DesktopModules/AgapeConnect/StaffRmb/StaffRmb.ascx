@@ -227,6 +227,19 @@
                 }
             });
             $("#divDownload").parent().appendTo($("form:first"));
+
+            $("#divDownloadExpense").dialog({
+                autoOpen: false,
+                height: 350,
+                width: 500,
+                modal: true,
+                title: 'Period Expense Report',
+                close: function () {
+                    //  allFields.val("").removeClass("ui-state-error");
+                }
+            });
+            $("#divDownloadExpense").parent().appendTo($("form:first"));
+
             $("#divAccountWarning").dialog({
                 autoOpen: false,
                 height: 150,
@@ -340,6 +353,7 @@
  function closePopup3() {$("#divSignin3").dialog("close");}
  function closePopupSplit() {$("#divSplitPopup").dialog("close");}
  function closePopupDownload() {$("#divDownload").dialog("close");}
+ function closePopupDownloadExpense() {$("#divDownloadExpense").dialog("close");}
  function closePopupAccountWarning() {$("#divAccountWarning").dialog("close");}
 
     
@@ -371,6 +385,8 @@
  function showPopup3() {$("#divSignin3").dialog("open"); return false; }
  function showPopupSplit() {$("#divSplitPopup").dialog("open"); return false; }
  function showDownload() { $("#divDownload").dialog("open"); return false; }
+ function showDownloadExpense() { $("#divDownloadExpense").dialog("open"); return false; }
+ 
  function showAccountWarning() { $("#divAccountWarning").dialog("open"); return false; }
 
      
@@ -2067,6 +2083,35 @@
             <asp:Button ID="btnDontMarkProcessed" runat="server" resourcekey="btnNo" class="aButton" />
         </div>
     </div>
+
+    <div id="divDownloadExpense" class="ui-widget">
+        <table>
+            <tr>
+                <td>Year:</td>
+                <td>
+                     <asp:DropDownList ID="ddlDownloadExpenseYEar" runat="server">
+                      
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>Month:</td>
+
+                <td>
+                    <asp:DropDownList ID="ddlDownloadExpensePeriod" runat="server">
+                      
+                    </asp:DropDownList>
+                </td>
+            </tr>
+        </table>
+
+        <br />
+        <div width="100%" style="text-align: center">
+            <asp:Button ID="btnDownloadExpenseOK" runat="server" resourcekey="btnOK" class="aButton" />
+            <asp:Button ID="btnDownloadExpenseCancel" runat="server" resourcekey="btnCancel" class="aButton" />
+        </div>
+    </div>
+
     <div id="divAccountWarning" class="ui-widget">
         <asp:Label ID="Label46" runat="server" Font-Bold="true" resourcekey="lblAccountWarning"></asp:Label>
         <br />
