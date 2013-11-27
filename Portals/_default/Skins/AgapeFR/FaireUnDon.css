@@ -4,21 +4,11 @@
     background: url('images/Dons-Banner-Shadow.png') repeat-x bottom #d7edf6;
 }
 
-.BannerPane {
-    
-}
-
-.BannerPane .c_contentpane {
-    padding: 0;
-}
-
-.BannerPane .DNNModuleContent {
+.BannerPane div {
     height: 290px;
     line-height: 290px;
-}
-
-.BannerPane .Normal {
     text-align: center;
+    padding: 0;
 }
 
 .BannerPane img {
@@ -34,7 +24,7 @@
 
 #ContentContainer .DNNModuleContent .Normal, #ContentContainer .DNNModuleContent .Normal a:link, #ContentContainer .DNNModuleContent .Normal a:active, #ContentContainer .DNNModuleContent .Normal a:visited, #ContentContainer .DNNModuleContent .Normal a:hover {
     text-align: left;
-    font-size: 14px;
+    font-size: inherit;
 }
 
 /*========================== TOP PANE =======================*/
@@ -45,11 +35,6 @@
 
 .TopPane .Normal p {
     margin: 0;
-}
-
-.TopPane .Normal h1 {
-    margin-bottom: 5px;
-    font-size: 28px;
 }
 
 /*========================== LEFT MENU =======================*/
@@ -99,8 +84,10 @@
 }
 
 .LeftMenuPane h1, .LeftMenuPane h2 {
+    display: block;
     line-height: normal;
     margin: 0;
+    padding: 0;
 }
 
 .LeftMenuPane h1 {
@@ -110,13 +97,16 @@
     padding-bottom: 5px;
     color: #3a8bc1;
     white-space: nowrap;
+    text-transform: none;
 }
 
 .LeftMenuPane h2 {
     font-size: 12px;
     font-weight: normal;
-    white-space: normal;
+    letter-spacing: normal;
     color: #727272;
+    white-space: normal;
+    text-transform: none;
 }
 
 .LeftMenuPane a:hover {
@@ -155,7 +145,7 @@
 .CenterPane {
     display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
-    width: 723px; /* wider breaks display in IE10 */
+    width: 722px; /* wider breaks display in some browsers (IE and FF at least) */
     background-color: #f2f2f2;
     margin-top: 32px;
     /* cross-browser min-height */
@@ -168,39 +158,58 @@
     padding: 30px 0 0 0;
 }
 
-.ListPane .Normal h1 {
-    font-size: 18px;
-    margin: 0 0 15px 0;
-}
-
 .ListPane .Normal p {
     margin: 0;
 }
 
 /*========================== MAIN CENTER PANE - TABS =======================*/
 
-.dnnForm .ui-tabs {
+#ongletsdon {
+    font-family: inherit;
+    font-size: inherit;
     margin: 15px;
     position: relative;
     padding: 0;
     zoom: 1;
 } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-.dnnForm .ui-tabs .ui-tabs-nav {
+
+#ongletsdon, #ongletsdon .ui-tabs-panel {
+    display: block;
+    border: none;
+    padding: 0;
+    background: none;
+    color: inherit;
+}
+
+#ongletsdon .ui-tabs-panel {
+    margin: 5px;
+}
+
+#ongletsdon .ui-tabs-panel a {
+    color: #3A8BC2;
+}
+
+#ongletsdon .ui-tabs-nav {
     margin: 0;
     padding: 0;
+    border: none;
+    border-radius: 0px;
     border-bottom: 1px #c7c7c7 solid;
+    background: none;
+    color: inherit;
+    font-weight: inherit;
 }
-.dnnForm .ui-tabs .ui-tabs-nav li {
+#ongletsdon .ui-tabs-nav li {
     list-style: none;
     float: left;
     position: relative;
     top: 0;
     margin: 0;
-    border-bottom: 0 !important;
+    border: none;
     padding: 0;
     white-space: nowrap;
 }
-.dnnForm .ui-tabs .ui-tabs-nav li a {
+#ongletsdon .ui-tabs-nav li a {
     float: left;
     padding: 8px;
     color: #3A8BC2;
@@ -218,32 +227,35 @@
     font-variant: normal;
     font-weight: normal;
 }
-.dnnForm .ui-tabs .ui-tabs-nav li a:hover {
+#ongletsdon .ui-tabs-nav li a:hover {
     text-decoration: underline;
 }
-.dnnForm .ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
-.dnnForm .ui-tabs .ui-tabs-nav li.ui-state-disabled a,
-.dnnForm .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text }
-.dnnForm .ui-tabs .ui-tabs-nav li a,
-.dnnForm .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-.dnnForm .ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+#ongletsdon .ui-tabs-nav li.ui-tabs-active a,
+#ongletsdon .ui-tabs-nav li.ui-state-disabled a,
+#ongletsdon .ui-tabs-nav li.ui-state-processing a {
+    cursor: text 
+}
+
+#ongletsdon .ui-tabs-nav li a,
+#ongletsdon.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
+    cursor: pointer
+} /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+
+#ongletsdon .ui-tabs-nav li.ui-tabs-active a {
     color: white;
     text-decoration: none;
 }
-.dnnForm .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+
+#ongletsdon .ui-tabs-nav li.ui-tabs-active {
     background: url('images/BlueTab.png') repeat-x #3784cd;
     border: none;
     border-radius: 0;
     filter: none;
+    color: white;
 }
-.dnnForm .ui-tabs .ui-tabs-panel {
-    display: block;
-    border-width: 0;
-    padding: 0;
-    background: none;
-}
-.dnnForm .ui-tabs-panel { position: relative }
-.dnnForm .ui-tabs-hide { display: none !important } 
+
+#ongletsdon-panel { position: relative }
+#ongletsdon-hide { display: none !important } 
 
 /*========================== BOTTOM PANE =======================*/
 
@@ -252,11 +264,6 @@
     text-align: left;
     margin-top: 20px;
     position: relative; /* Fix for IE7 */
-}
-
-.BottomPane .Normal h1 {
-    font-size: 24px;
-    margin: 0 0 10px 0;
 }
 
 .BottomPane .Normal p {

@@ -71,26 +71,26 @@
                 <a id="LeftMenu0" href="/simpliquer/faireundon.aspx?givetype=0#ContentContainer" target="_self">
                     <div>
                         <h1>Soutenir un missionnaire</h1>
-                        <h2>Dieu nous invite tous &agrave; faire ce voyage avec lui...</h2>
+                        <h2>Ou une famille.</h2>
                     </div>
                 </a>
                 <a id="LeftMenu1" href="/simpliquer/faireundon.aspx?givetype=1#ContentContainer" target="_self">
                     <div>
                         <h1>Soutenir un minist&egrave;re</h1>
-                        <h2>Dieu nous invite...</h2>
+                        <h2>Et une &eacute;quipe.</h2>
                     </div>
                 </a>
                 <a id="LeftMenu2" href="/simpliquer/faireundon.aspx?givetype=2#ContentContainer" target="_self">
                     <div>
                         <h1>Soutenir un projet</h1>
-                        <h2>Dieu nous invite...</h2>
+                        <h2>Ou un &eacute;v&eacute;nement.</h2>
                     </div>
                 </a>
                 <div id="BottomImg">
 		        </div>
             </div>
 		</div>
-        <div class="dnnForm CenterPane">
+        <div class="CenterPane">
             <div id="ongletsdon">
                 <ul>
                     <li><a id="onglet1" href="#1"></a></li>
