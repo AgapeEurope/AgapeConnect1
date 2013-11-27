@@ -14,11 +14,11 @@
 
     (function ($, Sys) {
         function setUpMyTabs() {
-            var selectedTabIndex = $('#<%= theHiddenTabIndex.ClientID  %>').attr('value');
+            var selectedTabIndex = $('#<%# theHiddenTabIndex.ClientID  %>').attr('value');
             $('#tabs').tabs({
                 show: function () {
                     var newIdx = $('#tabs').tabs('option', 'selected');
-                    $('#<%= theHiddenTabIndex.ClientID  %>').val(newIdx);
+                    $('#<%# theHiddenTabIndex.ClientID  %>').val(newIdx);
                 },
                 selected: selectedTabIndex
             });
@@ -82,7 +82,7 @@
             <table>
                 <tr style="vertical-align: top;">
                     <td>
-            <table style="font-size: 9pt;">
+                          <table style="font-size: 9pt;">
                 <tr>
                     <td>
                         <b>
@@ -167,7 +167,7 @@
                         <asp:CheckBox ID="cbRemBal" runat="server"   />
                     </td>
                 </tr>
-                  </tr>
+                 
                <tr>
                     <td>
                         <b>
@@ -211,9 +211,10 @@
                         </b>
                     </td>
                     <td>
+                        <asp:TextBox ID="tbControlAccount" runat="server" Visible='false'></asp:TextBox>
                         <asp:DropDownList ID="ddlControlAccount" runat="server" DataSourceID="dsCostCenters"
                             DataTextField="DisplayName" DataValueField="CostCentreCode" AppendDataBoundItems="true">
-                            <asp:ListItem Text="" Value="" />
+                            <asp:ListItem Text="" Value=""   />
                         </asp:DropDownList>
                         <asp:Label ID="oopsControlAccount" runat="server" Text="" ForeColor="Red"></asp:Label>
                         <asp:LinqDataSource ID="dsCostCenters" runat="server" ContextTypeName="StaffBroker.StaffBrokerDataContext"
@@ -234,8 +235,9 @@
                         </b>
                     </td>
                     <td>
+                        <asp:TextBox ID="tbAccountsReceivable" runat="server" Visible='false' ></asp:TextBox>
                         <asp:DropDownList ID="ddlAccountsReceivable" runat="server" Width="60px" DataSourceID="dsAccountCodes2"
-                            DataTextField="DisplayName" DataValueField="AccountCode">
+                            DataTextField="DisplayName" DataValueField="AccountCode" >
                         </asp:DropDownList>
                         <asp:Label ID="oopsAccountsReceivable" runat="server" Text="" ForeColor="Red"></asp:Label>
                         <asp:LinqDataSource ID="dsAccountCodes2" runat="server" ContextTypeName="StaffRmb.StaffRmbDataContext"
@@ -257,8 +259,9 @@
                         </b>
                     </td>
                     <td>
+                        <asp:TextBox ID="tbTaxAccountsReceivable" runat="server" Visible="false" ></asp:TextBox>
                         <asp:DropDownList ID="ddlTaxAccountsReceivable" runat="server" Width="60px" DataSourceID="dsAccountCodes2"
-                            DataTextField="DisplayName" DataValueField="AccountCode">
+                            DataTextField="DisplayName" DataValueField="AccountCode" >
                         </asp:DropDownList>
                         <asp:Label ID="oopsTaxAccountsReceivable" runat="server" Text="" ForeColor="Red"></asp:Label>
                     </td>
@@ -270,6 +273,7 @@
                         </b>
                     </td>
                     <td>
+                        <asp:TextBox ID="tbAccountsPayable" runat="server" Visible="false"></asp:TextBox>
                         <asp:DropDownList ID="ddlAccountsPayable" runat="server" Width="60px" DataSourceID="dsAccountCodes3"
                             DataTextField="DisplayName" DataValueField="AccountCode">
                         </asp:DropDownList>
@@ -292,6 +296,7 @@
                         </b>
                     </td>
                     <td>
+                        <asp:TextBox ID="tbPayrollPayable" runat="server"  Visible="false"></asp:TextBox>
                         <asp:DropDownList ID="ddlPayrollPayable" runat="server" Width="60px" DataSourceID="dsAccountCodes3"
                             DataTextField="DisplayName" DataValueField="AccountCode">
                         </asp:DropDownList>
@@ -306,8 +311,9 @@
                         </b>
                     </td>
                     <td>
+                        <asp:TextBox ID="tbSalaryAccount" runat="server"   Visible="false"></asp:TextBox>
                         <asp:DropDownList ID="ddlSalaryAccount" runat="server" Width="60px" DataSourceID="dsAccountCodes"
-                            DataTextField="DisplayName" DataValueField="AccountCode">
+                            DataTextField="DisplayName" DataValueField="AccountCode" >
                         </asp:DropDownList>
                         <asp:Label ID="lblOopsSalary" runat="server" Text="" ForeColor="Red"></asp:Label>
                         
@@ -320,16 +326,19 @@
                         </b>
                     </td>
                     <td>
+                        <asp:TextBox ID="tbBankAccount" runat="server" Visible="false"></asp:TextBox>
                         <asp:DropDownList ID="ddlBankAccount" runat="server" Width="60px" DataSourceID="dsAccountCodes2"
-                            DataTextField="DisplayName" DataValueField="AccountCode">
+                            DataTextField="DisplayName" DataValueField="AccountCode"  >
                         </asp:DropDownList>
                         <asp:Label ID="lblOopsBank" runat="server" Text="" ForeColor="Red"></asp:Label>
                         
                     </td>
                 </tr>
             </table>
-                        </td>
+                    </td>
                     <td>
+                      
+                        <asp:Panel ID="pnlDatapump" runat="server" Visible="True"> 
                         <!-- Datapump Manager -->
                         <fieldset>
                                 <legend class="AgapeH5">Datapump Manager</legend>
@@ -358,7 +367,7 @@
 
 
                         </fieldset>
-
+                           </asp:Panel>
                     </td>
                 </tr>
             </table>
@@ -1200,18 +1209,21 @@
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlPCode" runat="server" Width="60px" DataSourceID="dsAccountCodes"
                                             DataTextField="DisplayName" SelectedValue='<%#  GetPCode(Eval("LineTypeId")) %>'
-                                            DataValueField="AccountCode" AppendDataBoundItems="true">
+                                            DataValueField="AccountCode" AppendDataBoundItems="true"  Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>'>
                                             <asp:ListItem Text="" Value="" />
                                         </asp:DropDownList>
+                                          <asp:TextBox runat="server" ID="tbPCode" Text='<%# GetPCodeText(Eval("LineTypeId"))%>' Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' />
+
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="DCode">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlDCode" runat="server" Width="60px" DataSourceID="dsAccountCodes"
                                             DataTextField="DisplayName" SelectedValue='<%# GetDCode(Eval("LineTypeId")) %>'
-                                            DataValueField="AccountCode" AppendDataBoundItems="true">
+                                            DataValueField="AccountCode" AppendDataBoundItems="true" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>'>
                                             <asp:ListItem Text="" Value="" />
                                         </asp:DropDownList>
+                                         <asp:TextBox runat="server" ID="tbDCode" Text='<%# GetDCodeText(Eval("LineTypeId"))%>' Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

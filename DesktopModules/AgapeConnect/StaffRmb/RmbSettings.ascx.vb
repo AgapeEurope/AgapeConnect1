@@ -230,89 +230,114 @@ Namespace DotNetNuke.Modules.StaffRmb
                         lblDownloading.Visible = True
                     End If
 
+                    If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) <> "True" Then
+
+                        ddlAccountsPayable.DataBind()
+                        ddlAccountsReceivable.DataBind()
+                        ddlTaxAccountsReceivable.DataBind()
+                        ddlControlAccount.DataBind()
+                        ddlPayrollPayable.DataBind()
+                        ddlSalaryAccount.DataBind()
+                        ddlBankAccount.DataBind()
+                        'Control Account
+                        If ddlControlAccount.Items.Count = 0 Then
+                            oopsControlAccount.Text = "Oops! - There are no Responsibility Centers setup. Please ensure that you have setup the datapump on the same server as your accounts package - as this will automatically upload a list of cost centers from your accounts package."
+                        ElseIf ddlControlAccount.Items.FindByValue(CType(TabModuleSettings("ControlAccount"), String)) Is Nothing Then
+                            oopsControlAccount.Text = "Oops! Account " & TabModuleSettings("ControlAccount") & " does not appear in your Responsibility Centers."
+                        Else
+                            ddlControlAccount.SelectedValue = CType(TabModuleSettings("ControlAccount"), String)
+                            oopsControlAccount.Text = ""
+
+                        End If
 
 
-                    ddlAccountsPayable.DataBind()
-                    ddlAccountsReceivable.DataBind()
-                    ddlTaxAccountsReceivable.DataBind()
-                    ddlControlAccount.DataBind()
-                    ddlPayrollPayable.DataBind()
-                    ddlSalaryAccount.DataBind()
-                    ddlBankAccount.DataBind()
-                    'Control Account
-                    If ddlControlAccount.Items.Count = 0 Then
-                        oopsControlAccount.Text = "Oops! - There are no Responsibility Centers setup. Please ensure that you have setup the datapump on the same server as your accounts package - as this will automatically upload a list of cost centers from your accounts package."
-                    ElseIf ddlControlAccount.Items.FindByValue(CType(TabModuleSettings("ControlAccount"), String)) Is Nothing Then
-                        oopsControlAccount.Text = "Oops! Account " & TabModuleSettings("ControlAccount") & " does not appear in your Responsibility Centers."
+                        'Advance Account
+                        If ddlAccountsReceivable.Items.Count = 0 Then
+                            oopsAccountsReceivable.Text = "Oops! - you have no Asset Accounts in your accounts package"
+                        ElseIf ddlAccountsReceivable.Items.FindByValue(CType(TabModuleSettings("AccountsReceivable"), String)) Is Nothing Then
+                            oopsAccountsReceivable.Text = "Oops! Account " & TabModuleSettings("AccountsReceivable") & " does not appear in your Assests Accounts."
+                        Else
+                            ddlAccountsReceivable.SelectedValue = CType(TabModuleSettings("AccountsReceivable"), String)
+                            oopsAccountsReceivable.Text = ""
+                        End If
+
+
+                        'Taxable Loan Account
+                        If ddlTaxAccountsReceivable.Items.Count = 0 Then
+                            oopsTaxAccountsReceivable.Text = "Oops! - you have no Asset Accounts in your accounts package"
+                        ElseIf ddlTaxAccountsReceivable.Items.FindByValue(CType(TabModuleSettings("TaxAccountsReceivable"), String)) Is Nothing Then
+                            oopsTaxAccountsReceivable.Text = "Oops! Account " & TabModuleSettings("TaxAccountsReceivable") & " does not appear in your Assests Accounts."
+                        Else
+                            ddlTaxAccountsReceivable.SelectedValue = CType(TabModuleSettings("TaxAccountsReceivable"), String)
+                            oopsTaxAccountsReceivable.Text = ""
+                        End If
+
+
+
+
+                        'Accounts Payable
+                        If ddlAccountsPayable.Items.Count = 0 Then
+                            oopsAccountsPayable.Text = "Oops! - you have no Liability Accounts in your accounts package"
+                        ElseIf ddlAccountsPayable.Items.FindByValue(CType(TabModuleSettings("AccountsPayable"), String)) Is Nothing Then
+                            oopsAccountsPayable.Text = "Oops! Account " & TabModuleSettings("AccountsPayable") & " does not appear to exist in your Liability Accounts."
+                        Else
+                            ddlAccountsPayable.SelectedValue = CType(TabModuleSettings("AccountsPayable"), String)
+                            oopsAccountsPayable.Text = ""
+                        End If
+
+                        'Payroll Payable
+                        If ddlPayrollPayable.Items.Count = 0 Then
+                            lblOopsPayroll.Text = "Oops! - you have no Liability Accounts in your accounts package"
+                        ElseIf ddlPayrollPayable.Items.FindByValue(CType(TabModuleSettings("PayrollPayable"), String)) Is Nothing Then
+                            lblOopsPayroll.Text = "Oops! Account " & TabModuleSettings("PayrollPayable") & " does not appear to exist in your Liability Accounts."
+                        Else
+                            ddlPayrollPayable.SelectedValue = CType(TabModuleSettings("PayrollPayable"), String)
+                            lblOopsPayroll.Text = ""
+                        End If
+
+
+                        'Salary Account
+                        If ddlSalaryAccount.Items.Count = 0 Then
+                            lblOopsSalary.Text = "Oops! - you have no Expense Accounts in your accounts package"
+                        ElseIf ddlSalaryAccount.Items.FindByValue(CType(TabModuleSettings("SalaryAccount"), String)) Is Nothing Then
+                            lblOopsSalary.Text = "Oops! Account " & TabModuleSettings("SalaryAccount") & " does not appear to exist in your Expense Accounts."
+                        Else
+                            ddlSalaryAccount.SelectedValue = CType(TabModuleSettings("SalaryAccount"), String)
+                            lblOopsSalary.Text = ""
+                        End If
+                        'Bank Account
+                        If ddlBankAccount.Items.Count = 0 Then
+                            lblOopsBank.Text = "Oops! - you have no Asset Accounts in your accounts package"
+                        ElseIf ddlBankAccount.Items.FindByValue(CType(TabModuleSettings("BankAccount"), String)) Is Nothing Then
+                            lblOopsBank.Text = "Oops! Account " & TabModuleSettings("BankAccount") & " does not appear to exist in your Expense Accounts."
+                        Else
+                            ddlBankAccount.SelectedValue = CType(TabModuleSettings("BankAccount"), String)
+                            lblOopsBank.Text = ""
+                        End If
                     Else
-                        ddlControlAccount.SelectedValue = CType(TabModuleSettings("ControlAccount"), String)
-                        oopsControlAccount.Text = ""
+                        tbControlAccount.Text = CType(TabModuleSettings("ControlAccount"), String)
+                        tbAccountsReceivable.Text = CType(TabModuleSettings("AccountsReceivable"), String)
+                        tbTaxAccountsReceivable.Text = CType(TabModuleSettings("TaxAccountsReceivable"), String)
+                        tbAccountsPayable.Text = CType(TabModuleSettings("AccountsPayable"), String)
+                        tbPayrollPayable.Text = CType(TabModuleSettings("PayrollPayable"), String)
+                        tbSalaryAccount.Text = CType(TabModuleSettings("SalaryAccount"), String)
+                        tbBankAccount.Text = CType(TabModuleSettings("BankAccount"), String)
 
-                    End If
-
-
-                    'Advance Account
-                    If ddlAccountsReceivable.Items.Count = 0 Then
-                        oopsAccountsReceivable.Text = "Oops! - you have no Asset Accounts in your accounts package"
-                    ElseIf ddlAccountsReceivable.Items.FindByValue(CType(TabModuleSettings("AccountsReceivable"), String)) Is Nothing Then
-                        oopsAccountsReceivable.Text = "Oops! Account " & TabModuleSettings("AccountsReceivable") & " does not appear in your Assests Accounts."
-                    Else
-                        ddlAccountsReceivable.SelectedValue = CType(TabModuleSettings("AccountsReceivable"), String)
-                        oopsAccountsReceivable.Text = ""
-                    End If
-
-
-                    'Taxable Loan Account
-                    If ddlTaxAccountsReceivable.Items.Count = 0 Then
-                        oopsTaxAccountsReceivable.Text = "Oops! - you have no Asset Accounts in your accounts package"
-                    ElseIf ddlTaxAccountsReceivable.Items.FindByValue(CType(TabModuleSettings("TaxAccountsReceivable"), String)) Is Nothing Then
-                        oopsTaxAccountsReceivable.Text = "Oops! Account " & TabModuleSettings("TaxAccountsReceivable") & " does not appear in your Assests Accounts."
-                    Else
-                        ddlTaxAccountsReceivable.SelectedValue = CType(TabModuleSettings("TaxAccountsReceivable"), String)
-                        oopsTaxAccountsReceivable.Text = ""
-                    End If
-
-
-
-
-                    'Accounts Payable
-                    If ddlAccountsPayable.Items.Count = 0 Then
-                        oopsAccountsPayable.Text = "Oops! - you have no Liability Accounts in your accounts package"
-                    ElseIf ddlAccountsPayable.Items.FindByValue(CType(TabModuleSettings("AccountsPayable"), String)) Is Nothing Then
-                        oopsAccountsPayable.Text = "Oops! Account " & TabModuleSettings("AccountsPayable") & " does not appear to exist in your Liability Accounts."
-                    Else
-                        ddlAccountsPayable.SelectedValue = CType(TabModuleSettings("AccountsPayable"), String)
-                        oopsAccountsPayable.Text = ""
-                    End If
-
-                    'Payroll Payable
-                    If ddlPayrollPayable.Items.Count = 0 Then
-                        lblOopsPayroll.Text = "Oops! - you have no Liability Accounts in your accounts package"
-                    ElseIf ddlPayrollPayable.Items.FindByValue(CType(TabModuleSettings("PayrollPayable"), String)) Is Nothing Then
-                        lblOopsPayroll.Text = "Oops! Account " & TabModuleSettings("PayrollPayable") & " does not appear to exist in your Liability Accounts."
-                    Else
-                        ddlPayrollPayable.SelectedValue = CType(TabModuleSettings("PayrollPayable"), String)
-                        lblOopsPayroll.Text = ""
-                    End If
-
-
-                    'Salary Account
-                    If ddlSalaryAccount.Items.Count = 0 Then
-                        lblOopsSalary.Text = "Oops! - you have no Expense Accounts in your accounts package"
-                    ElseIf ddlSalaryAccount.Items.FindByValue(CType(TabModuleSettings("SalaryAccount"), String)) Is Nothing Then
-                        lblOopsSalary.Text = "Oops! Account " & TabModuleSettings("SalaryAccount") & " does not appear to exist in your Expense Accounts."
-                    Else
-                        ddlSalaryAccount.SelectedValue = CType(TabModuleSettings("SalaryAccount"), String)
-                        lblOopsSalary.Text = ""
-                    End If
-                    'Bank Account
-                    If ddlBankAccount.Items.Count = 0 Then
-                        lblOopsBank.Text = "Oops! - you have no Asset Accounts in your accounts package"
-                    ElseIf ddlBankAccount.Items.FindByValue(CType(TabModuleSettings("BankAccount"), String)) Is Nothing Then
-                        lblOopsBank.Text = "Oops! Account " & TabModuleSettings("BankAccount") & " does not appear to exist in your Expense Accounts."
-                    Else
-                        ddlBankAccount.SelectedValue = CType(TabModuleSettings("BankAccount"), String)
-                        lblOopsBank.Text = ""
+                        tbControlAccount.Visible = True
+                        tbAccountsReceivable.Visible = True
+                        tbTaxAccountsReceivable.Visible = True
+                        tbAccountsPayable.Visible = True
+                        tbPayrollPayable.Visible = True
+                        tbSalaryAccount.Visible = True
+                        tbBankAccount.Visible = True
+                        ddlAccountsPayable.Visible = False
+                        ddlAccountsReceivable.Visible = False
+                        ddlTaxAccountsReceivable.Visible = False
+                        ddlControlAccount.Visible = False
+                        ddlPayrollPayable.Visible = False
+                        ddlSalaryAccount.Visible = False
+                        ddlBankAccount.Visible = False
+                        pnlDatapump.Visible = False
                     End If
                 End If
 
@@ -406,14 +431,28 @@ Namespace DotNetNuke.Modules.StaffRmb
             objModules.UpdateTabModuleSetting(TabModuleId, "EntDay", tbEntDay.Text)
             objModules.UpdateTabModuleSetting(TabModuleId, "MenuSize", tbMenuSize.Text)
             '  objModules.UpdateTabModuleSetting(TabModuleId, "UseDCode", cbUseDCode.Checked)
-            objModules.UpdateTabModuleSetting(TabModuleId, "ControlAccount", ddlControlAccount.SelectedValue)
-            objModules.UpdateTabModuleSetting(TabModuleId, "AccountsReceivable", ddlAccountsReceivable.SelectedValue)
 
-            objModules.UpdateTabModuleSetting(TabModuleId, "TaxAccountsReceivable", ddlTaxAccountsReceivable.SelectedValue)
-            objModules.UpdateTabModuleSetting(TabModuleId, "AccountsPayable", ddlAccountsPayable.SelectedValue)
-            objModules.UpdateTabModuleSetting(TabModuleId, "PayrollPayable", ddlPayrollPayable.SelectedValue)
-            objModules.UpdateTabModuleSetting(TabModuleId, "SalaryAccount", ddlSalaryAccount.SelectedValue)
-            objModules.UpdateTabModuleSetting(TabModuleId, "BankAccount", ddlBankAccount.SelectedValue)
+
+            If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                objModules.UpdateTabModuleSetting(TabModuleId, "ControlAccount", tbControlAccount.Text)
+                objModules.UpdateTabModuleSetting(TabModuleId, "AccountsReceivable", tbAccountsReceivable.Text)
+
+                objModules.UpdateTabModuleSetting(TabModuleId, "TaxAccountsReceivable", tbTaxAccountsReceivable.Text)
+                objModules.UpdateTabModuleSetting(TabModuleId, "AccountsPayable", tbAccountsPayable.Text)
+                objModules.UpdateTabModuleSetting(TabModuleId, "PayrollPayable", tbPayrollPayable.Text)
+                objModules.UpdateTabModuleSetting(TabModuleId, "SalaryAccount", tbSalaryAccount.Text)
+                objModules.UpdateTabModuleSetting(TabModuleId, "BankAccount", tbBankAccount.Text)
+            Else
+                objModules.UpdateTabModuleSetting(TabModuleId, "ControlAccount", ddlControlAccount.SelectedValue)
+                objModules.UpdateTabModuleSetting(TabModuleId, "AccountsReceivable", ddlAccountsReceivable.SelectedValue)
+
+                objModules.UpdateTabModuleSetting(TabModuleId, "TaxAccountsReceivable", ddlTaxAccountsReceivable.SelectedValue)
+                objModules.UpdateTabModuleSetting(TabModuleId, "AccountsPayable", ddlAccountsPayable.SelectedValue)
+                objModules.UpdateTabModuleSetting(TabModuleId, "PayrollPayable", ddlPayrollPayable.SelectedValue)
+                objModules.UpdateTabModuleSetting(TabModuleId, "SalaryAccount", ddlSalaryAccount.SelectedValue)
+                objModules.UpdateTabModuleSetting(TabModuleId, "BankAccount", ddlBankAccount.SelectedValue)
+            End If
+
 
             ' objModules.UpdateTabModuleSetting(TabModuleId, "CurConverter", cbCurConverter.Checked)
             StaffBrokerFunctions.SetSetting("CurConverter", cbCurConverter.Checked, PortalId)
@@ -435,8 +474,16 @@ Namespace DotNetNuke.Modules.StaffRmb
 
                 If CType(row.FindControl("cbEnable"), CheckBox).Checked Then
                     Dim DisplayName = CType(row.FindControl("tbDisplayName"), TextBox).Text
-                    Dim PCode = CType(row.FindControl("ddlPCode"), DropDownList).SelectedValue
-                    Dim DCode = CType(row.FindControl("ddlDCode"), DropDownList).SelectedValue
+                    Dim PCode As String = ""
+                    Dim DCode As String = ""
+                    If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                        PCode = CType(row.FindControl("tbPCode"), TextBox).Text
+                        DCode = CType(row.FindControl("tbDCode"), TextBox).Text
+                    Else
+                        PCode = CType(row.FindControl("tbPCode"), DropDownList).SelectedValue
+                        DCode = CType(row.FindControl("tbDCode"), DropDownList).SelectedValue
+                    End If
+                   
 
                     If q.Count = 0 Then
                         Dim insert = New AP_StaffRmb_PortalLineType
@@ -487,11 +534,35 @@ Namespace DotNetNuke.Modules.StaffRmb
             Dim d As New StaffRmbDataContext
             Dim q = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId And c.LineTypeId = LineTypeId
             If q.Count > 0 Then
-                Return StaffBrokerFunctions.ValidateAccountCode(q.First.PCode, PortalId)
+               
+                    Return StaffBrokerFunctions.ValidateAccountCode(q.First.PCode, PortalId)
+
+
+
+
             Else
                 Return ""
             End If
 
+        End Function
+
+        Public Function GetPCodeText(ByVal LineTypeId As Integer) As String
+            Dim d As New StaffRmbDataContext
+            Dim q = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId And c.LineTypeId = LineTypeId
+            If q.Count > 0 Then
+                Return q.First.PCode
+            Else
+                Return ""
+            End If
+        End Function
+        Public Function GetDCodeText(ByVal LineTypeId As Integer) As String
+            Dim d As New StaffRmbDataContext
+            Dim q = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId And c.LineTypeId = LineTypeId
+            If q.Count > 0 Then
+                Return q.First.DCode
+            Else
+                Return ""
+            End If
         End Function
 
         Public Function GetDCode(ByVal LineTypeId As Integer) As String
@@ -499,13 +570,17 @@ Namespace DotNetNuke.Modules.StaffRmb
             Dim q = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId And c.LineTypeId = LineTypeId
             If q.Count > 0 Then
                 'Look to see if this code exists
-                Dim r = From c In d.AP_StaffBroker_AccountCodes Where c.AccountCode = q.First.DCode And c.PortalId = PortalId
+               
 
-                If r.Count > 0 Then
-                    Return StaffBrokerFunctions.ValidateAccountCode(q.First.DCode, PortalId)
-                Else
-                    Return ""
-                End If
+
+
+                    Dim r = From c In d.AP_StaffBroker_AccountCodes Where c.AccountCode = q.First.DCode And c.PortalId = PortalId
+
+                    If r.Count > 0 Then
+                        Return StaffBrokerFunctions.ValidateAccountCode(q.First.DCode, PortalId)
+                    Else
+                        Return ""
+                    End If
 
             Else
                 Return ""

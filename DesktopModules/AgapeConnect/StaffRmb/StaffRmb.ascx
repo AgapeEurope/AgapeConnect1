@@ -1808,7 +1808,7 @@
                                         <asp:DropDownList ID="ddlAccountCode" runat="server" Width="60px" DataSourceID="dsAccountCodes"
                                             DataTextField="DisplayName" DataValueField="AccountCode" Enabled="false">
                                         </asp:DropDownList>
-
+                                         <asp:TextBox ID="tbAccountCode" runat="server"  Visible="false"></asp:TextBox>
 
                                         <asp:LinqDataSource ID="dsAccountCodes" runat="server" ContextTypeName="StaffRmb.StaffRmbDataContext"
                                             EntityTypeName="" Select="new (AccountCode,  AccountCode + ' ' + '-' + ' ' + AccountCodeName  as DisplayName )"
@@ -1823,6 +1823,7 @@
                                             AppendDataBoundItems="true">
                                             <asp:ListItem Text="" Value="" />
                                         </asp:DropDownList>
+                                          <asp:TextBox ID="tbCostCenter" runat="server"  Visible="false"></asp:TextBox>
                                         <asp:LinqDataSource ID="dsCostCenters" runat="server" ContextTypeName="StaffBroker.StaffBrokerDataContext"
                                             EntityTypeName="" OrderBy="CostCentreCode" Select="new (CostCentreCode,CostCentreCode + ' ' + '-' + ' ' + CostCentreName as DisplayName)"
                                             TableName="AP_StaffBroker_CostCenters" Where="PortalId == @PortalId">

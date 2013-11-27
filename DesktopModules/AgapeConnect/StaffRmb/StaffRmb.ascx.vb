@@ -116,7 +116,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Catch ex As Exception
 
                 End Try
+                If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                    tbAccountCode.Visible = True
+                    tbCostCenter.Visible = True
+                    ddlAccountCode.Visible = False
+                    ddlCostcenter.Visible = False
 
+                End If
                 If StaffBrokerFunctions.GetSetting("ZA-Mode", PortalId) = "True" Then
                     cbExpenses.Enabled = False
                     cbExpenses.Checked = True
@@ -209,6 +215,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ' btnShowSuggestedPayments.Visible = acc
                 ddlCostcenter.Enabled = acc
                 ddlAccountCode.Enabled = acc
+                tbCostCenter.Enabled = acc
+                tbAccountCode.Enabled = acc
                 pnlAccountsOptions.Visible = acc
                 pnlVAT.Visible = Settings("VatAttrib")
 
@@ -1563,7 +1571,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         End If
                     Else
                         insert.ForceTaxOrig = Nothing
-                        Dim theCC = From c In d.AP_StaffBroker_CostCenters Where c.CostCentreCode = ddlCostcenter.SelectedValue And c.PortalId = PortalId And c.Type = CostCentreType.Department
+                        Dim theCC = From c In d.AP_StaffBroker_CostCenters Where c.CostCentreCode = SelectedCC And c.PortalId = PortalId And c.Type = CostCentreType.Department
 
                         If age > Settings("Expire") Then
                             Dim msg As String = ""
@@ -1697,8 +1705,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'insert.AccountCode = GetAccountCode(insert.LineType, insert.AP_Staff_Rmb.CostCenter, insert.AP_Staff_Rmb.UserId)
                     'insert.CostCenter = insert.AP_Staff_Rmb.CostCenter
-                    insert.AccountCode = ddlAccountCode.SelectedValue
-                    insert.CostCenter = ddlCostcenter.SelectedValue
+
+                    If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                        insert.AccountCode = tbAccountCode.Text
+                        insert.CostCenter = tbCostCenter.Text
+                    Else
+                        insert.AccountCode = ddlAccountCode.SelectedValue
+                        insert.CostCenter = ddlCostcenter.SelectedValue
+                    End If
+
 
                     If insert.Receipt Then
                         If q.Count = 0 Then
@@ -1824,13 +1839,18 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
 
+                        If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                            line.First.AccountCode = tbAccountCode.Text
+                            line.First.CostCenter = tbCostCenter.Text
+                        Else
+                            line.First.AccountCode = ddlAccountCode.SelectedValue
+                            line.First.CostCenter = ddlCostcenter.SelectedValue
+                        End If
 
-                        line.First.AccountCode = ddlAccountCode.SelectedValue
-                        line.First.CostCenter = ddlCostcenter.SelectedValue
                         line.First.LineType = CInt(ddlLineTypes.SelectedValue)
                         line.First.TransDate = CDate(ucType.GetProperty("theDate").GetValue(theControl, Nothing))
                         Dim age = DateDiff(DateInterval.Month, line.First.TransDate, Today)
-                        Dim theCC = From c In d.AP_StaffBroker_CostCenters Where c.CostCentreCode = ddlCostcenter.SelectedValue And c.PortalId = PortalId And c.Type = CostCentreType.Department
+                        Dim theCC = From c In d.AP_StaffBroker_CostCenters Where c.CostCentreCode = SelectedCC And c.PortalId = PortalId And c.Type = CostCentreType.Department
                         If ddlOverideTax.SelectedIndex > 0 And Not (theCC.Count > 0 And ddlOverideTax.SelectedValue = 1) Then
                             line.First.Taxable = (ddlOverideTax.SelectedValue = 1)
                             If (age > Settings("Expire")) Then
@@ -2328,8 +2348,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             'ddlLineTypes_SelectedIndexChanged(Me, Nothing)
 
 
+            If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                tbCostCenter.Text = ddlChargeTo.SelectedValue
+            Else
+                ddlCostcenter.SelectedValue = ddlChargeTo.SelectedValue
+            End If
 
-            ddlCostcenter.SelectedValue = ddlChargeTo.SelectedValue
 
             ddlLineTypes.Items.Clear()
             Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
@@ -2779,9 +2803,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     btnAddLine.CommandName = "Edit"
                     btnAddLine.CommandArgument = CInt(e.CommandArgument)
 
+                    If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                        tbCostCenter.Text = theLine.First.CostCenter
+                        tbAccountCode.Text = theLine.First.AccountCode
+                    Else
+                        ddlCostcenter.SelectedValue = theLine.First.CostCenter
+                        ddlAccountCode.SelectedValue = theLine.First.AccountCode
+                    End If
 
-                    ddlCostcenter.SelectedValue = theLine.First.CostCenter
-                    ddlAccountCode.SelectedValue = theLine.First.AccountCode
+
 
                     ifReceipt.Attributes("src") = Request.Url.Scheme & "://" & Request.Url.Host & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & theLine.First.RmbNo & "&RmbLine=" & theLine.First.RmbLineNo
 
@@ -2891,14 +2921,34 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
 #End Region
+
+
+        Public Property SelectedCC() As String
+            Get
+                Dim CC = ""
+                If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                    CC = tbCostCenter.Text
+                Else
+                    CC = ddlCostcenter.SelectedValue
+                End If
+                Return CC
+            End Get
+            Set(ByVal value As String)
+
+            End Set
+        End Property
+
+
 #Region "DropDownList Events"
         Protected Sub ddlLineTypes_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlLineTypes.SelectedIndexChanged
             If lblIncType.Visible And ddlLineTypes.SelectedIndex <> ddlLineTypes.Items.Count - 1 Then
                 Dim oldValue = ddlLineTypes.SelectedValue
                 ddlLineTypes.Items.Clear()
                 Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
+               
 
-                If StaffBrokerFunctions.IsDept(PortalId, ddlCostcenter.SelectedValue) Then
+
+                If StaffBrokerFunctions.IsDept(PortalId, SelectedCC) Then
                     lineTypes = lineTypes.Where(Function(x) x.DCode <> "")
 
                 Else
@@ -3538,7 +3588,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     '    'End If
 
                     'End If
-                    ddlAccountCode.SelectedValue = GetAccountCode(lt.First.LineTypeId, ddlCostcenter.SelectedValue)
+                    If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                        tbAccountCode.Text = GetAccountCode(lt.First.LineTypeId, tbCostCenter.Text)
+                    Else
+                        ddlAccountCode.SelectedValue = GetAccountCode(lt.First.LineTypeId, ddlCostcenter.SelectedValue)
+                    End If
+
+
 
 
                 End If

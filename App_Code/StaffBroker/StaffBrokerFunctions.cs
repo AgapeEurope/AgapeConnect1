@@ -123,13 +123,24 @@ public class StaffBrokerFunctions
 
     static public Boolean IsDept(int PortalId, string costCenter)
     {
-        StaffBrokerDataContext d = new StaffBrokerDataContext();
-        var cc = from c in d.AP_StaffBroker_CostCenters where c.CostCentreCode == costCenter select c.Type;
-        if (cc.Count() > 0)
-            return cc.First() == CostCentreType.Department;
+        DotNetNuke.Entities.Portals.PortalSettings PS = (DotNetNuke.Entities.Portals.PortalSettings)System.Web.HttpContext.Current.Items["PortalSettings"];
+          StaffBrokerDataContext d = new StaffBrokerDataContext();
+        if (GetSetting("NonDynamics", PS.PortalId) == "True")
+        {
+            return (from c in d.AP_StaffBroker_Departments where c.CostCentre.ToLower() == costCenter.ToLower() && c.PortalId==PS.PortalId select c.CostCenterId).Count()>0;
 
-        else return false;
+        }
+        else
+        {
 
+
+          
+            var cc = from c in d.AP_StaffBroker_CostCenters where c.CostCentreCode == costCenter select c.Type;
+            if (cc.Count() > 0)
+                return cc.First() == CostCentreType.Department;
+
+            else return false;
+        }
     }
 
     static public String GetDeptGiveToURL(int PortalId, int costCenter)
