@@ -77,6 +77,10 @@
     vertical-align: middle;
     display: inline-block;
     padding: 0 30px 0 15px;
+    *clear: expression(
+    style.marginTop = "" + (offsetHeight < parentNode.offsetHeight ? parseInt((parentNode.offsetHeight - offsetHeight) / 2) + "px" : "0"),
+    style.clear = "none", 0
+    ); /* IE7 fix to align vertically */
 }
 
 .LeftMenuPane h1, .LeftMenuPane h2 {
@@ -109,30 +113,29 @@
     text-decoration: none;
 }
 
-/*.LeftMenuPane a:hover h1 {
+.LeftMenuPane a:hover h1 {
     text-decoration: underline;
-}*/
+}
 
 .LeftMenuPane a {
     background: url('images/Dons-LeftMenu-NotSelected.png') no-repeat #c9c9c9;
-    border: none;
 }
 
- .LeftMenuPane a:hover /*.LeftMenuPane a.selected*/ {
+ .LeftMenuPane a.selected {
     background: url('images/Dons-LeftMenu-Selected.png') no-repeat;
-   /* pointer-events: none;
-    cursor: text;*/
+    pointer-events: none;
+    cursor: text;
 }
 
- /*.LeftMenuPane a.selected:hover h1 {
+ .LeftMenuPane a.selected:hover h1 {
     text-decoration: none;
-}*/
+}
 
-  .LeftMenuPane a:hover h1 /*.LeftMenuPane a.selected h1*/ {
+ .LeftMenuPane a.selected h1 {
     color: white;
 }
 
-.LeftMenuPane a:hover h2 /*.LeftMenuPane a.selected h2*/ {
+.LeftMenuPane a.selected h2 {
     color: #90cef8;
 }
 
