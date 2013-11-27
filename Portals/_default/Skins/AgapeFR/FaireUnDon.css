@@ -115,7 +115,6 @@
 
 .LeftMenuPane a {
     background: url('images/Dons-LeftMenu-NotSelected.png') no-repeat #c9c9c9;
-    border: none;
 }
 
  .LeftMenuPane a:hover /*.LeftMenuPane a.selected*/ {
