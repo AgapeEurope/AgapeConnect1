@@ -17,13 +17,16 @@
 }
 
 .ContentPane, .RightPane {
-    display: inline-block;
-	zoom: 1; *display: inline; /* IE fix for inline-block display */
+    display: table-cell;
     vertical-align: top;
 }
 
+.ContentPane {
+}
+
 .RightPane {
-    margin-left: 50px;    
+    padding-left: 50px;
+    width: 275px;
 }
 
 .RightPane .c_contentpane {
@@ -44,7 +47,6 @@ a.BlocLienRapide {
 
 .BlocLienRapide-Left, .BlocLienRapide-Center, .BlocLienRapide-Right {
     display: inline-block;
-	zoom: 1; *display: inline; /* IE fix for inline-block display */
     height: 98px;
     line-height: 98px;
     vertical-align: top;
@@ -65,10 +67,6 @@ a.BlocLienRapide {
 .verticalcentered {    
     vertical-align: middle;
     display: inline-block;
-    *clear: expression(
-    style.marginTop = "" + (offsetHeight < parentNode.offsetHeight ? parseInt((parentNode.offsetHeight - offsetHeight) / 2) + "px" : "0"),
-    style.clear = "none", 0
-    ); /* IE7 fix to align vertically */
 }
 
 .BlocLienRapide-Right {
