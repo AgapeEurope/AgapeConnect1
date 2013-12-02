@@ -1747,6 +1747,10 @@
                                             <asp:Button ID="btnAdvCancel" runat="server" ResourceKey="btnCancel" CssClass="aButton" />
                                             <asp:Button ID="btnAdvProcess" runat="server" ResourceKey="btnProcess" CssClass="aButton" />
                                             <asp:Button ID="btnAdvUnProcess" runat="server" ResourceKey="btnUnProcess" CssClass="aButton" />
+                                        
+                                            <asp:HyperLink ID="btnAdvPrint" runat="server"  resourcekey="btnPrint"  class="aButton" Target="_blank"> </asp:HyperLink>
+
+
                                             <asp:LinkButton ID="btnAdvDownload" runat="server">
                                                 <div style="vertical-align: middle; float: right; padding-top: 8px; margin-right: 20px">
                                                     <img src="/DesktopModules/AgapeConnect/StaffRmb/Images/Excel_icon.gif" alt="" />
@@ -1771,7 +1775,7 @@
                         <asp:AsyncPostBackTrigger ControlID="btnCancel" EventName="Click" />
                         <asp:PostBackTrigger ControlID="btnDownload" />
                         <asp:PostBackTrigger ControlID="btnAdvDownload" />
-
+                     
                     </Triggers>
                 </asp:UpdatePanel>
             </td>
@@ -1920,6 +1924,7 @@
                     <asp:AsyncPostBackTrigger ControlID="btnAddLine" EventName="Click" />
                     <%--  <asp:AsyncPostBackTrigger ControlID="btnPrint"  EventName="Click" />--%>
                     <asp:PostBackTrigger ControlID="btnPrint" />
+                      
                       <asp:PostBackTrigger ControlID="btnDownloadExpenseOK" />
                     <%--  <asp:PostBackTrigger ControlID="btnDownloadBatch" />
                 <asp:PostBackTrigger ControlID="btnSuggestedPayments" />--%>

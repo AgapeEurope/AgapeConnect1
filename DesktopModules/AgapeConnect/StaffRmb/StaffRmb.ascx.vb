@@ -830,7 +830,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     lblAdvStatus.Text = Translate(RmbStatus.StatusName(q.First.RequestStatus))
                     Dim StaffMember = UserController.GetUserById(PortalId, q.First.UserId)
 
-
+                    btnAdvPrint.NavigateUrl = "/DesktopModules/AgapeConnect/StaffRmb/AdvPrintout.aspx?AdvNo=" & AdvanceId & "&UID=" & q.First.UserId
 
                     lblAdvCur.Text = "" 'StaffBrokerFunctions.GetSetting("Currency", PortalId)
                     Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
@@ -2543,7 +2543,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             HttpContext.Current.Response.AddHeader("Pragma", "public")
             HttpContext.Current.Response.Write(export)
 
-
+            HttpContext.Current.Response.End()
 
         End Sub
 
@@ -2616,7 +2616,27 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         '    DownloadBatch()
 
         'End Sub
+
+        'Protected Sub btnAdvPrint_Click(sender As Object, e As System.EventArgs) Handles btnAdvPrint.Click
+
+
+        '    Dim theAdv = From c In d.AP_Staff_AdvanceRequests Where c.AdvanceId = -CInt(hfRmbNo.Value)
+
+
+        '    Dim t As Type = btnAdvPrint.GetType()
+        '    Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+        '    sb.Append("<script language='javascript'>")
+
+        '    sb.Append("window.open('/DesktopModules/AgapeConnect/StaffRmb/AdvPrintout.aspx?AdvNo=" & -CInt(hfRmbNo.Value) & "&UID=" & theAdv.First.UserId & "', '_blank'); ")
+
+        '    sb.Append("</script>")
+        '    ScriptManager.RegisterStartupScript(btnAdvPrint, t, "AdvPrintOut", sb.ToString, False)
+
+
+
+        'End Sub
         Protected Sub btnPrint_Click(sender As Object, e As System.EventArgs) Handles btnPrint.Click
+
             Dim theRmb = From c In d.AP_Staff_Rmbs Where c.RMBNo = CInt(hfRmbNo.Value)
 
 
@@ -2628,6 +2648,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             sb.Append("</script>")
             ScriptManager.RegisterStartupScript(btnPrint, t, "printOut", sb.ToString, False)
+
+          
+
+
 
         End Sub
         Protected Sub btnUnProcess_Click(sender As Object, e As System.EventArgs) Handles btnUnProcess.Click
