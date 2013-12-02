@@ -11,7 +11,7 @@ Imports System.Linq
 Public Class AgapeRmb
      Inherits System.Web.Services.WebService
     Private theUsername As String = "AgapeRmb"
-    Private thePassword As String = "thecatsaysmeow3"
+    Private thePassword As String = ""
 
     Structure RmbListItem
         Dim RmbNo As Integer

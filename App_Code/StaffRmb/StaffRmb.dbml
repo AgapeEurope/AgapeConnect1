@@ -114,6 +114,11 @@
       <Column Name="OrigCurrency" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
       <Column Name="OrigCurrencyAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ShortComment" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="SpareField1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SpareField2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SpareField3" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SpareField4" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SpareField5" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.AP_Staff_Rmb_PerDeimMuliTypes" Member="AP_Staff_Rmb_PerDeimMuliTypes">

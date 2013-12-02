@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.25, 15.75" name="StaffRmb">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.25, 16.75" name="StaffRmb">
   <DataContextMoniker Name="/StaffRmbDataContext" />
   <nestedChildShapes>
     <classShape Id="24f330c8-7b6e-4904-a68d-179ca62539dd" absoluteBounds="6.625, 3.75, 2, 1.7708968098958327">
@@ -45,10 +45,10 @@
         <elementListCompartment Id="e08dc11c-e850-44f9-a1ac-9d50ab46a4f3" absoluteBounds="1.2650000000000001, 1.335, 1.9700000000000002, 6.5953369140625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2167f53f-73fb-4bdf-906d-de0c2e9a2b9b" absoluteBounds="4.5, 11.25, 2, 4.2708154296875005">
+    <classShape Id="2167f53f-73fb-4bdf-906d-de0c2e9a2b9b" absoluteBounds="4.5, 11.25, 2, 5.2323225911458344">
       <DataClassMoniker Name="/StaffRmbDataContext/AP_Staff_AdvanceRequest" />
       <nestedChildShapes>
-        <elementListCompartment Id="f74729a1-8523-48d6-a82b-a7757253c175" absoluteBounds="4.515, 11.71, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f74729a1-8523-48d6-a82b-a7757253c175" absoluteBounds="4.515, 11.71, 1.9700000000000002, 4.672322591145833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="02a187d1-5f63-42af-b2f1-1e5c0270946a" absoluteBounds="7.125, 9.875, 2, 1.7708968098958331">
@@ -70,7 +70,7 @@
         <classShapeMoniker Id="82a8ae9d-f06f-4cf6-955e-76ead972823b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.625 : 4.63544840494792); (6.25 : 4.63544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.625 : 4.63544840494792); (6.25 : 4.63544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/StaffRmbDataContext/AP_Staff_RmbLineType/AP_Staff_RmbLineType_AP_Staff_RmbLine" />
       <nodes>
         <classShapeMoniker Id="24f330c8-7b6e-4904-a68d-179ca62539dd" />

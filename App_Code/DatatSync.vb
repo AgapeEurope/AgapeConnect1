@@ -265,7 +265,257 @@ Public Class DatatSync
 
     End Function
 
+    <WebMethod()> _
+    Public Function TriggerEmails(ByVal Password As String) As String
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        If PS.PortalId <> 0 Then
+            Return Nothing
+        End If
+        If Password <> GetPassword() Then
+            Return Nothing
+        End If
+        Dim rtn As String = ""
 
+        Dim dr As New StaffRmb.StaffRmbDataContext
+        Dim d As New StaffBroker.StaffBrokerDataContext
+
+        Dim prmbs = From c In dr.AP_Staff_Rmbs Where c.Status = StaffRmb.RmbStatus.Submitted Group By c.PortalId Into Group
+
+        For Each portal In prmbs
+            Try
+                If GetSetting("Nagape", portal.PortalId) = "ON" Then
+
+
+
+                    Dim GiveUp = StaffBrokerFunctions.GetTemplate("NagapeGiveUp", portal.PortalId)
+                    Dim ChaseUp = StaffBrokerFunctions.GetTemplate("NagapeChaseUp", portal.PortalId)
+
+                    Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+
+                    Dim x = mc.GetModuleByDefinition(portal.PortalId, "acStaffRmb")
+
+                    Dim RmbSettings = x.TabModuleSettings
+                    Dim AuthUser = UserController.GetUserById(portal.PortalId, RmbSettings("AuthUser"))
+
+                    Dim AuthAuthUser = UserController.GetUserById(portal.PortalId, RmbSettings("AuthAuthUser"))
+                    Dim rem1 As Integer = 2
+                    Dim rem2 As Integer = 4
+                    Dim rem3 As Integer = 7
+
+                    Try
+                        rem1 = RmbSettings("Reminder1")
+                        rem2 = RmbSettings("Reminder2")
+                        rem3 = RmbSettings("GiveUp")
+
+                    Catch ex As Exception
+
+                    End Try
+
+
+                    rtn &= "Sending Approval Reminders for Portal: " & portal.PortalId & vbNewLine
+                    For Each rmb In portal.Group
+                        rtn &= "Rmb " & rmb.RMBNo & rmb.UserRef & ": "
+
+
+                        Dim diff = CInt(DateDiff("d", rmb.RmbDate, Now))
+                        Try
+
+
+
+                            If diff >= rem3 And (Not rmb.SpareField5 Is Nothing) And CInt(rmb.SpareField5) = 2 Then
+                                rtn &= "Sending Give-Up  " & vbNewLine
+                                SendReminder(rmb, diff, GiveUp, AuthUser, AuthAuthUser, portal.PortalId, True)
+                                rmb.SpareField5 = 9
+
+                            ElseIf diff >= rem2 And (Not rmb.SpareField5 Is Nothing) And CInt(rmb.SpareField5) = 1 Then
+                                rtn &= "Sending " & rem2 & "-day reminder  " & vbNewLine
+                                SendReminder(rmb, diff, ChaseUp, AuthUser, AuthAuthUser, portal.PortalId, False)
+                                rmb.SpareField5 = 2
+                            ElseIf diff >= rem1 And rmb.SpareField5 Is Nothing Then
+                                rtn &= "Sending " & rem1 & "-day reminder  " & vbNewLine
+                                SendReminder(rmb, diff, ChaseUp, AuthUser, AuthAuthUser, portal.PortalId, False)
+                                rmb.SpareField5 = 1
+                            Else
+                                rtn &= "Nothing to do!  " & vbNewLine
+                                'Console.Write("Nothing" & vbNewLine)
+                            End If
+                            'We tell user we will no longer chase up the team leader...
+
+
+
+
+                        Catch ex As Exception
+
+                            rtn &= "Error Sending Approve Reminder on Rmb#" & rmb.RMBNo & ": " & ex.ToString & vbNewLine
+                        End Try
+                    Next
+                    dr.SubmitChanges()
+                End If
+            Catch ex As Exception
+                rtn &= "Error Sending Approve Reminders on Portal#" & portal.PortalId & ": " & ex.ToString & vbNewLine
+            End Try
+
+        Next
+
+        Dim padvs = From c In dr.AP_Staff_AdvanceRequests Where c.RequestStatus = StaffRmb.RmbStatus.Submitted Group By c.PortalId Into Group
+
+        For Each portal In padvs
+            Try
+                If GetSetting("Nagape", portal.PortalId) = "ON" Then
+
+
+
+                    Dim GiveUp = StaffBrokerFunctions.GetTemplate("NagapeGiveUpAdvance", portal.PortalId)
+                    Dim ChaseUp = StaffBrokerFunctions.GetTemplate("NagapeChaseUpAdvance", portal.PortalId)
+
+                    Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+
+                    Dim x = mc.GetModuleByDefinition(portal.PortalId, "acStaffRmb")
+
+                    Dim RmbSettings = x.TabModuleSettings
+                    Dim AuthUser = UserController.GetUserById(portal.PortalId, RmbSettings("AuthUser"))
+
+                    Dim AuthAuthUser = UserController.GetUserById(portal.PortalId, RmbSettings("AuthAuthUser"))
+                    Dim rem1 As Integer = 2
+                    Dim rem2 As Integer = 4
+                    Dim rem3 As Integer = 7
+
+                    Try
+                        rem1 = RmbSettings("Reminder1")
+                        rem2 = RmbSettings("Reminder2")
+                        rem3 = RmbSettings("GiveUp")
+
+                    Catch ex As Exception
+
+                    End Try
+                    rtn &= "Sending Advance Approval Reminders for Portal: " & portal.PortalId & vbNewLine
+                    For Each adv In portal.Group
+                        rtn &= "Adv " & adv.LocalAdvanceId
+
+
+                        Dim diff = CInt(DateDiff("d", adv.RequestDate, Now))
+                        Try
+
+
+
+                            If diff >= rem3 And (Not adv.SpareField5 Is Nothing) And CInt(adv.SpareField5) = 2 Then
+                                rtn &= "Sending Give-Up  " & vbNewLine
+                                SendReminderAdv(adv, diff, GiveUp, AuthUser, AuthAuthUser, portal.PortalId, True, RmbSettings("LargeTransaction"))
+                                adv.SpareField5 = 9
+
+                            ElseIf diff >= rem2 And (Not adv.SpareField5 Is Nothing) And CInt(adv.SpareField5) = 1 Then
+                                rtn &= "Sending 10-day reminder  " & vbNewLine
+                                SendReminderAdv(adv, diff, ChaseUp, AuthUser, AuthAuthUser, portal.PortalId, False, RmbSettings("LargeTransaction"))
+                                adv.SpareField5 = 2
+                            ElseIf diff >= rem1 And adv.SpareField5 Is Nothing Then
+                                rtn &= "Sending 5-day reminder  " & vbNewLine
+                                SendReminderAdv(adv, diff, ChaseUp, AuthUser, AuthAuthUser, portal.PortalId, False, RmbSettings("LargeTransaction"))
+                                adv.SpareField5 = 1
+                            Else
+                                'Console.Write("Nothing" & vbNewLine)
+                                rtn &= "Nothing to do!  " & vbNewLine
+                            End If
+                            'We tell user we will no longer chase up the team leader...
+
+
+
+
+                        Catch ex As Exception
+
+                            rtn &= "Error Sending Approve Reminder on Adv#" & adv.LocalAdvanceId & ": " & ex.ToString & vbNewLine
+                        End Try
+                    Next
+                    dr.SubmitChanges()
+                End If
+            Catch ex As Exception
+                rtn &= "Error Sending Approve Reminders on Portal#" & portal.PortalId & ": " & ex.ToString & vbNewLine
+            End Try
+
+        Next
+
+
+        'Now do the same for Advances
+
+        rtn &= "Finished..."
+
+
+        Return rtn
+
+    End Function
+    Private Sub SendReminder(ByVal theRmb As StaffRmb.AP_Staff_Rmb, ByVal diff As String, ByVal template1 As String, ByVal AuthUser As UserInfo, ByVal AuthAuthUser As UserInfo, ByVal portalId As Integer, ByVal isGiveUp As Boolean)
+        'Find the managers:
+        Dim dr As New StaffRmb.StaffRmbDataContext
+        Dim d As New StaffBroker.StaffBrokerDataContext
+        Dim Subject As String = "Rmb #" & theRmb.RID & IIf(theRmb.UserRef <> "", " - " & theRmb.UserRef, "")
+        Dim Approvers = ""
+        Dim ccEmail As String = ""
+        Dim app = StaffRmb.StaffRmbFunctions.getApprovers(theRmb, AuthUser, AuthAuthUser)
+
+        For Each row In app.UserIds
+            ccEmail = ccEmail & row.Email & ","
+
+            Approvers &= row.FirstName & " " & row.LastName & "<br />"
+        Next
+        ccEmail = Left(ccEmail, ccEmail.Length - 1)
+
+
+
+
+
+        template1 = template1.Replace("[APPROVERS]", Approvers)
+        Dim theUser = UserController.GetUserById(portalId, theRmb.UserId)
+        template1 = template1.Replace("[STAFFNAME]", theUser.DisplayName)
+
+        template1 = template1.Replace("[DIFF]", diff)
+
+        If isGiveUp Then
+            DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", theUser.Email, ccEmail, "", DotNetNuke.Services.Mail.MailPriority.Normal, Subject, DotNetNuke.Services.Mail.MailFormat.Html, System.Text.Encoding.UTF8, template1, "", "", "", "", "")
+        Else
+
+            DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", ccEmail, theUser.Email, "", DotNetNuke.Services.Mail.MailPriority.Normal, Subject, DotNetNuke.Services.Mail.MailFormat.Html, System.Text.Encoding.UTF8, template1, "", "", "", "", "")
+        End If
+
+
+
+
+    End Sub
+
+    Private Sub SendReminderAdv(ByVal theAdv As StaffRmb.AP_Staff_AdvanceRequest, ByVal diff As String, ByVal template1 As String, ByVal AuthUser As UserInfo, ByVal AuthAuthUser As UserInfo, ByVal portalId As Integer, ByVal isGiveUp As Boolean, ByVal LargeTransaction As Double)
+        'Find the managers:
+        Dim dr As New StaffRmb.StaffRmbDataContext
+        Dim d As New StaffBroker.StaffBrokerDataContext
+        Dim Subject As String = "Adv #" & theAdv.LocalAdvanceId
+        Dim Approvers = ""
+        Dim ccEmail As String = ""
+        Dim app = StaffRmb.StaffRmbFunctions.getAdvApprovers(theAdv, LargeTransaction, AuthUser, AuthAuthUser)
+
+        For Each row In app.UserIds
+            ccEmail = ccEmail & row.Email & ","
+
+            Approvers &= row.FirstName & " " & row.LastName & "<br />"
+        Next
+        ccEmail = Left(ccEmail, ccEmail.Length - 1)
+
+
+
+
+
+        template1 = template1.Replace("[APPROVERS]", Approvers)
+        Dim theUser = UserController.GetUserById(portalId, theAdv.UserId)
+        template1 = template1.Replace("[STAFFNAME]", theUser.DisplayName)
+
+        template1 = template1.Replace("[DIFF]", diff)
+        If isGiveUp Then
+            DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", theUser.Email, ccEmail, "", DotNetNuke.Services.Mail.MailPriority.Normal, Subject, DotNetNuke.Services.Mail.MailFormat.Html, System.Text.Encoding.UTF8, template1, "", "", "", "", "")
+        Else
+
+            DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", ccEmail, theUser.Email, "", DotNetNuke.Services.Mail.MailPriority.Normal, Subject, DotNetNuke.Services.Mail.MailFormat.Html, System.Text.Encoding.UTF8, template1, "", "", "", "", "")
+        End If
+
+
+
+
+    End Sub
 
     <WebMethod()> _
     Public Function HelloWorld(ByVal Password As String) As String
@@ -452,7 +702,7 @@ Public Class DatatSync
 
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
         Dim objEventLog As New DotNetNuke.Services.Log.EventLog.EventLogController
-        
+
         If Not uResp.Rmbs Is Nothing Then
 
 
@@ -850,7 +1100,7 @@ Public Class DatatSync
         Dim d As New StaffRmb.StaffRmbDataContext
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
 
-   
+
 
 
 
