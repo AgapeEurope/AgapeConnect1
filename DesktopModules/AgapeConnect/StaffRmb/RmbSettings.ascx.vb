@@ -503,6 +503,8 @@ Namespace DotNetNuke.Modules.StaffRmb
                     Dim DisplayName = CType(row.FindControl("tbDisplayName"), TextBox).Text
                     Dim PCode As String = ""
                     Dim DCode As String = ""
+
+
                     If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
                         PCode = CType(row.FindControl("tbPCode"), TextBox).Text
                         DCode = CType(row.FindControl("tbDCode"), TextBox).Text
@@ -510,21 +512,26 @@ Namespace DotNetNuke.Modules.StaffRmb
                         PCode = CType(row.FindControl("ddlPCode"), DropDownList).SelectedValue
                         DCode = CType(row.FindControl("ddlDCode"), DropDownList).SelectedValue
                     End If
-                   
-
-                    If q.Count = 0 Then
-                        Dim insert = New AP_StaffRmb_PortalLineType
-                        insert.LineTypeId = LineType
-                        insert.LocalName = DisplayName
-                        insert.PCode = PCode
-                        insert.DCode = DCode
-                        insert.PortalId = PortalId
-                        d.AP_StaffRmb_PortalLineTypes.InsertOnSubmit(insert)
-                    Else
-                        q.First.LocalName = DisplayName
-                        q.First.PCode = PCode
-                        q.First.DCode = DCode
+                    If (q.First.AP_Staff_RmbLineType.TypeName = "Non-Donation Income") Then
+                        PCode = DCode
+                    ElseIf (q.First.AP_Staff_RmbLineType.TypeName = "Donation Income") Then
+                        PCode = "N/A"
+                        DCode = "N/A"
                     End If
+
+                        If q.Count = 0 Then
+                            Dim insert = New AP_StaffRmb_PortalLineType
+                            insert.LineTypeId = LineType
+                            insert.LocalName = DisplayName
+                            insert.PCode = PCode
+                            insert.DCode = DCode
+                            insert.PortalId = PortalId
+                            d.AP_StaffRmb_PortalLineTypes.InsertOnSubmit(insert)
+                        Else
+                            q.First.LocalName = DisplayName
+                            q.First.PCode = PCode
+                            q.First.DCode = DCode
+                        End If
                 Else
 
                     d.AP_StaffRmb_PortalLineTypes.DeleteAllOnSubmit(q)

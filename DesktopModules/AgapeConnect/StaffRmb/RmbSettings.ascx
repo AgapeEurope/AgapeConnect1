@@ -1289,10 +1289,10 @@
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlPCode" runat="server" Width="60px" DataSourceID='<%# IIf(Eval("SpareField1")="INCOME", "dsIncomeCodes", "dsAccountCodes") %>'
                                             DataTextField="DisplayName" SelectedValue='<%#  GetPCode(Eval("LineTypeId")) %>'
-                                            DataValueField="AccountCode" AppendDataBoundItems="true" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>'>
+                                            DataValueField="AccountCode" AppendDataBoundItems="true" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) <> "True" And Not Eval("SpareField1") = "INCOME"%>'>
                                             <asp:ListItem Text="" Value="" />
                                         </asp:DropDownList>
-                                        <asp:TextBox runat="server" ID="tbPCode" Text='<%# GetPCodeText(Eval("LineTypeId"))%>' Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' />
+                                        <asp:TextBox runat="server" ID="tbPCode" Text='<%# GetPCodeText(Eval("LineTypeId"))%>' Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" And Not Eval("SpareField1") = "INCOME"%>' />
 
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -1300,16 +1300,22 @@
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlDCode" runat="server" Width="60px"  DataSourceID='<%# IIf(Eval("SpareField1")="INCOME", "dsIncomeCodes", "dsAccountCodes") %>'
                                             DataTextField="DisplayName" SelectedValue='<%# GetDCode(Eval("LineTypeId")) %>'
-                                            DataValueField="AccountCode" AppendDataBoundItems="true" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>'>
+                                            DataValueField="AccountCode" AppendDataBoundItems="true" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) <> "True" And Not CStr(Eval("TypeName")) = "Donation Income"%>'>
                                             <asp:ListItem Text="" Value="" />
                                         </asp:DropDownList>
+                                        <asp:Label ID="Label38" runat="server" Text="Holding A/C" Visible='<%# CStr(Eval("TypeName")) = "Donation Income"%>'></asp:Label>
                                         <asp:TextBox runat="server" ID="tbDCode" Text='<%# GetDCodeText(Eval("LineTypeId"))%>' Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="">
+                                    <ItemTemplate>
+                                        <asp:Label ID="Label37" runat="server" forecolor="red" Font-Size="X-Small" Text='<%# IIf(Eval("SpareField1") = "INCOME", "*In some countries, staff can declare income received on their reimbursements (But in most cases this is not relevent or recommended).", "")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                         <asp:LinqDataSource ID="dsLineTypes" runat="server" ContextTypeName="StaffRmb.StaffRmbDataContext"
-                            EntityTypeName="" TableName="AP_Staff_RmbLineTypes" OrderBy="TypeName">
+                            EntityTypeName="" TableName="AP_Staff_RmbLineTypes" OrderBy="SpareField1">
                         </asp:LinqDataSource>
                         <asp:LinqDataSource ID="dsAccountCodes" runat="server" ContextTypeName="StaffRmb.StaffRmbDataContext"
                             EntityTypeName="" Select="new (AccountCode,  AccountCode + ' ' + '-' + ' ' + AccountCodeName  as DisplayName )"

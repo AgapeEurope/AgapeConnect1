@@ -2362,7 +2362,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
             ddlLineTypes.Items.Clear()
-            Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
+            Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.AP_Staff_RmbLineType.SpareField1, c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
 
             If StaffBrokerFunctions.IsDept(PortalId, ddlChargeTo.SelectedValue) Then
                 lineTypes = lineTypes.Where(Function(x) x.DCode <> "")
