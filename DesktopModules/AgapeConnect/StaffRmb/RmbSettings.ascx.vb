@@ -252,7 +252,8 @@ Namespace DotNetNuke.Modules.StaffRmb
                 ddlControlAccount.DataBind()
                 ddlPayrollPayable.DataBind()
                 ddlSalaryAccount.DataBind()
-                ddlBankAccount.DataBind()
+                        ddlBankAccount.DataBind()
+                        ddlHoldingAccount.DataBind()
                 'Control Account
                 If ddlControlAccount.Items.Count = 0 Then
                     oopsControlAccount.Text = "Oops! - There are no Responsibility Centers setup. Please ensure that you have setup the datapump on the same server as your accounts package - as this will automatically upload a list of cost centers from your accounts package."
@@ -323,11 +324,21 @@ Namespace DotNetNuke.Modules.StaffRmb
                 If ddlBankAccount.Items.Count = 0 Then
                     lblOopsBank.Text = "Oops! - you have no Asset Accounts in your accounts package"
                 ElseIf ddlBankAccount.Items.FindByValue(CType(TabModuleSettings("BankAccount"), String)) Is Nothing Then
-                    lblOopsBank.Text = "Oops! Account " & TabModuleSettings("BankAccount") & " does not appear to exist in your Expense Accounts."
+                            lblOopsBank.Text = "Oops! Account " & TabModuleSettings("BankAccount") & " does not appear to exist in your Asset Accounts."
                 Else
                     ddlBankAccount.SelectedValue = CType(TabModuleSettings("BankAccount"), String)
                     lblOopsBank.Text = ""
-                End If
+                        End If
+
+                        'Holding Account
+                        If ddlHoldingAccount.Items.Count = 0 Then
+                            lblOopsHoldingAccount.Text = "Oops! - you have no Asset Accounts in your accounts package"
+                        ElseIf ddlHoldingAccount.Items.FindByValue(CType(TabModuleSettings("HoldingAccount"), String)) Is Nothing Then
+                            lblOopsHoldingAccount.Text = "Oops! Account " & TabModuleSettings("HoldingAccount") & " does not appear to exist in your Asset Accounts."
+                        Else
+                            ddlHoldingAccount.SelectedValue = CType(TabModuleSettings("HoldingAccount"), String)
+                            lblOopsHoldingAccount.Text = ""
+                        End If
             Else
                 tbControlAccount.Text = CType(TabModuleSettings("ControlAccount"), String)
                 tbAccountsReceivable.Text = CType(TabModuleSettings("AccountsReceivable"), String)
@@ -336,7 +347,7 @@ Namespace DotNetNuke.Modules.StaffRmb
                 tbPayrollPayable.Text = CType(TabModuleSettings("PayrollPayable"), String)
                 tbSalaryAccount.Text = CType(TabModuleSettings("SalaryAccount"), String)
                 tbBankAccount.Text = CType(TabModuleSettings("BankAccount"), String)
-
+                        tbHoldingAccount.Text = CType(TabModuleSettings("HoldingAccount"), String)
                 tbControlAccount.Visible = True
                 tbAccountsReceivable.Visible = True
                 tbTaxAccountsReceivable.Visible = True
@@ -456,6 +467,7 @@ Namespace DotNetNuke.Modules.StaffRmb
                 objModules.UpdateTabModuleSetting(TabModuleId, "PayrollPayable", tbPayrollPayable.Text)
                 objModules.UpdateTabModuleSetting(TabModuleId, "SalaryAccount", tbSalaryAccount.Text)
                 objModules.UpdateTabModuleSetting(TabModuleId, "BankAccount", tbBankAccount.Text)
+                objModules.UpdateTabModuleSetting(TabModuleId, "HoldingAccount", tbHoldingAccount.Text)
             Else
                 objModules.UpdateTabModuleSetting(TabModuleId, "ControlAccount", ddlControlAccount.SelectedValue)
                 objModules.UpdateTabModuleSetting(TabModuleId, "AccountsReceivable", ddlAccountsReceivable.SelectedValue)
@@ -465,6 +477,7 @@ Namespace DotNetNuke.Modules.StaffRmb
                 objModules.UpdateTabModuleSetting(TabModuleId, "PayrollPayable", ddlPayrollPayable.SelectedValue)
                 objModules.UpdateTabModuleSetting(TabModuleId, "SalaryAccount", ddlSalaryAccount.SelectedValue)
                 objModules.UpdateTabModuleSetting(TabModuleId, "BankAccount", ddlBankAccount.SelectedValue)
+                objModules.UpdateTabModuleSetting(TabModuleId, "HoldingAccount", ddlHoldingAccount.SelectedValue)
             End If
 
 

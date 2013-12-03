@@ -1705,7 +1705,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'insert.AccountCode = GetAccountCode(insert.LineType, insert.AP_Staff_Rmb.CostCenter, insert.AP_Staff_Rmb.UserId)
                     'insert.CostCenter = insert.AP_Staff_Rmb.CostCenter
-
+                   
                     If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
                         insert.AccountCode = tbAccountCode.Text
                         insert.CostCenter = tbCostCenter.Text
@@ -1713,7 +1713,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         insert.AccountCode = ddlAccountCode.SelectedValue
                         insert.CostCenter = ddlCostcenter.SelectedValue
                     End If
-
+                    If LineTypeName.Contains("Non-Donation") Then
+                        insert.CostCenter = insert.Spare2
+                    End If
 
                     If insert.Receipt Then
                         If q.Count = 0 Then
@@ -1765,10 +1767,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         Dim LineTypeName = d.AP_Staff_RmbLineTypes.Where(Function(c) c.LineTypeId = CInt(ddlLineTypes.SelectedValue)).First.TypeName.ToString()
 
 
-                    
 
 
-                      
+
+
 
 
 
@@ -1845,6 +1847,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         Else
                             line.First.AccountCode = ddlAccountCode.SelectedValue
                             line.First.CostCenter = ddlCostcenter.SelectedValue
+                        End If
+
+                        If LineTypeName.Contains("Non-Donation") Then
+                            line.First.CostCenter = line.First.Spare2
                         End If
 
                         line.First.LineType = CInt(ddlLineTypes.SelectedValue)
@@ -2508,7 +2514,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             theRmb.First.Status = RmbStatus.PendingDownload
             theRmb.First.ProcDate = Today
             theRmb.First.MoreInfoRequested = False
-            theRmb.First.ProcUserId = Userid
+            theRmb.First.ProcUserId = UserId
             d.SubmitChanges()
             LoadRmb(hfRmbNo.Value)
             ResetMenu()
@@ -2649,7 +2655,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             sb.Append("</script>")
             ScriptManager.RegisterStartupScript(btnPrint, t, "printOut", sb.ToString, False)
 
-          
+
 
 
 
@@ -2793,8 +2799,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     End If
                     Try
 
-                  
-                    ucType.GetProperty("ReceiptType").SetValue(theControl, receiptMode, Nothing)
+
+                        ucType.GetProperty("ReceiptType").SetValue(theControl, receiptMode, Nothing)
                     Catch ex As Exception
 
                     End Try
@@ -2969,7 +2975,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim oldValue = ddlLineTypes.SelectedValue
                 ddlLineTypes.Items.Clear()
                 Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
-               
+
 
 
                 If StaffBrokerFunctions.IsDept(PortalId, SelectedCC) Then
@@ -3469,6 +3475,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
             If q.Count > 0 Then
+                If (q.First.AP_Staff_RmbLineType.ControlPath.Contains("RmbDonation")) Then
+                    Return Settings("HoldingAccount")
+                End If
+
                 If q.First.PCode.Length = 0 And q.First.DCode.Length > 0 Then
                     Return q.First.DCode
                 ElseIf q.First.DCode.Length = 0 And q.First.PCode.Length > 0 Then
@@ -3644,9 +3654,28 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'End If
                     If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
-                        tbAccountCode.Text = GetAccountCode(lt.First.LineTypeId, tbCostCenter.Text)
+
+                        If (lt.First.ControlPath.Contains("RmbDonation")) Then
+                            tbAccountCode.Text = Settings("HoldingAccount")
+                            tbCostCenter.Text = Settings("ControlAccount")
+                        Else
+                            tbAccountCode.Text = GetAccountCode(lt.First.LineTypeId, tbCostCenter.Text)
+                            tbCostCenter.Text = ddlChargeTo.SelectedValue
+                        End If
                     Else
-                        ddlAccountCode.SelectedValue = GetAccountCode(lt.First.LineTypeId, ddlCostcenter.SelectedValue)
+
+                        If (lt.First.ControlPath.Contains("RmbDonation")) Then
+                            ddlAccountCode.SelectedValue = Settings("HoldingAccount")
+                            ddlCostcenter.SelectedValue = Settings("ControlAccount")
+                        Else
+                            ddlAccountCode.SelectedValue = GetAccountCode(lt.First.LineTypeId, ddlCostcenter.SelectedValue)
+
+                            ddlCostcenter.SelectedValue = ddlChargeTo.SelectedValue
+
+
+
+                        End If
+
                     End If
 
 

@@ -341,6 +341,21 @@
 
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <b>
+                                        <dnn:Label ID="Label36" runat="server" ControlName="ddlHolding" ResourceKey="lblHoldingAccount"  Text="Donation Holding Account"/>
+                                    </b>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="tbHoldingAccount" runat="server" Visible="false"></asp:TextBox>
+                                    <asp:DropDownList ID="ddlHoldingAccount" runat="server" Width="60px" DataSourceID="dsAccountCodes2"
+                                        DataTextField="DisplayName" DataValueField="AccountCode">
+                                    </asp:DropDownList>
+                                    <asp:Label ID="lblOopsHoldingAccount" runat="server" Text="" ForeColor="Red"></asp:Label>
+
+                                </td>
+                            </tr>
                         </table>
                     </td>
                     <td>
