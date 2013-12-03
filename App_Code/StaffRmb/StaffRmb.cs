@@ -26,6 +26,23 @@ namespace StaffRmb
 
         }
     }
+    public static class RmbIncomeType
+    {
+        public const int Donation = 0;
+        public const int Conference = 1;
+        public const int Other = 2;
+        static public string IncomeTypeName(int IncomeTypeNo)
+        {
+            switch (IncomeTypeNo)
+            {
+                case 0: return "Donation";
+                case 1: return "Conference";
+                case 2: return "Other";
+                default: return "Unknown";
+            }
+
+        }
+    }
     public static class RmbStatus
     {
         public const int Draft = 0;

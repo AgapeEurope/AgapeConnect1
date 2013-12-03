@@ -573,4 +573,7 @@
   <data name="OpenNewTab.Text" xml:space="preserve">
     <value>Click to view in new tab...</value>
   </data>
+  <data name="lblIncome.Text" xml:space="preserve">
+    <value>The staff member has declared that they have received income (personally). This amount has been deducted from the amount payable to them. If this is donation income, please do not forget to book this donation in Donorwise.</value>
+  </data>
 </root>

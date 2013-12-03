@@ -3426,6 +3426,37 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Return rtn
         End Function
 
+        Public Function GetLineTypeClass(ByVal CostCenter As String, ByVal LineTypeId As Integer) As String
+            If IsWrongType(CostCenter, LineTypeId) Then
+                Return "ui-state-error ui-corner-all"
+            End If
+
+            Dim q = From c In d.AP_Staff_RmbLineTypes Where c.LineTypeId = LineTypeId
+
+            If q.Count > 0 Then
+                If q.First.SpareField1 = "INCOME" Then
+                    Return "ui-state-highlight ui-corner-all"
+                End If
+
+            End If
+            Return ""
+        End Function
+        Public Function GetLineTypeMessage(ByVal CostCenter As String, ByVal LineTypeId As Integer) As String
+            If IsWrongType(CostCenter, LineTypeId) Then
+                Return Translate("lblWrongType")
+            End If
+
+            Dim q = From c In d.AP_Staff_RmbLineTypes Where c.LineTypeId = LineTypeId
+
+            If q.Count > 0 Then
+                If q.First.SpareField1 = "INCOME" Then
+                    Return Translate("lblIncome")
+                End If
+
+            End If
+            Return ""
+        End Function
+
 #End Region
 
 #Region "Utilities"
@@ -4136,7 +4167,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 If Not approver Is Nothing Then
                     ApproverName = approver.DisplayName
                 End If
-            
+
 
                 Dim RC = StaffBrokerFunctions.GetStaffMember(row.UserId).CostCenter
 
@@ -4180,7 +4211,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Sub
-       
+
 
         Protected Sub DownloadBatch(Optional ByVal MarkAsProcessed As Boolean = False)
             Dim downloadStatuses() As Integer = {RmbStatus.PendingDownload, RmbStatus.DownloadFailed}
@@ -4252,7 +4283,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ResetMenu()
 
 
-                
+
             End If
 
 
@@ -5200,7 +5231,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
         End Property
 
 #End Region
-      
+
         Protected Sub btnDownloadExpenseOK_Click(sender As Object, e As EventArgs) Handles btnDownloadExpenseOK.Click
             DownloadPeriodReport(ddlDownloadExpensePeriod.SelectedValue, ddlDownloadExpenseYEar.SelectedValue)
 

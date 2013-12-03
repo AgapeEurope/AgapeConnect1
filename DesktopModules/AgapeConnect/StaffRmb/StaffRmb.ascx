@@ -1479,7 +1479,7 @@
                                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("LineType") %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="Label1" runat="server" CssClass='<%# IIF(IsWrongType(Eval("CostCenter"), Eval("LineType")), "ui-state-error ui-corner-all","") %>' ToolTip='<%# IIF(IsWrongType(Eval("CostCenter"), Eval("LineType")),Translate("lblWrongType"),"") %>' Text='<%# GetLocalTypeName(Eval("AP_Staff_RmbLineType.LineTypeId") )%>'></asp:Label>
+                                                    <asp:Label ID="Label1" runat="server" CssClass='<%# GetLineTypeClass(Eval("CostCenter"), Eval("LineType"))%>' ToolTip='<%# GetLineTypeMessage(Eval("CostCenter"), Eval("LineType"))  %>' Text='<%# GetLocalTypeName(Eval("AP_Staff_RmbLineType.LineTypeId") )%>'></asp:Label>
                                                 </ItemTemplate>
                                                 <HeaderStyle ForeColor="White" />
                                                 <ItemStyle HorizontalAlign="Left" />

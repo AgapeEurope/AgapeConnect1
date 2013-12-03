@@ -1272,7 +1272,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="PCode">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="ddlPCode" runat="server" Width="60px" DataSourceID="dsAccountCodes"
+                                        <asp:DropDownList ID="ddlPCode" runat="server" Width="60px" DataSourceID='<%# IIf(Eval("SpareField1")="INCOME", "dsIncomeCodes", "dsAccountCodes") %>'
                                             DataTextField="DisplayName" SelectedValue='<%#  GetPCode(Eval("LineTypeId")) %>'
                                             DataValueField="AccountCode" AppendDataBoundItems="true" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>'>
                                             <asp:ListItem Text="" Value="" />
@@ -1283,7 +1283,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="DCode">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="ddlDCode" runat="server" Width="60px" DataSourceID="dsAccountCodes"
+                                        <asp:DropDownList ID="ddlDCode" runat="server" Width="60px"  DataSourceID='<%# IIf(Eval("SpareField1")="INCOME", "dsIncomeCodes", "dsAccountCodes") %>'
                                             DataTextField="DisplayName" SelectedValue='<%# GetDCode(Eval("LineTypeId")) %>'
                                             DataValueField="AccountCode" AppendDataBoundItems="true" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId)<> "True"%>'>
                                             <asp:ListItem Text="" Value="" />
@@ -1303,6 +1303,15 @@
                                 <asp:ControlParameter ControlID="hfPortalId" DefaultValue="-1" Name="PortalId" PropertyName="Value"
                                     Type="Int32" />
                                 <asp:Parameter DefaultValue="4" Name="AccountCodeType" Type="Byte" />
+                            </WhereParameters>
+                        </asp:LinqDataSource>
+                         <asp:LinqDataSource ID="dsIncomeCodes" runat="server" ContextTypeName="StaffRmb.StaffRmbDataContext"
+                            EntityTypeName="" Select="new (AccountCode,  AccountCode + ' ' + '-' + ' ' + AccountCodeName  as DisplayName )"
+                            TableName="AP_StaffBroker_AccountCodes" OrderBy="AccountCode" Where="PortalId == @PortalId &amp;&amp; AccountCodeType == @AccountCodeType">
+                            <WhereParameters>
+                                <asp:ControlParameter ControlID="hfPortalId" DefaultValue="-1" Name="PortalId" PropertyName="Value"
+                                    Type="Int32" />
+                                <asp:Parameter DefaultValue="3" Name="AccountCodeType" Type="Byte" />
                             </WhereParameters>
                         </asp:LinqDataSource>
                     </td>
