@@ -42,6 +42,9 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
             Dim acx = CType(FormView1.FindControl("acImage1"), DesktopModules_AgapePortal_StaffBroker_acImage)
             Dim lblError = CType(FormView1.FindControl("lblError"), Label)
+            e.Values("Spare1") = CType(FormView1.FindControl("CanRecieveNonDonaitonIncome"), CheckBox).Checked.ToString
+
+
             If acx.FileId <> 0 Then
 
 
@@ -117,7 +120,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
             Else
                 e.NewValues("PhotoId") = Nothing
             End If
-
+            e.NewValues("Spare1") = CType(FormView1.FindControl("CanRecieveNonDonaitonIncome"), CheckBox).Checked.ToString
 
             'If e.NewValues("CostCentre") <> e.OldValues("CostCentre") Or _
             '   e.NewValues("CostCentreManager") <> e.OldValues("CostCentreManager") Or _

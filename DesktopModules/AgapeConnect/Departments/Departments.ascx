@@ -79,10 +79,12 @@
                                  <asp:TextBox ID="tbCostCentreCode" runat="server" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' Text='<%# Eval("CostCentre")%>'></asp:TextBox>
                             </td>
                             <td>
-                                <uc1:labelcontrol ID="labelcontrol5" runat="server" Text="Can Reimburse" HelpText="Check this option if you want staff to be able to reimburse from this cost centre" />
+                                <uc1:labelcontrol ID="labelcontrol5" runat="server" Text="Can Reimburse" HelpText="Check this option if you want staff to be able to reimburse from this cost centre" /><br />
+                                  <uc1:labelcontrol ID="labelcontrol12" runat="server" Text="Can Recieve Non-Donation Income" HelpText="In some countries, non-donation income (like conference income) can declared on a reimbursement (using the Non-Donation Income expense type) - and the staff member must specify what the income is for (i.e. where the money should be booked). If this box is checked it will appear in the list of available options. Note that is not applicable in most countries." />
                             </td>
                             <td>
-                                <asp:CheckBox ID="CanRmbCheckBox" runat="server" Checked='<%# Bind("CanRmb") %>' />
+                                <asp:CheckBox ID="CanRmbCheckBox" runat="server" Checked='<%# Bind("CanRmb") %>' /><br />
+                                 <asp:CheckBox ID="CanRecieveNonDonaitonIncome" runat="server" Checked='<%# Bind("Spare1")%>' />
                             </td>
                         </tr>
                         <tr>
@@ -210,10 +212,12 @@
                                 
                             </td>
                             <td>
-                                <uc1:labelcontrol ID="labelcontrol5" runat="server" Text="Can Reimburse" HelpText="Check this option if you want staff to be able to reimburse from this cost centre" />
+                                <uc1:labelcontrol ID="labelcontrol5" runat="server" Text="Can Reimburse" HelpText="Check this option if you want staff to be able to reimburse from this cost centre" /><br />
+                                  <uc1:labelcontrol ID="labelcontrol12" runat="server" Text="Can Recieve Non-Donation Income" HelpText="In some countries, non-donation income (like conference income) can declared on a reimbursement (using the Non-Donation Income expense type) - and the staff member must specify what the income is for (i.e. where the money should be booked). If this box is checked it will appear in the list of available options. Note that is not applicable in most countries." />
                             </td>
                             <td>
-                                <asp:CheckBox ID="CanRmbCheckBox" runat="server" Checked='<%# Bind("CanRmb") %>' />
+                                <asp:CheckBox ID="CanRmbCheckBox" runat="server" Checked='<%# Bind("CanRmb") %>' /><br />
+                                 <asp:CheckBox ID="CanRecieveNonDonaitonIncome" runat="server" Checked='<%# Eval("Spare1")="True"%>' />
                             </td>
                         </tr>
                         <tr>
