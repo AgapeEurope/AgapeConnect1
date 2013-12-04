@@ -1510,6 +1510,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             Catch ex As Exception
                 lblError.Text = "Error loading Rmb: " & ex.Message
+                StaffBrokerFunctions.EventLog("Error loading Rmb", ex.ToString, UserId)
+
                 lblError.Visible = True
             End Try
 
@@ -2362,7 +2364,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
             ddlLineTypes.Items.Clear()
-            Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.AP_Staff_RmbLineType.SpareField1, c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
+            Dim lineTypes = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId Order By c.AP_Staff_RmbLineType.SpareField2, c.LocalName Select c.AP_Staff_RmbLineType.LineTypeId, c.LocalName, c.PCode, c.DCode
 
             If StaffBrokerFunctions.IsDept(PortalId, ddlChargeTo.SelectedValue) Then
                 lineTypes = lineTypes.Where(Function(x) x.DCode <> "")
@@ -3440,7 +3442,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim q = From c In d.AP_Staff_RmbLineTypes Where c.LineTypeId = LineTypeId
 
             If q.Count > 0 Then
-                If q.First.SpareField1 = "INCOME" Then
+                If q.First.SpareField2 = "INCOME" Then
                     Return "ui-state-highlight ui-corner-all"
                 End If
 
@@ -3455,7 +3457,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim q = From c In d.AP_Staff_RmbLineTypes Where c.LineTypeId = LineTypeId
 
             If q.Count > 0 Then
-                If q.First.SpareField1 = "INCOME" Then
+                If q.First.SpareField2 = "INCOME" Then
                     Return Translate("lblIncome")
                 End If
 
