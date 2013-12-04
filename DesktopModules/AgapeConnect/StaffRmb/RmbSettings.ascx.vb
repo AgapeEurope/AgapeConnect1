@@ -334,7 +334,7 @@ Namespace DotNetNuke.Modules.StaffRmb
                         If ddlHoldingAccount.Items.Count = 0 Then
                             lblOopsHoldingAccount.Text = "Oops! - you have no Asset Accounts in your accounts package"
                         ElseIf ddlHoldingAccount.Items.FindByValue(CType(TabModuleSettings("HoldingAccount"), String)) Is Nothing Then
-                            lblOopsHoldingAccount.Text = "Oops! Account " & TabModuleSettings("HoldingAccount") & " does not appear to exist in your Asset Accounts."
+                            ddlHoldingAccount.SelectedIndex = 0
                         Else
                             ddlHoldingAccount.SelectedValue = CType(TabModuleSettings("HoldingAccount"), String)
                             lblOopsHoldingAccount.Text = ""
@@ -477,44 +477,49 @@ Namespace DotNetNuke.Modules.StaffRmb
                 objModules.UpdateTabModuleSetting(TabModuleId, "PayrollPayable", ddlPayrollPayable.SelectedValue)
                 objModules.UpdateTabModuleSetting(TabModuleId, "SalaryAccount", ddlSalaryAccount.SelectedValue)
                 objModules.UpdateTabModuleSetting(TabModuleId, "BankAccount", ddlBankAccount.SelectedValue)
-                objModules.UpdateTabModuleSetting(TabModuleId, "HoldingAccount", ddlHoldingAccount.SelectedValue)
-            End If
+
+           
+                    objModules.UpdateTabModuleSetting(TabModuleId, "HoldingAccount", ddlHoldingAccount.SelectedValue)
 
 
-            ' objModules.UpdateTabModuleSetting(TabModuleId, "CurConverter", cbCurConverter.Checked)
-            StaffBrokerFunctions.SetSetting("CurConverter", cbCurConverter.Checked, PortalId)
-
-            objModules.UpdateTabModuleSetting(TabModuleId, "ShowRemBal", cbRemBal.Checked)
-            objModules.UpdateTabModuleSetting(TabModuleId, "WarnIfNegative", cbWarnIfNegative.Checked)
-
-            StaffBrokerFunctions.SetSetting("RmbDownload", cbDatapump.Checked, PortalId)
+                End If
 
 
+                ' objModules.UpdateTabModuleSetting(TabModuleId, "CurConverter", cbCurConverter.Checked)
+                StaffBrokerFunctions.SetSetting("CurConverter", cbCurConverter.Checked, PortalId)
 
-            objModules.UpdateTabModuleSetting(TabModuleId, "isLoaded", "Yes")
-            Dim d As New StaffRmbDataContext
+                objModules.UpdateTabModuleSetting(TabModuleId, "ShowRemBal", cbRemBal.Checked)
+                objModules.UpdateTabModuleSetting(TabModuleId, "WarnIfNegative", cbWarnIfNegative.Checked)
+
+                StaffBrokerFunctions.SetSetting("RmbDownload", cbDatapump.Checked, PortalId)
 
 
-            For Each row As GridViewRow In GridView1.Rows
-                Dim LineType As Integer = CType(row.FindControl("hfLineTypeId"), HiddenField).Value
-                Dim q = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId And c.LineTypeId = LineType
 
-                If CType(row.FindControl("cbEnable"), CheckBox).Checked Then
+                objModules.UpdateTabModuleSetting(TabModuleId, "isLoaded", "Yes")
+                Dim d As New StaffRmbDataContext
+
+
+                For Each row As GridViewRow In GridView1.Rows
+                    Dim LineType As Integer = CType(row.FindControl("hfLineTypeId"), HiddenField).Value
+                    Dim q = From c In d.AP_StaffRmb_PortalLineTypes Where c.PortalId = PortalId And c.LineTypeId = LineType
+
+                    If CType(row.FindControl("cbEnable"), CheckBox).Checked Then
                     Dim DisplayName = CType(row.FindControl("tbDisplayName"), TextBox).Text
-                    Dim PCode As String = ""
-                    Dim DCode As String = ""
+                    Dim TypeName = CType(row.FindControl("hfTypeName"), HiddenField).Value
+                        Dim PCode As String = ""
+                        Dim DCode As String = ""
 
 
-                    If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
-                        PCode = CType(row.FindControl("tbPCode"), TextBox).Text
-                        DCode = CType(row.FindControl("tbDCode"), TextBox).Text
-                    Else
-                        PCode = CType(row.FindControl("ddlPCode"), DropDownList).SelectedValue
-                        DCode = CType(row.FindControl("ddlDCode"), DropDownList).SelectedValue
-                    End If
-                    If (q.First.AP_Staff_RmbLineType.TypeName = "Non-Donation Income") Then
+                        If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
+                            PCode = CType(row.FindControl("tbPCode"), TextBox).Text
+                            DCode = CType(row.FindControl("tbDCode"), TextBox).Text
+                        Else
+                            PCode = CType(row.FindControl("ddlPCode"), DropDownList).SelectedValue
+                            DCode = CType(row.FindControl("ddlDCode"), DropDownList).SelectedValue
+                        End If
+                    If (TypeName = "Non-Donation Income") Then
                         PCode = DCode
-                    ElseIf (q.First.AP_Staff_RmbLineType.TypeName = "Donation Income") Then
+                    ElseIf (TypeName = "Donation Income") Then
                         PCode = "N/A"
                         DCode = "N/A"
                     End If
@@ -532,53 +537,53 @@ Namespace DotNetNuke.Modules.StaffRmb
                             q.First.PCode = PCode
                             q.First.DCode = DCode
                         End If
-                Else
+                    Else
 
-                    d.AP_StaffRmb_PortalLineTypes.DeleteAllOnSubmit(q)
-                End If
-            Next
+                        d.AP_StaffRmb_PortalLineTypes.DeleteAllOnSubmit(q)
+                    End If
+                Next
 
-            d.SubmitChanges()
-            StaffBrokerFunctions.SetSetting("RmbTabModuleId", TabModuleId, PortalId)
-            StaffBrokerFunctions.SetSetting("Nagape", IIf(cbNagape.Checked, "ON", "OFF"), PortalId)
+                d.SubmitChanges()
+                StaffBrokerFunctions.SetSetting("RmbTabModuleId", TabModuleId, PortalId)
+                StaffBrokerFunctions.SetSetting("Nagape", IIf(cbNagape.Checked, "ON", "OFF"), PortalId)
 
-            Try
-                objModules.UpdateTabModuleSetting(TabModuleId, "Reminder1", CInt(tbReminder1.Text))
-                If (tbReminder2.Text <> "") Then
-                    If (CInt(tbReminder2.Text) > CInt(tbReminder1.Text)) Then
-                        objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", tbReminder2.Text)
-                        If (tbGiveUp.Text <> "") Then
-                            If (CInt(tbGiveUp.Text) > CInt(tbReminder2.Text)) Then
-                                objModules.UpdateTabModuleSetting(TabModuleId, "GiveUp", tbGiveUp.Text)
+                Try
+                    objModules.UpdateTabModuleSetting(TabModuleId, "Reminder1", CInt(tbReminder1.Text))
+                    If (tbReminder2.Text <> "") Then
+                        If (CInt(tbReminder2.Text) > CInt(tbReminder1.Text)) Then
+                            objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", tbReminder2.Text)
+                            If (tbGiveUp.Text <> "") Then
+                                If (CInt(tbGiveUp.Text) > CInt(tbReminder2.Text)) Then
+                                    objModules.UpdateTabModuleSetting(TabModuleId, "GiveUp", tbGiveUp.Text)
+                                Else
+                                    objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", CInt(tbReminder1.Text) + 1)
+                                End If
                             Else
                                 objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", CInt(tbReminder1.Text) + 1)
                             End If
+
+
                         Else
                             objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", CInt(tbReminder1.Text) + 1)
+                            objModules.UpdateTabModuleSetting(TabModuleId, "GiveUp", CInt(tbReminder1.Text) + 2)
                         End If
-
-
-                    Else
-                        objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", CInt(tbReminder1.Text) + 1)
-                        objModules.UpdateTabModuleSetting(TabModuleId, "GiveUp", CInt(tbReminder1.Text) + 2)
                     End If
-                End If
-            Catch ex As Exception
-                objModules.UpdateTabModuleSetting(TabModuleId, "Reminder1", 2)
-                objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", 4)
-                objModules.UpdateTabModuleSetting(TabModuleId, "GiveUp", 7)
-            End Try
-
-           
+                Catch ex As Exception
+                    objModules.UpdateTabModuleSetting(TabModuleId, "Reminder1", 2)
+                    objModules.UpdateTabModuleSetting(TabModuleId, "Reminder2", 4)
+                    objModules.UpdateTabModuleSetting(TabModuleId, "GiveUp", 7)
+                End Try
 
 
 
 
 
 
-            ' refresh cache
-            SynchronizeModule()
-            Response.Redirect(NavigateURL())
+
+
+                ' refresh cache
+                SynchronizeModule()
+                Response.Redirect(NavigateURL())
         End Sub
 
         Public Function IsEnabled(ByVal LineTypeId As Integer) As Boolean
