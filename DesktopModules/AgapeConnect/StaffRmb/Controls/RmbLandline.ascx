@@ -50,7 +50,7 @@
 <asp:CheckBox ID="cbTaxable" runat="server" ResourceKey="Bill" Text="I have an itemized bill and have only reimbursed the ministry calls (as I have highlighted on the bill)"  />
         </td>
     </tr>
-    <tr id="VATLine" runat="server" class="VATLine">
+    <tr id="VATLine" runat="server" class="VATLine" visible="false">
         <td>
             <b>
                 <dnn:Label ID="lblVAT" runat="server" ControlName="cbVAT" ResourceKey="lblVAT" />

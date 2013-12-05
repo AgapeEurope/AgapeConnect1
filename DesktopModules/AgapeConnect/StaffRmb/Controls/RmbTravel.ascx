@@ -102,7 +102,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr id="VATLine" runat="server" class="VATLine">
+    <tr id="VATLine" runat="server" class="VATLine" visible="false">
         <td>
             <b>
                 <dnn:Label ID="lblVAT" runat="server" ControlName="cbVAT" ResourceKey="lblVAT" />
