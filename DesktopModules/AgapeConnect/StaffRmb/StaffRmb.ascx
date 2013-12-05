@@ -29,6 +29,7 @@
                 else{
                     $("#<%= pnlElecReceipts.ClientID%>").slideUp("slow");
                 }
+               
             });
 
            
