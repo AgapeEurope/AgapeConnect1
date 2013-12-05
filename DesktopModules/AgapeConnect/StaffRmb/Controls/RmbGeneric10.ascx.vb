@@ -48,7 +48,9 @@ Partial Class controls_RmbGeneric
 
         End If
 
-
+        If settings("VatAttrib") = "True" Then
+            VATLine.Visible = True
+        End If
         ddlVATReceipt.Items(1).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
     End Sub
     Public Property ReceiptType() As Integer
