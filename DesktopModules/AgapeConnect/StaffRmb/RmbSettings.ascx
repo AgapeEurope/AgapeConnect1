@@ -110,15 +110,15 @@
                                     <asp:CheckBox ID="cbElectronicReceipts" runat="server" Checked="False" />
                                 </td>
                             </tr>
-                            <tr style="opacity: 0.4; filter: alpha(opacity=40);">
+                            <tr >
                                 <td>
                                     <b>
                                         <dnn:Label ID="lblVAT" runat="server" ControlName="cbVAT" ResourceKey="lblVAT" />
                                     </b>
                                 </td>
                                 <td>
-                                    <asp:CheckBox ID="cbVAT" runat="server" Enabled="false" />
-                                    *Not yet Implemented (Coming soon!)
+                                    <asp:CheckBox ID="cbVAT" runat="server"  />
+                                   
                                 </td>
                             </tr>
                             <tr>
