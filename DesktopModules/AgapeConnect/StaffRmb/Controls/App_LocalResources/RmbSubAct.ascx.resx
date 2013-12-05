@@ -172,4 +172,10 @@
   <data name="Electronic.Text" xml:space="preserve">
     <value>Electronic Receipt</value>
   </data>
+  <data name="lblVAT.Help" xml:space="preserve">
+    <value>Check this box if you would like us to reclaim sales tax for this expenses. To reclaim sales tax, you must provide a VATreceipt (which contains the companies VAT number).</value>
+  </data>
+  <data name="lblVAT.Text" xml:space="preserve">
+    <value>VAT Recoverable?</value>
+  </data>
 </root>
