@@ -32,19 +32,32 @@
                 </tr>
             </table></td>
 </tr>
-<tr id="ReceiptLine" runat="server">
-    <td><b><dnn:label id="ttlReceipt"  runat="server" controlname="ddlVATReceipt"   /></b></td>
-    <td>
-        <asp:DropDownList ID="ddlVATReceipt" runat="server"  CssClass="ddlReceipt">
-            <asp:ListItem ResourceKey="VAT" Value="0">VAT</asp:ListItem>
-            <asp:ListItem ResourceKey="Standard" Value="1">Standard</asp:ListItem>
-            <asp:ListItem  Value="2" ResourceKey="Electronic">Electronic Receipt</asp:ListItem>
-            <asp:ListItem  Value="-1">No Receipt (under [LIMIT])</asp:ListItem>
-        </asp:DropDownList>
-    </td>
-   
-</tr>
-<tr valign="top" >
+    <tr id="ReceiptLine" runat="server">
+        <td>
+            <b>
+                <dnn:Label ID="ttlReceipt" runat="server" ControlName="ddlVATReceipt" />
+            </b>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlVATReceipt" runat="server" CssClass="ddlReceipt">
+
+                <asp:ListItem ResourceKey="Standard" Value="1">Paper Receipt</asp:ListItem>
+                <asp:ListItem ResourceKey="Electronic" Value="2">Electronic Receipt</asp:ListItem>
+                <asp:ListItem Value="-1">No Receipt (under [LIMIT])</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr id="VATLine" runat="server" class="VATLine">
+        <td>
+            <b>
+                <dnn:Label ID="lblVAT" runat="server" ControlName="cbVAT" ResourceKey="lblVAT" />
+            </b>
+        </td>
+        <td>
+            <asp:CheckBox ID="cbVAT" runat="server" />
+        </td>
+    </tr>
+    <tr valign="top" >
     <td><b><dnn:label id="Label5"  runat="server" controlname="ddlVATReceipt" ResourceKey="lblSplit"  text="Split cost:" HelpText="If the cost of this meeting is to be shared between several accounts (i.e. a team retreat), please specify how this should be charged. List each ministry/staff account and how much should be charged to each cost centre. " /></b></td>
     <td>
         <asp:CheckBox ID="CheckBox1" runat="server" ResourceKey="Split" Text="Split this cost accross the following Staff/Ministry Accounts*:" /> <br />

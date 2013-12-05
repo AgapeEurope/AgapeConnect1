@@ -33,28 +33,24 @@ Partial Class controls_RmbLandline
     End Sub
 
     Public Sub Initialize(ByVal settings As Hashtable)
+        ttlReceipt.Text = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Text", LocalResourceFile)
+        hfNoReceiptLimit.Value = settings("NoReceipt")
+        Dim _LIMIT As String = StaffBrokerFunctions.GetSetting("Currency", PortalId) & settings("NoReceipt")
+        ddlVATReceipt.Items(2).Text = DotNetNuke.Services.Localization.Localization.GetString("NoReceipt.Text", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
+        ttlReceipt.HelpText = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Help", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
 
-        If settings("NoReceipt") = 0 Then
-            If settings("VatAttrib") = False And settings("ElectronicReceipts") = False Then
-                'receipts are always required (and no VAT issues) so don't ask... Just assume receipts
+        ddlVATReceipt.Items(2).Enabled = (settings("NoReceipt") > 0)
+        If settings("NoReceipt") = 0 And settings("ElectronicReceipts") = False Then
+            ddlVATReceipt.SelectedValue = 1
+            ReceiptLine.Visible = False
 
-                ddlVATReceipt.SelectedValue = 1
-                ReceiptLine.Visible = False
-
-            End If
-            ddlVATReceipt.Items(3).Enabled = False
         Else
-            hfNoReceiptLimit.Value = settings("NoReceipt")
-            Dim _LIMIT As String = StaffBrokerFunctions.GetSetting("Currency", PortalId) & settings("NoReceipt")
-            ddlVATReceipt.Items(3).Text = DotNetNuke.Services.Localization.Localization.GetString("NoReceipt.Text", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
-            'ttlReceipt.Text = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Text", LocalResourceFile)
-            'ttlReceipt.HelpText = DotNetNuke.Services.Localization.Localization.GetString("lblReceipt.Help", LocalResourceFile).Replace("[LIMIT]", _LIMIT)
             ReceiptLine.Visible = True
-            ddlVATReceipt.Items(3).Enabled = True
+
         End If
 
-        ddlVATReceipt.Items(0).Enabled = settings("VatAttrib")
-        ddlVATReceipt.Items(2).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
+
+        ddlVATReceipt.Items(1).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
     End Sub
     Public Property ReceiptType() As Integer
         Get
@@ -86,14 +82,11 @@ Partial Class controls_RmbLandline
     End Property
     Public Property VAT() As Boolean
         Get
-            Return (ddlVATReceipt.SelectedValue = 0)
+            Return cbVAT.Checked
         End Get
         Set(ByVal value As Boolean)
-            If value = True Then
-                ddlVATReceipt.SelectedValue = 0
-            Else
-                ddlVATReceipt.SelectedValue = 1
-            End If
+
+            cbVAT.Checked = value
 
 
         End Set

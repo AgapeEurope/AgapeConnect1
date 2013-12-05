@@ -32,18 +32,31 @@
                 </tr>
             </table></td>
 </tr>
-<tr id="ReceiptLine" runat="server">
-    <td><b><dnn:label id="ttlReceipt"  runat="server" controlname="ddlVATReceipt" /></b></td>
-    <td>
-        <asp:DropDownList ID="ddlVATReceipt" runat="server"  CssClass="ddlReceipt">
-            <asp:ListItem ResourceKey="VAT" Value="0">VAT</asp:ListItem>
-            <asp:ListItem ResourceKey="Standard" Value="1">Standard</asp:ListItem>
-            <asp:ListItem  Value="2" ResourceKey="Electronic">Electronic Receipt</asp:ListItem>
-            <asp:ListItem  Value="-1">No Receipt (under [LIMIT])</asp:ListItem>
-        </asp:DropDownList>
-    </td>
-   
-</tr>
+    <tr id="ReceiptLine" runat="server">
+        <td>
+            <b>
+                <dnn:Label ID="ttlReceipt" runat="server" ControlName="ddlVATReceipt" />
+            </b>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlVATReceipt" runat="server" CssClass="ddlReceipt">
+
+                <asp:ListItem ResourceKey="Standard" Value="1">Paper Receipt</asp:ListItem>
+                <asp:ListItem ResourceKey="Electronic" Value="2">Electronic Receipt</asp:ListItem>
+                <asp:ListItem Value="-1">No Receipt (under [LIMIT])</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr id="VATLine" runat="server" class="VATLine">
+        <td>
+            <b>
+                <dnn:Label ID="lblVAT" runat="server" ControlName="cbVAT" ResourceKey="lblVAT" />
+            </b>
+        </td>
+        <td>
+            <asp:CheckBox ID="cbVAT" runat="server" />
+        </td>
+    </tr>
 </table>
  <asp:Label ID="ErrorLbl" runat="server" Font-Size="9pt" ForeColor="Red" />
 
