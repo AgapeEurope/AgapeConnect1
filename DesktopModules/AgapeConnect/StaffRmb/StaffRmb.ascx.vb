@@ -2535,7 +2535,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim RmbNo As Integer = CInt(hfRmbNo.Value)
             Dim thisRID = (From c In d.AP_Staff_Rmbs Where c.RMBNo = RmbNo And c.PortalId = PortalId Select c.RID).First
 
-            Dim export As String = "Account,Subaccount,Ref,Date," & GetOrderedString("Description", "Debit", "Credit", "Company")
+            Dim export As String = "Account,Subaccount,Ref,Date," & GetOrderedString("Description", "Debit", "Credit", "Company", Nothing, True)
 
 
             export &= DownloadRmbSingle(CInt(hfRmbNo.Value))
@@ -3888,7 +3888,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     End If
                     Dim shortComment = GetLineComment(line.Comment, line.OrigCurrency, line.OrigCurrencyAmount, line.ShortComment, True, Left(theUser.FirstName, 1) & Left(theUser.LastName, 1), IIf(line.AP_Staff_RmbLineType.TypeName = "Mileage", line.Spare2, ""))
                     rtn &= GetOrderedString(shortComment,
-                                         Debit, Credit)
+                                         Debit, Credit, "", line)
 
 
 
@@ -4116,7 +4116,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
             Return rtn
         End Function
-        Protected Function GetOrderedString(ByVal Desc As String, ByVal Debit As String, ByVal Credit As String, Optional Company As String = "") As String
+        Protected Function GetOrderedString(ByVal Desc As String, ByVal Debit As String, ByVal Credit As String, Optional Company As String = "", Optional line As AP_Staff_RmbLine = Nothing, Optional title As Boolean = False) As String
             Dim format As String = "DDC"
             If CStr(Settings("DownloadFormat")) <> "" Then
                 format = CStr(Settings("DownloadFormat"))
@@ -4135,8 +4135,32 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Return "=""" & CompanyName & """,=""" & Debit & """,=""" & Credit & """,=""" & Desc & """" & vbNewLine
                 Case "CDDC"
                     Return "=""" & CompanyName & """,=""" & Desc & """,=""" & Debit & """,=""" & Credit & """" & vbNewLine
-                Case Else 'including DDC
+                Case "DDC"
                     Return "=""" & Desc & """,=""" & Debit & """,=""" & Credit & """" & vbNewLine
+                Case Else 'Including GEN
+                    Dim VAT As String = "N"
+                    Dim Cur As String = ""
+                    Dim CurAmt As String = ""
+                    Dim TRXDate As String = ""
+                    Dim ApprDate As String = ""
+                    Dim FullComment As String = ""
+                    If title Then
+                        VAT = "VAT"
+                        Cur = "Original Currency"
+                        CurAmt = "Original Currency Amount"
+                        TRXDate = "Transaction Date"
+                        ApprDate = "Approval Date"
+                        FullComment = "Orignal Description (Long)"
+                    ElseIf Not line Is Nothing Then
+                        VAT = IIf(line.VATReceipt, "Y", "N")
+                        Cur = line.OrigCurrency
+                        CurAmt = line.OrigCurrencyAmount
+                        TRXDate = line.TransDate.ToString("yyyy MMM dd")
+                        ApprDate = line.TransDate.ToString("yyyy MMM dd")
+                        FullComment = line.Comment
+                    End If
+
+                    Return "=""" & Desc & """,=""" & Debit & """,=""" & Credit & """,=""" & VAT & """,=""" & Cur & """,=""" & CurAmt & """,=""" & TRXDate & """,=""" & ApprDate & """,=""" & FullComment & """" & vbNewLine
             End Select
 
 
@@ -4250,7 +4274,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             Dim pendDownload = From c In d.AP_Staff_Rmbs Where downloadStatuses.Contains(c.Status) And c.PortalId = PortalId
 
-            Dim export As String = "Account,Subaccount,Ref,Date," & GetOrderedString("Description", "Debit", "Credit", "Company")
+            Dim export As String = "Account,Subaccount,Ref,Date," & GetOrderedString("Description", "Debit", "Credit", "Company", Nothing, True)
             Dim RmbList As New List(Of Integer)
             For Each rmb In pendDownload
                 Log(rmb.RMBNo, "Downloading Rmb")

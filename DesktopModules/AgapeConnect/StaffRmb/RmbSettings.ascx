@@ -207,6 +207,7 @@
                                         <asp:ListItem Text="Solomon: Debit, Credit, Description" Value="DCD" />
                                         <asp:ListItem Text="Solomon: Company, Desc, Debit, Credit" Value="CDDC" />
                                         <asp:ListItem Text="Solomon: Company, Debit, Credit, Description" Value="CDCD" />
+                                        <asp:ListItem Text="Generic - Detailed" Value="GEN" />
                                     </asp:DropDownList>
                                 </td>
                             </tr>
