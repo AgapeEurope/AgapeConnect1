@@ -1,4 +1,7 @@
-﻿/*===================== FONTS ===================== */
+﻿/*===================== RESET CSS ===================== */
+@import url("/Portals/_default/Skins/AgapeFR/css/reset.css");
+
+/*===================== FONTS ===================== */
 @import url("/Portals/_default/Skins/AgapeFR/css/font.css");
 
 /*===================== TYPOGRAPHY ===================== */
