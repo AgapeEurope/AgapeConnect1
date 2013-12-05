@@ -63,7 +63,10 @@ font-weight: bold ;
 	height: 24px;
 }
 
-
+.dnnLabel {
+    width: 80% !important;
+    
+}
 /*  Main menu hover  */
 .main_dnnmenu_rootitem_hover
 {  
