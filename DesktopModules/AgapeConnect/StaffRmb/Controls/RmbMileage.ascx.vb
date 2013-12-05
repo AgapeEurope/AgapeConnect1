@@ -59,20 +59,11 @@ Partial Class controls_Mileage
     End Property
     Public Property VAT() As Boolean
         Get
-            If Not VatRow.Visible Then
-                Return False
-            Else
-                Return (ddlVATReceipt.SelectedItem.Text = "Yes")
-            End If
+            Return False
 
         End Get
         Set(ByVal value As Boolean)
-            If value = True Then
-                ddlVATReceipt.SelectedValue = "Yes"
-            Else
-                ddlVATReceipt.SelectedValue = "No"
-            End If
-
+        
 
         End Set
     End Property
@@ -133,10 +124,10 @@ Partial Class controls_Mileage
     End Property
     Public Property Spare4() As String
         Get
-            Return ddlCarType.SelectedValue
+            Return ""
         End Get
         Set(ByVal value As String)
-            ddlCarType.SelectedValue = value
+
         End Set
     End Property
     Public Property Spare5() As String
@@ -363,7 +354,7 @@ Partial Class controls_Mileage
         End If
 
 
-        VatRow.Visible = Settings("VatAttrib")
+        ' VatRow.Visible = Settings("VatAttrib")
         lblDistance.Text = DotNetNuke.Services.Localization.Localization.GetString("lblAmount.Text", LocalResourceFile).Replace("[UNIT]", Settings("DistanceUnit"))
         lblDistance.HelpText = DotNetNuke.Services.Localization.Localization.GetString("lblAmount.Help", LocalResourceFile)
 
@@ -465,11 +456,11 @@ Partial Class controls_Mileage
 
         End If
 
-        If ddlVATReceipt.SelectedIndex = 0 And ddlVehicleType.SelectedIndex = 0 Then
-            ddlCarType.Visible = True
-        Else
-            ddlCarType.Visible = False
-        End If
+        'If ddlVATReceipt.SelectedIndex = 0 And ddlVehicleType.SelectedIndex = 0 Then
+        '    ddlCarType.Visible = True
+        'Else
+        '    ddlCarType.Visible = False
+        'End If
 
         If ddlVehicleType.SelectedIndex = 0 And hfCanAddPass.Value Then
             PassengersRow.Visible = True

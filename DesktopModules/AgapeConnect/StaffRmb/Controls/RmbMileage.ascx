@@ -52,32 +52,6 @@
 
    
 
-<tr  id="VatRow" runat="server">
-    <td  ><b><dnn:label id="Label5" runat="server" controlname="ddlVATReceipt" ResourceKey="lblReceipt" width="120px"  /></b></td>
-    <td>
-        <asp:DropDownList ID="ddlVATReceipt" runat="server" AutoPostBack="True">
-            <asp:ListItem ResourceKey="Yes" >Yes</asp:ListItem>
-            <asp:ListItem  ResourceKey="No" Selected="True">No</asp:ListItem>
-        </asp:DropDownList><br />
-      
-        <asp:DropDownList ID="ddlCarType" runat="server">
-        <asp:ListItem Value="P1" >Petrol - less then 1400cc</asp:ListItem>
-        <asp:ListItem Value="P2"  >Petrol - 1401 to 2000cc</asp:ListItem>
-        <asp:ListItem Value="P3" >Petrol - More than 2000cc</asp:ListItem>
-        <asp:ListItem Value="D1" >Diesel - less then 1400cc</asp:ListItem>
-        <asp:ListItem Value="D2" >Diesel - 1401 to 2000cc</asp:ListItem>
-        <asp:ListItem Value="D3" >Diesel - More than 2000cc</asp:ListItem>
-        <asp:ListItem Value="L1" >LPG - less then 1400cc</asp:ListItem>
-        <asp:ListItem Value="L2" >LPG - 1401 to 2000cc</asp:ListItem>
-        <asp:ListItem Value="L3" >LPG - More than 2000cc</asp:ListItem>
-           
-        </asp:DropDownList>
-
-    </td>
-    <td>  <asp:Label ID="lblLess" runat="server" Font-Size="8pt" ResourceKey="lblVatInfo" >
-* If you fill up your car before your trip, and you have a VAT receipt we can claim some of the VAT back.</asp:Label>
-</td>
-</tr>
 
 <tr id="PassengersRow" runat="server">
     <td><b><dnn:label id="Label6" runat="server" controlname="ddlStaff" ResourceKey="lblStaff"  text="How many staff<br />passengers did you take?" HelpText="You get an additional 5p for every staff passenger that you take. The passenger must be on the UK payroll - so interns and children do not count (sorry!). Interns also cannot claim additional allowance for staff passengers." /></b></td>
@@ -119,8 +93,8 @@
 </ContentTemplate>
 <Triggers>
     <asp:AsyncPostBackTrigger  ControlID="ddlStaff" EventName="SelectedIndexChanged" />
-    <asp:AsyncPostBackTrigger  ControlID="ddlVehicleType" EventName="SelectedIndexChanged" />
-    <asp:AsyncPostBackTrigger  ControlID="ddlVATReceipt" EventName="SelectedIndexChanged" />
+
+
     <asp:PostBackTrigger ControlID="dtDate" />
 </Triggers>
 
