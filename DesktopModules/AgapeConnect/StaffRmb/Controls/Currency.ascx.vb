@@ -79,8 +79,8 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_Controls_Currency
             Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
             Dim lc = StaffBrokerFunctions.GetSetting("LocalCurrency", PS.PortalId)
             Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
-            Dim x As New MobileCAS
-            Dim xrate = x.ConvertCurrency(lc, ac)
+            ' Dim x As New MobileCAS
+            Dim xrate = StaffBrokerFunctions.CurrencyConvert(1, lc, ac)
             If lc = "" Then
                 StaffBrokerFunctions.SetSetting("LocalCurrency", "USD", PS.PortalId)
                 lc = "USD"

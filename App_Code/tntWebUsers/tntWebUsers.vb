@@ -128,9 +128,12 @@ Public Class tntWebUsers
         dt.Discover()
         Dim tuPass = StaffBrokerFunctions.GetSetting("TrustedUserPassword", 0)
         If String.IsNullOrEmpty(System.Web.HttpContext.Current.Session("tntSessionId")) Then
-            Dim objKey As New KeyUser.KeyAuthentication("trusteduser@agapeconnect.me", tuPass, GetSetting("DataserverURL", PortalId))
+            'Dim objKey As New KeyUser.KeyAuthentication("trusteduser@agapeconnect.me", tuPass, GetSetting("DataserverURL", PortalId))
+            Dim objKey As New TheKey("trusteduser@agapeconnect.me", tuPass, GetSetting("DataserverURL", PortalId))
 
-            Dim Login = dt.Auth_Login(GetSetting("DataserverURL", PortalId), objKey.ProxyTicket, False)
+
+
+            Dim Login = dt.Auth_Login(GetSetting("DataserverURL", PortalId), objKey.ServiceTicket, False)
             SessionId = Login.SessionID
             System.Web.HttpContext.Current.Session("tntSessionId") = SessionId
         Else
@@ -140,9 +143,10 @@ Public Class tntWebUsers
         Try
             AllWebUsers = dt.WebUser_GetAllInfo(SessionId)
         Catch ex As Exception
-            Dim objKey As New KeyUser.KeyAuthentication("trusteduser@agapeconnect.me", tuPass, GetSetting("DataserverURL", PortalId))
+            ' Dim objKey As New KeyUser.KeyAuthentication("trusteduser@agapeconnect.me", tuPass, GetSetting("DataserverURL", PortalId))
+            Dim objKey As New TheKey("trusteduser@agapeconnect.me", tuPass, GetSetting("DataserverURL", PortalId))
 
-            Dim Login = dt.Auth_Login(GetSetting("DataserverURL", PortalId), objKey.ProxyTicket, False)
+            Dim Login = dt.Auth_Login(GetSetting("DataserverURL", PortalId), objKey.ServiceTicket, False)
             SessionId = Login.SessionID
             System.Web.HttpContext.Current.Session("tntSessionId") = SessionId
             AllWebUsers = dt.WebUser_GetAllInfo(SessionId)
