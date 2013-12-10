@@ -71,13 +71,16 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
 
-                jsonPI = "['No Budget', " & g0 & "],"
-                jsonPI &= "['<50% Raised', " & g1.Count & "],"
-                jsonPI &= "['50-80% Raised', " & g2.Count & "],"
-                ' jsonPI &= "['75-90% Raised', " & g3.Count & "],"
-                jsonPI &= "['80-100% Raised', " & g4.Count & "],"
-                jsonPI &= "['>100% Raised', " & g5.Count & "]"
 
+
+
+                ' jsonPI &= "['75-90% Raised', " & g3.Count & "],"
+
+                jsonPI = "['>100% Raised', " & g5.Count & "],"
+                jsonPI &= "['80-100% Raised', " & g4.Count & "],"
+                jsonPI &= "['50-80% Raised', " & g2.Count & "],"
+                jsonPI &= "['<50% Raised', " & g1.Count & "],"
+                jsonPI &= "['No Budget', " & g0 & "]"
                 jsonLi = ""
 
                 For i As Integer = -12 To 0
