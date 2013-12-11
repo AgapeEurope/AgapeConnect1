@@ -1,0 +1,34 @@
+.list {
+    padding-left: 0;
+}
+
+.list a {
+    display: block;
+    margin: 0;
+    padding: 10px;
+    border: 2px solid transparent; /* To avoid moving text when adding a border on hover */
+    border-bottom: 1px solid #ddd; /* Horizontal separator */
+}
+
+.list a + a {
+    /* Not for first element */
+    border-top: 1px solid transparent;
+}
+
+.list a:hover {
+    text-decoration: none;
+    border: 2px solid lightgrey; /* Top, left and right borders when hover */
+    border-bottom: 1px solid lightgrey; /* Bottom border when hover, to be combined whith top border of following element */
+    background-color: #f1f1f1;
+}
+
+.list a + a:hover, .list a:hover + a {
+    /* Not for first element. Applied if element or previous element is hover. */
+    border-top: 1px solid lightgrey;
+}
+
+.list a:last-of-type:hover {
+    /* Only for last element */
+    border-bottom: 2px solid lightgrey;
+}
+
