@@ -135,3 +135,11 @@ ul li, ol li {
     text-align: left;
     margin-bottom: 10px;
 }
+
+em, i {
+    font-style: italic;
+}
+
+strong {
+    font-weight: bold;
+}
