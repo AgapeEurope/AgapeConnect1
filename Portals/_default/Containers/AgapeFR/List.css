@@ -2,7 +2,13 @@
     padding-left: 0;
 }
 
+.list p {
+    font-size: small;
+    margin-right: 196px; /* So that the image is not on the text */
+}
+
 .list a {
+    position: relative; /* To center the inner image vertically */
     display: block;
     margin: 0;
     padding: 10px;
@@ -30,5 +36,15 @@
 .list a:last-of-type:hover {
     /* Only for last element */
     border-bottom: 2px solid lightgrey;
+}
+
+.list a img {
+    float: right;
+    width: 186px;
+    height: 75px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin: -37px 10px 10px 10px;
 }
 
