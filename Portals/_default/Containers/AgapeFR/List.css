@@ -35,7 +35,8 @@
 
 .list a:last-of-type:hover {
     /* Only for last element */
-    border-bottom: 2px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    box-shadow: 0 1px 0 lightgrey; /* To avoid moving text when adding a border on hover */
 }
 
 .list a img {
