@@ -23,3 +23,7 @@
 .CenterPane {
     width: 663px;
 }
+
+.CenterPane .c_contentpane {
+    padding-left: 0px;
+}
