@@ -7,6 +7,10 @@
 /*===================== TYPOGRAPHY ===================== */
 @import url("/Portals/_default/Skins/AgapeFR/css/typography.css");
 
+/*===================== JQUERY-UI ===================== */
+@import url("./FranceUI/jquery-ui-1.10.3.custom.css");
+@import url("./JqueryUIFix.css");
+
 /*===================== HORIZONTAL BARS ===================== */
 @import url("./css/bars.css");
 
@@ -18,10 +22,6 @@
 
 /*===================== FOOTER ===================== */
 @import url("./css/footer.css");
-
-/*===================== JQUERY-UI ===================== */
-@import url("./FranceUI/jquery-ui-1.10.3.custom.css");
-@import url("./JqueryUIFix.css");
 
 /*===================== PAGE GLOBALS ===================== */
 
@@ -258,4 +258,19 @@ ul.dnnAdminTabNav {
 
 .ui-tabs .ui-tabs-hide {
     display: none;
+}
+
+/*===================== HORIZONTAL SEPARATOR ===================== */
+
+hr {
+    display: block;
+    clear: both;
+    margin: 17px 0 17px 0;
+    height: 0;
+    border: solid #ddd;
+    border-width: 1px 0 0 0;
+}
+
+hr.dotted {
+    border-style: dotted;
 }
