@@ -198,11 +198,6 @@ public class StaffBrokerFunctions
         if (mode == "Google")
         {
 
-
-
-
-
-
             // string url = string.Format("http://www.google.com/ig/calculator?hl=en&q={2}{0}%3D%3F{1}", fromCurrency.ToUpper(), toCurrency.ToUpper(), amount);
 
             //string response = web.DownloadString(url);  
@@ -558,7 +553,16 @@ public class StaffBrokerFunctions
             x.UserId = row.UserId;
             x.UserName = row.User.DisplayName;
             x.LeaderId = row.LeaderId;
-            x.LeaderName = row.Leaders.DisplayName;
+            try
+            {
+                x.LeaderName = row.Leaders.DisplayName;
+            }
+            catch (Exception)
+            {
+                x.LeaderName = "Unknown";
+               
+            }
+         
             x.DelegateId = -1;
             x.Delegatename = "";
             if (row.DelegateId != null)
