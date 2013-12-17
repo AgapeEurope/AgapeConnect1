@@ -4283,6 +4283,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 RmbList.Add(rmb.RMBNo)
 
             Next
+            Log(0, "Downloaded Rmbs " & pendDownload.Count & " : " & export)
             Dim pendDownloadAdv = From c In d.AP_Staff_AdvanceRequests Where downloadStatuses.Contains(c.RequestStatus) And c.PortalId = PortalId
 
             Dim AdvList As New List(Of Integer)
@@ -4293,7 +4294,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 AdvList.Add(adv.AdvanceId)
 
             Next
-
+            Log(0, "Downloaded Advs " & pendDownloadAdv.Count & " : " & export)
 
 
             If (MarkAsProcessed) Then

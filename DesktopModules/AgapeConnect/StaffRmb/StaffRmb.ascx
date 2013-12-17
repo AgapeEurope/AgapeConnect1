@@ -52,7 +52,7 @@
                 {
                    
 
-                    var jsonCall= "https://agapeconnect.me/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+                    var jsonCall= "/DesktopModules/AgapeConnect/StaffRmb/Currency.aspx?FromCur=" + FromCur + "&ToCur=" + ToCur;
                
                     $('.rmbAmount').val('');
                     $("#<%= hfExchangeRate.ClientId %>").attr('value', -1);
@@ -98,7 +98,7 @@
                 }
 
                 $("#<%= hfOrigCurrency.ClientID%>").attr('value', FromCur);
-                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+                var jsonCall="/DesktopModules/AgapeConnect/StaffRmb/Currency.aspx?FromCur=" + FromCur + "&ToCur=" + ToCur;
                 $('.advAmount').val('');
                 $("#<%= hfExchangeRate.ClientId %>").attr('value', -1);
                $.getJSON( jsonCall ,function(x) {
@@ -129,7 +129,7 @@
                 }
 
                 $("#<%= hfOrigCurrencyAdvPO.ClientID%>").attr('value', FromCur);
-                var jsonCall= "/MobileCAS/MobileCAS.svc/ConvertCurrency?FromCur=" + FromCur + "&ToCur=" + ToCur;
+                var jsonCall= "/DesktopModules/AgapeConnect/StaffRmb/Currency.aspx?FromCur=" + FromCur + "&ToCur=" + ToCur;
                 $('.advPOAmount').val('');
                 $("#<%= hfExchangeRateAdvPO.ClientID%>").attr('value', -1);
                 $.getJSON( jsonCall ,function(x) {
