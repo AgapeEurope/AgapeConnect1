@@ -120,7 +120,7 @@
       </snippet>
       <snippet name="&lt;img src='/DesktopModules/Admin/RadEditorProvider/images/video.png' /&gt; Insérer une vidéo YouTube">
         <![CDATA[         
-            <br /><iframe width="655" height="368" src="http://www.youtube.com/embed/[ID VIDEO YOUTUBE]?rel=0&amp;autohide=1&amp;color=white&amp;showinfo=0" frameborder="0"></iframe>
+            <br /><iframe width="640" height="360" src="http://www.youtube.com/embed/[ID VIDEO YOUTUBE]?rel=0&amp;autohide=1&amp;color=white&amp;showinfo=0" frameborder="0"></iframe>
         ]]>
       </snippet>  
     </snippets>
