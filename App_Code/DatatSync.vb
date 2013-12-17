@@ -800,6 +800,7 @@ Public Class DatatSync
 
         Dim _accs = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PS.PortalId
 
+        SetSetting("NonDynamics", "False", PS.PortalId)
         For Each row In accs
             Dim theRow = row
             Dim test = From c In _accs Where c.AccountCode = theRow.Code And c.PortalId = PS.PortalId
