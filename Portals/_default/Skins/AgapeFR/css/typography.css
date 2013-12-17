@@ -87,8 +87,8 @@ h6 {
 }
 
 .highlight {
-    color: black;
-    font-weight: bold;
+    font-family: OpenSansBold;
+    color: #383838;
     display: inline;
 }
 
@@ -137,9 +137,9 @@ ul li, ol li {
 }
 
 em, i {
-    font-style: italic;
+    font-family: OpenSansItalic;
 }
 
-strong {
-    font-weight: bold;
+strong, b {
+    font-family: OpenSansBold;
 }
