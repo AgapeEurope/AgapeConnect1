@@ -38,19 +38,19 @@
             <div id="TopImg">
 		    </div>
             <div class="LeftMenuPane">
-                <a id="LeftMenu0" href="http://www.agapefrance.org/don_liste.php?rub=10&type=e" target="_blank">
+                <a id="LeftMenu0" href="http://dons.agapefrance.org/equipiers" target="_blank">
                     <div>
                         <h1>Soutenir un missionnaire</h1>
                         <h2>Ou une famille.</h2>
                     </div>
                 </a>
-                <a id="LeftMenu1" href="http://www.agapefrance.org/don_liste.php?rub=10&type=m" target="_blank">
+                <a id="LeftMenu1" href="http://dons.agapefrance.org/ministeres" target="_blank">
                     <div>
                         <h1>Soutenir un minist&egrave;re</h1>
                         <h2>Et une &eacute;quipe.</h2>
                     </div>
                 </a>
-                <a id="LeftMenu2" href="http://www.agapefrance.org/don_liste.php?rub=10&type=p" target="_blank">
+                <a id="LeftMenu2" href="http://dons.agapefrance.org/projets" target="_blank">
                     <div>
                         <h1>Soutenir un projet</h1>
                         <h2>Ou un &eacute;v&eacute;nement.</h2>
