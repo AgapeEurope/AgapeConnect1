@@ -302,8 +302,8 @@
 
 <div style="width: 100%; text-align: center; margin-top: 20px;">
 
-<asp:Hyperlink ID="btnPrev" runat="server" Text="Retour" CssClass="button" resourceKey="btnRetour" Visible="false" Width="55px"/>
-<asp:Hyperlink ID="btnNext" runat="server" Text="Plus" CssClass="button" resourceKey="btnPlus"  Visible="false" Width="55px"/>
+<asp:Hyperlink ID="btnPrev" runat="server" Text="Previous" CssClass="button" resourceKey="btnPrevious" Visible="false" Width="80px"/>
+<asp:Hyperlink ID="btnNext" runat="server" Text="Next" CssClass="button" resourceKey="btnNext"  Visible="false" Width="80px"/>
 </div>
 <div style="clear: both;"></div>
 <asp:Literal ID="ltPagination" runat="server"></asp:Literal>
