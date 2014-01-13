@@ -84,9 +84,8 @@
         <tool name="JustifyLeft" />
         <tool name="JustifyCenter" />
         <tool name="JustifyRight" />
-<!--
         <tool name="JustifyFull" />    
--->
+
 </tools>
     <tools>
         <tool name="FormatBlock"/>
