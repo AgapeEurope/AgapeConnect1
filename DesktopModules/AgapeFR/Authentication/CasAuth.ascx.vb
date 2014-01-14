@@ -181,7 +181,7 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
         End Sub
 
         Private Sub LoginUser(ByVal objUserInfo As UserInfo, ByVal PS As PortalSettings, ByVal returnURL As String)
-            If returnURL Is Nothing Then
+            If returnURL Is Nothing Or returnURL = "" Then
                 FormsAuthentication.RedirectFromLoginPage(objUserInfo.Username, False)
             Else
                 UserController.UserLogin(PortalSettings.PortalId, objUserInfo, PortalSettings.PortalName, AuthenticationLoginBase.GetIPAddress(), False)
@@ -274,14 +274,20 @@ Namespace DotNetNuke.Modules.AgapeFR.Authentication
             Dim template = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapefrance.css"
 
             ' First time through there is no ticket=, so get returnurl in request and redirect to CAS login
-            Dim returnUrl As String = Request.QueryString("returnurl")
-            If returnUrl Is Nothing Or returnUrl = "" Then
-                Session("returnurl") = HttpUtility.UrlEncode(Request.UrlReferrer.ToString)
-            ElseIf Request.RawUrl.Contains(HttpUtility.UrlDecode(returnUrl)) Then
-                Session("returnurl") = Nothing
-            Else
-                Session("returnurl") = returnUrl
+            Dim returnUrl As String = ""
+
+            If Request.QueryString("returnurl") IsNot Nothing Then
+                returnUrl = Request.QueryString("returnurl")
             End If
+            If returnUrl = "" And Request.UrlReferrer IsNot Nothing Then
+                returnUrl = HttpUtility.UrlEncode(Request.UrlReferrer.PathAndQuery)
+            End If
+            'TODO: Login - May not work properly in giving process => To be tested
+            If HttpUtility.UrlDecode(returnUrl).Contains(Request.RawUrl) Then ' Do not return to login page
+                returnUrl = ""
+            End If
+
+            Session("returnurl") = returnUrl
 
             Dim service As String = HttpUtility.UrlEncode(Request.Url.ToString)
             Session("service") = service
