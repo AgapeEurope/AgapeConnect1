@@ -10,29 +10,34 @@
     <ul class="navhor">
         @foreach (var node in nodes)
         {
-            var cssClasses = new List<string>();
-            if (node.First) { cssClasses.Add("first"); }
-            if (node.Last) { cssClasses.Add("last"); }
-            if (node.Selected || HasSelectedChild(node)) { cssClasses.Add("selected"); }
-            var classString = new HtmlString((cssClasses.Count == 0) ? "" :
-                                (" class=\"" + String.Join(" ", cssClasses.ToArray()) + "\""));
-            <li @classString>
-                @if (node.Enabled)
-                {
-                    <a href="@node.Url">@node.Text</a>
-                    <div id="pointer"></div>
-                 }
-                else
-                {
-                    @node.Text
-                }
-            </li>
+            if (IsVisible(node))
+            {
+                var cssClasses = new List<string>();
+                if (node.Selected || HasSelectedChild(node)) { cssClasses.Add("selected"); }
+                var classString = new HtmlString((cssClasses.Count == 0) ? "" :
+                                    (" class=\"" + String.Join(" ", cssClasses.ToArray()) + "\""));
+                <li @classString>
+                    @if (node.Enabled)
+                    {
+                        <a href="@node.Url">@node.Text</a>
+                        <div id="pointer"></div>
+                        }
+                    else
+                    {
+                        @node.Text
+                    }
+                </li>
+            }
         }
     </ul>
     }
 }
 
 @functions{
+
+    public int portalId = DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings().PortalId;
+    public DotNetNuke.Entities.Tabs.TabController tc = new DotNetNuke.Entities.Tabs.TabController();
+
     Boolean HasSelectedChild(MenuNode node)
     {
         foreach (var child in node.Children)
@@ -41,7 +46,12 @@
         }
         return false;
     }
-    
+ 
+    public Boolean IsVisible(MenuNode node)
+    {
+        DotNetNuke.Entities.Tabs.TabInfo tab = tc.GetTab(node.TabId, portalId, false);
+        return tab.IsVisible;
+    }   
 }
 
 @RenderNodes(root.Children)

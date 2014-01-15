@@ -53,7 +53,7 @@
 						<a href="/simpliquer/faireundon" title="<%=Translate("GiveLinkTitle.Text")%>"></a>
 					</div>
 					<div id="menu1">
-						<ddr:MENU ID="MENU1" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="*" runat="server" ExcludeNodes="" />
+						<ddr:MENU ID="MENU1" MenuStyle="/templates/AgapeFRMenu/" NodeSelector="*" runat="server" ExcludeNodes="" includehidden="true" />
 					</div>
 				</div>
 			</div>

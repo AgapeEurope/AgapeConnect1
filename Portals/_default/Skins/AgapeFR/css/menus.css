@@ -47,14 +47,9 @@ ul.navhor li {
 	text-decoration: underline;
 }
 
-#menu1 .navhor  li a
+#menu1 .navhor  li + li a
 {
     border-left: solid 1px #ABABAB;
-}
-
-#menu1 .navhor  li.first a
-{
-    border: none;
 }
 
 #menu1 .navhor li {
