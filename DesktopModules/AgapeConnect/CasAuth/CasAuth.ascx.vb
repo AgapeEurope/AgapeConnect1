@@ -1,25 +1,22 @@
 ﻿Imports System.IO
 Imports System.Xml
 Imports System.Net
-Imports DotNetNuke.Entities.Tabs
-Imports DotNetNuke.Security.Permissions
-Imports DotNetNuke.UI.Skins
-Imports DotNetNuke.UI.Utilities
 Imports DotNetNuke.Security.Membership
 Imports DotNetNuke.Services.Authentication
 Imports System.Linq
 Imports GCX
 'Imports Resources
+Imports StaffBroker
 
 
 Namespace DotNetNuke.Modules.AgapePortal
     Partial Class CasAuth
         Inherits Entities.Modules.PortalModuleBase
-        Dim CASHOST As String = "https://thekey.me/cas/"
-        Dim Service As String = ""
-      
+        Private Const Cashost As String = "https://thekey.me/cas/"
+        Dim _service As String = ""
 
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
             'Look for the "ticket=" after the "?" in the URL
 
             If Request.QueryString("mode") = "host" Then
@@ -50,7 +47,7 @@ Namespace DotNetNuke.Modules.AgapePortal
 
 
             'Service = TabController.CurrentPage.FullUrl
-            Service = NavigateURL(PortalSettings.LoginTabId)
+            _service = NavigateURL(PortalSettings.LoginTabId)
             ' Dim template = Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "sso/template.css"
 
             ' First time through there is no ticket=, so redirect to CAS login
@@ -74,11 +71,11 @@ Namespace DotNetNuke.Modules.AgapePortal
 
                         Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3-no-FB.css"
                         'Service &= "&renew=true&template=" & template
-                        Service &= "&template=" & template
+                        _service &= "&template=" & template
 
                     Else
                         Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3.css"
-                        Service &= "&template=" & template
+                        _service &= "&template=" & template
                     End If
                 Else
                     ' Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3.css"
@@ -88,7 +85,7 @@ Namespace DotNetNuke.Modules.AgapePortal
 
                 ' Response.Redirect("https://thekey.me/cas/login.htm?service=" & Service & "&template=https://www.agape.org.uk/sso/template2.css")
 
-                Response.Redirect("https://thekey.me/cas/login.htm?service=" & Service)
+                Response.Redirect("https://thekey.me/cas/login.htm?service=" & _service)
 
 
             Else
@@ -102,55 +99,55 @@ Namespace DotNetNuke.Modules.AgapePortal
 
         End Sub
 
-        Public Sub StaffLogin()
-            Dim returnURL As String = Session("returnurl")
-            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Private Sub StaffLogin()
+            Dim returnUrl As String = CType(Session("returnurl"), String)
+            Dim ps As PortalSettings = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
             Dim tkt As String = Request.QueryString("ticket")
             ' Dim service As String = Request.Url.GetLeftPart(UriPartial.Path)
             ' service = "https://www.agape.org.uk"
             '  CASHOST = "https://173.45.237.49/cas"
 
             ' Second time (back from CAS) there is a ticket= to validate
-            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://agapeconnect.me/CasLogin.aspx"
+            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & _service & "&pgtUrl=https://agapeconnect.me/CasLogin.aspx"
             'Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://myagape.org.uk/PgtCallback.aspx"
 
-            Dim Reader1 As StreamReader = New StreamReader(New WebClient().OpenRead(validateurl))
+            Dim reader1 As StreamReader = New StreamReader(New WebClient().OpenRead(validateurl))
             Dim doc As New XmlDocument()
-            doc.Load(Reader1)
-            Dim NamespaceMgr As New XmlNamespaceManager(doc.NameTable)
-            NamespaceMgr.AddNamespace("cas", "http://www.yale.edu/tp/cas")
+            doc.Load(reader1)
+            Dim namespaceMgr As New XmlNamespaceManager(doc.NameTable)
+            namespaceMgr.AddNamespace("cas", "http://www.yale.edu/tp/cas")
             'Check for success
-            Dim ServiceResponse As XmlNode = doc.SelectSingleNode("/cas:serviceResponse/cas:authenticationFailure", NamespaceMgr)
-            If Not ServiceResponse Is Nothing Then
-                Response.Write("Error: " & ServiceResponse.InnerText)
+            Dim serviceResponse As XmlNode = doc.SelectSingleNode("/cas:serviceResponse/cas:authenticationFailure", namespaceMgr)
+            If Not serviceResponse Is Nothing Then
+                Response.Write("Error: " & serviceResponse.InnerText)
                 Return
             End If
 
-            Dim SuccessNode As XmlNode = doc.SelectSingleNode("/cas:serviceResponse/cas:authenticationSuccess", NamespaceMgr)
+            Dim successNode As XmlNode = doc.SelectSingleNode("/cas:serviceResponse/cas:authenticationSuccess", namespaceMgr)
 
-            If Not SuccessNode Is Nothing Then 'User Is authenticated
+            If Not successNode Is Nothing Then 'User Is authenticated
                 Dim netid As String = String.Empty
 
                 Dim firstName As String = String.Empty
                 Dim lastName As String = String.Empty
-                Dim ssoGUID As String = String.Empty
-                Dim PGTIOU As String = String.Empty
+                Dim ssoGuid As String = String.Empty
+                Dim pgtiou As String = String.Empty
 
-                If Not SuccessNode.SelectSingleNode("./cas:user", NamespaceMgr) Is Nothing Then
-                    netid = SuccessNode.SelectSingleNode("./cas:user", NamespaceMgr).InnerText
+                If Not successNode.SelectSingleNode("./cas:user", namespaceMgr) Is Nothing Then
+                    netid = successNode.SelectSingleNode("./cas:user", namespaceMgr).InnerText
                 End If
-                If Not SuccessNode.SelectSingleNode("./cas:attributes/firstName", NamespaceMgr) Is Nothing Then
-                    firstName = SuccessNode.SelectSingleNode("./cas:attributes/firstName", NamespaceMgr).InnerText
+                If Not successNode.SelectSingleNode("./cas:attributes/firstName", namespaceMgr) Is Nothing Then
+                    firstName = successNode.SelectSingleNode("./cas:attributes/firstName", namespaceMgr).InnerText
                 End If
-                If Not SuccessNode.SelectSingleNode("./cas:attributes/lastName", NamespaceMgr) Is Nothing Then
-                    lastName = SuccessNode.SelectSingleNode("./cas:attributes/lastName", NamespaceMgr).InnerText
+                If Not successNode.SelectSingleNode("./cas:attributes/lastName", namespaceMgr) Is Nothing Then
+                    lastName = successNode.SelectSingleNode("./cas:attributes/lastName", namespaceMgr).InnerText
                 End If
-                If Not SuccessNode.SelectSingleNode("./cas:attributes/ssoGuid", NamespaceMgr) Is Nothing Then
-                    ssoGUID = SuccessNode.SelectSingleNode("./cas:attributes/ssoGuid", NamespaceMgr).InnerText
+                If Not successNode.SelectSingleNode("./cas:attributes/ssoGuid", namespaceMgr) Is Nothing Then
+                    ssoGuid = successNode.SelectSingleNode("./cas:attributes/ssoGuid", namespaceMgr).InnerText
                 End If
-                If Not SuccessNode.SelectSingleNode("./cas:proxyGrantingTicket", NamespaceMgr) Is Nothing Then
+                If Not successNode.SelectSingleNode("./cas:proxyGrantingTicket", namespaceMgr) Is Nothing Then
 
-                    PGTIOU = SuccessNode.SelectSingleNode("./cas:proxyGrantingTicket", NamespaceMgr).InnerText
+                    pgtiou = successNode.SelectSingleNode("./cas:proxyGrantingTicket", namespaceMgr).InnerText
 
                 End If
 
@@ -171,7 +168,7 @@ Namespace DotNetNuke.Modules.AgapePortal
                     Dim email = netid
 
 
-                    netid = netid & PS.PortalId
+                    netid = netid & ps.PortalId
 
 
 
@@ -186,13 +183,13 @@ Namespace DotNetNuke.Modules.AgapePortal
                     'user doesn't exist - try to create on the fly
                     If (objUserInfo Is Nothing) Then
                         'User doesn't exists. Lets try looking up the GUID, to see if they have just changed their login email.
-                        If ssoGUID <> String.Empty Then
-                            Dim UID As Integer = GetUIDFromGUID(ssoGUID)
-                            If UID > 0 Then
-                                objUserInfo = UserController.GetUserById(PS.PortalId, UID)
+                        If ssoGuid <> String.Empty Then
+                            Dim uid As Integer = GetUIDFromGUID(ssoGuid, netid)
+                            If uid > 0 Then
+                                objUserInfo = UserController.GetUserById(ps.PortalId, uid)
                                 If (Not objUserInfo Is Nothing) Then
 
-                                    LoginUser(objUserInfo, PS, returnURL)
+                                    LoginUser(objUserInfo, returnUrl)
                                     'FormsAuthentication.RedirectFromLoginPage(netid, False) 'set netid in ASP.NET blocks
 
                                 End If
@@ -208,7 +205,7 @@ Namespace DotNetNuke.Modules.AgapePortal
                         objUserInfo.LastName = lastName
                         objUserInfo.DisplayName = firstName & " " & lastName
                         objUserInfo.Username = netid
-                        objUserInfo.PortalID = PS.PortalId
+                        objUserInfo.PortalID = ps.PortalId
                         objUserInfo.Membership.Password = UserController.GeneratePassword(8)
                         objUserInfo.Email = email
                         objUserCreateStatus = UserController.CreateUser(objUserInfo)
@@ -216,14 +213,14 @@ Namespace DotNetNuke.Modules.AgapePortal
                             Response.Write("Error creating Agape Account:- " & objUserCreateStatus.ToString)
 
                         Else
-                            If ssoGUID <> String.Empty Then
-                                StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "ssoGUID", ssoGUID)
+                            If ssoGuid <> String.Empty Then
+                                StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "ssoGUID", ssoGuid)
                             End If
-                            If PGTIOU <> String.Empty Then
-                                StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "GCXPGTIOU", PGTIOU)
+                            If pgtiou <> String.Empty Then
+                                StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "GCXPGTIOU", pgtiou)
                             End If
 
-                            LoginUser(objUserInfo, PS, returnURL)
+                            LoginUser(objUserInfo, returnUrl)
                             'FormsAuthentication.RedirectFromLoginPage(netid, False) 'set netid in ASP.NET blocks
 
                         End If
@@ -231,15 +228,15 @@ Namespace DotNetNuke.Modules.AgapePortal
 
                     Else
 
-                        If ssoGUID <> String.Empty Then
-                            StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "ssoGUID", ssoGUID)
+                        If ssoGuid <> String.Empty Then
+                            StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "ssoGUID", ssoGuid)
                         End If
-                        If PGTIOU <> String.Empty Then
-                            StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "GCXPGTIOU", PGTIOU)
+                        If pgtiou <> String.Empty Then
+                            StaffBrokerFunctions.SetUserProfileProperty(PortalId, objUserInfo.UserID, "GCXPGTIOU", pgtiou)
                         End If
 
 
-                        LoginUser(objUserInfo, PS, returnURL)
+                        LoginUser(objUserInfo, returnUrl)
                         'FormsAuthentication.RedirectFromLoginPage(netid, False) 'set netid in ASP.NET blocks
 
 
@@ -248,8 +245,8 @@ Namespace DotNetNuke.Modules.AgapePortal
             End If
         End Sub
 
-        Private Sub LoginUser(ByVal objUserInfo As UserInfo, ByVal PS As PortalSettings, ByVal returnURL As String)
-          
+        Private Sub LoginUser(ByVal objUserInfo As UserInfo, ByVal returnUrl As String)
+
 
 
 
@@ -262,16 +259,6 @@ Namespace DotNetNuke.Modules.AgapePortal
                 Response.Redirect(Server.HtmlDecode(returnURL))
 
             End If
-
-        End Sub
-
-        Private Sub SetPGTIOU(ByVal UserId As Integer, ByVal Value As String)
-            '  SetProfileProperty("GCXPGTIOU", UserId, Value)
-            'Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-            'Dim theUser = UserController.GetUserById(PS.PortalId, UserId)
-
-            'theUser.Profile.SetProfileProperty("GCXPGTIOU", Value)
-
 
         End Sub
 
@@ -288,67 +275,20 @@ Namespace DotNetNuke.Modules.AgapePortal
 
         'End Function
 
-        Private Sub SetGUID(ByVal UserId As Integer, ByVal Value As String)
-            '     SetProfileProperty("ssoGUID", UserId, Value)
-            'Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-            'Dim theUser = UserController.GetUserById(PS.PortalId, UserId)
+        Private Function GetUidFromGuid(ByVal ssoGuid As String, ByVal newUsername As String) As Integer
 
 
-            'theUser.Profile.SetProfileProperty("ssoGUID", Value)
-
-
-        End Sub
-
-        Private Function GetUIDFromGUID(ByVal ssoGUID As String) As Integer
-
-
-            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-            Dim totalRecords As New Integer
-            Dim q = UserController.GetUsersByProfileProperty(PS.PortalId, "ssoGUID", ssoGUID, 1, 1000, totalRecords)
-
+            Dim ps = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+            ' Dim q = UserController.GetUsersByProfileProperty(PS.PortalId, "ssoGUID", ssoGUID, -1, 0, 0)
+            Dim d As New StaffBrokerDataContext
+            Dim q = From c In d.UserProfiles Where c.ProfilePropertyDefinition.PropertyName = "ssoGUID" And c.PropertyValue = ssoGuid And c.ProfilePropertyDefinition.PortalID = ps.PortalId
             If q.Count > 0 Then
-                Return CType(q(0), UserInfo).UserID
+                StaffBrokerFunctions.ChangeUsername(q.First.User.Username, newUsername)
+                Return q.First.UserID
             Else
                 Return -1
             End If
 
         End Function
-
-
-        Private Sub SetProfileProperty(ByVal PropertyName As String, ByRef theUser As UserInfo, ByVal Value As String)
-            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-
-            If DotNetNuke.Entities.Profile.ProfileController.GetPropertyDefinitionByName(PS.PortalId, PropertyName) Is Nothing Then
-                Dim insert As New DotNetNuke.Entities.Profile.ProfilePropertyDefinition()
-
-                insert.ModuleDefId = -1
-                insert.Deleted = False
-                insert.DataType = 349
-                insert.DefaultValue = ""
-                insert.PropertyCategory = "Authentication"
-                insert.PropertyName = PropertyName
-                insert.Length = 50
-                insert.Required = False
-                insert.ViewOrder = 100
-                insert.PortalId = PS.PortalId
-                insert.DefaultVisibility = 0
-
-
-                DotNetNuke.Entities.Profile.ProfileController.AddPropertyDefinition(insert)
-
-                theUser.Profile.ProfileProperties.Add(insert)
-
-            End If
-
-
-            ' theUser.Profile.InitialiseProfile(PS.PortalId)
-
-
-
-            theUser.Profile.SetProfileProperty(PropertyName, Value)
-
-
-            '  UserController.UpdateUser(PS.PortalId, theUser)
-        End Sub
     End Class
 End Namespace
