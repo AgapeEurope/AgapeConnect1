@@ -50,7 +50,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Dim comp As Double = incomeData.Average(Function(c) c.compensation)
                 Dim li As Double = incomeData.Average(Function(c) c.income - c.foreignIncome)
 
-                jsonPI = "['Local Income', " & li.ToString("0.00") & "],['Foreign Income', " & fi.ToString("0.00") & "], ['Compensation', " & comp.ToString("0.00") & "]"
+                jsonPI = "['Local Income', " & li.ToString("0.00") & "],['Foreign Income', " & fi.ToString("0.00") & "], ['Subsidy', " & comp.ToString("0.00") & "]"
 
 
               
