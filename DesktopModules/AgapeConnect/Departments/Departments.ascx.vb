@@ -7,6 +7,8 @@ Imports System.Linq
 Imports DotNetNuke
 Imports DotNetNuke.Security
 Imports StaffBroker
+Imports System.IO
+Imports System.Data.OleDb
 
 
 
@@ -192,6 +194,11 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
             End If
 
+        End Sub
+
+        
+        Protected Sub btnBulkUpload_Click(sender As Object, e As EventArgs) Handles btnBulkUpload.Click
+            Response.Redirect(EditUrl("BulkUpload"))
         End Sub
     End Class
 End Namespace

@@ -360,3 +360,4 @@
 <br />
 
 <asp:Button ID="btnAddNew" runat="server" Text="Add New Department" CssClass="aButton" />
+<asp:LinkButton ID="btnBulkUpload" runat="server" Text="Bulk Upload"  />

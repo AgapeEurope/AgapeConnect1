@@ -310,7 +310,48 @@ public class StaffBrokerFunctions
 
 
     }
+    static public AP_StaffBroker_Department CreateDept(string Name, string RC, int manager, int? del)
+    {
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
+        
+        DotNetNuke.Entities.Portals.PortalSettings PS = (DotNetNuke.Entities.Portals.PortalSettings)System.Web.HttpContext.Current.Items["PortalSettings"];
+        if (del == 0) del = null;
+        var q = from c in d.AP_StaffBroker_Departments where c.CostCentre == RC && c.PortalId == PS.PortalId select c;
+        if (q.Count() > 0)
+        {
+            q.First().Name = Name;
+            q.First().CostCentreManager = manager;
+           q.First().CostCentreDelegate = del;
+           d.SubmitChanges();
+            return q.First();
 
+        }
+        else
+        {
+            AP_StaffBroker_Department insert = new AP_StaffBroker_Department();
+            insert.PortalId = PS.PortalId;
+            insert.Name = Name;
+            insert.CostCentre = RC;
+            insert.CostCentreManager = manager;
+            insert.CanRmb = true;
+            insert.CanGiveTo = false;
+
+            insert.CanCharge = false;
+            insert.IsProject = false;
+            insert.Spare1 = "False";
+            insert.GivingText = "";
+            insert.GivingShortcut = "";
+            insert.PayType = "";
+
+
+          insert.CostCentreDelegate = del;
+           
+            d.AP_StaffBroker_Departments.InsertOnSubmit(insert);
+            d.SubmitChanges();
+            return insert;
+        }
+
+    }
 
     static public AP_StaffBroker_Staff CreateStaffMember(int PortalId, DotNetNuke.Entities.Users.UserInfo User1in, short staffTypeIn = 1)
     {
