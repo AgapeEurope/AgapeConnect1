@@ -64,17 +64,23 @@ Namespace DotNetNuke.Modules.StaffAdmin
                         If IsDBNull(data.Item(0)) Then
                             Exit While
                         End If
-                        AddStaffRecord(IIf(IsDBNull(data.Item(0)), "", data.Item(0)),
-                            IIf(IsDBNull(data.Item(1)), "", data.Item(1)),
-                            IIf(IsDBNull(data.Item(2)), "", data.Item(2)),
-                            IIf(IsDBNull(data.Item(3)), 1, data.Item(3)),
-                            IIf(IsDBNull(data.Item(4)), 1, data.Item(4)),
-                            IIf(IsDBNull(data.Item(5)), "", data.Item(5)),
-                            IIf(IsDBNull(data.Item(6)), "N", data.Item(6)),
-                            IIf(IsDBNull(data.Item(7)), "", data.Item(7)),
-                            IIf(IsDBNull(data.Item(8)), "", data.Item(8)),
-                            IIf(IsDBNull(data.Item(9)), "", data.Item(9)),
-                            IIf(IsDBNull(data.Item(10)), "", data.Item(10)))
+                        Try
+                            AddStaffRecord(IIf(IsDBNull(data.Item(0)), "", data.Item(0)),
+                         IIf(IsDBNull(data.Item(1)), "", data.Item(1)),
+                         IIf(IsDBNull(data.Item(2)), "", data.Item(2)),
+                         IIf(IsDBNull(data.Item(3)), 1, data.Item(3)),
+                         IIf(IsDBNull(data.Item(4)), 1, data.Item(4)),
+                         IIf(IsDBNull(data.Item(5)), "", data.Item(5)),
+                         IIf(IsDBNull(data.Item(6)), "N", data.Item(6)),
+                         IIf(IsDBNull(data.Item(7)), "", data.Item(7)),
+                         IIf(IsDBNull(data.Item(8)), "", data.Item(8)),
+                         IIf(IsDBNull(data.Item(9)), "", data.Item(9)),
+                         IIf(IsDBNull(data.Item(10)), "", data.Item(10)))
+                        Catch ex As Exception
+                            lblResponse.Text &= "There was a problem creating user: " & data.ToString() & "<br />"
+
+                        End Try
+                     
 
 
 
@@ -113,7 +119,19 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
             Dim user As UserInfo = UserController.GetUserByName(PortalId, GCXEmail & PortalId)
             Dim spouse As UserInfo
+
             If (MaritalStatus = 2) Then
+                If String.IsNullOrEmpty(SpGCXEmail) Then
+                    If String.IsNullOrEmpty(SpFirstName) Then
+                        MaritalStatus = 1
+                    Else
+                        If String.IsNullOrEmpty(SpLastName) Then
+                            SpLastName=LastName
+                        End If
+                        MaritalStatus = 3
+                    End If
+
+                End If
                 spouse = UserController.GetUserByName(PortalId, SpGCXEmail & PortalId)
             End If
 
@@ -122,12 +140,9 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 user = StaffBrokerFunctions.CreateUser(PortalId, GCXEmail, FirstName, LastName)
             End If
             If spouse Is Nothing And MaritalStatus = 2 Then
-                If SpGCXEmail = "" Or SpFirstName = "" Or SpLastName = "" Then
-                    lblResponse.Text &= "<span style=""color: red ;"">ERROR - Spouse Details missing<span>"
-                    Return
-                Else
+               
                     spouse = StaffBrokerFunctions.CreateUser(PortalId, SpGCXEmail, SpFirstName, SpLastName)
-                End If
+
             End If
 
             Dim theStaff1 = StaffBrokerFunctions.GetStaffMember(user.UserID)
@@ -135,7 +150,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
             If MaritalStatus = 2 Then
                 theStaff2 = StaffBrokerFunctions.GetStaffMember(spouse.UserID)
             End If
-            
+
             Dim st As Integer = 1
             If StaffType = 1 Then
                 st = d.AP_StaffBroker_StaffTypes.Where(Function(x) x.PortalId = PortalId And x.Name = "National Staff").First.StaffTypeId
