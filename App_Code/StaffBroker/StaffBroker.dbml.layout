@@ -27,7 +27,7 @@
         <elementListCompartment Id="36f91719-831c-4d31-b148-ae0d33cf8708" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 1.57774983723958); (3.125 : 1.57774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 1.57774983723958); (3.125 : 1.57774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/StaffBrokerDataContext/ProfilePropertyDefinition/ProfilePropertyDefinition_UserProfile" />
       <nodes>
         <classShapeMoniker Id="b20e37ea-5ba4-4072-a271-9c18d6ebe070" />
@@ -269,6 +269,12 @@
       <DataClassMoniker Name="/StaffBrokerDataContext/AP_StaffBroker_Department" />
       <nestedChildShapes>
         <elementListCompartment Id="ee4e8e80-02f3-4583-a0e1-1da45cf7447d" absoluteBounds="8.765, 0.96, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e85edf95-fc1b-411d-b9a9-6be299ae91ba" absoluteBounds="1.625, 23, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/StaffBrokerDataContext/AP_Setup_Checklist" />
+      <nestedChildShapes>
+        <elementListCompartment Id="40a53b90-7547-48a7-8624-315bffd24af7" absoluteBounds="1.6400000000000001, 23.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

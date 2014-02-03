@@ -367,6 +367,15 @@
       <Column Name="Spare3" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.AP_Setup_Checklist" Member="AP_Setup_Checklists">
+    <Type Name="AP_Setup_Checklist">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Complete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PortalId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SectionNumber" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.Agape_Main_AlterUserName" Method="Agape_Main_AlterUserName">
     <Parameter Name="ExistUserName" Parameter="existUserName" Type="System.String" DbType="VarChar(120)" />
     <Parameter Name="NewUserName" Parameter="newUserName" Type="System.String" DbType="VarChar(121)" />
