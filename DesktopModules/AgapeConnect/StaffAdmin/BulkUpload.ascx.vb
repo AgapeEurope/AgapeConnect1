@@ -227,7 +227,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
             s.StaffTypeId = st
 
             If RC <> "" Then
-                If d.AP_StaffBroker_CostCenters.Where(Function(x) x.CostCentreCode = RC And x.PortalId = PortalId).Count > 0 Then
+                If d.AP_StaffBroker_CostCenters.Where(Function(x) x.CostCentreCode = RC And x.PortalId = PortalId).Count > 0 Or (StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = True) Then
                     s.CostCenter = RC
                 Else
                     append &= "<span style=""color: red ;""> - but RC does not exists<span>"
