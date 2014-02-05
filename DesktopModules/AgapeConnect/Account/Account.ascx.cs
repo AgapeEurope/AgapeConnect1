@@ -1074,13 +1074,19 @@ namespace DotNetNuke.Modules.Account
 
 
 
-
+   
 
 
             MyAccounts.Visible = true;
             MyAccounts.DataBind();
             MyAccounts.Items.Insert(0, "All Accounts");
-            if (MyAccounts.Items.Count > 0) MyAccounts.SelectedIndex = 0;
+            if (MyAccounts.Items.Count > 0)
+            {
+                if (MyAccounts.Items[0].Text == "All Accounts" && MyAccounts.Items.Count >5)
+                    MyAccounts.SelectedIndex = 1;
+                else
+                    MyAccounts.SelectedIndex = 0;
+            }
             else MyAccounts.ClearSelection();
 
             MyAccounts_SelectedIndexChanged(this, null);
