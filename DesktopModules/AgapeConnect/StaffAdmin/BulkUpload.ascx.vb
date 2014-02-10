@@ -221,10 +221,14 @@ Namespace DotNetNuke.Modules.StaffAdmin
             End If
 
 
-            theStaff.StaffTypeId = st
+
+
+            Dim s =( From c In d.AP_StaffBroker_Staffs Where c.StaffId = theStaff.StaffId).first
+            s.StaffTypeId = st
+
             If RC <> "" Then
                 If d.AP_StaffBroker_CostCenters.Where(Function(x) x.CostCentreCode = RC And x.PortalId = PortalId).Count > 0 Then
-                    theStaff.CostCenter = RC
+                    s.CostCenter = RC
                 Else
                     append &= "<span style=""color: red ;""> - but RC does not exists<span>"
                 End If
