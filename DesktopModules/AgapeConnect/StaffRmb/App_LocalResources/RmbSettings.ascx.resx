@@ -333,4 +333,10 @@
   <data name="lblElecRec.Text" xml:space="preserve">
     <value>Allow Electronic Receipts</value>
   </data>
+  <data name="lblDescriptionLength.Help" xml:space="preserve">
+    <value>Enter the maximum number of characters that users can enter into the description field. If this number is greater that the limit in Dynamics, the system will automatically trim the string to size. Bear in mind that the system automatically addes the users initials at the begining of the description (followed by a symbol- which takes up 3 characters. So, by default, you have 27 characters. If the amount is enetered in a foreign currency amount, the original currency details are appended to the end of the string. Accounts staff can preview and edit the string that will actaully be entered.</value>
+  </data>
+  <data name="lblDescriptionLength.Text" xml:space="preserve">
+    <value>Max Description Length</value>
+  </data>
 </root>

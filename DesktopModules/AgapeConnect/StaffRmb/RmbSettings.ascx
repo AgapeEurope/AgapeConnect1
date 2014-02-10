@@ -157,6 +157,16 @@
                             <tr>
                                 <td>
                                     <b>
+                                        <dnn:Label ID="Label39" runat="server" ControlName="tbDescriptionLength" ResourceKey="lblDescriptionLength" />
+                                    </b>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="tbDescriptionLength" runat="server" Width="80px" CssClass="numeric"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>
                                         <dnn:Label ID="lblMenuSize" runat="server" ControlName="tbMenuSize" ResourceKey="lblMenuSize" />
                                     </b>
                                 </td>
