@@ -11,8 +11,8 @@ Partial Class DesktopModules_AgapeConnect_GMA_Graphlet
         Dim gmaURL = Server.UrlDecode(Request.QueryString("gmaURL"))
 
         Dim gmaServers As List(Of GmaServices.gmaServer) = Session("gmaServers")
-        Dim gmaServer = (From c In gmaServers Where c.URL = gmaURL).First
-        gmaServer.gma.GetReportGraph(nodeId, measurementId).Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg)
+        ' Dim gmaServer = (From c In gmaServers Where c.URL = gmaURL).First
+        '  gmaServer.gma.GetReportGraph(nodeId, measurementId).Save(Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg)
 
 
     End Sub

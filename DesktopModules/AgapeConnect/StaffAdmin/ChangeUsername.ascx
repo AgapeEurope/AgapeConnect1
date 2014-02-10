@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="ChangeUsername.ascx.vb" Inherits="DotNetNuke.Modules.StaffAdmin.ChangeUsername" %>
 
- <%@ Register src="/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
+ <%@ Register src="~/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
 <script type="text/javascript">
     /*globals jQuery, window, Sys */
     (function ($, Sys) {

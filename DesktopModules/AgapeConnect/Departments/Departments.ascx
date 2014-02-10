@@ -3,7 +3,7 @@
  <%@ Register src="../../../controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
  <%@ Register TagPrefix="dnn" TagName="TextEditor" Src="~/controls/TextEditor.ascx" %>
 
- <%@ Register src="../StaffAdmin/Controls/acImage.ascx" tagname="acImage" tagprefix="uc2" %>
+ <%@ Register src="~/DesktopModules/AgapeConnect/StaffAdmin/Controls/acImage.ascx" tagname="acImage" tagprefix="uc2" %>
 
  <script type="text/javascript">
      /*globals jQuery, window, Sys */

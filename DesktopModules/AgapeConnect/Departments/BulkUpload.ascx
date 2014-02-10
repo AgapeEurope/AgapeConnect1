@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="BulkUpload.ascx.vb" Inherits="DotNetNuke.Modules.StaffAdmin.BulkUpload" %>
 
- <%@ Register src="/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
+ <%@ Register src="~/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
 <script type="text/javascript">
     /*globals jQuery, window, Sys */
     (function ($, Sys) {

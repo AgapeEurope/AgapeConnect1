@@ -152,10 +152,10 @@ Partial Class controls_RmbLandline
     End Property
     Public Property Taxable() As Boolean
         Get
-            Return Not cbTaxable.Checked
+            Return True
         End Get
         Set(ByVal value As Boolean)
-            cbTaxable.Checked = Not value
+            'cbTaxable.Checked = Not value
         End Set
     End Property
     Public Property ErrorText() As String

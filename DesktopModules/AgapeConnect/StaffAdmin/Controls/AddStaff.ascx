@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="AddStaff.ascx.vb" Inherits="DesktopModules_AgapePortal_StaffBroker_AddStaff" %>
 
- <%@ Register src="/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
+ <%@ Register src="~/controls/labelcontrol.ascx" tagname="labelcontrol" tagprefix="uc1" %>
 
 
 
