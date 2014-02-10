@@ -14,18 +14,30 @@ Imports System.Xml
 
 Imports UK.OnlineForm
 Imports DotNetNuke.UI.Skins.Controls.ModuleMessage
+Imports DotNetNuke.Entities.Modules
 
 Namespace DotNetNuke.Modules.AgapeFR.OnlineForm
 
     Partial Class ViewOnlineForm
-        Inherits Entities.Modules.PortalModuleBase
+        Inherits PortalModuleBase
+        Implements IActionable
 
-        Protected Sub Page_Init(sender As Object, e As EventArgs) Handles Me.Init
-            ' Add admin actions
-            Dim addEditAction = MyBase.Actions.Add(GetNextActionID, LocalizeString("AdminSectionTitle"), "OnlineForm", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
-            addEditAction.Actions.Add(GetNextActionID, LocalizeString("AdminEditAction"), "OnlineFormEdit", "", "action_settings.gif", EditUrl("Edit"), False, SecurityAccessLevel.Edit, True, False)
-            addEditAction.Actions.Add(GetNextActionID, LocalizeString("AdminResultsAction"), "OnlineFormResults", "", "action_source.gif", EditUrl("Results"), False, SecurityAccessLevel.Edit, True, False)
-        End Sub
+
+
+        'Protected Sub Page_Init(sender As Object, e As EventArgs) Handles Me.Init
+        ' Add admin actions
+        'Dim addEditAction = MyBase.Actions.Add(GetNextActionID, LocalizeString("AdminSectionTitle"), "OnlineForm", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+        ' addEditAction.Actions.Add(GetNextActionID, LocalizeString("AdminEditAction"), "OnlineFormEdit", "", "action_settings.gif", EditUrl("Edit"), False, SecurityAccessLevel.Edit, True, False)
+        ' addEditAction.Actions.Add(GetNextActionID, LocalizeString("AdminResultsAction"), "OnlineFormResults", "", "action_source.gif", EditUrl("Results"), False, SecurityAccessLevel.Edit, True, False)
+        ' End Sub
+        Public ReadOnly Property ModuleActions() As Entities.Modules.Actions.ModuleActionCollection Implements Entities.Modules.IActionable.ModuleActions
+            Get
+                Dim Actions As New Entities.Modules.Actions.ModuleActionCollection
+                Actions.Add(GetNextActionID, "Form Edit", "OnlineFormEdit", "", "action_settings.gif", EditUrl("Edit"), False, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Form Results", "OnlineFormResults", "", "action_source.gif", EditUrl("Results"), False, SecurityAccessLevel.Edit, True, False)
+                Return Actions
+            End Get
+        End Property
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
