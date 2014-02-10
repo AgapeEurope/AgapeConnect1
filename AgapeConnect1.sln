@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AgapeConnect13", "http://localhost:37879", "{3EC41BF4-C341-4368-96B8-62BA4BE33318}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{35594954-2b9d-4f0a-b24d-80a286cf4b03}|GR_NET.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_37879"
 		Debug.AspNetCompiler.PhysicalPath = "..\AgapeConnect1\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_37879\"
@@ -23,14 +24,31 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AgapeConnect13", "http://lo
 		Release.AspNetCompiler.Debug = "False"
 		SlnRelativePath = "..\AgapeConnect1\"
 	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{35594954-2B9D-4F0A-B24D-80A286CF4B03} = {35594954-2B9D-4F0A-B24D-80A286CF4B03}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GR_NET", "..\GR_NET\GR_NET.vbproj", "{35594954-2B9D-4F0A-B24D-80A286CF4B03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{113CC0B9-37D1-4F3E-97B3-9FF50524491D}"
+	ProjectSection(SolutionItems) = preProject
+		WebEssentials-Settings.json = WebEssentials-Settings.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3EC41BF4-C341-4368-96B8-62BA4BE33318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3EC41BF4-C341-4368-96B8-62BA4BE33318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC41BF4-C341-4368-96B8-62BA4BE33318}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC41BF4-C341-4368-96B8-62BA4BE33318}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{35594954-2B9D-4F0A-B24D-80A286CF4B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35594954-2B9D-4F0A-B24D-80A286CF4B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35594954-2B9D-4F0A-B24D-80A286CF4B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35594954-2B9D-4F0A-B24D-80A286CF4B03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

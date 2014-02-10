@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ImageCropperInternal</name>
+    </assembly>
+    <members>
+        <member name="T:KrispWare.KrispControl">
+            <exclude/>
+        </member>
+        <member name="T:KrispWare.KrispControlParentStub">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControlParentStub.#ctor(System.Web.UI.HtmlTextWriterTag)">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControlParentStub.#ctor">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControl.#ctor(System.Web.UI.HtmlTextWriterTag)">
+            <summary/>
+        </member>
+        <member name="M:KrispWare.KrispControl.#ctor">
+            <summary/>
+        </member>
+        <member name="M:KrispWare.KrispControl.RegisterLibrary">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControl.LibraryVersionString">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.KrispControl.RegisterCommonScript">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.KrispControl.RegisterCommonScript(System.Boolean)">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControl.RegisterScript(System.String)">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.KrispControl.RegisterValidatorDeclaration">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControl.RegisterArrayDeclaration">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControl.RegisterArrayExtension">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControl.OnUnload(System.EventArgs)">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.KrispControl.OnLoad(System.EventArgs)">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.KrispComponentName">
+            <summary/>
+        </member>
+        <member name="P:KrispWare.KrispControl.ApplicationPath">
+            <summary>
+            The URL to the root of the current web application for this website. Used only for design-support.
+            </summary>
+        </member>
+        <member name="P:KrispWare.KrispControl.IsDesignTime">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.AspNetClient">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.AspNetClientRoot">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.VersionDirectory">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.ClientArrayName">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.KrispControl.Browser">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.RegistrationKey">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.IsRegistered">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.KrispControl.ShowDemo">
+            <exclude/>		
+        </member>
+        <member name="T:KrispWare.KrispControl.BrowserType">
+            <exclude/>		
+        </member>
+        <member name="F:KrispWare.KrispControl.BrowserType.IE">
+            <exclude/>
+        </member>
+        <member name="F:KrispWare.KrispControl.BrowserType.FireFox">
+            <exclude/>
+        </member>
+        <member name="F:KrispWare.KrispControl.BrowserType.Safari">
+            <exclude/>
+        </member>
+        <member name="F:KrispWare.KrispControl.BrowserType.Mozilla">
+            <exclude/>
+        </member>
+        <member name="F:KrispWare.KrispControl.BrowserType.Other">
+            <exclude/>
+        </member>
+        <member name="T:KrispWare.ImageCropper">
+            <summary>
+            Displays an image that allows the user to drag a rectangle over it and return
+            the cropped portion as an image bitmap.
+            </summary>
+            <remarks>
+            To use, set the <see cref="P:KrispWare.ImageCropper.ImageUrl">ImageUrl</see> property to the URL of the image
+            you want cropped, and handle the
+            <see cref="E:KrispWare.ImageCropper.ImageCropped">ImageCropped</see> event to retrieve a bitmap of the cropped
+            portion of the image.
+            </remarks>
+        </member>
+        <member name="F:KrispWare.ImageCropper.croppingRectChanged">
+            <summary>
+            The url of the tiled background image to use for the cropped image bitmap in order to achieve
+            the specified dimensions.
+            </summary>
+            <remarks>
+            If <see cref="P:KrispWare.ImageCropper.CroppedWidth">CroppedWidth</see>, <see cref="P:KrispWare.ImageCropper.CroppedHeight">CroppedHeight</see>
+            and <see cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</see> are all set then the cropped bitmap will appear
+            with strips of the image specified by the
+            BackgroundImageUrl on either the top and bottom or the left and right sides to achieve the the
+            proper dimensions without distorting the image.
+            <para>
+            If this property is not set the background will be solid black.
+            </para>
+            </remarks>
+            <seealso cref="P:KrispWare.ImageCropper.CroppedWidth">CroppedWidth</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.CroppedWidth">CroppedHeight</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</seealso>
+        </member>
+        <member name="M:KrispWare.ImageCropper.OnImageCropped(System.EventArgs)">
+            <summary>Raises the ImageCropped event.</summary>
+            <param name="e">An EventArgs object.</param>
+        </member>
+        <member name="M:KrispWare.ImageCropper.CreateControlStyle">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.ImageCropper.RenderBeginTag(System.Web.UI.HtmlTextWriter)">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.ImageCropper.RenderEndTag(System.Web.UI.HtmlTextWriter)">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.ImageCropper.Render(System.Web.UI.HtmlTextWriter)">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.ImageCropper.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.ImageCropper.GetImageBitmap">
+            <summary>
+            Retrieves a bitmap of the image specified in ImageUrl.
+            </summary>
+            <remarks>You must subclass ImageCropper and override this method if the image specified by
+            <see cref="P:KrispWare.ImageCropper.ImageUrl">ImageUrl</see> requires credentials or a session cookie to access, since
+            the image is retrieved via an HTTP GET request.</remarks>
+            <example>If the ImageUrl is a local url you can override this method with the one shown below:<code>
+            protected override Bitmap GetImageBitmap ()
+            {
+            	return new Bitmap(Page.Server.MapPath(ImageUrl));
+            }
+            </code></example>
+        </member>
+        <member name="M:KrispWare.ImageCropper.OnPreRender(System.EventArgs)">
+            <exclude/>
+        </member>
+        <member name="M:KrispWare.ImageCropper.RaisePostDataChangedEvent">
+            <exclude/>		
+        </member>
+        <member name="M:KrispWare.ImageCropper.LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <exclude/>		
+        </member>
+        <member name="P:KrispWare.ImageCropper.KrispComponentName">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.ImageUrl">
+            <summary>
+            The absolute or relative URL of the image you want cropped.
+            </summary>
+            <remarks>
+            This property is identical to the
+            <see cref="P:System.Web.UI.WebControls.Image.ImageUrl">WebControl.ImageUrl</see> property.
+            </remarks>
+        </member>
+        <member name="P:KrispWare.ImageCropper.Width">
+            <summary>
+            Gets or sets the width of the image as shown in the browser.
+            </summary>
+            <remarks>This property is identical to the
+            <see cref="P:System.Web.UI.WebControls.WebControl.Width">WebControl.Width</see> property.
+            </remarks>
+        </member>
+        <member name="P:KrispWare.ImageCropper.Height">
+            <summary>
+            Gets or sets the height of the image as shown in the browser.
+            </summary>
+            <remarks>This property is identical to the
+            <see cref="P:System.Web.UI.WebControls.WebControl.Height">Image.Height</see> property.
+            </remarks>
+        </member>
+        <member name="P:KrispWare.ImageCropper.CropBorderColor">
+            <summary>
+            The border color of the cropping rectangle.
+            </summary>
+            <seealso cref="P:KrispWare.ImageCropper.CropBorderStyle">CropBorderStyle</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.CropBorderWidth">CropBorderWidth</seealso>
+        </member>
+        <member name="P:KrispWare.ImageCropper.CropBorderStyle">
+            <summary>
+            The border style of the cropping rectangle.
+            </summary>
+            <seealso cref="P:KrispWare.ImageCropper.CropBorderColor">CropBorderColor</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.CropBorderWidth">CropBorderWidth</seealso>
+        </member>
+        <member name="P:KrispWare.ImageCropper.CropBorderWidth">
+            <summary>
+            The border width of the cropping rectangle.
+            </summary>
+            <seealso cref="P:KrispWare.ImageCropper.CropBorderColor">CropBorderColor</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.CropBorderStyle">CropBorderStyle</seealso>
+        </member>
+        <member name="P:KrispWare.ImageCropper.Lightness">
+            <summary>
+            The lightness of the cropped portion of the image.
+            </summary>
+            <remarks>100 is the lightness of the original image. 0 is black. The default is 50.</remarks>
+        </member>
+        <member name="P:KrispWare.ImageCropper.CroppedWidth">
+            <summary>
+            If non-zero, the fixed width of the cropped image bitmap.
+            </summary>
+            <seealso cref="P:KrispWare.ImageCropper.CroppedHeight">CroppedHeight</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</seealso>
+        </member>
+        <member name="P:KrispWare.ImageCropper.CroppedHeight">
+            <summary>
+            If non-zero, the fixed height of the cropped image bitmap.
+            </summary>
+            <seealso cref="P:KrispWare.ImageCropper.CroppedWidth">CroppedWidth</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</seealso>
+        </member>
+        <member name="P:KrispWare.ImageCropper.AspectRatio">
+            <summary>
+            If non-zero the aspect ratio (width divided by height) of the cropping rectangle the
+            user drags over the image will be fixed at the specified value.
+            </summary>
+            <seealso cref="P:KrispWare.ImageCropper.CroppedWidth">CroppedWidth</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.CroppedHeight">CroppedHeight</seealso>
+            <seealso cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</seealso>
+        </member>
+        <member name="P:KrispWare.ImageCropper.MaxAspect">
+            <summary>
+            If true and <see cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</see> is non-zero and
+            <see cref="P:KrispWare.ImageCropper.CroppingRect">CroppingRect</see> is equal to Rectangle.Empty then the cropping
+            rectangle will default to the largest possible rectangle that fits into the image while maintaining
+            the given aspect ratio.
+            <remarks>The rectangle will be centered horizontally or vertically depending on
+            whether the aspect ratio is greater than or less than the aspect ratio of the image.</remarks>
+            </summary>
+        </member>
+        <member name="P:KrispWare.ImageCropper.PreventResizing">
+            <summary>
+            If true the user may move the initial cropping rectangle but may not resize it.
+            </summary>
+            <note>If an initial cropping rectangle is not specified, either through setting
+            <see cref="P:KrispWare.ImageCropper.CroppingRect">CroppingRect</see> or both <see cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</see>
+            and <see cref="P:KrispWare.ImageCropper.MaxAspect">MaxAspect</see>, then user will not be able to crop the image.
+            </note>
+        </member>
+        <member name="P:KrispWare.ImageCropper.CroppingRect">
+            <summary>
+            The rectangle that represents the state of the cropping region overlayed on the image.
+            </summary>
+            <remarks>
+            Set this value in order to display a default cropping region over the image. To remove
+            the default region, set this property to Rectangle.Empty.
+            <note>
+            The dimensions specified here are relative to the original dimensions of the image
+            specified by the <see cref="P:KrispWare.ImageCropper.ImageUrl">ImageUrl</see> property and not to the dimensions
+            the image as it is displayed on the webpage. (which can be modified via the Width and Height
+            properties.)
+            </note>
+            <note>
+            Changing this property also changes the <see cref="P:KrispWare.ImageCropper.CroppedImage">CroppedImage</see> bitmap.
+            </note>
+            <note>
+            The dimensions of <see cref="P:KrispWare.ImageCropper.CroppedImage">CroppedImage</see> are not necessarily the same
+            as this rectangle, although the aspect ratio will be the same. 
+            (see <see cref="P:KrispWare.ImageCropper.CroppedHeight">CroppedHeight</see> and <see cref="P:KrispWare.ImageCropper.CroppedWidth">CroppedWidth</see>)
+            </note>
+            <note>If the aspect ratio of the default cropping rectangle is different than a specified
+            <see cref="P:KrispWare.ImageCropper.AspectRatio">AspectRatio</see> unexpected behavior may result.</note>
+            </remarks>
+        </member>
+        <member name="P:KrispWare.ImageCropper.Font">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.AccessKey">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.ForeColor">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.TabIndex">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.BackColor">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.EnableViewState">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.HasCroppedImage">
+            <exclude/>
+        </member>
+        <member name="P:KrispWare.ImageCropper.CroppedImage">
+            <summary>
+            A bitmap of the cropped image.
+            </summary>
+            <remarks>
+            Typically this property is retrieved in the handler for the <see cref="E:KrispWare.ImageCropper.ImageCropped">ImageCropped</see>
+            event. It is null until the user crops the image and posts back or the
+            <see cref="P:KrispWare.ImageCropper.CroppingRect">CroppingRect</see> property is set manually.
+            </remarks>
+        </member>
+        <member name="P:KrispWare.ImageCropper.OnDragJScript">
+            <summary>A javascript method to be executed continuously on the client when a user is changing
+            the crop rectangle.</summary>
+            <remarks>The method specified is passed five parameters in this order: the
+            <see cref="P:System.Web.UI.Control.ClientID">ClientID</see>, cropping rectangle offset left,
+            offset top, width, and height.
+            </remarks>
+            <seealso cref="P:KrispWare.ImageCropper.OnDropJScript">OnDropJScript</seealso>
+        </member>
+        <member name="P:KrispWare.ImageCropper.OnDropJScript">
+            <summary>A javascript method to be executed once after the user has finished changing the
+            crop rectangle.</summary>
+            <remarks>The method specified is passed five parameters in this order: the
+            <see cref="P:System.Web.UI.Control.ClientID">ClientID</see>, cropping rectangle offset left,
+            offset top, width, and height.
+            </remarks>
+            <seealso cref="P:KrispWare.ImageCropper.OnDragJScript">OnDragJScript</seealso>
+        </member>
+        <member name="E:KrispWare.ImageCropper.ImageCropped">
+            <summary>Occurs when the image has been cropped.</summary>
+            <remarks>The ImageCropped event is raised when the user crops the image and then submits the form.
+            </remarks>
+        </member>
+        <member name="P:KrispWare.ImageCropper.RegistrationKey">
+            <exclude/>
+        </member>
+        <member name="T:KrispWare.Registration">
+            <exclude/>
+        </member>
+    </members>
+</doc>

@@ -1,32 +1,4 @@
-#################
-## Eclipse
-#################
 
-*.pydevproject
-.project
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.classpath
-.settings/
-.loadpath
-
-# External tool builders
-.externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# CDT-specific
-.cproject
-
-# PDT-specific
-.buildpath
 
 
 #################
@@ -102,7 +74,7 @@ DocProject/Help/html
 publish
 
 # Others
-[Bb]in
+
 [Oo]bj
 sql
 TestResults
@@ -132,37 +104,7 @@ Thumbs.db
 Desktop.ini
 
 
-#############
-## Python
-#############
 
-*.py[co]
-
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-
-# Installer logs
-pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-
-#Translations
-*.mo
-
-#Mr Developer
-.mr.developer.cfg
 
 # Mac crap
 .DS_Store
@@ -174,7 +116,7 @@ Portals/0/Documents
 
 App_Data/ClientDependency/*-map.xml
 App_Data/Search
-
+App_Data/PublishProfiles/
 google12a54662ce33ec42.html
 
 #RadEditor config files (portal dependant)
@@ -183,3 +125,4 @@ DesktopModules/Admin/RadEditorProvider/ToolsFile/toolsfile.xml
 
 Portals/0/Sitemap/sitemap.xml
 Portals/16/UploadDepartments.xls
+WebEssentials*
