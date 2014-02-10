@@ -26,5 +26,5 @@
    
 </table><br />
 <asp:Label ID="lblResponse" runat="server" Text=""></asp:Label><br />
-
+<asp:HyperLink ID="hlDownload" runat="server" Target="_self" NavigateUrl="/DesktopModules/AgapeConnect/StaffAdmin/UploadUsers.xls">Download Template</asp:HyperLink>
 <asp:LinkButton ID="btnReturn" runat="server" Text="Back"  CssClass="aButton"/>
