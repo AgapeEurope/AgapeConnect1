@@ -18,11 +18,25 @@
     <Columns>
         <asp:BoundField DataField="PortalId" HeaderText="PortalId" />
          <asp:BoundField DataField="PortalName" HeaderText="Name"  ItemStyle-CssClass="AgapeH5" />
-        <asp:BoundField DataField="Users" HeaderText="Users"  />
-        <asp:BoundField DataField="Pages" HeaderText="Pages" />
+        
         <asp:TemplateField HeaderText="Defaul Portal Alias" >
             <ItemTemplate>
-                <asp:Label ID="Label1" runat="server" Text='<%# GetAliases(Eval("PortalId"))  %>'></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text='<%# GetAliases(Eval("PortalId"))%>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:BoundField DataField="Users" HeaderText="Users"  />
+        <asp:BoundField DataField="Pages" HeaderText="Pages" />
+           <asp:TemplateField HeaderText="Rmb" >
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" Text='<%# IsUsingRmb(Eval("PortalId"))%>'></asp:Label>
+
+            </ItemTemplate>
+        </asp:TemplateField>
+        
+           <asp:TemplateField HeaderText="Last Proc Rmb" >
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" Text='<%# LastProcDate(Eval("PortalId"))%>'></asp:Label>
+
             </ItemTemplate>
         </asp:TemplateField>
     </Columns>

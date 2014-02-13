@@ -38,5 +38,44 @@ Namespace DotNetNuke.Modules.Portals
             Dim PS As New PortalSettings(thePortalId)
             Return PS.DefaultPortalAlias
         End Function
+        Public Function IsUsingRmb(ByVal thePortalId As Integer) As Boolean
+            Dim d As New StaffRmb.StaffRmbDataContext
+            Dim isRmb As Boolean = (From c In d.AP_Staff_Rmbs Where c.PortalId = thePortalId And c.Status = StaffRmb.RmbStatus.Processed).Count > 2
+
+            Dim isAdv As Boolean = (From c In d.AP_Staff_AdvanceRequests Where c.PortalId = thePortalId And c.RequestStatus = StaffRmb.RmbStatus.Processed).Count > 2
+            Return isRmb Or isAdv
+
+        End Function
+        Public Function LastProcDate(ByVal thePortalId As Integer) As String
+            Dim d As New StaffRmb.StaffRmbDataContext
+            Dim procRmb = From c In d.AP_Staff_Rmbs Where c.PortalId = thePortalId And c.Status = StaffRmb.RmbStatus.Processed Select c.ProcDate Order By ProcDate Descending
+            Dim lastRmb As Date = Nothing
+
+            If procRmb.Count > 0 Then
+                lastRmb = procRmb.First
+            End If
+
+            Dim procAdv = From c In d.AP_Staff_AdvanceRequests Where c.PortalId = thePortalId And c.RequestStatus = StaffRmb.RmbStatus.Processed Select c.ProcessedDate Order By ProcessedDate Descending
+            Dim lastAdv As Date = Nothing
+
+            If procAdv.Count > 0 Then
+                lastAdv = procRmb.First
+            End If
+
+            If lastAdv = Nothing And lastRmb = Nothing Then
+                Return ""
+            End If
+            If lastRmb = Nothing Then
+                Return lastAdv.ToString("yyy-MM-dd")
+            End If
+            If lastAdv = Nothing Then
+                Return lastRmb
+            End If
+
+            Return IIf(lastRmb > lastAdv, lastRmb.ToString("yyy-MM-dd"), lastAdv.ToString("yyy-MM-dd"))
+
+
+
+        End Function
     End Class
 End Namespace
