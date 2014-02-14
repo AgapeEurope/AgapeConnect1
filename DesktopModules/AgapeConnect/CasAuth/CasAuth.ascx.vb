@@ -108,8 +108,8 @@ Namespace DotNetNuke.Modules.AgapePortal
             '  CASHOST = "https://173.45.237.49/cas"
 
             ' Second time (back from CAS) there is a ticket= to validate
-            Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & _service & "&pgtUrl=https://agapeconnect.me/CasLogin.aspx"
-            'Dim validateurl As String = CASHOST + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & Service & "&pgtUrl=https://myagape.org.uk/PgtCallback.aspx"
+            Dim validateurl As String = Cashost + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & _service & "&pgtUrl=https://agapeconnect.me/CasLogin.aspx"
+            'Dim validateurl As String = Cashost + "proxyValidate?" & "ticket=" & tkt & "&" & "service=" & _service & "&pgtUrl=https://myagape.org.uk/PgtCallback.aspx"
 
             Dim reader1 As StreamReader = New StreamReader(New WebClient().OpenRead(validateurl))
             Dim doc As New XmlDocument()

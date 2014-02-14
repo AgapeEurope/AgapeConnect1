@@ -693,7 +693,7 @@ namespace DotNetNuke.Modules.Account
         {
 
             string pt = "";
-            if (!string.IsNullOrEmpty((string)Session["pgtId"]))
+            if ( (!string.IsNullOrEmpty((string)Session["pgtId"])) && !((string)Session["pgtId"]=="ERROR"))
             {
                 pt = GetProxyTicketFromCAS(ServiceName, (string)Session["pgtId"]);
                 if (!String.IsNullOrEmpty(pt))
