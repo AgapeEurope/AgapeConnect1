@@ -195,7 +195,14 @@ Partial Class controls_RmbSubPD
             If value <> "" Then
                 DropDownList2.Items.Add(New ListItem(Settings("Sub" & I & "Name") & " (" & StaffBrokerFunctions.GetSetting("Currency", PS.PortalId) & CDbl(value).ToString("0.00") & ")", CDbl(value)))
             End If
-       Next I
+        Next I
+        If (Not String.IsNullOrEmpty(Settings("DescriptionLength"))) And CInt(Settings("DescriptionLength")) > 0 Then
+            tbDesc.Attributes("maxLength") = CInt(Settings("DescriptionLength"))
+            If CInt(Settings("DescriptionLength")) < 50 Then
+                tbDesc.Columns = CInt(Settings("DescriptionLength")) + 3
+                tbDesc.Width = Nothing
+            End If
+        End If
 
     End Sub
 

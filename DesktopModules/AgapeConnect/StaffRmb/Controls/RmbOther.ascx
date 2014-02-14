@@ -10,7 +10,7 @@
 <table  style="font-size:9pt;">
 <tr>
     <td><b><dnn:label id="Label4"  runat="server" controlname="tbDesc" ResourceKey="lblDesc"  /></b></td>
-    <td><asp:TextBox ID="tbDesc" runat="server" Width="550px"></asp:TextBox></td>
+    <td><asp:TextBox ID="tbDesc" runat="server" Width="550px" Columns="27"></asp:TextBox></td>
 </tr>
 <tr>
      <td><b><dnn:label id="Label1"  runat="server" controlname="dtDate" ResourceKey="lblDate"  /></b></td>

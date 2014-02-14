@@ -191,7 +191,13 @@ Partial Class controls_RmbEntPD
         DropDownList2.Items(2).Value = Settings("EntLunch")
         DropDownList2.Items(3).Value = Settings("EntDinner")
         DropDownList2.Items(4).Value = Settings("EntOvernight")
-
+        If (Not String.IsNullOrEmpty(Settings("DescriptionLength"))) And CInt(Settings("DescriptionLength")) > 0 Then
+            tbDesc.Attributes("maxLength") = CInt(Settings("DescriptionLength"))
+            If CInt(Settings("DescriptionLength")) < 50 Then
+                tbDesc.Columns = CInt(Settings("DescriptionLength")) + 3
+                tbDesc.Width = Nothing
+            End If
+        End If
 
     End Sub
     Protected Sub UpdatePanel1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles UpdatePanel1.PreRender

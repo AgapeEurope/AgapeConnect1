@@ -32,7 +32,13 @@ Partial Class controls_RmbDonationIncome
         End If
     End Sub
     Public Sub Initialize(ByVal settings As Hashtable)
-
+        If (Not String.IsNullOrEmpty(settings("DescriptionLength"))) And CInt(settings("DescriptionLength")) > 0 Then
+            tbDesc.Attributes("maxLength") = CInt(settings("DescriptionLength"))
+            If CInt(settings("DescriptionLength")) < 50 Then
+                tbDesc.Columns = CInt(settings("DescriptionLength")) + 3
+                tbDesc.Width = Nothing
+            End If
+        End If
         
     End Sub
     Public Property ReceiptType() As Integer
