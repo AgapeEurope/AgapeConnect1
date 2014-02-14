@@ -2,7 +2,7 @@
 
 <%@ Register assembly="DotNetNuke" namespace="DotNetNuke.UI.WebControls" tagprefix="cc1" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-
+<%@ Register src="Currency.ascx" tagname="Currency" tagprefix="uc1" %>
 <div class="Agape_SubTitle"> <asp:HiddenField ID="hfNoReceiptLimit" runat="server" Value="0" />
     <asp:Label ID="Label3" runat="server" Font-Italic="true" ForeColor="Gray" resourcekey="Explanation"></asp:Label>
 </div><br />
@@ -71,13 +71,16 @@
             <asp:ListItem Value="4.50">Dinner</asp:ListItem>
             <asp:ListItem Value="2.25">Overnight</asp:ListItem>
         </asp:DropDownList><br />
-         <asp:Label ID="Label8" runat="server" ResourceKey="AmountClaimed"></asp:Label>
+                  <table>
+                    <tr valign="top">
+                        <td> <asp:Label ID="Label10" runat="server" ResourceKey="AmountClaimed"></asp:Label><br />( <asp:Label ID="lblCur" runat="server" ></asp:Label><asp:Label ID="Label11" runat="server" ResourceKey="Max"></asp:Label>  <asp:Label ID="lblMaxAmt" runat="server" Text="Label" ></asp:Label>)</td>
+                        <td>  <asp:TextBox ID="tbAmount" runat="server" Width="90px" class="numeric rmbAmount"></asp:TextBox>
         
-          <asp:TextBox ID="tbAmount" runat="server" Width="90px" class="numeric"></asp:TextBox>
- 
-     ( <asp:Label ID="Label9" runat="server" ResourceKey="Max"></asp:Label>
-      <asp:Label ID="lblCur" runat="server" ></asp:Label>
-       <asp:Label ID="lblMaxAmt" runat="server" Text="Label" ></asp:Label>)
+                        <uc1:Currency ID="Currency1" runat="server" /></td>
+                    </tr>
+                </table>
+
+
      </ContentTemplate>
      <Triggers>
         <asp:AsyncPostBackTrigger ControlID="DropDownList1" EventName="SelectedIndexChanged" />

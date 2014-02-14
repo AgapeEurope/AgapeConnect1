@@ -2,7 +2,7 @@
 
 <%@ Register assembly="DotNetNuke" namespace="DotNetNuke.UI.WebControls" tagprefix="cc1" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
-
+<%@ Register src="Currency.ascx" tagname="Currency" tagprefix="uc1" %>
 <div class="Agape_SubTitle"> <asp:HiddenField ID="hfNoReceiptLimit" runat="server" Value="0" />
     <asp:Label ID="Label3" runat="server" Font-Italic="true" ForeColor="Gray" resourcekey="Explanation"></asp:Label>
 </div><br />
@@ -19,7 +19,7 @@
         
     </td>
 </tr>
-<tr>
+<tr valign="top">
     <td>
         <b><dnn:label id="Label5"  runat="server" controlname="tbAmount" ResourceKey="lblAmount" /></b>
     
@@ -59,11 +59,20 @@
             <asp:ListItem Value="8">Lunch</asp:ListItem>
             <asp:ListItem Value="13">Dinner</asp:ListItem>--%>
         </asp:DropDownList><br />
-        <asp:Label ID="Label8" runat="server" ResourceKey="AmountClaimed"></asp:Label>
-         <asp:TextBox ID="tbAmount" runat="server" Width="90px" class="numeric"></asp:TextBox>
+                <table>
+                    <tr valign="top">
+                        <td> <asp:Label ID="Label10" runat="server" ResourceKey="AmountClaimed"></asp:Label><br />(<asp:Label ID="Label11" runat="server" ResourceKey="Max"></asp:Label>  <asp:Label ID="lblMaxAmt" runat="server" Text="Label" ></asp:Label>)</td>
+                        <td> <asp:TextBox ID="tbAmount" runat="server" Width="90px" class="numeric rmbAmount"></asp:TextBox>
+        
+                        <uc1:Currency ID="Currency1" runat="server" /></td>
+                    </tr>
+                </table>
+        
+                 
+           
     <%--<cc2:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" TargetControlID="tbAmount"    FilterType="Custom" ValidChars=".0123456789">
         </cc2:FilteredTextBoxExtender>--%>
-     (<asp:Label ID="Label9" runat="server" ResourceKey="Max"></asp:Label>  <asp:Label ID="lblMaxAmt" runat="server" Text="Label" ></asp:Label>)
+     
      </ContentTemplate>
      <Triggers>
         <asp:AsyncPostBackTrigger ControlID="DropDownList1" EventName="SelectedIndexChanged" />
