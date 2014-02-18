@@ -30,6 +30,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             ddlProfileMap.Items.Add(New ListItem("User: DisplayName", "U-DisplayName"))
             ddlProfileMap.Items.Add(New ListItem("User: FirstName", "U-FirstName"))
             ddlProfileMap.Items.Add(New ListItem("User: LastName", "U-LastName"))
+            ddlProfileMap.Items.Add(New ListItem("User: UserId", "U-UserId"))
 
            
 
@@ -41,7 +42,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Next
 
             ddlProfileMap.Items.Add(New ListItem("Staff: R/C", "S-CostCenter"))
-
+            ddlProfileMap.Items.Add(New ListItem("Staff: StaffId", "S-StaffId"))
+            ddlProfileMap.Items.Add(New ListItem("Staff: DisplayName", "S-DisplayName"))
 
             Dim sps = From c In ds.AP_StaffBroker_StaffPropertyDefinitions Order By c.PropertyName Where c.PortalId = PortalId
             For Each row In sps
