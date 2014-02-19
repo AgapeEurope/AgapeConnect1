@@ -12,7 +12,7 @@ Imports System.Web.UI.WebControls.WebParts
 Imports DotNetNuke
 Imports DotNetNuke.Security
 
-Imports GR_NET.GR.NET
+Imports GR_NET
 Imports gr_mapping
 Namespace DotNetNuke.Modules.AgapeConnect
     Partial Class gr_mapping_mod
@@ -55,12 +55,12 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
         Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-
            
             If Not Page.IsPostBack Then
 
 
                 tbApiKey.Text = StaffBrokerFunctions.GetSetting("gr_api_key", PortalId)
+
 
                 Dim d As New gr_mappingDataContext
                 Dim mappings = From c In d.gr_mappings Where c.PortalId = PortalId
@@ -74,22 +74,50 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 If Not tbApiKey.Text = "" Then
+                    Try
+
+                   
                     gr = New GR(tbApiKey.Text, "https://gr.stage.uscm.org/")
 
 
 
                     Dim leaves = From c In gr.GetFlatEntityLeafList("person") Select Name = c.GetDotNotation, c.ID Order By Name
 
-
                     gr_entity_types.DataSource = leaves
                     gr_entity_types.DataTextField = "Name"
                     gr_entity_types.DataValueField = "ID"
                     gr_entity_types.DataBind()
+                    Dim parents = From c In gr.GetFlatEntityLeafList("person", "All") Select Name = c.GetDotNotation, c.ID Order By Name
+
+                    ddlGrParent.DataSource = parents
+                    ddlGrParent.DataTextField = "Name"
+                    ddlGrParent.DataValueField = "ID"
+                    ddlGrParent.DataBind()
+
+                    ddlFieldType.DataSource = FieldType.type_list
+                    ddlFieldType.DataBind()
+
+
+
+                        For Each row In gr.entity_types_def
+                            tv_gr_types.Nodes.Add(ProcessEntityTypesIntoTV(row))
+
+                        Next
+                    Catch ex As Exception
+                        pnlMain.Visible = False
+                    End Try
                 End If
 
             End If
         End Sub
+        Private Function ProcessEntityTypesIntoTV(ByVal et As EntityType) As TreeNode
+            Dim rtn As New TreeNode(et.Name, et.GetDotNotation)
+            For Each row In et.Children
+                rtn.ChildNodes.Add(ProcessEntityTypesIntoTV(row))
+            Next
+            Return rtn
 
+        End Function
 
         Protected Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
             Dim d As New gr_mappingDataContext
@@ -113,7 +141,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             End If
 
-           
+
 
         End Sub
 
@@ -146,5 +174,17 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     Return ""
             End Select
         End Function
+
+        Protected Sub btnCreateGrType_Click(sender As Object, e As EventArgs) Handles btnCreateGrType.Click
+            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "https://gr.stage.uscm.org/")
+            gr.addNewEntityType(tbNewType.Text, ddlFieldType.SelectedValue, IIf(ddlGrParent.SelectedItem.Text = "root", "", ddlGrParent.SelectedItem.Text))
+            'do a total reset
+            Response.Redirect(NavigateURL())
+        End Sub
+
+        Protected Sub btnSaveKey_Click(sender As Object, e As EventArgs) Handles btnSaveKey.Click
+            StaffBrokerFunctions.SetSetting("gr_api_key", tbApiKey.Text, PortalId)
+            Response.Redirect(NavigateURL())
+        End Sub
     End Class
 End Namespace
