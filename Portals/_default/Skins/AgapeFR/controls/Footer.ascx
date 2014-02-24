@@ -1,11 +1,20 @@
 <%@ Control Language="vb" AutoEventWireup="false" Explicit="True" %>
 <%@ Register TagPrefix="dnn" TagName="LOGO" Src="~/Admin/Skins/Logo.ascx" %>
-<%@ Register TagPrefix="dnn" TagName="PRIVACY" Src="~/Admin/Skins/Privacy.ascx" %>
-<%@ Register TagPrefix="dnn" TagName="TERMS" Src="~/Admin/Skins/Terms.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="COPYRIGHT" Src="~/Admin/Skins/Copyright.ascx" %>
 <%@ Register TagPrefix="ddr" Namespace="DotNetNuke.Web.DDRMenu.TemplateEngine" Assembly="DotNetNuke.Web.DDRMenu" %>
 <%@ Register TagPrefix="ddr" TagName="MENU" src="~/DesktopModules/DDRMenu/Menu.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="TEXT" Src="~/Admin/Skins/Text.ascx" %>
+
+
+<script runat="server">
+    Protected Function Translate(ResourceKey As String) As String   
+        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+        Dim strFile As String = System.IO.Path.GetFileName(Server.MapPath(PS.ActiveTab.SkinSrc))
+        strFile = PS.ActiveTab.SkinPath + Localization.LocalResourceDirectory + "/" + strFile
+        Return Localization.GetString(ResourceKey, strFile)
+    End Function
+</script>
+
 
 <div class="bar">
 	<div class="globalbox">
@@ -52,8 +61,7 @@
                 </div>
                 <div id="infosLegales">
 					<div id="copyright"><dnn:COPYRIGHT runat="server" ID="dnnCOPYRIGHT" CssClass="" /></div>
-                    <div id="privacy"><dnn:PRIVACY runat="server" ID="dnnPRIVACY" CssClass="" /></div>
-					<div id="terms"><dnn:TERMS runat="server" ID="dnnTERMS" CssClass="" /></div>
+                    <div id="mentionslegales"><a href="/mentionslegales" rel="nofollow"><%=Translate("MentionsLegales.Text")%></a></div>
 				</div>
 			</div>
 		</div>
