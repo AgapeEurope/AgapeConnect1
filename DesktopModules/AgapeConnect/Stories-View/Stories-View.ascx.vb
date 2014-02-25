@@ -256,7 +256,7 @@ Namespace DotNetNuke.Modules.FullStory
 
                         For Each row In Translist
                             Dim Lang = GetLanguageName(row.Language)
-                            Flags &= "<a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & """ target=""_self""><span title=""" & Lang & """><img  src=""" & GetFlag(row.Language) & """ alt=""" & Lang & """  /></span></a>"
+                            Flags &= "<a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & "&origTabId=" & Request.QueryString("origTabId") & """ target=""_self""><span title=""" & Lang & """><img  src=""" & GetFlag(row.Language) & """ alt=""" & Lang & """  /></span></a>"
 
                         Next
 
@@ -397,7 +397,7 @@ Namespace DotNetNuke.Modules.FullStory
                 rtn &= "<h3>Related News Items:</h3><ul class=""nav nav-tabs nav-stacked"">"
                 For Each row In q.Take(5).OrderByDescending(Function(c) c.StoryDate)
 
-                    rtn &= "<li><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & """>" & row.Headline & "</a></li>"
+                    rtn &= "<li><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & "&origTabId=" & Request.QueryString("origTabId") & """>" & row.Headline & "</a></li>"
 
                 Next
 
@@ -425,7 +425,7 @@ Namespace DotNetNuke.Modules.FullStory
 
                 rtn &= "<h2 class=""agendaTitle"">A lire aussi</h2>"
                 For Each row In q.Take(5).OrderByDescending(Function(c) c.StoryDate)
-                    rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & """>"
+                    rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & "&origTabId=" & Request.QueryString("origTabId") & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/articleIcon.png' style='width:30px;' /></td><td style='padding-left: 12px;'>"
                     rtn &= "<h4 class='eventTitle'>" & row.Headline & "</h4>"
@@ -460,7 +460,7 @@ Namespace DotNetNuke.Modules.FullStory
                 rtn &= "<h2 class=""agendaTitle"">Agenda</h2>"
                 For Each row In q.Take(3).OrderBy(Function(c) c.StoryDate)
 
-                    rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & """>"
+                    rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & "&origTabId=" & Request.QueryString("origTabId") & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'><div class='eventDay' >" & row.StoryDate.Day & "</div>"
                     rtn &= "<div class='eventMonth'>" & row.StoryDate.ToString("MMM", New CultureInfo("fr-fr")) & "</div>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/cal.png' style='width:32px;' /></td><td style='padding-left: 12px;'>"
@@ -496,7 +496,7 @@ Namespace DotNetNuke.Modules.FullStory
                 rtn &= "<h2 class=""agendaTitle"">Agenda</h2>"
                 For Each row In q.Take(3).OrderBy(Function(c) c.StoryDate)
 
-                    rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & """>"
+                    rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & "&origTabId=" & Request.QueryString("origTabId") & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'><div class='eventDay' >" & row.StoryDate.Day & "</div>"
                     rtn &= "<div class='eventMonth'>" & row.StoryDate.ToString("MMM", New CultureInfo("fr-fr")) & "</div>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/cal.png' style='width:32px;' /></td><td style='padding-left: 12px;'>"
