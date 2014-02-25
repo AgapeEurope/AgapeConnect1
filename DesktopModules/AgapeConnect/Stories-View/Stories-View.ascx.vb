@@ -104,7 +104,8 @@ Namespace DotNetNuke.Modules.FullStory
 
 
                 ReplaceField(sv, "[HEADLINE]", r.Headline)
-                Page.Title = "Agap&eacute; - " & r.Headline
+                Dim tp As DotNetNuke.Framework.CDefault = CType(Me.Page, DotNetNuke.Framework.CDefault)
+                tp.Title = r.Headline & " - " & PortalSettings.PortalName
                 location = r.Latitude.Value.ToString(New CultureInfo("")) & ", " & r.Longitude.Value.ToString(New CultureInfo(""))
 
 
@@ -134,7 +135,7 @@ Namespace DotNetNuke.Modules.FullStory
                 meta2.Content = r.Headline
                 Page.Header.Controls.AddAt(0, meta2)
 
-                Dim permalink = EditUrl("ViewStory") & "?StoryId=" & Request.QueryString("StoryId")
+                Dim permalink = NavigateURL(TabId, "", "StoryId=" & Request.QueryString("StoryId"), "origTabId=" & Request.QueryString("origTabId"), "origModId=" & Request.QueryString("origModId"))
                 ReplaceField(sv, "[DATAHREF]", permalink)
                 Dim meta3 As New HtmlMeta
                 meta3.Attributes.Add("property", "og:url")
@@ -144,7 +145,7 @@ Namespace DotNetNuke.Modules.FullStory
 
                 Dim meta4 As New HtmlMeta
                 meta4.Attributes.Add("property", "og:description")
-                meta4.Content = r.TextSample
+                meta4.Content = r.TextSample.Replace("<br />", " / ")
                 Page.Header.Controls.AddAt(0, meta4)
 
                 Dim meta5 As New HtmlMeta
@@ -159,6 +160,12 @@ Namespace DotNetNuke.Modules.FullStory
                     meta6.Content = Fid
                     Page.Header.Controls.AddAt(0, meta6)
                 End If
+
+                Dim meta7 As New HtmlMeta
+                meta7.Attributes.Add("property", "og:type")
+                meta7.Content = "article"
+                Page.Header.Controls.AddAt(0, meta7)
+
 
                 ReplaceField(sv, "[FACEBOOKID]", Fid)
 
