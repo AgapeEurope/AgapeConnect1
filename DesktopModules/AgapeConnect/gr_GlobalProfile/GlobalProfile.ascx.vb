@@ -24,7 +24,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Dim gr As GR
 
         Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.1:3000/")
+            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.244:3000/")
 
             Dim ministries = gr.GetEntities("ministry", "")
 
@@ -51,7 +51,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             rpResults.DataSource = From c In people Select FirstName = c.GetPropertyValue("first_name"), LastName = c.GetPropertyValue("last_name"), c.ID
 
             rpResults.DataBind()
-            lblTest.Text = people.First.ToJson()
+            ' lblTest.Text = people.First.ToJson()
             'Session("gr_user_results") = people
 
         End Sub

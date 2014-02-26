@@ -32,7 +32,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
         End Sub
         Private Sub LoadForm()
-            Dim gr As GR = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.1:3000/")
+            Dim gr As GR = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.244:3000/")
 
             Dim thisUser = gr.GetEntity(Request.QueryString("id"))
             Session("gr_user") = thisUser
@@ -56,7 +56,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
             Dim thisUser As Entity = Session("gr_user")
-            Dim GR = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.1:3000/")
+            Dim GR = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.244:3000/")
 
 
             If Not thisUser Is Nothing Then
