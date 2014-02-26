@@ -120,6 +120,9 @@
   <data name="GiveLinkTitle.Text" xml:space="preserve">
     <value>Faire un don</value>
   </data>
+  <data name="MentionsLegales.Text" xml:space="preserve">
+    <value>Mentions légales</value>
+  </data>
   <data name="OzoirAddress.Text" xml:space="preserve">
     <value>Agapé France&lt;br /&gt;BP 29&lt;br /&gt;77831 Ozoir-la-Ferrière Cedex</value>
   </data>
