@@ -77,7 +77,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     Try
 
                    
-                    gr = New GR(tbApiKey.Text, "https://gr.stage.uscm.org/")
+                        gr = New GR(tbApiKey.Text, "http://192.168.2.244:3000/")
 
 
 
@@ -176,7 +176,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
         End Function
 
         Protected Sub btnCreateGrType_Click(sender As Object, e As EventArgs) Handles btnCreateGrType.Click
-            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "https://gr.stage.uscm.org/")
+            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.1.35:3000/")
             gr.addNewEntityType(tbNewType.Text, ddlFieldType.SelectedValue, IIf(ddlGrParent.SelectedItem.Text = "root", "", ddlGrParent.SelectedItem.Text))
             'do a total reset
             Response.Redirect(NavigateURL())

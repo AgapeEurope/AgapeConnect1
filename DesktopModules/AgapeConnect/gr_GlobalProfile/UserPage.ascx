@@ -1,5 +1,60 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="False" CodeFile="UserPage.ascx.vb" Inherits="DotNetNuke.Modules.AgapeConnect.gr_mapping_mod" %>
 <link href="/Portals/_default/Skins/AgapeBlue/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+   
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Period', 'Movement Leaders'],
+         <%= jsonGMA %>
+        ]);
+
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var options = {
+            title: 'LWI Movement Leaders',
+            series: [{ color: '#ff9900', lineWidth: 2 }]
+
+        }
+        chart.draw(data, options);
+        // chart.draw(data, options);
+        //google.visualization.events.addListener(chart, 'select', selectHandler);
+    }
+
+    $(function () {
+
+        $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+
+
+       <%-- $("#<%= ddlMinistryLevel.ClientID%>").change(function (c) {
+            var thisScope = $("#<%= ddlMinistryLevel.ClientID%> option:selected").text();
+            var url = "/DesktopModules/AgapeConnect/gr_GlobalProfile/getministries.aspx?scope=" + thisScope;
+
+            var items = "<option value=''></option>";
+            $("#<%= ddlMinistry.ClientID%>").html(items);
+
+            $.ajax({
+                url: url,
+                dataType: 'text',
+                success: function (data) {
+
+                    $("#<%= ddlMinistry.ClientID%>").html(data);
+
+
+                }
+            });
+
+        });--%>
+
+
+
+
+    });
+
+</script>
 <style type="text/css">
     #gp_search .control-label {
         width: 100px;
@@ -8,7 +63,8 @@
 
 
 <asp:Label ID="lblText" runat="server" Text=""></asp:Label>
-
+<%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>--%>
 <fieldset id="gp_search" class="span6">
     <legend><b>
         <asp:Label ID="lblTitle" runat="server" Font-Size="XX-Large"></asp:Label></b></legend>
@@ -26,9 +82,44 @@
             </div>
         </div>
         <div class="control-group ">
+            <label class="control-label">Preferred Name</label>
+            <div class="controls">
+                <asp:TextBox runat="server" ID="tbPreferredName" />
+            </div>
+        </div>
+        <div class="control-group ">
+            <label class="control-label">Gender</label>
+            <div class="controls">
+                <asp:DropDownList ID="ddlGender" runat="server">
+                    <asp:ListItem Text="Unknown" Value="" />
+                    <asp:ListItem Text="Male" />
+                    <asp:ListItem Text="Female" />
+                </asp:DropDownList>
+            </div>
+        </div>
+        <div class="control-group ">
+            <label class="control-label">Marital Status</label>
+            <div class="controls">
+                <asp:DropDownList ID="ddlMaritalStatus" runat="server" Width="100px">
+                    <asp:ListItem Text="Unknown" Value="" />
+                    <asp:ListItem Text="Single" />
+                    <asp:ListItem Text="Married" />
+                </asp:DropDownList>
+
+                <asp:HyperLink ID="hlSpouse" runat="server"></asp:HyperLink>
+
+            </div>
+        </div>
+        <div class="control-group ">
             <label class="control-label">Email</label>
             <div class="controls">
                 <asp:TextBox runat="server" ID="tbEmail" />
+            </div>
+        </div>
+        <div class="control-group ">
+            <label class="control-label">Birthday</label>
+            <div class="controls">
+                <asp:TextBox runat="server" ID="tbBirthday" CssClass="datepicker" />
             </div>
         </div>
 
@@ -73,34 +164,49 @@
         </fieldset>
         <fieldset>
             <legend><b>Assignments</b></legend>
-            <div class="control-group ">
-                <label class="control-label">Ministry</label>
-                <div class="controls">
-                    <asp:DropDownList runat="server" ID="ddlMinistry">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <div class="control-group ">
+                        <label class="control-label">Ministry Scope:</label>
+                        <div class="controls">
+                            <asp:DropDownList runat="server"  ID="ddlMinistryLevel" AppendDataBoundItems="true" AutoPostBack="true">
+                                <asp:ListItem Text="" />
+                            </asp:DropDownList>
 
-                        <asp:ListItem Text="CRU" />
-                        <asp:ListItem Text="AgapeUK" />
-                    </asp:DropDownList>
-                </div>
-            </div>
-
+                        </div>
+                    </div>
+                    <div class="control-group ">
+                        <label class="control-label">Ministry</label>
+                        <div class="controls">
+                            <asp:DropDownList runat="server" ID="ddlMinistry" AppendDataBoundItems="true">
+                                <asp:ListItem Text="" />
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="ddlMinistryLevel" EventName="SelectedIndexChanged" />
+                </Triggers>
+            </asp:UpdatePanel>
             <div class="control-group ">
                 <label class="control-label">Role</label>
                 <div class="controls">
-                    <asp:DropDownList runat="server" ID="ddlRole">
-                        <asp:ListItem Text="God" />
-                        <asp:ListItem Text="Pleb" />
+                    <asp:DropDownList runat="server" ID="ddlRoleType" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" />
                     </asp:DropDownList>
-
                 </div>
             </div>
+
         </fieldset>
 
-
     </div>
-<asp:Button ID="btnSave" runat="server" Text="Update" CssClass="btn btn-primary" />
+    <asp:Button ID="btnSave" runat="server" Text="Update" CssClass="btn btn-primary" />
 
 
 </fieldset>
+<fieldset class="span6">
+    <legend><b>Related Graphs</b></legend>
+    <div id="chart_div" />
 
 
+</fieldset>

@@ -6,7 +6,7 @@
     }
 </style>
 <asp:Label ID="lblTest" runat="server"></asp:Label><br />
-<fieldset id="gp_search" class="span6">
+<fieldset id="gp_search" class="span8">
     <legend><b>Search</b></legend>
     <div id="formRoot" class="form-horizontal">
         <div class="control-group ">
@@ -21,6 +21,7 @@
                 <asp:TextBox runat="server" ID="tbLastNameSearch" />
             </div>
         </div>
+       
         <div class="control-group ">
             <label class="control-label">Email</label>
             <div class="controls">
@@ -29,15 +30,16 @@
         </div>
 
         <div class="control-group ">
-            <label class="control-label">Ministry</label>
+            <label class="control-label">Assignment:</label>
             <div class="controls">
-                <asp:DropDownList runat="server" ID="ddlMinistrySearch">
-                    <asp:ListItem Text="" Value="-1" />
-                    <asp:ListItem Text="CRU" />
-                    <asp:ListItem Text="AgapeUK" />
+                <asp:DropDownList runat="server" ID="ddlRoleType" Width="150px" AppendDataBoundItems="true">
+                </asp:DropDownList>
+
+                <asp:DropDownList runat="server" ID="ddlMinistryLevel" AppendDataBoundItems="true">
                 </asp:DropDownList>
             </div>
         </div>
+
 
         <div class="control-group ">
             <label class="control-label">Advanced</label>
@@ -50,25 +52,39 @@
     <asp:Button Text="Search" runat="server" ID="btnSearch" />
 
 </fieldset>
-<fieldset id="gp_results" class="span6">
-    <legend><b>Results</b></legend>
-    <div class="bs-docs-example">
-        <ul class="nav nav-pills nav-stacked">
-            <asp:Repeater ID="rpResults" runat="server">
-                <ItemTemplate>
-                    <li>
-                        <asp:HiddenField ID="personId" runat="server" Value='<%# Eval("ID")%>' />
-                        <asp:HyperLink ID="hlPersonName" runat="server" Text='<%# Eval("LastName") & ", " & Eval("FirstName") %>' NavigateUrl='<%# EditUrl("UserPage") & "?id=" & Eval("id") %>'></asp:HyperLink>
-                    </li>
-                </ItemTemplate>
-            </asp:Repeater>
+<asp:Panel runat="server" Visible="false" ID="pnlResults">
 
 
 
-        </ul>
-    </div>
+    <fieldset id="gp_results" class="span4">
+        <legend><b>Results</b></legend>
+        <div class="bs-docs-example">
+            <ul class="nav nav-pills nav-stacked">
+                <asp:Repeater ID="rpResults" runat="server">
+                    <ItemTemplate>
+                        <li>
+                            <asp:HiddenField ID="personId" runat="server" Value='<%# Eval("ID")%>' />
+                            <asp:HyperLink ID="hlPersonName" runat="server" Text='<%# Eval("LastName") & ", " & Eval("FirstName") %>' NavigateUrl='<%# EditUrl("UserPage") & "?id=" & Eval("id") %>'></asp:HyperLink>
+                        </li>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <asp:Panel runat="server" ID="pnlPagination" Visible="false" class="pagination">
+                    <ul>
+                        <li id="prev" runat="server"><a href='<%= NavigateURL() & "?page=" & (pg - 1)%>'>Prev</a></li>
+                        <asp:Literal ID="ltPages" runat="server"></asp:Literal>
+                        <li id="next" runat="server"><a href='<%= NavigateURL() & "?page=" & (pg +1) %>'>Next</a></li>
+                    </ul>
+                   </asp:Panel>
+
+        </div>
+       
+             
 
 
 
-</fieldset>
 
+
+
+    </fieldset>
+
+</asp:Panel>

@@ -19,44 +19,146 @@ Namespace DotNetNuke.Modules.AgapeConnect
     Partial Class gr_mapping_mod
         Inherits Entities.Modules.PortalModuleBase
 
-
+        Public gr_server As String = "http://192.168.1.40:3000/"
 
 
        
-        
+        Dim gr As GR
+        Public jsonGMA As String = ""
+       
         Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
             If Not Page.IsPostBack Then
-
+                gr_server = StaffBrokerFunctions.GetSetting("gr_api_url", PortalId)
                 LoadForm()
-               
+                LoadGraphs()
             End If
         End Sub
-        Private Sub LoadForm()
-            Dim gr As GR = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.244:3000/")
 
-            Dim thisUser = gr.GetEntity(Request.QueryString("id"))
-            Session("gr_user") = thisUser
+        Private Sub LoadGraphs()
+            Dim gma = gr.GetMeasurements(2, 12564, "2013-01", "2013-12")
+            For Each row In gma.measurements
+                jsonGMA &= "['" & row.Period & "', " & row.Value & "],"
+
+            Next
+            
+        End Sub
+
+        Private Sub LoadForm()
+            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), gr_server)
+
+            Dim thisUser = gr.GetEntity(Request.QueryString("id"), True)
+            '  Session("gr_user") = thisUser
+            If Not Page.IsPostBack Then
+                PopulateDropdowns()
+            End If
+            Dim scopeFilter As String = ""
             If Not thisUser Is Nothing Then
 
-                tbFirstName.Text = thisUser.GetPropertyValue("first_name")
-                tbLastName.Text = thisUser.GetPropertyValue("last_name")
+                tbFirstName.Text = thisUser.GetPropertyValue("first_name.value")
+                tbLastName.Text = thisUser.GetPropertyValue("last_name.value")
+                tbPreferredName.Text = thisUser.GetPropertyValue("preferred_name.value")
+
                 lblTitle.Text = tbLastName.Text & ", " & tbFirstName.Text
-                tbEmail.Text = thisUser.GetPropertyValue("email_address.email")
-                tbAddress1.Text = thisUser.GetPropertyValue("address.line1")
-                tbAddress2.Text = thisUser.GetPropertyValue("address.line2")
-                tbCity.Text = thisUser.GetPropertyValue("address.city")
-                tbState.Text = thisUser.GetPropertyValue("address.state")
-                tbPostalCode.Text = thisUser.GetPropertyValue("address.postal_code")
-                tbCountry.Text = thisUser.GetPropertyValue("address.country")
+                tbEmail.Text = thisUser.GetPropertyValue("email_address.email.value")
+                tbAddress1.Text = thisUser.GetPropertyValue("address.line1.value")
+                tbAddress2.Text = thisUser.GetPropertyValue("address.line2.value")
+                tbCity.Text = thisUser.GetPropertyValue("address.city.value")
+                tbState.Text = thisUser.GetPropertyValue("address.state.value")
+                tbPostalCode.Text = thisUser.GetPropertyValue("address.postal_code.value")
+                tbCountry.Text = thisUser.GetPropertyValue("address.country.value")
+                ddlGender.SelectedValue = thisUser.GetPropertyValue("gender.value")
+                tbBirthday.Text = thisUser.GetPropertyValue("birth_date.value")
+
+                ddlMaritalStatus.SelectedValue = thisUser.GetPropertyValue("marital_status.value")
+
+                hlSpouse.Visible = False
+                Dim spouseid = thisUser.GetPropertyValue("wife:relationship.person") & thisUser.GetPropertyValue("husband:relationship.person")
+                If spouseId <> "" Then
+                    Dim spouse = gr.GetEntity(spouseId, True)
+                    hlSpouse.Text = spouse.GetPropertyValue("first_name.value")
+                    hlSpouse.NavigateUrl = EditUrl("UserPage") & "?id=" & spouseId
+                    hlSpouse.Visible = True
+                End If
+
+
+                For Each item As ListItem In ddlRoleType.Items
+                    item.Selected = (item.Text = thisUser.GetPropertyValue("ministry:relationship.role"))
+                    If (item.Selected) Then
+                        Exit For
+                    End If
+
+                Next
+
+
+                Dim min_id = thisUser.GetPropertyValue("ministry:relationship.ministry")
+                'lblText.Text &= min_id & ":"
+                If min_id <> "" Then
+
+
+                    Dim get_min = gr.GetEntity(min_id, True)
+
+                    For Each item As ListItem In ddlMinistryLevel.Items
+
+                        item.Selected = (item.Text = get_min.GetPropertyValue("ministry_scope.value"))
+                        If item.Selected Then
+                            Exit For
+                        End If
+
+                    Next
+
+
+                    If (ddlMinistryLevel.SelectedValue <> "") Then
+                        ddlMinistry.Items.Clear()
+                        ddlMinistry.Items.Add("")
+                        scopeFilter = "&created_by=all&filters[ministry_scope]=" & ddlMinistryLevel.SelectedItem.Text
+                        Dim ministries = From c In gr.GetEntities("ministry", scopeFilter, 1, 1000, 1) Select name = c.GetPropertyValue("name.value"), c.ID Order By name
+                        ddlMinistry.DataSource = ministries
+                        ddlMinistry.DataTextField = "name"
+                        ddlMinistry.DataValueField = "id"
+                        ddlMinistry.DataBind()
 
 
 
+                        ddlMinistry.SelectedValue = min_id
+
+
+
+                    End If
+                End If
             End If
+
+            ' lblText.Text = thisUser.ToJson()
+        End Sub
+
+        Protected Sub PopulateDropdowns()
+            ddlRoleType.Items.Clear()
+            ddlMinistryLevel.Items.Clear()
+            ddlRoleType.Items.Add("")
+            ddlMinistryLevel.Items.Add("")
+            Dim role = gr.GetEntities("role", "&created_by=all")
+
+            ddlRoleType.DataSource = From c In role Select name = c.GetPropertyValue("value"), id = c.GetPropertyValue("id")
+
+            ddlRoleType.DataTextField = "name"
+            ddlRoleType.DataValueField = "ID"
+            ddlRoleType.DataBind()
+
+
+            Dim scope = gr.GetEntities("ministry_scope", "&created_by=all")
+
+            ddlMinistryLevel.DataSource = From c In scope Select name = c.GetPropertyValue("value"), c.ID
+
+            ddlMinistryLevel.DataTextField = "name"
+            ddlMinistryLevel.DataValueField = "ID"
+            ddlMinistryLevel.DataBind()
+
+
+
         End Sub
 
         Protected Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
             Dim thisUser As Entity = Session("gr_user")
-            Dim GR = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.2.244:3000/")
+            Dim GR = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), gr_server)
 
 
             If Not thisUser Is Nothing Then
@@ -65,8 +167,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 If tbFirstName.Text <> thisUser.GetPropertyValue("first_name") Then
                     person.AddPropertyValue("first_name", tbFirstName.Text)
                 End If
+                If tbPreferredName.Text <> thisUser.GetPropertyValue("preferred_name") Then
+                    person.AddPropertyValue("preferred_name", tbPreferredName.Text)
+                End If
                 If tbLastName.Text <> thisUser.GetPropertyValue("last_name") Then
-                    person.AddPropertyValue("last_name", tbFirstName.Text)
+                    person.AddPropertyValue("last_name", tbLastName.Text)
                 End If
                 If tbEmail.Text <> thisUser.GetPropertyValue("email_address.email") Then
                     person.AddPropertyValue("email_address.email", tbEmail.Text)
@@ -90,10 +195,58 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 If tbCountry.Text <> thisUser.GetPropertyValue("address.country") Then
                     person.AddPropertyValue("address.country", tbCountry.Text)
                 End If
+                If ddlGender.SelectedValue <> thisUser.GetPropertyValue("gender") Then
+                    person.AddPropertyValue("gender", ddlGender.SelectedValue)
+                End If
+                If ddlMaritalStatus.SelectedValue <> thisUser.GetPropertyValue("marital_status") Then
+                    person.AddPropertyValue("marital_status", ddlMaritalStatus.SelectedValue)
+                End If
+                If tbBirthday.Text <> thisUser.GetPropertyValue("birth_date") Then
+                    person.AddPropertyValue("birth_date", tbBirthday.Text)
+                End If
+                If ddlMinistry.SelectedValue <> thisUser.GetPropertyValue("ministry:relationship.ministry.id") Then
+                    person.AddPropertyValue("ministry:relationship.ministry", ddlMinistry.SelectedValue)
+                    person.AddPropertyValue("ministry:relationship.role", ddlMinistry.SelectedItem.Text)
+                End If
+
+
 
                 Dim resp = GR.UpdateEntity(person, "person")
-                ' Response.Redirect(EditUrl() & "?id=" & Request.QueryString("id"))
+
                 LoadForm()
+            End If
+        End Sub
+        Public Function GetDateFormat() As String
+            Dim sdp As String = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower
+            If sdp.IndexOf("d") < sdp.IndexOf("m") Then
+                Return "dd/mm/yy"
+            Else
+                Return "mm/dd/yy"
+            End If
+        End Function
+
+        Protected Sub UpdatePanel1_Load(sender As Object, e As EventArgs) Handles UpdatePanel1.Load
+          
+        End Sub
+
+        Protected Sub ddlMinistryLevel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlMinistryLevel.SelectedIndexChanged
+            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), gr_server)
+            If (ddlMinistryLevel.SelectedValue <> "") Then
+                ddlMinistry.Items.Clear()
+                ddlMinistry.Items.Add("")
+                Dim scopeFilter = "&created_by=all&filters[ministry_scope]=" & ddlMinistryLevel.SelectedItem.Text
+                Dim ministries = From c In gr.GetEntities("ministry", scopeFilter, 1, 1000, 1) Select name = c.GetPropertyValue("name.value"), c.ID Order By name
+                ddlMinistry.DataSource = ministries
+                ddlMinistry.DataTextField = "name"
+                ddlMinistry.DataValueField = "id"
+                ddlMinistry.DataBind()
+
+
+
+                ' ddlMinistry.SelectedValue = min_id
+
+
+
             End If
         End Sub
     End Class
