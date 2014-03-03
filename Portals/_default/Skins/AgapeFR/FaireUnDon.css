@@ -30,7 +30,7 @@
 /*========================== TOP PANE =======================*/
 
 .TopPane .c_contentpane {
-    padding: 20px 0 0 0;
+    padding-bottom: 0px;
 }
 
 .TopPane .Normal p {
@@ -44,6 +44,7 @@
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
     vertical-align: top;
     margin-right: 15px;
+    margin-left: 20px;
     width: 233px;
     text-align: left;
 }
@@ -141,9 +142,10 @@
 .CenterPane {
     display: inline-block;
 	zoom: 1; *display: inline; /* IE fix for inline-block display */
-    width: 722px; /* wider breaks display in some browsers (IE and FF at least) */
+    width: 682px; /* wider breaks display in some browsers (IE and FF at least) */
     background-color: #f2f2f2;
     margin-top: 32px;
+    margin-right: 20px;
     /* cross-browser min-height */
     min-height: 386px;
     height:auto !important; 
