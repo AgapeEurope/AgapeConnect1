@@ -22,10 +22,11 @@
 }
 
 .ContentPane {
+    padding-left: 15px;
 }
 
 .RightPane {
-    padding-left: 50px;
+    padding-left: 27px;
     width: 275px;
 }
 
@@ -151,8 +152,9 @@ a.BlocLienRapide:hover h1 {
 
 .BottomPane {
     text-align: center;
+    padding: 0 6px 0 4px;
 }
 
 .BottomPane .centervignette {
-    margin: 0 12px 0 12px;
+    margin: 0 7px 0 7px;
 }
