@@ -76,6 +76,10 @@
 	background-color: #ABACAE;
 }
 
+#header #SearchContainer .searchInputContainer a.dnnSearchBoxClearText {
+    margin-top: -22px;
+}
+
 #header #faireundon {
     text-align: right;
 }
