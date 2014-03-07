@@ -2,8 +2,6 @@
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.Web.UI.WebControls" Assembly="DotNetNuke.Web" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 
-<h1>R&eacute;sultats de la recherche</h1>
-
 <div class="dnnSearchBoxPanel">
     <a href="javascript:void(0)" class="dnnSearchResultAdvancedTip" style="display:none;"><%= LinkAdvancedTipText %></a>
     <input type="text" id="dnnSearchResult_dnnSearchBox" value="<%= String.IsNullOrEmpty(SearchTerm)?"":SearchTerm.Replace("\"", HttpContext.Current.Server.HtmlEncode("\"")) %>" />
