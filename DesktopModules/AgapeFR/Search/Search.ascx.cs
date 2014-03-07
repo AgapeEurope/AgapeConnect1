@@ -362,7 +362,7 @@ namespace DotNetNuke.UI.Skins.Controls.AgapeFR
             if (searchTabId == Null.NullInteger)
             {
                 var objModules = new ModuleController();
-                ArrayList arrModules = objModules.GetModulesByDefinition(PortalSettings.PortalId, "Search Results");
+                ArrayList arrModules = objModules.GetModulesByDefinition(PortalSettings.PortalId, "frSearchResults");
                 if (arrModules.Count > 1)
                 {
                     foreach (ModuleInfo SearchModule in arrModules)
