@@ -2036,7 +2036,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Dim isDept As Boolean = True
 
             If CC.Count > 0 Then
-                insert.SupplierCode = "P" & CC.First
+                insert.SupplierCode = "R" & CC.First
                 If ddlNewChargeTo.SelectedValue = CC.First Then
                     isDept = False
                 End If
