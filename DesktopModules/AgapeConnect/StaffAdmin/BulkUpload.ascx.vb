@@ -77,7 +77,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
                          IIf(IsDBNull(data.Item(9)), "", data.Item(9)),
                          IIf(IsDBNull(data.Item(10)), "", data.Item(10)))
                         Catch ex As Exception
-                            lblResponse.Text &= "There was a problem creating user: " & data.ToString() & "<br />"
+                            lblResponse.Text &= "There was a problem creating user: " & ex.ToString() & "<br />"
 
                         End Try
                      
@@ -91,7 +91,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
 
                 Catch ex As Exception
-                    lblResponse.Text &= "Error: " & ex.Message
+                    lblResponse.Text &= "Error: " & ex.ToString()
 
 
                 Finally
@@ -168,6 +168,8 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
             Dim theStaff As StaffBroker.AP_StaffBroker_Staff
 
+
+
             If MaritalStatus = 2 And (Not theStaff1 Is Nothing) And (Not theStaff2 Is Nothing) Then
                 '2 staff accounts exist. Delete 2 and keep 1
 
@@ -227,7 +229,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
             s.StaffTypeId = st
 
             If RC <> "" Then
-                If d.AP_StaffBroker_CostCenters.Where(Function(x) x.CostCentreCode = RC And x.PortalId = PortalId).Count > 0 Or (StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = True) Then
+                If d.AP_StaffBroker_CostCenters.Where(Function(x) x.CostCentreCode.Trim() = RC.Trim() And x.PortalId = PortalId).Count > 0 Or (StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True") Then
                     s.CostCenter = RC
                 Else
                     append &= "<span style=""color: red ;""> - but RC does not exists<span>"

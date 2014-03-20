@@ -61,16 +61,21 @@ Namespace DotNetNuke.Modules.StaffAdmin
                     Dim data = MyCommand.ExecuteReader()
 
                     While data.Read
+                        Try
+
+                      
                         If IsDBNull(data.Item(0)) Then
                             Exit While
                         End If
 
-                        AddNewDept(IIf(IsDBNull(data.Item(0)), "", data.Item(0)),
+                            AddNewDept(IIf(IsDBNull(data.Item(0)), "", data.Item(0)),
                                    IIf(IsDBNull(data.Item(1)), "", data.Item(1)),
                                    IIf(IsDBNull(data.Item(2)), "", data.Item(2)),
                                    IIf(IsDBNull(data.Item(3)), "", data.Item(3)))
-                    
 
+                        Catch ex As Exception
+                            lblResponse.Text &= "Error: " & ex.Message
+                        End Try
 
 
                     End While
@@ -79,7 +84,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
 
                 Catch ex As Exception
-                    lblResponse.Text &= "Error: " & ex.Message
+
 
 
                 Finally
@@ -93,7 +98,11 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
         End Sub
         Private Function AddNewDept(ByVal Name As String, ByVal RC As String, ByVal UID1 As String, ByVal UID2 As String) As Boolean
-            Dim rcCode = Left(RC, RC.IndexOf("-")).Trim.ToLower
+            Dim rcCode As String = RC
+            If RC.Contains("-") Then
+                rcCode = Left(RC, RC.IndexOf("-")).Trim.ToLower
+            End If
+
 
             Dim id1 As Integer
             Try
@@ -113,7 +122,7 @@ Namespace DotNetNuke.Modules.StaffAdmin
             End If
             Dim d As New StaffBrokerDataContext
 
-            If d.AP_StaffBroker_CostCenters.Where(Function(c) c.CostCentreCode.Trim().ToLower = rcCode).Count = 0 Then
+            If (Not (StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True")) And d.AP_StaffBroker_CostCenters.Where(Function(c) c.CostCentreCode.Trim().ToLower = rcCode And c.PortalId = PortalId).Count = 0 Then
                 lblResponse.Text &= "Error adding " & Name & " (" & rcCode & ") - RC does not exists.<br />"
             ElseIf id1 = Nothing Then
                 lblResponse.Text &= "Error adding " & Name & " (" & rcCode & ") - No Manager.<br />"
