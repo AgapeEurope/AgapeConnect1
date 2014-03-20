@@ -1,0 +1,68 @@
+﻿<dotnetnuke type="ResourceFile" version="5.0">
+  <files>
+    <file>
+      <path>Resource/js/</path>
+      <name>Slide.js</name>
+    </file>
+    <file>
+      <path>Resource/js/</path>
+      <name>StandardMenu.js</name>
+    </file>
+    <file>
+      <path>Resource/js/</path>
+      <name>accordion.js</name>
+    </file>
+    <file>
+      <path>Resource/js/</path>
+      <name>jquery-1.7.min.js</name>
+    </file>
+    <file>
+      <path>Resource/js/</path>
+      <name>jquery.hoverIntent.min.js</name>
+    </file>
+    <file>
+      <path />
+      <name>ViewMenu.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_Accordion.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_AccordionPro.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_AccordionPro_2.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_AccordionSub.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_DropDownList.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_HSlide.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_Html.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_MegaMenu.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_MultiMenu.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>View_VSlide.ascx</name>
+    </file>
+  </files>
+</dotnetnuke>

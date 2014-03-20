@@ -82,7 +82,9 @@
 
 <div class="row-fluid">
     <div class="span7">
+          <i>Click on each segment to a list of staff, and then click on a staff member to drill down to their personal MPD dashbaord.</i>
         <div id="donutchart" style="width: 100%; height: 600px;"></div>
+      
         <div id="chart_div" style="width: 100%; height: 300px;"></div>
     </div>
     <div class="span5">

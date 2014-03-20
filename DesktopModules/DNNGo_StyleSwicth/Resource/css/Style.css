@@ -1,0 +1,167 @@
+﻿ @charset "utf-8";
+/* CSS Document */
+
+ 
+#styler_slider {
+	position:fixed;
+	top: 80px;
+	left:-220px;
+	width: 220px;
+	background: #fff;
+	box-shadow: 0 0 3px rgba(0,0,0,0.12);
+	-moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    -khtml-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+    z-index: 5000;
+    font-size: 11px;
+    font-family: 'Open Sans', arial, sans-serif;
+}
+.styler_inner{
+	position: relative;
+	width: 100%;
+	height: 100%;	
+}
+.styler_content {
+	margin: 0 14px;
+	padding: 10px 0;
+}
+.styler_title{
+	font-size:13px;
+	color:#000;	
+}
+.styler_control input{
+	width:155px;
+	padding:5px;
+	border:none;	
+	margin:0px;
+	outline:none;
+}
+.styler_control .ul_StyleList{
+	padding:0px!important;
+	margin:0px!important;	
+}
+.styler_control .ul_StyleList:after{
+	clear:both;
+	content:".";
+	height:0px;
+	font-size:0px;
+	visibility:hidden;
+	display:block;
+}
+.styler_control .ul_StyleList{
+	display:inline-block;
+}
+.styler_control .ul_StyleList{
+	display:block;
+}
+.styler_control .ul_StyleList li{
+	float:left;	
+	list-style:none;
+	margin-right:5px;
+	margin-bottom:5px;
+}
+.styler_control .ul_StyleList li a{
+	display:block;	
+}
+.styler_control .ul_StyleList li img{
+	width:48px;
+	height:48px;	
+	transition: 		all ease-in 200ms;
+	-moz-transition: 	all ease-in 200ms; /* Firefox 4 */
+	-webkit-transition: all ease-in 200ms; /* Safari and Chrome */
+	-o-transition: 		all ease-in 200ms; /* Opera */
+	-ms-transition: 	all ease-in 200ms; /* IE9? */
+}
+.styler_control .ul_StyleList li img:hover{
+	opacity: 0.7;	
+}
+.styler_toggler_holder {
+	position: absolute;
+	top: -4px;
+	right: -40px;
+	width: 40px;
+	height: 40px;
+	background: url('../images/styler_arrow.png') top left no-repeat;
+}
+.styler_toggler_off {
+	margin: 6px 0 0 2px;
+	width: 24px;
+	height: 24px;
+	background: url('../images/st_open.png') top left no-repeat;
+	cursor: pointer;
+}
+.styler_toggler_on {
+	margin: 6px 0 0 2px;
+	width: 24px;
+	height: 24px;
+	background: url('../images/st_open.png') top left no-repeat;
+	cursor: pointer;
+}
+#styler_slider .update_click{
+	color: white;
+	font-size: 12px;
+	padding: 5px 10px;
+	box-shadow: none;
+	border-radius: 1px;	
+	text-decoration:none;
+	transition: 		all ease-in 200ms;
+	-moz-transition: 	all ease-in 200ms; /* Firefox 4 */
+	-webkit-transition: all ease-in 200ms; /* Safari and Chrome */
+	-o-transition: 		all ease-in 200ms; /* Opera */
+	-ms-transition: 	all ease-in 200ms; /* IE9? */
+}
+#styler_slider .update_click:hover{
+	color:#fff;
+	background:#AAAAAA;
+	text-decoration:none;	
+}
+
+
+#slider_skin_width{
+	width:150px;	
+}
+
+
+
+
+
+.styler_control .ul_ProjectList{
+	padding:0px!important;
+	margin:0px!important;	
+}
+.styler_control .ul_ProjectList:after{
+	clear:both;
+	content:".";
+	height:0px;
+	font-size:0px;
+	visibility:hidden;
+	display:block;
+}
+.styler_control .ul_ProjectList{
+	display:inline-block;
+}
+.styler_control .ul_ProjectList{
+	display:block;
+}
+.styler_control .ul_ProjectList li{
+	float:left;	
+	list-style:none;
+	margin-right:5px;
+	margin-bottom:5px;
+}
+.styler_control .ul_ProjectList li a{
+	display:block;	
+}
+.styler_control .ul_ProjectList li img{
+	width:32px;
+	height:32px;	
+	transition: 		all ease-in 200ms;
+	-moz-transition: 	all ease-in 200ms; /* Firefox 4 */
+	-webkit-transition: all ease-in 200ms; /* Safari and Chrome */
+	-o-transition: 		all ease-in 200ms; /* Opera */
+	-ms-transition: 	all ease-in 200ms; /* IE9? */
+}
+.styler_control .ul_ProjectList li img:hover{
+	opacity: 0.7;	
+}

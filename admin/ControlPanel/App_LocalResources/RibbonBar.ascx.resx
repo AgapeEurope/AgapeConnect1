@@ -124,10 +124,10 @@
     <value>Mode</value>
   </data>
   <data name="ModeView.Text" xml:space="preserve">
-    <value>View</value>
+    <value>View (Default Mode)</value>
   </data>
   <data name="ModeEdit.Text" xml:space="preserve">
-    <value>Edit</value>
+    <value>Edit (Accounts Mode)</value>
   </data>
   <data name="ModeLayout.Text" xml:space="preserve">
     <value>Layout</value>

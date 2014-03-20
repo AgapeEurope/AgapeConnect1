@@ -61,10 +61,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     End If
 
                 End If
+                If BudgetAvg > 0 Then
 
-                lblYear.Text = (100 * mpdu.AvgIncome12 / BudgetAvg).ToString("0.0") & "%"
-                lblQuarter.Text = (100 * mpdu.AvgIncome3 / BudgetAvg).ToString("0.0") & "%"
-                lblMonth.Text = (100 * mpdu.AvgIncome1 / BudgetAvg).ToString("0.0") & "%"
+
+                    lblYear.Text = (100 * mpdu.AvgIncome12 / BudgetAvg).ToString("0.0") & "%"
+                    lblQuarter.Text = (100 * mpdu.AvgIncome3 / BudgetAvg).ToString("0.0") & "%"
+                    lblMonth.Text = (100 * mpdu.AvgIncome1 / BudgetAvg).ToString("0.0") & "%"
+                End If
             End If
 
 

@@ -6,48 +6,17 @@
     google.load("visualization", "1", { packages: ["corechart"] });
     google.setOnLoadCallback(drawChart);
 
+   
+
     function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Period', 'Movement Leaders'],
-         <%= jsonGMA %>
-        ]);
-
-
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        var options = {
-            title: 'LWI Movement Leaders',
-            series: [{ color: '#ff9900', lineWidth: 2 }]
-
-        }
-        chart.draw(data, options);
-        // chart.draw(data, options);
-        //google.visualization.events.addListener(chart, 'select', selectHandler);
+         <%= graphScript %>
+     
+        
     }
 
     $(function () {
 
         $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
-
-
-       <%-- $("#<%= ddlMinistryLevel.ClientID%>").change(function (c) {
-            var thisScope = $("#<%= ddlMinistryLevel.ClientID%> option:selected").text();
-            var url = "/DesktopModules/AgapeConnect/gr_GlobalProfile/getministries.aspx?scope=" + thisScope;
-
-            var items = "<option value=''></option>";
-            $("#<%= ddlMinistry.ClientID%>").html(items);
-
-            $.ajax({
-                url: url,
-                dataType: 'text',
-                success: function (data) {
-
-                    $("#<%= ddlMinistry.ClientID%>").html(data);
-
-
-                }
-            });
-
-        });--%>
 
 
 
@@ -186,6 +155,7 @@
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="ddlMinistryLevel" EventName="SelectedIndexChanged" />
+                    <asp:PostBackTrigger ControlID="btnSave" />
                 </Triggers>
             </asp:UpdatePanel>
             <div class="control-group ">
@@ -206,7 +176,9 @@
 </fieldset>
 <fieldset class="span6">
     <legend><b>Related Graphs</b></legend>
-    <div id="chart_div" />
 
+
+    
+    <asp:PlaceHolder ID="phGraphs" runat="server"></asp:PlaceHolder>
 
 </fieldset>

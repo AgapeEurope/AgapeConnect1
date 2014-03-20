@@ -272,7 +272,7 @@
 
 
 
-            $('.aButton').button();
+            $('.abutton').button();
            
             $('.Excel').button({ icons: { primary: 'myExcel'} });
 
@@ -646,7 +646,10 @@
         margin-bottom: 5px;
         padding: 3px;
     }
-
+    .accordion-inner{
+        padding: 0 5px 0 5px;
+       
+    }
     .AdvRequest {
         background-color: #E2CB9A;
         border-bottom-style: dashed;
@@ -671,6 +674,23 @@
     .AcPane {
         height: 280px;
     }
+    .rmbMenuTable{
+        width: 100%;
+}
+    .rmbMenuTable tr{
+        vertical-align: middle;
+    }
+    .rmbMenuTable .icon{
+        width : 35px;
+    }
+    .rmbMenuTable .arrow{
+        width : 4px;
+        border-right: none;
+    }
+   .accordion-heading a div{
+       margin-right: 12px;
+   }
+
 </style>
 <div style="text-align: center; width: 100%;">
     <asp:Label ID="lblError" runat="server" class="ui-state-error ui-corner-all"
@@ -681,7 +701,7 @@
 
 
     <div style="padding-bottom: 5px;">
-        <asp:Label ID="Label2" runat="server" CssClass="AgapeH2" resourcekey="RmbTitle" Visible="false"></asp:Label>
+        <asp:Label ID="Label2" runat="server" CssClass="AgapeH2 h2" resourcekey="RmbTitle" Visible="false"></asp:Label>
     </div>
     <asp:HiddenField ID="hfNoReceiptLimit" runat="server" Value="0" />
     <asp:HiddenField ID="hfPortalId" runat="server" Value="-1" />
@@ -702,15 +722,16 @@
         <tr valign="top">
             <td>
                 <div align="center" width="100%">
-                    <input id="btmNewRmb" type="button" onclick="showPopup2();" class="aButton" value='<%= Translate("btnNew") %>'
+                    <input id="btmNewRmb" type="button" onclick="showPopup2();" class="abutton btn btn-success" value='<%= Translate("btnNew") %>'
                         style="margin-bottom: 5px; font-weight: bold; min-width: 220px;" />
                 </div>
-                <div id="accordion">
-                    <div>
-                        <h3>
-                            <a href="#" id="Tab0" class="AcHdr">
+                <div id="accordion" class="accordian" style="background-color: #fafafa;">
+                    <div class="accordion-group">
+                        <h3 class="accordion-heading">
+                            <a href="#DraftPane" id="Tab0" class="AcHdr accordion-toggle actived color1-bg-h" data-toggle="collapse" data-parent="#accordion">
                                 <asp:Label ID="Label5" runat="server" Font-Bold="true" ResourceKey="Draft"></asp:Label></a></h3>
-                        <div id="DraftPane" class="AcPane">
+                        <div id="DraftPane" class="accordion-body collapse in">
+                             <div class="accordion-inner">
                             <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                 <ContentTemplate>
                                     <asp:Label ID="lblHighlight" runat="server" class="ui-state-highlight ui-corner-all"
@@ -722,12 +743,12 @@
                                         <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                         <ItemTemplate>
 
-                                            <table width="100%">
-                                                <tr valign="middle">
-                                                    <td>
+                                            <table class="rmbMenuTable">
+                                                <tr   >
+                                                    <td class="icon">
                                                         <asp:Image ID="Image2" runat="server" Width="35px" ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' />
                                                     </td>
-                                                    <td width="100%" align="left">
+                                                    <td  >
 
                                                         <asp:LinkButton ID="LinkButton1" runat="server" Text='<%# GetRmbTitle(Eval("UserRef"), Eval("RID"), Eval("RmbDate"))  %>'
                                                             CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Width="100%" BorderStyle="Solid"
@@ -736,7 +757,7 @@
                                                             CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Size="10pt" Width="100%"
                                                             Visible='<%# Not IsSelected(Eval("RmbNo"))  %>'></asp:LinkButton>
                                                     </td>
-                                                    <td>
+                                                    <td class="arrow">
                                                         <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif" Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                     </td>
                                                 </tr>
@@ -748,11 +769,12 @@
                                     <asp:PostBackTrigger ControlID="dlPending" />
                                 </Triggers>
                             </asp:UpdatePanel>
+                                 </div>
                         </div>
                     </div>
-                    <div>
-                        <h3>
-                            <a href="#" id="Tab1" class="aLink">
+                    <div  class="accordion-group">
+                        <h3 class="accordion-heading">
+                            <a href="#SubmittedPane" id="Tab1" class="aLink accordion-toggle color2-bg-h"  data-toggle="collapse" data-parent="#accordion">
                                 <asp:Panel ID="pnlSubmitted" runat="server">
 
                                     <asp:Label ID="Label6" runat="server" Font-Bold="true" ResourceKey="Submitted"></asp:Label>
@@ -761,7 +783,8 @@
                             </a>
 
                         </h3>
-                        <div id="SubmittedPane">
+                        <div id="SubmittedPane" class="accordion-body collapse" >
+                             <div class="accordion-inner">
                             <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                 <ContentTemplate>
                                     <asp:TreeView ID="tvAllSubmitted" runat="server" NodeIndent="10">
@@ -774,13 +797,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td  class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Bold="true"
                                                                 Font-Size="9pt"
@@ -791,7 +814,7 @@
                                                                 Text='<%# GetRmbTitleTeam(Eval("RID"), Eval("UserId"), Eval("RmbDate"))  %>'
                                                                 Visible='<%# Not IsSelected(Eval("RmbNo"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                         </td>
@@ -803,13 +826,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("AdvanceId") %>' CommandName="GotoAdvance"
                                                                 Font-Bold="true" Font-Size="9pt"
@@ -821,7 +844,7 @@
                                                                 Text='<%# GetAdvTitleTeam(Eval("LocalAdvanceId"),Eval("UserId"),  Eval("RequestDate"))  %>'
                                                                 Visible='<%# Not IsAdvSelected(Eval("AdvanceId"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsAdvSelected(Eval("AdvanceId")) %>' />
                                                         </td>
@@ -839,13 +862,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Bold="true"
                                                                 Font-Size="9pt"
@@ -856,7 +879,7 @@
                                                                 Text='<%# GetRmbTitle(Eval("UserRef"), Eval("RID"), Eval("RmbDate"))  %>'
                                                                 Visible='<%# Not IsSelected(Eval("RmbNo"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                         </td>
@@ -866,13 +889,13 @@
                                         </asp:DataList>
                                         <asp:DataList ID="dlAdvSubmitted" runat="server" Width="100%">
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("AdvanceId") %>' CommandName="GotoAdvance"
                                                                 Font-Bold="true" Font-Size="9pt"
@@ -884,7 +907,7 @@
                                                                 Text='<%# GetAdvTitle(Eval("LocalAdvanceId"),  Eval("RequestDate"))  %>'
                                                                 Visible='<%# Not IsAdvSelected(Eval("AdvanceId"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsAdvSelected(Eval("AdvanceId")) %>' />
                                                         </td>
@@ -901,14 +924,15 @@
                                     <asp:PostBackTrigger ControlID="dlAdvToApprove" />
                                 </Triggers>
                             </asp:UpdatePanel>
+                                 </div>
                         </div>
 
 
                     </div>
-                    <div>
-                        <h3>
+                    <div class="accordion-group">
+                        <h3  class="accordion-heading">
 
-                            <a href="#" id="Tab2" class="aLink">
+                            <a href="#ApprovedPane" id="Tab2" class="aLink accordion-toggle color3-bg-h"  data-toggle="collapse" data-parent="#accordion">
                                 <asp:Panel ID="pnlToProcess" runat="server">
 
                                     <asp:Label ID="Label7" runat="server" Font-Bold="true" ResourceKey="Approved"></asp:Label>
@@ -917,7 +941,8 @@
                             </a>
 
                         </h3>
-                        <div id="ApprovedPane">
+                        <div id="ApprovedPane"  class="accordion-body collapse">
+                             <div class="accordion-inner">
                             <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                                 <ContentTemplate>
                                     <asp:Panel ID="pnlApprovedAcc" runat="server">
@@ -929,13 +954,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Bold="true"
                                                                 Font-Size="9pt"
@@ -946,7 +971,7 @@
                                                                 Text='<%# GetRmbTitleTeam(Eval("RID"), Eval("UserId"), Eval("RmbDate"))  %>'
                                                                 Visible='<%# Not IsSelected(Eval("RmbNo"))  %>'></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                         </td>
@@ -965,13 +990,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("RMBNo") %>' CommandName="Goto" Font-Bold="true"
                                                                 Font-Size="9pt"
@@ -982,7 +1007,7 @@
                                                                 Text='<%# GetRmbTitleTeam(Eval("RID"), Eval("UserId"), Eval("RmbDate"))  %>'
                                                                 Visible='<%# Not IsSelected(Eval("RmbNo"))  %>'></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                         </td>
@@ -992,13 +1017,13 @@
                                         </asp:DataList>
                                         <asp:DataList ID="dlAdvNoReceipts" runat="server" Width="100%">
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("AdvanceId") %>' CommandName="GotoAdvance"
                                                                 Font-Bold="true" Font-Size="9pt"
@@ -1010,7 +1035,7 @@
                                                                 Text='<%# GetAdvTitleTeam(Eval("LocalAdvanceId"), Eval("UserId"), Eval("RequestDate"))  %>'
                                                                 Visible='<%# Not IsAdvSelected(Eval("AdvanceId"))  %>'></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsAdvSelected(Eval("AdvanceId")) %>' />
                                                         </td>
@@ -1030,13 +1055,13 @@
                                                 <ItemStyle CssClass="dnnGridItem" />
                                                 <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                                 <ItemTemplate>
-                                                    <table width="100%">
-                                                        <tr valign="middle">
-                                                            <td>
+                                                    <table class="rmbMenuTable">
+                                                        <tr>
+                                                            <td class="icon">
                                                                 <asp:Image ID="Image2" runat="server"
                                                                     ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                             </td>
-                                                            <td align="left" width="100%">
+                                                            <td>
                                                                 <asp:LinkButton ID="LinkButton3" runat="server"
                                                                     CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Bold="true"
                                                                     Font-Size="9pt"
@@ -1047,7 +1072,7 @@
                                                                     Text='<%# GetRmbTitleTeam(Eval("RID"), Eval("UserId"), Eval("RmbDate"))  %>'
                                                                     Visible='<%# Not IsSelected(Eval("RmbNo"))  %>'></asp:LinkButton>
                                                             </td>
-                                                            <td>
+                                                            <td class="arrow">
                                                                 <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                     Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                             </td>
@@ -1057,13 +1082,13 @@
                                             </asp:DataList>
                                             <asp:DataList ID="dlAdvPendingDownload" runat="server" Width="100%">
                                                 <ItemTemplate>
-                                                    <table width="100%">
-                                                        <tr valign="middle">
-                                                            <td>
+                                                    <table class="rmbMenuTable">
+                                                        <tr >
+                                                            <td class="icon">
                                                                 <asp:Image ID="Image2" runat="server"
                                                                     ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                             </td>
-                                                            <td align="left" width="100%">
+                                                            <td>
                                                                 <asp:LinkButton ID="LinkButton3" runat="server"
                                                                     CommandArgument='<%# Eval("AdvanceId") %>' CommandName="GotoAdvance"
                                                                     Font-Bold="true" Font-Size="9pt"
@@ -1075,7 +1100,7 @@
                                                                     Text='<%# GetAdvTitleTeam(Eval("LocalAdvanceId"), Eval("UserId"), Eval("RequestDate"))  %>'
                                                                     Visible='<%# Not IsAdvSelected(Eval("AdvanceId"))  %>'></asp:LinkButton>
                                                             </td>
-                                                            <td>
+                                                            <td class="arrow">
                                                                 <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                     Visible='<%# IsAdvSelected(Eval("AdvanceId")) %>' />
                                                             </td>
@@ -1093,13 +1118,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Bold="true"
                                                                 Font-Size="9pt"
@@ -1110,7 +1135,7 @@
                                                                 Text='<%# GetRmbTitle(Eval("UserRef"), Eval("RID"), Eval("RmbDate"))  %>'
                                                                 Visible='<%# Not IsSelected(Eval("RmbNo"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                         </td>
@@ -1122,13 +1147,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("AdvanceId") %>' CommandName="GotoAdvance"
                                                                 Font-Bold="true" Font-Size="9pt"
@@ -1140,7 +1165,7 @@
                                                                 Text='<%# GetAdvTitle(Eval("LocalAdvanceId"), Eval("RequestDate"))  %>'
                                                                 Visible='<%# Not IsSelected(Eval("AdvanceId"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsAdvSelected(Eval("AdvanceId")) %>' />
                                                         </td>
@@ -1158,13 +1183,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr>
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Bold="true"
                                                                 Font-Size="9pt"
@@ -1175,7 +1200,7 @@
                                                                 Text='<%# GetRmbTitleTeam(Eval("RID"), Eval("UserId"), Eval("RmbDate"))  %>'
                                                                 Visible='<%# Not IsSelected(Eval("RmbNo"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                         </td>
@@ -1187,13 +1212,13 @@
                                             <ItemStyle CssClass="dnnGridItem" />
                                             <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                             <ItemTemplate>
-                                                <table width="100%">
-                                                    <tr valign="middle">
-                                                        <td>
+                                                <table class="rmbMenuTable">
+                                                    <tr >
+                                                        <td class="icon">
                                                             <asp:Image ID="Image2" runat="server"
                                                                 ImageUrl='<%# GetProfileImage(Eval("UserId")) %>' Width="35px" />
                                                         </td>
-                                                        <td align="left" width="100%">
+                                                        <td>
                                                             <asp:LinkButton ID="LinkButton3" runat="server"
                                                                 CommandArgument='<%# Eval("AdvanceId") %>' CommandName="GotoAdvance"
                                                                 Font-Bold="true" Font-Size="9pt"
@@ -1205,7 +1230,7 @@
                                                                 Text='<%# GetAdvTitleTeam(Eval("LocalAdvanceId"), Eval("UserId"), Eval("RequestDate"))  %>'
                                                                 Visible='<%# Not IsAdvSelected(Eval("AdvanceId"))  %>' Width="100%"></asp:LinkButton>
                                                         </td>
-                                                        <td>
+                                                        <td class="arrow">
                                                             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif"
                                                                 Visible='<%# IsAdvSelected(Eval("AdvanceId")) %>' />
                                                         </td>
@@ -1230,11 +1255,11 @@
                                 </Triggers>
                             </asp:UpdatePanel>
                         </div>
-
+                            </div>
                     </div>
-                    <div>
-                        <h3>
-                            <a href="#" class="aLink">
+                    <div class="accordion-group">
+                        <h3  class="accordion-heading">
+                            <a href="#ProcessedPane" class="aLink accordion-toggle color1-bg-h"  data-toggle="collapse" data-parent="#accordion">
 
 
                                 <asp:Label ID="Label8" runat="server" Font-Bold="true" ResourceKey="Processed"></asp:Label>
@@ -1242,7 +1267,8 @@
 
                             </a>
                         </h3>
-                        <div id="ProcessedPane">
+                        <div id="ProcessedPane"  class="accordion-body collapse">
+                             <div class="accordion-inner">
                             <asp:UpdatePanel ID="UpdatePanel7" runat="server">
                                 <ContentTemplate>
                                     <asp:TreeView ID="tvProcessed" runat="server" NodeIndent="10">
@@ -1252,29 +1278,34 @@
                                     <asp:PostBackTrigger ControlID="tvProcessed" />
                                 </Triggers>
                             </asp:UpdatePanel>
+                                 </div>
                         </div>
                     </div>
-                    <div>
-                        <h3>
-                            <a href="#" class="aLink">
-                                <asp:Label ID="Label9" runat="server" Font-Bold="true" ResourceKey="Cancelled"></asp:Label></a></h3>
-                        <div id="CancelledPane">
+                    <div class="accordion-group">
+                        <h3 class="accordion-heading">
+                            <a href="#CancelledPane" class="aLink accordion-toggle color2-bg-h"  data-toggle="collapse" data-parent="#accordion">
+                                <asp:Label ID="Label9" runat="server" Font-Bold="true" ResourceKey="Cancelled"></asp:Label>
+                            </a>
+
+                        </h3>
+                        <div id="CancelledPane"   class="accordion-body collapse">
+                            <div class="accordion-inner">
                             <asp:UpdatePanel ID="UpdatePanel8" runat="server">
                                 <ContentTemplate>
                                     <asp:DataList ID="dlCancelled" runat="server" Width="100%">
                                         <ItemStyle CssClass="dnnGridItem" />
                                         <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                         <ItemTemplate>
-                                            <table width="100%">
-                                                <tr valign="middle">
-                                                    <td width="100%">
+                                            <table class="rmbMenuTable">
+                                                <tr>
+                                                    <td >
                                                         <asp:LinkButton ID="LinkButton3" runat="server" Text='<%# GetRmbTitle(Eval("UserRef"), Eval("RID"), Eval("RmbDate"))  %>'
                                                             CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Bold="true" Font-Size="9pt"
                                                             Visible='<%# IsSelected(Eval("RmbNo")) %>'></asp:LinkButton>
                                                         <asp:LinkButton ID="LinkButton2" runat="server" Text='<%# GetRmbTitle(Eval("UserRef"), Eval("RID"), Eval("RmbDate"))  %>'
                                                             CommandArgument='<%# Eval("RmbNo") %>' CommandName="Goto" Font-Size="10pt" Visible='<%# Not IsSelected(Eval("RmbNo"))  %>'></asp:LinkButton>
                                                     </td>
-                                                    <td>
+                                                    <td class="arrow">
                                                         <asp:Image ID="Image1" runat="server" ImageUrl="~/images/action_right.gif" Visible='<%# IsSelected(Eval("RmbNo")) %>' />
                                                     </td>
                                                 </tr>
@@ -1286,6 +1317,7 @@
                                     <asp:PostBackTrigger ControlID="dlCancelled" />
                                 </Triggers>
                             </asp:UpdatePanel>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -1405,7 +1437,7 @@
                                     <tr valign="top">
                                         <td colspan="2" style="font-size: 8pt; width: 33%;">
                                             <fieldset>
-                                                <legend class="AgapeH4">
+                                                <legend class="AgapeH4 h4">
                                                     <asp:Label ID="ttlYourComments" runat="server" resourcekey="YourComments" Visible="false" /><asp:Label
                                                         ID="ttlUserComments" runat="server" Text="User's Comments" /></legend>
                                                 <asp:Label ID="lbComments" runat="server" Height="60px" Visible="false"></asp:Label>
@@ -1414,7 +1446,7 @@
                                         </td>
                                         <td colspan="2" style="font-size: 8pt; width: 33%;">
                                             <fieldset>
-                                                <legend class="AgapeH4">
+                                                <legend class="AgapeH4 h4">
                                                     <asp:Label ID="Label26" runat="server" resourcekey="ApproversComments"></asp:Label></legend>
                                                 <asp:Label ID="lblApprComments" runat="server" Height="60px"></asp:Label>
                                                 <asp:TextBox ID="tbApprComments" runat="server" Height="55px" TextMode="MultiLine"
@@ -1423,7 +1455,7 @@
                                         </td>
                                         <td colspan="2" style="font-size: 8pt; width: 33%;">
                                             <fieldset>
-                                                <legend class="AgapeH4">
+                                                <legend class="AgapeH4 h4">
                                                     <asp:Label ID="Label27" runat="server" resourcekey="AccountsComments"></asp:Label></legend>
                                                 <asp:Label ID="lblAccComments" runat="server" Height="60px"></asp:Label>
                                                 <asp:TextBox ID="tbAccComments" runat="server" Height="35px" TextMode="MultiLine" Width="100%"
@@ -1434,14 +1466,14 @@
                                     </tr>
                                 </table>
                                 <br />
-                                <asp:Button ID="addLinebtn2" runat="server" resourcekey="btnAddExpenseItem" class="aButton" />
-                                <asp:Button ID="btnSubmit" runat="server" resourcekey="btnSubmit" class="aButton" />
-                                <asp:Button ID="btnSave" runat="server" resourcekey="btnSave" class="aButton" />
-                                <asp:Button ID="btnApprove" runat="server" resourcekey="btnApprove" class="aButton" />
-                                <asp:Button ID="btnPrint" runat="server" resourcekey="btnPrint" class="aButton" />
-                                <asp:Button ID="btnProcess" runat="server" resourcekey="btnProcess" class="aButton" />
-                                <asp:Button ID="btnUnProcess" runat="server" resourcekey="btnUnProcess" class="aButton" />
-                                <asp:Button ID="btnCancel" runat="server" resourcekey="btnCancel" class="aButton" />
+                                <asp:Button ID="addLinebtn2" runat="server" resourcekey="btnAddExpenseItem" class="abutton btn" />
+                                <asp:Button ID="btnSubmit" runat="server" resourcekey="btnSubmit" class="abutton btn" />
+                                <asp:Button ID="btnSave" runat="server" resourcekey="btnSave" class="abutton btn" />
+                                <asp:Button ID="btnApprove" runat="server" resourcekey="btnApprove" class="abutton btn" />
+                                <asp:Button ID="btnPrint" runat="server" resourcekey="btnPrint" class="abutton btn" />
+                                <asp:Button ID="btnProcess" runat="server" resourcekey="btnProcess" class="abutton btn" />
+                                <asp:Button ID="btnUnProcess" runat="server" resourcekey="btnUnProcess" class="abutton btn" />
+                                <asp:Button ID="btnCancel" runat="server" resourcekey="btnCancel" class="abutton btn" />
                                 <asp:LinkButton ID="btnDownload" runat="server">
                                     <div style="vertical-align: middle; float: right; padding-top: 8px;">
                                         <img src="/DesktopModules/AgapeConnect/StaffRmb/Images/Excel_icon.gif" alt="" />
@@ -1465,7 +1497,7 @@
                                         <RowStyle CssClass="dnnGridItem" />
                                         <AlternatingRowStyle CssClass="dnnGridAltItem" />
                                         <Columns>
-                                            <asp:TemplateField HeaderText="TransDate" SortExpression="TransDate">
+                                            <asp:TemplateField HeaderText="TransDate" SortExpression="TransDate"  HeaderStyle-CssClass="visible-desktop" ItemStyle-CssClass="visible-desktop" FooterStyle-CssClass="visible-desktop">
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("TransDate") %>'></asp:TextBox>
                                                 </EditItemTemplate>
@@ -1475,7 +1507,7 @@
                                                 <HeaderStyle ForeColor="White" />
                                                 <ItemStyle HorizontalAlign="Left" Width="50px" />
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Line Type" SortExpression="LineType" ItemStyle-Width="110px">
+                                            <asp:TemplateField HeaderText="Line Type" SortExpression="LineType" ItemStyle-Width="110px"   HeaderStyle-CssClass="hidden-phone" ItemStyle-CssClass="hidden-phone" FooterStyle-CssClass="hidden-phone">
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("LineType") %>'></asp:TextBox>
                                                 </EditItemTemplate>
@@ -1528,7 +1560,8 @@
                                                 <FooterStyle HorizontalAlign="Right" />
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="ReceiptNo" HeaderText="Receipt No" SortExpression="ReceiptNo"
-                                                HeaderStyle-ForeColor="White" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="75px">
+                                                HeaderStyle-ForeColor="White" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="75px"
+                                                  HeaderStyle-CssClass="visible-desktop" ItemStyle-CssClass="visible-desktop" FooterStyle-CssClass="visible-desktop">
                                                 <HeaderStyle ForeColor="White"></HeaderStyle>
                                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                             </asp:BoundField>
@@ -1576,7 +1609,7 @@
 
                                 <div style="margin-top: 15px;">
                                     <fieldset id="pnlAdvance" runat="server" visible="false" style="float: left;">
-                                        <legend><span class="AgapeH4">Pay Off Advance</span> </legend>
+                                        <legend><span class="AgapeH4 h4">Pay Off Advance</span> </legend>
                                         <asp:Label ID="ttlAdvanceBalance" runat="server" ForeColor="Gray" resourcekey="AdvanceBalance"></asp:Label>
                                         &nbsp;
                             <asp:Label ID="lblAdvanceBalance" runat="server" ForeColor="Gray" Text="searching..."></asp:Label>
@@ -1596,7 +1629,7 @@
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="btnSaveAdv" runat="server" resourcekey="btnSave" Font-Size="8pt"
-                                                        CommandName="Save" class="aButton" />
+                                                        CommandName="Save" class="abutton btn" />
                                             </tr>
                                         </table>
                                         <asp:Label ID="lblAdvError" runat="server" ForeColor="Red"></asp:Label>
@@ -1604,7 +1637,7 @@
 
                                     <fieldset id="pnlError" runat="server" visible="false" style="margin-top: 15px;">
                                         <legend>
-                                            <asp:Label ID="Label44" runat="server" CssClass="AgapeH4" ResourceKey="lblErrorMessage"></asp:Label>
+                                            <asp:Label ID="Label44" runat="server" CssClass="AgapeH4 h4" ResourceKey="lblErrorMessage"></asp:Label>
                                         </legend>
                                         <asp:Label ID="lblWrongType" runat="server" class="ui-state-error ui-corner-all"
                                             Style="padding: 3px; margin-top: 5px; display: block;" resourceKey="lblWrongTypes">
@@ -1742,14 +1775,14 @@
                                     <asp:Label ID="lblAdvErr" runat="server" CssClass="AgapeError" ></asp:Label>
                                       <asp:Label ID="lblAdvDownloadError" runat="server" class="ui-state-error ui-corner-all"
                 Style="padding: 3px; margin-top: 5px; display: block; " Visible="false" ></asp:Label>
-                                            <asp:Button ID="btnAdvApprove" runat="server" ResourceKey="btnApprove" CssClass="aButton" />
-                                            <asp:Button ID="btnAdvReject" runat="server" ResourceKey="btnReject" CssClass="aButton" />
-                                            <asp:Button ID="btnAdvSave" runat="server" ResourceKey="btnSave" CssClass="aButton" />
-                                            <asp:Button ID="btnAdvCancel" runat="server" ResourceKey="btnCancel" CssClass="aButton" />
-                                            <asp:Button ID="btnAdvProcess" runat="server" ResourceKey="btnProcess" CssClass="aButton" />
-                                            <asp:Button ID="btnAdvUnProcess" runat="server" ResourceKey="btnUnProcess" CssClass="aButton" />
+                                            <asp:Button ID="btnAdvApprove" runat="server" ResourceKey="btnApprove" CssClass="abutton btn" />
+                                            <asp:Button ID="btnAdvReject" runat="server" ResourceKey="btnReject" CssClass="abutton btn" />
+                                            <asp:Button ID="btnAdvSave" runat="server" ResourceKey="btnSave" CssClass="abutton btn" />
+                                            <asp:Button ID="btnAdvCancel" runat="server" ResourceKey="btnCancel" CssClass="abutton btn" />
+                                            <asp:Button ID="btnAdvProcess" runat="server" ResourceKey="btnProcess" CssClass="abutton btn" />
+                                            <asp:Button ID="btnAdvUnProcess" runat="server" ResourceKey="btnUnProcess" CssClass="abutton btn" />
                                         
-                                            <asp:HyperLink ID="btnAdvPrint" runat="server"  resourcekey="btnPrint"  class="aButton" Target="_blank"> </asp:HyperLink>
+                                            <asp:HyperLink ID="btnAdvPrint" runat="server"  resourcekey="btnPrint"  class="abutton btn" Target="_blank"> </asp:HyperLink>
 
 
                                             <asp:LinkButton ID="btnAdvDownload" runat="server">
@@ -1794,7 +1827,7 @@
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
                     <div align="left">
-                        <asp:Label ID="PopupTitle" runat="server" resourcekey="NewLineTitle" CssClass="AgapeH2"></asp:Label><br />
+                        <asp:Label ID="PopupTitle" runat="server" resourcekey="NewLineTitle" CssClass="AgapeH2 h2"></asp:Label><br />
                         <br />
                         <table style="font-size: 9pt" width="100%">
                             <tr valign="top">
@@ -1867,9 +1900,9 @@
 
                         <br />
                         <asp:Button ID="btnAddLine" runat="server" resourcekey="btnEnter" CommandName="Save"
-                            class="aButton" />
+                            class="abutton btn" />
                         <input type="button" value='<%= Translate("btnCancel") %>' onclick="closePopup();"
-                            class="aButton" />
+                            class="abutton btn" />
                         <br />
                         <br />
                         <fieldset id="pnlAccountsOptions" runat="server">
@@ -1944,9 +1977,9 @@
     <div id="divAdvanceReq" class="ui-widget">
         <uc1:StaffAdvanceRmb ID="StaffAdvanceRmb1" runat="server" />
         <div style="text-align: center; width: 100%;">
-            <asp:Button ID="btnAdvanceRequest" runat="server" resourcekey="btnAdvanceRequest" class="aButton" />
+            <asp:Button ID="btnAdvanceRequest" runat="server" resourcekey="btnAdvanceRequest" class="abutton btn" />
             <input id="Button1" type="button" value='<%= Translate("btnCancel") %>' onclick="closeAdvanceReq();"
-                class="aButton" />
+                class="abutton btn" />
         </div>
     </div>
 
@@ -1955,7 +1988,7 @@
         <div>
             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                 <ContentTemplate>
-                    <div class="AgapeH2">
+                    <div class="AgapeH2 h2">
                         <asp:Label ID="Label32" runat="server" resourcekey="btnNew"></asp:Label>
                     </div>
                     <table width="100%">
@@ -1978,7 +2011,7 @@
                         <tr valign="top">
                             <td style="font-size: 8pt; width: 33%;">
                                 <fieldset>
-                                    <legend class="AgapeH4">
+                                    <legend class="AgapeH4 h4">
                                         <asp:Label ID="Label34" runat="server" resourcekey="YourComments"></asp:Label></legend>
                                     <asp:TextBox ID="tbNewComments" runat="server" Height="100" TextMode="MultiLine"
                                         Width="100%"></asp:TextBox>
@@ -1987,9 +2020,9 @@
                         </tr>
                     </table>
                     <asp:Button ID="btnCreate" runat="server" resourcekey="btnCreate" UseSubmitBehavior="false"
-                        class="aButton" />
+                        class="abutton btn" />
                     <input id="btnCancel2" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopup2();"
-                        class="aButton" />
+                        class="abutton btn" />
                     <asp:UpdateProgress ID="UpdateProgress2" runat="server" DisplayAfter="0" DynamicLayout="true"
                         AssociatedUpdatePanelID="UpdatePanel3">
                         <ProgressTemplate>
@@ -2012,12 +2045,12 @@
             continue?</b><br />
             <br />
             <div width="100%" align="center">
-                <asp:ImageButton ID="ImageButton2" runat="server" OnClientClick="closePopup3();"
-                    ImageUrl="~/images/ButtonImages/Cancel.gif" onmouseover="this.src='../images/ButtonImages/Cancel_f2.gif';"
-                    onmouseout="this.src='../images/ButtonImages/Cancel.gif';" class="aButton" AlternateText="Cancel"
-                    ToolTip="Cancel" />
+                
+                  <input id="cancel Not enough money" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopup3();"
+                        class="abutton btn" />
+
                 <span onclick="closePopup3()">
-                    <asp:HyperLink ID="blockedLink" runat="server" Target="_blank" ImageUrl="~/images/ButtonImages/ContinueS.gif"></asp:HyperLink></span>
+                    <asp:HyperLink ID="blockedLink" runat="server" Target="_blank" Text="Continue" ></asp:HyperLink></span>
             </div>
         </div>
     </div>
@@ -2033,7 +2066,7 @@
             <ContentTemplate>
                 <div align="center">
                     <fieldset>
-                        <legend class="AgapeH4">
+                        <legend class="AgapeH4 h4">
                             <asp:Label ID="Label35" runat="server" resourcekey="OriginalTrans"></asp:Label></legend>
                         <table width="100%">
                             <tr valign="middle">
@@ -2047,7 +2080,7 @@
                         </table>
                     </fieldset>
                     <fieldset>
-                        <legend class="AgapeH4">
+                        <legend class="AgapeH4 h4">
                             <asp:Label ID="Label36" runat="server" resourcekey="SplitIno"></asp:Label></legend>
                         <asp:HiddenField ID="hfRows" runat="server" Value="1" />
                         <asp:HiddenField ID="hfSplitLineId" runat="server" Value="-1" />
@@ -2067,9 +2100,9 @@
                     </fieldset>
                     <br />
                     <br />
-                    <asp:Button ID="btnOK" runat="server" resourcekey="btnOK" class="aButton" Enabled="false" />
+                    <asp:Button ID="btnOK" runat="server" resourcekey="btnOK" class="abutton btn" Enabled="false" />
                     <input id="btnCancel1" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopupSplit();"
-                        class="aButton" />
+                        class="abutton btn" />
                     <asp:Label ID="lblSplitError" runat="server" ForeColor="Red" resourcekey="SplitError"
                         Visible="false"></asp:Label>
                 </div>
@@ -2087,8 +2120,8 @@
         <br />
         <br />
         <div width="100%" style="text-align: center">
-            <asp:Button ID="btnMarkProcessed" runat="server" resourcekey="btnYes" class="aButton" />
-            <asp:Button ID="btnDontMarkProcessed" runat="server" resourcekey="btnNo" class="aButton" />
+            <asp:Button ID="btnMarkProcessed" runat="server" resourcekey="btnYes" class="abutton btn" />
+            <asp:Button ID="btnDontMarkProcessed" runat="server" resourcekey="btnNo" class="abutton btn" />
         </div>
     </div>
 
@@ -2115,9 +2148,9 @@
 
         <br />
         <div width="100%" style="text-align: center">
-            <asp:Button ID="btnDownloadExpenseOK" runat="server" resourcekey="btnOK" class="aButton" OnClientClick="closePopupDownloadExpense();" />
+            <asp:Button ID="btnDownloadExpenseOK" runat="server" resourcekey="btnOK" class="abutton btn" OnClientClick="closePopupDownloadExpense();" />
               <input id="Button3" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopupDownloadExpense();"
-                        class="aButton" />
+                        class="abutton btn" />
         </div>
     </div>
 
@@ -2126,10 +2159,10 @@
         <br />
         <br />
         <div width="100%" style="text-align: center">
-            <asp:Button ID="btnAccountWarningYes" runat="server" resourcekey="btnYes" class="aButton" />
+            <asp:Button ID="btnAccountWarningYes" runat="server" resourcekey="btnYes" class="abutton btn" />
 
             <input id="Button5" type="button" value='<%= Translate("btnNo")%>' onclick="closePopupAccountWarning();"
-                class="aButton" />
+                class="abutton btn" />
 
         </div>
     </div>
@@ -2207,10 +2240,10 @@
                 <br />
                 <br />
                 <div width="100%" style="text-align: center">
-                    <asp:Button ID="btnSuggestedPayments" runat="server" resourcekey="btnDownload" class="aButton" OnClientClick="closeSuggestedPayments();" />
+                    <asp:Button ID="btnSuggestedPayments" runat="server" resourcekey="btnDownload" class="abutton btn" OnClientClick="closeSuggestedPayments();" />
 
                     <input id="Button2" type="button" value='<%= Translate("btnCancel") %>' onclick="closeSuggestedPayments();"
-                        class="aButton" />
+                        class="abutton btn" />
                 </div>
 
             </td>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DNNGo_StyleSwicth>
+  <Settings>
+    <Setting>
+      <Name><![CDATA[menu_color]]></Name>
+      <Alias><![CDATA[Menu Color]]></Alias>
+      <Element><![CDATA[#menu123]]></Element>
+      <DefaultValue><![CDATA[true]]></DefaultValue>
+      <ControlType><![CDATA[ColorBox]]></ControlType>
+      <List_Name><![CDATA[]]></List_Name>
+      <List_Value><![CDATA[]]></List_Value>
+      <Description><![CDATA[Desktop click and drag fallback for the desktop slider.]]></Description>
+      <Required><![CDATA[False]]></Required>
+    </Setting>
+  </Settings>
+  <Project>
+    <Name><![CDATA[menu_color]]></Name>
+    <Alias><![CDATA[Menu Color]]></Alias>
+    <DefaultValue><![CDATA[true]]></DefaultValue>
+    <ProjectItems>
+      <ProjectItem>
+        <Name><![CDATA[menu_color]]></Name>
+        <Value><![CDATA[menu_color]]></Value>
+      </ProjectItem>
+      <ProjectItem>
+        <Name><![CDATA[menu_color]]></Name>
+        <Value><![CDATA[menu_color]]></Value>
+      </ProjectItem>
+      <ProjectItem>
+        <Name><![CDATA[menu_color]]></Name>
+        <Value><![CDATA[menu_color]]></Value>
+      </ProjectItem>
+      <ProjectItem>
+        <Name><![CDATA[menu_color]]></Name>
+        <Value><![CDATA[menu_color]]></Value>
+      </ProjectItem>
+    </ProjectItems>
+  </Project>
+</DNNGo_StyleSwicth>
+
+
+

@@ -19,35 +19,52 @@ Namespace DotNetNuke.Modules.AgapeConnect
     Partial Class gr_mapping_mod
         Inherits Entities.Modules.PortalModuleBase
 
-        Public gr_server As String = "http://192.168.1.40:3000/"
+        Public gr_server As String '= "http://192.168.1.40:3000/"
 
-
+        Public GraphScript As String = ""
        
         Dim gr As GR
         Public jsonGMA As String = ""
        
         Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+            gr_server = StaffBrokerFunctions.GetSetting("gr_api_url", PortalId)
             If Not Page.IsPostBack Then
-                gr_server = StaffBrokerFunctions.GetSetting("gr_api_url", PortalId)
+
                 LoadForm()
                 LoadGraphs()
             End If
         End Sub
 
         Private Sub LoadGraphs()
-            Dim gma = gr.GetMeasurements(2, 12564, "2013-01", "2013-12")
-            For Each row In gma.measurements
-                jsonGMA &= "['" & row.Period & "', " & row.Value & "],"
+
+
+            Dim m = gr.GetMeasurements(Request.QueryString("id"), Today.AddMonths("-13").ToString("yyyy-MM"), Today.ToString("yyyy-MM"))
+            phGraphs.Controls.Clear()
+            For Each row In m
+                'add graph
+                phGraphs.Controls.Add(New LiteralControl("<div id='measurement" & row.ID & "'></div>"))
+
+                GraphScript &= "var data" & row.ID & " = google.visualization.arrayToDataTable(["
+                GraphScript &= "['Period', '" & row.Name & "'],"
+
+                For Each item In row.measurements
+                    GraphScript &= "['" & item.Period & "', " & item.Value & "],"
+                Next
+                GraphScript &= "]);" & vbNewLine
+                GraphScript &= "var chart" & row.ID & " = new google.visualization.LineChart(document.getElementById('measurement" & row.ID & "'));" & vbNewLine
+                GraphScript &= " var options" & row.ID & " = {""title"": '" & row.Name & "', series: [{ color: '#ff9900', lineWidth: 2 }]}" & vbNewLine
+                GraphScript &= " chart" & row.ID & ".draw(data" & row.ID & ", options" & row.ID & ");" & vbNewLine
 
             Next
-            
+           
+
         End Sub
 
         Private Sub LoadForm()
             gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), gr_server)
 
             Dim thisUser = gr.GetEntity(Request.QueryString("id"), True)
-            '  Session("gr_user") = thisUser
+            Session("gr_user") = thisUser
             If Not Page.IsPostBack Then
                 PopulateDropdowns()
             End If
@@ -164,54 +181,55 @@ Namespace DotNetNuke.Modules.AgapeConnect
             If Not thisUser Is Nothing Then
                 Dim person As New Entity()
                 person.ID = thisUser.ID
-                If tbFirstName.Text <> thisUser.GetPropertyValue("first_name") Then
+                If tbFirstName.Text <> thisUser.GetPropertyValue("first_name.value") Then
                     person.AddPropertyValue("first_name", tbFirstName.Text)
                 End If
-                If tbPreferredName.Text <> thisUser.GetPropertyValue("preferred_name") Then
+                If tbPreferredName.Text <> thisUser.GetPropertyValue("preferred_name.value") Then
                     person.AddPropertyValue("preferred_name", tbPreferredName.Text)
                 End If
-                If tbLastName.Text <> thisUser.GetPropertyValue("last_name") Then
+                If tbLastName.Text <> thisUser.GetPropertyValue("last_name.value") Then
                     person.AddPropertyValue("last_name", tbLastName.Text)
                 End If
-                If tbEmail.Text <> thisUser.GetPropertyValue("email_address.email") Then
+                If tbEmail.Text <> thisUser.GetPropertyValue("email_address.email.value") Then
                     person.AddPropertyValue("email_address.email", tbEmail.Text)
                 End If
 
-                If tbAddress1.Text <> thisUser.GetPropertyValue("address.line1") Then
+                If tbAddress1.Text <> thisUser.GetPropertyValue("address.line1.value") Then
                     person.AddPropertyValue("address.line1", tbAddress1.Text)
                 End If
-                If tbAddress2.Text <> thisUser.GetPropertyValue("address.line2") Then
+                If tbAddress2.Text <> thisUser.GetPropertyValue("address.line2.value") Then
                     person.AddPropertyValue("address.line2", tbAddress2.Text)
                 End If
-                If tbCity.Text <> thisUser.GetPropertyValue("address.city") Then
+                If tbCity.Text <> thisUser.GetPropertyValue("address.city.value") Then
                     person.AddPropertyValue("address.city", tbCity.Text)
                 End If
-                If tbState.Text <> thisUser.GetPropertyValue("address.state") Then
+                If tbState.Text <> thisUser.GetPropertyValue("address.state.value") Then
                     person.AddPropertyValue("address.state", tbState.Text)
                 End If
-                If tbPostalCode.Text <> thisUser.GetPropertyValue("address.portal_code") Then
+                If tbPostalCode.Text <> thisUser.GetPropertyValue("address.portal_code.value") Then
                     person.AddPropertyValue("address.postal_code", tbPostalCode.Text)
                 End If
-                If tbCountry.Text <> thisUser.GetPropertyValue("address.country") Then
+                If tbCountry.Text <> thisUser.GetPropertyValue("address.country.value") Then
                     person.AddPropertyValue("address.country", tbCountry.Text)
                 End If
-                If ddlGender.SelectedValue <> thisUser.GetPropertyValue("gender") Then
+                If ddlGender.SelectedValue <> thisUser.GetPropertyValue("gender.value") Then
                     person.AddPropertyValue("gender", ddlGender.SelectedValue)
                 End If
-                If ddlMaritalStatus.SelectedValue <> thisUser.GetPropertyValue("marital_status") Then
+                If ddlMaritalStatus.SelectedValue <> thisUser.GetPropertyValue("marital_status.value") Then
                     person.AddPropertyValue("marital_status", ddlMaritalStatus.SelectedValue)
                 End If
-                If tbBirthday.Text <> thisUser.GetPropertyValue("birth_date") Then
+                If tbBirthday.Text <> thisUser.GetPropertyValue("birth_date.value") Then
                     person.AddPropertyValue("birth_date", tbBirthday.Text)
                 End If
                 If ddlMinistry.SelectedValue <> thisUser.GetPropertyValue("ministry:relationship.ministry.id") Then
                     person.AddPropertyValue("ministry:relationship.ministry", ddlMinistry.SelectedValue)
-                    person.AddPropertyValue("ministry:relationship.role", ddlMinistry.SelectedItem.Text)
+                    person.AddPropertyValue("ministry:relationship.role", ddlRoleType.SelectedItem.Text)
                 End If
 
 
 
                 Dim resp = GR.UpdateEntity(person, "person")
+                lblText.Text = resp
 
                 LoadForm()
             End If

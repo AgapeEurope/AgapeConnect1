@@ -526,22 +526,27 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     'Add in your team's reimbursements that are awaiting approval
                     For Each row In From c In Team Where c.UserID <> UserId
                         'Dim tRmbs = From c In d.AP_Staff_Rmbs Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And Not StaffBrokerFunctions.IsDept(PortalId, c.CostCenter) Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId
-                        Dim tRmbs = From c In d.AP_Staff_Rmbs Join b In d.AP_StaffBroker_CostCenters On c.CostCenter Equals b.CostCentreCode And c.PortalId Equals b.PortalId
-                                    Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And b.Type = CostCentreType.Staff Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
+                        
+                            Dim tRmbs = From c In d.AP_Staff_Rmbs
+                                    Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And c.Department = False Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
 
-                        For Each row2 In tRmbs
-                            Dim Check = From c In d.AP_Staff_RmbLines Where c.RmbNo = row2.RMBNo And c.GrossAmount > LargeTransaction
-                            If Check.Count = 0 Then
-                                list.Add(row2)
-                            End If
+                            For Each row2 In tRmbs
+                                Dim Check = From c In d.AP_Staff_RmbLines Where c.RmbNo = row2.RMBNo And c.GrossAmount > LargeTransaction
+                                If Check.Count = 0 Then
+                                    list.Add(row2)
+                                End If
 
-                        Next
+                            Next
 
-                        Dim tAdv = (From c In d.AP_Staff_AdvanceRequests Where c.UserId = row.UserID And c.RequestStatus = RmbStatus.Submitted And (c.RequestAmount < LargeTransaction) And c.PortalId = PortalId
-                                   Select c.AdvanceId, c.RequestDate, c.LocalAdvanceId, c.UserId)
-                        For Each row2 In tAdv
-                            Advlist.Add(row2)
-                        Next
+                            Dim tAdv = (From c In d.AP_Staff_AdvanceRequests Where c.UserId = row.UserID And c.RequestStatus = RmbStatus.Submitted And (c.RequestAmount < LargeTransaction) And c.PortalId = PortalId
+                                       Select c.AdvanceId, c.RequestDate, c.LocalAdvanceId, c.UserId)
+                            For Each row2 In tAdv
+                                Advlist.Add(row2)
+                            Next
+
+
+
+
 
 
 
@@ -551,8 +556,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     'Now I need to get X Accounts
                     For Each row In From c In CostCentres
                         'Dim tCC = From c In d.AP_Staff_Rmbs Where StaffBrokerFunctions.IsDept(PortalId, c.CostCenter) And c.CostCenter = row.CostCentre And c.PortalId = PortalId And c.Status = RmbStatus.Submitted And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId
-                        Dim tCC = From c In d.AP_Staff_Rmbs Join b In d.AP_StaffBroker_CostCenters On c.CostCenter Equals b.CostCentreCode And c.PortalId Equals b.PortalId
-                                  Where c.CostCenter = row.CostCentre And c.PortalId = PortalId And b.Type = CostCentreType.Department And c.Status = RmbStatus.Submitted And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
+                        Dim tCC = From c In d.AP_Staff_Rmbs
+                                  Where c.CostCenter = row.CostCentre And c.PortalId = PortalId And c.Department And c.Status = RmbStatus.Submitted And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
 
                         For Each row2 In tCC
                             list.Add(row2)
@@ -732,8 +737,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             Dim node As New TreeNode(row.DisplayName)
                             node.Expanded = False
                             node.SelectAction = TreeNodeSelectAction.Expand
-                            Dim teamApproved = From c In d.AP_Staff_Rmbs Join b In d.AP_StaffBroker_CostCenters On c.CostCenter Equals b.CostCentreCode And c.PortalId Equals b.PortalId
-                                Where c.UserId = row.UserID And c.Status = RmbStatus.Processed And c.PortalId = PortalId And b.Type = CostCentreType.Staff Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
+                            Dim teamApproved = From c In d.AP_Staff_Rmbs
+                                Where c.UserId = row.UserID And c.Status = RmbStatus.Processed And c.PortalId = PortalId And c.Department = False Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
 
                             Dim teamApprovedAdv = From c In d.AP_Staff_AdvanceRequests Where c.RequestStatus = RmbStatus.Processed And c.UserId = row.UserID And c.PortalId = PortalId Select c.AdvanceId, c.RequestDate, c.UserId, c.LocalAdvanceId
 
@@ -775,8 +780,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             node.Expanded = False
                             node.SelectAction = TreeNodeSelectAction.Expand
                             'Dim tCC = From c In d.AP_Staff_Rmbs Where StaffBrokerFunctions.IsDept(PortalId, c.CostCenter) And c.CostCenter = row.CostCentre And c.PortalId = PortalId And c.Status = RmbStatus.Processed And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId
-                            Dim tCC = From c In d.AP_Staff_Rmbs Join b In d.AP_StaffBroker_CostCenters On c.CostCenter Equals b.CostCentreCode And c.PortalId Equals b.PortalId
-                                 Where c.CostCenter = row.CostCentre And c.PortalId = PortalId And b.Type = CostCentreType.Department And c.Status = RmbStatus.Processed And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
+                            Dim tCC = From c In d.AP_Staff_Rmbs
+                                 Where c.CostCenter = row.CostCentre And c.PortalId = PortalId And c.Department And c.Status = RmbStatus.Processed And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
 
                             For Each row2 In tCC
                                 Dim node2 As New TreeNode()
@@ -2027,10 +2032,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             insert.Locked = False
 
-            Dim CC = From c In ds.AP_StaffBroker_Staffs Where (c.UserId1 = UserId Or c.UserId2 = UserId) And Not c.CostCenter.EndsWith("X") Select c.CostCenter
+            Dim CC = From c In ds.AP_StaffBroker_Staffs Where (c.UserId1 = UserId Or c.UserId2 = UserId) Select c.CostCenter
+            Dim isDept As Boolean = True
 
             If CC.Count > 0 Then
-                insert.SupplierCode = "P-" & Left(CC.First, 3) & "0"
+                insert.SupplierCode = "P" & CC.First
+                If ddlNewChargeTo.SelectedValue = CC.First Then
+                    isDept = False
+                End If
+
                 'Else
                 '    Dim PCC = From c In ds.AP_StaffBroker_Staffs Where (c.UserId1 = UserId Or c.UserId2 = UserId) And c.PersonalCostCentre <> "" Select c.PersonalCostCentre
                 '    If PCC.Count > 0 Then
@@ -2040,7 +2050,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 '    End If
             End If
 
-            insert.Department = StaffBrokerFunctions.IsDept(PortalId, CC.First)
+            insert.Department = isDept
 
             btnApprove.Visible = False
             btnSubmit.Visible = True
@@ -3076,7 +3086,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             Else
                 If Not String.IsNullOrEmpty(Currency) Then
                     If Currency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId) Then
-                        CurString = Currency & CurrencyValue.ToString("f2")
+                        CurString = Currency & CurrencyValue.ToString("f2", New CultureInfo(""))
                         CurString = CurString.Replace(".00", "")
 
                     End If
@@ -3090,18 +3100,18 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
         Private Function FormatNumber(ByVal num As Double) As String
             If (num >= 1000000) Then
-                Return (num / 1000000).ToString("0.#") + "M"
+                Return (num / 1000000).ToString("0.#", New CultureInfo("")) + "M"
             End If
 
             If (num >= 100000) Then
-                Return (num / 1000).ToString("#,0") + "K"
+                Return (num / 1000).ToString("#,0", New CultureInfo("")) + "K"
             End If
 
             If (num >= 10000) Then
-                Return (num / 1000D).ToString("0.#") + "K"
+                Return (num / 1000D).ToString("0.#", New CultureInfo("")) + "K"
             End If
 
-            Return num.ToString("#,0")
+            Return num.ToString("#,0", New CultureInfo(""))
 
 
         End Function
@@ -3857,13 +3867,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim theUserId = (From c In d.AP_Staff_Rmbs Where c.RMBNo = RmbNo Select c.UserId).First
                 Dim theUser = UserController.GetUserById(PortalId, theUserId)
 
-
+                Dim Supplier As String = theRmb.First.AP_Staff_Rmb.SupplierCode
 
                 Dim ref = "R" & ZeroFill(theRmb.First.AP_Staff_Rmb.RID, 5)
-                Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
+                Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy", New CultureInfo("")) & """"
 
                 For Each line In theRmb
-                    theDate = "=""" & line.TransDate.ToString("dd-MMM-yy") & """"
+                    theDate = "=""" & line.TransDate.ToString("dd-MMM-yy", New CultureInfo("")) & """"
 
                     If line.Taxable Then
                         rtn &= "=""" & Settings("TaxAccountsReceivable") & ""","
@@ -3882,13 +3892,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim Debit As String = ""
                     Dim Credit As String = ""
                     If line.GrossAmount > 0 Then
-                        Debit = (line.GrossAmount.ToString("0.00"))
+                        Debit = (line.GrossAmount.ToString("0.00", New CultureInfo("")))
                     Else
-                        Credit = -line.GrossAmount.ToString("0.00")
+                        Credit = -line.GrossAmount.ToString("0.00", New CultureInfo(""))
                     End If
                     Dim shortComment = GetLineComment(line.Comment, line.OrigCurrency, line.OrigCurrencyAmount, line.ShortComment, True, Left(theUser.FirstName, 1) & Left(theUser.LastName, 1), IIf(line.AP_Staff_RmbLineType.TypeName = "Mileage", line.Spare2, ""))
                     rtn &= GetOrderedString(shortComment,
-                                         Debit, Credit, "", line)
+                                         Debit, Credit, "", line, False, Supplier)
 
 
 
@@ -3911,7 +3921,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 ' Then add two more transactions. One to back out on 7012 (we will need to get this from a setting)
                 ' Then back in on Tax Accounts Payable
 
-                theDate = "=""" & Today.ToString("dd-MMM-yy") & """"
+                theDate = "=""" & Today.ToString("dd-MMM-yy", New CultureInfo("")) & """"
                 Dim theStaff = StaffBrokerFunctions.GetStaffMember(theUserId)
                 Dim PACMode = (
                     theStaff.CostCenter = "" And StaffBrokerFunctions.GetStaffProfileProperty(theStaff.StaffId, "PersonalAccountCode") <> "")
@@ -3938,17 +3948,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
                             If RmbTotal > 0 Then
-                                Credit = RmbTotal.ToString("0.00")
+                                Credit = RmbTotal.ToString("0.00", New CultureInfo(""))
 
                                 'rtn &= "," & RmbTotal.ToString("0.00") & ","
                             Else
                                 'rtn &= -RmbTotal.ToString("0.00") & ",,"
-                                Debit = -RmbTotal.ToString("0.00")
+                                Debit = -RmbTotal.ToString("0.00", New CultureInfo(""))
                             End If
 
                             'rtn &= Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref & vbNewLine
                             rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref,
-                                                    Debit, Credit)
+                                                    Debit, Credit, "", Nothing, False, Supplier)
 
 
                         End If
@@ -3997,17 +4007,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
                             If RmbTotal > 0 Then
-                                Credit = RmbTotal.ToString("0.00")
+                                Credit = RmbTotal.ToString("0.00", New CultureInfo(""))
 
                                 'rtn &= "," & RmbTotal.ToString("0.00") & ","
                             Else
                                 'rtn &= -RmbTotal.ToString("0.00") & ",,"
-                                Debit = -RmbTotal.ToString("0.00")
+                                Debit = -RmbTotal.ToString("0.00", New CultureInfo(""))
                             End If
 
                             'rtn &= Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref & vbNewLine
                             rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref,
-                                                    Debit, Credit)
+                                                    Debit, Credit, "", Nothing, False, Supplier)
 
 
                         End If
@@ -4024,16 +4034,16 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                             Dim Credit As String = ""
 
                             If rmbAdvance > 0 Then
-                                Credit = rmbAdvance.ToString("0.00")
+                                Credit = rmbAdvance.ToString("0.00", New CultureInfo(""))
                                 'rtn &= "," & rmbAdvance.ToString("0.00") & ","
                             Else
-                                Debit = -rmbAdvance.ToString("0.00")
+                                Debit = -rmbAdvance.ToString("0.00", New CultureInfo(""))
                                 ' rtn &= -rmbAdvance.ToString("0.00") & ",,"
                             End If
 
                             '  rtn &= Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Pay off advance with " & ref & vbNewLine
                             rtn &= GetOrderedString(Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Pay off advance with " & ref,
-                                                    Debit, Credit)
+                                                    Debit, Credit, "", Nothing, False, Supplier)
 
                         End If
 
@@ -4066,9 +4076,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim Debit As String = ""
                 Dim Credit As String = ""
                 If theAdv.First.RequestAmount > 0 Then
-                    Debit = (theAdv.First.RequestAmount.Value.ToString("0.00"))
+                    Debit = (theAdv.First.RequestAmount.Value.ToString("0.00", New CultureInfo("")))
                 Else
-                    Credit = (-theAdv.First.RequestAmount.Value).ToString("0.00")
+                    Credit = (-theAdv.First.RequestAmount.Value).ToString("0.00", New CultureInfo(""))
                 End If
                 Dim curSuffix = ""
                 If Not String.IsNullOrEmpty(theAdv.First.OrigCurrency) Then
@@ -4101,9 +4111,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Debit = ""
                 Credit = ""
                 If theAdv.First.RequestAmount > 0 Then
-                    Credit = (theAdv.First.RequestAmount.Value.ToString("0.00"))
+                    Credit = (theAdv.First.RequestAmount.Value.ToString("0.00", New CultureInfo("")))
                 Else
-                    Debit = (-theAdv.First.RequestAmount.Value).ToString("0.00")
+                    Debit = (-theAdv.First.RequestAmount.Value).ToString("0.00", New CultureInfo(""))
                 End If
 
 
@@ -4116,7 +4126,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             End If
             Return rtn
         End Function
-        Protected Function GetOrderedString(ByVal Desc As String, ByVal Debit As String, ByVal Credit As String, Optional Company As String = "", Optional line As AP_Staff_RmbLine = Nothing, Optional title As Boolean = False) As String
+        Protected Function GetOrderedString(ByVal Desc As String, ByVal Debit As String, ByVal Credit As String, Optional Company As String = "", Optional line As AP_Staff_RmbLine = Nothing, Optional title As Boolean = False, Optional Supplier As String = "") As String
             Dim format As String = "DDC"
             If CStr(Settings("DownloadFormat")) <> "" Then
                 format = CStr(Settings("DownloadFormat"))
@@ -4144,7 +4154,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim TRXDate As String = ""
                     Dim ApprDate As String = ""
                     Dim FullComment As String = ""
+
                     If title Then
+                        Supplier = "Supplier"
                         VAT = "VAT"
                         Cur = "Original Currency"
                         CurAmt = "Original Currency Amount"
@@ -4152,6 +4164,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         ApprDate = "Approval Date"
                         FullComment = "Orignal Description (Long)"
                     ElseIf Not line Is Nothing Then
+                        ' Supplier = line.AP_Staff_Rmb.SupplierCode
                         VAT = IIf(line.VATReceipt, "Y", "N")
                         Cur = line.OrigCurrency
                         CurAmt = line.OrigCurrencyAmount
@@ -4160,7 +4173,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         FullComment = line.Comment
                     End If
 
-                    Return "=""" & Desc & """,=""" & Debit & """,=""" & Credit & """,=""" & VAT & """,=""" & Cur & """,=""" & CurAmt & """,=""" & TRXDate & """,=""" & ApprDate & """,=""" & FullComment & """" & vbNewLine
+                    Return "=""" & Desc & """,=""" & Debit & """,=""" & Credit & """,=""" & Supplier & """,=""" & VAT & """,=""" & Cur & """,=""" & CurAmt & """,=""" & TRXDate & """,=""" & ApprDate & """,=""" & FullComment & """" & vbNewLine
             End Select
 
 
@@ -4195,12 +4208,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 csvOut &= """" & row.CostCenter & ""","
                 csvOut &= """" & IIf(row.Department, "D", "P") & ""","
                 csvOut &= """" & SubmitterName & ""","
-                csvOut &= row.RmbDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= row.RmbDate.Value.ToString("yyyy-MM-dd", New CultureInfo("")) & ","
                 csvOut &= """" & ApproverName & ""","
-                csvOut &= row.ApprDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= row.ApprDate.Value.ToString("yyyy-MM-dd", New CultureInfo("")) & ","
                 csvOut &= """" & ProcessorName & ""","
-                csvOut &= row.ProcDate.Value.ToString("yyyy-MM-dd") & ","
-                csvOut &= row.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount) & vbNewLine
+                csvOut &= row.ProcDate.Value.ToString("yyyy-MM-dd", New CultureInfo("")) & ","
+                csvOut &= row.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount).ToString(New CultureInfo("")) & vbNewLine
 
 
             Next
@@ -4231,12 +4244,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 csvOut &= """" & RC & ""","
                 csvOut &= """Advance"","
                 csvOut &= """" & SubmitterName & ""","
-                csvOut &= row.RequestDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= row.RequestDate.Value.ToString("yyyy-MM-dd", New CultureInfo("")) & ","
                 csvOut &= """" & ApproverName & ""","
-                csvOut &= row.ApprovedDate.Value.ToString("yyyy-MM-dd") & ","
+                csvOut &= row.ApprovedDate.Value.ToString("yyyy-MM-dd", New CultureInfo("")) & ","
                 csvOut &= """" & ProcessorName & ""","
-                csvOut &= row.ProcessedDate.Value.ToString("yyyy-MM-dd") & ","
-                csvOut &= row.RequestAmount & vbNewLine
+                csvOut &= row.ProcessedDate.Value.ToString("yyyy-MM-dd", New CultureInfo("")) & ","
+                csvOut &= row.RequestAmount.Value.ToString(New CultureInfo("")) & vbNewLine
 
 
             Next
