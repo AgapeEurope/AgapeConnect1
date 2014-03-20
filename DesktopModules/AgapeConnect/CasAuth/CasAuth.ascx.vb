@@ -69,12 +69,12 @@ Namespace DotNetNuke.Modules.AgapePortal
 
                     If Request.QueryString("renew") = "true" Or PortalId = 5 Then
 
-                        Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3-no-FB.css"
+                        Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev4-no-FB.css"
                         'Service &= "&renew=true&template=" & template
                         _service &= "&template=" & template
 
                     Else
-                        Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev3.css"
+                        Dim template = "http://" & Request.Url.Authority & Request.ApplicationPath & "sso/template-agapebluev4.css"
                         _service &= "&template=" & template
                     End If
                 Else
