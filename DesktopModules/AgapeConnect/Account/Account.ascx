@@ -130,7 +130,9 @@
     .CellHover {
         cursor: pointer;
     }
-
+    .hide-plus{
+        background-image: none !important;
+    }
     .PVKEY {
         font-size: xx-small;
         color: #999;
@@ -210,16 +212,22 @@
 
 
 
-<div id="accordion">
-    <h3><a href="#Income">
+<div id="accordion" class="accordion">
+    <div class="accordion-group">
+    <h3 class="accordion-heading">
+      
+         <a class="accordion-toggle color1-bg-h hide-plus" data-toggle="collapse" data-parent="#accordion" href="#income-detail">
         <asp:GridView ID="gvIncome" runat="server"
             ShowHeader="False" GridLines="None" CellPadding="0" Width="100%">
             <RowStyle BorderStyle="None" HorizontalAlign="Right" />
 
         </asp:GridView>
-    </a></h3>
-    <div style="margin: 0px 0px 0px 0px; padding: 5px 6px 5px 29px">
-        <asp:GridView ID="gvIncomeGLSummary" runat="server" ShowHeader="False"
+    </a>
+            </h3></div>
+  
+    <div id="income-detail" class="accordion-body collapse" style="margin: 0px 0px 0px 0px; padding: 5px 6px 5px 29px">
+        <div class="accordion-inner color1-link">
+         <asp:GridView ID="gvIncomeGLSummary" runat="server" ShowHeader="False"
             GridLines="None" RowStyle-BorderStyle="None" CellPadding="0" Width="100%"
             OnRowDataBound="gvIncomeGLSummary_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
@@ -246,17 +254,21 @@
             </asp:GridView>
 
         </div>
-
+            </div>
 
     </div>
-
-    <h3><a href="#Expenses">
+     <div class="accordion-group">
+    <h3 class="accordion-heading">
+        
+             <a   class="accordion-toggle color3-bg-h  hide-plus" data-toggle="collapse" data-parent="#accordion" href="#expense-detail">
         <asp:GridView ID="gvExpenses" AutoGenerateColumns="true" runat="server" ShowHeader="False" GridLines="None" CellPadding="0" Width="100%">
             <RowStyle BorderStyle="None" HorizontalAlign="Right" />
         </asp:GridView>
-    </a></h3>
-    <div style="margin: 0px 0px 0px 0px; padding: 5px 6px 5px 29px">
-        <asp:GridView ID="gvExpensesGLSummary" runat="server" ShowHeader="False"
+    </a>
+            </h3> </div>
+    <div id="expense-detail" class="accordion-body collapse" style="margin: 0px 0px 0px 0px; padding: 5px 6px 5px 29px">
+        <div class="accordion-inner color3-link">
+         <asp:GridView ID="gvExpensesGLSummary" runat="server" ShowHeader="False"
             GridLines="None" CellPadding="0" Width="100%"
             OnRowDataBound="gvExpensesGLSummary_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
@@ -264,15 +276,15 @@
             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" />
 
         </asp:GridView>
-
+</div>
     </div>
-    <h3><a href="#Balance">
+     <div class="accordion-group">
+    <h3 class="accordion-heading"><a  class="accordion-toggle color2-bg-h  hide-plus" >
         <asp:GridView ID="gvBalance" AutoGenerateColumns="true" runat="server" ShowHeader="False" GridLines="None" CellPadding="0" Width="100%">
             <RowStyle BorderStyle="None" HorizontalAlign="Right" />
         </asp:GridView>
-    </a></h3>
-    <div>
-    </div>
+    </a></h3></div>
+    
 </div>
 <div style="color: Gray; font-size: smaller;">
        <asp:Label ID="Label4" runat="server" Text="Starting Balance" ResourceKey="lblStartBal" />
