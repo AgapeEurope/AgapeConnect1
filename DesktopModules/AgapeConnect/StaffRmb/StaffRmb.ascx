@@ -700,9 +700,9 @@
 
 
 
-    <div style="padding-bottom: 5px;">
-        <asp:Label ID="Label2" runat="server" CssClass="AgapeH2 h2" resourcekey="RmbTitle" Visible="false"></asp:Label>
-    </div>
+    <h2 style="padding-bottom: 5px;">
+        <asp:Label ID="Label2" runat="server" CssClass="AgapeH2" resourcekey="RmbTitle" Visible="false"></asp:Label>
+    </h2>
     <asp:HiddenField ID="hfNoReceiptLimit" runat="server" Value="0" />
     <asp:HiddenField ID="hfPortalId" runat="server" Value="-1" />
     <asp:HiddenField ID="hfAccountingCurrency" runat="server" Value="USD" />
@@ -1437,17 +1437,17 @@
                                     <tr valign="top">
                                         <td colspan="2" style="font-size: 8pt; width: 33%;">
                                             <fieldset>
-                                                <legend class="AgapeH4 h4">
-                                                    <asp:Label ID="ttlYourComments" runat="server" resourcekey="YourComments" Visible="false" /><asp:Label
-                                                        ID="ttlUserComments" runat="server" Text="User's Comments" /></legend>
+                                                <legend class="AgapeH4">
+                                                   <h4> <asp:Label ID="ttlYourComments" runat="server" resourcekey="YourComments" Visible="false" /><asp:Label
+                                                        ID="ttlUserComments" runat="server" Text="User's Comments" /></h4></legend>
                                                 <asp:Label ID="lbComments" runat="server" Height="60px" Visible="false"></asp:Label>
                                                 <asp:TextBox ID="tbComments" runat="server" Height="55px" TextMode="MultiLine" Width="100%"></asp:TextBox>
                                             </fieldset>
                                         </td>
                                         <td colspan="2" style="font-size: 8pt; width: 33%;">
                                             <fieldset>
-                                                <legend class="AgapeH4 h4">
-                                                    <asp:Label ID="Label26" runat="server" resourcekey="ApproversComments"></asp:Label></legend>
+                                                <legend class="AgapeH4">
+                                                    <h4> <asp:Label ID="Label26" runat="server" resourcekey="ApproversComments"></asp:Label></h4></legend>
                                                 <asp:Label ID="lblApprComments" runat="server" Height="60px"></asp:Label>
                                                 <asp:TextBox ID="tbApprComments" runat="server" Height="55px" TextMode="MultiLine"
                                                     Width="100%" Visible="false"></asp:TextBox>
@@ -1455,8 +1455,8 @@
                                         </td>
                                         <td colspan="2" style="font-size: 8pt; width: 33%;">
                                             <fieldset>
-                                                <legend class="AgapeH4 h4">
-                                                    <asp:Label ID="Label27" runat="server" resourcekey="AccountsComments"></asp:Label></legend>
+                                                <legend class="AgapeH4">
+                                                     <h4><asp:Label ID="Label27" runat="server" resourcekey="AccountsComments"></asp:Label></h4></legend>
                                                 <asp:Label ID="lblAccComments" runat="server" Height="60px"></asp:Label>
                                                 <asp:TextBox ID="tbAccComments" runat="server" Height="35px" TextMode="MultiLine" Width="100%"
                                                     Visible="false"></asp:TextBox>
@@ -1609,7 +1609,7 @@
 
                                 <div style="margin-top: 15px;">
                                     <fieldset id="pnlAdvance" runat="server" visible="false" style="float: left;">
-                                        <legend><span class="AgapeH4 h4">Pay Off Advance</span> </legend>
+                                        <legend><h4 class="AgapeH4">Pay Off Advance</h4> </legend>
                                         <asp:Label ID="ttlAdvanceBalance" runat="server" ForeColor="Gray" resourcekey="AdvanceBalance"></asp:Label>
                                         &nbsp;
                             <asp:Label ID="lblAdvanceBalance" runat="server" ForeColor="Gray" Text="searching..."></asp:Label>
@@ -1637,7 +1637,7 @@
 
                                     <fieldset id="pnlError" runat="server" visible="false" style="margin-top: 15px;">
                                         <legend>
-                                            <asp:Label ID="Label44" runat="server" CssClass="AgapeH4 h4" ResourceKey="lblErrorMessage"></asp:Label>
+                                            <h4><asp:Label ID="Label44" runat="server" CssClass="AgapeH4" ResourceKey="lblErrorMessage"></asp:Label></h4>
                                         </legend>
                                         <asp:Label ID="lblWrongType" runat="server" class="ui-state-error ui-corner-all"
                                             Style="padding: 3px; margin-top: 5px; display: block;" resourceKey="lblWrongTypes">
@@ -1827,7 +1827,7 @@
             <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                 <ContentTemplate>
                     <div align="left">
-                        <asp:Label ID="PopupTitle" runat="server" resourcekey="NewLineTitle" CssClass="AgapeH2 h2"></asp:Label><br />
+                        <h2><asp:Label ID="PopupTitle" runat="server" resourcekey="NewLineTitle"  CssClass="AgapeH2"></asp:Label></h2>
                         <br />
                         <table style="font-size: 9pt" width="100%">
                             <tr valign="top">
@@ -1988,9 +1988,9 @@
         <div>
             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                 <ContentTemplate>
-                    <div class="AgapeH2 h2">
+                    <h2 class="AgapeH2">
                         <asp:Label ID="Label32" runat="server" resourcekey="btnNew"></asp:Label>
-                    </div>
+                    </h2>
                     <table width="100%">
                         <tr class="Agape_SubTitle">
                             <td width="60px">
@@ -2011,8 +2011,8 @@
                         <tr valign="top">
                             <td style="font-size: 8pt; width: 33%;">
                                 <fieldset>
-                                    <legend class="AgapeH4 h4">
-                                        <asp:Label ID="Label34" runat="server" resourcekey="YourComments"></asp:Label></legend>
+                                    <legend class="AgapeH4">
+                                        <h4><asp:Label ID="Label34" runat="server" resourcekey="YourComments"></asp:Label></h4></legend>
                                     <asp:TextBox ID="tbNewComments" runat="server" Height="100" TextMode="MultiLine"
                                         Width="100%"></asp:TextBox>
                                 </fieldset>
@@ -2066,8 +2066,8 @@
             <ContentTemplate>
                 <div align="center">
                     <fieldset>
-                        <legend class="AgapeH4 h4">
-                            <asp:Label ID="Label35" runat="server" resourcekey="OriginalTrans"></asp:Label></legend>
+                        <legend class="AgapeH4">
+                            <h4><asp:Label ID="Label35" runat="server" resourcekey="OriginalTrans"></asp:Label></h4></legend>
                         <table width="100%">
                             <tr valign="middle">
                                 <td width="100%">
@@ -2080,8 +2080,8 @@
                         </table>
                     </fieldset>
                     <fieldset>
-                        <legend class="AgapeH4 h4">
-                            <asp:Label ID="Label36" runat="server" resourcekey="SplitIno"></asp:Label></legend>
+                        <legend class="AgapeH4">
+                            <h4><asp:Label ID="Label36" runat="server" resourcekey="SplitIno"></asp:Label></h4></legend>
                         <asp:HiddenField ID="hfRows" runat="server" Value="1" />
                         <asp:HiddenField ID="hfSplitLineId" runat="server" Value="-1" />
                         <asp:Table ID="tblSplit" runat="server" Width="100%">
