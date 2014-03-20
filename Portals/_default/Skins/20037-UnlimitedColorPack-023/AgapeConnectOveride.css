@@ -1,6 +1,10 @@
 ﻿@import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
 @import url("/Portals/_default/Skins/AgapeBlue/JqueryUIFix.css");
 
+
+#RibbonBar_hypMessage img{ 
+    display:none;  /*hide the DNN logo*/
+}
 #RibbonBar_ddlMode{
     width: 150px;
 }

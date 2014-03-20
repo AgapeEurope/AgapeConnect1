@@ -6040,28 +6040,28 @@ A:visited {
 A:hover {
 	text-decoration: underline;
 }
-h1 {
+h1, .AgapeH1 {
 	font:normal 22px/26px "Open Sans", Arial;
 	margin:5px 0 10px 0;
 	letter-spacing:normal;
 }
-h2 {
+h2, .AgapeH2 {
 	font:normal 20px/24px "Open Sans", Arial;
 	margin:5px 0 10px 0;
 	letter-spacing:normal;
 }
-h3 {
+h3, .AgapeH3 {
 	font:normal 16px/20px "Open Sans", Arial;
 	margin:5px 0 10px 0;
 	letter-spacing:normal;
 }
-h4 {
+h4, .AgapeH4 {
 	font:normal 14px/18px "Open Sans", Arial;
 	margin:0px 0 4px 0;
 	color:#646464;
 	letter-spacing:normal;
 }
-h5 {
+h5, .AgapeH5 {
 	font:normal 12px/18px "Open Sans", Arial;
 	color:#646464;
 	margin:5px 0 10px 0;
