@@ -52,13 +52,19 @@ Partial Class controls_RmbStaffMtg
         End If
 
         ddlVATReceipt.Items(1).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
+        Try
+
+        
         If (Not String.IsNullOrEmpty(settings("DescriptionLength"))) And CInt(settings("DescriptionLength")) > 0 Then
             tbConfName.Attributes("maxLength") = CInt(settings("DescriptionLength"))
             If CInt(settings("DescriptionLength")) < 50 Then
                 tbConfName.Columns = CInt(settings("DescriptionLength")) + 3
                 tbConfName.Width = Nothing
             End If
-        End If
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
     Public Property ReceiptType() As Integer
         Get

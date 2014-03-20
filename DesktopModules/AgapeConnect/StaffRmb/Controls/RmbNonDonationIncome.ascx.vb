@@ -38,6 +38,9 @@ Partial Class controls_RmbNonDonationIncome
             ddlDept.DataSource = From c In d.AP_StaffBroker_Departments Where c.PortalId = PortalId And c.Spare1 = "True" Select c.CostCentre, DisplayName = c.Name & "(" & c.CostCentre & ")"
             ddlDept.DataBind()
         End If
+        Try
+
+        
         If (Not String.IsNullOrEmpty(settings("DescriptionLength"))) And CInt(settings("DescriptionLength")) > 0 Then
             tbDesc.Attributes("maxLength") = CInt(settings("DescriptionLength"))
             If CInt(settings("DescriptionLength")) < 50 Then
@@ -46,7 +49,9 @@ Partial Class controls_RmbNonDonationIncome
             End If
         End If
 
+        Catch ex As Exception
 
+        End Try
     End Sub
     Public Property ReceiptType() As Integer
         Get

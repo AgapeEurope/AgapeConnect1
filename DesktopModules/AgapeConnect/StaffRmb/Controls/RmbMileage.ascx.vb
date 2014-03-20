@@ -360,7 +360,9 @@ Partial Class controls_Mileage
 
         'hfAddStaffRate.Value = Settings("AddPass")
         hfCanAddPass.Value = False
+        Try
 
+       
         If (Not String.IsNullOrEmpty(Settings("DescriptionLength"))) And CInt(Settings("DescriptionLength")) > 0 Then
             tbDesc.Attributes("maxLength") = CInt(Settings("DescriptionLength"))
             If CInt(Settings("DescriptionLength")) < 50 Then
@@ -368,7 +370,9 @@ Partial Class controls_Mileage
                 tbDesc.Width = Nothing
             End If
         End If
+        Catch ex As Exception
 
+        End Try
         Session("RmbSettings") = Settings
     End Sub
     Protected Sub UpdatePanel1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles UpdatePanel1.PreRender

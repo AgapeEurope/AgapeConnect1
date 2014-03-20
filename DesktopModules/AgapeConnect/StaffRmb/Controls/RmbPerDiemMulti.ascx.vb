@@ -208,13 +208,19 @@ Partial Class controls_RmbPerDiemMulti
         DropDownList2.DataValueField = "Value"
 
         DropDownList2.DataBind()
+        Try
+
+        
         If (Not String.IsNullOrEmpty(Settings("DescriptionLength"))) And CInt(Settings("DescriptionLength")) > 0 Then
             tbDesc.Attributes("maxLength") = CInt(Settings("DescriptionLength"))
             If CInt(Settings("DescriptionLength")) < 50 Then
                 tbDesc.Columns = CInt(Settings("DescriptionLength")) + 3
                 tbDesc.Width = Nothing
             End If
-        End If
+            End If
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 

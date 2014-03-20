@@ -52,7 +52,9 @@ Partial Class controls_RmbConf
         End If
 
         ddlVATReceipt.Items(1).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
+        Try
 
+       
         If (Not String.IsNullOrEmpty(settings("DescriptionLength"))) And CInt(settings("DescriptionLength")) > 0 Then
             tbDesc.Attributes("maxLength") = CInt(settings("DescriptionLength"))
             If CInt(settings("DescriptionLength")) < 50 Then
@@ -60,7 +62,9 @@ Partial Class controls_RmbConf
                 tbDesc.Width = Nothing
             End If
         End If
+        Catch ex As Exception
 
+        End Try
     End Sub
     Public Property ReceiptType() As Integer
         Get
