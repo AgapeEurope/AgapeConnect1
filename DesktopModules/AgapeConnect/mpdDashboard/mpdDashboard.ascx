@@ -63,15 +63,20 @@
     <thead>
     <tr valign="middle">
         <th rowspan="2">Country</th>
-        <th colspan="3" align="center">Average Support Level</th>
-        <th rowspan="2">Staff with a budget</th>
-        <th rowspan="2">Budget vs Expenses</th>
+        <th rowspan="2">% of Goal Raised</th>
+        <th rowspan="2">Staff with a budget (%)</th>
+        <th colspan="4" align="center">% of Staff who have raised:</th>
+        
+        <th rowspan="2">% of Expense Budget Spent</th>
+        <th rowspan="2">Support raised locally (%)</th>
         </tr>
     
    <tr>
-       <th>Year</th>
-       <th>Quater</th>
-       <th>Month</th>
+       <th><50%</th>
+       <th>50-80%</th>
+       <th>80-100%</th>
+       <th>>100%</th>
+       
    </tr>
         </thead>
 <asp:Repeater ID="rpCountriesSummaryData" runat="server">
@@ -80,11 +85,16 @@
     
             <tr class="countryRow">
         <th><asp:HiddenField ID="hfISO" runat="server" Value='<%# Eval("ISO")%>' /><asp:Label ID="lblCountryName" runat="server" Text='<%# Eval("Name") %>' ></asp:Label></th>
-        <td><asp:Label ID="lblSupYear" runat="server"  Text='<%# Eval("Year") %>' ></asp:Label></td>
-        <td><asp:Label ID="lblSupQuart" runat="server"  Text='<%# Eval("Quarter") %>' ></asp:Label></td>
-        <td><asp:Label ID="lblSupMonth" runat="server"  Text='<%# Eval("Month") %>' ></asp:Label></td>
-        <td><asp:Label ID="lblBud" runat="server"  Text='<%# Eval("Budget") %>' ></asp:Label></td>
-        <td><asp:Label ID="lblAccuracy" runat="server"  Text='<%# Eval("Accuracy") %>' ></asp:Label></td>
+                <td><asp:Label ID="lblSupYear" runat="server"  Text='<%# Eval("Year") %>' ></asp:Label></td>
+                <td><asp:Label ID="lblBud" runat="server"  Text='<%# Eval("Budget") %>' ></asp:Label></td>
+        
+        <td><asp:Label ID="lblSupQuart" runat="server"  Text='<%# Eval("less50")%>' ></asp:Label></td>
+                <td><asp:Label ID="Label1" runat="server"  Text='<%# Eval("from50to80")%>' ></asp:Label></td>
+                 <td><asp:Label ID="Label2" runat="server"  Text='<%# Eval("from80to100")%>' ></asp:Label></td>
+                 <td><asp:Label ID="Label3" runat="server"  Text='<%# Eval("more100")%>' ></asp:Label></td>
+        <td><asp:Label ID="lblSupMonth" runat="server"  Text='<%# Eval("BudgetSpent")%>' ></asp:Label></td>
+        
+        <td><asp:Label ID="lblAccuracy" runat="server"  Text='<%# Eval("Local") %>' ></asp:Label></td>
                 
     </tr>
             </asp:HyperLink>

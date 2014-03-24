@@ -39,16 +39,25 @@ Namespace DotNetNuke.Modules.AgapeConnect
             dt.Columns.Add("Month")
             dt.Columns.Add("Budget")
             dt.Columns.Add("Accuracy")
+            dt.Columns.Add("less50")
+            dt.Columns.Add("from50to80")
+            dt.Columns.Add("from80to100")
+            dt.Columns.Add("more100")
+            dt.Columns.Add("BudgetSpent")
+            dt.Columns.Add("Local")
+
             dt.Columns.Add("ISO")
 
             For Each thisCountry In d.AP_mpd_Countries
+                Dim totalCount = thisCountry.VeryLowCount + thisCountry.LowCount + thisCountry.HighCount + thisCountry.FullCount + thisCountry.NoBudgetCount
 
                 jsonMap &= "['" & thisCountry.isoCode & "', " & (thisCountry.AvgSupport12.Value * 100).ToString("0.0") & "],"
 
-                Dim withBud = thisCountry.NoBudgetCount / (thisCountry.NoBudgetCount + thisCountry.VeryLowCount + thisCountry.LowCount + thisCountry.HighCount + thisCountry.FullCount)
+                Dim withBud = 1.0 - (thisCountry.NoBudgetCount / totalCount)
 
 
-                dt.Rows.Add(thisCountry.name, thisCountry.AvgSupport12.Value.ToString("0.0%"), thisCountry.AvgSupport3.Value.ToString("0.0%"), thisCountry.AvgSupport1.Value.ToString("0.0%"), withBud.ToString("0.0%"), thisCountry.BudgetAccuracy.Value.ToString("0.0%"), thisCountry.isoCode)
+                dt.Rows.Add(thisCountry.name, thisCountry.AvgSupport12.Value.ToString("0.0%"), thisCountry.AvgSupport3.Value.ToString("0.0%"), thisCountry.AvgSupport1.Value.ToString("0.0%"), withBud.ToString("0.0%"), thisCountry.BudgetAccuracy.Value.ToString("0.0%"), _
+                           (thisCountry.VeryLowCount / totalCount).ToString("0%"), (thisCountry.LowCount / totalCount).ToString("0%"), (thisCountry.HighCount / totalCount).ToString("0%"), (thisCountry.FullCount / totalCount).ToString("0%"), thisCountry.BudgetAccuracy.Value.ToString("0%"), thisCountry.SplitLocal.Value.ToString("0%"), thisCountry.isoCode)
 
 
             Next
