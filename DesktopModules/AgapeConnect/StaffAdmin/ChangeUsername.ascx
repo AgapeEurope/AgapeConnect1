@@ -37,5 +37,5 @@
 </table>
 
 <asp:Label ID="lblLog" runat="server" Text=""></asp:Label><br /><br />
-<asp:Button ID="btnChange" runat="server" Text="Change"  CssClass="aButton"/> 
-<asp:Button ID="btnReturn" runat="server" Text="Back"  CssClass="aButton"/>
+<asp:Button ID="btnChange" runat="server" Text="Change"  CssClass="aButton btn"/> 
+<asp:Button ID="btnReturn" runat="server" Text="Back"  CssClass="aButton btn"/>

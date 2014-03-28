@@ -33,10 +33,10 @@
                 <span style="background-color: #EEE; padding: 8px 0 10px 5px;">
                     <asp:FileUpload ID="fuReceipt" runat="server" />
 
-                    <asp:Button ID="btnUploadReceipt" runat="server" Text="Upload Selected File" CssClass="aButton" Font-Size="small" />
+                    <asp:Button ID="btnUploadReceipt" runat="server" Text="Upload Selected File" CssClass="aButton btn" Font-Size="small" />
                 </span>
-                <asp:Button ID="btnRotateLeft" runat="server" Visible="false" CssClass="aButton" Text="↺" Font-Size="Small" Style="margin-left: 20px;" />
-                <asp:Button ID="btnRotatRight" runat="server" Visible="false" CssClass="aButton" Text="↻" Font-Size="Small" />
+                <asp:Button ID="btnRotateLeft" runat="server" Visible="false" CssClass="aButton btn" Text="↺" Font-Size="Small" Style="margin-left: 20px;" />
+                <asp:Button ID="btnRotatRight" runat="server" Visible="false" CssClass="aButton btn" Text="↻" Font-Size="Small" />
                 <div>
 
                    

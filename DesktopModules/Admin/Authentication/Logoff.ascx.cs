@@ -51,6 +51,7 @@ namespace DotNetNuke.Modules.Admin.Authentication
 		private void Redirect()
 		{
 			//Redirect browser back to portal 
+          //  Response.Redirect("https://thekey.me/cas/logout");
 			Response.Redirect(AuthenticationController.GetLogoffRedirectURL(PortalSettings, Request), true);
 		}
 

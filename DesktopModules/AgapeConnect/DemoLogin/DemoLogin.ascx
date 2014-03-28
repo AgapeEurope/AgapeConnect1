@@ -85,7 +85,7 @@ Click on the Expenses Icon (or select Expenses from the menu) to
                 <table cellspacing="15px">
                     <tr valign="top">
                         <td>
-                            <asp:Button ID="btnStaff" runat="server" Text="Staff Member" width="120px" CssClass="aButton" />
+                            <asp:Button ID="btnStaff" runat="server" Text="Staff Member" width="120px" CssClass="aButton btn" />
                         </td>
                         <td>
                             A typical staff member. Use this account to submit reimbursments and view your Account Reports.
@@ -93,7 +93,7 @@ Click on the Expenses Icon (or select Expenses from the menu) to
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnLeader" runat="server" Text="Team Leader" width="120px" CssClass="aButton"  />
+                            <asp:Button ID="btnLeader" runat="server" Text="Team Leader" width="120px" CssClass="aButton btn"  />
                         </td>
                         <td>
                             The Team Leader (for the above staff member). Use this account to approve personal reimbursements (from the above user), or Department Reimbursments.
@@ -101,7 +101,7 @@ Click on the Expenses Icon (or select Expenses from the menu) to
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnAccounts" runat="server" Text="Accounts Team" width="120px" CssClass="aButton"  />
+                            <asp:Button ID="btnAccounts" runat="server" Text="Accounts Team" width="120px" CssClass="aButton btn"  />
                         </td>
                         <td>
                             A member of the Accounts Team. Use this account to process/download approved reimbursements.
@@ -112,7 +112,7 @@ Click on the Expenses Icon (or select Expenses from the menu) to
                     </tr>
                      <tr>
                         <td>
-                            <asp:Button ID="btnAdministrator" runat="server" Text="Administrator" width="120px" CssClass="aButton"  Enabled="false"/>
+                            <asp:Button ID="btnAdministrator" runat="server" Text="Administrator" width="120px" CssClass="aButton btn"  Enabled="false"/>
                         </td>
                         <td>
                             In order to setup new staff member, or edit their account details, you must

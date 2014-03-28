@@ -331,10 +331,10 @@
     </tr>
     <tr>
         <td>
-            <asp:LinkButton ID="SaveMenuButton" runat="server" resourcekey="Update" Text="Update" class="aButton"></asp:LinkButton>
+            <asp:LinkButton ID="SaveMenuButton" runat="server" resourcekey="Update" Text="Update" class="aButton btn"></asp:LinkButton>
         </td>
         <td>
-            <asp:LinkButton ID="CancelButton" runat="server" resourcekey="Cancel" Text="Cancel" class="aButton"></asp:LinkButton>
+            <asp:LinkButton ID="CancelButton" runat="server" resourcekey="Cancel" Text="Cancel" class="aButton btn"></asp:LinkButton>
         </td>
     </tr>
 </table>

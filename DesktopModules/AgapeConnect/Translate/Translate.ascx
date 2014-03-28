@@ -230,7 +230,7 @@
                         <td><asp:TextBox ID="tbSearch" runat="server"></asp:TextBox></td>
                     </tr>
                 </table>
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="aButton" />
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="aButton btn" />
             </asp:Panel>
         </td>
     </tr>

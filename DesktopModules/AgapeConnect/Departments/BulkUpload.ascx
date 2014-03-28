@@ -21,11 +21,11 @@
     <tr>
         <td>File</td>
         <td><asp:FileUpload ID="fuUploadFile" runat="server"  /> </td>
-        <td><asp:Button ID="btnProcess" runat="server" Text="Process" CssClass="aButton" /></td>
+        <td><asp:Button ID="btnProcess" runat="server" Text="Process" CssClass="aButton btn" /></td>
     </tr>
    
 </table><br />
 <asp:Label ID="lblResponse" runat="server" Text=""></asp:Label><br />
 
 <asp:LinkButton ID="btnBulkUploadTemplate" runat="server" Text="Download Template" />
-<asp:LinkButton ID="btnReturn" runat="server" Text="Back"  CssClass="aButton"/>
+<asp:LinkButton ID="btnReturn" runat="server" Text="Back"  CssClass="aButton btn"/>

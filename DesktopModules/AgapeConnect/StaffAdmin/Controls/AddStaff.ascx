@@ -124,7 +124,7 @@
    
         <asp:Label ID="lblError" runat="server" Text="" ForeColor="Red" ></asp:Label> <br />
         <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
-        <asp:Button ID="Button1" runat="server" Text="Add Staff Member" class="aButton" />
+        <asp:Button ID="Button1" runat="server" Text="Add Staff Member" class="aButton btn" />
     </td>
 </tr>
 </table>

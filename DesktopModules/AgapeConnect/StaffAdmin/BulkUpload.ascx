@@ -21,10 +21,10 @@
     <tr>
         <td>File</td>
         <td><asp:FileUpload ID="fuUploadFile" runat="server"  /> </td>
-        <td><asp:Button ID="btnProcess" runat="server" Text="Process" CssClass="aButton" /></td>
+        <td><asp:Button ID="btnProcess" runat="server" Text="Process" CssClass="aButton btn" /></td>
     </tr>
    
 </table><br />
 <asp:Label ID="lblResponse" runat="server" Text=""></asp:Label><br />
 <asp:HyperLink ID="hlDownload" runat="server" Target="_self" NavigateUrl="/DesktopModules/AgapeConnect/StaffAdmin/UploadUsers.xls">Download Template</asp:HyperLink>
-<asp:LinkButton ID="btnReturn" runat="server" Text="Back"  CssClass="aButton"/>
+<asp:LinkButton ID="btnReturn" runat="server" Text="Back"  CssClass="aButton btn"/>

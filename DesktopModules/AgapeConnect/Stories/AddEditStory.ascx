@@ -236,8 +236,8 @@
   
     <div style="clear: both;" />
     <div align="center">
-<asp:Button ID="btnSave" runat="server" Text="Save" class="aButton" />
-<asp:Button ID="btnCancel" runat="server" Text="Cancel" class="aButton" />
+<asp:Button ID="btnSave" runat="server" Text="Save" class="aButton btn" />
+<asp:Button ID="btnCancel" runat="server" Text="Cancel" class="aButton btn" />
 </div>
     </asp:Panel> 
 

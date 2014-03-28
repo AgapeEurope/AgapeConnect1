@@ -130,8 +130,8 @@
     
     </i><br /><br />
    <div width="100%" style="text-align: center">
-    <asp:Button ID="btnOK" runat="server" Text="OK" class="aButton" OnClientClick="closePopup();"  />
-    <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="aButton" OnClientClick="closePopup();"  />
+    <asp:Button ID="btnOK" runat="server" Text="OK" class="aButton btn" OnClientClick="closePopup();"  />
+    <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="aButton btn" OnClientClick="closePopup();"  />
 
     </div>
 </div>

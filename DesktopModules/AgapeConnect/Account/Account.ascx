@@ -155,7 +155,13 @@
         padding: 5px 0;
         background-color: #fafafa;
     }
-   
+    .accordion-heading {
+        font-size: medium;
+        margin: 0;
+    }
+    .ui-accordion-header-icon{
+        display:none;
+    }
 </style>
 
 

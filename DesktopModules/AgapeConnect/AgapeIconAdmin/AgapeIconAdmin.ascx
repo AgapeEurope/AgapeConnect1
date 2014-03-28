@@ -58,7 +58,7 @@
         </td>
     </tr>
 </table>
-<asp:Button ID="UpdateBtn" runat="server" Text="Update" resourcekey="Update" CssClass="aButton" />
+<asp:Button ID="UpdateBtn" runat="server" Text="Update" resourcekey="Update" CssClass="aButton btn" />
 <br /><br />
 <i>
     <asp:Label ID="Label1" runat="server" resourcekey="lblAlsoF5"></asp:Label></i>

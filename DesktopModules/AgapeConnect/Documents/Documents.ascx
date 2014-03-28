@@ -615,7 +615,7 @@ word-wrap: break-word;
 <div style="clear: both;" />
 <div id="divUpload" style="text-align: center;">
     <input id="Button2" type="button" onclick="triggerFileUpload()" value="Add Files"
-        class="aButton" style="float: right; margin: 7px 40px 0 0;" /><br />
+        class="aButton btn" style="float: right; margin: 7px 40px 0 0;" /><br />
     <div style="text-align: left;">
         <asp:Label ID="lblSelectFiles" runat="server" ResourceKey="lblSelectFiles"></asp:Label>
     </div>
@@ -624,7 +624,7 @@ word-wrap: break-word;
         <asp:Label ID="Label1" runat="server" Font-Size="X-Small" ForeColor="Gray" Font-Italic="true"
             ResourceKey="lblSelectFilesHelp"></asp:Label>
     </div>
-    <asp:Button ID="btnUpoadFiles" runat="server" Text="Upload Selected Files" class="aButton"
+    <asp:Button ID="btnUpoadFiles" runat="server" Text="Upload Selected Files" class="aButton btn"
         Font-Size="X-Large" Style="margin-top: 30px;" />
 </div>
 <div id="divNewFolder" style="text-align: center">
@@ -652,9 +652,9 @@ word-wrap: break-word;
     <div style="margin-top: 12px">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbNewFolderName"
             Display="static" Text="" ValidationGroup="NewFolder" ErrorMessage="* You must Enter a Folder Name<br />"></asp:RequiredFieldValidator>
-        <asp:Button ID="btnAddFolder" runat="server" Text="Add Folder" class="aButton" ValidationGroup="NewFolder" />
+        <asp:Button ID="btnAddFolder" runat="server" Text="Add Folder" class="aButton btn" ValidationGroup="NewFolder" />
         <input id="btnCancel" type="button" value='<%= Translate("btnCancel") %>' onclick="closeNewFolder();"
-            class="aButton" />
+            class="aButton btn" />
     </div>
 </div>
 <div id="divNewVersion" style="text-align: center">
@@ -672,10 +672,10 @@ word-wrap: break-word;
     <div style="margin-top: 12px">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="fuNewVersion"
             Display="static" Text="" ValidationGroup="NewVersion" ErrorMessage="* You must select a file<br />"></asp:RequiredFieldValidator>
-        <asp:Button ID="btnSaveNewVersion" runat="server" Text="Add Version" class="aButton"
+        <asp:Button ID="btnSaveNewVersion" runat="server" Text="Add Version" class="aButton btn"
             ValidationGroup="NewVersion" />
         <input id="Button5" type="button" value='<%= Translate("btnCancel") %>' onclick="closeNewVersion();"
-            class="aButton" />
+            class="aButton btn" />
     </div>
 </div>
 <div id="divNewIcon" style="text-align: center">
@@ -694,9 +694,9 @@ word-wrap: break-word;
     <div style="margin-top: 12px">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="fuNewIcon"
             Display="static" Text="" ValidationGroup="NewIcon" ErrorMessage="* You must select a file<br />"></asp:RequiredFieldValidator>
-        <asp:Button ID="btnNewIcon" runat="server" Text="Add Icon" class="aButton" ValidationGroup="NewIcon" />
+        <asp:Button ID="btnNewIcon" runat="server" Text="Add Icon" class="aButton btn" ValidationGroup="NewIcon" />
         <input id="Button7" type="button" value='<%= Translate("btnCancel") %>' onclick="closeNewIcon();"
-            class="aButton" />
+            class="aButton btn" />
     </div>
 </div>
 <div id="divNewLink" style="text-align: center">
@@ -771,9 +771,9 @@ word-wrap: break-word;
         </tr>
     </table>
     <div style="margin-top: 12px">
-        <asp:Button ID="btnNewLink" runat="server" Text="Add Link" class="aButton" ValidationGroup="NewLink" />
+        <asp:Button ID="btnNewLink" runat="server" Text="Add Link" class="aButton btn" ValidationGroup="NewLink" />
         <input id="Button6" type="button" value='<%= Translate("btnCancel") %>' onclick="closeNewLink();"
-            class="aButton" />
+            class="aButton btn" />
     </div>
 </div>
 <div id="divEditFolder" style="text-align: center">
@@ -897,10 +897,10 @@ word-wrap: break-word;
     <div style="margin-top: 12px">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbEditFolderName"
             Display="static" Text="" ValidationGroup="NewFolder" ErrorMessage="* You must Enter a Folder Name<br />"></asp:RequiredFieldValidator>
-        <asp:Button ID="btnEditFolder" runat="server" ResourceKey="Save" class="aButton"
+        <asp:Button ID="btnEditFolder" runat="server" ResourceKey="Save" class="aButton btn"
             ValidationGroup="EditFolder" />
         <input id="Button3" type="button" value='<%= Translate("btnCancel") %>' onclick="closeEditFolder();"
-            class="aButton" />
+            class="aButton btn" />
     </div>
 </div>
 <div id="divEditFile" style="text-align: center">
@@ -1091,10 +1091,10 @@ word-wrap: break-word;
     <div style="margin-top: 12px">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbEditFileName"
             Display="static" Text="" ValidationGroup="EditFile" ErrorMessage="* You must Enter a Display Name<br />"></asp:RequiredFieldValidator>
-        <asp:Button ID="btnEditFile" runat="server" ResourceKey="Save" class="aButton" UseSubmitBehavior="true"
+        <asp:Button ID="btnEditFile" runat="server" ResourceKey="Save" class="aButton btn" UseSubmitBehavior="true"
             ValidationGroup="EditFile" />
         <input id="Button4" type="button" value='<%= Translate("btnCancel") %>' onclick="closeEditFile();"
-            class="aButton" />
+            class="aButton btn" />
     </div>
 </div>
 <div id="FolderMenu" class="contextMenu" style="z-index: 1000">

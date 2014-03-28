@@ -20,19 +20,21 @@ Imports StaffBroker
 Namespace DotNetNuke.Modules.StaffAdmin
     Partial Class ViewStaffAdmin
         Inherits Entities.Modules.PortalModuleBase
+        Implements Entities.Modules.IActionable
+
         Dim d As New StaffBrokerDataContext
         Dim isMarried As Boolean
 
         Protected Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
             '    jQuery.RequestDnnPluginsRegistration()
 
-            Dim addTitle = MyBase.Actions.Add(GetNextActionID, "Staff Broker", "StaffBroker", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
-            addTitle.Actions.Add(GetNextActionID, "Add Staff", "AddStaff", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="AddStaff"), ModuleContext.EditUrl(controlKey:="AddStaff").Substring(11), True, SecurityAccessLevel.Edit, True, False)
-            addTitle.Actions.Add(GetNextActionID, "Staff Types", "StaffTypes", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="StaffTypes"), ModuleContext.EditUrl(controlKey:="StaffTypes").Substring(11), True, SecurityAccessLevel.Edit, True, False)
-            addTitle.Actions.Add(GetNextActionID, "Staff Profiles", "StaffProfileFields", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="StaffProfileFields"), ModuleContext.EditUrl(controlKey:="StaffProfileFields").Substring(11), True, SecurityAccessLevel.Edit, True, False)
-            addTitle.Actions.Add(GetNextActionID, "Departments", "Departments", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Departments"), ModuleContext.EditUrl(controlKey:="Departments").Substring(11), True, SecurityAccessLevel.Edit, True, False)
-            addTitle.Actions.Add(GetNextActionID, "Templates", "Templates", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Templates"), ModuleContext.EditUrl(controlKey:="Templates").Substring(11), True, SecurityAccessLevel.Edit, True, True)
-         
+            'Dim addTitle = MyBase.Actions.Add(GetNextActionID, "Staff Broker", "StaffBroker", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+            'addTitle.Actions.Add(GetNextActionID, "Add Staff", "AddStaff", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="AddStaff"), ModuleContext.EditUrl(controlKey:="AddStaff").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+            'addTitle.Actions.Add(GetNextActionID, "Staff Types", "StaffTypes", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="StaffTypes"), ModuleContext.EditUrl(controlKey:="StaffTypes").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+            'addTitle.Actions.Add(GetNextActionID, "Staff Profiles", "StaffProfileFields", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="StaffProfileFields"), ModuleContext.EditUrl(controlKey:="StaffProfileFields").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+            'addTitle.Actions.Add(GetNextActionID, "Departments", "Departments", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Departments"), ModuleContext.EditUrl(controlKey:="Departments").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+            'addTitle.Actions.Add(GetNextActionID, "Templates", "Templates", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Templates"), ModuleContext.EditUrl(controlKey:="Templates").Substring(11), True, SecurityAccessLevel.Edit, True, True)
+
 
             AddStaff1.PortalId = PortalId
         End Sub
@@ -76,22 +78,22 @@ Namespace DotNetNuke.Modules.StaffAdmin
                 Dim StaffList = (From c In d.AP_StaffBroker_Staffs Where c.Active And c.PortalId = PortalId Order By c.User.LastName Select DisplayName = c.User.LastName & ", " & c.User.FirstName, c.StaffId, c.UserId2, c.User2)
                 Dim Staff As New Dictionary(Of String, Integer)
                 For Each row In StaffList
-                  
+
                     Try
 
-                   
-                    If row.UserId2 > 0 Then
-                        If Not (Staff.ContainsKey(row.DisplayName & " & " & row.User2.FirstName)) Then
-                            Staff.Add(row.DisplayName & " & " & row.User2.FirstName, row.StaffId)
+
+                        If row.UserId2 > 0 Then
+                            If Not (Staff.ContainsKey(row.DisplayName & " & " & row.User2.FirstName)) Then
+                                Staff.Add(row.DisplayName & " & " & row.User2.FirstName, row.StaffId)
+                            End If
+
+                        Else
+                            If Not (Staff.ContainsKey(row.DisplayName)) Then
+                                Staff.Add(row.DisplayName, row.StaffId)
+                            End If
+
+
                         End If
-
-                    Else
-                        If Not (Staff.ContainsKey(row.DisplayName)) Then
-                            Staff.Add(row.DisplayName, row.StaffId)
-                        End If
-
-
-                    End If
                     Catch ex As Exception
                         AgapeLogger.WriteEventLog(UserId, "Staff Admin-> Error adding " & row.DisplayName & " to Staff List" & ex.ToString)
                     End Try
@@ -171,8 +173,8 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
             Else
                 Dim val = User2.Profile.GetPropertyValue(PropertyName)
-                
-                    Return val
+
+                Return val
 
             End If
             Return ""
@@ -664,16 +666,16 @@ Namespace DotNetNuke.Modules.StaffAdmin
 
                 Next
 
-          
-            Dim attachment As String = "attachment; filename=RCReport.csv"
 
-            HttpContext.Current.Response.Clear()
+                Dim attachment As String = "attachment; filename=RCReport.csv"
 
-            HttpContext.Current.Response.ClearContent()
-            HttpContext.Current.Response.AppendHeader("content-disposition", attachment)
-            HttpContext.Current.Response.ContentType = "text/csv"
-            HttpContext.Current.Response.AddHeader("Pragma", "public")
-            HttpContext.Current.Response.Write(csvOut)
+                HttpContext.Current.Response.Clear()
+
+                HttpContext.Current.Response.ClearContent()
+                HttpContext.Current.Response.AppendHeader("content-disposition", attachment)
+                HttpContext.Current.Response.ContentType = "text/csv"
+                HttpContext.Current.Response.AddHeader("Pragma", "public")
+                HttpContext.Current.Response.Write(csvOut)
 
             Catch ex As Exception
                 StaffBrokerFunctions.EventLog("RCReport error", ex.ToString, UserId)
@@ -683,6 +685,43 @@ Namespace DotNetNuke.Modules.StaffAdmin
             HttpContext.Current.Response.End()
 
         End Sub
+
+        
+
+
+#Region "Optional Interfaces"
+        Private Sub AddClientAction(ByVal Title As String, ByVal theScript As String, ByRef root As DotNetNuke.Entities.Modules.Actions.ModuleActionCollection)
+            Dim jsAction As New DotNetNuke.Entities.Modules.Actions.ModuleAction(ModuleContext.GetNextActionID)
+            With jsAction
+                .Title = Title
+                ' .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.
+                .Url = "javascript: " & theScript & ";"
+                .ClientScript = theScript
+                .Secure = Security.SecurityAccessLevel.Edit
+                .UseActionEvent = False
+            End With
+            root.Add(jsAction)
+        End Sub
+        Public ReadOnly Property ModuleActions() As Entities.Modules.Actions.ModuleActionCollection Implements Entities.Modules.IActionable.ModuleActions
+            Get
+
+                Dim Actions As New Entities.Modules.Actions.ModuleActionCollection
+
+                
+                Dim addTitle = MyBase.Actions.Add(GetNextActionID, "Staff Broker", "StaffBroker", "", "", "", "", True, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Add Staff", "AddStaff", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="AddStaff"), ModuleContext.EditUrl(controlKey:="AddStaff").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Staff Types", "StaffTypes", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="StaffTypes"), ModuleContext.EditUrl(controlKey:="StaffTypes").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Staff Profiles", "StaffProfileFields", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="StaffProfileFields"), ModuleContext.EditUrl(controlKey:="StaffProfileFields").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Departments", "Departments", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Departments"), ModuleContext.EditUrl(controlKey:="Departments").Substring(11), True, SecurityAccessLevel.Edit, True, False)
+                Actions.Add(GetNextActionID, "Templates", "Templates", "", "action_settings.gif", ModuleContext.EditUrl(controlKey:="Templates"), ModuleContext.EditUrl(controlKey:="Templates").Substring(11), True, SecurityAccessLevel.Edit, True, True)
+
+
+
+                Return Actions
+            End Get
+        End Property
+
+#End Region
     End Class
 
 

@@ -393,7 +393,7 @@
                                             <dnn:Label ID="Label29" runat="server" Text="Download Once:" HelpText="If the datapump is disabled, can have the datapump donwload pending transactins (just once) the next time it runs" />
                                         </td>
                                         <td>
-                                            <asp:Button ID="btnDownload" runat="server" Text="Button" Font-Size="x-small" CssClass="aButton" />
+                                            <asp:Button ID="btnDownload" runat="server" Text="Button" Font-Size="x-small" CssClass="aButton btn" />
                                             <asp:Label ID="lblDownloading" runat="server" Visible="false" Font-Size="X-Small" Font-Italic="true" ForeColor="Gray" Text="Pending expenses will download within 5 minutes."></asp:Label>
                                         </td>
                                     </tr>

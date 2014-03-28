@@ -90,7 +90,7 @@
 
 </table>
 <asp:Label ID="lblNewError" runat="server" ForeColor="Red"></asp:Label><br />
-<asp:Button ID="btnNewSpouse" runat="server" Text="Change Spouse" class="aButton" />
+<asp:Button ID="btnNewSpouse" runat="server" Text="Change Spouse" class="aButton btn" />
 </ContentTemplate>
 <Triggers>
 <asp:AsyncPostBackTrigger ControlID="btnNewSpouse" EventName="Click" />

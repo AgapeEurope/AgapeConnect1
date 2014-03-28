@@ -156,7 +156,7 @@
                 <asp:TextBox ID="tbNewName" runat="server" CssClass="ProductName"></asp:TextBox>
             </td>
             <td>
-                <asp:Button ID="btnAddNewApiKey" runat="server" Text="Create" class="aButton" />
+                <asp:Button ID="btnAddNewApiKey" runat="server" Text="Create" class="aButton btn" />
             </td>
         </tr>
     </table>

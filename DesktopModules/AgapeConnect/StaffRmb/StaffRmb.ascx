@@ -722,7 +722,7 @@
         <tr valign="top">
             <td>
                 <div align="center" width="100%">
-                    <input id="btmNewRmb" type="button" onclick="showPopup2();" class="abutton btn btn-success" value='<%= Translate("btnNew") %>'
+                    <input id="btmNewRmb" type="button" onclick="showPopup2();" class="aButton btn-success" value='<%= Translate("btnNew") %>'
                         style="margin-bottom: 5px; font-weight: bold; min-width: 220px;" />
                 </div>
                 <div id="accordion" class="accordian" style="background-color: #fafafa;">
@@ -1466,14 +1466,14 @@
                                     </tr>
                                 </table>
                                 <br />
-                                <asp:Button ID="addLinebtn2" runat="server" resourcekey="btnAddExpenseItem" class="abutton btn" />
-                                <asp:Button ID="btnSubmit" runat="server" resourcekey="btnSubmit" class="abutton btn" />
-                                <asp:Button ID="btnSave" runat="server" resourcekey="btnSave" class="abutton btn" />
-                                <asp:Button ID="btnApprove" runat="server" resourcekey="btnApprove" class="abutton btn" />
-                                <asp:Button ID="btnPrint" runat="server" resourcekey="btnPrint" class="abutton btn" />
-                                <asp:Button ID="btnProcess" runat="server" resourcekey="btnProcess" class="abutton btn" />
-                                <asp:Button ID="btnUnProcess" runat="server" resourcekey="btnUnProcess" class="abutton btn" />
-                                <asp:Button ID="btnCancel" runat="server" resourcekey="btnCancel" class="abutton btn" />
+                                <asp:Button ID="addLinebtn2" runat="server" resourcekey="btnAddExpenseItem" class="aButton btn" />
+                                <asp:Button ID="btnSubmit" runat="server" resourcekey="btnSubmit" class="aButton btn" />
+                                <asp:Button ID="btnSave" runat="server" resourcekey="btnSave" class="aButton btn" />
+                                <asp:Button ID="btnApprove" runat="server" resourcekey="btnApprove" class="aButton btn" />
+                                <asp:Button ID="btnPrint" runat="server" resourcekey="btnPrint" class="aButton btn" />
+                                <asp:Button ID="btnProcess" runat="server" resourcekey="btnProcess" class="aButton btn" />
+                                <asp:Button ID="btnUnProcess" runat="server" resourcekey="btnUnProcess" class="aButton btn" />
+                                <asp:Button ID="btnCancel" runat="server" resourcekey="btnCancel" class="aButton btn" />
                                 <asp:LinkButton ID="btnDownload" runat="server">
                                     <div style="vertical-align: middle; float: right; padding-top: 8px;">
                                         <img src="/DesktopModules/AgapeConnect/StaffRmb/Images/Excel_icon.gif" alt="" />
@@ -1629,7 +1629,7 @@
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="btnSaveAdv" runat="server" resourcekey="btnSave" Font-Size="8pt"
-                                                        CommandName="Save" class="abutton btn" />
+                                                        CommandName="Save" class="aButton btn" />
                                             </tr>
                                         </table>
                                         <asp:Label ID="lblAdvError" runat="server" ForeColor="Red"></asp:Label>
@@ -1775,14 +1775,14 @@
                                     <asp:Label ID="lblAdvErr" runat="server" CssClass="AgapeError" ></asp:Label>
                                       <asp:Label ID="lblAdvDownloadError" runat="server" class="ui-state-error ui-corner-all"
                 Style="padding: 3px; margin-top: 5px; display: block; " Visible="false" ></asp:Label>
-                                            <asp:Button ID="btnAdvApprove" runat="server" ResourceKey="btnApprove" CssClass="abutton btn" />
-                                            <asp:Button ID="btnAdvReject" runat="server" ResourceKey="btnReject" CssClass="abutton btn" />
-                                            <asp:Button ID="btnAdvSave" runat="server" ResourceKey="btnSave" CssClass="abutton btn" />
-                                            <asp:Button ID="btnAdvCancel" runat="server" ResourceKey="btnCancel" CssClass="abutton btn" />
-                                            <asp:Button ID="btnAdvProcess" runat="server" ResourceKey="btnProcess" CssClass="abutton btn" />
-                                            <asp:Button ID="btnAdvUnProcess" runat="server" ResourceKey="btnUnProcess" CssClass="abutton btn" />
+                                            <asp:Button ID="btnAdvApprove" runat="server" ResourceKey="btnApprove" CssClass="aButton btn" />
+                                            <asp:Button ID="btnAdvReject" runat="server" ResourceKey="btnReject" CssClass="aButton btn" />
+                                            <asp:Button ID="btnAdvSave" runat="server" ResourceKey="btnSave" CssClass="aButton btn" />
+                                            <asp:Button ID="btnAdvCancel" runat="server" ResourceKey="btnCancel" CssClass="aButton btn" />
+                                            <asp:Button ID="btnAdvProcess" runat="server" ResourceKey="btnProcess" CssClass="aButton btn" />
+                                            <asp:Button ID="btnAdvUnProcess" runat="server" ResourceKey="btnUnProcess" CssClass="aButton btn" />
                                         
-                                            <asp:HyperLink ID="btnAdvPrint" runat="server"  resourcekey="btnPrint"  class="abutton btn" Target="_blank"> </asp:HyperLink>
+                                            <asp:HyperLink ID="btnAdvPrint" runat="server"  resourcekey="btnPrint"  class="aButton btn" Target="_blank"> </asp:HyperLink>
 
 
                                             <asp:LinkButton ID="btnAdvDownload" runat="server">
@@ -1900,9 +1900,9 @@
 
                         <br />
                         <asp:Button ID="btnAddLine" runat="server" resourcekey="btnEnter" CommandName="Save"
-                            class="abutton btn" />
+                            class="aButton btn" />
                         <input type="button" value='<%= Translate("btnCancel") %>' onclick="closePopup();"
-                            class="abutton btn" />
+                            class="aButton btn" />
                         <br />
                         <br />
                         <fieldset id="pnlAccountsOptions" runat="server">
@@ -1977,9 +1977,9 @@
     <div id="divAdvanceReq" class="ui-widget">
         <uc1:StaffAdvanceRmb ID="StaffAdvanceRmb1" runat="server" />
         <div style="text-align: center; width: 100%;">
-            <asp:Button ID="btnAdvanceRequest" runat="server" resourcekey="btnAdvanceRequest" class="abutton btn" />
+            <asp:Button ID="btnAdvanceRequest" runat="server" resourcekey="btnAdvanceRequest" class="aButton btn" />
             <input id="Button1" type="button" value='<%= Translate("btnCancel") %>' onclick="closeAdvanceReq();"
-                class="abutton btn" />
+                class="aButton btn" />
         </div>
     </div>
 
@@ -2020,9 +2020,9 @@
                         </tr>
                     </table>
                     <asp:Button ID="btnCreate" runat="server" resourcekey="btnCreate" UseSubmitBehavior="false"
-                        class="abutton btn" />
+                        class="aButton btn" />
                     <input id="btnCancel2" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopup2();"
-                        class="abutton btn" />
+                        class="aButton btn" />
                     <asp:UpdateProgress ID="UpdateProgress2" runat="server" DisplayAfter="0" DynamicLayout="true"
                         AssociatedUpdatePanelID="UpdatePanel3">
                         <ProgressTemplate>
@@ -2047,7 +2047,7 @@
             <div width="100%" align="center">
                 
                   <input id="cancel Not enough money" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopup3();"
-                        class="abutton btn" />
+                        class="aButton btn" />
 
                 <span onclick="closePopup3()">
                     <asp:HyperLink ID="blockedLink" runat="server" Target="_blank" Text="Continue" ></asp:HyperLink></span>
@@ -2100,9 +2100,9 @@
                     </fieldset>
                     <br />
                     <br />
-                    <asp:Button ID="btnOK" runat="server" resourcekey="btnOK" class="abutton btn" Enabled="false" />
+                    <asp:Button ID="btnOK" runat="server" resourcekey="btnOK" class="aButton btn" Enabled="false" />
                     <input id="btnCancel1" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopupSplit();"
-                        class="abutton btn" />
+                        class="aButton btn" />
                     <asp:Label ID="lblSplitError" runat="server" ForeColor="Red" resourcekey="SplitError"
                         Visible="false"></asp:Label>
                 </div>
@@ -2120,8 +2120,8 @@
         <br />
         <br />
         <div width="100%" style="text-align: center">
-            <asp:Button ID="btnMarkProcessed" runat="server" resourcekey="btnYes" class="abutton btn" />
-            <asp:Button ID="btnDontMarkProcessed" runat="server" resourcekey="btnNo" class="abutton btn" />
+            <asp:Button ID="btnMarkProcessed" runat="server" resourcekey="btnYes" class="aButton btn" />
+            <asp:Button ID="btnDontMarkProcessed" runat="server" resourcekey="btnNo" class="aButton btn" />
         </div>
     </div>
 
@@ -2148,9 +2148,9 @@
 
         <br />
         <div width="100%" style="text-align: center">
-            <asp:Button ID="btnDownloadExpenseOK" runat="server" resourcekey="btnOK" class="abutton btn" OnClientClick="closePopupDownloadExpense();" />
+            <asp:Button ID="btnDownloadExpenseOK" runat="server" resourcekey="btnOK" class="aButton btn" OnClientClick="closePopupDownloadExpense();" />
               <input id="Button3" type="button" value='<%= Translate("btnCancel") %>' onclick="closePopupDownloadExpense();"
-                        class="abutton btn" />
+                        class="aButton btn" />
         </div>
     </div>
 
@@ -2159,10 +2159,10 @@
         <br />
         <br />
         <div width="100%" style="text-align: center">
-            <asp:Button ID="btnAccountWarningYes" runat="server" resourcekey="btnYes" class="abutton btn" />
+            <asp:Button ID="btnAccountWarningYes" runat="server" resourcekey="btnYes" class="aButton btn" />
 
             <input id="Button5" type="button" value='<%= Translate("btnNo")%>' onclick="closePopupAccountWarning();"
-                class="abutton btn" />
+                class="aButton btn" />
 
         </div>
     </div>
@@ -2240,10 +2240,10 @@
                 <br />
                 <br />
                 <div width="100%" style="text-align: center">
-                    <asp:Button ID="btnSuggestedPayments" runat="server" resourcekey="btnDownload" class="abutton btn" OnClientClick="closeSuggestedPayments();" />
+                    <asp:Button ID="btnSuggestedPayments" runat="server" resourcekey="btnDownload" class="aButton btn" OnClientClick="closeSuggestedPayments();" />
 
                     <input id="Button2" type="button" value='<%= Translate("btnCancel") %>' onclick="closeSuggestedPayments();"
-                        class="abutton btn" />
+                        class="aButton btn" />
                 </div>
 
             </td>

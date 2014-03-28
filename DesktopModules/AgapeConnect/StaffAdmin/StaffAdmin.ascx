@@ -623,7 +623,7 @@
          <div style="bottom: 70px; text-align: right; width: 90%; background-color: #FFFFFF; ">
                 <asp:Button ID="UpdateButton" runat="server"  CausesValidation="false"
                     CommandName="Update" Text="Update" style="margin: 5px;"  Font-Bold="true"
-                    Font-Size="15pt" class="aButton" />
+                    Font-Size="15pt" class="aButton btn btn-success" />
             </div>
     </EditItemTemplate>
     <ItemTemplate>
@@ -648,7 +648,7 @@
 
 
 
- <input type="button" value="Add Staff"  onclick="showPopup();" class="aButton" style="font-size: 8pt" />
+ <input type="button" value="Add Staff"  onclick="showPopup();" class="aButton btn btn-primary" style="font-size: 8pt" />
            
 
 <div id="AddStaffPopup">
@@ -687,7 +687,7 @@
    
         <asp:Label ID="lblError" runat="server" Text="" ForeColor="Red" ></asp:Label> <br />
       
-        <asp:Button ID="btnAddSpouse" runat="server" Text="Add Spouse" class="aButton" />
+        <asp:Button ID="btnAddSpouse" runat="server" Text="Add Spouse" class="aButton btn" />
     </td>
 </tr>
     </table>

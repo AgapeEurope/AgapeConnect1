@@ -204,7 +204,7 @@
                         </td>
                         <td style="padding-left: 5px" >
                          <asp:Button ID="btnAddMessage"
-                    runat="server" Text="Send" Font-Size="XX-Small"   class="aButton" />
+                    runat="server" Text="Send" Font-Size="XX-Small"   class="aButton btn" />
                         </td>
                     </tr>
                 </table>

@@ -484,9 +484,9 @@
           
             <p>  
            
-            <asp:Button ID="btnReplace" runat="server" Text="Replace" CssClass="aButton"  Font-Size="x-small"/> &nbsp;
-            <asp:Button ID="btnAddTo" runat="server" Text="Add To" CssClass="aButton"  Font-Size="x-small"/> &nbsp;
-            <asp:Button ID="btnCancelInsert" runat="server" Text="Cancel" CssClass="aButton"  Font-Size="x-small"/> </p>
+            <asp:Button ID="btnReplace" runat="server" Text="Replace" CssClass="aButton btn"  Font-Size="x-small"/> &nbsp;
+            <asp:Button ID="btnAddTo" runat="server" Text="Add To" CssClass="aButton btn"  Font-Size="x-small"/> &nbsp;
+            <asp:Button ID="btnCancelInsert" runat="server" Text="Cancel" CssClass="aButton btn"  Font-Size="x-small"/> </p>
         </td>
     </tr>
 
@@ -499,8 +499,8 @@
 
 <asp:Label ID="lblError" runat="server" ForeColor="Red" Text=""></asp:Label>
 <p>
-<asp:Button ID="btnExport" runat="server" Text="Export"  CssClass="aButton" Font-Size="X-Small"  />&nbsp;&nbsp;
-<input type="button" class="aButton" onclick="$('#divImport').dialog('open'); " style="font-size: x-small"  value="Import"/>&nbsp;&nbsp;
+<asp:Button ID="btnExport" runat="server" Text="Export"  CssClass="aButton btn" Font-Size="X-Small"  />&nbsp;&nbsp;
+<input type="button" class="aButton btn" onclick="$('#divImport').dialog('open'); " style="font-size: x-small"  value="Import"/>&nbsp;&nbsp;
 
 <asp:HyperLink ID="hlImportTemplate" runat="server" NavigateUrl="~/DesktopModules/AgapeConnect/BudgetManager/Budget-Import.xls">  
 
@@ -520,9 +520,9 @@
                To select a different year, click Cancel and select a different year (top left).
            </span></p>
     <div style="width: 100%; text-align: center;">
-        <asp:Button ID="btnImpOverwrite" runat="server" Text="Overwrite"  CssClass="aButton"  />&nbsp; &nbsp;
-        <asp:Button ID="btnImpAddTo" runat="server" Text="Add To"  CssClass="aButton"  />&nbsp; &nbsp;
-        <input type="button" class="aButton" onclick="$('#divImport').dialog('close'); "  value="Cancel"/>
+        <asp:Button ID="btnImpOverwrite" runat="server" Text="Overwrite"  CssClass="aButton btn"  />&nbsp; &nbsp;
+        <asp:Button ID="btnImpAddTo" runat="server" Text="Add To"  CssClass="aButton btn"  />&nbsp; &nbsp;
+        <input type="button" class="aButton btn" onclick="$('#divImport').dialog('close'); "  value="Cancel"/>
 
     </div>
 </div>

@@ -235,7 +235,7 @@
 </tr>
 </table>
 <div style="width: 100%; text-align: center">
-    <asp:LinkButton ID="SaveBtn" runat="server" class="aButton" ResourceKey="btnSave">Save</asp:LinkButton>
+    <asp:LinkButton ID="SaveBtn" runat="server" class="aButton btn" ResourceKey="btnSave">Save</asp:LinkButton>
     &nbsp;
-    <asp:LinkButton ID="CancelBtn" runat="server" class="aButton" ResourceKey="btnCancel">Cancel</asp:LinkButton>
+    <asp:LinkButton ID="CancelBtn" runat="server" class="aButton btn" ResourceKey="btnCancel">Cancel</asp:LinkButton>
 </div>

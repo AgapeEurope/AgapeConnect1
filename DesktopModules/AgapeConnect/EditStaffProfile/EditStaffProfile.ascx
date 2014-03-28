@@ -303,7 +303,7 @@
                     <asp:Label ID="lblJointPhoto" runat="server" CssClass="AgapeH5" />                    
                     <uc1:acImage ID="JointPhoto" runat="server" Aspect="1" Width="300" />
                     <br />
-                    <asp:Button ID="ProfileButton" runat="server" Text="See Public Page" CssClass="aButton" />
+                    <asp:Button ID="ProfileButton" runat="server" Text="See Public Page" CssClass="aButton btn" />
                 </div>
                 <div style="clear: both;">
                 </div>
@@ -317,7 +317,7 @@
 
 
 
-    <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="aButton" Font-Size="Large" />
+    <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="aButton btn" Font-Size="Large" />
     <div align="left">
 <asp:LinkButton ID="btnSettings" runat="server">Settings</asp:LinkButton>
 </div>
