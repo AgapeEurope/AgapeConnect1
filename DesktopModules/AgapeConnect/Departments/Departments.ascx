@@ -180,7 +180,7 @@
 
                     <br />
                     <asp:LinkButton ID="UpdateButton" runat="server" CausesValidation="True" 
-                        CommandName="Update" Text="Update" CssClass="aButton"  />
+                        CommandName="Update" Text="Update" CssClass="aButton btn"  />
                 <%--  &nbsp;<asp:LinkButton ID="NewButton" runat="server" CausesValidation="False" 
                         CommandName="New" Text="Add New Department" />--%>
                         </fieldset>&nbsp;
@@ -314,7 +314,7 @@
                            
                     </fieldset>
                     <asp:LinkButton ID="InsertButton" runat="server" CausesValidation="True" 
-                        CommandName="Insert" Text="Insert" CssClass="aButton" />
+                        CommandName="Insert" Text="Insert" CssClass="aButton btn" />
                    
                 </InsertItemTemplate>
                 <ItemTemplate>
@@ -345,7 +345,7 @@
                                     ContextTypeName="StaffBroker.StaffBrokerDataContext" EntityTypeName="" 
                                     OrderBy="CostCentreCode" Select="new (CostCentreCode,CostCentreCode + ' ' + '-' + ' ' + CostCentreName as DisplayName)" 
                                     TableName="AP_StaffBroker_CostCenters" 
-                Where="PortalId == @PortalId &amp;&amp; Type == @Type">
+                Where="PortalId == @PortalId ">
                                     <WhereParameters>
                                         <asp:ControlParameter ControlID="hfPortalId" DefaultValue="-1" Name="PortalId" 
                                             PropertyName="Value" Type="Int32" />
@@ -359,5 +359,5 @@
 
 <br />
 
-<asp:Button ID="btnAddNew" runat="server" Text="Add New Department" CssClass="aButton" />
+<asp:Button ID="btnAddNew" runat="server" Text="Add New Department" CssClass="aButton btn" />
 <asp:LinkButton ID="btnBulkUpload" runat="server" Text="Bulk Upload"  />
