@@ -68,17 +68,17 @@ Namespace MPD
     End Sub
     Partial Private Sub DeleteAP_mpd_Country(instance As AP_mpd_Country)
     End Sub
-    Partial Private Sub InsertAp_mpd_User(instance As Ap_mpd_User)
-    End Sub
-    Partial Private Sub UpdateAp_mpd_User(instance As Ap_mpd_User)
-    End Sub
-    Partial Private Sub DeleteAp_mpd_User(instance As Ap_mpd_User)
-    End Sub
     Partial Private Sub InsertAP_mpd_UserAccountInfo(instance As AP_mpd_UserAccountInfo)
     End Sub
     Partial Private Sub UpdateAP_mpd_UserAccountInfo(instance As AP_mpd_UserAccountInfo)
     End Sub
     Partial Private Sub DeleteAP_mpd_UserAccountInfo(instance As AP_mpd_UserAccountInfo)
+    End Sub
+    Partial Private Sub InsertAp_mpd_User(instance As Ap_mpd_User)
+    End Sub
+    Partial Private Sub UpdateAp_mpd_User(instance As Ap_mpd_User)
+    End Sub
+    Partial Private Sub DeleteAp_mpd_User(instance As Ap_mpd_User)
     End Sub
     #End Region
 		
@@ -143,15 +143,15 @@ Namespace MPD
 			End Get
 		End Property
 		
-		Public ReadOnly Property Ap_mpd_Users() As System.Data.Linq.Table(Of Ap_mpd_User)
-			Get
-				Return Me.GetTable(Of Ap_mpd_User)
-			End Get
-		End Property
-		
 		Public ReadOnly Property AP_mpd_UserAccountInfos() As System.Data.Linq.Table(Of AP_mpd_UserAccountInfo)
 			Get
 				Return Me.GetTable(Of AP_mpd_UserAccountInfo)
+			End Get
+		End Property
+		
+		Public ReadOnly Property Ap_mpd_Users() As System.Data.Linq.Table(Of Ap_mpd_User)
+			Get
+				Return Me.GetTable(Of Ap_mpd_User)
 			End Get
 		End Property
 	End Class
@@ -188,7 +188,7 @@ Namespace MPD
 		
 		Private _AP_mpdCalc_StaffBudgets As EntitySet(Of AP_mpdCalc_StaffBudget)
 		
-		Private _AP_mpd_Country As EntityRef(Of AP_mpd_Country)
+		Private _AP_mpd_Countries As EntityRef(Of AP_mpd_Country)
 		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -247,7 +247,7 @@ Namespace MPD
 			MyBase.New
 			Me._AP_mpdCalc_Sections = New EntitySet(Of AP_mpdCalc_Section)(AddressOf Me.attach_AP_mpdCalc_Sections, AddressOf Me.detach_AP_mpdCalc_Sections)
 			Me._AP_mpdCalc_StaffBudgets = New EntitySet(Of AP_mpdCalc_StaffBudget)(AddressOf Me.attach_AP_mpdCalc_StaffBudgets, AddressOf Me.detach_AP_mpdCalc_StaffBudgets)
-			Me._AP_mpd_Country = CType(Nothing, EntityRef(Of AP_mpd_Country))
+			Me._AP_mpd_Countries = CType(Nothing, EntityRef(Of AP_mpd_Country))
 			OnCreated
 		End Sub
 		
@@ -259,9 +259,6 @@ Namespace MPD
 			Set
 				If ((Me._mpdDefId = value)  _
 							= false) Then
-					If Me._AP_mpd_Country.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
 					Me.OnmpdDefIdChanging(value)
 					Me.SendPropertyChanging
 					Me._mpdDefId = value
@@ -456,30 +453,26 @@ Namespace MPD
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpd_Country_AP_mpdCalc_Definition", Storage:="_AP_mpd_Country", ThisKey:="mpdDefId", OtherKey:="mpdDefId", IsForeignKey:=true)>  _
-		Public Property AP_mpd_Country() As AP_mpd_Country
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_Definition_AP_mpd_Country", Storage:="_AP_mpd_Countries", ThisKey:="mpdDefId", OtherKey:="mpdDefId", IsUnique:=true, IsForeignKey:=false)>  _
+		Public Property AP_mpd_Countries() As AP_mpd_Country
 			Get
-				Return Me._AP_mpd_Country.Entity
+				Return Me._AP_mpd_Countries.Entity
 			End Get
 			Set
-				Dim previousValue As AP_mpd_Country = Me._AP_mpd_Country.Entity
+				Dim previousValue As AP_mpd_Country = Me._AP_mpd_Countries.Entity
 				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._AP_mpd_Country.HasLoadedOrAssignedValue = false)) Then
+							OrElse (Me._AP_mpd_Countries.HasLoadedOrAssignedValue = false)) Then
 					Me.SendPropertyChanging
 					If ((previousValue Is Nothing)  _
 								= false) Then
-						Me._AP_mpd_Country.Entity = Nothing
-						previousValue.AP_mpdCalc_Definitions = Nothing
+						Me._AP_mpd_Countries.Entity = Nothing
+						previousValue.AP_mpdCalc_Definition = Nothing
 					End If
-					Me._AP_mpd_Country.Entity = value
-					If ((value Is Nothing)  _
-								= false) Then
-						value.AP_mpdCalc_Definitions = Me
-						Me._mpdDefId = value.mpdDefId
-					Else
-						Me._mpdDefId = CType(Nothing, Integer)
+					Me._AP_mpd_Countries.Entity = value
+					If (Object.Equals(value, Nothing) = false) Then
+						value.AP_mpdCalc_Definition = Me
 					End If
-					Me.SendPropertyChanged("AP_mpd_Country")
+					Me.SendPropertyChanged("AP_mpd_Countries")
 				End If
 			End Set
 		End Property
@@ -1936,7 +1929,7 @@ Namespace MPD
 		
 		Private _name As String
 		
-		Private _portalId As Integer
+		Private _portalId As System.Nullable(Of Integer)
 		
 		Private _lastUpdated As System.Nullable(Of Date)
 		
@@ -1944,7 +1937,7 @@ Namespace MPD
 		
 		Private _foreighIncomeAccounts As String
 		
-		Private _mpdDefId As Integer
+		Private _mpdDefId As System.Nullable(Of Integer)
 		
 		Private _AvgSupport12 As System.Nullable(Of Decimal)
 		
@@ -1970,9 +1963,11 @@ Namespace MPD
 		
 		Private _NoBudgetCount As Integer
 		
-		Private _AP_mpdCalc_Definitions As EntityRef(Of AP_mpdCalc_Definition)
+		Private _gr_ministry_id As System.Nullable(Of Integer)
 		
 		Private _Ap_mpd_Users As EntitySet(Of Ap_mpd_User)
+		
+		Private _AP_mpdCalc_Definition As EntityRef(Of AP_mpdCalc_Definition)
 		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
@@ -1993,7 +1988,7 @@ Namespace MPD
     End Sub
     Partial Private Sub OnnameChanged()
     End Sub
-    Partial Private Sub OnportalIdChanging(value As Integer)
+    Partial Private Sub OnportalIdChanging(value As System.Nullable(Of Integer))
     End Sub
     Partial Private Sub OnportalIdChanged()
     End Sub
@@ -2009,7 +2004,7 @@ Namespace MPD
     End Sub
     Partial Private Sub OnforeighIncomeAccountsChanged()
     End Sub
-    Partial Private Sub OnmpdDefIdChanging(value As Integer)
+    Partial Private Sub OnmpdDefIdChanging(value As System.Nullable(Of Integer))
     End Sub
     Partial Private Sub OnmpdDefIdChanged()
     End Sub
@@ -2061,12 +2056,16 @@ Namespace MPD
     End Sub
     Partial Private Sub OnNoBudgetCountChanged()
     End Sub
+    Partial Private Sub Ongr_ministry_idChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub Ongr_ministry_idChanged()
+    End Sub
     #End Region
 		
 		Public Sub New()
 			MyBase.New
-			Me._AP_mpdCalc_Definitions = CType(Nothing, EntityRef(Of AP_mpdCalc_Definition))
 			Me._Ap_mpd_Users = New EntitySet(Of Ap_mpd_User)(AddressOf Me.attach_Ap_mpd_Users, AddressOf Me.detach_Ap_mpd_Users)
+			Me._AP_mpdCalc_Definition = CType(Nothing, EntityRef(Of AP_mpdCalc_Definition))
 			OnCreated
 		End Sub
 		
@@ -2119,14 +2118,13 @@ Namespace MPD
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_portalId", DbType:="Int NOT NULL")>  _
-		Public Property portalId() As Integer
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_portalId", DbType:="Int")>  _
+		Public Property portalId() As System.Nullable(Of Integer)
 			Get
 				Return Me._portalId
 			End Get
 			Set
-				If ((Me._portalId = value)  _
-							= false) Then
+				If (Me._portalId.Equals(value) = false) Then
 					Me.OnportalIdChanging(value)
 					Me.SendPropertyChanging
 					Me._portalId = value
@@ -2184,14 +2182,16 @@ Namespace MPD
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_mpdDefId", DbType:="Int NOT NULL")>  _
-		Public Property mpdDefId() As Integer
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_mpdDefId", DbType:="Int")>  _
+		Public Property mpdDefId() As System.Nullable(Of Integer)
 			Get
 				Return Me._mpdDefId
 			End Get
 			Set
-				If ((Me._mpdDefId = value)  _
-							= false) Then
+				If (Me._mpdDefId.Equals(value) = false) Then
+					If Me._AP_mpdCalc_Definition.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
 					Me.OnmpdDefIdChanging(value)
 					Me.SendPropertyChanging
 					Me._mpdDefId = value
@@ -2398,26 +2398,18 @@ Namespace MPD
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpd_Country_AP_mpdCalc_Definition", Storage:="_AP_mpdCalc_Definitions", ThisKey:="mpdDefId", OtherKey:="mpdDefId", IsUnique:=true, IsForeignKey:=false)>  _
-		Public Property AP_mpdCalc_Definitions() As AP_mpdCalc_Definition
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_gr_ministry_id", DbType:="Int")>  _
+		Public Property gr_ministry_id() As System.Nullable(Of Integer)
 			Get
-				Return Me._AP_mpdCalc_Definitions.Entity
+				Return Me._gr_ministry_id
 			End Get
 			Set
-				Dim previousValue As AP_mpdCalc_Definition = Me._AP_mpdCalc_Definitions.Entity
-				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._AP_mpdCalc_Definitions.HasLoadedOrAssignedValue = false)) Then
+				If (Me._gr_ministry_id.Equals(value) = false) Then
+					Me.Ongr_ministry_idChanging(value)
 					Me.SendPropertyChanging
-					If ((previousValue Is Nothing)  _
-								= false) Then
-						Me._AP_mpdCalc_Definitions.Entity = Nothing
-						previousValue.AP_mpd_Country = Nothing
-					End If
-					Me._AP_mpdCalc_Definitions.Entity = value
-					If (Object.Equals(value, Nothing) = false) Then
-						value.AP_mpd_Country = Me
-					End If
-					Me.SendPropertyChanged("AP_mpdCalc_Definitions")
+					Me._gr_ministry_id = value
+					Me.SendPropertyChanged("gr_ministry_id")
+					Me.Ongr_ministry_idChanged
 				End If
 			End Set
 		End Property
@@ -2429,6 +2421,34 @@ Namespace MPD
 			End Get
 			Set
 				Me._Ap_mpd_Users.Assign(value)
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpdCalc_Definition_AP_mpd_Country", Storage:="_AP_mpdCalc_Definition", ThisKey:="mpdDefId", OtherKey:="mpdDefId", IsForeignKey:=true)>  _
+		Public Property AP_mpdCalc_Definition() As AP_mpdCalc_Definition
+			Get
+				Return Me._AP_mpdCalc_Definition.Entity
+			End Get
+			Set
+				Dim previousValue As AP_mpdCalc_Definition = Me._AP_mpdCalc_Definition.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AP_mpdCalc_Definition.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AP_mpdCalc_Definition.Entity = Nothing
+						previousValue.AP_mpd_Countries = Nothing
+					End If
+					Me._AP_mpdCalc_Definition.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.AP_mpd_Countries = Me
+						Me._mpdDefId = value.mpdDefId
+					Else
+						Me._mpdDefId = CType(Nothing, Nullable(Of Integer))
+					End If
+					Me.SendPropertyChanged("AP_mpdCalc_Definition")
+				End If
 			End Set
 		End Property
 		
@@ -2461,331 +2481,6 @@ Namespace MPD
 		End Sub
 	End Class
 	
-	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.Ap_mpd_User")>  _
-	Partial Public Class Ap_mpd_User
-		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
-		
-		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
-		
-		Private _AP_mpd_UserId As Long
-		
-		Private _StaffId As Integer
-		
-		Private _mpdCountryId As Integer
-		
-		Private _AvgIncome12 As Decimal
-		
-		Private _AvgIncome3 As Decimal
-		
-		Private _AvgIncome1 As Decimal
-		
-		Private _SplitLocal As Double
-		
-		Private _SplitForeign As Double
-		
-		Private _SplitSubsidy As System.Nullable(Of Double)
-		
-		Private _AvgExpenses As Decimal
-		
-		Private _AP_mpd_UserAccountInfos As EntitySet(Of AP_mpd_UserAccountInfo)
-		
-		Private _AP_mpd_Country As EntityRef(Of AP_mpd_Country)
-		
-    #Region "Extensibility Method Definitions"
-    Partial Private Sub OnLoaded()
-    End Sub
-    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
-    End Sub
-    Partial Private Sub OnCreated()
-    End Sub
-    Partial Private Sub OnAP_mpd_UserIdChanging(value As Long)
-    End Sub
-    Partial Private Sub OnAP_mpd_UserIdChanged()
-    End Sub
-    Partial Private Sub OnStaffIdChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnStaffIdChanged()
-    End Sub
-    Partial Private Sub OnmpdCountryIdChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnmpdCountryIdChanged()
-    End Sub
-    Partial Private Sub OnAvgIncome12Changing(value As Decimal)
-    End Sub
-    Partial Private Sub OnAvgIncome12Changed()
-    End Sub
-    Partial Private Sub OnAvgIncome3Changing(value As Decimal)
-    End Sub
-    Partial Private Sub OnAvgIncome3Changed()
-    End Sub
-    Partial Private Sub OnAvgIncome1Changing(value As Decimal)
-    End Sub
-    Partial Private Sub OnAvgIncome1Changed()
-    End Sub
-    Partial Private Sub OnSplitLocalChanging(value As Double)
-    End Sub
-    Partial Private Sub OnSplitLocalChanged()
-    End Sub
-    Partial Private Sub OnSplitForeignChanging(value As Double)
-    End Sub
-    Partial Private Sub OnSplitForeignChanged()
-    End Sub
-    Partial Private Sub OnSplitSubsidyChanging(value As System.Nullable(Of Double))
-    End Sub
-    Partial Private Sub OnSplitSubsidyChanged()
-    End Sub
-    Partial Private Sub OnAvgExpensesChanging(value As Decimal)
-    End Sub
-    Partial Private Sub OnAvgExpensesChanged()
-    End Sub
-    #End Region
-		
-		Public Sub New()
-			MyBase.New
-			Me._AP_mpd_UserAccountInfos = New EntitySet(Of AP_mpd_UserAccountInfo)(AddressOf Me.attach_AP_mpd_UserAccountInfos, AddressOf Me.detach_AP_mpd_UserAccountInfos)
-			Me._AP_mpd_Country = CType(Nothing, EntityRef(Of AP_mpd_Country))
-			OnCreated
-		End Sub
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AP_mpd_UserId", AutoSync:=AutoSync.OnInsert, DbType:="BigInt NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
-		Public Property AP_mpd_UserId() As Long
-			Get
-				Return Me._AP_mpd_UserId
-			End Get
-			Set
-				If ((Me._AP_mpd_UserId = value)  _
-							= false) Then
-					Me.OnAP_mpd_UserIdChanging(value)
-					Me.SendPropertyChanging
-					Me._AP_mpd_UserId = value
-					Me.SendPropertyChanged("AP_mpd_UserId")
-					Me.OnAP_mpd_UserIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StaffId", DbType:="Int NOT NULL")>  _
-		Public Property StaffId() As Integer
-			Get
-				Return Me._StaffId
-			End Get
-			Set
-				If ((Me._StaffId = value)  _
-							= false) Then
-					Me.OnStaffIdChanging(value)
-					Me.SendPropertyChanging
-					Me._StaffId = value
-					Me.SendPropertyChanged("StaffId")
-					Me.OnStaffIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_mpdCountryId", DbType:="Int NOT NULL")>  _
-		Public Property mpdCountryId() As Integer
-			Get
-				Return Me._mpdCountryId
-			End Get
-			Set
-				If ((Me._mpdCountryId = value)  _
-							= false) Then
-					If Me._AP_mpd_Country.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
-					Me.OnmpdCountryIdChanging(value)
-					Me.SendPropertyChanging
-					Me._mpdCountryId = value
-					Me.SendPropertyChanged("mpdCountryId")
-					Me.OnmpdCountryIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgIncome12", DbType:="Money NOT NULL")>  _
-		Public Property AvgIncome12() As Decimal
-			Get
-				Return Me._AvgIncome12
-			End Get
-			Set
-				If ((Me._AvgIncome12 = value)  _
-							= false) Then
-					Me.OnAvgIncome12Changing(value)
-					Me.SendPropertyChanging
-					Me._AvgIncome12 = value
-					Me.SendPropertyChanged("AvgIncome12")
-					Me.OnAvgIncome12Changed
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgIncome3", DbType:="Money NOT NULL")>  _
-		Public Property AvgIncome3() As Decimal
-			Get
-				Return Me._AvgIncome3
-			End Get
-			Set
-				If ((Me._AvgIncome3 = value)  _
-							= false) Then
-					Me.OnAvgIncome3Changing(value)
-					Me.SendPropertyChanging
-					Me._AvgIncome3 = value
-					Me.SendPropertyChanged("AvgIncome3")
-					Me.OnAvgIncome3Changed
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgIncome1", DbType:="Money NOT NULL")>  _
-		Public Property AvgIncome1() As Decimal
-			Get
-				Return Me._AvgIncome1
-			End Get
-			Set
-				If ((Me._AvgIncome1 = value)  _
-							= false) Then
-					Me.OnAvgIncome1Changing(value)
-					Me.SendPropertyChanging
-					Me._AvgIncome1 = value
-					Me.SendPropertyChanged("AvgIncome1")
-					Me.OnAvgIncome1Changed
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SplitLocal", DbType:="Float NOT NULL")>  _
-		Public Property SplitLocal() As Double
-			Get
-				Return Me._SplitLocal
-			End Get
-			Set
-				If ((Me._SplitLocal = value)  _
-							= false) Then
-					Me.OnSplitLocalChanging(value)
-					Me.SendPropertyChanging
-					Me._SplitLocal = value
-					Me.SendPropertyChanged("SplitLocal")
-					Me.OnSplitLocalChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SplitForeign", DbType:="Float NOT NULL")>  _
-		Public Property SplitForeign() As Double
-			Get
-				Return Me._SplitForeign
-			End Get
-			Set
-				If ((Me._SplitForeign = value)  _
-							= false) Then
-					Me.OnSplitForeignChanging(value)
-					Me.SendPropertyChanging
-					Me._SplitForeign = value
-					Me.SendPropertyChanged("SplitForeign")
-					Me.OnSplitForeignChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SplitSubsidy", DbType:="Float")>  _
-		Public Property SplitSubsidy() As System.Nullable(Of Double)
-			Get
-				Return Me._SplitSubsidy
-			End Get
-			Set
-				If (Me._SplitSubsidy.Equals(value) = false) Then
-					Me.OnSplitSubsidyChanging(value)
-					Me.SendPropertyChanging
-					Me._SplitSubsidy = value
-					Me.SendPropertyChanged("SplitSubsidy")
-					Me.OnSplitSubsidyChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgExpenses", DbType:="Money NOT NULL")>  _
-		Public Property AvgExpenses() As Decimal
-			Get
-				Return Me._AvgExpenses
-			End Get
-			Set
-				If ((Me._AvgExpenses = value)  _
-							= false) Then
-					Me.OnAvgExpensesChanging(value)
-					Me.SendPropertyChanging
-					Me._AvgExpenses = value
-					Me.SendPropertyChanged("AvgExpenses")
-					Me.OnAvgExpensesChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Ap_mpd_User_AP_mpd_UserAccountInfo", Storage:="_AP_mpd_UserAccountInfos", ThisKey:="AP_mpd_UserId", OtherKey:="mpdUserId")>  _
-		Public Property AP_mpd_UserAccountInfos() As EntitySet(Of AP_mpd_UserAccountInfo)
-			Get
-				Return Me._AP_mpd_UserAccountInfos
-			End Get
-			Set
-				Me._AP_mpd_UserAccountInfos.Assign(value)
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpd_Country_Ap_mpd_User", Storage:="_AP_mpd_Country", ThisKey:="mpdCountryId", OtherKey:="mpdCountryId", IsForeignKey:=true)>  _
-		Public Property AP_mpd_Country() As AP_mpd_Country
-			Get
-				Return Me._AP_mpd_Country.Entity
-			End Get
-			Set
-				Dim previousValue As AP_mpd_Country = Me._AP_mpd_Country.Entity
-				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._AP_mpd_Country.HasLoadedOrAssignedValue = false)) Then
-					Me.SendPropertyChanging
-					If ((previousValue Is Nothing)  _
-								= false) Then
-						Me._AP_mpd_Country.Entity = Nothing
-						previousValue.Ap_mpd_Users.Remove(Me)
-					End If
-					Me._AP_mpd_Country.Entity = value
-					If ((value Is Nothing)  _
-								= false) Then
-						value.Ap_mpd_Users.Add(Me)
-						Me._mpdCountryId = value.mpdCountryId
-					Else
-						Me._mpdCountryId = CType(Nothing, Integer)
-					End If
-					Me.SendPropertyChanged("AP_mpd_Country")
-				End If
-			End Set
-		End Property
-		
-		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
-		
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
-		
-		Protected Overridable Sub SendPropertyChanging()
-			If ((Me.PropertyChangingEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
-			End If
-		End Sub
-		
-		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
-			If ((Me.PropertyChangedEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-			End If
-		End Sub
-		
-		Private Sub attach_AP_mpd_UserAccountInfos(ByVal entity As AP_mpd_UserAccountInfo)
-			Me.SendPropertyChanging
-			entity.Ap_mpd_User = Me
-		End Sub
-		
-		Private Sub detach_AP_mpd_UserAccountInfos(ByVal entity As AP_mpd_UserAccountInfo)
-			Me.SendPropertyChanging
-			entity.Ap_mpd_User = Nothing
-		End Sub
-	End Class
-	
 	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.AP_mpd_UserAccountInfo")>  _
 	Partial Public Class AP_mpd_UserAccountInfo
 		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
@@ -2811,6 +2506,10 @@ Namespace MPD
 		Private _compensation As Decimal
 		
 		Private _mpdUserId As System.Nullable(Of Long)
+		
+		Private _expBudget As Decimal
+		
+		Private _toRaiseBudget As Decimal
 		
 		Private _Ap_mpd_User As EntityRef(Of Ap_mpd_User)
 		
@@ -2860,6 +2559,14 @@ Namespace MPD
     Partial Private Sub OnmpdUserIdChanging(value As System.Nullable(Of Long))
     End Sub
     Partial Private Sub OnmpdUserIdChanged()
+    End Sub
+    Partial Private Sub OnexpBudgetChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OnexpBudgetChanged()
+    End Sub
+    Partial Private Sub OntoRaiseBudgetChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OntoRaiseBudgetChanged()
     End Sub
     #End Region
 		
@@ -3040,6 +2747,40 @@ Namespace MPD
 			End Set
 		End Property
 		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_expBudget", DbType:="Money NOT NULL")>  _
+		Public Property expBudget() As Decimal
+			Get
+				Return Me._expBudget
+			End Get
+			Set
+				If ((Me._expBudget = value)  _
+							= false) Then
+					Me.OnexpBudgetChanging(value)
+					Me.SendPropertyChanging
+					Me._expBudget = value
+					Me.SendPropertyChanged("expBudget")
+					Me.OnexpBudgetChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_toRaiseBudget", DbType:="Money NOT NULL")>  _
+		Public Property toRaiseBudget() As Decimal
+			Get
+				Return Me._toRaiseBudget
+			End Get
+			Set
+				If ((Me._toRaiseBudget = value)  _
+							= false) Then
+					Me.OntoRaiseBudgetChanging(value)
+					Me.SendPropertyChanging
+					Me._toRaiseBudget = value
+					Me.SendPropertyChanged("toRaiseBudget")
+					Me.OntoRaiseBudgetChanged
+				End If
+			End Set
+		End Property
+		
 		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Ap_mpd_User_AP_mpd_UserAccountInfo", Storage:="_Ap_mpd_User", ThisKey:="mpdUserId", OtherKey:="AP_mpd_UserId", IsForeignKey:=true)>  _
 		Public Property Ap_mpd_User() As Ap_mpd_User
 			Get
@@ -3084,6 +2825,647 @@ Namespace MPD
 						= false) Then
 				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
 			End If
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.Ap_mpd_User")>  _
+	Partial Public Class Ap_mpd_User
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _AP_mpd_UserId As Long
+		
+		Private _StaffId As System.Nullable(Of Integer)
+		
+		Private _mpdCountryId As Integer
+		
+		Private _AvgIncome12 As Decimal
+		
+		Private _AvgIncome3 As Decimal
+		
+		Private _AvgIncome1 As Decimal
+		
+		Private _SplitLocal As Double
+		
+		Private _SplitForeign As Double
+		
+		Private _SplitSubsidy As System.Nullable(Of Double)
+		
+		Private _AvgExpenses As Decimal
+		
+		Private _Name As String
+		
+		Private _gr_person_id As System.Nullable(Of Integer)
+		
+		Private _Email As String
+		
+		Private _Phone As String
+		
+		Private _Key_GUID As String
+		
+		Private _AvgSupLevel12 As Double
+		
+		Private _AvgSupLevel3 As Double
+		
+		Private _AvgSupLevel1 As Double
+		
+		Private _LocalIncome12 As Decimal
+		
+		Private _ForeignIncome12 As Decimal
+		
+		Private _SubsidyIncome12 As Decimal
+		
+		Private _AvgExpenseBudget12 As Decimal
+		
+		Private _AvgMPDBudget12 As Decimal
+		
+		Private _AvgIncome As Decimal
+		
+		Private _AP_mpd_UserAccountInfos As EntitySet(Of AP_mpd_UserAccountInfo)
+		
+		Private _AP_mpd_Country As EntityRef(Of AP_mpd_Country)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnAP_mpd_UserIdChanging(value As Long)
+    End Sub
+    Partial Private Sub OnAP_mpd_UserIdChanged()
+    End Sub
+    Partial Private Sub OnStaffIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnStaffIdChanged()
+    End Sub
+    Partial Private Sub OnmpdCountryIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnmpdCountryIdChanged()
+    End Sub
+    Partial Private Sub OnAvgIncome12Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnAvgIncome12Changed()
+    End Sub
+    Partial Private Sub OnAvgIncome3Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnAvgIncome3Changed()
+    End Sub
+    Partial Private Sub OnAvgIncome1Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnAvgIncome1Changed()
+    End Sub
+    Partial Private Sub OnSplitLocalChanging(value As Double)
+    End Sub
+    Partial Private Sub OnSplitLocalChanged()
+    End Sub
+    Partial Private Sub OnSplitForeignChanging(value As Double)
+    End Sub
+    Partial Private Sub OnSplitForeignChanged()
+    End Sub
+    Partial Private Sub OnSplitSubsidyChanging(value As System.Nullable(Of Double))
+    End Sub
+    Partial Private Sub OnSplitSubsidyChanged()
+    End Sub
+    Partial Private Sub OnAvgExpensesChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OnAvgExpensesChanged()
+    End Sub
+    Partial Private Sub OnNameChanging(value As String)
+    End Sub
+    Partial Private Sub OnNameChanged()
+    End Sub
+    Partial Private Sub Ongr_person_idChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub Ongr_person_idChanged()
+    End Sub
+    Partial Private Sub OnEmailChanging(value As String)
+    End Sub
+    Partial Private Sub OnEmailChanged()
+    End Sub
+    Partial Private Sub OnPhoneChanging(value As String)
+    End Sub
+    Partial Private Sub OnPhoneChanged()
+    End Sub
+    Partial Private Sub OnKey_GUIDChanging(value As String)
+    End Sub
+    Partial Private Sub OnKey_GUIDChanged()
+    End Sub
+    Partial Private Sub OnAvgSupLevel12Changing(value As Double)
+    End Sub
+    Partial Private Sub OnAvgSupLevel12Changed()
+    End Sub
+    Partial Private Sub OnAvgSupLevel3Changing(value As Double)
+    End Sub
+    Partial Private Sub OnAvgSupLevel3Changed()
+    End Sub
+    Partial Private Sub OnAvgSupLevel1Changing(value As Double)
+    End Sub
+    Partial Private Sub OnAvgSupLevel1Changed()
+    End Sub
+    Partial Private Sub OnLocalIncome12Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnLocalIncome12Changed()
+    End Sub
+    Partial Private Sub OnForeignIncome12Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnForeignIncome12Changed()
+    End Sub
+    Partial Private Sub OnSubsidyIncome12Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnSubsidyIncome12Changed()
+    End Sub
+    Partial Private Sub OnAvgExpenseBudget12Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnAvgExpenseBudget12Changed()
+    End Sub
+    Partial Private Sub OnAvgMPDBudget12Changing(value As Decimal)
+    End Sub
+    Partial Private Sub OnAvgMPDBudget12Changed()
+    End Sub
+    Partial Private Sub OnAvgIncomeChanging(value As Decimal)
+    End Sub
+    Partial Private Sub OnAvgIncomeChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._AP_mpd_UserAccountInfos = New EntitySet(Of AP_mpd_UserAccountInfo)(AddressOf Me.attach_AP_mpd_UserAccountInfos, AddressOf Me.detach_AP_mpd_UserAccountInfos)
+			Me._AP_mpd_Country = CType(Nothing, EntityRef(Of AP_mpd_Country))
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AP_mpd_UserId", AutoSync:=AutoSync.OnInsert, DbType:="BigInt NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property AP_mpd_UserId() As Long
+			Get
+				Return Me._AP_mpd_UserId
+			End Get
+			Set
+				If ((Me._AP_mpd_UserId = value)  _
+							= false) Then
+					Me.OnAP_mpd_UserIdChanging(value)
+					Me.SendPropertyChanging
+					Me._AP_mpd_UserId = value
+					Me.SendPropertyChanged("AP_mpd_UserId")
+					Me.OnAP_mpd_UserIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StaffId", DbType:="Int")>  _
+		Public Property StaffId() As System.Nullable(Of Integer)
+			Get
+				Return Me._StaffId
+			End Get
+			Set
+				If (Me._StaffId.Equals(value) = false) Then
+					Me.OnStaffIdChanging(value)
+					Me.SendPropertyChanging
+					Me._StaffId = value
+					Me.SendPropertyChanged("StaffId")
+					Me.OnStaffIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_mpdCountryId", DbType:="Int NOT NULL")>  _
+		Public Property mpdCountryId() As Integer
+			Get
+				Return Me._mpdCountryId
+			End Get
+			Set
+				If ((Me._mpdCountryId = value)  _
+							= false) Then
+					If Me._AP_mpd_Country.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnmpdCountryIdChanging(value)
+					Me.SendPropertyChanging
+					Me._mpdCountryId = value
+					Me.SendPropertyChanged("mpdCountryId")
+					Me.OnmpdCountryIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgIncome12", DbType:="Money NOT NULL")>  _
+		Public Property AvgIncome12() As Decimal
+			Get
+				Return Me._AvgIncome12
+			End Get
+			Set
+				If ((Me._AvgIncome12 = value)  _
+							= false) Then
+					Me.OnAvgIncome12Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgIncome12 = value
+					Me.SendPropertyChanged("AvgIncome12")
+					Me.OnAvgIncome12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgIncome3", DbType:="Money NOT NULL")>  _
+		Public Property AvgIncome3() As Decimal
+			Get
+				Return Me._AvgIncome3
+			End Get
+			Set
+				If ((Me._AvgIncome3 = value)  _
+							= false) Then
+					Me.OnAvgIncome3Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgIncome3 = value
+					Me.SendPropertyChanged("AvgIncome3")
+					Me.OnAvgIncome3Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgIncome1", DbType:="Money NOT NULL")>  _
+		Public Property AvgIncome1() As Decimal
+			Get
+				Return Me._AvgIncome1
+			End Get
+			Set
+				If ((Me._AvgIncome1 = value)  _
+							= false) Then
+					Me.OnAvgIncome1Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgIncome1 = value
+					Me.SendPropertyChanged("AvgIncome1")
+					Me.OnAvgIncome1Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SplitLocal", DbType:="Float NOT NULL")>  _
+		Public Property SplitLocal() As Double
+			Get
+				Return Me._SplitLocal
+			End Get
+			Set
+				If ((Me._SplitLocal = value)  _
+							= false) Then
+					Me.OnSplitLocalChanging(value)
+					Me.SendPropertyChanging
+					Me._SplitLocal = value
+					Me.SendPropertyChanged("SplitLocal")
+					Me.OnSplitLocalChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SplitForeign", DbType:="Float NOT NULL")>  _
+		Public Property SplitForeign() As Double
+			Get
+				Return Me._SplitForeign
+			End Get
+			Set
+				If ((Me._SplitForeign = value)  _
+							= false) Then
+					Me.OnSplitForeignChanging(value)
+					Me.SendPropertyChanging
+					Me._SplitForeign = value
+					Me.SendPropertyChanged("SplitForeign")
+					Me.OnSplitForeignChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SplitSubsidy", DbType:="Float")>  _
+		Public Property SplitSubsidy() As System.Nullable(Of Double)
+			Get
+				Return Me._SplitSubsidy
+			End Get
+			Set
+				If (Me._SplitSubsidy.Equals(value) = false) Then
+					Me.OnSplitSubsidyChanging(value)
+					Me.SendPropertyChanging
+					Me._SplitSubsidy = value
+					Me.SendPropertyChanged("SplitSubsidy")
+					Me.OnSplitSubsidyChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgExpenses", DbType:="Money NOT NULL")>  _
+		Public Property AvgExpenses() As Decimal
+			Get
+				Return Me._AvgExpenses
+			End Get
+			Set
+				If ((Me._AvgExpenses = value)  _
+							= false) Then
+					Me.OnAvgExpensesChanging(value)
+					Me.SendPropertyChanging
+					Me._AvgExpenses = value
+					Me.SendPropertyChanged("AvgExpenses")
+					Me.OnAvgExpensesChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Name", DbType:="NVarChar(80)")>  _
+		Public Property Name() As String
+			Get
+				Return Me._Name
+			End Get
+			Set
+				If (String.Equals(Me._Name, value) = false) Then
+					Me.OnNameChanging(value)
+					Me.SendPropertyChanging
+					Me._Name = value
+					Me.SendPropertyChanged("Name")
+					Me.OnNameChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_gr_person_id", DbType:="Int")>  _
+		Public Property gr_person_id() As System.Nullable(Of Integer)
+			Get
+				Return Me._gr_person_id
+			End Get
+			Set
+				If (Me._gr_person_id.Equals(value) = false) Then
+					Me.Ongr_person_idChanging(value)
+					Me.SendPropertyChanging
+					Me._gr_person_id = value
+					Me.SendPropertyChanged("gr_person_id")
+					Me.Ongr_person_idChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Email", DbType:="NVarChar(80)")>  _
+		Public Property Email() As String
+			Get
+				Return Me._Email
+			End Get
+			Set
+				If (String.Equals(Me._Email, value) = false) Then
+					Me.OnEmailChanging(value)
+					Me.SendPropertyChanging
+					Me._Email = value
+					Me.SendPropertyChanged("Email")
+					Me.OnEmailChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Phone", DbType:="NVarChar(80)")>  _
+		Public Property Phone() As String
+			Get
+				Return Me._Phone
+			End Get
+			Set
+				If (String.Equals(Me._Phone, value) = false) Then
+					Me.OnPhoneChanging(value)
+					Me.SendPropertyChanging
+					Me._Phone = value
+					Me.SendPropertyChanged("Phone")
+					Me.OnPhoneChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Key_GUID", DbType:="VarChar(40)")>  _
+		Public Property Key_GUID() As String
+			Get
+				Return Me._Key_GUID
+			End Get
+			Set
+				If (String.Equals(Me._Key_GUID, value) = false) Then
+					Me.OnKey_GUIDChanging(value)
+					Me.SendPropertyChanging
+					Me._Key_GUID = value
+					Me.SendPropertyChanged("Key_GUID")
+					Me.OnKey_GUIDChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgSupLevel12", DbType:="Float NOT NULL")>  _
+		Public Property AvgSupLevel12() As Double
+			Get
+				Return Me._AvgSupLevel12
+			End Get
+			Set
+				If ((Me._AvgSupLevel12 = value)  _
+							= false) Then
+					Me.OnAvgSupLevel12Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgSupLevel12 = value
+					Me.SendPropertyChanged("AvgSupLevel12")
+					Me.OnAvgSupLevel12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgSupLevel3", DbType:="Float NOT NULL")>  _
+		Public Property AvgSupLevel3() As Double
+			Get
+				Return Me._AvgSupLevel3
+			End Get
+			Set
+				If ((Me._AvgSupLevel3 = value)  _
+							= false) Then
+					Me.OnAvgSupLevel3Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgSupLevel3 = value
+					Me.SendPropertyChanged("AvgSupLevel3")
+					Me.OnAvgSupLevel3Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgSupLevel1", DbType:="Float NOT NULL")>  _
+		Public Property AvgSupLevel1() As Double
+			Get
+				Return Me._AvgSupLevel1
+			End Get
+			Set
+				If ((Me._AvgSupLevel1 = value)  _
+							= false) Then
+					Me.OnAvgSupLevel1Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgSupLevel1 = value
+					Me.SendPropertyChanged("AvgSupLevel1")
+					Me.OnAvgSupLevel1Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LocalIncome12", DbType:="Money NOT NULL")>  _
+		Public Property LocalIncome12() As Decimal
+			Get
+				Return Me._LocalIncome12
+			End Get
+			Set
+				If ((Me._LocalIncome12 = value)  _
+							= false) Then
+					Me.OnLocalIncome12Changing(value)
+					Me.SendPropertyChanging
+					Me._LocalIncome12 = value
+					Me.SendPropertyChanged("LocalIncome12")
+					Me.OnLocalIncome12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ForeignIncome12", DbType:="Money NOT NULL")>  _
+		Public Property ForeignIncome12() As Decimal
+			Get
+				Return Me._ForeignIncome12
+			End Get
+			Set
+				If ((Me._ForeignIncome12 = value)  _
+							= false) Then
+					Me.OnForeignIncome12Changing(value)
+					Me.SendPropertyChanging
+					Me._ForeignIncome12 = value
+					Me.SendPropertyChanged("ForeignIncome12")
+					Me.OnForeignIncome12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_SubsidyIncome12", DbType:="Money NOT NULL")>  _
+		Public Property SubsidyIncome12() As Decimal
+			Get
+				Return Me._SubsidyIncome12
+			End Get
+			Set
+				If ((Me._SubsidyIncome12 = value)  _
+							= false) Then
+					Me.OnSubsidyIncome12Changing(value)
+					Me.SendPropertyChanging
+					Me._SubsidyIncome12 = value
+					Me.SendPropertyChanged("SubsidyIncome12")
+					Me.OnSubsidyIncome12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgExpenseBudget12", DbType:="Money NOT NULL")>  _
+		Public Property AvgExpenseBudget12() As Decimal
+			Get
+				Return Me._AvgExpenseBudget12
+			End Get
+			Set
+				If ((Me._AvgExpenseBudget12 = value)  _
+							= false) Then
+					Me.OnAvgExpenseBudget12Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgExpenseBudget12 = value
+					Me.SendPropertyChanged("AvgExpenseBudget12")
+					Me.OnAvgExpenseBudget12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgMPDBudget12", DbType:="Money NOT NULL")>  _
+		Public Property AvgMPDBudget12() As Decimal
+			Get
+				Return Me._AvgMPDBudget12
+			End Get
+			Set
+				If ((Me._AvgMPDBudget12 = value)  _
+							= false) Then
+					Me.OnAvgMPDBudget12Changing(value)
+					Me.SendPropertyChanging
+					Me._AvgMPDBudget12 = value
+					Me.SendPropertyChanged("AvgMPDBudget12")
+					Me.OnAvgMPDBudget12Changed
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AvgIncome", DbType:="Money NOT NULL")>  _
+		Public Property AvgIncome() As Decimal
+			Get
+				Return Me._AvgIncome
+			End Get
+			Set
+				If ((Me._AvgIncome = value)  _
+							= false) Then
+					Me.OnAvgIncomeChanging(value)
+					Me.SendPropertyChanging
+					Me._AvgIncome = value
+					Me.SendPropertyChanged("AvgIncome")
+					Me.OnAvgIncomeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Ap_mpd_User_AP_mpd_UserAccountInfo", Storage:="_AP_mpd_UserAccountInfos", ThisKey:="AP_mpd_UserId", OtherKey:="mpdUserId")>  _
+		Public Property AP_mpd_UserAccountInfos() As EntitySet(Of AP_mpd_UserAccountInfo)
+			Get
+				Return Me._AP_mpd_UserAccountInfos
+			End Get
+			Set
+				Me._AP_mpd_UserAccountInfos.Assign(value)
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AP_mpd_Country_Ap_mpd_User", Storage:="_AP_mpd_Country", ThisKey:="mpdCountryId", OtherKey:="mpdCountryId", IsForeignKey:=true)>  _
+		Public Property AP_mpd_Country() As AP_mpd_Country
+			Get
+				Return Me._AP_mpd_Country.Entity
+			End Get
+			Set
+				Dim previousValue As AP_mpd_Country = Me._AP_mpd_Country.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AP_mpd_Country.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AP_mpd_Country.Entity = Nothing
+						previousValue.Ap_mpd_Users.Remove(Me)
+					End If
+					Me._AP_mpd_Country.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.Ap_mpd_Users.Add(Me)
+						Me._mpdCountryId = value.mpdCountryId
+					Else
+						Me._mpdCountryId = CType(Nothing, Integer)
+					End If
+					Me.SendPropertyChanged("AP_mpd_Country")
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+		
+		Private Sub attach_AP_mpd_UserAccountInfos(ByVal entity As AP_mpd_UserAccountInfo)
+			Me.SendPropertyChanging
+			entity.Ap_mpd_User = Me
+		End Sub
+		
+		Private Sub detach_AP_mpd_UserAccountInfos(ByVal entity As AP_mpd_UserAccountInfo)
+			Me.SendPropertyChanging
+			entity.Ap_mpd_User = Nothing
 		End Sub
 	End Class
 End Namespace

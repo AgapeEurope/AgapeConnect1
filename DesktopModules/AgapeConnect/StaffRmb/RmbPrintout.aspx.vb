@@ -47,6 +47,10 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Try
+
+        
+
         Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
         Dim Cur As String = StaffBrokerFunctions.GetSetting("Currency", PS.PortalId)
 
@@ -67,7 +71,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                 Dim RmbRel = StaffRmbFunctions.Authenticate(User.UserID, q.First.RMBNo, PS.PortalId)
                 If RmbRel = RmbAccess.Denied And Not User.IsInRole("Administrators") And Not (User.UserID = RmbSettings("AuthUser") Or User.UserID = RmbSettings("AuthAuthUser")) Then
-                    
+
                     Dim isAccounts = False
                     For Each role In CStr(RmbSettings("AccountsRoles")).Split(";")
                         If (User.Roles().Contains(role)) Then
@@ -80,7 +84,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
                         Return
                     End If
                 End If
-               
+
             Else
                 pnlAccessDenied.Visible = True
                 btnLogin.Visible = True
@@ -143,7 +147,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                 Else
                     Dim total = q.First.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount)
-                    
+
                     et &= "<p>" & Translate("ClearAdvPartial").Replace("[CLEARADV]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, q.First.AdvanceRequest.ToString("0.00"))).Replace("[PAYABLE]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, (total - q.First.AdvanceRequest).ToString("0.00"))) & "</p>"
 
                 End If
@@ -274,26 +278,33 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
             theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And Not c.ReceiptImageId Is Nothing Order By c.ReceiptNo
             Dim ER As String = ""
             For Each row In theLines
-                Dim theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(row.ReceiptImageId)
-                ER &= "<div style='align: center; float: left; margin: 5px; ' >"
-                If theFile.Extension.ToLower = "pdf" Then
+                    Dim theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(row.ReceiptImageId)
+                    If Not theFile Is Nothing Then
 
-                    ER &= "<iframe style='width: 747px; height: 1000px;' src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' ></iframe>"
-                Else
-                    ER &= "<img src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "'/>"
-                   
-                End If
-                ER &= "<div style='font-style: italic; color: #AAA; font-size: small; width: 100%; text-align: center;'>" & Translate("ReceiptNo") & ": " & row.ReceiptNo
-                Dim amount = row.GrossAmount.ToString("0.00")
-                Dim cr = Cur
-                If Not row.OrigCurrency Is Nothing And Not row.OrigCurrencyAmount Is Nothing Then
-                    amount = row.OrigCurrencyAmount.Value.ToString("0.00")
-                    cr = row.OrigCurrency
-                End If
-                ER &= "&nbsp;&nbsp;" & cr & amount
-                ER &= "&nbsp;&nbsp;<a href='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' target='_blank'>(Click here to open in new tab/window)</a> "
-                ER &= "</div>"
-                ER &= " </div><div style='clear: both;' />"
+
+                        ER &= "<div style='align: center; float: left; margin: 5px; ' >"
+                        If theFile.Extension.ToLower = "pdf" Then
+
+                            ER &= "<iframe style='width: 747px; height: 1000px;' src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' ></iframe>"
+                        Else
+                            ER &= "<img src='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "'/>"
+
+                        End If
+                        ER &= "<div style='font-style: italic; color: #AAA; font-size: small; width: 100%; text-align: center;'>" & Translate("ReceiptNo") & ": " & row.ReceiptNo
+                        Dim amount = row.GrossAmount.ToString("0.00")
+                        Dim cr = Cur
+                        If Not row.OrigCurrency Is Nothing And Not row.OrigCurrencyAmount Is Nothing Then
+                            amount = row.OrigCurrencyAmount.Value.ToString("0.00")
+                            cr = row.OrigCurrency
+                        End If
+                        ER &= "&nbsp;&nbsp;" & cr & amount
+                        ER &= "&nbsp;&nbsp;<a href='" & DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile) & "' target='_blank'>(Click here to open in new tab/window)</a> "
+                        ER &= "</div>"
+                        ER &= " </div><div style='clear: both;' />"
+                    Else
+                        ER &= "<div class='alert alert-error'> Error: Electronic Receipt missing for - " & row.ShortComment & "</div>"
+
+                    End If
             Next
             output = output.Replace("[ELECTRONIC_RECEIPTS]", ER)
 
@@ -326,7 +337,13 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
             PlaceHolder1.Controls.Add(New LiteralControl(output))
 
-        End If
+            End If
+
+        Catch ex As Exception
+            pnlAccessDenied.Visible = True
+            btnLogin.Visible = True
+            lblAccessDenied.Text = "Error displaying prinout. The following infomtion will allow the technical team to debug the issue you are experiencing: <br />" & ex.ToString
+        End Try
     End Sub
 
     Public Function Translate(ByVal ResourceString As String) As String

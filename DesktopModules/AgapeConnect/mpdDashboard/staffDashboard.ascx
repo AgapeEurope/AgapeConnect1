@@ -4,13 +4,13 @@
 <script src="/Portals/_default/Skins/AgapeBlue/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-    var sData = [true, true, true, true];
+    var sData = [true, true, true, true, true];
     google.load("visualization", "1", { packages: ["corechart"] });
     google.setOnLoadCallback(drawChart);
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Month', 'Balance', 'Income', 'Budget', 'Expenses'],
+          ['Month', 'Balance', 'Income', 'To Raise', 'Expenses', 'Expense Budget'],
          <%= jsonLi %>
         ]);
 
@@ -37,7 +37,7 @@
         function refreshChart() {
             var options = {
                 title: 'Budget vs Actual',
-                series: [{ color: '#ff9900', lineWidth: sData[0] ? 2 : 0 }, { color: '#3366cc', lineWidth: sData[1] ? 2 : 0 }, { color: '#109618', lineWidth: sData[2] ? 2 : 0 }, { color: '#dc3912', lineWidth: sData[3] ? 2 : 0 }]
+                series: [{ color: '#ff9900', lineWidth: sData[0] ? 2 : 0 }, { color: '#3366cc', lineWidth: sData[1] ? 2 : 0 }, { color: '#109618', lineWidth: sData[2] ? 2 : 0 }, { color: '#dc3912', lineWidth: sData[3] ? 2 : 0 }, { color: '#808080', lineWidth: sData[4] ? 2 : 0 }]
 
             }
             chart.draw(data, options);
@@ -67,6 +67,13 @@
 
    
 </script>
+<style type="text/css">
+    [stroke="#109618"], [stroke="#808080"]{
+        stroke-dasharray: 10px;
+    }
+</style>
+
+
 <h2> <asp:Label ID="lblStaffName" runat="server" Text=""></asp:Label></h2>
 <div id="chart_div" style="width: 100%; height: 500px;"></div>
 
