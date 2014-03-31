@@ -1,11 +1,42 @@
 ﻿@import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
 @import url("/Portals/_default/Skins/AgapeBlue/JqueryUIFix.css");
 
+
+a.dnnFormHelp{
+    right: inherit;
+    top: inherit;
+    margin-left: 5px !important;
+    float:right;
+    position: relative;
+}
+.dnnLabel{
+    width: 100%;
+     padding-right: 0; 
+ margin-right: 0; 
+}
+.dnnFormHelpContent{
+    white-space: normal;
+}
+.language-object{
+   margin: -23px 0 3px 0;
+  height: 20px;
+}
+.Language{
+    margin: 3px;
+    padding-bottom: 3px;
+}
+.Language.selected{
+border: #f6b900 2px solid;
+
+}
+[title=Register] {
+    display:none !important;
+}
 .dnn_mact > li ul {
     width: 250px;
 }
 #RibbonBar_hypMessage img{ 
-    /*display:none;*/  /*hide the DNN logo*/
+    display:none;  /*hide the DNN logo*/
 }
 #RibbonBar_ddlMode{
     width: 150px;
@@ -39,6 +70,10 @@ min-width: -webkit-min-content;
     opacity: 0.7;
     filter: Alpha(Opacity=70);
     z-index: 999;
+    height: 500%;
+}
+.ui-dialog {
+    /*z-index: 9999;*/
 }
 
 .headr{

@@ -91,7 +91,8 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
 
     End Sub
 
-    Protected Sub btnUploadReceipt_Click(sender As Object, e As EventArgs) Handles btnUploadReceipt.Click
+    Protected Sub btnUploadReceipt_Click(sender As Object, e As System.EventArgs) Handles btnUploadReceipt.Click
+
         If fuReceipt.HasFile Then
             Dim Filename As String = fuReceipt.FileName
             Dim ext As String = Filename.Substring(Filename.LastIndexOf(".") + 1)
@@ -227,7 +228,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
 
     End Sub
    
-    Protected Sub btnRotateLeft_Click(sender As Object, e As EventArgs) Handles btnRotateLeft.Click
+    Protected Sub btnRotateLeft_Click(sender As Object, e As System.EventArgs) Handles btnRotateLeft.Click
         Rotate(False)
     End Sub
     Private Sub Rotate(ByVal Right As Boolean)
@@ -293,12 +294,12 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
         myMemoryStream.Dispose()
     End Sub
 
-    Protected Sub btnRotatRight_Click(sender As Object, e As EventArgs) Handles btnRotatRight.Click
+    Protected Sub btnRotatRight_Click(sender As Object, e As System.EventArgs) Handles btnRotatRight.Click
         Rotate(True)
     End Sub
 
     
-    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         lblOpenNewTab.Text = Translate("OpenNewTab")
 
         Dim RmbNo As String = Request.QueryString("RmbNo")
@@ -308,7 +309,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
                 Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
                 Dim d As New StaffRmb.StaffRmbDataContext
                 Dim theRmbLine = (From c In d.AP_Staff_RmbLines Where c.AP_Staff_Rmb.PortalId = PS.PortalId And c.RmbLineNo = RmbLine)
-               
+
                 Dim theRmb = (From c In d.AP_Staff_Rmbs Where c.PortalId = PS.PortalId And c.RMBNo = RmbNo).First
 
 
@@ -352,7 +353,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
 
             End Try
         End If
-      
+
 
 
 

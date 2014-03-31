@@ -72,10 +72,10 @@
         </tr>
        </table>
     </EmptyDataTemplate>
-                    <FooterStyle CssClass="ui-widget-header dnnGridFooter" />
-                   <HeaderStyle CssClass="ui-widget-header dnnGridHeader"    />
+                    <FooterStyle CssClass="ui-widget-header " />
+                   <HeaderStyle CssClass="ui-widget-header "    />
                    
-                    <EmptyDataRowStyle CssClass="ui-widget-header dnnGridHeader" />
+                    <EmptyDataRowStyle CssClass="ui-widget-header" />
                     <PagerStyle CssClass="dnnGridPager" />
                     <RowStyle CssClass="dnnGridItem" />
                     <SelectedRowStyle CssClass="dnnFormError" />

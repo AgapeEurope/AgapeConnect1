@@ -3,10 +3,11 @@
 <script type="text/javascript">
     (function ($, Sys) {
         function setUpMyTabs<%= pnlDelegate.ClientId() %>() {
+           
             $('#<%= pnlDelegate.ClientId() %>').dialog({
                 autoOpen: false,
                 height: 155,
-                width: 330,
+                width: 500,
                 modal: true,
                 title: "Delegate Leadership Relationship",
                 close: function () {

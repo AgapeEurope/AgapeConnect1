@@ -116,7 +116,15 @@
 
     }
 
-    function removeTab(i) { $('#tabs').tabs("remove", i); }
+    function removeTab(i) {
+        var tab = $( "#tabs" ).find( ".ui-tabs-nav li:eq(" + i +")" ).remove();
+        var panelId = tab.attr( "aria-controls" );
+        // Remove the panel
+        $( "#" + panelId ).remove();
+        // Refresh the tabs widget
+        $( "#tabs" ).tabs( "refresh" );
+        // $('#Tab3-tab').remove  $('#tabs').tabs("disable", i);
+    }
 
     function MaritalChange() {
      

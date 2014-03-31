@@ -56,6 +56,7 @@
 <div id="dnn_wrapper">
   <div class="dnn_main dnn_layout">
     <header class="clearfix">
+          <dnn:LANGUAGE runat="server" id="dnnLANGUAGE" showMenu="False" showLinks="True" CssClass="language" />  
       <div class="dnn_logo">
         <dnn:LOGO runat="server" id="dnnLOGO" BorderWidth="0" />
       </div>
@@ -299,7 +300,7 @@
     </section>
   </div>
 </div>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript" src="<%= SkinPath %>scripts/bootstrap.js"></script> 
 <script type="text/javascript" src="<%= SkinPath %>scripts/scrolltop.js"></script> 
 <script type="text/javascript" src="<%= SkinPath %>scripts/animatedcollapse.js"></script> 

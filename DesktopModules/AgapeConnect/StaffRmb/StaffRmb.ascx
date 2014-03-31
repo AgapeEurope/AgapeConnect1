@@ -1595,8 +1595,8 @@
                                                 <ItemStyle HorizontalAlign="Left" />
                                             </asp:TemplateField>
                                         </Columns>
-                                        <FooterStyle CssClass="ui-widget-header dnnGridFooter acGridHeader" />
-                                        <HeaderStyle CssClass="ui-widget-header dnnGridHeader acGridHeader" />
+                                        <FooterStyle CssClass="ui-widget-header  acGridHeader" />
+                                        <HeaderStyle CssClass="ui-widget-header  acGridHeader" />
                                         <PagerStyle CssClass="dnnGridPager" />
                                         <SelectedRowStyle CssClass="dnnFormError" />
                                     </asp:GridView>

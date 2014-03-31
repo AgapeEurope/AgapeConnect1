@@ -115,7 +115,7 @@
     </section>
   </div>
 </div>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript" src="<%= SkinPath %>scripts/bootstrap.js"></script> 
 <script type="text/javascript" src="<%= SkinPath %>scripts/scrolltop.js"></script> 
 <script type="text/javascript" src="<%= SkinPath %>scripts/animatedcollapse.js"></script> 
