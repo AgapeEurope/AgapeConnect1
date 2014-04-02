@@ -1,7 +1,26 @@
 ﻿@import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
 @import url("/Portals/_default/Skins/AgapeBlue/JqueryUIFix.css");
 
+.dnnGridItem .visible-desktop, .dnnGridAltItem .visible-desktop{
+    display: table-cell !important;
+}
 
+a.breadcrumb:link, a.breadcrumb:active, a.breadcrumb:visited {
+    font-size: 22px !important;
+}
+
+.accordion-heading{
+    background-color: #EEE;
+}
+#RibbonBar_ddlMode .rcbInput[input] {
+padding: 3px !important;
+}
+#RibbonBar_ddlUICulture_Input{
+    padding: 5px !important;
+}
+.accordion-body{
+    background-color: white;
+}
 a.dnnFormHelp{
     right: inherit;
     top: inherit;
@@ -13,6 +32,9 @@ a.dnnFormHelp{
     width: 100%;
      padding-right: 0; 
  margin-right: 0; 
+
+ max-width: 250px;
+ min-width: 150px;
 }
 .dnnFormHelpContent{
     white-space: normal;

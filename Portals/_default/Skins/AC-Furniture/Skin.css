@@ -2,6 +2,16 @@
 @import url( bootstrap.css );
 @import url(http://fonts.googleapis.com/css?family=Oswald);
 @import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
+@import url("/Portals/_default/Skins/AgapeBlue/JqueryUIFix.css");
+
+.ui-widget-overlay {
+    background: #000 ;
+    opacity: 0.7;
+    filter: Alpha(Opacity=70);
+    z-index: 999;
+    height: 500% !important;
+}
+
 
 #dnn_dnnUSER_registerLink {
     display: none;

@@ -14,6 +14,7 @@ Imports DotNetNuke.Security
 
 Imports GR_NET
 Imports gr_mapping
+Imports DotNetNuke.Services.FileSystem
 Namespace DotNetNuke.Modules.AgapeConnect
     Partial Class GlobalProfile
         Inherits Entities.Modules.PortalModuleBase
@@ -25,6 +26,18 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Dim gr As GR
         Public gr_server As String = "http://192.168.2.244:3000/"
         Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+
+            Dim URL = UrlUtils.DecryptParameter(Context.Request.QueryString("fileticket"))
+
+            Dim File = FileManager.Instance.GetFile(URL)
+            Dim folder = FolderManager.Instance.GetFolder(File.FolderId)
+            Dim dic = String.Format(DataCache.FolderPermissionCacheKey, PortalId)
+            lblTest.Text = dic
+
+            '  lblTest.Text = PortalSecurity.IsInRoles(FileSystemUtils.GetRoles(File.Folder, PortalId, "READ"))
+
+
             gr_server = StaffBrokerFunctions.GetSetting("gr_api_url", PortalId)
             gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), gr_server)
             If Not Page.IsPostBack Then
