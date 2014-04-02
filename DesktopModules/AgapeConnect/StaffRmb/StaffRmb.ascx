@@ -723,7 +723,7 @@
             <td>
                 <div align="center" width="100%">
                     <input id="btmNewRmb" type="button" onclick="showPopup2();" class="aButton btn-success" value='<%= Translate("btnNew") %>'
-                        style="margin-bottom: 5px; font-weight: bold; min-width: 220px;" />
+                        style="margin-bottom: 5px; font-weight: bold; min-width: 220px; font-size: large" />
                 </div>
                 <div id="accordion" class="accordian" style="background-color: #fafafa;">
                     <div class="accordion-group">
@@ -1843,7 +1843,7 @@
                                     <asp:Label ID="lblIncType" runat="server" CssClass="ui-state-error ui-corner-all" Text="Incompatible Type" Visible="false"></asp:Label>
 
                                     <div id="manualCodes" runat="server" style="float: right;">
-                                        <asp:DropDownList ID="ddlAccountCode" runat="server" Width="60px" DataSourceID="dsAccountCodes"
+                                        <asp:DropDownList ID="ddlAccountCode" runat="server" Width="80px" DataSourceID="dsAccountCodes"
                                             DataTextField="DisplayName" DataValueField="AccountCode" Enabled="false">
                                         </asp:DropDownList>
                                          <asp:TextBox ID="tbAccountCode" runat="server"  Visible="false"></asp:TextBox>

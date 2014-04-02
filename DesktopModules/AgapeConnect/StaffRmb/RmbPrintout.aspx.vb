@@ -147,8 +147,7 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
                 Else
                     Dim total = q.First.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount)
-
-                    et &= "<p>" & Translate("ClearAdvPartial").Replace("[CLEARADV]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, q.First.AdvanceRequest.ToString("0.00"))).Replace("[PAYABLE]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, (total - q.First.AdvanceRequest).ToString("0.00"))) & "</p>"
+                        et &= "<p>" & Translate("ClearAdvPartial").Replace("[CLEARADV]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, q.First.AdvanceRequest.ToString("0.00"))).Replace("[PAYABLE]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, (total - q.First.AdvanceRequest).ToString("0.00"))) & "</p>"
 
                 End If
 

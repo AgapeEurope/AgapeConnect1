@@ -70,23 +70,33 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
         Dim rc As New DotNetNuke.Security.Roles.RoleController
 
         Dim pc As New Permissions.PermissionController
-        Dim w As Permissions.PermissionInfo = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "WRITE")(0)
-        Dim r As Permissions.PermissionInfo = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "READ")(0)
-        FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, theUserId)
-        FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, rc.GetRoleByName(PortalId, "Accounts Team").RoleID)
+            Dim w As Permissions.PermissionInfo = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "WRITE")(0)
+            Dim r As Permissions.PermissionInfo = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "READ")(0)
 
-        ' If Not (Permissions.FolderPermissionController.HasFolderPermission(PortalId, theFolder.FolderPath, "READ")) Then
-        FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, UserController.GetCurrentUserInfo.UserID)
-        For Each row In StaffBrokerFunctions.GetLeaders(UserController.GetCurrentUserInfo.UserID, True).Distinct()
+            If Not Permissions.FolderPermissionController.HasFolderPermission(PortalId, theFolder.FolderPath, "WRITE") Then
+                FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, theUserId)
 
 
-            FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, row)
-        Next
-        'End If
 
 
+                FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, rc.GetRoleByName(PortalId, "Accounts Team").RoleID)
+
+                ' If Not (Permissions.FolderPermissionController.HasFolderPermission(PortalId, theFolder.FolderPath, "READ")) Then
+                'If theUserId <> UserController.GetCurrentUserInfo.UserID Then
+                '    FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, UserController.GetCurrentUserInfo.UserID)
+                'End If
+
+                For Each row In StaffBrokerFunctions.GetLeaders(UserController.GetCurrentUserInfo.UserID, True).Distinct()
+
+
+                    FolderManager.Instance.SetFolderPermission(theFolder, r.PermissionID, Nothing, row)
+                Next
+                'End If
+
+                DataCache.ClearCache()
+            End If
         Catch ex As Exception
-
+            StaffBrokerFunctions.EventLog("Error setting Folder Permission", ex.ToString, UserController.GetCurrentUserInfo.UserID)
         End Try
 
     End Sub
@@ -109,7 +119,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
                 Dim fm = FolderMappingController.Instance.GetFolderMapping(PS.PortalId, "Secure")
 
 
-                If Not FolderManager.Instance.FolderExists(PS.PortalId, "_RmbReceipts/") Then
+                If Not FolderManager.Instance.FolderExists(PS.PortalId, "_RmbReceipts") Then
                     Dim f1 = FolderManager.Instance.AddFolder(fm, "_RmbReceipts")
                     Dim rc As New DotNetNuke.Security.Roles.RoleController
 
@@ -128,8 +138,11 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
                     theFolder = FolderManager.Instance.AddFolder(fm, "_RmbReceipts/" & theRmb.UserId)
                 End If
 
+                If PS.PortalId = 2 Then
+                    CheckFolderPermissions(PS.PortalId, theFolder, theRmb.UserId)
 
-                CheckFolderPermissions(PS.PortalId, theFolder, theRmb.UserId)
+                End If
+                '  CheckFolderPermissions(PS.PortalId, theFolder, theRmb.UserId)
 
 
                 If ext.ToLower = "pdf" Then
@@ -189,6 +202,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
 
                     Dim _FileId = _theFile.FileId
                     'Look for new pdf and remove it!
+                    
                     Dim theOtherFile = FileManager.Instance.GetFile(theFolder, "R" & RmbNo & "L" & RmbLine & ".pdf")
                     If Not theOtherFile Is Nothing Then
                         FileManager.Instance.DeleteFile(theOtherFile)
