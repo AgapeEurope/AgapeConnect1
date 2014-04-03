@@ -78,7 +78,7 @@
                                
                                  <asp:TextBox ID="tbCostCentreCode" runat="server" Visible='<%# StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"%>' Text='<%# Eval("CostCentre")%>'></asp:TextBox>
                             </td>
-                            <td>
+                            <td style="width: 250px;">
                                 <uc1:labelcontrol ID="labelcontrol5" runat="server" Text="Can Reimburse" HelpText="Check this option if you want staff to be able to reimburse from this cost centre" /><br />
                                   <uc1:labelcontrol ID="labelcontrol12" runat="server" Text="Can Recieve Non-Donation Income" HelpText="In some countries, non-donation income (like conference income) can declared on a reimbursement (using the Non-Donation Income expense type) - and the staff member must specify what the income is for (i.e. where the money should be booked). If this box is checked it will appear in the list of available options. Note that is not applicable in most countries." />
                             </td>
@@ -97,7 +97,7 @@
                  <asp:ListItem Value="" Text="Not Set"></asp:ListItem>
             </asp:DropDownList>
                             </td>
-                            <td>
+                            <td style="width: 250px;">
                                 <uc1:labelcontrol ID="labelcontrol6" runat="server" Text="Can Charge" HelpText="Check this option if you want to allow staff to charge purchases to this cost centre. (Note: You may not be using any modules that require user payments)" />
                             </td>
                             <td>
@@ -115,7 +115,7 @@
                  <asp:ListItem Value="" Text="Not Set"></asp:ListItem>
             </asp:DropDownList>
                             </td>
-                             <td>
+                             <td style="width: 250px;">
                                 <uc1:labelcontrol ID="labelcontrol7" runat="server" Text="Can Receive Donations" HelpText="Check this option if you want to allow the public to give online to this Department. (This requires that you setup and use the Online Gifts Module) " />
                             </td>
                             <td>
@@ -129,7 +129,7 @@
                             <td> 
                                 <asp:TextBox ID="TextBox2" runat="server" Text = '<%# Bind("PayType") %>'></asp:TextBox>
                             </td>
-                             <td>
+                             <td style="width: 250px;">
                                <uc1:labelcontrol ID="labelcontrol11" runat="server" Text="Is Project:" HelpText="This Department is a Project." />
                         
 
@@ -140,7 +140,7 @@
                         </tr>
                     </table>
 
-                    <fieldset>
+                    <fieldset class="dept-giving">
                         <legend>
                            <asp:Label ID="Label2" runat="server" Text="Giving Options"></asp:Label>
                         </legend>
@@ -211,7 +211,7 @@
                                 </asp:DropDownList>
                                 
                             </td>
-                            <td>
+                            <td style="width: 250px;">
                                 <uc1:labelcontrol ID="labelcontrol5" runat="server" Text="Can Reimburse" HelpText="Check this option if you want staff to be able to reimburse from this cost centre" /><br />
                                   <uc1:labelcontrol ID="labelcontrol12" runat="server" Text="Can Recieve Non-Donation Income" HelpText="In some countries, non-donation income (like conference income) can declared on a reimbursement (using the Non-Donation Income expense type) - and the staff member must specify what the income is for (i.e. where the money should be booked). If this box is checked it will appear in the list of available options. Note that is not applicable in most countries." />
                             </td>
@@ -230,7 +230,7 @@
                  <asp:ListItem Value="" Text="Not Set"></asp:ListItem>
             </asp:DropDownList>
                             </td>
-                            <td>
+                            <td style="width: 250px;">
                                 <uc1:labelcontrol ID="labelcontrol6" runat="server" Text="Can Charge" HelpText="Check this option if you want to allow staff to charge purchases to this cost centre. (Note: You may not be using any modules that require user payments)" />
                             </td>
                             <td>
@@ -248,7 +248,7 @@
                  <asp:ListItem Value="" Text="Not Set"></asp:ListItem>
             </asp:DropDownList>
                             </td>
-                             <td>
+                             <td style="width: 250px;">
                                 <uc1:labelcontrol ID="labelcontrol7" runat="server" Text="Can Receive Donations" HelpText="Check this option if you want to allow the public to give online to this Department. (This requires that you setup and use the Online Gifts Module) " />
                             </td>
                             <td>
@@ -262,7 +262,7 @@
                             <td> 
                                 <asp:TextBox ID="TextBox2" runat="server" Text = '<%# Bind("PayType") %>'></asp:TextBox>
                             </td>
-                              <td>
+                              <td style="width: 250px;">
                                <uc1:labelcontrol ID="labelcontrol11" runat="server" Text="Is Project:" HelpText="This Department is a Project." />
                         
 
@@ -273,7 +273,7 @@
                         </tr>
                     </table>
 
-                    <fieldset>
+                    <fieldset  class="dept-giving">
                         <legend>
                            <asp:Label ID="Label2" runat="server" Text="Giving Options" cssclass="AgapeH4"></asp:Label>
                         </legend>

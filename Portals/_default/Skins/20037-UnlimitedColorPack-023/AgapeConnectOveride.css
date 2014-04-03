@@ -1,10 +1,14 @@
 ﻿@import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
 @import url("/Portals/_default/Skins/AgapeBlue/JqueryUIFix.css");
-
+.dept-giving{
+   display: none;
+}
 .dnnGridItem .visible-desktop, .dnnGridAltItem .visible-desktop{
     display: table-cell !important;
 }
-
+td > .dnnLabel {
+ width: inherit; 
+}
 a.breadcrumb:link, a.breadcrumb:active, a.breadcrumb:visited {
     font-size: 22px !important;
 }

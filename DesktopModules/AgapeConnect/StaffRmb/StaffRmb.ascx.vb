@@ -3603,6 +3603,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim theDate As Date = Today
                     Dim VAT As Boolean = False
                     Dim Receipt As Boolean = True
+                    Dim ReceiptType = 1
+                    If Settings("ElectronicReceipts") = "True" Then
+                        ReceiptType = 2
+                    End If
 
                     If Not blankValues Then
 
@@ -3645,6 +3649,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ucType.GetProperty("theDate").SetValue(theControl, theDate, Nothing)
                     ucType.GetProperty("VAT").SetValue(theControl, VAT, Nothing)
                     ucType.GetProperty("Receipt").SetValue(theControl, Receipt, Nothing)
+                    ucType.GetProperty("ReceiptType").SetValue(theControl, ReceiptType, Nothing)
                     ucType.GetProperty("Spare1").SetValue(theControl, "", Nothing)
                     ucType.GetProperty("Spare2").SetValue(theControl, "", Nothing)
                     ucType.GetProperty("Spare3").SetValue(theControl, "", Nothing)
