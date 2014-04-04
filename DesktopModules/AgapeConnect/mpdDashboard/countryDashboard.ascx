@@ -115,7 +115,7 @@
                 <ItemTemplate>
                     <div>
                     <asp:Hyperlink runat="server"  ID="Hyperlink1"  NavigateUrl='<%# EditUrl("staffDashboard") & "?staffId=" & Eval("staffId") & "&country=" & Request.QueryString("country")%>'    Text='<%# Eval("Name")%>' ></asp:Hyperlink>
-                         <asp:Hyperlink runat="server"  ID="Label2"  NavigateUrl='<%# EditUrl("staffDashboard") & "?staffId=" & Eval("staffId") & "&country=" & Request.QueryString("country")%>'   Text='<%# (CDbl(Eval("SupLev")) * 100).ToString("0.00") & "%"%>'  ></asp:Hyperlink>
+                         <asp:Hyperlink runat="server"  ID="Label2"  NavigateUrl='<%# EditUrl("staffDashboard") & "?staffId=" & Eval("staffId") & "&country=" & Request.QueryString("country")%>'   Text='<%# (CDbl(Eval("AvgSupLevel12")) * 100).ToString("0.00") & "%"%>'  ></asp:Hyperlink>
                         </div>
                 </ItemTemplate>
 
