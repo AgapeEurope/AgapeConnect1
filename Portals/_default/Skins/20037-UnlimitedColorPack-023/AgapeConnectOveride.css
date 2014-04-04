@@ -1,9 +1,11 @@
 ﻿@import url("/Portals/_default/Skins/AgapeBlue/start/jquery-ui-1.8.16.custom.css");
 @import url("/Portals/_default/Skins/AgapeBlue/JqueryUIFix.css");
+
+
 .dept-giving{
    display: none;
 }
-.dnnGridItem .visible-desktop, .dnnGridAltItem .visible-desktop{
+.table .visible-desktop, .table .visible-desktop,.table .visible-desktop, .table .visible-desktop{
     display: table-cell !important;
 }
 td > .dnnLabel {
@@ -41,7 +43,7 @@ a.dnnFormHelp{
  min-width: 150px;
 }
 .dnnFormHelpContent{
-    white-space: normal;
+    white-space: normal;    
 }
 .language-object{
    margin: -23px 0 3px 0;
