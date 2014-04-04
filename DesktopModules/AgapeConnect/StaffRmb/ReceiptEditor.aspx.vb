@@ -73,31 +73,73 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
             Dim w As Permissions.PermissionInfo = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "WRITE")(0)
             Dim r As Permissions.PermissionInfo = pc.GetPermissionByCodeAndKey("SYSTEM_FOLDER", "READ")(0)
 
-            If Not Permissions.FolderPermissionController.HasFolderPermission(PortalId, theFolder.FolderPath, "WRITE") Then
-                FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, theUserId)
+            ' If Not Permissions.FolderPermissionController.HasFolderPermission(PortalId, theFolder.FolderPath, "WRITE" ) Then
+
+            '  Try
+
+            SetFolderPermissions(theFolder, w.PermissionID, theUserId)
+            'Catch ex As Exception
+            ' StaffBrokerFunctions.EventLog("Error setting Folder Permission (user)", ex.ToString, theUserId)
+            ' End Try
 
 
+
+
+
+
+
+            Try
 
 
                 FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, rc.GetRoleByName(PortalId, "Accounts Team").RoleID)
 
-                ' If Not (Permissions.FolderPermissionController.HasFolderPermission(PortalId, theFolder.FolderPath, "READ")) Then
-                'If theUserId <> UserController.GetCurrentUserInfo.UserID Then
-                '    FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, UserController.GetCurrentUserInfo.UserID)
-                'End If
-
-                For Each row In StaffBrokerFunctions.GetLeaders(UserController.GetCurrentUserInfo.UserID, True).Distinct()
+            Catch ex As Exception
+                StaffBrokerFunctions.EventLog("Error setting Folder Permission (role)", ex.ToString, UserController.GetCurrentUserInfo.UserID)
+            End Try
 
 
-                    FolderManager.Instance.SetFolderPermission(theFolder, r.PermissionID, Nothing, row)
-                Next
-                'End If
+            ' If Not (Permissions.FolderPermissionController.HasFolderPermission(PortalId, theFolder.FolderPath, "READ")) Then
+            'If theUserId <> UserController.GetCurrentUserInfo.UserID Then
+            '    FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Nothing, UserController.GetCurrentUserInfo.UserID)
+            'End If
 
-                DataCache.ClearCache()
-            End If
+            For Each row In StaffBrokerFunctions.GetLeaders(UserController.GetCurrentUserInfo.UserID, True).Distinct()
+                '  Try
+                SetFolderPermissions(theFolder, w.PermissionID, row)
+                '  Catch ex As Exception
+                '   StaffBrokerFunctions.EventLog("Error setting Folder Permission (role)", ex.ToString, UserController.GetCurrentUserInfo.UserID)
+                '  End Try
+
+
+                'FolderManager.Instance.SetFolderPermission(theFolder, w.PermissionID, Null.NullInteger, row)
+
+
+
+
+            Next
+            'End If
+
+
+            'End If
         Catch ex As Exception
             StaffBrokerFunctions.EventLog("Error setting Folder Permission", ex.ToString, UserController.GetCurrentUserInfo.UserID)
         End Try
+        DataCache.ClearCache()
+    End Sub
+
+    Private Sub SetFolderPermissions(ByRef folder As IFolderInfo, ByVal PermissionID As Integer, ByVal userId As Integer)
+        If (folder.FolderPermissions.Cast(Of Permissions.FolderPermissionInfo).Any(Function(c) c.UserID = userId And c.PermissionID = PermissionID)) Then
+            Return
+        End If
+        Dim objFPI As New Permissions.FolderPermissionInfo()
+        objFPI.FolderID = folder.FolderID
+        objFPI.PermissionID = PermissionID
+        objFPI.UserID = userId
+        objFPI.RoleID = Nothing
+        objFPI.AllowAccess = True
+        folder.FolderPermissions.Add(objFPI, True)
+        Permissions.FolderPermissionController.SaveFolderPermissions(folder)
+
 
     End Sub
 
@@ -138,10 +180,9 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
                     theFolder = FolderManager.Instance.AddFolder(fm, "_RmbReceipts/" & theRmb.UserId)
                 End If
 
-                If PS.PortalId = 2 Then
-                    CheckFolderPermissions(PS.PortalId, theFolder, theRmb.UserId)
 
-                End If
+                CheckFolderPermissions(PS.PortalId, theFolder, theRmb.UserId)
+
                 '  CheckFolderPermissions(PS.PortalId, theFolder, theRmb.UserId)
 
 
@@ -202,7 +243,7 @@ Partial Class DesktopModules_AgapeConnect_StaffRmb_ReceiptEditor
 
                     Dim _FileId = _theFile.FileId
                     'Look for new pdf and remove it!
-                    
+
                     Dim theOtherFile = FileManager.Instance.GetFile(theFolder, "R" & RmbNo & "L" & RmbLine & ".pdf")
                     If Not theOtherFile Is Nothing Then
                         FileManager.Instance.DeleteFile(theOtherFile)

@@ -142,8 +142,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Next
                 ddlDownloadExpensePeriod.SelectedValue = Today.AddMonths(-1).Month
 
-
-
+                
                 hfAccountingCurrency.Value = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
                 If hfAccountingCurrency.Value = "" Then
                     hfAccountingCurrency.Value = "USD"
@@ -207,7 +206,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 GridView1.Columns(3).HeaderText = Translate("Amount")
                 GridView1.Columns(4).HeaderText = Translate("ReceiptNo")
 
-
+               
 
                 Dim acc As Boolean = IsAccounts()
                 ' btnDownloadBatch.Visible = acc
@@ -526,23 +525,23 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     'Add in your team's reimbursements that are awaiting approval
                     For Each row In From c In Team Where c.UserID <> UserId
                         'Dim tRmbs = From c In d.AP_Staff_Rmbs Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And Not StaffBrokerFunctions.IsDept(PortalId, c.CostCenter) Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId
-                        
-                            Dim tRmbs = From c In d.AP_Staff_Rmbs
-                                    Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And c.Department = False Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
 
-                            For Each row2 In tRmbs
-                                Dim Check = From c In d.AP_Staff_RmbLines Where c.RmbNo = row2.RMBNo And c.GrossAmount > LargeTransaction
-                                If Check.Count = 0 Then
-                                    list.Add(row2)
-                                End If
+                        Dim tRmbs = From c In d.AP_Staff_Rmbs
+                                Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And c.Department = False Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
 
-                            Next
+                        For Each row2 In tRmbs
+                            Dim Check = From c In d.AP_Staff_RmbLines Where c.RmbNo = row2.RMBNo And c.GrossAmount > LargeTransaction
+                            If Check.Count = 0 Then
+                                list.Add(row2)
+                            End If
 
-                            Dim tAdv = (From c In d.AP_Staff_AdvanceRequests Where c.UserId = row.UserID And c.RequestStatus = RmbStatus.Submitted And (c.RequestAmount < LargeTransaction) And c.PortalId = PortalId
-                                       Select c.AdvanceId, c.RequestDate, c.LocalAdvanceId, c.UserId)
-                            For Each row2 In tAdv
-                                Advlist.Add(row2)
-                            Next
+                        Next
+
+                        Dim tAdv = (From c In d.AP_Staff_AdvanceRequests Where c.UserId = row.UserID And c.RequestStatus = RmbStatus.Submitted And (c.RequestAmount < LargeTransaction) And c.PortalId = PortalId
+                                   Select c.AdvanceId, c.RequestDate, c.LocalAdvanceId, c.UserId)
+                        For Each row2 In tAdv
+                            Advlist.Add(row2)
+                        Next
 
 
 
@@ -1277,8 +1276,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     GridView1.DataSource = q.First.AP_Staff_RmbLines
                     GridView1.DataBind()
-
-
+                    
                     pnlTaxable.Visible = (From c In q.First.AP_Staff_RmbLines Where c.Taxable = True).Count > 0
 
                     'StaffBrokerFunctions.GetSetting("DataserverURL", PortalId)
@@ -1712,7 +1710,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'insert.AccountCode = GetAccountCode(insert.LineType, insert.AP_Staff_Rmb.CostCenter, insert.AP_Staff_Rmb.UserId)
                     'insert.CostCenter = insert.AP_Staff_Rmb.CostCenter
-                   
+
                     If StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
                         insert.AccountCode = tbAccountCode.Text
                         insert.CostCenter = tbCostCenter.Text
@@ -2385,6 +2383,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             ddlLineTypes.DataSource = lineTypes
             ddlLineTypes.DataBind()
 
+            pnlElecReceipts.Attributes("style") = "display: none;"
+            ifReceipt.Attributes("src") = "https://" & PortalSettings.PortalAlias.HTTPAlias & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & hfRmbNo.Value & "&RmbLine=New"
 
             ResetNewExpensePopup(True)
             cbRecoverVat.Checked = False
@@ -2398,8 +2398,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             hfOrigCurrencyValue.Value = ""
 
 
-            ifReceipt.Attributes("src") = "https://" & PortalSettings.PortalAlias.HTTPAlias & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & hfRmbNo.Value & "&RmbLine=New"
-            pnlElecReceipts.Attributes("style") = "display: none;"
+           
             Dim jscript As String = ""
             jscript &= " $('#" & hfOrigCurrency.ClientID & "').attr('value', '');"
             jscript &= " $('#" & hfOrigCurrencyValue.ClientID & "').attr('value', '');"
@@ -3656,6 +3655,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ucType.GetProperty("Spare4").SetValue(theControl, "", Nothing)
                     ucType.GetProperty("Spare5").SetValue(theControl, "", Nothing)
                     ucType.GetMethod("Initialize").Invoke(theControl, New Object() {Settings})
+                    'ifReceipt.Attributes("src") = Request.Url.Scheme & "://" & Request.Url.Host & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & hfRmbNo.Value & "&RmbLine=New"
+                    If ReceiptType = 2 Then
+                        pnlElecReceipts.Attributes("style") = ""
+                    End If
 
 
                     'Dim rmb = From c In d.AP_Staff_Rmbs Where c.RMBNo = CInt(hfRmbNo.Value)
@@ -4159,7 +4162,8 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim TRXDate As String = ""
                     Dim ApprDate As String = ""
                     Dim FullComment As String = ""
-
+                    Dim ProcDate As String = ""
+                    Dim DownloadDate As String = ""
                     If title Then
                         Supplier = "Supplier"
                         VAT = "VAT"
@@ -4167,18 +4171,25 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         CurAmt = "Original Currency Amount"
                         TRXDate = "Transaction Date"
                         ApprDate = "Approval Date"
+                        ProcDate = "Processed Date"
+                        DownloadDate = "Download Date"
                         FullComment = "Orignal Description (Long)"
                     ElseIf Not line Is Nothing Then
                         ' Supplier = line.AP_Staff_Rmb.SupplierCode
                         VAT = IIf(line.VATReceipt, "Y", "N")
                         Cur = line.OrigCurrency
                         CurAmt = line.OrigCurrencyAmount
-                        TRXDate = line.TransDate.ToString("yyyy MMM dd")
-                        ApprDate = line.TransDate.ToString("yyyy MMM dd")
+                        TRXDate = line.TransDate.ToString("yyyy-MM-dd")
+                        If Not line.AP_Staff_Rmb.ApprDate Is Nothing Then
+                            ApprDate = line.AP_Staff_Rmb.ApprDate.Value.ToString("yyyy-MM-dd")
+                        End If
+                       
+
+                        DownloadDate = Today.ToString("yyyy-MM-dd")
                         FullComment = line.Comment
                     End If
 
-                    Return "=""" & Desc & """,=""" & Debit & """,=""" & Credit & """,=""" & Supplier & """,=""" & VAT & """,=""" & Cur & """,=""" & CurAmt & """,=""" & TRXDate & """,=""" & ApprDate & """,=""" & FullComment & """" & vbNewLine
+                    Return "=""" & Desc & """,=""" & Debit & """,=""" & Credit & """,=""" & Supplier & """,=""" & VAT & """,=""" & Cur & """,=""" & CurAmt & """,=""" & TRXDate & """,=""" & ApprDate & """,=""" & DownloadDate & """,=""" & FullComment & """" & vbNewLine
             End Select
 
 
@@ -5308,6 +5319,15 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
         Protected Sub btnDownloadExpenseOK_Click(sender As Object, e As EventArgs) Handles btnDownloadExpenseOK.Click
             DownloadPeriodReport(ddlDownloadExpensePeriod.SelectedValue, ddlDownloadExpenseYEar.SelectedValue)
+
+        End Sub
+
+        Protected Sub Page_PreRender(sender As Object, e As EventArgs) Handles Me.PreRender
+            If Not GridView1.HeaderRow Is Nothing Then
+                GridView1.HeaderRow.TableSection = TableRowSection.TableHeader
+                GridView1.FooterRow.TableSection = TableRowSection.TableFooter
+            End If
+           
 
         End Sub
     End Class

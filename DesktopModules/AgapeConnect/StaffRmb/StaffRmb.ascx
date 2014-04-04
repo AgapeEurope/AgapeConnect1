@@ -1493,7 +1493,7 @@
                                 <asp:Label ID="lblTest" runat="server" Text="Label" Visible="false"></asp:Label>
                                 <div style="padding: 0 20px 0 20px;">
                                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="RmbLineNo"
-                                        CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" ShowFooter="True">
+                                        CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" ShowFooter="True" CssClass="table">
                                         <RowStyle CssClass="dnnGridItem" />
                                         <AlternatingRowStyle CssClass="dnnGridAltItem" />
                                         <Columns>
@@ -1504,7 +1504,6 @@
                                                 <ItemTemplate>
                                                     <asp:Label ID="Label2" runat="server" CssClass='<%# IIF(Eval("OutOfDate"), "ui-state-highlight ui-corner-all","") %>' ToolTip='<%# IIF(Eval("OutOfDate"),Translate("OutOfDate"),"") %>' Text='<%# Bind("TransDate", "{0:d}") %>'></asp:Label>
                                                 </ItemTemplate>
-                                                <HeaderStyle ForeColor="White" />
                                                 <ItemStyle HorizontalAlign="Left" Width="50px" />
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Line Type" SortExpression="LineType" ItemStyle-Width="110px"   HeaderStyle-CssClass="hidden-phone" ItemStyle-CssClass="hidden-phone" FooterStyle-CssClass="hidden-phone">
@@ -1514,7 +1513,7 @@
                                                 <ItemTemplate>
                                                     <asp:Label ID="Label1" runat="server" CssClass='<%# GetLineTypeClass(Eval("CostCenter"), Eval("LineType"))%>' ToolTip='<%# GetLineTypeMessage(Eval("CostCenter"), Eval("LineType"))  %>' Text='<%# GetLocalTypeName(Eval("AP_Staff_RmbLineType.LineTypeId") )%>'></asp:Label>
                                                 </ItemTemplate>
-                                                <HeaderStyle ForeColor="White" />
+                                                <HeaderStyle/>
                                                 <ItemStyle HorizontalAlign="Left" />
                                             </asp:TemplateField>
 
@@ -1534,7 +1533,6 @@
                                                         <asp:Label ID="lblRemainingBalance" runat="server" Font-Size="XX-Small" ForeColor="#AAAAAA" Font-Italic="true" Text="Estimated Remaining Balance:"></asp:Label>
                                                     </asp:Panel>
                                                 </FooterTemplate>
-                                                <HeaderStyle ForeColor="White" />
                                                 <ItemStyle HorizontalAlign="Left" />
                                                 <FooterStyle HorizontalAlign="Right" />
                                             </asp:TemplateField>
@@ -1555,14 +1553,12 @@
                                                         <asp:Label ID="lblRemainingBalance" runat="server" Font-Size="xx-small" Text='<%# GetRemainingBalance()%>'></asp:Label>
                                                     </asp:Panel>
                                                 </FooterTemplate>
-                                                <HeaderStyle ForeColor="White" />
                                                 <ItemStyle HorizontalAlign="Right" />
                                                 <FooterStyle HorizontalAlign="Right" />
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="ReceiptNo" HeaderText="Receipt No" SortExpression="ReceiptNo"
-                                                HeaderStyle-ForeColor="White" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="75px"
+                                                ItemStyle-HorizontalAlign="Center" ItemStyle-Width="75px"
                                                   HeaderStyle-CssClass="visible-desktop" ItemStyle-CssClass="visible-desktop" FooterStyle-CssClass="visible-desktop">
-                                                <HeaderStyle ForeColor="White"></HeaderStyle>
                                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                             </asp:BoundField>
                                             <asp:TemplateField HeaderText="" ItemStyle-Width="10px" ItemStyle-Wrap="false">
@@ -1583,20 +1579,12 @@
 
 
                                                 </ItemTemplate>
-                                                <HeaderStyle ForeColor="White" />
                                                 <ItemStyle HorizontalAlign="Left" />
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="" ItemStyle-Width="10px" ItemStyle-Wrap="false">
-                                                <EditItemTemplate>
-                                                </EditItemTemplate>
-                                                <ItemTemplate>
-                                                </ItemTemplate>
-                                                <HeaderStyle ForeColor="White" />
-                                                <ItemStyle HorizontalAlign="Left" />
-                                            </asp:TemplateField>
+                                            
                                         </Columns>
-                                        <FooterStyle CssClass="ui-widget-header  acGridHeader" />
-                                        <HeaderStyle CssClass="ui-widget-header  acGridHeader" />
+                                        <FooterStyle CssClass="" />
+                                        <HeaderStyle CssClass="" />
                                         <PagerStyle CssClass="dnnGridPager" />
                                         <SelectedRowStyle CssClass="dnnFormError" />
                                     </asp:GridView>

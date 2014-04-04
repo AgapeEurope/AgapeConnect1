@@ -54,6 +54,8 @@ Partial Class controls_RmbOther
 
 
         ddlVATReceipt.Items(1).Enabled = settings("ElectronicReceipts") Or ddlVATReceipt.SelectedValue = 2
+
+
         Try
 
         
@@ -67,6 +69,8 @@ Partial Class controls_RmbOther
         Catch ex As Exception
 
         End Try
+
+
     End Sub
 
     Public Property Comment() As String
