@@ -240,6 +240,13 @@
 					<match url="^photos/Confession_de_foi_Agape_France\.pdf" />
                     <action type="Redirect" url="/nousconnaitre/statutsetconfessiondefoi" appendQueryString="false" />
                 </rule>
+				<rule name="agapemedia Rub4" enabled="true" stopProcessing="true">
+					<match url="^index\.php" />
+					<conditions>
+						<add input="{QUERY_STRING}" pattern="&amp;?rub=4&amp;?" />
+					</conditions>
+                    <action type="Redirect" url="http://www.agapemedia.fr" appendQueryString="true" />
+                </rule>
 				<rule name="agapemedia liste" enabled="true" stopProcessing="true">
 				  <match url="^liste\.php" />
 				  <action type="Redirect" url="http://www.agapemedia.fr/liste.php" appendQueryString="true" />
