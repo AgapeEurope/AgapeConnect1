@@ -260,6 +260,10 @@
 				  <match url="^[^\.]*\.php" />
 				  <action type="Redirect" url="/" appendQueryString="false" />
 				</rule>
+				<rule name="index.html" enabled="true" stopProcessing="true">
+				  <match url="^index\.html" />
+				  <action type="Redirect" url="/" appendQueryString="false" />
+				</rule>
             </rules>
         </rewrite>
   </system.webServer>
