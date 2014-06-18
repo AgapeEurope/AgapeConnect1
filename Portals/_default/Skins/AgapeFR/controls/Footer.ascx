@@ -52,7 +52,8 @@
                         </div>
                         <div id="email">
                             <div id="emailIcon"></div>
-                            <div id="emailText"><dnn:TEXT runat="server" ID="txtEmail" ResourceKey="OzoirEmail" CssClass="" /></div>
+                           <!-- <div id="emailText"><dnn:TEXT runat="server" ID="txtEmail" ResourceKey="OzoirEmail" CssClass="" /></div> -->
+                            <div id="emailText"><a href="mailto:<%=Translate("OzoirEmail.Text")%>?subject=<%=Translate("OzoirEmailSubject.Text")%>" target="_blank"><%=Translate("OzoirEmail.Text")%></a></div>
                         </div>
 				    </div>
                     <div id="slogan">
