@@ -427,7 +427,7 @@ Namespace DotNetNuke.Modules.FullStory
 
 
                 rtn &= "<h2 class=""agendaTitle"">A lire aussi</h2>"
-                For Each row In q.Take(5) '.OrderByDescending(Function(c) c.StoryDate)
+                For Each row In q.Take(3) '.OrderByDescending(Function(c) c.StoryDate)
                     rtn &= "<div class='eventDiv'><a href=""" & NavigateURL() & "?StoryId=" & row.StoryId & "&origModId=" & Request.QueryString("origModId") & "&origTabId=" & Request.QueryString("origTabId") & """>"
                     rtn &= "<table><tr><td style='vertical-align: top;'>"
                     rtn &= "<img src='/DesktopModules/AgapeConnect/Stories/images/articleIcon.png' style='width:30px;' /></td><td style='padding-left: 12px;'>"
