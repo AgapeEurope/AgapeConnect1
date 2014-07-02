@@ -90,7 +90,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             '        a.Icon = "FileManager/Icons/xls.gif"
             '    End If
             'Next
-
+           
             If Not Page.IsPostBack And Request.QueryString("RmbNo") <> "" Then
                 hfRmbNo.Value = CInt(Request.QueryString("RmbNo"))
             End If
@@ -524,19 +524,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                     'Add in your team's reimbursements that are awaiting approval
                     For Each row In From c In Team Where c.UserID <> UserId
-                        'Dim tRmbs = From c In d.AP_Staff_Rmbs Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And Not StaffBrokerFunctions.IsDept(PortalId, c.CostCenter) Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId
-
-                        Dim tRmbs = From c In d.AP_Staff_Rmbs
-                                Where c.UserId = row.UserID And c.Status = RmbStatus.Submitted And c.PortalId = PortalId And c.Department = False Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
-
-                        For Each row2 In tRmbs
-                            Dim Check = From c In d.AP_Staff_RmbLines Where c.RmbNo = row2.RMBNo And c.GrossAmount > LargeTransaction
-                            If Check.Count = 0 Then
-                                list.Add(row2)
-                            End If
-
-                        Next
-
+                       
                         Dim tAdv = (From c In d.AP_Staff_AdvanceRequests Where c.UserId = row.UserID And c.RequestStatus = RmbStatus.Submitted And (c.RequestAmount < LargeTransaction) And c.PortalId = PortalId
                                    Select c.AdvanceId, c.RequestDate, c.LocalAdvanceId, c.UserId)
                         For Each row2 In tAdv
@@ -546,24 +534,11 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
 
-
-
-
                     Next
 
 
-                    'Now I need to get X Accounts
-                    For Each row In From c In CostCentres
-                        'Dim tCC = From c In d.AP_Staff_Rmbs Where StaffBrokerFunctions.IsDept(PortalId, c.CostCenter) And c.CostCenter = row.CostCentre And c.PortalId = PortalId And c.Status = RmbStatus.Submitted And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId
-                        Dim tCC = From c In d.AP_Staff_Rmbs
-                                  Where c.CostCenter = row.CostCentre And c.PortalId = PortalId And c.Department And c.Status = RmbStatus.Submitted And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
-
-                        For Each row2 In tCC
-                            list.Add(row2)
-                        Next
 
 
-                    Next
 
 
                     Dim Over1000 = From c In d.AP_Staff_RmbLines Where c.GrossAmount > LargeTransaction And c.AP_Staff_Rmb.PortalId = PortalId Select c.AP_Staff_Rmb Distinct
@@ -571,18 +546,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim Over1000Adv = From c In d.AP_Staff_AdvanceRequests Where c.RequestAmount > LargeTransaction And c.PortalId = PortalId
 
                     If UserId = Settings("AuthUser") Then
-                        Dim t = From c In d.AP_Staff_Rmbs Join b In d.AP_StaffBroker_Departments On c.CostCenter Equals b.CostCentre Where c.Status = RmbStatus.Submitted And c.PortalId = PortalId And c.UserId = b.CostCentreManager And c.UserId <> UserId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
-                        For Each row In t
-                            list.Add(row)
-                        Next
-
-                        'rmbs over £1000
-                        Dim TheseRmbs = From c In Over1000 Where c.UserId <> UserId And c.Status = RmbStatus.Submitted Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
-                        If TheseRmbs.Count > 0 Then
-                            For Each row In TheseRmbs
-                                list.Add(row)
-                            Next
-                        End If
+                       
 
                         'Adv over Limit
                         Dim tAdv = (From c In Over1000Adv Where c.UserId <> UserId And c.RequestStatus = RmbStatus.Submitted
@@ -608,18 +572,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     'Get AuthUser's Departmental Reimbursements for Auth Auth User
                     If UserId = Settings("AuthAuthUser") Then
                         Dim AuthUser = CInt(Settings("AuthUser"))
-                        Dim t = From c In d.AP_Staff_Rmbs Join b In d.AP_StaffBroker_Departments On c.CostCenter Equals b.CostCentre Where c.Status = RmbStatus.Submitted And c.PortalId = PortalId And (c.UserId = b.CostCentreManager) And c.UserId = AuthUser Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
-                        For Each row In t
-                            list.Add(row)
-                        Next
-
-                        'rmbs over £1000
-                        Dim TheseRmbs = From c In Over1000 Where c.UserId = AuthUser And c.Status = RmbStatus.Submitted And c.PortalId = PortalId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
-                        If TheseRmbs.Count > 0 Then
-                            For Each row In TheseRmbs
-                                list.Add(row)
-                            Next
-                        End If
+                       
 
                         'Adv over Limit
                         Dim tAdv = (From c In Over1000Adv Where c.UserId = AuthUser And c.RequestStatus = RmbStatus.Submitted
@@ -629,30 +582,28 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                         Next
 
 
-                        'Spouse of AuthUser is team leader
-                        'If SpouseList.Count > 0 Then
-                        '    Dim AuthSpouse = From c In ds.AP_StaffBroker_Staffs Where c.UserId1 = AuthUser Select c.UserId2
-                        '    If AuthSpouse.Count = 0 Then
-                        '        AuthSpouse = From c In ds.AP_StaffBroker_Staffs Where c.UserId2 = AuthUser Select c.UserId1
-                        '    End If
-                        '    If AuthSpouse.Count > 0 Then
-                        '        For Each item In SpouseList
-                        '            Dim SpouseRmbs = From c In d.AP_Staff_Rmbs Where c.UserId = item.UserID And c.UserId = AuthSpouse.First And c.Status = RmbStatus.Submitted And c.PortalId = PortalId Select c.RMBNo, c.RmbDate, c.UserRef, c.UserId, c.RID
-                        '            If SpouseRmbs.Count > 0 Then
-                        '                For Each rmb In SpouseRmbs
-                        '                    list.Add(rmb)
-                        '                Next
-                        '            End If
-                        '        Next
-                        '    End If
-                        'End If
-
                     End If
 
 
                     'btnToApprove.Visible = (list.Count > 0)
 
                     'Add the full list of reimbursements needing to be approved by the user to the data list
+
+
+
+                    Dim submittedRmbs = From c In d.AP_Staff_Rmbs Where c.PortalId = PortalId And c.Status = RmbStatus.Submitted
+
+                    Dim theAuthUser = UserController.GetUserById(PortalId, CInt(Settings("AuthUser")))
+                    Dim TheAuthAuthUser = UserController.GetUserById(PortalId, CInt(Settings("AuthAuthUser")))
+
+                    For Each row In submittedRmbs
+                        Dim access = StaffRmbFunctions.getApprovers(row, theAuthUser, TheAuthAuthUser)
+                        If access.UserIds.Contains(UserInfo) Then
+                            list.Add(row)
+                        End If
+                    Next
+
+
                     dlToApprove.DataSource = (From c In list Order By c.RMBNo Descending)
                     dlToApprove.DataBind()
                     dlAdvToApprove.DataSource = From c In Advlist Order By c.LocalAdvanceId Descending
@@ -2096,6 +2047,10 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 rmb.First.Period = Nothing
                 rmb.First.Year = Nothing
 
+                rmb.First.SpareField1 = System.Guid.NewGuid().ToString
+
+
+
 
                 'If NewStatus = 2 Then
                 '    rmb.First.Locked = True
@@ -2302,7 +2257,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
                 sb.Append("<script language='javascript'>")
 
-                sb.Append("selectIndex(2);")
+                sb.Append("$('#ApprovedPane').addClass(""in"");")
                 sb.Append("alert(""" & message & """);")
                 sb.Append("</script>")
                 ScriptManager.RegisterStartupScript(btnApprove, t, "select2", sb.ToString, False)
@@ -2474,6 +2429,13 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     insert.Spare3 = theLine.First.Spare3
                     insert.Spare4 = theLine.First.Spare4
                     insert.Spare5 = theLine.First.Spare5
+                    insert.OrigCurrency = StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId)
+
+                    insert.OrigCurrencyAmount = CDbl(RowAmount)
+                    insert.ShortComment = GetLineComment(RowDesc, StaffBrokerFunctions.GetSetting("AccountingCurrency", PortalId), RowAmount, "", False, Nothing, "")
+                    insert.ReceiptMode = theLine.First.ReceiptMode
+                    insert.ReceiptImageId = theLine.First.ReceiptImageId
+
                     insert.Split = True
                     insert.Taxable = theLine.First.Taxable
                     insert.TransDate = theLine.First.TransDate
@@ -3193,6 +3155,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 #Region "GetValues"
         Public Function getSelectedTab() As Integer
+            
 
             If hfRmbNo.Value = "" Then
                 Return 0
@@ -3648,7 +3611,12 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ucType.GetProperty("theDate").SetValue(theControl, theDate, Nothing)
                     ucType.GetProperty("VAT").SetValue(theControl, VAT, Nothing)
                     ucType.GetProperty("Receipt").SetValue(theControl, Receipt, Nothing)
-                    ucType.GetProperty("ReceiptType").SetValue(theControl, ReceiptType, Nothing)
+                    Dim non_receipt As Integer() = {31, 39, 40}
+                    If ReceiptType = 2 And Not non_receipt.Contains(lt.First.LineTypeId) Then
+                        pnlElecReceipts.Attributes("style") = ""
+                        ucType.GetProperty("ReceiptType").SetValue(theControl, ReceiptType, Nothing)
+                    End If
+
                     ucType.GetProperty("Spare1").SetValue(theControl, "", Nothing)
                     ucType.GetProperty("Spare2").SetValue(theControl, "", Nothing)
                     ucType.GetProperty("Spare3").SetValue(theControl, "", Nothing)
@@ -3656,9 +3624,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     ucType.GetProperty("Spare5").SetValue(theControl, "", Nothing)
                     ucType.GetMethod("Initialize").Invoke(theControl, New Object() {Settings})
                     'ifReceipt.Attributes("src") = Request.Url.Scheme & "://" & Request.Url.Host & "/DesktopModules/AgapeConnect/StaffRmb/ReceiptEditor.aspx?RmbNo=" & hfRmbNo.Value & "&RmbLine=New"
-                    If ReceiptType = 2 Then
-                        pnlElecReceipts.Attributes("style") = ""
-                    End If
+                   
 
 
                     'Dim rmb = From c In d.AP_Staff_Rmbs Where c.RMBNo = CInt(hfRmbNo.Value)
@@ -3794,8 +3760,14 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Else
                     message2 = message2.Replace("[COMMENTS]", "")
                 End If
-                'DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", Left(toEmail, toEmail.Length - 1), "donotreply@agape.org.uk", "Reimbursement for " & UserInfo.FirstName & " " & UserInfo.LastName, message2, "", "HTML", "", "", "", "")
-                DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
+                message2 = message2.Replace("[LINEDETAIL]", GetDetailTable(theRmb))
+                For Each row In myApprovers.UserIds
+                    DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", row.Email, "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2.Replace("[BUTTONS]", GetApproveButton(theRmb.SpareField1, row.UserID)), "", "HTML", "", "", "", "")
+
+                Next
+
+
+                'DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
             Else
                 'Personal Reimbursement
 
@@ -3818,11 +3790,17 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 Else
                     message2 = message2.Replace("[COMMENTS]", "")
                 End If
-                If toEmail.Length > 0 Then
-                    ' DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", Left(toEmail, toEmail.Length - 1), "donotreply@agape.org.uk", "Reimbursement for " & UserInfo.FirstName & " " & UserInfo.LastName, message2, "", "HTML", "", "", "", "")
-                    DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
+                message2 = message2.Replace("[LINEDETAIL", GetDetailTable(theRmb))
 
-                End If
+                For Each row In myApprovers.UserIds
+                    DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", row.Email, "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2.Replace("[BUTTONS]", GetApproveButton(theRmb.SpareField1, row.UserID)), "", "HTML", "", "", "", "")
+
+                Next
+
+                'If toEmail.Length > 0 Then
+                'DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("SubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
+
+                'End If
 
             End If
 
@@ -3839,6 +3817,45 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
 
         End Sub
+
+        Private Function GetApproveButton(ByVal Code As String, ByVal apprId As String) As String
+            Dim encrypt = Server.UrlEncode(AgapeEncryption.AgapeEncrypt.Encrypt(Code & ";" & apprId))
+
+            Dim rtn = "<div style=""width: 100%; text-align: center; font-size: x-large;""><a href='" & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/StaffRmb/RmbApprove.aspx?r=" & encrypt & "' target='_blank'>" & Translate("btnApprove") & "</a>"
+            Dim returnURL = NavigateURL() & "?RmbNo=" & hfRmbNo.Value
+           
+
+
+
+            rtn &= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='" & NavigateURL(PortalSettings.LoginTabId) & "?returnurl=" & Server.UrlEncode(returnURL) & "' target='_blank'>" & Translate("btnLogin") & "</a></div>"
+            Return rtn
+        End Function
+        Private Function GetApproveButtonAdv(ByVal Code As String, ByVal apprId As String) As String
+            Dim encrypt = Server.UrlEncode(AgapeEncryption.AgapeEncrypt.Encrypt(Code & ";" & apprId))
+
+            Dim rtn = "<div style=""width: 100%; text-align: center; font-size: x-large;""><a href='" & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/StaffRmb/AdvApprove.aspx?a=" & encrypt & "' target='_blank'>" & Translate("btnApprove") & "</a>"
+            Dim returnURL = NavigateURL() & "?RmbNo=" & hfRmbNo.Value
+
+
+
+
+            rtn &= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='" & NavigateURL(PortalSettings.LoginTabId) & "?returnurl=" & Server.UrlEncode(returnURL) & "' target='_blank'>" & Translate("btnLogin") & "</a></div>"
+            Return rtn
+        End Function
+
+        Private Function GetDetailTable(ByVal theRmb As AP_Staff_Rmb) As String
+
+            Dim rtn As String = "<div style='float:right; font-style: italic; color: #AAC;'>" & ddlChargeTo.SelectedItem.Text & "</div><div style='clear: both;' />"
+            rtn &= "<table style='width: 100%; margin: 10px; text-align: left;'>"
+            rtn &= "<tr><th style='text-align: left;'>Date</th><th style='text-align: left;'>Description</th><th style='text-align: left;'>Amount</th></tr>"
+
+            For Each row In theRmb.AP_Staff_RmbLines
+                rtn &= "<tr><td>" & row.TransDate.ToString("MMM dd") & "</td><td>" & row.Comment & "</td><td>" & row.GrossAmount.ToString("0.00") & "</td></tr>"
+            Next
+            rtn &= "<tr><td colspan='2' style='text-align: right; font-weight: bold;'> Total:</td><td>" & theRmb.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount).ToString("0.00") & "</td></tr>"
+            rtn &= "</table>"
+            Return rtn
+        End Function
         Public Function Translate(ByVal ResourceString As String) As String
             Return DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
 
@@ -3900,9 +3917,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                     Dim Debit As String = ""
                     Dim Credit As String = ""
                     If line.GrossAmount > 0 Then
-                        Debit = (line.GrossAmount.ToString("0.00", New CultureInfo("")))
+                        Debit = line.GrossAmount.ToString("0.00", New CultureInfo(""))
                     Else
-                        Credit = -line.GrossAmount.ToString("0.00", New CultureInfo(""))
+                        Credit = (-line.GrossAmount).ToString("0.00", New CultureInfo(""))
                     End If
                     Dim shortComment = GetLineComment(line.Comment, line.OrigCurrency, line.OrigCurrencyAmount, line.ShortComment, True, Left(theUser.FirstName, 1) & Left(theUser.LastName, 1), IIf(line.AP_Staff_RmbLineType.TypeName = "Mileage", line.Spare2, ""))
                     rtn &= GetOrderedString(shortComment,
@@ -3961,7 +3978,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                 'rtn &= "," & RmbTotal.ToString("0.00") & ","
                             Else
                                 'rtn &= -RmbTotal.ToString("0.00") & ",,"
-                                Debit = -RmbTotal.ToString("0.00", New CultureInfo(""))
+                                Debit = (-RmbTotal).ToString("0.00", New CultureInfo(""))
                             End If
 
                             'rtn &= Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref & vbNewLine
@@ -4020,7 +4037,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                 'rtn &= "," & RmbTotal.ToString("0.00") & ","
                             Else
                                 'rtn &= -RmbTotal.ToString("0.00") & ",,"
-                                Debit = -RmbTotal.ToString("0.00", New CultureInfo(""))
+                                Debit = (-RmbTotal).ToString("0.00", New CultureInfo(""))
                             End If
 
                             'rtn &= Left(theUser.FirstName, 1) & Left(theUser.LastName, 1) & "-Payment for " & ref & vbNewLine
@@ -4045,7 +4062,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                                 Credit = rmbAdvance.ToString("0.00", New CultureInfo(""))
                                 'rtn &= "," & rmbAdvance.ToString("0.00") & ","
                             Else
-                                Debit = -rmbAdvance.ToString("0.00", New CultureInfo(""))
+                                Debit = (-rmbAdvance).ToString("0.00", New CultureInfo(""))
                                 ' rtn &= -rmbAdvance.ToString("0.00") & ",,"
                             End If
 
@@ -4075,7 +4092,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
                 'First Debit 12xx
                 Dim ref = "A" & ZeroFill(theAdv.First.LocalAdvanceId, 5)
                 'Dim theDate As String = "=""" & Today.ToString("dd-MMM-yy") & """"
-                Dim theDate As String = "=""" & theAdv.First.RequestDate.Value.ToString("dd-MMM-yy") & """"
+                Dim theDate As String = "=""" & theAdv.First.RequestDate.Value.ToString("dd-MMM-yy", New CultureInfo("")) & """"
                 rtn &= "=""" & Settings("AccountsReceivable") & ""","
                 rtn &= "=""" & StaffMember.CostCenter & ""","
                 rtn &= ref & ","
@@ -4454,7 +4471,7 @@ Namespace DotNetNuke.Modules.StaffRmbMod
             insert.RequestStatus = RmbStatus.Submitted
             insert.OrigCurrency = hfOrigCurrency.Value
             insert.OrigCurrencyAmount = Double.Parse(hfOrigCurrencyValue.Value, New CultureInfo(""))
-
+            insert.SpareField1 = System.Guid.NewGuid().ToString
             d.AP_Staff_AdvanceRequests.InsertOnSubmit(insert)
             d.SubmitChanges()
 
@@ -4499,16 +4516,30 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
             message2 = message2.Replace("[COMMENTS]", insert.RequestText)
 
-            If toEmail.Length > 0 Then
-                ' DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", Left(toEmail, toEmail.Length - 1), "donotreply@agape.org.uk", "Reimbursement for " & UserInfo.FirstName & " " & UserInfo.LastName, message2, "", "HTML", "", "", "", "")
-                DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("AdvSubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
+            For Each row In myApprovers.UserIds
+                DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", row.Email, "", Translate("AdvSubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2.Replace("[BUTTONS]", GetApproveButtonAdv(insert.SpareField1, row.UserID)), "", "HTML", "", "", "", "")
 
-            End If
+            Next
+
+            'If toEmail.Length > 0 Then
+            '    ' DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", Left(toEmail, toEmail.Length - 1), "donotreply@agape.org.uk", "Reimbursement for " & UserInfo.FirstName & " " & UserInfo.LastName, message2, "", "HTML", "", "", "", "")
+            '    DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", Left(toEmail, toEmail.Length - 1), "", Translate("AdvSubmittedApprEmailSubject").Replace("[STAFFNAME]", UserInfo.FirstName & " " & UserInfo.LastName), message2, "", "HTML", "", "", "", "")
+
+            'End If
+
+
 
             ConfMessage = ConfMessage.Replace("[APPROVERS]", Approvers)
             '  DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agape.org.uk", UserInfo.Email, "donotreply@agape.org.uk", "Reimbursement #" & theRmb.RMBNo, message, Server.MapPath("/Portals/0/RmbForm" & theRmb.RMBNo & ".htm"), "HTML", "", "", "", "")
+
+           
+           
+           
+
             DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", UserInfo.Email, "", Translate("AdvEmailSubmittedSubject").Replace("[ADVNO]", insert.LocalAdvanceId), ConfMessage, "", "HTML", "", "", "", "")
 
+
+            
 
             'Need to load the Advance!
             ResetMenu()
@@ -5280,13 +5311,16 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
         End Sub
 #Region "Optional Interfaces"
-        Private Sub AddClientAction(ByVal Title As String, ByVal theScript As String, ByRef root As DotNetNuke.Entities.Modules.Actions.ModuleActionCollection)
+        Private Sub AddClientAction(ByVal Title As String, ByVal theScript As String, ByRef root As DotNetNuke.Entities.Modules.Actions.ModuleActionCollection, Optional ByVal Id As String = "")
             Dim jsAction As New DotNetNuke.Entities.Modules.Actions.ModuleAction(ModuleContext.GetNextActionID)
             With jsAction
                 .Title = Title
                 ' .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.
                 .Url = "javascript: " & theScript & ";"
+
                 .ClientScript = theScript
+                .CommandName = DotNetNuke.Entities.Modules.Actions.ModuleActionType.AddContent
+
                 .Secure = Security.SecurityAccessLevel.Edit
                 .UseActionEvent = False
             End With
@@ -5299,9 +5333,9 @@ Namespace DotNetNuke.Modules.StaffRmbMod
 
                 Actions.Add(GetNextActionID, "Expense Settings", "RmbSettings", "", "action_settings.gif", EditUrl("RmbSettings"), False, SecurityAccessLevel.Edit, True, False)
 
-                AddClientAction("Download Batched Transactions", "showDownload()", Actions)
-                AddClientAction("Suggested Payments", "showSuggestedPayments()", Actions)
-                AddClientAction("Download Period Expense Report", "showDownloadExpense()", Actions)
+                AddClientAction("Download Batched Transactions", "showDownload()", Actions, "lnkBatched")
+                AddClientAction("Suggested Payments", "showSuggestedPayments()", Actions, "lnkSuggested")
+                AddClientAction("Download Period Expense Report", "showDownloadExpense()", Actions, "linkPeriod")
                 For Each a As DotNetNuke.Entities.Modules.Actions.ModuleAction In Actions
                     If a.Title = "Download Batched Transactions" Or a.Title = "Suggested Payments" Or a.Title = "Download Period Expense Report" Then
                         a.Icon = "FileManager/Icons/xls.gif"

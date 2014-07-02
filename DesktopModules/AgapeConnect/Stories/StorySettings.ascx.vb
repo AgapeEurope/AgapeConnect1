@@ -289,7 +289,7 @@ Namespace DotNetNuke.Modules.Stories
 
         End Sub
 
-        Protected Sub CancelBtn_Click(sender As Object, e As EventArgs) Handles CancelBtn.Click
+        Protected Sub CancelBtn_Click(sender As Object, e As System.EventArgs) Handles CancelBtn.Click
             Response.Redirect(NavigateURL())
 
         End Sub

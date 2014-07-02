@@ -21,7 +21,7 @@
                .css('background-repeat', 'no-repeat').css('width', '40px').css('height', '40px');
 
 
-            window.setInterval(saveDraft, 5000);
+            window.setInterval(saveDraft, 10000);
 
         }
 

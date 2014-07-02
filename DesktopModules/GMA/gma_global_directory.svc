@@ -1,0 +1,3 @@
+﻿<%@ ServiceHost Language="VB" Debug="true" Service="gma_global_directory" CodeBehind="~/App_Code/GMA/gma_global_directory.vb" %>
+
+

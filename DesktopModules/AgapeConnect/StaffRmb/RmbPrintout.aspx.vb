@@ -1,9 +1,13 @@
 ﻿Imports System.Linq
 Imports StaffRmb
+
 Partial Class DesktopModules_StaffRmb_RmbPrintout
     Inherits System.Web.UI.Page
 
-    Private et As String = "<table width=""100%"">[RMBHEADER1] [RMBLINES1] <tr> <td colspan=""4""> </td> </tr> <tr> <td colspan=""6"" class=""Agape_SubTitle"">[RCPTINSTRUCTIONS]</td> </tr> [RMBLINES2] <tr> <td colspan=""4"" class=""AgapeH5"" align=""right""><strong>" & Translate("Total") & "</strong></td> <td><strong>[RMBTOTAL]</strong></td> <td></td> <td></td> </tr></table> "
+    Private et As String = "<table width=""100%"">[RMBHEADER1] [RMBLINES1] <tr> <td colspan=""4""> </td> </tr> <tr> <td colspan=""6"" class=""Agape_SubTitle"">[RCPTINSTRUCTIONS]</td> </tr> [RMBLINES2]" _
+                           & "<tr> <td colspan=""4"" class=""AgapeH5"" align=""right""><strong>" & Translate("Total") & "</strong></td> <td><strong>[RMBTOTAL]</strong></td> <td></td> <td></td> </tr>" _
+                           & "[LESSADVANCE]" _
+                           & "</table> "
     Private LocalResourceFile As String
 
     Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
@@ -47,236 +51,242 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         Try
 
-        
-
-        Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
-        Dim Cur As String = StaffBrokerFunctions.GetSetting("Currency", PS.PortalId)
-
-        Dim d As New StaffRmbDataContext
-        Dim dt As New StaffBroker.TemplatesDataContext
-        Dim q = From c In d.AP_Staff_Rmbs Where c.RMBNo = Request.QueryString("RmbNo") And c.UserId = Request.QueryString("UID")
-        If q.Count > 0 Then
-            Dim User = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo
 
 
+            Dim PS = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings)
+            Dim Cur As String = StaffBrokerFunctions.GetSetting("Currency", PS.PortalId)
+
+            Dim d As New StaffRmbDataContext
+            Dim dt As New StaffBroker.TemplatesDataContext
+            Dim q = From c In d.AP_Staff_Rmbs Where c.RMBNo = Request.QueryString("RmbNo") And c.UserId = Request.QueryString("UID")
+            If q.Count > 0 Then
+
+                Dim User = DotNetNuke.Entities.Users.UserController.GetCurrentUserInfo
 
 
-            If User.UserID > 0 Then
-                Dim mc As New DotNetNuke.Entities.Modules.ModuleController
-                lblAccessDenied.Text = Translate("lblAccessDenied")
-                Dim x = mc.GetModuleByDefinition(PS.PortalId, "acStaffRmb")
-                Dim RmbSettings = x.TabModuleSettings
 
-                Dim RmbRel = StaffRmbFunctions.Authenticate(User.UserID, q.First.RMBNo, PS.PortalId)
-                If RmbRel = RmbAccess.Denied And Not User.IsInRole("Administrators") And Not (User.UserID = RmbSettings("AuthUser") Or User.UserID = RmbSettings("AuthAuthUser")) Then
 
-                    Dim isAccounts = False
-                    For Each role In CStr(RmbSettings("AccountsRoles")).Split(";")
-                        If (User.Roles().Contains(role)) Then
-                            isAccounts = True
+                If User.UserID > 0 Then
+
+                    Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+                    lblAccessDenied.Text = Translate("lblAccessDenied")
+                    Dim x = mc.GetModuleByDefinition(PS.PortalId, "acStaffRmb")
+                    Dim RmbSettings = x.TabModuleSettings
+
+                    Dim RmbRel = StaffRmbFunctions.Authenticate(User.UserID, q.First.RMBNo, PS.PortalId)
+                    If RmbRel = RmbAccess.Denied And Not User.IsInRole("Administrators") And Not (User.UserID = RmbSettings("AuthUser") Or User.UserID = RmbSettings("AuthAuthUser")) Then
+
+                        Dim isAccounts = False
+                        For Each role In CStr(RmbSettings("AccountsRoles")).Split(";")
+                            If (User.Roles().Contains(role)) Then
+                                isAccounts = True
+                            End If
+                        Next
+                        If Not isAccounts Then
+                            pnlAccessDenied.Visible = True
+                            btnLogin.Visible = False
+                            Return
                         End If
-                    Next
-                    If Not isAccounts Then
-                        pnlAccessDenied.Visible = True
-                        btnLogin.Visible = False
-                        Return
+                    End If
+
+                Else
+                    pnlAccessDenied.Visible = True
+                    btnLogin.Visible = True
+                    lblAccessDenied.Text = Translate("lblNotLoggedIn")
+
+                    Return
+                End If
+
+
+                'Dim printout = From c In dt.AP_StaffBroker_Templates Where c.TemplateName = "RmbPrintOut" And c.PortalId = PS.PortalId Select c.TemplateHTML
+
+                'If (Request.QueryString("mode") = "test") Then
+                'printout = StaffBrokerFunctions.GetTemplate("RmbPrintOut", PS.PortalId)
+
+                'End If
+
+                'Dim output As String = ""
+                'If printout.Count > 0 Then
+                'output = Server.HtmlDecode(printout.First)
+                'End If
+                ' Dim output As String = System.IO.File.ReadAllText(Server.MapPath("RmbPrintOut.htm"))
+                Dim output = StaffBrokerFunctions.GetTemplate("RmbPrintOut", PS.PortalId)
+            
+                Dim RmbNoText As String = q.First.RID
+                If Request.QueryString("Year") <> "" And Request.QueryString("Period") <> "" Then
+                    RmbNoText &= "<br /><span style=""font-size: 12pt;"">(" & Translate("Period") & Request.QueryString("Period") & ", " & Request.QueryString("Year").ToString & ")</span>"
+
+                End If
+
+                output = output.Replace("[RMBNO]", RmbNoText)
+                If Not q.First.RmbDate Is Nothing Then
+                    output = output.Replace("[SUBMITTEDDATE]", q.First.RmbDate.Value.ToString("dd/MM/yyyy"))
+                Else
+                    If Request.QueryString("mode") = 1 Then
+                        output = output.Replace("[SUBMITTEDDATE]", Today.ToString("dd/MM/yyyy"))
+                    Else
+                        output = output.Replace("[SUBMITTEDDATE]", "")
                     End If
                 End If
+                output = output.Replace("[SUBMITTEDBY]", UserController.GetUserById(q.First.PortalId, q.First.UserId).DisplayName)
 
-            Else
-                pnlAccessDenied.Visible = True
-                btnLogin.Visible = True
-                lblAccessDenied.Text = Translate("lblNotLoggedIn")
-
-                Return
-            End If
-
-
-            'Dim printout = From c In dt.AP_StaffBroker_Templates Where c.TemplateName = "RmbPrintOut" And c.PortalId = PS.PortalId Select c.TemplateHTML
-
-            'If (Request.QueryString("mode") = "test") Then
-            'printout = StaffBrokerFunctions.GetTemplate("RmbPrintOut", PS.PortalId)
-
-            'End If
-
-            'Dim output As String = ""
-            'If printout.Count > 0 Then
-            'output = Server.HtmlDecode(printout.First)
-            'End If
-            ' Dim output As String = System.IO.File.ReadAllText(Server.MapPath("RmbPrintOut.htm"))
-            Dim output = StaffBrokerFunctions.GetTemplate("RmbPrintOut", PS.PortalId)
-
-
-            Dim RmbNoText As String = q.First.RID
-            If Request.QueryString("Year") <> "" And Request.QueryString("Period") <> "" Then
-                RmbNoText &= "<br /><span style=""font-size: 12pt;"">(" & Translate("Period") & Request.QueryString("Period") & ", " & Request.QueryString("Year").ToString & ")</span>"
-
-            End If
-
-            output = output.Replace("[RMBNO]", RmbNoText)
-            If Not q.First.RmbDate Is Nothing Then
-                output = output.Replace("[SUBMITTEDDATE]", q.First.RmbDate.Value.ToString("dd/MM/yyyy"))
-            Else
-                If Request.QueryString("mode") = 1 Then
-                    output = output.Replace("[SUBMITTEDDATE]", Today.ToString("dd/MM/yyyy"))
+                If Not Request.QueryString("Period") Is Nothing And Not Request.QueryString("Year") Is Nothing Then
+                    output = output.Replace("[POSTED]", "<span class=""Agape_Body_Text"">" & Translate("YearPosted") & Request.QueryString("Year") & ", " & Translate("PeriodPosted") & Request.QueryString("Period") & "</span><br/>")
                 Else
-                    output = output.Replace("[SUBMITTEDDATE]", "")
+                    output = output.Replace("[POSTED]", "")
                 End If
-            End If
-            output = output.Replace("[SUBMITTEDBY]", UserController.GetUserById(q.First.PortalId, q.First.UserId).DisplayName)
-            If Not Request.QueryString("Period") Is Nothing And Not Request.QueryString("Year") Is Nothing Then
-                output = output.Replace("[POSTED]", "<span class=""Agape_Body_Text"">" & Translate("YearPosted") & Request.QueryString("Year") & ", " & Translate("PeriodPosted") & Request.QueryString("Period") & "</span><br/>")
-            Else
-                output = output.Replace("[POSTED]", "")
-            End If
 
-            If Not q.First.UserRef Is Nothing Then
-                output = output.Replace("[YOURREF]", q.First.UserRef)
-            End If
+                If Not q.First.UserRef Is Nothing Then
+                    output = output.Replace("[YOURREF]", q.First.UserRef)
+                End If
+                
 
 
+                output = output.Replace("[CHARGETO]", GetCostCentreName(q.First.CostCenter, q.First.UserId, q.First.PortalId))
 
-
-            output = output.Replace("[CHARGETO]", GetCostCentreName(q.First.CostCenter, q.First.UserId, q.First.PortalId))
-
-            If (q.First.AdvanceRequest > 0) And q.First.AP_Staff_RmbLines.Count > 0 Then
-                If q.First.AdvanceRequest = q.First.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount) Then
-                    et &= "<p>" & Translate("ClearAdvAll") & "</p>"
-
-                Else
+                If (q.First.AdvanceRequest > 0) And q.First.AP_Staff_RmbLines.Count > 0 Then
                     Dim total = q.First.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount)
+                    Dim lessAdv = "<tr> <td colspan=""4"" class=""AgapeH5"" align=""right"">" & Translate("ClearAdvance") & "</td> <td>" & StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, (-q.First.AdvanceRequest).ToString("0.00")) & "</td> <td></td> <td></td> </tr>"
+
+                    lessAdv &= "<tr> <td colspan=""4"" class=""AgapeH5"" align=""right""><strong>" & Translate("AmountPayable") & "</strong></td> <td><strong>" & StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, (total - q.First.AdvanceRequest).ToString("0.00")) & " </strong></td> <td></td> <td></td> </tr>"
+                    et = et.Replace("[LESSADVANCE]", lessAdv)
+
+                    If q.First.AdvanceRequest = q.First.AP_Staff_RmbLines.Sum(Function(c) c.GrossAmount) Then
+                        et &= "<p>" & Translate("ClearAdvAll") & "</p>"
+
+                    Else
+
                         et &= "<p>" & Translate("ClearAdvPartial").Replace("[CLEARADV]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, q.First.AdvanceRequest.ToString("0.00"))).Replace("[PAYABLE]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, (total - q.First.AdvanceRequest).ToString("0.00"))) & "</p>"
 
+                    End If
+                Else
+
+                End If
+                output = output.Replace("[EXPENSESTABLE]", et)
+
+
+                If q.First.AP_Staff_RmbLines.Count > 0 Then
+                    output = output.Replace("[RMBTOTAL]", Cur & (From c In q.First.AP_Staff_RmbLines Select c.GrossAmount).Sum().ToString("0.00"))
+                Else
+                    output = output.Replace("[RMBTOTAL]", Cur & "0.00")
                 End If
 
-            End If
+                Dim lines As String = ""
+
+                Dim theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = False Or Not (c.ReceiptImageId Is Nothing)
+                If theLines.Count > 0 Then
+                    output = output.Replace("[RMBHEADER1]", "<tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td>" & Translate("ReceiptNo") & "</td></tr>")
+
+                    For Each row In theLines
+                        lines = lines & "<tr><td>" & row.TransDate.ToString("dd/MM/yyyy") & "</td>"
+
+                        lines = lines & "<td><span style=""color: #AAA;"">" & row.AccountCode & "-</span>" & GetLocalTypeName(row.LineType, PS.PortalId) & "</td>"
+                        lines = lines & "<td>" & row.Comment
+
+                        If row.AP_Staff_RmbLineType.TypeName = "Mileage" Then
+                            If row.Spare1 > 0 Then
+
+
+                                'lines += "<br/ ><span class=""Agape_SubTitle"">Passengers: "
+                                'For Each person In row.Agape_Staff_RmbLine.AddStaffs
+                                '    lines += person.Name & " + "
+                                'Next
+                                'lines = Left(lines, lines.Length - 3)
+                                'lines += "</span>"
+                            End If
+                        End If
+
+                        lines = lines & "</td>"
+                        lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
+
+                        Dim amount = Cur & row.GrossAmount.ToString("0.00")
+                        Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
+                        If Not String.IsNullOrEmpty(row.OrigCurrency) Then
+                            If row.OrigCurrency.ToUpper <> ac.ToUpper Then
+                                amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
+                            End If
+                        End If
+
+                        lines = lines & "<td>" & amount & "</td>"
+                        lines = lines & "<td>" & "</td>"   ' row.VATCode & "</td>"
+                        lines = lines & "<td></td><td>"
+                        If Not (row.ReceiptImageId Is Nothing) Then
+                            lines = lines & row.ReceiptNo
+                        End If
+                        lines = lines & "</td></tr>"
+
+                    Next
+                Else
+                    output = output.Replace("[RMBHEADER1]", "")
+
+                End If
 
 
 
+                output = output.Replace("[RMBLINES1]", lines)
 
-            output = output.Replace("[EXPENSESTABLE]", et)
+                lines = ""
 
 
+                theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And c.ReceiptImageId Is Nothing Order By c.ReceiptNo
+                If theLines.Count > 0 Then
+                    For Each row In theLines
 
-            If q.First.AP_Staff_RmbLines.Count > 0 Then
-                output = output.Replace("[RMBTOTAL]", Cur & (From c In q.First.AP_Staff_RmbLines Select c.GrossAmount).Sum().ToString("0.00"))
-            Else
-                output = output.Replace("[RMBTOTAL]", Cur & "0.00")
-            End If
+                        lines = lines & "<tr><td>" & row.TransDate.ToShortDateString & "</td>"
+                        lines = lines & "<td><span style=""color: #AAA;"">" & row.AccountCode & "-</span>" & GetLocalTypeName(row.LineType, PS.PortalId) & "</td>"
+                        lines = lines & "<td>" & row.Comment
+                        If row.AP_Staff_RmbLineType.TypeName = "Mileage" Then
+                            If row.Spare1 > 0 Then
 
-            Dim lines As String = ""
 
-            Dim theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = False Or Not (c.ReceiptImageId Is Nothing)
-            If theLines.Count > 0 Then
-                output = output.Replace("[RMBHEADER1]", "<tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td>" & Translate("ReceiptNo") & "</td></tr>")
+                                'lines += "<br/ ><span class=""Agape_SubTitle"">Passengers: "
+                                'For Each person In row.Agape_Staff_RmbLineAddStaffs
+                                '    lines += person.Name & " + "
+                                'Next
+                                'lines = Left(lines, lines.Length - 3)
+                                'lines += "</span>"
+                            End If
+                        End If
 
+                        lines = lines & "</td>"
+                        lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
+
+                        Dim amount = Cur & row.GrossAmount.ToString("0.00")
+                        Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
+                        If Not String.IsNullOrEmpty(row.OrigCurrency) Then
+                            If row.OrigCurrency.ToUpper <> ac.ToUpper Then
+                                amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
+                            End If
+                        End If
+
+                        lines = lines & "<td>" & amount & "</td>"
+                        lines = lines & "<td>" & "</td>" ' IIf(row.VATReceipt, "Yes", "No") & "</td>"
+                        lines = lines & "<td>" & "</td>" ' row.VATCode & "</td>"
+                        lines = lines & "<td>" & row.ReceiptNo & "</td></tr>"
+                    Next
+                    Dim newHeaders As String = " <tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td>" & Translate("ReceiptNo") & "</td> </tr>"
+
+
+                    'output = output.Replace("[RCPTINSTRUCTIONS]", "The following expenses require a receipt. Please attach the receipts to this page (use extra pages if necessary) and number as listed below. Post this form directly to the National Office.")
+                    output = output.Replace("[RCPTINSTRUCTIONS]", Translate("needReceipts"))
+
+
+                    output = output.Replace("[RMBLINES2]", newHeaders & lines)
+                Else
+                    '   output = output.Replace("[RCPTINSTRUCTIONS]", "This reimbursement requires no receipts and you do not need to send any paperwork to Agap&eacute;. This page is for your records only.")
+                    output = output.Replace("[RCPTINSTRUCTIONS]", Translate("noReceipts"))
+
+                    output = output.Replace("[RMBLINES2]", lines)
+                End If
+
+                theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And Not c.ReceiptImageId Is Nothing Order By c.ReceiptNo
+                Dim ER As String = ""
                 For Each row In theLines
-                    lines = lines & "<tr><td>" & row.TransDate.ToString("dd/MM/yyyy") & "</td>"
-
-                    lines = lines & "<td><span style=""color: #AAA;"">" & row.AccountCode & "-</span>" & GetLocalTypeName(row.LineType, PS.PortalId) & "</td>"
-                    lines = lines & "<td>" & row.Comment
-
-                    If row.AP_Staff_RmbLineType.TypeName = "Mileage" Then
-                        If row.Spare1 > 0 Then
 
 
-                            'lines += "<br/ ><span class=""Agape_SubTitle"">Passengers: "
-                            'For Each person In row.Agape_Staff_RmbLine.AddStaffs
-                            '    lines += person.Name & " + "
-                            'Next
-                            'lines = Left(lines, lines.Length - 3)
-                            'lines += "</span>"
-                        End If
-                    End If
-
-                    lines = lines & "</td>"
-                    lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
-
-                    Dim amount = Cur & row.GrossAmount.ToString("0.00")
-                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
-                    If Not String.IsNullOrEmpty(row.OrigCurrency) Then
-                        If row.OrigCurrency.ToUpper <> ac.ToUpper Then
-                            amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
-                        End If
-                    End If
-
-                    lines = lines & "<td>" & amount & "</td>"
-                    lines = lines & "<td>" & "</td>"   ' row.VATCode & "</td>"
-                    lines = lines & "<td></td><td>"
-                    If Not (row.ReceiptImageId Is Nothing) Then
-                        lines = lines & row.ReceiptNo
-                    End If
-                    lines = lines & "</td></tr>"
-
-                Next
-            Else
-                output = output.Replace("[RMBHEADER1]", "")
-
-            End If
-
-
-
-            output = output.Replace("[RMBLINES1]", lines)
-
-            lines = ""
-
-
-            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And c.ReceiptImageId Is Nothing Order By c.ReceiptNo
-            If theLines.Count > 0 Then
-                For Each row In theLines
-
-                    lines = lines & "<tr><td>" & row.TransDate.ToShortDateString & "</td>"
-                    lines = lines & "<td><span style=""color: #AAA;"">" & row.AccountCode & "-</span>" & GetLocalTypeName(row.LineType, PS.PortalId) & "</td>"
-                    lines = lines & "<td>" & row.Comment
-                    If row.AP_Staff_RmbLineType.TypeName = "Mileage" Then
-                        If row.Spare1 > 0 Then
-
-
-                            'lines += "<br/ ><span class=""Agape_SubTitle"">Passengers: "
-                            'For Each person In row.Agape_Staff_RmbLineAddStaffs
-                            '    lines += person.Name & " + "
-                            'Next
-                            'lines = Left(lines, lines.Length - 3)
-                            'lines += "</span>"
-                        End If
-                    End If
-
-                    lines = lines & "</td>"
-                    lines = lines & "<td>" & "</td>" ' IIf(row.Taxable, "Yes", "No") & "</td>"
-
-                    Dim amount = Cur & row.GrossAmount.ToString("0.00")
-                    Dim ac = StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId)
-                    If Not String.IsNullOrEmpty(row.OrigCurrency) Then
-                        If row.OrigCurrency.ToUpper <> ac.ToUpper Then
-                            amount &= "<span style=""font-size: x-small; font-style: italic; color: #AAA;"">  (" & row.OrigCurrencyAmount.Value.ToString("0.00") & row.OrigCurrency.ToUpper & ")</span>"
-                        End If
-                    End If
-
-                    lines = lines & "<td>" & amount & "</td>"
-                    lines = lines & "<td>" & "</td>" ' IIf(row.VATReceipt, "Yes", "No") & "</td>"
-                    lines = lines & "<td>" & "</td>" ' row.VATCode & "</td>"
-                    lines = lines & "<td>" & row.ReceiptNo & "</td></tr>"
-                Next
-                Dim newHeaders As String = " <tr class=""Agape_Red_H5""><td>" & Translate("Date") & "</td><td>" & Translate("Type") & "</td><td>" & Translate("Description") & "</td><td>" & Translate("Taxed") & "</td><td>" & Translate("Amount") & "</td><td></td><td></td><td>" & Translate("ReceiptNo") & "</td> </tr>"
-
-
-                'output = output.Replace("[RCPTINSTRUCTIONS]", "The following expenses require a receipt. Please attach the receipts to this page (use extra pages if necessary) and number as listed below. Post this form directly to the National Office.")
-                output = output.Replace("[RCPTINSTRUCTIONS]", Translate("needReceipts"))
-
-
-                output = output.Replace("[RMBLINES2]", newHeaders & lines)
-            Else
-                '   output = output.Replace("[RCPTINSTRUCTIONS]", "This reimbursement requires no receipts and you do not need to send any paperwork to Agap&eacute;. This page is for your records only.")
-                output = output.Replace("[RCPTINSTRUCTIONS]", Translate("noReceipts"))
-
-                output = output.Replace("[RMBLINES2]", lines)
-            End If
-
-            theLines = From c In q.First.AP_Staff_RmbLines Where c.Receipt = True And Not c.ReceiptImageId Is Nothing Order By c.ReceiptNo
-            Dim ER As String = ""
-            For Each row In theLines
                     Dim theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(row.ReceiptImageId)
                     If Not theFile Is Nothing Then
 
@@ -304,44 +314,45 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
                         ER &= "<div class='alert alert-error'> Error: Electronic Receipt missing for - " & row.ShortComment & "</div>"
 
                     End If
-            Next
-            output = output.Replace("[ELECTRONIC_RECEIPTS]", ER)
 
-            If Not q.First.ApprDate Is Nothing Then
-                output = output.Replace("[APPROVEDON]", q.First.ApprDate.Value.ToString("dd/MM/yyyy"))
-            Else
-                output = output.Replace("[APPROVEDON]", "")
-            End If
-            If Not q.First.ProcDate Is Nothing Then
-                output = output.Replace("[PROCESSEDON]", q.First.ProcDate.Value.ToString("dd/MM/yyyy"))
-            Else
-                output = output.Replace("[PROCESSEDON]", "")
-            End If
-            output = output.Replace("[PAIDON]", "")
-            output = output.Replace("[PAIDBY]", "")
-            If Not q.First.ApprUserId Is Nothing Then
-                output = output.Replace("[APPROVEDBY]", UserController.GetUserById(PS.PortalId, q.First.ApprUserId).DisplayName)
-            Else
-                output = output.Replace("[APPROVEDBY]", "")
-            End If
+                Next
+                output = output.Replace("[ELECTRONIC_RECEIPTS]", ER)
 
-
-            If Not q.First.ProcUserId Is Nothing Then
-                output = output.Replace("[PROCESSEDBY]", UserController.GetUserById(PS.PortalId, q.First.ProcUserId).DisplayName)
-            Else
-                output = output.Replace("[PROCESSEDBY]", "")
-            End If
+                If Not q.First.ApprDate Is Nothing Then
+                    output = output.Replace("[APPROVEDON]", q.First.ApprDate.Value.ToString("dd/MM/yyyy"))
+                Else
+                    output = output.Replace("[APPROVEDON]", "")
+                End If
+                If Not q.First.ProcDate Is Nothing Then
+                    output = output.Replace("[PROCESSEDON]", q.First.ProcDate.Value.ToString("dd/MM/yyyy"))
+                Else
+                    output = output.Replace("[PROCESSEDON]", "")
+                End If
+                output = output.Replace("[PAIDON]", "")
+                output = output.Replace("[PAIDBY]", "")
+                If Not q.First.ApprUserId Is Nothing Then
+                    output = output.Replace("[APPROVEDBY]", UserController.GetUserById(PS.PortalId, q.First.ApprUserId).DisplayName)
+                Else
+                    output = output.Replace("[APPROVEDBY]", "")
+                End If
 
 
+                If Not q.First.ProcUserId Is Nothing Then
+                    output = output.Replace("[PROCESSEDBY]", UserController.GetUserById(PS.PortalId, q.First.ProcUserId).DisplayName)
+                Else
+                    output = output.Replace("[PROCESSEDBY]", "")
+                End If
 
-            PlaceHolder1.Controls.Add(New LiteralControl(output))
+
+
+                PlaceHolder1.Controls.Add(New LiteralControl(output))
 
             End If
 
         Catch ex As Exception
             pnlAccessDenied.Visible = True
-            btnLogin.Visible = True
-            lblAccessDenied.Text = "Error displaying prinout. The following infomtion will allow the technical team to debug the issue you are experiencing: <br />" & ex.ToString
+            btnLogin.Visible = False
+            lblAccessDenied.Text = "Error displaying prinout. The following information will allow the technical team to debug the issue you are experiencing: <br />" & ex.ToString
         End Try
     End Sub
 
@@ -349,13 +360,15 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
         Dim rtn As String
         Try
             rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
-
+            If String.IsNullOrEmpty(rtn) Then
+                rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", "/DesktopModules/AgapeConnect/StaffRmb/App_LocalResources/RmbPrintout.ascx.resx")
+            End If
         Catch ex As Exception
 
             rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", "/DesktopModules/AgapeConnect/StaffRmb/App_LocalResources/RmbPrintout.ascx.resx")
 
         End Try
-
+       
         Return rtn
 
     End Function

@@ -59,7 +59,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Catch ex As Exception
                 Response.TrySkipIisCustomErrors = True
                 Response.StatusCode = 500
-
+                Return
             End Try
             'For Each item In Request.Form.AllKeys
             '    If Not item Is Nothing Then

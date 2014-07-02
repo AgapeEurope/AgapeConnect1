@@ -24,8 +24,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
 
 
-            If Request.QueryString("StaffId") <> "" Then
-                Response.Redirect(EditUrl("staffDashboard") & "?staffId=" & Request.QueryString("StaffId"))
+            If Request.QueryString("mpd_user_id") <> "" Then
+                Response.Redirect(EditUrl("staffDashboard") & "?mpd_user_id=" & Request.QueryString("mpd_user_id"))
             End If
 
             Dim d As New MPDDataContext

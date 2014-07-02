@@ -146,7 +146,15 @@ Partial Class DesktopModules_StaffRmb_RmbPrintout
 
 
             output = output.Replace("[REASON]", q.First.RequestText)
-            output = output.Replace("[AMOUNT]", StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, q.First.RequestAmount.Value.ToString("0.00")))
+
+            Dim curString = StaffBrokerFunctions.GetFormattedCurrency(PS.PortalId, q.First.RequestAmount.Value.ToString("0.00"))
+            If Not String.IsNullOrEmpty(q.First.OrigCurrencyAmount) Then
+                If q.First.OrigCurrency <> StaffBrokerFunctions.GetSetting("AccountingCurrency", PS.PortalId) Then
+                    curString &= " (" & q.First.OrigCurrency & q.First.OrigCurrencyAmount.Value.ToString("0.00").Replace(".00", "") & ")"
+                End If
+            End If
+           
+            output = output.Replace("[AMOUNT]", curString)
 
 
 

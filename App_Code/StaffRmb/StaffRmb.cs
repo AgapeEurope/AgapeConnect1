@@ -136,9 +136,18 @@ namespace StaffRmb
 
                                       )
                                   select c.CostCenterId).Count() == 0;
-
-                if (rtn.CCMSpecial || rtn.AmountSpecial || rtn.SpouseSpecial)
+                
+                if(rtn.CCMSpecial && !(cc.First().CostCentreManager==null && cc.First().CostCentreDelegate==null))
                 {
+                    //Try to add the CCM's own Team Leader instead of auth User
+                    var app2 = StaffBrokerFunctions.GetLeaders(rmb.UserId, true);
+                    foreach (int i in (from c in app2 where c != rmb.UserId && c != SpouseId select c))
+                        rtn.UserIds.Add(DotNetNuke.Entities.Users.UserController.GetUserById(rmb.PortalId, i));
+
+                }
+                if ((rtn.CCMSpecial && rtn.UserIds.Count()==0 )|| rtn.AmountSpecial || rtn.SpouseSpecial)
+                {
+                    rtn.UserIds.Clear();
                     rtn.UserIds.Add(authUser.UserID == rmb.UserId ? authAuthUser : authUser);
 
                     if (cc.First().CostCentreManager == rtn.UserIds.First().UserID || cc.First().CostCentreDelegate == rtn.UserIds.First().UserID)

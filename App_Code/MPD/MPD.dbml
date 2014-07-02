@@ -161,4 +161,24 @@
       <Association Name="AP_mpd_Country_Ap_mpd_User" Member="AP_mpd_Country" ThisKey="mpdCountryId" OtherKey="mpdCountryId" Type="AP_mpd_Country" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ministry_systems" Member="ministry_systems">
+    <Type Name="ministry_system">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="min_code" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="min_name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="min_logo" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="last_fin_rep" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="gma_status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="last_dataserver_donation" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="iso2_code" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="gr_ministry_id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="last_dataserver_transaction" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ministry_scope" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="area_code" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="area_name" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="is_active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="stage" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="fcx" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

@@ -30,6 +30,15 @@ Partial Class DesktopModules_AgapePortal_StaffBroker_StaffChildren
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
 
+
+        'Dim d As New StaffBroker.StaffBrokerDataContext
+
+        'Dim q = From c In d.AP_StaffBroker_Childrens Where c.AP_StaffBroker_Staff.StaffId = _StaffId
+        'GridView1.DataSource = q
+        'GridView1.DataBind()
+
+
+
         'GridView1.DataSource = (From c In d.AP_StaffBroker_Childrens Where c.StaffId = _StaffId)
         'GridView1.DataBind()
         If Not Page.IsPostBack Then

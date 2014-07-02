@@ -11,12 +11,36 @@
 <script src="/js/jquery.watermarkinput.js" type="text/javascript"></script>
 <script type="text/javascript">
     optimizeYouTubeEmbeds();
-
-
+    
     (function ($, Sys) {
+
+       
+
+
         function setUpMyTabs() {
             var stop = false;
            
+            $("#rmb-main").css('min-height', $("#rmb-nav").height()+100  );
+            $("#rmb-main").click(function(){
+                if($(window).width() < 976)
+                    $('#rmb-nav').hide( "slide");
+            });
+
+            $('#rmb-menu-button').click(function(){
+                var options = {};
+               
+                $('#rmb-nav').toggle( "slide");
+
+                return false;
+                
+            });
+          
+
+            if(($(window).width() < 976) && '<%= hfRmbNo.Value%>' !='')
+                $('#rmb-nav').hide();
+            
+
+
             $('.hlCur').click(function() { var tempValue=$('.rmbAmount').val();  $('.ddlCur').change();$('.rmbAmount').val(tempValue); $('.divCur').show(); $('#' + this.id).hide();  $('#<%= hfCurOpen.ClientID %>').val("true");   });
             
 
@@ -142,21 +166,32 @@
     
             });
 
-
-            
-               $("#accordion h3").click(function (event) {
-                   if (stop) {
-                       event.stopImmediatePropagation();
-                       event.preventDefault();
-                       stop = false;
-                   }
-               });
-               $("#accordion").accordion({
+            $('.collapse').removeClass("in");
+            var selected_tab =<%= getSelectedTab()%>;
+            if(selected_tab==0)
+                $('#DraftPane').addClass("in");
+            else if(selected_tab==1)
+                $('#SubmittedPane').addClass("in");
+            else if(selected_tab==2)
+                $('#ApprovedPane').addClass("in");
+            else if(selected_tab==3)
+                $('#ProcessedPane').addClass("in");
+            else if(selected_tab==4)
+                $('#CancelledPane').addClass("in");
+              //$("#accordion h3").click(function (event) {
+              //     //if (stop) {
+              //         event.stopImmediatePropagation();
+              //         event.preventDefault();
+              //         stop = false;
+              //    // }
+              // });
+               
+              <%-- $("#accordion").accordion({
                    header: "> div > h3",
-                   active: <%= getSelectedTab() %>,
+                   active: <%= getSelectedTab()%>,
 			    navigate: false
             });
-
+          --%>
 
             $("#divSplitPopup").dialog({
                 autoOpen: false,
@@ -303,8 +338,10 @@
 
 
         $(document).ready(function () {
+
+
             setUpMyTabs();
-                  
+               
 
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 setUpMyTabs();
@@ -410,7 +447,7 @@
 
 
      function checkCur(){
-         if($('.divCur').doesExist())
+         if($('.divCur').length>0)
          {
              var origCur =   $("#<%= hfOrigCurrency.ClientID%>").attr('value');
             console.log('origCur: ' + origCur) ;
@@ -641,6 +678,63 @@
 
 </script>
 <style type="text/css">
+ 
+    #mobile-header {
+ display: none;
+height: 48px;
+background: #222;
+text-align: left;
+
+
+width: 100%;
+top: 0;
+z-index: 200;
+}
+     @media only screen and (min-width: 968px) and  (max-width: 1200px) {
+        #rmb-main{
+   width: 630px !important;
+    }
+       
+    }
+
+
+      @media only screen and (min-width: 968px) and  (max-width: 1200px) {
+        #rmb-main{
+   width: 630px !important;
+    }
+       
+    }
+    @media only screen and (max-width: 967px) {
+        #mobile-header {
+            display: block;
+        }
+        #rmb-nav {
+            position: absolute;
+            background-color: #222 !important;
+        }
+           #rmb-main{
+   width: 100% !important;
+    }
+    }
+    
+
+    #rmb-nav{
+       
+        width: 240px;
+        background-color: white;
+    float: left;
+     padding: 10px;
+    }
+    #rmb-main{
+   width: 830px;
+        display: inline-block;
+    }
+    .rmbOuter{
+        /*min-height:1000px;*/
+        /*position:relative*/
+  
+    }
+
     .AgapeWarning {
         display: block;
         margin-bottom: 5px;
@@ -648,6 +742,7 @@
     }
     .accordion-inner{
         padding: 0 5px 0 5px;
+         min-height:80px;
        
     }
     .AdvRequest {
@@ -690,13 +785,14 @@
    .accordion-heading a div{
        margin-right: 12px;
    }
-
+   
+   
 </style>
 <div style="text-align: center; width: 100%;">
     <asp:Label ID="lblError" runat="server" class="ui-state-error ui-corner-all"
         Style="padding: 3px; margin-top: 3px; display: inline-block; width: 50%;" Visible="false"></asp:Label>
 </div>
-<asp:Panel ID="pnlEverything" runat="server">
+<asp:Panel CssClass="rmbOuter" ID="pnlEverything" runat="server">
 
 
 
@@ -716,11 +812,15 @@
     <asp:HiddenField ID="hfExchangeRateAdvPO" runat="server" Value="1" />
     <asp:HiddenField ID="hfOrigCurrencyAdvPO" runat="server" Value="" />
     <asp:HiddenField ID="hfOrigCurrencyValueAdvPO" runat="server" Value="" />
-
-
-    <table width="100%">
-        <tr valign="top">
-            <td>
+      <asp:HiddenField ID="hfRmbNo" runat="server" />
+  <div id="mobile-header">
+    
+      <div class="mobile_icon" style ="margin: 6px ; white-space: nowrap;">
+        <div class="menu_icon" style="float:left;"><a id="rmb-menu-button" href="#sidr-main""><img src="/Portals/_default/Skins/20037-UnlimitedColorPack-023/images/menu_icon.png" alt="" title="Menu" /></a><em><&lt; show expenses menu)</em> </div>
+      </div>
+</div>
+    <div  id="rmb-nav">
+          
                 <div align="center" width="100%">
                     <input id="btmNewRmb" type="button" onclick="showPopup2();" class="aButton btn-success" value='<%= Translate("btnNew") %>'
                         style="margin-bottom: 5px; font-weight: bold; min-width: 220px; font-size: large" />
@@ -728,9 +828,9 @@
                 <div id="accordion" class="accordian" style="background-color: #fafafa;">
                     <div class="accordion-group">
                         <h3 class="accordion-heading">
-                            <a href="#DraftPane" id="Tab0" class="AcHdr accordion-toggle actived color1-bg-h" data-toggle="collapse" data-parent="#accordion">
+                            <a href="#DraftPane" id="Tab0" class=" accordion-toggle  color1-bg-h" data-toggle="collapse" data-parent="#accordion">
                                 <asp:Label ID="Label5" runat="server" Font-Bold="true" ResourceKey="Draft"></asp:Label></a></h3>
-                        <div id="DraftPane" class="accordion-body collapse in">
+                        <div id="DraftPane" class="accordion-body collapse ">
                              <div class="accordion-inner">
                             <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                 <ContentTemplate>
@@ -1290,9 +1390,11 @@
                         </h3>
                         <div id="CancelledPane"   class="accordion-body collapse">
                             <div class="accordion-inner">
-                            <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+
+                            <asp:UpdatePanel ID="UpdatePanel8" runat="server" >
                                 <ContentTemplate>
-                                    <asp:DataList ID="dlCancelled" runat="server" Width="100%">
+                                    <asp:DataList ID="dlCancelled" runat="server" Width="100%"> 
+                                        
                                         <ItemStyle CssClass="dnnGridItem" />
                                         <AlternatingItemStyle CssClass="dnnGridAltItem" />
                                         <ItemTemplate>
@@ -1321,9 +1423,10 @@
                         </div>
                     </div>
                 </div>
-            </td>
-            <td width="100%" style="padding-left: 20px;">
-
+      
+     </div>
+     <div id="rmb-main" >
+           
 
 
                 <asp:Panel ID="pnlSplash" runat="server" Visible="false">
@@ -1339,7 +1442,7 @@
                     <ContentTemplate>
                         <asp:Panel ID="pnlMain" runat="server" CssClass="ui-widget ui-widget-content ui-corner-all">
 
-                            <div class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+                            <div class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" style="height: 54px;">
                                 <div style="width: 100%; vertical-align: middle; font-size: 20pt; font-weight: bold; border-width: 2pt; border-bottom-style: solid;">
                                     <asp:Image ID="imgAvatar" runat="server" Width="50px" ImageUrl="/images/no_avatar.gif" Style="float: left; margin-right: 5px; border-width: 2pt; border-style: solid;" />
 
@@ -1354,11 +1457,11 @@
                                 <asp:Label ID="ttlAccountBalance" runat="server" Style="float: right; margin-right: 3px; font-style: italic;"
                                     resourceKey="AccountBalance"></asp:Label>
                                 <asp:HiddenField ID="hfAccountBalance" runat="server" />
-                                <div style="clear: both;">
+                                
                                 </div>
                             </div>
                             <div style="margin-top: 10px; padding: 10px;">
-                                <table width="100%">
+                                <table >
                                     <tr class="Agape_SubTitle">
                                         <td class="hdrTitle">
                                             <asp:Label ID="Label18" runat="server" resourcekey="SubmittedOn"></asp:Label>
@@ -1479,7 +1582,7 @@
                                         <img src="/DesktopModules/AgapeConnect/StaffRmb/Images/Excel_icon.gif" alt="" />
                                         <asp:Label ID="lblDownload" runat="server" resourcekey="btnDownload"></asp:Label>
                                     </div>
-                                    <div style="clear: both;">
+                                   
                                     </div>
                                 </asp:LinkButton>
 
@@ -1791,7 +1894,7 @@
 
 
 
-                        <asp:HiddenField ID="hfRmbNo" runat="server" />
+                      
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="btnCancel" EventName="Click" />
@@ -1800,9 +1903,12 @@
                      
                     </Triggers>
                 </asp:UpdatePanel>
-            </td>
-        </tr>
-    </table>
+    
+
+
+         </div>
+
+
     <asp:UpdateProgress ID="UpdateProgress3" runat="server" DisplayAfter="0" DynamicLayout="true"
         AssociatedUpdatePanelID="UpdatePanel1">
         <ProgressTemplate>

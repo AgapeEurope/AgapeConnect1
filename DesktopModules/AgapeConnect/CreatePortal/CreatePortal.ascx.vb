@@ -23,12 +23,16 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         
         Protected Sub btnCreate_Click(sender As Object, e As System.EventArgs) Handles btnCreate.Click
-            
+            'SetupIcons(48)
+            'SetupRmb(48)
+            'Return
 
             Dim NewPortalId = CreatePortal()
             ' Dim NewPortalId = 4
             If NewPortalId > 0 Then
                 SetupAdminPages(NewPortalId)
+
+
                 SetupTemplates(NewPortalId)
                 SetupStaffProfileProperties(NewPortalId)
                 SetupAgapeConnectSettings(NewPortalId)
@@ -52,7 +56,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
 
         End Sub
-
+      
 
         Private Function CreateUser(ByVal thePortalid As Integer, ByVal username As String, ByVal FirstName As String, ByVal LastName As String, ByVal StaffType As Integer) As StaffBroker.AP_StaffBroker_Staff
             lblStatus.Text &= "Creating User: " & FirstName & "<br />"
@@ -169,7 +173,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End If
             Dim ac As New PortalAliasController()
 
-           ' Dim PortalAlias As String = "localhost:37881" 'tbCountryISOCode.Text & ".agapeconnect.me"
+            'Dim PortalAlias As String = "localhost:65323" 'tbCountryISOCode.Text & ".agapeconnect.me"
             Dim PortalAlias = tbCountryISOCode.Text & ".agapeconnect.me"
             Dim aliasCollection = ac.GetPortalAliases()
             If ac.GetPortalAliases().Contains(PortalAlias) Then
@@ -187,7 +191,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                               password:=UserController.GeneratePassword(8),
                               email:="donotreply@agapeconnect.me",
                                description:="Agape Connect Site for " & tbCountryName.Text,
-                               keyWords:="", templatePath:=HostMapPath, templateFile:="AgapeConnect-v1.0.template",
+                               keyWords:="", templatePath:=HostMapPath, templateFile:="AgapeConnect2014.template",
                               homeDirectory:="", portalAlias:=PortalAlias,
            serverPath:=GetAbsoluteServerPath(Request), childPath:="", isChildPortal:=False)
 
@@ -207,7 +211,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                             lblStatus.Text &= "Added current user to role" & vbNewLine
 
                             Try
-                                Dim Jon = CreateUser(newPid, "jon@vellacott.co.uk", "Jon", "Vellacott", defaultStaffType)
+                        Dim Jon = CreateUser(newPid, "jon.vellacott@ccci.org", "Jon", "Vellacott", defaultStaffType)
 
 
                                 rc.AddUserRole(newPid, Jon.UserId1, AdminRole.RoleID, Null.NullDate)
@@ -348,6 +352,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 StaffBrokerFunctions.SetSetting("CurConverter", "True", thePortalId)
             End If
             StaffBrokerFunctions.SetSetting("tntWebLinkActive", "False", thePortalId)
+            StaffBrokerFunctions.SetSetting("FirstFiscalMonth", "7", thePortalId)
+            StaffBrokerFunctions.SetSetting("CurrentFiscalPeriod", Today.AddMonths(-7).ToString("yyyyMM"), thePortalId)
+            StaffBrokerFunctions.SetSetting("NonDynamics", "False", thePortalId)
+            StaffBrokerFunctions.SetSetting("Nagape", "ON", thePortalId)
+
 
             Dim d As New DatatSync
             Try
@@ -409,7 +418,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                         folder = FolderManager.Instance.GetFolder(thePortalId, "acIcons")
                     End If
                     Using FileStream As New System.IO.FileStream(row.FullName, FileMode.Open)
-                        Dim theFile = FileManager.Instance.AddFile(folder, row.Name, FileStream)
+                        Dim theFile = FileManager.Instance.AddFile(folder, row.Name, FileStream, False, False, "image/png")
                         Select Case row.Name
                             Case "Rmb.png"
                                 insertRmb.IconFile = theFile.FileId
@@ -561,16 +570,16 @@ Namespace DotNetNuke.Modules.AgapeConnect
             tnt.CreateUsersFromTnt()
         End Sub
 
-        Protected Sub btnCreateAllUsers_Click(sender As Object, e As EventArgs) Handles btnCreateAllUsers.Click
+        Protected Sub btnCreateAllUsers_Click(sender As Object, e As System.EventArgs) Handles btnCreateAllUsers.Click
             createUserFromTnT()
 
         End Sub
 
-        Protected Sub btnproxy_Click(sender As Object, e As EventArgs) Handles btnproxy.Click
+        Protected Sub btnproxy_Click(sender As Object, e As System.EventArgs) Handles btnproxy.Click
 
         End Sub
 
-        Protected Sub btnCreateEntropy_Click(sender As Object, e As EventArgs) Handles btnCreateEntropy.Click
+        Protected Sub btnCreateEntropy_Click(sender As Object, e As System.EventArgs) Handles btnCreateEntropy.Click
             StaffBrokerFunctions.SetSetting("TestUserPassword", "Thisisatestaccount", 0)
 
         End Sub

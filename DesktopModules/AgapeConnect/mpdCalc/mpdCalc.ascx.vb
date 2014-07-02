@@ -76,182 +76,189 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
                 Dim d As New MPDDataContext()
-                Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId
+                Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId And c.PortalId = PortalId
                 Dim Staff = StaffBrokerFunctions.GetStaffMember(UserId)
-
-
+                Dim thisForm As AP_mpdCalc_Definition
                 If theForm.Count > 0 Then
-                    pnlAdmin.Visible = IsEditMode()
-                    If IsEditMode() Then
+                    thisForm = theForm.First
+                Else
+                    thisForm = mpdFunctions.CreateNewDef(PortalId, TabModuleId)
+                End If
 
 
-                        tbComplience.Text = theForm.First.Complience
-                        If Not String.IsNullOrEmpty(theForm.First.Compensation) Then
-                            If theForm.First.Compensation.StartsWith("%") Then
-                                tbCompensation.Text = theForm.First.Compensation.Trim("%")
-                                ddlCompensationType.SelectedValue = "Percentage"
-                            Else
-                                tbCompensation.Text = theForm.First.Compensation
-                                ddlCompensationType.SelectedValue = "Formula"
-                            End If
-                        End If
-                        If Not String.IsNullOrEmpty(theForm.First.Assessment) Then
-                            If theForm.First.Assessment.StartsWith("%") Then
-                                tbAssessment.Text = theForm.First.Assessment.Trim("%")
-                                ddlAssessmentType.SelectedValue = "Percentage"
-
-                            Else
-                                tbAssessment.Text = theForm.First.Assessment
-                                ddlAssessmentType.SelectedValue = "Formula"
-                            End If
-                        End If
-                        tbDataserverURL.Text = StaffBrokerFunctions.GetSetting("DataserverURL", PortalId)
+                pnlAdmin.Visible = IsEditMode()
+                If IsEditMode() Then
 
 
-
-                        Dim staffTypes = From c In ds.AP_StaffBroker_StaffTypes Where c.PortalId = PortalId Select c.Name, Value = c.StaffTypeId
-
-                        cblStaffTypes.Items.Clear()
-                        cblStaffTypes.DataSource = staffTypes
-                        cblStaffTypes.DataTextField = "Name"
-                        cblStaffTypes.DataValueField = "Value"
-
-                        cblStaffTypes.DataBind()
-                        If Not String.IsNullOrEmpty(theForm.First.StaffTypes) Then
-
-
-                            Dim selectedTypes = theForm.First.StaffTypes.Split(";")
-
-                            For Each row As ListItem In cblStaffTypes.Items
-                                If selectedTypes.Contains(row.Value) Then
-                                    row.Selected = True
-
-                                End If
-                            Next
+                    tbComplience.Text = thisForm.Complience
+                    If Not String.IsNullOrEmpty(thisForm.Compensation) Then
+                        If thisForm.Compensation.StartsWith("%") Then
+                            tbCompensation.Text = thisForm.Compensation.Trim("%")
+                            ddlCompensationType.SelectedValue = "Percentage"
+                        Else
+                            tbCompensation.Text = thisForm.Compensation
+                            ddlCompensationType.SelectedValue = "Formula"
                         End If
                     End If
+                    If Not String.IsNullOrEmpty(thisForm.Assessment) Then
+                        If thisForm.Assessment.StartsWith("%") Then
+                            tbAssessment.Text = thisForm.Assessment.Trim("%")
+                            ddlAssessmentType.SelectedValue = "Percentage"
 
-
-                  
-
-                    Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
-                    If bud.Count > 0 Then
-                        'If Not bud.First.CurrentSupportLevel Is Nothing Then
-                        '    itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
-                        'End If
-
-                        Dim FirstBudgetMonth As Integer? = bud.First.AP_mpdCalc_Definition.FirstBudgetPeriod
-                        If FirstBudgetMonth Is Nothing Then
-                            FirstBudgetMonth = 7
-
-                        End If
-                        Dim fpStartDate As Date
-                        If FirstBudgetMonth <= Today.Month Then
-                            fpStartDate = New Date(Today.Year, FirstBudgetMonth, 1)
                         Else
-                            fpStartDate = New Date(Today.Year - 1, FirstBudgetMonth, 1)
+                            tbAssessment.Text = thisForm.Assessment
+                            ddlAssessmentType.SelectedValue = "Formula"
                         End If
+                    End If
+                    tbDataserverURL.Text = StaffBrokerFunctions.GetSetting("DataserverURL", PortalId)
 
-                        For i As Integer = -1 To 1
-                            ddlStartPeriod.Items.Add(New ListItem(fpStartDate.AddYears(i).ToString("MMM yyyy"), fpStartDate.AddYears(i).ToString("yyyyMM")))
+
+
+                    Dim staffTypes = From c In ds.AP_StaffBroker_StaffTypes Where c.PortalId = PortalId Select c.Name, Value = c.StaffTypeId
+
+                    cblStaffTypes.Items.Clear()
+                    cblStaffTypes.DataSource = staffTypes
+                    cblStaffTypes.DataTextField = "Name"
+                    cblStaffTypes.DataValueField = "Value"
+
+                    cblStaffTypes.DataBind()
+                    If Not String.IsNullOrEmpty(thisForm.StaffTypes) Then
+
+
+                        Dim selectedTypes = thisForm.StaffTypes.Split(";")
+
+                        For Each row As ListItem In cblStaffTypes.Items
+                            If selectedTypes.Contains(row.Value) Then
+                                row.Selected = True
+
+                            End If
                         Next
-                        ddlStartPeriod.Items.Clear()
-                        ddlStartPeriod.Items.Add(New ListItem("Last Year: " & fpStartDate.AddYears(-1).ToString("MMMM yyyy"), fpStartDate.AddYears(-1).ToString("yyyyMM")))
-                        ddlStartPeriod.Items.Add(New ListItem("This Year: " & fpStartDate.AddYears(0).ToString("MMMM yyyy"), fpStartDate.AddYears(0).ToString("yyyyMM")))
-                        ddlStartPeriod.Items.Add(New ListItem("Next Year: " & fpStartDate.AddYears(1).ToString("MMMM yyyy"), fpStartDate.AddYears(1).ToString("yyyyMM")))
-
-                        ddlStartPeriod.Items.Add(New ListItem("Custom (Please specify):", ""))
-
-                        ddlStartPeriod.SelectedIndex = 1
-
-
-                        ddlYear.Items.Clear()
-                        ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(-1).ToString("yyyy"), fpStartDate.AddYears(-1).ToString("yyyy")))
-                        ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(0).ToString("yyyy"), fpStartDate.AddYears(0).ToString("yyyy")))
-                        ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(1).ToString("yyyy"), fpStartDate.AddYears(1).ToString("yyyy")))
-
-
-
-
-                        Select Case bud.First.Status
-                            Case StaffRmb.RmbStatus.Draft
-                                btnSubmit.Visible = True
-                                btnCancel.Visible = False
-                            Case StaffRmb.RmbStatus.Submitted
-                                btnApprove.Visible = Staff.StaffId <> bud.First.StaffId
-                            Case StaffRmb.RmbStatus.Approved
-                                btnProcess.Visible = IsEditMode()
-                            Case StaffRmb.RmbStatus.Processed
-                                btnCancel.Visible = False
-                            Case StaffRmb.RmbStatus.Cancelled
-                                btnSubmit.Visible = True
-                                btnCancel.Visible = False
-                        End Select
-
-
-                        lblStatus.Text = StaffRmb.RmbStatus.StatusName(bud.First.Status)
-                        Dim dt = New Date(CInt(Left(bud.First.BudgetPeriodStart, 4)), CInt(Right(bud.First.BudgetPeriodStart, 2)), 1)
-
-                        If ddlStartPeriod.Items.FindByValue(bud.First.BudgetPeriodStart) Is Nothing Then
-                            ddlStartPeriod.SelectedValue = ""
-                            ddlPeriod.SelectedValue = dt.Month
-
-                            ddlYear.SelectedValue = dt.Year
-                            customDate.Attributes.CssStyle.Remove("display")
-                        Else
-                            ddlPeriod.SelectedValue = bud.First.BudgetPeriodStart
-
-                        End If
-
-                        If bud.First.Status <> StaffRmb.RmbStatus.Draft And bud.First.Status <> StaffRmb.RmbStatus.Cancelled Then
-                            cbCompliance.Enabled = False
-                            cbCompliance.Checked = True
-                            btnSubmit.Enabled = True
-                        End If
-                        Staff = StaffBrokerFunctions.GetStaffbyStaffId(bud.First.StaffId)
-
                     End If
-
-
-                    lblStaffName.Text = Staff.DisplayName
-                    IsCouple = Staff.UserId2 > 0
-                    StaffType = Staff.AP_StaffBroker_StaffType.Name
-                    itemCurrent.Monthly = mpdFunctions.getAverageMonthlyIncomeOver12Periods(Staff.StaffId)
-
-                    If (theForm.First.AP_mpdCalc_Sections.Count > 0) Then
-                        LastSection = theForm.First.AP_mpdCalc_Sections.Max(Function(c) c.Number)
-                    End If
-                    rpSections.DataSource = theForm.First.AP_mpdCalc_Sections.OrderBy(Function(c) c.Number)
-                    rpSections.DataBind()
-
-
-
-
-
-                    ddlInsertOrder.DataSource = (From c In theForm.First.AP_mpdCalc_Sections Select c.Number + 1)
-                    ddlInsertOrder.DataBind()
-
-
-                    hfAssessment.Value = theForm.First.Assessment
-                    hfCompentation.Value = theForm.First.Compensation
-
-
-                    If theForm.First.ShowComplience Then
-                        cbCompliance.Text = theForm.First.Complience
-
-                    End If
-                    cbCompliance.Visible = theForm.First.ShowComplience
-                    Age1 = 20
-                    Age2 = 22
-
-
-
-
-
 
                 End If
 
+
+
+
+
+                Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
+                If bud.Count > 0 Then
+                    'If Not bud.First.CurrentSupportLevel Is Nothing Then
+                    '    itemCurrent.Monthly = bud.First.CurrentSupportLevel.Value.ToString("F0", New CultureInfo("en-US"))
+                    'End If
+
+                    Dim FirstBudgetMonth As Integer? = bud.First.AP_mpdCalc_Definition.FirstBudgetPeriod
+                    If FirstBudgetMonth Is Nothing Then
+                        FirstBudgetMonth = 7
+
+                    End If
+                    Dim fpStartDate As Date
+                    If FirstBudgetMonth <= Today.Month Then
+                        fpStartDate = New Date(Today.Year, FirstBudgetMonth, 1)
+                    Else
+                        fpStartDate = New Date(Today.Year - 1, FirstBudgetMonth, 1)
+                    End If
+
+                    For i As Integer = -1 To 1
+                        ddlStartPeriod.Items.Add(New ListItem(fpStartDate.AddYears(i).ToString("MMM yyyy"), fpStartDate.AddYears(i).ToString("yyyyMM")))
+                    Next
+                    ddlStartPeriod.Items.Clear()
+                    ddlStartPeriod.Items.Add(New ListItem("Last Year: " & fpStartDate.AddYears(-1).ToString("MMMM yyyy"), fpStartDate.AddYears(-1).ToString("yyyyMM")))
+                    ddlStartPeriod.Items.Add(New ListItem("This Year: " & fpStartDate.AddYears(0).ToString("MMMM yyyy"), fpStartDate.AddYears(0).ToString("yyyyMM")))
+                    ddlStartPeriod.Items.Add(New ListItem("Next Year: " & fpStartDate.AddYears(1).ToString("MMMM yyyy"), fpStartDate.AddYears(1).ToString("yyyyMM")))
+
+                    ddlStartPeriod.Items.Add(New ListItem("Custom (Please specify):", ""))
+
+                    ddlStartPeriod.SelectedIndex = 1
+
+
+                    ddlYear.Items.Clear()
+                    ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(-1).ToString("yyyy"), fpStartDate.AddYears(-1).ToString("yyyy")))
+                    ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(0).ToString("yyyy"), fpStartDate.AddYears(0).ToString("yyyy")))
+                    ddlYear.Items.Add(New ListItem(fpStartDate.AddYears(1).ToString("yyyy"), fpStartDate.AddYears(1).ToString("yyyy")))
+
+
+
+
+                    Select Case bud.First.Status
+                        Case StaffRmb.RmbStatus.Draft
+                            btnSubmit.Visible = True
+                            btnCancel.Visible = False
+                        Case StaffRmb.RmbStatus.Submitted
+                            btnApprove.Visible = Staff.StaffId <> bud.First.StaffId
+                        Case StaffRmb.RmbStatus.Approved
+                            btnProcess.Visible = IsEditMode()
+                        Case StaffRmb.RmbStatus.Processed
+                            btnCancel.Visible = False
+                        Case StaffRmb.RmbStatus.Cancelled
+                            btnSubmit.Visible = True
+                            btnCancel.Visible = False
+                    End Select
+
+
+                    lblStatus.Text = StaffRmb.RmbStatus.StatusName(bud.First.Status)
+                    Dim dt = New Date(CInt(Left(bud.First.BudgetPeriodStart, 4)), CInt(Right(bud.First.BudgetPeriodStart, 2)), 1)
+
+                    If ddlStartPeriod.Items.FindByValue(bud.First.BudgetPeriodStart) Is Nothing Then
+                        ddlStartPeriod.SelectedValue = ""
+                        ddlPeriod.SelectedValue = dt.Month
+
+                        ddlYear.SelectedValue = dt.Year
+                        customDate.Attributes.CssStyle.Remove("display")
+                    Else
+                        ddlPeriod.SelectedValue = bud.First.BudgetPeriodStart
+
+                    End If
+
+                    If bud.First.Status <> StaffRmb.RmbStatus.Draft And bud.First.Status <> StaffRmb.RmbStatus.Cancelled Then
+                        cbCompliance.Enabled = False
+                        cbCompliance.Checked = True
+                        btnSubmit.Enabled = True
+                    End If
+                    Staff = StaffBrokerFunctions.GetStaffbyStaffId(bud.First.StaffId)
+
+                End If
+
+
+                lblStaffName.Text = Staff.DisplayName
+                IsCouple = Staff.UserId2 > 0
+                StaffType = Staff.AP_StaffBroker_StaffType.Name
+                itemCurrent.Monthly = mpdFunctions.getAverageMonthlyIncomeOver12Periods(Staff.StaffId)
+
+                If (thisForm.AP_mpdCalc_Sections.Count > 0) Then
+                    LastSection = thisForm.AP_mpdCalc_Sections.Max(Function(c) c.Number)
+                End If
+                rpSections.DataSource = thisForm.AP_mpdCalc_Sections.OrderBy(Function(c) c.Number)
+                rpSections.DataBind()
+
+
+
+
+
+                ddlInsertOrder.DataSource = (From c In thisForm.AP_mpdCalc_Sections Select c.Number + 1)
+                ddlInsertOrder.DataBind()
+
+
+                hfAssessment.Value = thisForm.Assessment
+                hfCompentation.Value = thisForm.Compensation
+
+
+                If theForm.First.ShowComplience Then
+                    cbCompliance.Text = thisForm.Complience
+
+                End If
+                cbCompliance.Visible = thisForm.ShowComplience
+                Age1 = 20
+                Age2 = 22
+
+
+
+
+
+
             End If
+
+
 
 
         End Sub

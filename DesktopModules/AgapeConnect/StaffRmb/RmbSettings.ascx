@@ -1294,7 +1294,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Display Name">
                                     <ItemTemplate>
-                                        <asp:TextBox runat="server" ID="tbDisplayName" Text='<%# GetDisplayName(Eval("LineTypeId"), Eval("TypeName")) %>' />
+                                        <asp:TextBox runat="server" ID="tbDisplayName" Text='<%# GetDisplayName(Eval("LineTypeId"), Eval("TypeName")) %>' MaxLength="50"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="PCode">

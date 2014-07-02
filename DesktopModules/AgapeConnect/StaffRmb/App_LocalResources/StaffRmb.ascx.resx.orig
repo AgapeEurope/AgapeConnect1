@@ -576,7 +576,4 @@
   <data name="lblIncome.Text" xml:space="preserve">
     <value>The staff member has declared that they have received income (personally). This amount has been deducted from the amount payable to them. If this is donation income, please do not forget to book this donation in Donorwise.</value>
   </data>
-  <data name="btnLogin.Text" xml:space="preserve">
-    <value>Login</value>
-  </data>
 </root>

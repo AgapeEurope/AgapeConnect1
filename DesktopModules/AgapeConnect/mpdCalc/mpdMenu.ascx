@@ -124,7 +124,9 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active myTab" id="myTab<%= StaffId %>">
+                
                          <uc1:MenuDetail runat="server" ID="myMenuDetail"   />
+                 
                     </div>
             <asp:Repeater ID="rpMenuDetail" runat="server">
                 <ItemTemplate>
@@ -132,7 +134,7 @@
                    
                         
                 
-                    <uc1:MenuDetail runat="server" ID="MenuDetail" MpdDefId='<%# mpdDefId%>' PortalId='<%#PortalId %>' EditUrl='<%#EditUrl("mpdCalc") %>'   DisplayName='<%# Eval("DisplayName")%>'   StaffId='<%# Eval("StaffId")%>' />
+                    <uc1:MenuDetail runat="server" ID="MenuDetail" MpdDefId='<%# mpdDefId%>' PortalId='<%#PortalId %>' EditUrl='<%#EditUrl("mpdCalc") %>'   DisplayName='<%# Eval("DisplayName")%>'   StaffId='<%# Eval("StaffId")%>' ShowCreate="true" />
                     
                     
                     
@@ -141,7 +143,9 @@
 
 
                 </ItemTemplate>
+                
             </asp:Repeater>
+           
 
 
 
@@ -167,7 +171,7 @@
     <div class="span4">
     </div>
     <div class="span8">
-        <div class="well">
+        <div class="well" style="display:none;">
             This section will contain useful information on:
             <ul>
                 <li><b>YouTube video walkthough</b> - how to submit a budget</li>

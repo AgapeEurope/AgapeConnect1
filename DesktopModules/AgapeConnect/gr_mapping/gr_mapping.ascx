@@ -29,8 +29,8 @@
         </legend>
         <div style="max-width: 220px; overflow-x: auto;">
 
-            <asp:TreeView ID="tv_gr_types" runat="server" ShowLines="true"></asp:TreeView>
-            </div>
+            <asp:TreeView ID="tv_gr_types" runat="server" ShowLines="true" ExpandDepth="0"></asp:TreeView>
+        </div>
     </fieldset>
 </div>
 
@@ -38,6 +38,15 @@
     Global Registry API Key :
     <asp:TextBox ID="tbApiKey" runat="server" Width="400px"></asp:TextBox>
     <asp:LinkButton ID="btnSaveKey" runat="server">Save</asp:LinkButton>
+</p>
+
+
+<p>
+     Country/Ministry :
+    <asp:DropDownList ID="ddlMinistries" runat="server" AppendDataBoundItems="true">
+        <asp:ListItem Text="none" Value="" />
+    </asp:DropDownList>
+     <asp:LinkButton ID="btnSaveMinistry" runat="server">Save</asp:LinkButton>
 </p>
 <asp:Panel ID="pnlMain" runat="server">
     <fieldset>
@@ -108,16 +117,10 @@
     </fieldset>
 
 
-    <fieldset>
-        <legend>Create new field in the Global Registry</legend>
-        <asp:DropDownList ID="ddlGrParent" runat="server">
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlFieldType" runat="server">
-        </asp:DropDownList>
-        <asp:TextBox ID="tbNewType" runat="server"></asp:TextBox>
-        <asp:LinkButton ID="btnCreateGrType" runat="server">Create</asp:LinkButton>
-    </fieldset>
+  
 
-
-
+       
 </asp:Panel>
+
+
+

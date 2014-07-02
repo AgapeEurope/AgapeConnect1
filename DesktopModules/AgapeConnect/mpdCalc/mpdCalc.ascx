@@ -494,7 +494,9 @@
     .mpdInput {
         width: 70px;
     }
-
+    input, textarea, .uneditable-input{
+        width: 70px ;
+    }
     .mpdColumn {
         text-align: right;
     }

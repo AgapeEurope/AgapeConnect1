@@ -75,29 +75,30 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 If Not tbApiKey.Text = "" Then
                     Try
-
+                        Dim gr_server = StaffBrokerFunctions.GetSetting("gr_api_url", PortalId)
                    
-                        gr = New GR(tbApiKey.Text, "http://192.168.2.244:3000/")
+                        gr = New GR(tbApiKey.Text, gr_server)
 
 
+                        Dim ministries = gr.GetEntities("ministry", "&entity_type=ministry&ruleset=3010&filters[is_active]=true&filters[ministry_scope][]=Area&filters[ministry_scope][]=National Region&filters[ministry_scope][]=National", 0, 300, 0)
+                        ddlMinistries.DataSource = From c In ministries Select Name = c.GetPropertyValue("name"), Value = c.GetPropertyValue("id") Order By Name
 
+                        ddlMinistries.DataValueField = "Value"
+                        ddlMinistries.DataTextField = "Name"
+                        ddlMinistries.DataBind()
+                        ddlMinistries.SelectedValue = StaffBrokerFunctions.GetSetting("gr_ministry_id", PortalId)
                     Dim leaves = From c In gr.GetFlatEntityLeafList("person") Select Name = c.GetDotNotation, c.ID Order By Name
 
                     gr_entity_types.DataSource = leaves
                     gr_entity_types.DataTextField = "Name"
                     gr_entity_types.DataValueField = "ID"
-                    gr_entity_types.DataBind()
-                    Dim parents = From c In gr.GetFlatEntityLeafList("person", "All") Select Name = c.GetDotNotation, c.ID Order By Name
-
-                    ddlGrParent.DataSource = parents
-                    ddlGrParent.DataTextField = "Name"
-                    ddlGrParent.DataValueField = "ID"
-                    ddlGrParent.DataBind()
-
-                    ddlFieldType.DataSource = FieldType.type_list
-                    ddlFieldType.DataBind()
+                        gr_entity_types.DataBind()
 
 
+
+                       
+
+                   
 
                         For Each row In gr.entity_types_def
                             tv_gr_types.Nodes.Add(ProcessEntityTypesIntoTV(row))
@@ -118,6 +119,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Return rtn
 
         End Function
+
 
         Protected Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
             Dim d As New gr_mappingDataContext
@@ -175,16 +177,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
             End Select
         End Function
 
-        Protected Sub btnCreateGrType_Click(sender As Object, e As EventArgs) Handles btnCreateGrType.Click
-            gr = New GR(StaffBrokerFunctions.GetSetting("gr_api_key", PortalId), "http://192.168.1.35:3000/")
-            gr.addNewEntityType(tbNewType.Text, ddlFieldType.SelectedValue, IIf(ddlGrParent.SelectedItem.Text = "root", "", ddlGrParent.SelectedItem.Text))
-            'do a total reset
-            Response.Redirect(NavigateURL())
-        End Sub
-
-        Protected Sub btnSaveKey_Click(sender As Object, e As EventArgs) Handles btnSaveKey.Click
-            StaffBrokerFunctions.SetSetting("gr_api_key", tbApiKey.Text, PortalId)
-            Response.Redirect(NavigateURL())
+       
+        Protected Sub btnSaveMinistry_Click(sender As Object, e As EventArgs) Handles btnSaveMinistry.Click
+            StaffBrokerFunctions.SetSetting("gr_ministry_id", ddlMinistries.SelectedValue, PortalId)
         End Sub
     End Class
 End Namespace

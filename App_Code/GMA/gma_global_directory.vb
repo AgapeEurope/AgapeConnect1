@@ -7,6 +7,7 @@ Imports System.Linq
 
 ' NOTE: You can use the "Rename" command on the context menu to change the class name "gma_global_directory" in code, svc and config file together.
 <AspNetCompatibilityRequirements(RequirementsMode:=AspNetCompatibilityRequirementsMode.Allowed)>
+<ServiceBehavior(AddressFilterMode:=AddressFilterMode.Any)>
 Public Class gma_global_directory
     Implements Igma_global_directory
     Function GetAllGmaServers(ByVal authKey As String) As List(Of GMA.gma_Server) Implements Igma_global_directory.GetAllGmaServers
@@ -29,7 +30,7 @@ Public Class gma_global_directory
 
     End Function
 
-   
+
     Public Shared Function AddGMAService(ByVal displayName As String, ByVal URL As Uri, ByVal Userid As Integer) As Boolean
         Try
 
@@ -41,7 +42,7 @@ Public Class gma_global_directory
             insert.addedByUser = Userid
             Dim service = GetTargetService(insert.rootUrl)
             If Not String.IsNullOrEmpty(service) Then
-                insert.serviceURL = service
+                insert.serviceUrl = service
 
                 d.gma_Servers.InsertOnSubmit(insert)
                 d.SubmitChanges()

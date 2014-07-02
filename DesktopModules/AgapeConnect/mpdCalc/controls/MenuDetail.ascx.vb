@@ -55,7 +55,17 @@ Partial Class DesktopModules_AgapeConnect_mpdCalc_controls_MenuDetail
             rpMyBudgets.DataSource = myBudgets
             rpMyBudgets.DataBind()
 
+            pnlNoBudget.Visible = myBudgets.Count = 0
+
             hfStaffId.Value = value
+
+            Dim ds As New StaffBroker.StaffBrokerDataContext
+            Dim gr_id = (From c In ds.UserProfiles Where c.User.AP_StaffBroker_Staffs.StaffId = StaffId And c.ProfilePropertyDefinition.PropertyName = "gr_person_id" Select c.PropertyValue)
+            If gr_id.Count > 0 Then
+                hfmpduId.Value = (From c In d.Ap_mpd_Users Where c.gr_person_id = gr_id.First And PortalId = PortalId Select c.AP_mpd_UserId).FirstOrDefault
+            End If
+
+            '    btnViewReport.Visible = hfmpduId.Value > 0
 
 
             Dim acInfo = From c In d.AP_mpd_UserAccountInfos Where c.staffId = value Order By c.period Descending
@@ -78,7 +88,9 @@ Partial Class DesktopModules_AgapeConnect_mpdCalc_controls_MenuDetail
 
                 lblSupportLevel.Text = (AveIncome / currentBudget.First.ToRaise).ToString("0%")
                 lblSupportLevel.Attributes("data-value") = "sl" & value
+           
             End If
+
 
 
 
@@ -182,11 +194,15 @@ Partial Class DesktopModules_AgapeConnect_mpdCalc_controls_MenuDetail
         Dim mc As New DotNetNuke.Entities.Modules.ModuleController
 
         Dim x = mc.GetModuleByDefinition(hfPortalId.Value, "ac_mpdDashboard")
-        Response.Redirect(NavigateURL(x.TabID) & "?StaffId=" & hfStaffId.Value)
+        Response.Redirect(NavigateURL(x.TabID) & "?mpd_user_id=" & hfmpduId.Value)
 
     End Sub
 
     Protected Sub btnViewCurrentBudget_Click(sender As Object, e As EventArgs) Handles btnViewCurrentBudget.Click
         Response.Redirect(hfEditUrl.Value & "?sb=" & hfCurrentBudgetId.Value)
+    End Sub
+
+    Protected Sub btnFirstBudget_Click(sender As Object, e As EventArgs) Handles btnFirstBudget.Click
+        btnCreateNewBudget_Click(sender, Nothing)
     End Sub
 End Class

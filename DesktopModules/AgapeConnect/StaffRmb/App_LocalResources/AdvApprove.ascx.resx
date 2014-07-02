@@ -117,61 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="aaNote.Text" xml:space="preserve">
-    <value>As the printout template is only available in one language, only the default language for your we site (usually English) is used. Other langauge translations will not be used. (Obviously this message will not appear on the printout!).</value>
+  <data name="AlreadyApproved.Text" xml:space="preserve">
+    <value>This advance has already been approved by [APPROVER].</value>
   </data>
-  <data name="Amount.Text" xml:space="preserve">
-    <value>Amount</value>
+  <data name="Approved.Text" xml:space="preserve">
+    <value>Advance [ADVNO] (from [SUBMITTER]) has been approved.</value>
   </data>
-  <data name="Date.Text" xml:space="preserve">
-    <value>Date</value>
+  <data name="AreadyCancelled.Text" xml:space="preserve">
+    <value>This advance has already been cancelled.</value>
   </data>
-  <data name="Description.Text" xml:space="preserve">
-    <value>Description</value>
+  <data name="btnApprove.Text" xml:space="preserve">
+    <value>Approve</value>
   </data>
-  <data name="Type.Text" xml:space="preserve">
-    <value>Type</value>
+  <data name="btnLogin.Text" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="needReceipts.Text" xml:space="preserve">
-    <value>The following expenses require a receipt. Please attach the receipts to this page (use extra pages if necessary) and number as listed below. Post this form directly to the National Office.</value>
+  <data name="btnUndo.Text" xml:space="preserve">
+    <value>Undo Approval</value>
   </data>
-  <data name="noReceipts.Text" xml:space="preserve">
-    <value>This reimbursement requires no receipts and you do not need to send any paperwork to Agap&amp;eacute;. This page is for your records only.</value>
+  <data name="NotFound.Text" xml:space="preserve">
+    <value>Could not find this advance.</value>
   </data>
-  <data name="Period.Text" xml:space="preserve">
-    <value>Period:</value>
+  <data name="Undone.Text" xml:space="preserve">
+    <value>Advance [ADVNO] was reverted from 'Approved' to 'Submitted'.</value>
   </data>
-  <data name="PeriodPosted.Text" xml:space="preserve">
-    <value>Period Posted:</value>
-  </data>
-  <data name="ReceiptNo.Text" xml:space="preserve">
-    <value>ReceiptNo</value>
-  </data>
-  <data name="Taxed.Text" xml:space="preserve">
-    <value>Taxed</value>
-  </data>
-  <data name="Total.Text" xml:space="preserve">
-    <value>Total:</value>
-  </data>
-  <data name="YearPosted.Text" xml:space="preserve">
-    <value>Year Posted:</value>
-  </data>
-  <data name="ClearAdvAll.Text" xml:space="preserve">
-    <value>The balance payable from this reimbursement will be used to clear an existing advance. </value>
-  </data>
-  <data name="ClearAdvPartial.Text" xml:space="preserve">
-    <value>[CLEARADV] of this reimbursement will be used to clear an existing advance. The remaining [PAYABLE] will be payed to the staff member.</value>
-  </data>
-  <data name="lblAccessDenied.Text" xml:space="preserve">
-    <value>You are not authorized to view this page. If you believe that this is a mistake, please contact your finance team.</value>
-  </data>
-  <data name="lblNotLoggedIn.Text" xml:space="preserve">
-    <value>You must be logged in to view this page.</value>
-  </data>
-  <data name="AmountPayable.Text" xml:space="preserve">
-    <value>Amount Payable:</value>
-  </data>
-  <data name="ClearAdvance.Text" xml:space="preserve">
-    <value>Clear Advance:</value>
+  <data name="Advance.Text" xml:space="preserve">
+    <value>Advance #</value>
   </data>
 </root>
