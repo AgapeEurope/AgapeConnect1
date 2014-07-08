@@ -22,7 +22,6 @@ Namespace DotNetNuke.Modules.AgapeConnect
     Partial Class mpdItem
         Inherits Entities.Modules.PortalModuleBase
 
-
         'Public Property Amount() As Double
         '    Get
         '        Return Double.Parse(tbAmount.Text, New CultureInfo("en-US").NumberFormat)
@@ -46,7 +45,14 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Public Property Monthly() As String
             Get
-                Return IIf(tbMonthly.Text = "", 0, tbMonthly.Text)
+                If tbMonthly.Enabled Or tbYearly.Enabled Then
+                    Return IIf(tbMonthly.Text = "", 0, tbMonthly.Text)
+                Else
+                    Return IIf(tbMonthly.Text = "", 0, hfMonthlyCalc.Value)
+                End If
+
+
+
 
 
             End Get
@@ -55,6 +61,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 If (value <> "") Then
                     tbYearly.Text = (12 * CDbl(value)).ToString("f0", New CultureInfo("en-US").NumberFormat)
                     tbMonthly.Text = CDbl(value).ToString("f0", New CultureInfo("en-US").NumberFormat)
+
                 End If
 
 
@@ -73,7 +80,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 ElseIf value.Contains("YEAR") Then
                     tbYearly.Enabled = True
                 ElseIf value.Contains("CALCULATED") Then
-                    tbMonthly.Attributes("class") &= " calculated"
+                    tbMonthly.CssClass &= " calculated"
                 ElseIf (value = "INSERT") Then
                     tbMonthly.Enabled = True
                     _mode = "BASIC_MONTH"
@@ -86,11 +93,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 If value.Contains("NET") Then
                     pnlNetTax.Visible = True
                     pnlNetTax2.Visible = True
-                    tbMonthly.Attributes("class") &= " net"
-                    tbYearly.Attributes("class") &= " net"
+                    tbMonthly.CssClass &= " net"
+                    tbYearly.CssClass &= " net"
                 End If
 
-           
+
             End Set
         End Property
 
@@ -158,8 +165,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Set(ByVal value As Boolean)
                 _isCurrentSupport = value
                 If value = True Then
-
-                    tbMonthly.Attributes("class") &= " currentSupport"
+                    tbMonthly.CssClass &= " currentSupport"
+                    'tbMonthly.Attributes("class") &= " currentSupport"
 
                     tbYearly.Attributes("style") = "display: none"
                     lblCur2.Visible = False
@@ -325,6 +332,18 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 End If
             End Set
         End Property
+        Public Property AccountCode() As String
+            Get
+                Return ddlAccount.SelectedValue
+            End Get
+            Set(ByVal value As String)
+
+                If Not ddlAccount.Items.FindByValue(value) Is Nothing Then
+                    ddlAccount.SelectedValue = value
+                End If
+
+            End Set
+        End Property
 
         Protected Sub Page_Init(sender As Object, e As System.EventArgs) Handles Me.Init
             Dim FileName As String = System.IO.Path.GetFileNameWithoutExtension(Me.AppRelativeVirtualPath)
@@ -355,13 +374,20 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     End If
                 End If
             End If
+
+            Dim d As New StaffBrokerDataContext
+            ddlAccount.DataSource = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Order By c.AccountCode Select c.AccountCode, Name = c.AccountCode & "-" & c.AccountCodeName
+
+            ddlAccount.DataTextField = "Name"
+            ddlAccount.DataValueField = "AccountCode"
+            ddlAccount.DataBind()
         End Sub
 
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             If Not Page.IsPostBack Then
 
-
+                pnlAccountCode.Visible = Not StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True"
 
                 If _mode.Contains("NET") Then
                     lblCur.Text = "NET"
@@ -378,12 +404,6 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     btnEdit.Visible = Not _isCurrentSupport
 
 
-                    Dim d As New StaffBrokerDataContext
-                    ddlAccount.DataSource = From c In d.AP_StaffBroker_AccountCodes Where c.PortalId = PortalId Order By c.AccountCode Select c.AccountCode, Name = c.AccountCode & "-" & c.AccountCodeName
-
-                    ddlAccount.DataTextField = "Name"
-                    ddlAccount.DataValueField = "AccountCode"
-                    ddlAccount.DataBind()
 
                     ddlMode.SelectedValue = _mode
                     If _mode.Contains("NET_MONTH") Then
@@ -577,7 +597,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     q.First.Max = tbMax.Text
                 End If
             End If
-            
+
             d.SubmitChanges()
             Response.Redirect(Request.Url.ToString)
         End Sub

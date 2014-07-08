@@ -18,7 +18,7 @@
         </tr>
         
     </table>--%>
-    Monthly Goal:  <asp:Label ID="lblGoal" runat="server" > </asp:Label><br />
+    <asp:Label ID="Label1" runat="server" ResourceKey="Goal"></asp:Label> <asp:Label ID="lblGoal" runat="server" > </asp:Label><br />
     <asp:Label ID="lblNote" runat="server" > </asp:Label>
 
 </asp:Panel>

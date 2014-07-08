@@ -13,6 +13,9 @@
       <Column Name="StaffTypes" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="Compensation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Assessment" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DefaultAccount" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="AuthUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthAuthUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_Section" Member="AP_mpdCalc_Sections" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpdCalc_Section" />
       <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget" Member="AP_mpdCalc_StaffBudgets" ThisKey="mpdDefId" OtherKey="DefinitionId" Type="AP_mpdCalc_StaffBudget" />
       <Association Name="AP_mpdCalc_Definition_AP_mpd_Country" Member="AP_mpd_Countries" ThisKey="mpdDefId" OtherKey="mpdDefId" Type="AP_mpd_Country" Cardinality="One" />
@@ -71,6 +74,7 @@
       <Column Name="BudgetPeriodStart" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
       <Column Name="Compensation" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="ToRaise" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="ApproveCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="AP_mpdCalc_StaffBudget_AP_mpdCalc_Answer" Member="AP_mpdCalc_Answers" ThisKey="StaffBudgetId" OtherKey="StaffBudgetId" Type="AP_mpdCalc_Answer" />
       <Association Name="AP_mpdCalc_Definition_AP_mpdCalc_StaffBudget" Member="AP_mpdCalc_Definition" ThisKey="DefinitionId" OtherKey="mpdDefId" Type="AP_mpdCalc_Definition" IsForeignKey="true" />
     </Type>
@@ -144,7 +148,7 @@
       <Column Name="SplitSubsidy" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="AvgExpenses" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
-      <Column Name="gr_person_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="gr_person_id" Type="System.String" DbType="varchar(50)" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
       <Column Name="Phone" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
       <Column Name="Key_GUID" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />

@@ -3,6 +3,8 @@
 <%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/staffTreeview.ascx" TagPrefix="uc1" TagName="staffTreeview" %>
 <%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/BudgetTile.ascx" TagPrefix="uc1" TagName="BudgetTile" %>
 <%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/MenuDetail.ascx" TagPrefix="uc1" TagName="MenuDetail" %>
+<%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/mpdAdmin.ascx" TagPrefix="uc1" TagName="mpdAdmin" %>
+
 
 
 
@@ -91,7 +93,11 @@
         width:83%;
        
     }
-       
+        .mpd-help {
+        padding-left: 10px;
+          font-weight: normal;
+color: #777;
+    }
 </style>
 
 
@@ -100,11 +106,16 @@
 
     <div class="tabbable tabs-left">
         <ul class="nav nav-tabs">
-            <li class="active">
+            <li id="pnlMyBudgets" runat="server" class="active">
 
                 <a id="myTabTitle" href="#myTab<%= StaffId %>"  data-toggle="tab" class="myTab">
-                    Your MPD Budgets
+                    <asp:Label ID="Label1" runat="server" resourcekey="YourBudgets"></asp:Label>
+                </a>
+            </li>
+            <li id="pnlToProcess" runat="server" class="active">
 
+                <a id="toProcessTitle" href="#toProcessTab"  data-toggle="tab" >
+                 <asp:Label ID="Label2" runat="server" resourcekey="ToProcess"></asp:Label>
                 </a>
             </li>
             <asp:Repeater ID="rpTeam" runat="server">
@@ -122,11 +133,38 @@
             </asp:Repeater>
 
         </ul>
-        <div class="tab-content">
+        <div  class="tab-content">
+            <div id="pnlAdminHelp" runat="server" class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong><asp:Label ID="Label4" runat="server" ResourceKey="HeadsUp"></asp:Label></strong>
+            <asp:Label ID="lblEditMode" runat="server" ResourceKey="EditMode"></asp:Label>
+            <asp:Label ID="lblViewMode" runat="server" ResourceKey="ViewMode"></asp:Label>
+
+        </div>
+
+
             <div class="tab-pane active myTab" id="myTab<%= StaffId %>">
                 
                          <uc1:MenuDetail runat="server" ID="myMenuDetail"   />
                  
+                    </div>
+
+            <div class="tab-pane active" id="toProcessTab">
+                    
+                          <asp:Label ID="Label3" runat="server" ResourceKey="ToProcessIntro"></asp:Label>
+                 <ul class="nav nav-tabs nav-stacked">
+
+                <asp:Repeater ID="rpToProcess" runat="server">
+                    <ItemTemplate>
+                        <li>
+                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# EditUrl("mpdCalc") & "?sb=" & Eval("StaffBudgetId") %>' Text='<%#Eval("DisplayName")%>'></asp:HyperLink>
+
+                        </li>
+                    </ItemTemplate>
+
+                </asp:Repeater>
+                </ul>
+
                     </div>
             <asp:Repeater ID="rpMenuDetail" runat="server">
                 <ItemTemplate>
@@ -146,7 +184,7 @@
                 
             </asp:Repeater>
            
-
+           
 
 
         </div>
@@ -159,41 +197,17 @@
 
 
 </div>
-</div>
+<div style="clear: both; height: 20px;"></div>
+
+
+ <uc1:mpdAdmin runat="server" ID="mpdAdminPanel" Visible="false"  />
 
 
 
 
 
 
-<div style="clear: both;"></div>
-<div class="row-fluid">
-    <div class="span4">
-    </div>
-    <div class="span8">
-        <div class="well" style="display:none;">
-            This section will contain useful information on:
-            <ul>
-                <li><b>YouTube video walkthough</b> - how to submit a budget</li>
-                <li><b>Why Budget?</b> (video or short motivational text)</li>
-                <li><b>MPD tips</b> - links to several of the best MPD resources</li>
-                <li>Possibly an <b>MPD dashboard</b>, showing actual versus budget graphs for your personal R/C (or for members of your team)</li>
-            </ul>
 
-        </div>
-        <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Heads up!</strong>
-            <asp:Label ID="lblEditMode" runat="server" Text="Label"> You are currently in Edit Mode. This allows you to edit/process other people's budgets and customise the MPD budget Form.
-                To return to normal mode, select "View Mode" (top right).
-            </asp:Label>
-            <asp:Label ID="lblViewMode" runat="server" Text="Label"> You are currently in View Mode - what you see is exaclty what your users will see. 
-                 If you want to edit/process other people's budgets or edit the MPD form, you will need to be in "Edit Mode" top right.
-            </asp:Label>
-
-        </div>
-    </div>
-</div>
 
 
 

@@ -60,21 +60,22 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         Private StaffBudId As Integer = -1
         Public LastSection As Integer = 0
+        Public DefaultAccount As String = ""
 
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
             If (Not String.IsNullOrEmpty(Request.QueryString("sb"))) Then
                 StaffBudId = Request.QueryString("sb")
             End If
+
             If Not Page.IsPostBack Then
-                
+
                 Dim ds As New StaffBroker.StaffBrokerDataContext
 
 
                 pnlInsert.Visible = IsEditMode()
 
 
-
-
+              
                 Dim d As New MPDDataContext()
                 Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId And c.PortalId = PortalId
                 Dim Staff = StaffBrokerFunctions.GetStaffMember(UserId)
@@ -85,61 +86,13 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     thisForm = mpdFunctions.CreateNewDef(PortalId, TabModuleId)
                 End If
 
-
-                pnlAdmin.Visible = IsEditMode()
-                If IsEditMode() Then
-
-
-                    tbComplience.Text = thisForm.Complience
-                    If Not String.IsNullOrEmpty(thisForm.Compensation) Then
-                        If thisForm.Compensation.StartsWith("%") Then
-                            tbCompensation.Text = thisForm.Compensation.Trim("%")
-                            ddlCompensationType.SelectedValue = "Percentage"
-                        Else
-                            tbCompensation.Text = thisForm.Compensation
-                            ddlCompensationType.SelectedValue = "Formula"
-                        End If
-                    End If
-                    If Not String.IsNullOrEmpty(thisForm.Assessment) Then
-                        If thisForm.Assessment.StartsWith("%") Then
-                            tbAssessment.Text = thisForm.Assessment.Trim("%")
-                            ddlAssessmentType.SelectedValue = "Percentage"
-
-                        Else
-                            tbAssessment.Text = thisForm.Assessment
-                            ddlAssessmentType.SelectedValue = "Formula"
-                        End If
-                    End If
-                    tbDataserverURL.Text = StaffBrokerFunctions.GetSetting("DataserverURL", PortalId)
+                mpdAdminPanel.mpdDefId = thisForm.mpdDefId
+                mpdAdminPanel.Visible = IsEditMode()
+                
 
 
 
-                    Dim staffTypes = From c In ds.AP_StaffBroker_StaffTypes Where c.PortalId = PortalId Select c.Name, Value = c.StaffTypeId
-
-                    cblStaffTypes.Items.Clear()
-                    cblStaffTypes.DataSource = staffTypes
-                    cblStaffTypes.DataTextField = "Name"
-                    cblStaffTypes.DataValueField = "Value"
-
-                    cblStaffTypes.DataBind()
-                    If Not String.IsNullOrEmpty(thisForm.StaffTypes) Then
-
-
-                        Dim selectedTypes = thisForm.StaffTypes.Split(";")
-
-                        For Each row As ListItem In cblStaffTypes.Items
-                            If selectedTypes.Contains(row.Value) Then
-                                row.Selected = True
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-
-
-
+                DefaultAccount = thisForm.DefaultAccount
 
                 Dim bud = From c In theForm.First.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = StaffBudId
                 If bud.Count > 0 Then
@@ -220,7 +173,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 End If
 
 
-                lblStaffName.Text = Staff.DisplayName
+                lblStaffName.Text = Translate("BudgetFor").Replace("[NAME]", "<b>" & Staff.DisplayName & "<b>")
                 IsCouple = Staff.UserId2 > 0
                 StaffType = Staff.AP_StaffBroker_StaffType.Name
                 itemCurrent.Monthly = mpdFunctions.getAverageMonthlyIncomeOver12Periods(Staff.StaffId)
@@ -262,7 +215,22 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
 
         End Sub
+        Public Function Translate(ByVal ResourceString As String) As String
+            Dim rtn As String
+            Try
+                rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", LocalResourceFile)
+                If String.IsNullOrEmpty(rtn) Then
+                    rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", "/DesktopModules/AgapeConnect/mpdCalc/App_LocalResources/mpdCalc.ascx.resx")
+                End If
+            Catch ex As Exception
 
+                rtn = DotNetNuke.Services.Localization.Localization.GetString(ResourceString & ".Text", "/DesktopModules/AgapeConnect/mpdCalc/App_LocalResources/mpdCalc.ascx.resx")
+
+            End Try
+
+            Return rtn
+
+        End Function
 
         Private Sub set_if(ByRef prop As Object, ByVal value As Object)
             If Not value Is Nothing Then
@@ -308,22 +276,29 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 Dim bud = From c In d.AP_mpdCalc_StaffBudgets Where c.StaffBudgetId = CInt(Request.QueryString("sb")) ' And c.BudgetYearStart = Today.Year
                 Dim budId As Integer = -1
                 If bud.Count > 0 Then
-                   
+
                     bud.First.CurrentSupportLevel = itemCurrent.Monthly
                     bud.First.TotalBudget = hfMpdGoal.Value
                     bud.First.Compensation = hfCompensationValue.Value
                     bud.First.ToRaise = bud.First.TotalBudget - bud.First.Compensation
-                    
+
 
 
 
                     bud.First.BudgetPeriodStart = IIf(ddlStartPeriod.SelectedValue = "", New Date(ddlYear.SelectedValue, ddlPeriod.SelectedValue, 1).ToString("yyyyMM"), ddlStartPeriod.SelectedValue)
                     bud.First.BudgetYearStart = Left(bud.First.BudgetPeriodStart, 4)
+
+
+
+
+
+
                     If ToStatus >= 0 Then
                         bud.First.Status = ToStatus
                         Select Case (ToStatus)
                             Case StaffRmb.RmbStatus.Submitted
                                 bud.First.SubmittedOn = Now
+                                bud.First.ApproveCode = Guid.NewGuid().ToString
                             Case StaffRmb.RmbStatus.Approved
                                 bud.First.ApprovedOn = Now
                                 bud.First.ApprovedBy = UserId
@@ -342,6 +317,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 d.AP_mpdCalc_Answers.DeleteAllOnSubmit(d.AP_mpdCalc_Answers.Where(Function(c) c.StaffBudgetId = budId))
 
+                Dim budgetvalues As New Dictionary(Of String, Double)
 
                 For Each s In rpSections.Items
                     Dim rp As Repeater = s.FindControl("rpItems")
@@ -364,19 +340,217 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                         d.AP_mpdCalc_Answers.InsertOnSubmit(insert)
 
-
+                        AddToBudget(budgetvalues, m.AccountCode, insert.Value + insert.Tax)
 
                     Next
                 Next
+                If ToStatus = StaffRmb.RmbStatus.Processed And Not StaffBrokerFunctions.GetSetting("NonDynamics", PortalId) = "True" Then
 
 
+                    Dim FirstFiscalMonth = StaffBrokerFunctions.GetSetting("FirstFiscalMonth", PortalId)
+                    If String.IsNullOrEmpty(FirstFiscalMonth) Then
+                        FirstFiscalMonth = 7
+                    End If
+                    Dim rc = StaffBrokerFunctions.GetStaffbyStaffId(bud.First.StaffId).CostCenter
+                    Dim fy = getFiscalYear(bud.First.BudgetPeriodStart, FirstFiscalMonth)
+
+                    Dim fp = GetFiscalPeriod(bud.First.BudgetPeriodStart, FirstFiscalMonth)
+
+                    For Each row In budgetvalues
+
+
+                        AddBudgetFromPeriod(StaffBrokerFunctions.GetStaffbyStaffId(bud.First.StaffId).CostCenter, row.Key, fy, row.Value, fp, 12)
+                        If fp <> 1 Then
+                            AddBudgetFromPeriod(StaffBrokerFunctions.GetStaffbyStaffId(bud.First.StaffId).CostCenter, row.Key, fy + 1, row.Value, 1, fp)
+                        End If
+
+
+
+
+
+                    Next
+                End If
                 d.SubmitChanges()
+                Dim Staff = StaffBrokerFunctions.GetStaffbyStaffId(bud.First.StaffId)
+                If ToStatus = StaffRmb.RmbStatus.Submitted Then
+                    'Send Email to Approver
+
+                    'Dim Auth = UserController.GetUserById(PortalId, Settings("AuthUser"))
+                    'Dim AuthAuth = UserController.GetUserById(PortalId, Settings("AuthAuthUser"))
+
+
+                    Dim leaders = StaffBrokerFunctions.GetLeaders(Staff.UserId1)
+                    If Staff.UserId2 > 0 Then
+                        leaders.AddRange(StaffBrokerFunctions.GetLeaders(Staff.UserId2))
+                    End If
+
+                    If leaders.Count = 0 Then
+                        leaders.Add(42)
+                    End If
+                    Dim Message As String = StaffBrokerFunctions.GetTemplate("mpdSubmitted", PortalId)
+                    Message = Message.Replace("[STAFFNAME]", Staff.DisplayName).Replace("[BUDGETDETAIL]", GetDetailTable(bud.First))
+
+
+
+
+                    For Each leader In leaders
+                        Dim l = UserController.GetUserById(PortalId, leader)
+
+                        DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", l.Email, "", "MPD Budget for " & Staff.DisplayName, Message.Replace("[BUTTONS]", GetApproveButtons(bud.First.ApproveCode, leader)).Replace("[APPROVER]", l.FirstName), "", "HTML", "", "", "", "")
+
+                    Next
+                    'Dim ConfMessage As String = Server.HtmlDecode(StaffBrokerFunctions.GetTemplate("AdvConfirmation", PortalId))
+
+
+
+                ElseIf ToStatus = StaffRmb.RmbStatus.Approved Then
+                    'Send Email to Staff Member
+                    Dim Emessage As String = StaffBrokerFunctions.GetTemplate("mpdApproved", PortalId)
+
+                    Emessage = Emessage.Replace("[STAFFNAME]", Staff.DisplayName)
+                    Emessage = Emessage.Replace("[APPROVER]", UserInfo.DisplayName)
+                    Dim dt As New Date(Left(bud.First.BudgetPeriodStart, 4), Right(bud.First.BudgetPeriodStart, 2), 1)
+                    Emessage = Emessage.Replace("[STARTPERIOD]", dt.ToString("MMMM yyyy"))
+                    Dim toEmail = Staff.User.Email
+
+                    If Staff.UserId2 > 0 Then
+                        toEmail &= "; " & Staff.User2.Email
+                    End If
+                    DotNetNuke.Services.Mail.Mail.SendMail("donotreply@agapeconnect.me", toEmail, "", "Budget Approved", Emessage, "", "HTML", "", "", "", "")
+
+
+
+
+
+
+                End If
+
                 Response.Redirect(Request.Url.ToString)
 
             End If
 
 
         End Sub
+        Private Function GetApproveButtons(ByVal Code As String, ByVal apprId As String) As String
+            Dim encrypt = Server.UrlEncode(AgapeEncryption.AgapeEncrypt.Encrypt(Code & ";" & apprId))
+
+            Dim rtn = "<div style=""width: 100%; text-align: center; font-size: x-large;""><a href='" & Request.Url.Scheme & "://" & Request.Url.Authority & Request.ApplicationPath & "DesktopModules/AgapeConnect/mpdCalc/Approve.aspx?m=" & encrypt & "' target='_blank'>" & "Approve" & "</a>"
+            Dim returnURL = NavigateURL() & "?sb=" & Request.QueryString("sb")
+
+
+
+
+            rtn &= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='" & NavigateURL(PortalSettings.LoginTabId) & "?returnurl=" & Server.UrlEncode(returnURL) & "' target='_blank'>" & "Login" & "</a></div>"
+            Return rtn
+        End Function
+
+        Private Function GetDetailTable(ByVal theBud As AP_mpdCalc_StaffBudget) As String
+            Dim dt As New Date(Left(theBud.BudgetPeriodStart, 4), Right(theBud.BudgetPeriodStart, 2), 1)
+
+
+
+            Dim rtn As String = "<div style='float:left; font-style: italic; color: #AAC;'>" & dt.ToString("MMM yyyy") & "</div><div style='clear: both;' />"
+            rtn &= "<table style='width: 100%; margin: 10px; text-align: left;'>"
+            rtn &= "<tr><th style='text-align: left;'>Name</th><th style='text-align: left;'>Monthly</th><th style='text-align: left;'>Yearly</th></tr>"
+
+            For Each row In theBud.AP_mpdCalc_Answers.Where(Function(c) c.Value <> 0).OrderBy(Function(c) c.AP_mpdCalc_Question.AP_mpdCalc_Section.Number).ThenBy(Function(c) c.AP_mpdCalc_Question.QuestionNumber)
+                rtn &= "<tr><td>" & row.Name & "</td><td>" & row.Value.ToString() & "</td><td>" & (row.Value * 12).ToString() & "</td></tr>"
+            Next
+
+            rtn &= "<tr><td  style='text-align: right; font-weight: bold;'> Total Budget:</td><td>" & theBud.TotalBudget.Value.ToString("f0") & "</td><td></td></tr>"
+            If theBud.ToRaise <> theBud.TotalBudget.Value Then
+                rtn &= "<tr><td  style='text-align: right;'> I am responsible to Raise:</td><td>" & theBud.ToRaise.ToString("f0") & "</td><td></td></tr>"
+
+            End If
+
+            rtn &= "</table>"
+            Return rtn
+
+        End Function
+
+        Private Sub AddBudgetFromPeriod(ByVal RC As String, ByVal Account As String, ByVal FiscalYear As String, ByVal Value As Double, ByVal FromPeriod As Integer, ByVal ToPeriod As Integer)
+            Dim b As New Budget.BudgetDataContext
+            Dim q = From c In b.AP_Budget_Summaries Where c.Portalid = PortalId And c.RC = RC And c.Account = Account And c.FiscalYear = FiscalYear
+
+            If q.Count > 0 Then
+
+                q.First.Changed = True
+                q.First.Error = False
+                q.First.ErrorMessage = "From MPD Calculator"
+                q.First.LastUpdated = Now
+
+                q.First.P1 = CDbl(IIf(FromPeriod <= 1 And ToPeriod >= 1, Value, 0))
+                q.First.P2 = CDbl(IIf(FromPeriod <= 2 And ToPeriod >= 2, Value, 0))
+                q.First.P3 = CDbl(IIf(FromPeriod <= 3 And ToPeriod >= 3, Value, 0))
+                q.First.P4 = CDbl(IIf(FromPeriod <= 4 And ToPeriod >= 4, Value, 0))
+                q.First.P5 = CDbl(IIf(FromPeriod <= 5 And ToPeriod >= 5, Value, 0))
+                q.First.P6 = CDbl(IIf(FromPeriod <= 6 And ToPeriod >= 6, Value, 0))
+                q.First.P7 = CDbl(IIf(FromPeriod <= 7 And ToPeriod >= 7, Value, 0))
+                q.First.P8 = CDbl(IIf(FromPeriod <= 8 And ToPeriod >= 8, Value, 0))
+                q.First.P9 = CDbl(IIf(FromPeriod <= 9 And ToPeriod >= 9, Value, 0))
+                q.First.P10 = CDbl(IIf(FromPeriod <= 10 And ToPeriod >= 10, Value, 0))
+                q.First.P11 = CDbl(IIf(FromPeriod <= 11 And ToPeriod >= 11, Value, 0))
+                q.First.P12 = CDbl(IIf(FromPeriod <= 12 And ToPeriod >= 12, Value, 0))
+
+
+            ElseIf Value <> 0 Then
+                Dim insert As New Budget.AP_Budget_Summary
+                insert.Portalid = PortalId
+                insert.Account = Account
+                insert.Changed = True
+                insert.Error = False
+                insert.ErrorMessage = "From MPD Calculator"
+                insert.LastUpdated = Now
+                insert.RC = RC
+                insert.FiscalYear = FiscalYear
+
+                insert.P1 = CDbl(IIf(FromPeriod <= 1 And ToPeriod >= 1, Value, 0.0))
+                insert.P2 = CDbl(IIf(FromPeriod <= 2 And ToPeriod >= 2, Value, 0))
+                insert.P3 = CDbl(IIf(FromPeriod <= 3 And ToPeriod >= 3, Value, 0))
+                insert.P4 = CDbl(IIf(FromPeriod <= 4 And ToPeriod >= 4, Value, 0))
+                insert.P5 = CDbl(IIf(FromPeriod <= 5 And ToPeriod >= 5, Value, 0))
+                insert.P6 = CDbl(IIf(FromPeriod <= 6 And ToPeriod >= 6, Value, 0))
+                insert.P7 = CDbl(IIf(FromPeriod <= 7 And ToPeriod >= 7, Value, 0))
+                insert.P8 = CDbl(IIf(FromPeriod <= 8 And ToPeriod >= 8, Value, 0))
+                insert.P9 = CDbl(IIf(FromPeriod <= 9 And ToPeriod >= 9, Value, 0))
+                insert.P10 = CDbl(IIf(FromPeriod <= 10 And ToPeriod >= 10, Value, 0))
+                insert.P11 = CDbl(IIf(FromPeriod <= 11 And ToPeriod >= 11, Value, 0))
+                insert.P12 = CDbl(IIf(FromPeriod <= 12 And ToPeriod >= 12, Value, 0))
+
+                b.AP_Budget_Summaries.InsertOnSubmit(insert)
+
+            End If
+            b.SubmitChanges()
+        End Sub
+
+
+        Private Function getFiscalYear(ByVal CalendarString As String, ByVal FirstFiscalMonth As String) As Integer
+            If CInt(Right(CalendarString, 2)) < FirstFiscalMonth Then
+                Return CInt(Left(CalendarString, 4)) - 1
+            Else
+                Return Left(CalendarString, 4)
+            End If
+        End Function
+        Private Function GetFiscalPeriod(ByVal CalendarString As String, ByVal FirstFiscalMonth As String) As Integer
+
+            Dim tmp = CInt(Right(CalendarString, 2)) - ((FirstFiscalMonth) - 1)
+            If tmp < 1 Then
+                Return tmp + 12
+            Else
+                Return tmp
+            End If
+
+        End Function
+
+
+        Private Sub AddToBudget(ByRef budgetValues As Dictionary(Of String, Double), ByVal AccountCode As String, ByVal GrossAmount As Double)
+            If budgetValues.ContainsKey(AccountCode) Then
+                budgetValues(AccountCode) += GrossAmount
+            Else
+                budgetValues.Add(AccountCode, GrossAmount)
+            End If
+        End Sub
+
 
         Protected Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
             SaveBudget(StaffRmb.RmbStatus.Submitted)
@@ -500,9 +674,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                 d.AP_mpdCalc_Sections.DeleteAllOnSubmit(q)
                 d.SubmitChanges()
-                
+
                 Dim i As Integer = 1
-               
+
 
                 For Each row In d.AP_mpdCalc_Sections.Where(Function(c) c.mpdDefId = defid).OrderBy(Function(c) c.Number)
 
@@ -510,7 +684,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                     i += 1
                 Next
 
-               
+
 
                 d.SubmitChanges()
 
@@ -525,9 +699,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Protected Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
             SaveBudget(StaffRmb.RmbStatus.Approved)
         End Sub
-      
+
         Protected Sub btnProcess_Click(sender As Object, e As EventArgs) Handles btnProcess.Click
             SaveBudget(StaffRmb.RmbStatus.Processed)
+
+
         End Sub
 
         Protected Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -538,62 +714,8 @@ Namespace DotNetNuke.Modules.AgapeConnect
             Response.Redirect(NavigateURL())
         End Sub
 
-        Protected Sub btnUpdateConfig_Click(sender As Object, e As EventArgs) Handles btnUpdateConfig.Click
-            Dim d As New MPDDataContext()
-            Dim theForm = From c In d.AP_mpdCalc_Definitions Where c.TabModuleId = TabModuleId
+       
 
-            If theForm.Count > 0 Then
-                Dim st = ""
-                For Each row As ListItem In cblStaffTypes.Items
-                    If row.Selected Then
-                        st &= row.Value & ";"
-                    End If
-
-
-                Next
-                theForm.First.StaffTypes = st
-
-                If ddlAssessmentType.SelectedValue = "Percentage" Then
-                    theForm.First.Assessment = "%" & tbAssessment.Text.Trim("%")
-                Else
-                    theForm.First.Assessment = tbAssessment.Text
-                End If
-                If ddlCompensationType.SelectedValue = "Percentage" Then
-                    theForm.First.Compensation = "%" & tbCompensation.Text.Trim("%")
-                Else
-                    theForm.First.Compensation = tbCompensation.Text
-                End If
-
-                theForm.First.Complience = tbComplience.Text
-                theForm.First.ShowComplience = tbComplience.Text.Trim(" ").Length > 0
-
-
-
-
-                d.SubmitChanges()
-                StaffBrokerFunctions.SetSetting("DataserverURL", tbDataserverURL.Text, PortalId)
-
-                Response.Redirect(Request.Url.ToString())
-            End If
-        End Sub
-
-        Protected Sub btnTestDataserver_Click(sender As Object, e As EventArgs) Handles btnTestDataserver.Click
-            Dim resp = tntWebUsers.TestDataserverConnection(tbDataserverURL.Text)
-            imgOK.Visible = False
-            imgWarning.Visible = False
-            pnlWarning.Visible = False
-
-            If resp.connectionSuccess And resp.hasTrustedUser Then
-                imgOK.Visible = True
-            Else
-                imgWarning.Visible = True
-                pnlWarning.Visible = True
-                If resp.connectionSuccess Then
-                    lblWarning.Text = "The URL appears to be correct. However the trusted user, allowing this site to access your dataserver, has not been setup. You will need to setup ""trusteduser@agapeconnect.me"" in tntDataserver. For help, please contact ThadHoskins@agapeeurope.org. "
-                Else
-                    lblWarning.Text = resp.ErrorMessage
-                End If
-            End If
-        End Sub
+    
     End Class
 End Namespace

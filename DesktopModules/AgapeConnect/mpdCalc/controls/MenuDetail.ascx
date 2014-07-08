@@ -17,8 +17,8 @@
 <div class="row-fluid">
     <div class="span7">
        <asp:Panel ID="pnlNoBudget" runat="server" Visible="false">
-               <i><asp:Label ID="lblBudgets" runat="server" Text="No Budgets. Would you like to start a new budget now?"></asp:Label></i> <br />
-                     <asp:Button ID="btnFirstBudget" runat="server" Text="Start New Budget" CssClass="btn btn-primary" />
+               <i><asp:Label ID="lblBudgets" runat="server" ResourceKey="NoBudgets"></asp:Label></i> <br />
+                     <asp:Button ID="btnFirstBudget" runat="server" ResourceKey="btnNewBudget" CssClass="btn btn-primary" />
                      
 
             </asp:Panel>
@@ -34,27 +34,27 @@
     <div class="span5"   >   
         <table style="font-size: large;" cellpadding="5px">
             <tr style="font-weight: bold;">
-                <td align="right">Support Level:</td>
+                <td align="right"><asp:Label ID="Label1" runat="server" ResourceKey="SupportLevel"></asp:Label></td>
                 <td>
                     <asp:Label ID="lblSupportLevel" runat="server" Font-Size="X-Large" CssClass="sLevel"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td align="right">Current MPD Goal:</td>
+                <td align="right"><asp:Label ID="Label2" runat="server" ResourceKey="Goal"></asp:Label></td>
                 <td>
                     <asp:Label ID="lblMPDGoal" runat="server"  ></asp:Label>
                 </td>
             </tr>
              <tr>
-                <td align="right">Account Balance:</td>
+                <td align="right"><asp:Label ID="Label3" runat="server" ResourceKey="AccountBalance"></asp:Label></td>
                 <td>
                     <asp:Label ID="lblAccountBalance" runat="server" ></asp:Label>
                 </td>
             </tr>
         </table>
         <div style="width:90%; padding: 10px;">
-        <asp:Button ID="btnViewCurrentBudget" runat="server" width="100%" class="btn detail-button" Text="View Current Budget" Visible="False" />
-        <asp:Button ID="btnViewReport" runat="server" width="100%" class="btn  detail-button" Visible="false" Text="View MPD Dashboard" />
-        <asp:Button ID="btnCreateNewBudget" runat="server" width="100%" class="btn btn-primary detail-button" Text="Start New Budget" Visible="false" /></div>
+        <asp:Button ID="btnViewCurrentBudget" runat="server" width="100%" class="btn detail-button" ResourceKey="btnCurrent" Visible="False" />
+        <asp:Button ID="btnViewReport" runat="server" width="100%" class="btn  detail-button" Visible="false" ResourceKey="btnDashboard" />
+        <asp:Button ID="btnCreateNewBudget" runat="server" width="100%" class="btn btn-primary detail-button" ResourceKey="btnNewBudget" Visible="false" /></div>
     </div>
 </div>

@@ -124,17 +124,17 @@ public class StaffBrokerFunctions
     static public Boolean IsDept(int PortalId, string costCenter)
     {
         DotNetNuke.Entities.Portals.PortalSettings PS = (DotNetNuke.Entities.Portals.PortalSettings)System.Web.HttpContext.Current.Items["PortalSettings"];
-          StaffBrokerDataContext d = new StaffBrokerDataContext();
+        StaffBrokerDataContext d = new StaffBrokerDataContext();
         if (GetSetting("NonDynamics", PS.PortalId) == "True")
         {
-            return (from c in d.AP_StaffBroker_Departments where c.CostCentre.ToLower() == costCenter.ToLower() && c.PortalId==PS.PortalId select c.CostCenterId).Count()>0;
+            return (from c in d.AP_StaffBroker_Departments where c.CostCentre.ToLower() == costCenter.ToLower() && c.PortalId == PS.PortalId select c.CostCenterId).Count() > 0;
 
         }
         else
         {
 
 
-          
+
             var cc = from c in d.AP_StaffBroker_CostCenters where c.CostCentreCode == costCenter select c.Type;
             if (cc.Count() > 0)
                 return cc.First() == CostCentreType.Department;
@@ -295,7 +295,7 @@ public class StaffBrokerFunctions
         d.Agape_Main_AlterUserName(OldUsername, NewUsername);
 
     }
-   
+
     static public String ValidateAccountCode(string AccountCode, int PortalId)
     {
         StaffBrokerDataContext d = new StaffBrokerDataContext();
@@ -313,7 +313,7 @@ public class StaffBrokerFunctions
     static public AP_StaffBroker_Department CreateDept(string Name, string RC, int manager, int? del)
     {
         StaffBrokerDataContext d = new StaffBrokerDataContext();
-        
+
         DotNetNuke.Entities.Portals.PortalSettings PS = (DotNetNuke.Entities.Portals.PortalSettings)System.Web.HttpContext.Current.Items["PortalSettings"];
         if (del == 0) del = null;
         var q = from c in d.AP_StaffBroker_Departments where c.CostCentre == RC && c.PortalId == PS.PortalId select c;
@@ -321,8 +321,8 @@ public class StaffBrokerFunctions
         {
             q.First().Name = Name;
             q.First().CostCentreManager = manager;
-           q.First().CostCentreDelegate = del;
-           d.SubmitChanges();
+            q.First().CostCentreDelegate = del;
+            d.SubmitChanges();
             return q.First();
 
         }
@@ -344,8 +344,8 @@ public class StaffBrokerFunctions
             insert.PayType = "";
 
 
-          insert.CostCentreDelegate = del;
-           
+            insert.CostCentreDelegate = del;
+
             d.AP_StaffBroker_Departments.InsertOnSubmit(insert);
             d.SubmitChanges();
             return insert;
@@ -601,9 +601,9 @@ public class StaffBrokerFunctions
             catch (Exception)
             {
                 x.LeaderName = "Unknown";
-               
+
             }
-         
+
             x.DelegateId = -1;
             x.Delegatename = "";
             if (row.DelegateId != null)
@@ -717,6 +717,25 @@ public class StaffBrokerFunctions
     {
         TemplatesDataContext d = new TemplatesDataContext();
         var q = from c in d.AP_StaffBroker_Templates where c.PortalId == PortalId && c.TemplateName == templateName select c.TemplateHTML;
+        if (q.Count() == 0)
+        {
+
+            var def = from c in d.AP_StaffBroker_Templates where c.PortalId == null && c.TemplateName == templateName select c;
+
+            if (def.Count() > 0)
+            {
+                AP_StaffBroker_Template insert = new AP_StaffBroker_Template();
+                insert.PortalId = PortalId;
+                insert.TemplateDescription = def.First().TemplateDescription;
+                insert.TemplateHTML = def.First().TemplateHTML;
+                insert.TemplateName = def.First().TemplateName;
+                d.AP_StaffBroker_Templates.InsertOnSubmit(insert);
+                d.SubmitChanges();
+
+                q = from c in d.AP_StaffBroker_Templates where c.PortalId == PortalId && c.TemplateName == templateName select c.TemplateHTML;
+
+            }
+        }
 
         if (q.Count() > 0)
         {
@@ -736,6 +755,8 @@ public class StaffBrokerFunctions
 
             return q.First().Replace("[MINISTRY]", Ministry).Replace("[LOGOURL]", logo).Replace("[LOGINURL]", loginURL);
         }
+
+
         else
             return "";
 
@@ -838,24 +859,24 @@ public class StaffBrokerFunctions
         return uniqueCode;
 
     }
-        static public string GetStaffJointPhotoByFileId(int staffID, int fileId)
+    static public string GetStaffJointPhotoByFileId(int staffID, int fileId)
     {
         if (GetStaffProfileProperty(staffID, "UnNamedStaff") != "True")
         {
-           // fileId may be 0 if no photo defined, then theFile would be null
-           DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(fileId);
-           if (theFile != null)
-              return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
+            // fileId may be 0 if no photo defined, then theFile would be null
+            DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile(fileId);
+            if (theFile != null)
+                return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
         }
         return "/images/no_avatar.gif";
     }
-static public string GetDeptPhotoByFileId(int fileId)
+    static public string GetDeptPhotoByFileId(int fileId)
     {
         // fileId may be 0 if no photo defined, then theFile would be null
         DotNetNuke.Services.FileSystem.IFileInfo theFile = DotNetNuke.Services.FileSystem.FileManager.Instance.GetFile((int)fileId);
         if (theFile != null)
-           return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
-       return "/images/no_avatar.gif";
+            return DotNetNuke.Services.FileSystem.FileManager.Instance.GetUrl(theFile);
+        return "/images/no_avatar.gif";
     }
 
 }

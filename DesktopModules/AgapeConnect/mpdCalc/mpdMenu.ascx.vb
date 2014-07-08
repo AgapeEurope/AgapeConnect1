@@ -23,6 +23,11 @@ Namespace DotNetNuke.Modules.AgapeConnect
         Public mpdDefId As Integer
         Public StaffId As Integer
         Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.Load
+
+            If Not String.IsNullOrEmpty(Request.QueryString("sb")) Then
+                Response.Redirect(EditUrl("mpdCalc") & "?sb=" & Request.QueryString("sb"))
+            End If
+
             'Verify that there is a tabmoduleid - otherwise create it from the null portalid template
             Dim d As New MPDDataContext
 
@@ -34,6 +39,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
             LoadMenu()
             lblEditMode.Visible = IsEditMode()
+            pnlToProcess.Visible = IsEditable()
+            mpdAdminPanel.Visible = IsEditable()
+            pnlAdminHelp.Visible = (UserInfo.IsInRole("Administrators") Or UserInfo.IsInRole("Accounts Team"))
             lblViewMode.Visible = Not IsEditMode()
         End Sub
 
@@ -102,7 +110,7 @@ Namespace DotNetNuke.Modules.AgapeConnect
                 End If
 
                 mpdDefId = mpdDef.mpdDefId
-
+                mpdAdminPanel.MpdDefId = mpdDefId
                 Dim Staff = StaffBrokerFunctions.GetStaffMember(UserId)
 
 
@@ -127,6 +135,9 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
                     Dim team = StaffBrokerFunctions.GetStaffIncl
 
+                    Dim toProcess = From c In d.AP_mpdCalc_StaffBudgets Where c.AP_mpdCalc_Definition.PortalId = PortalId And c.Status = StaffRmb.RmbStatus.Approved Select c.StaffBudgetId, DisplayName = getDisplayName(c.StaffId, c.BudgetPeriodStart)
+                    rpToProcess.DataSource = toProcess
+                    rpToProcess.DataBind()
                 Else
                     Dim team = StaffBrokerFunctions.GetTeam(UserId).Select(Function(c) c.AP_StaffBroker_Staffs.StaffId)
 
@@ -162,6 +173,10 @@ Namespace DotNetNuke.Modules.AgapeConnect
 
         End Sub
 
-        
+        Public Function getDisplayName(ByVal StaffId As Integer, ByVal PeriodStart As String) As String
+            Dim dt As New Date(Left(PeriodStart, 4), Right(PeriodStart, 2), 1)
+
+            Return StaffBrokerFunctions.GetStaffbyStaffId(StaffId).DisplayName & " (" & dt.ToString("MMMM yyyy") & ")"
+        End Function
     End Class
 End Namespace

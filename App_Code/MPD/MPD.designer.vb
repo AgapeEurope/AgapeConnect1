@@ -196,6 +196,12 @@ Namespace MPD
 		
 		Private _Assessment As String
 		
+		Private _DefaultAccount As String
+		
+		Private _AuthUser As System.Nullable(Of Integer)
+		
+		Private _AuthAuthUser As System.Nullable(Of Integer)
+		
 		Private _AP_mpdCalc_Sections As EntitySet(Of AP_mpdCalc_Section)
 		
 		Private _AP_mpdCalc_StaffBudgets As EntitySet(Of AP_mpdCalc_StaffBudget)
@@ -252,6 +258,18 @@ Namespace MPD
     Partial Private Sub OnAssessmentChanging(value As String)
     End Sub
     Partial Private Sub OnAssessmentChanged()
+    End Sub
+    Partial Private Sub OnDefaultAccountChanging(value As String)
+    End Sub
+    Partial Private Sub OnDefaultAccountChanged()
+    End Sub
+    Partial Private Sub OnAuthUserChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnAuthUserChanged()
+    End Sub
+    Partial Private Sub OnAuthAuthUserChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnAuthAuthUserChanged()
     End Sub
     #End Region
 		
@@ -441,6 +459,54 @@ Namespace MPD
 					Me._Assessment = value
 					Me.SendPropertyChanged("Assessment")
 					Me.OnAssessmentChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DefaultAccount", DbType:="NVarChar(20)")>  _
+		Public Property DefaultAccount() As String
+			Get
+				Return Me._DefaultAccount
+			End Get
+			Set
+				If (String.Equals(Me._DefaultAccount, value) = false) Then
+					Me.OnDefaultAccountChanging(value)
+					Me.SendPropertyChanging
+					Me._DefaultAccount = value
+					Me.SendPropertyChanged("DefaultAccount")
+					Me.OnDefaultAccountChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AuthUser", DbType:="Int")>  _
+		Public Property AuthUser() As System.Nullable(Of Integer)
+			Get
+				Return Me._AuthUser
+			End Get
+			Set
+				If (Me._AuthUser.Equals(value) = false) Then
+					Me.OnAuthUserChanging(value)
+					Me.SendPropertyChanging
+					Me._AuthUser = value
+					Me.SendPropertyChanged("AuthUser")
+					Me.OnAuthUserChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AuthAuthUser", DbType:="Int")>  _
+		Public Property AuthAuthUser() As System.Nullable(Of Integer)
+			Get
+				Return Me._AuthAuthUser
+			End Get
+			Set
+				If (Me._AuthAuthUser.Equals(value) = false) Then
+					Me.OnAuthAuthUserChanging(value)
+					Me.SendPropertyChanging
+					Me._AuthAuthUser = value
+					Me.SendPropertyChanged("AuthAuthUser")
+					Me.OnAuthAuthUserChanged
 				End If
 			End Set
 		End Property
@@ -1290,6 +1356,8 @@ Namespace MPD
 		
 		Private _ToRaise As Decimal
 		
+		Private _ApproveCode As String
+		
 		Private _AP_mpdCalc_Answers As EntitySet(Of AP_mpdCalc_Answer)
 		
 		Private _AP_mpdCalc_Definition As EntityRef(Of AP_mpdCalc_Definition)
@@ -1360,6 +1428,10 @@ Namespace MPD
     Partial Private Sub OnToRaiseChanging(value As Decimal)
     End Sub
     Partial Private Sub OnToRaiseChanged()
+    End Sub
+    Partial Private Sub OnApproveCodeChanging(value As String)
+    End Sub
+    Partial Private Sub OnApproveCodeChanged()
     End Sub
     #End Region
 		
@@ -1616,6 +1688,22 @@ Namespace MPD
 					Me._ToRaise = value
 					Me.SendPropertyChanged("ToRaise")
 					Me.OnToRaiseChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ApproveCode", DbType:="NVarChar(50)")>  _
+		Public Property ApproveCode() As String
+			Get
+				Return Me._ApproveCode
+			End Get
+			Set
+				If (String.Equals(Me._ApproveCode, value) = false) Then
+					Me.OnApproveCodeChanging(value)
+					Me.SendPropertyChanging
+					Me._ApproveCode = value
+					Me.SendPropertyChanged("ApproveCode")
+					Me.OnApproveCodeChanged
 				End If
 			End Set
 		End Property
@@ -2868,7 +2956,7 @@ Namespace MPD
 		
 		Private _Name As String
 		
-		Private _gr_person_id As System.Nullable(Of Integer)
+		Private _gr_person_id As String
 		
 		Private _Email As String
 		
@@ -2949,7 +3037,7 @@ Namespace MPD
     End Sub
     Partial Private Sub OnNameChanged()
     End Sub
-    Partial Private Sub Ongr_person_idChanging(value As System.Nullable(Of Integer))
+    Partial Private Sub Ongr_person_idChanging(value As String)
     End Sub
     Partial Private Sub Ongr_person_idChanged()
     End Sub
@@ -3197,13 +3285,13 @@ Namespace MPD
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_gr_person_id", DbType:="Int")>  _
-		Public Property gr_person_id() As System.Nullable(Of Integer)
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_gr_person_id", DbType:="varchar(50)")>  _
+		Public Property gr_person_id() As String
 			Get
 				Return Me._gr_person_id
 			End Get
 			Set
-				If (Me._gr_person_id.Equals(value) = false) Then
+				If (String.Equals(Me._gr_person_id, value) = false) Then
 					Me.Ongr_person_idChanging(value)
 					Me.SendPropertyChanging
 					Me._gr_person_id = value

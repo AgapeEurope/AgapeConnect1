@@ -3,654 +3,35 @@
 <%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/mpdItem.ascx" TagPrefix="uc1" TagName="mpdItem" %>
 <%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/mpdTotal.ascx" TagPrefix="uc1" TagName="mpdTotal" %>
 <%@ Register Assembly="DotNetNuke" Namespace="DotNetNuke.UI.WebControls" TagPrefix="cc1" %>
+<%@ Register Src="~/DesktopModules/AgapeConnect/mpdCalc/controls/mpdAdmin.ascx" TagPrefix="uc1" TagName="mpdAdmin" %>
+
 <script src="/js/jquery.numeric.js" type="text/javascript"></script>
 <link href="/Portals/_default/Skins/AgapeBlue/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <script src="/Portals/_default/Skins/AgapeBlue/bootstrap/js/bootstrap.min.js"></script>
-
+<script src="/DesktopModules/AgapeConnect/mpdCalc/js/mpd.js"></script>
+<link href="/DesktopModules/AgapeConnect/mpdCalc/css/mpd.css" rel="stylesheet" />
 <script type="text/javascript">
+    var startPeriodId = '<%= ddlStartPeriod.ClientID%>';
+    var customDateId = '<%= customDate.ClientID%>'
+    var complienceId  = '<%= cbCompliance.ClientID%>';
+    var btnSubmitId = '<%= btnSubmit.ClientID%>';
+    var assessmentId = '<%= hfAssessment.ClientId %>';    
+    var mpdGoalId = '<%= hfMpdGoal.ClientId %>';
+    var compensationId = '<%= hfCompentation.ClientID%>';
+    var compensationValueId = '<%= hfCompensationValue.ClientID%>';
+    var age = <%= Age1%>;
+    var isCouple = '<%= IsCouple() %>';
+    var age2 = <%= Age2%> ;
+    var staffType=  '<%=StaffType %>';
     
-
-    (function ($, Sys) {
-
-
-
-        $(document).ready(function () {
-            $('.numeric').numeric();
-
-
-            $('.aButton').button();
-           
-            //Startup Routine
-            $('.monthly').each(function() { setMinMax($(this)); });
-            $('.yearly').each(function() {setMinMax($(this))});
-            $('.monthly.net').each(function() {
-                var f = $(this).siblings("input:hidden").val();
-
-                f = f.replace(/\{NET}/g, $(this).val()=='' ? '0' : $(this).val());
-                f=replaceTags(f);
-                
-                $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
-
-                $(this).parent().parent().siblings().find('.net-tax-year').text((eval(f) * 12.0).toFixed(0));
-                   
-                $(this).siblings('.net-tax').find("input[type=hidden]").val(eval(f).toFixed(0)); 
-            });
-            
-            handleFormulas();
-
-            $('.sectionTotal').each(function () {
-                calculateSectionTotal($(this).parent().parent().parent().parent());
-            });
-
-            $('#<%= ddlStartPeriod.ClientID%>').change(function (e){
-                if($(this).val()=="")
-                    $('#<%= customDate.ClientID%>').show();
-                else
-                    $('#<%= customDate.ClientID%>').hide();
-            });
-
-            //Event Handlers
-            $('.monthly').keyup(function () {
-                //SetValidation
-                setMinMax($(this));
-
-              
-                
-
-                if ($(this).val().length > 0)
-                    $(this).parent().parent().siblings().find('.yearly').val((parseFloat($(this).val()) * 12).toFixed(0));
-                else $(this).parent().parent().siblings().find('.yearly').val('');
-
-
-                handleFormulas();
-                if ($(this).hasClass('net')) {
-                    var f = $(this).siblings("input:hidden").val();
-
-                    f = f.replace(/\{NET}/g, $(this).val()=='' ? '0' : $(this).val());
-                    f=replaceTags(f);
-                   
-                    // alert(f);
-                    $(this).parent().find(".net-tax-month").text(eval(f).toFixed(0));
-
-                    $(this).parent().parent().siblings().find('.net-tax-year').text((eval(f) * 12.0).toFixed(0));
-                   
-                    $(this).siblings('.net-tax').find("input[type=hidden]").val(eval(f).toFixed(0));
-
-                }
-                calculateSectionTotal($(this).parent().parent().parent().parent().parent().parent());
-                
-            });
-
-
-
-
-
-            $('.yearly').keyup(function () {
-                setMinMax($(this));
-                var monthly = $(this).parent().parent().siblings().find('.monthly');
-                if ($(this).val().length > 0)
-                    $(monthly).val((parseFloat($(this).val()) / 12).toFixed(0));
-                else  $(monthly).val('');
-                
-
-                if ($(this).hasClass('net')) {
-                    var f = $(monthly).siblings("input:hidden").val();
-
-                    f = f.replace("{NET}", $(monthly).val());
-
-                    $(monthly).parent().find(".net-tax-month").text(eval(f).toFixed(0));
-
-                    $(this).parent().find(".net-tax-year").text((eval(f) * 12.0).toFixed(0));
-                    $(monthly).parent().find(".net-tax-month").siblings("input:hidden").val(eval(f).toFixed(0));
-
-                }
-                calculateSectionTotal($(this).parent().parent().parent().parent().parent().parent());
-
-            });
-
-         
-
-
-            $('#<%= cbCompliance.ClientID%>').change(function () {
-
-                if (this.checked)
-                    $('#<%= btnSubmit.ClientID%>').removeAttr("disabled");
-                else
-                    $('#<%= btnSubmit.ClientID%>').attr("disabled", "disabled");
-            });
-
-
-
-            $('.mpd-tax-detail input').keyup(function () {
-                
-                var ddl = $(this).parent().parent().parent().parent().parent().find('.mpd-tax-mode');
-                var m = $(ddl).val();
-                
-                var f = '';
-                if (m == 'FIXED_RATE') {
-                    var r = $(ddl).siblings('.mpd-tax-rate').find('.rate').val();
-                    f = '(({NET}*12) / ( ( 100 / ' + r + ' ) -1 ))/12';
-                    $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
-                }
-                else if (m == 'FIXED_AMOUNT') {
-                    f = $(ddl).siblings('.mpd-tax-fixed').find('.fixed').val();
-                    $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
-                }
-                else if (m == 'ALLOWANCE') {
-                    //TODO: Generate Allowance Formula
-                    // $(this).siblings('.mpd-tax-allowance').show();
-                    var r = $(ddl).siblings('.mpd-tax-allowance').find('.rate').val();
-                    var th = $(ddl).siblings('.mpd-tax-allowance').find('.threshold').val();
-                    f = 'Math.max((({NET}*12)-' + th + '/ ( ( 100 / ' + r + ' ) -1 ),0)/12';
-                    $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
-
-                }
-                else if (m == 'BANDS') {
-                  
-                    var r1 = $(ddl).siblings('.mpd-tax-bands').find('.rate1').val();
-                    
-                    var th1 = $(ddl).siblings('.mpd-tax-bands').find('.threshold1').val();
-                    var r2 = $(ddl).siblings('.mpd-tax-bands').find('.rate2').val();
-                    var th2 = $(ddl).siblings('.mpd-tax-bands').find('.threshold2').val();
-                    var r3 = $(ddl).siblings('.mpd-tax-bands').find('.rate3').val();
-                    var th3 = $(ddl).siblings('.mpd-tax-bands').find('.threshold3').val();
-                    var r4 = $(ddl).siblings('.mpd-tax-bands').find('.rate4').val();
-                    
-
-                    if (r1 != '') {
-                        if (th1 == '')
-                            f = r1!=0 ?  '({NET}*12) / ( ( 100 / ' + r1 + ' ) -1 )' : '0 ';
-                        else {
-                            f = r1!=0 ?  'Math.max(Math.min(({NET}*12) / ( ( 100 / ' + r1 + ' ) -1 ),(' + th1 + ')/( ( 100 / ' + r1 + ' ) -1 )),0) ' : '0';
-                            if (r2 != '') {
-                                if (th2 == '')
-                                    f +=  r2!=0 ? ' + Math.max( (({NET}*12) - ' + th1 + ') / ( ( 100 / ' + r2 + ' ) -1 ),0) ' : '';
-                                else {
-                                    f += r2 != 0 ? ' + Math.max(Math.min((({NET}*12) - ' + th1 + ') / ( ( 100 / ' + r2 + ' ) -1 ),( ' + th2 + ' - ' + th1 + ')/( ( 100 / ' + r2 + ' ) -1 )),0) ' : '';
-                                    if (r3 != '') {
-                                        if (th3 == '')
-                                            f += r3!=0 ? ' + Math.max( (({NET}*12) - ' + th2 + ') / ( ( 100 / ' + r3 + ' ) -1 ),0) ' : '';
-                                        else {
-                                            f += r3 != 0 ? ' + Math.max(Math.min((({NET}*12)- ' + th2 + ') / ( ( 100 / ' + r3 + ' ) -1 ),( ' + th3 + ' - ' + th2 + ')/( ( 100 / ' + r3 + ' ) -1 )),0) ' : '';
-                                            if (r4 != '') {
-                                               
-                                                f += r4!=0 ?  ' + Math.max( (({NET}*12) - ' + th3 + ') / ( ( 100 / ' + r4 + ' ) -1 ),0) ': '';
-                                              
-                                            }
-
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-                    f = '(' + f + ')/12';
-
-
-                    $(ddl).parent().find('.tax-formula').text(f);
-                    $(ddl).parent().find('.tax-formula').siblings("input:hidden").val(f);
-                }
-                else if (m == 'Custom') {
-                    //Do Validation?
-                    $(this).siblings("input:hidden").val(f);
-                }
-
-                
-
-            })
-
-            $('.mpd-edit-mode').change(function () {
-                
-                
-                var m = $(this).val();
-                $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-mode-detail').hide();
-                $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-mode-detail').find('.mpd-tax-mode').change()
-                if (m == 'CALCULATED') {
-                    $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-formula').show();
-                }
-                else if (m == 'NET_MONTH' || m == 'NET_YEAR') {
-                    $(this).parent().parent().parent().parent().parent().siblings().find('.mpd-edit-net').show();
-                }
-                
-            });
-
-            $('.mpd-tax-mode').change(function () {
-                $(this).parent().find('.tax-formula').attr('readonly', 'readonly');
-                
-                var m = $(this).val();
-               
-                $(this).siblings('.mpd-tax-detail').hide();
-                if (m == 'FIXED_RATE') {
-                    $(this).siblings('.mpd-tax-rate').show();
-                    $(this).parent().find('.tax-formula').text('');
-                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
-                    $(this).siblings('.mpd-tax-rate').find('.rate').keyup();
-                }
-                else if (m == 'FIXED_AMOUNT') {
-                    $(this).siblings('.mpd-tax-fixed').show();
-                    $(this).parent().find('.tax-formula').text('')
-                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
-                    $(this).siblings('.mpd-tax-fixed').find('.fixed').keyup();
-                }
-                else if (m == 'ALLOWANCE') {
-                    $(this).siblings('.mpd-tax-allowance').show();
-                    $(this).parent().find('.tax-formula').text('')
-                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
-                    $(this).siblings('.mpd-tax-allowance').find('.rate').keyup();
-                }
-                else if (m == 'BANDS') {
-                    $(this).siblings('.mpd-tax-bands').show();
-                    $(this).parent().find('.tax-formula').text('')
-                    $(this).parent().find('.tax-formula').siblings("input:hidden").val('');
-                    $(this).siblings('.mpd-tax-bands').find('.rate1').keyup();
-                }
-                else if (m == 'Custom') {
-                    $(this).siblings('.tax-custom-help').show();
-                    $(this).parent().find('.tax-formula').removeAttr('readonly');
-                    
-                }
-
-
-            });
-
-            $('.edit-cancel').click(function () {
-                $('.mpd-edit').hide("slow");
-                $('.btn-edit').show();
-                $('.btn-insert').show();
-            });
-
-            $('.btn-edit,.btn-insert').click(function () {
-                
-                $('.mpd-edit').hide("slow");
-
-                $(this).parent().parent().siblings('.mpd-edit').find('.mpd-edit-mode').change();
-
-
-                $(this).parent().parent().siblings('.mpd-edit').show("slow");
-
-
-               
-
-                $('.btn-edit,.btn-insert').show();
-               
-                $(this).hide();
-            });
-
-            $('.btn-section-insert').click(function(){
-                $('.mpd-section-insert').show("slow") ;
-                $(this).hide();
-            });
-            $('.insert-cancel').click(function () {
-                $('.mpd-section-insert').hide("slow");
-                $('.btn-section-insert').show();
-               
-            });
-            $('.btn-edit-section').click(function(){
-                $(this).siblings('.mpd-edit-section').show();
-                $(this).siblings('.mpd-section-title').hide();
-                $(this).hide();
-            });
-            $('.btn-edit-section-cancel').click(function(){
-                $(this).parent().siblings('.btn-edit-section').show();
-                $(this).parent().siblings('.mpd-section-title').show();
-                $(this).parent().hide();
-            });
-        });
-        
-      
-
-
-        //alert(replaceTags('Age: {AGE}; Age2: {AGE2}; StaffType: {STAFFTYPE}; IsCouple: {ISCOUPLE};'));
-    }(jQuery, window.Sys));
-
-
-    function calculateSectionTotal(section) {
-        var sum = 0.0;
-        section.find('.yearly').each(function (i, n) {
-            if ($(n).val().length > 0)
-                sum += parseFloat($(n).val().replace(/\,/g, ''))
-
-        });
-        section.find('.net-tax-year').each(function (i, n) {
-            if ($(n).text().length > 0)
-                sum += parseFloat($(n).text().replace(/\,/g, ''))
-
-        });
-
-        section.find('.section-total-yearly').text(sum.toFixed(0));
-        section.find('.section-total-monthly').text((sum / 12).toFixed(0));
-        
-
-        sum = 0.0;
-        $('.sectionTotal').each(function (i, n) {
-            if ($(n).text().length > 0)
-                sum += parseFloat($(n).text().replace(/\,/g, ''))
-
-        });
-        var st = (sum / 12)
-        $('.subtotal').text(st.toFixed(0));
-
-
-        var assess = $('#<%= hfAssessment.ClientId %>').val();
-        var a =0.0 ;
-        var a1=0.0;
-        if(assess.indexOf("%")==0){
-            a = parseFloat(assess.substring(1)) / 100;
-            a1 = (st * a / (1 - a));
-        }
-        else{
-            a1 = eval( replacePercTags(assess, st, st));
-
-        }
-
-        
-       
-
-
-
-        $('.assessment').text(a1.toFixed(0));
-         if(a1==0.0)  $('.assessmentRow').hide();
-         else  $('.assessmentRow').show();
-
-       
-       
-
-        var g = st + a1
-        $('.mpdGoal').text(g.toFixed(0));
-
-
-     
-        $('#<%= hfMpdGoal.ClientId %>').val(g.toFixed(0));
-
-        
-
-        var comp = $('#<%= hfCompentation.ClientID%>').val();
-       
-        var c =0.0 ;
-        var c1=0.0;
-        if(comp.indexOf("%")==0){
-            c = parseFloat(comp.substring(1)) / 100;
-            c1 = (g * c );
-        }
-        else if(comp!=""){
-           
-            c1 = eval( replacePercTags(comp, st, g));
-        }
-        
-        $('#<%= hfCompensationValue.ClientID%>').val(c1);
-
-        if(c1==0.0)  $('.myPortionRow').hide();
-        else  $('.myPortionRow').show();
-
-        var myPortion = g - c1;
-       
-        $('.myPortion').text(myPortion.toFixed(0));
-
-
-        var current = parseFloat($('.currentSupport').val().replace(/\,/g, ''));
-
-        var rem = myPortion - current
-        $('.remaining').text(rem.toFixed(0));
-
-        var p = current * 100 / myPortion;
-        if (p < 5000)
-            $('.percentage').text(p.toFixed(1) + '%');
-        else
-            $('.percentage').text('');
-    }
-
-
-    function handleFormulas() {
-        $('.calculated').each(function () {
-            //Go through each formula and refresh the values
-            var f = $(this).siblings("input:hidden").val();
-            f=replaceTags(f);
-            // console.log(f);
-            $(this).val(eval(f).toFixed(0));
-
-
-
-            if ($(this).val().length > 0)
-                $(this).parent().parent().siblings().find('.yearly').val((parseFloat($(this).val()) * 12).toFixed(0));
-
-            calculateSectionTotal($(this).parent().parent().parent().parent().parent());
-
-        });
-    }
-    function replaceTags(f) {
-        //Replace ItemValue Taxs {1.1}
-        if(f==undefined)
-            return '';
-        $('.version-number').each(function () {
-            var v = $(this).parent().find('.monthly').val();
-            if( v != undefined && $(this).text() != undefined)
-            {
-                v = v == '' ? 0 : v;
-                
-
-                f = f.replace(new RegExp('{' + $(this).text() + '}','g'), v);
-            }
-             
-        });
-      
-        //Replace Age Tag {AGE}
-        var age = <%= Age1%> ;
-     
-        if(age>0) f = f.replace(/{AGE}/g, age);
-        
-        if ('<%= IsCouple() %>' == 'True'){
-            var age2 = <%= Age2%> ;
-            if(age2>0) f = f.replace(/{AGE2}/g, age2);
-        }
-        
-        f = f.replace(/{STAFFTYPE}/g, '<%=StaffType %>');
-        f = f.replace(/{ISCOUPLE}/g, '<%=IsCouple %>');
-        
-        f = f.replace(/{AGE}/g, '');
-        f = f.replace(/{AGE2}/g, '');
-        f = f.replace(/{STAFFTYPE}/g, '');
-        f = f.replace(/{ISCOUPLE}/g, '');
-        f = f.replace(/\{.*\}/g, '0');
-
-        return f;
-    }
-        function replacePercTags(f, subTotal, mpdGoal)
-        {
-            
-            var temp= f.replace(/{SUBTOTAL}/g, subTotal);
-            temp= temp.replace(/{MPDGOAL}/g, mpdGoal);
-            return replaceTags(temp)
-        }
-
-
-
-    function setMinMax(m){
-        var min = $(m).attr('data-min');
-        var max = $(m).attr('data-max');
-
-        min = replaceTags(min);
-        max = replaceTags(max);
-        if (min=='') $(m).removeAttr('min');
-        else $(m).attr('min',eval(min));
-                
-
-           
-        if (max=='') $(m).removeAttr('max');
-        else $(m).attr('max',eval(max));
-       
-    }
-
+    
     
 
     
 
 
 </script>
-<style type="text/css">
-    .mpdInput {
-        width: 70px;
-    }
-    input, textarea, .uneditable-input{
-        width: 70px ;
-    }
-    .mpdColumn {
-        text-align: right;
-    }
 
-    .mpd-help {
-        padding-left: 10px;
-    }
-
-    .btn-edit {
-        position: absolute;
-        right: 8px;
-    }
-
-    .btn-insert, .btn-delete-section {
-        font-style: italic;
-        text-align: center;
-        position: relative;
-        top: -0.8em;
-        background-color: #F5F5F5;
-    }
-
-    .mpd-insert {
-        width: 100%;
-        text-align: center;
-        border-top: 1pt dashed gainsboro;
-    }
-
-    .btn-insert-section {
-        font-style: italic;
-        text-align: center;
-        position: relative;
-        top: -0.8em;
-        background-color: #F5F5F5;
-    }
-
-    .mpd-insert-section {
-        width: 100%;
-        text-align: center;
-        border-top: 1pt dashed gainsboro;
-        border-bottom: 1pt dashed gainsboro;
-        margin-bottom: 5px;
-    }
-
-    .version-number {
-        width: 20px;
-        float: left;
-        font-size: small;
-        font-weight: bold;
-        color: lightgray;
-    }
-
-    .form-horizontal .control-label {
-        width: 200px;
-    }
-
-        .form-horizontal .control-label.conf {
-            width: 180px;
-            margin-left: 8px;
-        }
-
-    .checkbox label {
-        display: inline-block;
-    }
-
-    .checkboxOuter {
-        padding: 20px 80px 20px 80px;
-    }
-
-    .form-horizontal .control-group.mpdTotal {
-        margin-bottom: 0px;
-    }
-
-    .percentage {
-        float: right;
-        font-size: 56pt;
-        margin: 55px 100px 15px 15px;
-        font-weight: bold;
-        position: absolute;
-        right: 50px;
-    }
-
-    .net-tax {
-        font-size: small;
-        color: gray;
-        font-style: italic;
-    }
-
-    .mpd-edit {
-        margin-top: 10px;
-    }
-
-    .comment {
-        font-size: x-small;
-        font-weight: bold;
-    }
-
-    .exFormula {
-        width: 100%;
-        text-align: center;
-        font-family: 'Courier New';
-        font-size: small;
-    }
-
-    .valid, .invalid {
-        margin-top: 5px;
-        float: right;
-    }
-
-    .mpd-section-total {
-        border-top: 1pt solid gainsboro;
-    }
-
-    .control-group.mpd-insert-mode {
-        margin-bottom: 0 !important;
-    }
-
-    .mpd-btn-order {
-        float: right;
-        padding: 12px 4px 12px 4px;
-    }
-
-    .btn-edit-section {
-        margin: 24px 0 0 5px;
-        float: left;
-    }
-
-    .mpd-status {
-        float: right;
-        margin-top: -50px;
-    }
-
-    .subTitle {
-        font-style: italic;
-        color: lightgray;
-        top: -14px;
-        position: relative;
-        font-size: large;
-    }
-   .form-horizontal .cell div {
-        margin: 5px !important;
-    }
-    .cell .span8 label {
-       display: inline;
-position: relative;
-margin-left: 5px;
-top: 3px;
-    }
-
-    .cell .control-label {
-        margin-right: 10px;
-       
-    }
-   
-</style>
 
 <asp:HiddenField ID="hfAssessment" runat="server" Value="" />
 <asp:HiddenField ID="hfCompentation" runat="server" Value="" />
@@ -673,11 +54,11 @@ top: 3px;
 
 
 <fieldset>
-    <legend>Support Budget for
-        <asp:Label ID="lblStaffName" runat="server" Font-Bold="true"></asp:Label></legend>
+    <legend>
+        <asp:Label ID="lblStaffName" runat="server" ></asp:Label></legend>
     <asp:Label ID="lblStatus" runat="server" class="label label-info mpd-status">Draft</asp:Label>
     <div class="subTitle">
-        <span>Start Date: </span>
+         <asp:Label ID="Label1" runat="server" ResourceKey="StartDate" ></asp:Label>
         <asp:DropDownList ID="ddlStartPeriod" runat="server"></asp:DropDownList>
         <span id="customDate" runat="server" style="display: none;">
             <asp:DropDownList ID="ddlPeriod" runat="server" Width="120px" Font-Bold="true">
@@ -715,12 +96,12 @@ top: 3px;
                         <asp:Label ID="lblSectionName" runat="server" Text='<%# Eval("Name")%>'></asp:Label></h3>
                 </div>
 
-                <asp:HyperLink ID="btnEditSectionName" runat="server" CssClass="btn-edit-section" Visible='<%# IsEditMode%>'>Edit</asp:HyperLink>
+                <asp:HyperLink ID="btnEditSectionName" runat="server" CssClass="btn-edit-section" ResourceKey="Edit" Visible='<%# IsEditMode%>'></asp:HyperLink>
                 <div class="mpd-edit-section" style="display: none">
                     <asp:TextBox ID="tbSectionName" runat="server" Font-Size="X-Large" Font-Bold="true" Width="300px" Text='<%# Eval("Name")%>'></asp:TextBox>
                     <asp:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# Eval("SectionId")%>' CommandName="EditSectionTitle" formnovalidate>Save</asp:LinkButton>
                     &nbsp; &nbsp;
-                    <a href="#" class="btn-edit-section-cancel">Cancel</a>
+                    <a href="#" class="btn-edit-section-cancel"> <asp:Label ID="lblStaffName" runat="server" ResourceKey="Cancel" ></asp:Label></a>
                 </div>
 
 
@@ -738,7 +119,8 @@ top: 3px;
                             ItemId='<%# Eval("AP_mpdCalc_Section.Number") & "." & Eval("QuestionNumber")%>' TaxSystem='<%# Eval("TaxSystem")%>'
                             Threshold1='<%# CType(Eval("Threshold1"), Nullable(Of Decimal))%>' Threshold2='<%# CType(Eval("Threshold2"), Nullable(Of Decimal))%>' Threshold3='<%# CType(Eval("Threshold3"), Nullable(Of Decimal))%>'
                             Rate1='<%# CType(Eval("Rate1"), Nullable(Of Double))%>' Rate2='<%#  CType(Eval("Rate2"), Nullable(Of Double))%>' Rate3='<%# CType(Eval("Rate3"), Nullable(Of Double))%>' Rate4='<%#  CType(Eval("Rate4"), Nullable(Of Double))%>'
-                            Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' />
+                            Fixed='<%# Eval("Fixed")%>' Min='<%# Eval("Min")%>' Max='<%# Eval("Max")%>' 
+                             AccountCode='<%# IIf(String.IsNullOrEmpty(Eval("AccountCode")), DefaultAccount, Eval("AccountCode"))%>'/>
                     </ItemTemplate>
 
                 </asp:Repeater>
@@ -761,7 +143,7 @@ top: 3px;
                 <div class="control-group span5">
                     <label class="control-label" style="width: 160px">Section Title</label>
                     <div class="controls">
-                        <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" ValidationGroup="insertSection"></asp:TextBox>
+                        <asp:TextBox ID="tbInsertSectionName" runat="server" placeholder="Section Title" Width="300px" ValidationGroup="insertSection"></asp:TextBox>
 
                     </div>
                 </div>
@@ -775,7 +157,7 @@ top: 3px;
                     </div>
                 </div>
                 <div class="control-group span3">
-                    <asp:Button ID="btnInsertSection" runat="server" Text="Insert" CssClass="btn btn-primary" formnovalidate />
+                    <asp:Button ID="btnInsertSection" runat="server" ResourceKey="Insert" CssClass="btn btn-primary" formnovalidate />
                     &nbsp;&nbsp;
             <input type="button" id="insert-cancel" class="btn insert-cancel" value="Cancel" />
                 </div>
@@ -796,96 +178,25 @@ top: 3px;
             <div style="clear: both" />
             <div class="checkboxOuter">
 
-                <asp:CheckBox ID="cbCompliance" runat="server" CssClass="checkbox" Text="Optional Complience Statement  - e.g. All donaitons that I have received have been forwarded to the National Office." />
+                <asp:CheckBox ID="cbCompliance" runat="server" CssClass="checkbox" />
             </div>
 
 
             <div style="width: 100%; text-align: center;">
-                <asp:Button ID="btnSave" runat="server" Text="Save" Font-Size="X-Large" CssClass="btn" formnovalidate />
+                <asp:Button ID="btnSave" runat="server" ResourceKey="Save" Font-Size="X-Large" CssClass="btn" formnovalidate />
                 &nbsp;&nbsp;
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" Font-Size="X-Large" CssClass="btn btn-primary" Enabled="false" Visible="false" />
-                <asp:Button ID="btnApprove" runat="server" Text="Approve" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
-                <asp:Button ID="btnProcess" runat="server" Text="Process" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
+                <asp:Button ID="btnSubmit" runat="server" ResourceKey="Submit" Font-Size="X-Large" CssClass="btn btn-primary" Enabled="false" Visible="false" />
+                <asp:Button ID="btnApprove" runat="server" ResourceKey="Approve" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
+                <asp:Button ID="btnProcess" runat="server" ResourceKey="Process" Font-Size="X-Large" CssClass="btn btn-primary" Visible="false" />
                 &nbsp;&nbsp;
-                 <asp:Button ID="btnCancel" runat="server" Text="Cancel/Reject" Font-Size="X-Large" CssClass="btn" />
+                 <asp:Button ID="btnCancel" runat="server" ResourceKey="Reject" Font-Size="X-Large" CssClass="btn" />
                 &nbsp;&nbsp;
-                <asp:Button ID="btnBack" runat="server" Text="Back" Font-Size="X-Large" CssClass="btn" />
+                <asp:Button ID="btnBack" runat="server" ResourceKey="Back" Font-Size="X-Large" CssClass="btn" />
             </div>
         </div>
 
     </div>
 </fieldset>
 
+<uc1:mpdAdmin runat="server" id="mpdAdminPanel" Visible="False" />
 
-<asp:Panel ID="pnlAdmin" runat="server" CssClass="alert alert-info" >
-    <fieldset>
-        <legend><h3>Configuration & Settings</h3></legend>
-
-        <div class="form-horizontal" Width="100%" >
-            <div class="form-group cell"  >
-                <label for="rsgAccountsRoles" class="span4 control-label">Staff Who Budget:</label>
-                <div class="span8" >
-                     
-                    <asp:CheckBoxList ID="cblStaffTypes" runat="server" RepeatLayout="Flow"></asp:CheckBoxList>
-                </div>
-            </div>
-            <div class="form-group cell">
-                <label for="tbAssessment" class="span4 control-label">Assessment:</label>
-                <div class="span8">
-                    <asp:DropDownList ID="ddlAssessmentType" runat="server" class="form-control" Width="25%" >
-                        <asp:ListItem Value="Percentage">Percentage</asp:ListItem>
-                        <asp:ListItem Value="Formula">Formula</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:TextBox ID="tbAssessment" class="form-control"  runat="server" Width="70%"></asp:TextBox>
-                </div>
-                
-            </div>
-            <div class="form-group cell">
-                <label for="tbCompensation" class="span4 control-label">Compensation</label>
-                <div class="span8">
-                    <asp:DropDownList ID="ddlCompensationType" runat="server" class="form-control"  Width="25%">
-                        <asp:ListItem Value="Percentage">Percentage</asp:ListItem>
-                        <asp:ListItem Value="Formula">Formula</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:TextBox ID="tbCompensation" class="form-control"  runat="server" Width="70%"></asp:TextBox>
-                </div>
-                
-            </div>
-            <div class="form-group cell">
-                <label for="tbCompensation" class="span4 control-label">Complience Statment:</label>
-                <div class="span8">
-                    
-                    <asp:TextBox ID="tbComplience" class="form-control"  runat="server" Width="96%"></asp:TextBox>
-                </div>
-                
-            </div>
-            <div class="form-group cell">
-                <label for="tbDataserverURL" class="span4 control-label">TnT Dataserver URL:</label>
-                <div class="span8">
-                    
-                    <asp:TextBox ID="tbDataserverURL" class="form-control"  runat="server" Width="80%" ></asp:TextBox>
-                    <asp:LinkButton ID="btnTestDataserver" runat="server">Test</asp:LinkButton>
-                    <asp:Image ID="imgOK" runat="server" ImageUrl="~/images/grant.gif"  Visible="false" />
-                     <asp:Image ID="imgWarning" runat="server" ImageUrl="~/images/warning-icn.png"  Visible="false" />
-                    <asp:Panel ID="pnlWarning" runat="server" Visible="false" CssClass="alert">
-                    <asp:Label ID="lblWarning" runat="server"   ></asp:Label></asp:Panel>
-                </div>
-                
-            </div>
-            <div class="form-group cell">
-                <div class="span12">
-                    
-                    
-                </div>
-            </div>
-              <div class="form-group cell span12" style="text-align: center;">
-              
-                <asp:Button ID="btnUpdateConfig" runat="server" Text="Update" Font-Size="X-Large" CssClass="btn btn-primary" formnovalidate/>
-            </div>
-        </div>
-
-          
-
-    </fieldset>
-
-</asp:Panel>
