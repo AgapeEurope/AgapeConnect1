@@ -1,14 +1,7 @@
 ﻿/*========================== BANNER =======================*/
 
 #bannerbar {
-    background: url('images/Dons-Banner-Shadow.png') repeat-x bottom #d7edf6;
-}
-
-.BannerPane div {
-    height: 290px;
-    line-height: 290px;
-    text-align: center;
-    padding: 0;
+    background: url('images/Dons-Banner-Shadow.png') repeat-x bottom #f2f2f2;
 }
 
 .BannerPane img {
@@ -17,8 +10,29 @@
     vertical-align: middle;
 }
 
+.BannerPane div {
+    text-align: left;
+    position: relative; /* Fix for IE7 */
+}
+
+.BannerPane .Normal p {
+    margin: 0;
+}
+
+.BannerPane .Normal p.videos {
+    margin: 20px 0 0 0;
+    text-align: center;
+}
+
+.BannerPane .videos iframe.centerframe {
+    padding: 0 10px 0 10px;
+}
+
+
+
 /*========================== CONTENT CONTAINER =======================*/
-#ContentContainer {
+#ContentContainer 
+{
     text-align: left;
 }
 
@@ -35,6 +49,10 @@
 
 .TopPane .Normal p {
     margin: 0;
+}
+
+.TopPane h1 {
+    background: url('images/faireundon4.png') no-repeat top right;
 }
 
 /*========================== LEFT MENU =======================*/
@@ -146,6 +164,7 @@
     background-color: #f2f2f2;
     margin-top: 32px;
     margin-right: 20px;
+    margin-bottom: 35px;
     /* cross-browser min-height */
     min-height: 386px;
     height:auto !important; 
@@ -254,27 +273,3 @@
 
 #ongletsdon-panel { position: relative }
 #ongletsdon-hide { display: none !important } 
-
-/*========================== BOTTOM PANE =======================*/
-
-.BottomPane {
-    background-color: #f2f2f2;
-    text-align: left;
-    margin-top: 20px;
-    position: relative; /* Fix for IE7 */
-}
-
-.BottomPane .Normal p {
-    background-color: #f2f2f2;
-    margin: 0;
-}
-
-.BottomPane .Normal p.videos {
-    margin: 20px 0 0 0;
-    text-align: center;
-}
-
-.BottomPane .videos iframe.centerframe {
-    padding: 0 10px 0 10px;
-}
-

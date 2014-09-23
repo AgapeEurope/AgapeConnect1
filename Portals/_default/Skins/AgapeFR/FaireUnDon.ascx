@@ -82,9 +82,7 @@
                 </div>
             </div> 
         </div>       
-        <div id="BottomPane" class="BottomPane" runat="server">
-		</div>
-	</div>
+      </div>
 </div>	
 
 <dnn:Footer runat="server" ID="dnnFooter" />
