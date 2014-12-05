@@ -84,6 +84,34 @@ Public Class StoryModuleType
 End Class
 
 Public Class StoryFunctions
+
+    Public Shared Function GetAdvancedSettings(ByVal TabModuleId As Integer) As Dictionary(Of String, String)
+
+        Dim resultDictionary As Dictionary(Of String, String) = New Dictionary(Of String, String)
+
+        Dim mc As New DotNetNuke.Entities.Modules.ModuleController
+        Dim tm = mc.GetTabModule(TabModuleId)
+        Dim AdvancedSettingsStr As String = tm.TabModuleSettings("AdvancedSettings")
+        If AdvancedSettingsStr <> "" Then
+
+            Dim pairSeparator = ","
+            Dim keyValueSeparator = ":"
+            Dim quote = "'"
+            Dim pairs As String() = AdvancedSettingsStr.Split(pairSeparator)
+            For Each pair As String In pairs
+
+                Dim nameValue As String() = pair.Split(keyValueSeparator)
+                If nameValue.Length = 2 Then
+                    resultDictionary.Add(nameValue(0).Trim(), nameValue(1).Trim().Trim(quote))
+                End If
+            Next pair
+
+        End If
+
+        Return resultDictionary
+
+    End Function
+
     Public Shared Sub BlockStoryAccrossSite(ByVal StoryURL As String)
         Dim d As New Stories.StoriesDataContext
 
@@ -118,7 +146,7 @@ Public Class StoryFunctions
             Return 30
         End If
     End Function
-    
+
     Public Shared Function StripTags(ByVal HTML As String) As String
         ' Removes tags from passed HTML
 
@@ -196,7 +224,7 @@ Public Class StoryFunctions
             RefreshFeed(row.AP_Stories_Module.TabModuleId, row.ChannelId, False)
         Next
 
-       
+
 
     End Sub
 
@@ -218,7 +246,7 @@ Public Class StoryFunctions
         End If
     End Sub
 
-    
+
 
     Public Shared Sub RefreshFeed(ByVal tabModuleId As Integer, ByVal ChannelId As Integer, Optional ByVal ClearCache As Boolean = False)
 
