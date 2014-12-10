@@ -193,12 +193,12 @@ Namespace DotNetNuke.Modules.FullStory
 
                 If (isEventTag) Then
                     'The story is an event
-                    ReplaceField(sv, "[AGENDA]", GetEventAgenda(r.StoryId))
+                    ReplaceField(sv, "[AGENDA]", GetEventAgenda(r.StoryId, r.TabModuleId))
                     zoomLevel = 15
                 Else
                     'The story is an article
                     'the call GetArticleAgenda passes the list of tag ids of the current story as parameter
-                    ReplaceField(sv, "[AGENDA]", GetArticleAgenda(r.AP_Stories_Tag_Metas.Select(Function(c) c.AP_Stories_Tag.StoryTagId).ToList))
+                    ReplaceField(sv, "[AGENDA]", GetArticleAgenda(r.AP_Stories_Tag_Metas.Select(Function(c) c.AP_Stories_Tag.StoryTagId).ToList, r.TabModuleId))
                 End If
 
 
@@ -235,7 +235,7 @@ Namespace DotNetNuke.Modules.FullStory
                 ReplaceField(sv, "[RELATEDSTORIES]", GetRelatedStories(r.AP_Stories_Tag_Metas.Select(Function(c) c.AP_Stories_Tag.StoryTagId).ToList, r.Author))
 
 
-                ReplaceField(sv, "[RELATEDARTICLES]", GetRelatedArticles(r.AP_Stories_Tag_Metas.Select(Function(c) c.AP_Stories_Tag.StoryTagId).ToList, r.Author))
+                ReplaceField(sv, "[RELATEDARTICLES]", GetRelatedArticles(r.AP_Stories_Tag_Metas.Select(Function(c) c.AP_Stories_Tag.StoryTagId).ToList, r.TabModuleId))
 
 
 
@@ -406,13 +406,13 @@ Namespace DotNetNuke.Modules.FullStory
             Return rtn
         End Function
 
-        'The story is an event or an article. This finds the related articles.
-        Protected Function GetRelatedArticles(ByVal Tags As List(Of Integer), ByVal Author As String) As String
+        'The story is an event or an article. This finds the related articles (with same TabModuleID to exclude stories from other installed Stories module instances).
+        Protected Function GetRelatedArticles(ByVal Tags As List(Of Integer), ByVal TabModuleID As Integer) As String
             Dim d As New StoriesDataContext
             Dim rtn As String = ""
 
 
-            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And c.IsVisible And c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count = 0 And (c.AP_Stories_Tag_Metas.Where(Function(x) Tags.Contains(x.TagId)).Count > 0) And Not c.StoryId = Request.QueryString("StoryId") Order By c.StoryDate Descending Distinct
+            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And c.TabModuleId = TabModuleID And c.IsVisible And c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count = 0 And (c.AP_Stories_Tag_Metas.Where(Function(x) Tags.Contains(x.TagId)).Count > 0) And Not c.StoryId = Request.QueryString("StoryId") Order By c.StoryDate Descending Distinct
 
 
             If q.Count > 0 Then
@@ -438,14 +438,14 @@ Namespace DotNetNuke.Modules.FullStory
             Return rtn
         End Function
 
-        'The story is an event. This finds the first 3 upcoming events.
-        Protected Function GetEventAgenda(ByVal StoryId As String) As String
+        'The story is an event. This finds the first 3 upcoming events (with same TabModuleID to exclude stories from other installed Stories module instances).
+        Protected Function GetEventAgenda(ByVal StoryId As String, ByVal TabModuleID As Integer) As String
             Dim d As New StoriesDataContext
             Dim rtn As String = ""
 
 
             'gets all stories with date of today or future and tagged Evénement. 
-            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And c.IsVisible And (c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count > 0) And c.StoryDate >= Today And Not c.StoryId = StoryId Order By c.StoryDate Ascending
+            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And c.TabModuleId = TabModuleID And c.IsVisible And (c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count > 0) And c.StoryDate >= Today And Not c.StoryId = StoryId Order By c.StoryDate Ascending
 
             'prints results under Agenda heading on left hand side of each story
             If q.Count > 0 Then
@@ -468,13 +468,13 @@ Namespace DotNetNuke.Modules.FullStory
             Return rtn
         End Function
 
-        'The story is an article. This finds the first 3 upcoming events with the same tag .
-        Protected Function GetArticleAgenda(ByVal Tags As List(Of Integer)) As String
+        'The story is an article. This finds the first 3 upcoming events with the same tag (with same TabModuleID to exclude stories from other installed Stories module instances).
+        Protected Function GetArticleAgenda(ByVal Tags As List(Of Integer), ByVal TabModuleID As Integer) As String
             Dim d As New StoriesDataContext
             Dim rtn As String = ""
 
             'gets all stories tagged Evénement and having the same tag as current and with date of today or future
-            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And c.IsVisible And c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count > 0 And (c.AP_Stories_Tag_Metas.Where(Function(x) Tags.Contains(x.TagId)).Count > 0) And c.StoryDate >= Today And Not c.StoryId = Request.QueryString("StoryId") Order By c.StoryDate Ascending
+            Dim q = From c In d.AP_Stories Where c.PortalID = PortalId And c.TabModuleId = TabModuleId And c.IsVisible And c.AP_Stories_Tag_Metas.Where(Function(x) x.AP_Stories_Tag.TagName = "Evénement").Count > 0 And (c.AP_Stories_Tag_Metas.Where(Function(x) Tags.Contains(x.TagId)).Count > 0) And c.StoryDate >= Today And Not c.StoryId = Request.QueryString("StoryId") Order By c.StoryDate Ascending
 
             If q.Count > 0 Then
 
